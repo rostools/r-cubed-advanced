@@ -1,0 +1,7 @@
+# Preface {.unnumbered}
+
+## Brainstorming
+
+-   advanced aspects of reproducibility?
+-   Project work
+    -   exercises on doing

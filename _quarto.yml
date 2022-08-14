@@ -1,0 +1,38 @@
+project:
+    type: book
+    output-dir: public
+    execute-dir: project
+    description: |
+        A set of common guides used across multiple projects, such as the r-cubed
+        courses. Included are guides for instructors, helpers, or contributors.
+
+book:
+    title: "Reproducible Research in R: ...title WIP..."
+    apple-touch-icon: "images/apple-touch-icon.png"
+    apple-touch-icon-size: 180
+    favicon: "images/favicon.ico"
+    site-url: "https://r-cubed-advanced.rostools.org"
+    repo-url: "https://gitlab.com/rostools/r-cubed-advanced"
+    repo-branch: main
+    repo-actions: [edit, issue, source]
+    search:
+        location: navbar
+        type: overlay
+    chapters:
+        - index.qmd
+    page-footer:
+        center:
+            - text: "License"
+              href: LICENSE.md
+
+# bibliography: references.bib
+
+format:
+  html:
+    from: markdown+emoji
+    code-link: true
+    theme: zephyr
+    include-before-body:
+        - "includes/site-counter.html"
+        - "includes/contribute.html"
+
