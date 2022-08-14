@@ -1,0 +1,23 @@
+Package: RCubedAdvanced
+Title: "Reproducible Research in R: ..."
+Encoding: UTF-8
+Depends: 
+    R (>= 4.0.0),
+    tidyverse
+Imports: 
+    fs,
+    downlit,
+    styler,
+    lintr,
+    gt,
+    fontawesome,
+    here
+Suggests: 
+    githubr (>= 0.1.0.9000),
+    devtools,
+    gert,
+    gitlabr,
+    usethis,
+    remote
+Remotes: 
+    rostools/githubr
