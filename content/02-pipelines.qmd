@@ -1,0 +1,6 @@
+# Creating automatic analysis pipelines {#pipelines}
+
+-   Building reproducible analysis pipelines: targets
+    -   basic summaries of data
+    -   basic plot of data
+    -   basic report of data using summaries and plot

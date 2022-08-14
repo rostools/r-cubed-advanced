@@ -1,0 +1,19 @@
+# Smoother project-based collaboration {#smoother-collaboration}
+
+-   Smoother project-based collaboration
+    -   renv
+        -   set up environment
+        -   necessary vs helper packages (imports vs suggests)
+    -   styler/lintr
+        -   exercise: copy and paste code that is wrong. Run lintr and
+            see errors. Run styler to fix some of them up.
+            -   include something like `{{}}`
+    -   Quarto visual/canonical mode.
+    -   Precommits
+        -   exercise: copy and paste wrong code. Try to add and commit
+            to Git history.
+    -   Optional: Maybe talk about Git remotes when collaborating? Eg,
+        set up remote on server? through gert?
+        -   As a side aspect, appendix?
+        -   mention pr\_ helpers?
+    -   Optional: Maybe reprex when trying to get help?

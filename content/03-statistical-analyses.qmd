@@ -1,0 +1,7 @@
+# Running efficient statistical analyses {#statistical-analyses}
+
+-   Running statistical models: tidymodels
+    -   broom
+    -   rsamples
+    -   parsnip
+    -   recipes

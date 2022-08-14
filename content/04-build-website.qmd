@@ -1,0 +1,6 @@
+# Building a website your analyses {build-website}
+
+-   Displaying your output in reproducible formats: quarto website
+    -   yml, navbar, contents
+-   Connect to GitHub and make website
+    -   Actions?
