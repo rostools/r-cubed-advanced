@@ -2,12 +2,11 @@ project:
     type: book
     output-dir: public
     execute-dir: project
-    description: |
-        A set of common guides used across multiple projects, such as the r-cubed
-        courses. Included are guides for instructors, helpers, or contributors.
 
 book:
     title: "Reproducible Research in R: ...title WIP..."
+    author:
+        - "Luke W. Johnston"
     apple-touch-icon: "images/apple-touch-icon.png"
     apple-touch-icon-size: 180
     favicon: "images/favicon.ico"
@@ -35,4 +34,3 @@ format:
     include-before-body:
         - "includes/site-counter.html"
         - "includes/contribute.html"
-
