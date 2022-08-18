@@ -1,3 +1,5 @@
+image: rocker/tidyverse
+
 variables:
   RENV_CONFIG_REPOS_OVERRIDE: "http://cran.r-project.org"
   RENV_PATHS_CACHE: ${CI_PROJECT_DIR}/cache
