@@ -14,8 +14,8 @@ before_script:
   - Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv')"
   - Rscript -e "renv::restore()"
 
-build-deploy:
-    stage: build-deploy
+build:
+    stage: build
     variables:
         # Hardcoding versions for now to make sure new versions don't break things
         # Get from: https://github.com/quarto-dev/quarto-cli/releases/latest
