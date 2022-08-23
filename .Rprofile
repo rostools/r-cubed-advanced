@@ -4,3 +4,6 @@ if (interactive() & requireNamespace("usethis", quietly = TRUE)) {
 }
 
 source("renv/activate.R")
+suppressMessages(bspm::enable())
+
+options(Ncpus = 3)
