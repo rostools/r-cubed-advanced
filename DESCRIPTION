@@ -3,7 +3,8 @@ Title: "Reproducible Research in R: ..."
 Encoding: UTF-8
 Depends: 
     R (>= 4.0.0),
-    tidyverse
+    tidyverse,
+    tidymodels
 Imports: 
     fs,
     downlit,
