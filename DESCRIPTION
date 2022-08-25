@@ -19,6 +19,7 @@ Suggests:
     gert,
     gitlabr,
     usethis,
-    remote
+    remote,
+    RefManageR
 Remotes: 
     rostools/githubr
