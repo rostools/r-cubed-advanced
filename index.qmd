@@ -61,8 +61,8 @@ write the lessons and create the book format,
 [GitLab](https://gitlab.com/) to host the [Git](https://git-scm.com/)
 repository of the material, and [GitLab
 CI](https://docs.gitlab.com/ee/ci/) with
-[Netlify](https://www.netlify.com/) to create the website. The original
-source material for this course is found on the
+[Netlify](https://www.netlify.com/) to create and host the website. The
+original source material for this course is found on the
 [`r-cubed-advanced`](https://gitlab.com/rostools/r-cubed-advanced)
 GitLab repository.
 
