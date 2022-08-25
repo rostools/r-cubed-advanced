@@ -3,7 +3,9 @@ if (interactive() & requireNamespace("usethis", quietly = TRUE)) {
     source(home_rprofile, echo = FALSE)
 }
 
-source("renv/activate.R")
-suppressMessages(bspm::enable())
+if (interactive()) {
+    source("renv/activate.R")
+    options(Ncpus = 3)
+}
 
-options(Ncpus = 3)
+# suppressMessages(bspm::enable())
