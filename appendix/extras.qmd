@@ -1,0 +1,7 @@
+# Extras
+
+-   Optional: Maybe talk about Git remotes when collaborating? Eg, set
+    up remote on server? through gert?
+    -   As a side aspect, appendix?
+    -   mention pr\_ helpers?
+
