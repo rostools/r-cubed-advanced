@@ -19,6 +19,8 @@ book:
         type: overlay
     chapters:
         - index.qmd
+        - content/00-syllabus.qmd
+        - content/00-schedule.qmd
     page-footer:
         center:
             - text: "License"
