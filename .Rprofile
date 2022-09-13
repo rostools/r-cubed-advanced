@@ -1,11 +1,21 @@
-if (interactive() & requireNamespace("usethis", quietly = TRUE)) {
-    home_rprofile <- usethis:::scoped_path_r("user", ".Rprofile", envvar = "R_PROFILE_USER")
-    source(home_rprofile, echo = FALSE)
+options(
+    repos = c(CRAN = "https://packagemanager.rstudio.com/all/latest"),
+    browserNLdisabled = TRUE,
+    deparse.max.lines = 2,
+    dplyr.summarize.inform = FALSE,
+    todor_patterns = c("FIXME", "TODO", "IDEA", "NOTE"),
+    warnPartialMatchArgs = TRUE,
+    warnPartialMatchDollar = TRUE,
+    warnPartialMatchAttr = TRUE
+)
+
+if (interactive()) {
+    suppressMessages(require(devtools))
+    suppressMessages(require(usethis))
+    suppressMessages(require(gert))
 }
 
 if (interactive()) {
     source("renv/activate.R")
     options(Ncpus = 3)
 }
-
-# suppressMessages(bspm::enable())
