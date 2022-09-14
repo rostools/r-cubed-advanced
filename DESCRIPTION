@@ -17,7 +17,6 @@ Suggests:
     githubr (>= 0.1.0.9000),
     devtools,
     gert,
-    gitlabr,
     usethis,
     remote,
     RefManageR
