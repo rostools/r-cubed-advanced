@@ -22,7 +22,7 @@ the training for or knowledge on how to best resolve them. Challenges
 include:
 
 -   Establishing common coding styles and standards to make it easier to
-    read or review each other's code;
+    read or review each others code;
 
 -   Documenting the software dependencies of a project in order to
     synchronize computing environments among the collaborators and
