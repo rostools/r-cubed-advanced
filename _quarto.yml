@@ -11,7 +11,7 @@ book:
     apple-touch-icon-size: 180
     favicon: "images/favicon.ico"
     site-url: "https://r-cubed-advanced.rostools.org"
-    repo-url: "https://gitlab.com/rostools/r-cubed-advanced"
+    repo-url: "https://github.com/rostools/r-cubed-advanced"
     repo-branch: main
     repo-actions: [edit, issue, source]
     search:
