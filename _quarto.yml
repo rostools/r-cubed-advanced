@@ -32,7 +32,9 @@ format:
   html:
     from: markdown+emoji
     code-link: true
-    theme: zephyr
+    theme:
+        - zephyr
+        - includes/theme.scss
     include-before-body:
         - "includes/site-counter.html"
         - "includes/contribute.html"
