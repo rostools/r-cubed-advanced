@@ -60,6 +60,11 @@ during this course we also aim to provide opportunities to chat with
 fellow participants, learn about their work and how they do analyses,
 and to build networks of support and collaboration.
 
+The specific software and technologies we will cover in this course are
+R, RStudio, Git, GitHub, and Quarto, while the specific R packages are
+`{renv}`, `{precommit}`, `{styler}`, `{lintr}`, `{targets}`, and several
+of the `{tidymodels}` packages.
+
 ## Is this course for you?
 
 This course is designed in a specific way and is ideal for you if:
