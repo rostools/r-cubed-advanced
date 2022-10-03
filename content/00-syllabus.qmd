@@ -1,21 +1,21 @@
 # Syllabus
 
 Reproducibility and open scientific practices are increasingly in demand
-and needed by scientists and researchers in our modern research
+and needed by scientists and researchers in modern research
 environments. Our work often require or involve a high level of hands-on
 collaboration on scientific projects throughout all stages of the
 research lifecycle. We are faced with obstacles that we have no training
-for nor knowledge on how to address. Obstacles, that can be fairly
-simple, like not having a shared way of writing code or managing files,
-can impede effective collaboration. Or they can be complex, like
-documenting software dependencies or steps in an analysis pipeline in a
-way that makes it easy to resolve issues and get the most recent set of
-results after collaborators have worked on a project. These barriers can
-even affect projects with just one primary researcher. Ultimately, this
-can have consequences for the reliability and reproducibility of
-scientific results, especially considering that the measures taken to
-address these barriers are often not explicitly shared in the science
-output (like a publication).
+for nor knowledge on how to address. Obstacles, that can be as simple as
+not having a shared way of writing code or managing files, can impede
+effective collaboration. Or they can be complex, like documenting
+software dependencies or steps in an analysis pipeline in a way that
+makes it easy to resolve issues and get the most recent set of results
+after collaborators have worked on a project. Aside from the impact on
+collaboration, these barriers can even affect projects with just one
+primary researcher. Ultimately, this can have consequences on the
+reliability and reproducibility of scientific results, especially
+considering that the measures taken to address these barriers are often
+not explicitly shared in classical science output (like a publication).
 
 With this course, we aim to begin addressing this gap. By using a highly
 practical, hands-on approach that revolves around code-along sessions
