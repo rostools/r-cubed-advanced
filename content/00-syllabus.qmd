@@ -9,7 +9,7 @@ for nor knowledge on how to address. Obstacles, that can be fairly
 simple, like not having a shared way of writing code or managing files,
 can impede effective collaboration. Or they can be complex, like
 documenting software dependencies or steps in an analysis pipeline in a
-way that makes it easy to resolve issues? and get the most recent set of
+way that makes it easy to resolve issues and get the most recent set of
 results after collaborators have worked on a project. These barriers can
 even affect projects with just one primary researcher. Ultimately, this
 can have consequences for the reliability and reproducibility of
