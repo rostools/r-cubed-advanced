@@ -1,21 +1,21 @@
 # Syllabus
 
-Reproducibility and open scientific practices are increasingly demanded
-of, and needed by, scientists and researchers in our modern research
-environments. Our work environments and projects are also requiring or
-involve a high level of hands-on collaboration on scientific projects
-throughout all stages of the research lifecycle. We are faced with
-obstacles that we have no training for nor knowledge on how to address
-them. Obstacles that can be fairly simple, like not having a shared way
-of writing code or managing files, can impede effective collaboration.
-Or they can be complex, like documenting software dependencies or steps
-in an analysis pipeline in a way that makes it easy to resolve and get
-the most recent set of results after collaborators have worked on a
-project. Even aside from the impact on collaboration, these barriers can
-also affect projects with one primary researcher. Ultimately, this can
-affect the reliability and reproducibility of scientific results,
-especially considering that if these barriers are addressed, they are
-often not explicitly shared in the science output like a publication.
+Reproducibility and open scientific practices are increasingly in demand
+and needed by scientists and researchers in our modern research
+environments. Our work often require or involve a high level of hands-on
+collaboration on scientific projects throughout all stages of the
+research lifecycle. We are faced with obstacles that we have no training
+for nor knowledge on how to address. Obstacles, that can be fairly
+simple, like not having a shared way of writing code or managing files,
+can impede effective collaboration. Or they can be complex, like
+documenting software dependencies or steps in an analysis pipeline in a
+way that makes it easy to resolve issues and get the most recent set of
+results after collaborators have worked on a project. These barriers can
+even affect projects with just one primary researcher. Ultimately, this
+can have consequences for the reliability and reproducibility of
+scientific results, especially considering that the measures taken to
+address these barriers are often not explicitly shared in the science
+output (like a publication).
 
 With this course, we aim to begin addressing this gap. By using a highly
 practical, hands-on approach that revolves around code-along sessions
@@ -25,28 +25,26 @@ end of the course, participants will be able to:
 
 > Describe what an open, collaborator-friendly, and nearly-automated
 > reproducible data analysis pipeline and workflow looks like, and then
-> creating a project that follows these concepts by using R.
+> create a project that follows these concepts by using R.
 
 Our specific **learning outcomes** are to:
 
-1.  Identify potential actions to take to streamline collaboration on a
-    data analysis project and create projects that apply many of these
+1.  Identify potential actions to streamline collaboration on a data
+    analysis project and create projects that apply many of these
     actions using R.
 
 2.  Describe and define the distinct steps involved in a pipeline that
     goes from raw data to final results, and to use R to build this
     pipeline in an automated and explicit way.
 
-3.  Apply functional programming concepts to running statistical
-    analyses that fit within the conceptual framework of automated
-    pipelines and that can be used regardless of what statistical method
-    is used.
+3.  Apply functional programming concepts to run statistical analyses
+    that fit within the conceptual framework of automated pipelines and
+    that can be used regardless of what statistical method is used.
 
 4.  Explain the benefits of why scientific findings (and the pipelines)
-    should be as easily accessible as possible and how a reproducible
-    and automated pipeline can assist with making these findings
-    accessible, by using R to build a website that displays your
-    findings.
+    should be easily accessible and demonstrate these principles by
+    building a website in R to display results, using a reproducible and
+    automated pipeline.
 
 And we **will not** learn:
 
