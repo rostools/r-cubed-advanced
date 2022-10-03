@@ -48,8 +48,10 @@ Our specific **learning outcomes** are to:
 
 And we **will not** learn:
 
--   Specific statistical methods or models (these are already covered by
-    most university curriculum).
+-   Any details on or about specific statistical methods or models
+    (these are already covered by most university curriculum). We cover
+    how to run statistical methods, but not which statistical methods to
+    use for your data or project.
 -   Making figures or plots (data visualization could be a whole course
     on its own).
 
