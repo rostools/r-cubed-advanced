@@ -53,6 +53,13 @@ root directory (where the `r-cubed-advanced.Rproj` file is located:
 remotes::install_deps()
 ```
 
+Or by using `{renv}`:
+
+``` r
+# install.packages("renv")
+renv::restore()
+```
+
 ## Contributing
 
 If you are interested in contributing to the course material, please
