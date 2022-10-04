@@ -1,25 +1,25 @@
 Package: RCubedAdvanced
 Version: 2022.12
-Title: "Reproducible Research in R: ..."
+Title: "Advanced Course for Reproducible Research in R"
 Encoding: UTF-8
 Depends: 
     R (>= 4.0.0),
-    tidyverse,
-    tidymodels
+    tidyverse
 Imports: 
     fs,
     downlit,
     styler,
     lintr,
     gt,
-    fontawesome,
     here
 Suggests: 
     githubr (>= 0.1.0.9000),
+    tidymodels,
     devtools,
     gert,
     usethis,
     remote,
-    RefManageR
+    RefManageR,
+    rspm
 Remotes: 
     rostools/githubr
