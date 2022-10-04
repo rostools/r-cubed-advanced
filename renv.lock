@@ -36,6 +36,14 @@
         "lhs"
       ]
     },
+    "KernSmooth": {
+      "Package": "KernSmooth",
+      "Version": "2.23-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8dcfa99b14c296bc9f1fd64d52fd3ce7",
+      "Requirements": []
+    },
     "MASS": {
       "Package": "MASS",
       "Version": "7.3-58.1",
@@ -319,6 +327,16 @@
       "Requirements": [
         "rematch",
         "tibble"
+      ]
+    },
+    "class": {
+      "Package": "class",
+      "Version": "7.3-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "da09d82223e669d270e47ed24ac8686e",
+      "Requirements": [
+        "MASS"
       ]
     },
     "cli": {
@@ -1122,7 +1140,11 @@
       "Hash": "83aed0b881998c125aac48cab08141e4",
       "Requirements": [
         "MASS",
-        "prodlim"
+        "class",
+        "nnet",
+        "prodlim",
+        "rpart",
+        "survival"
       ]
     },
     "isoband": {
@@ -1233,7 +1255,8 @@
         "SQUAREM",
         "future.apply",
         "numDeriv",
-        "progressr"
+        "progressr",
+        "survival"
       ]
     },
     "lazyeval": {
@@ -1421,6 +1444,14 @@
       "Requirements": [
         "lattice"
       ]
+    },
+    "nnet": {
+      "Package": "nnet",
+      "Version": "7.3-18",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "170da2130d5332bea7d6ede01875ba1d",
+      "Requirements": []
     },
     "numDeriv": {
       "Package": "numDeriv",
@@ -1624,8 +1655,10 @@
       "Repository": "CRAN",
       "Hash": "c243bf70db3a6631a0c8783152fb7db9",
       "Requirements": [
+        "KernSmooth",
         "Rcpp",
-        "lava"
+        "lava",
+        "survival"
       ]
     },
     "profvis": {
@@ -1939,6 +1972,14 @@
         "xml2"
       ]
     },
+    "rpart": {
+      "Package": "rpart",
+      "Version": "4.1.16",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ea3ca1d9473daabb3cd0f1b4f974c1ed",
+      "Requirements": []
+    },
     "rprojroot": {
       "Package": "rprojroot",
       "Version": "2.0.3",
@@ -1968,6 +2009,15 @@
         "tidyselect",
         "vctrs"
       ]
+    },
+    "rspm": {
+      "Package": "rspm",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "OS_type": "unix",
+      "Hash": "67759dde0bf6f38316d0106bf84b1de2",
+      "Requirements": []
     },
     "rstudioapi": {
       "Package": "rstudioapi",
@@ -2156,6 +2206,16 @@
         "rprojroot",
         "tibble",
         "withr"
+      ]
+    },
+    "survival": {
+      "Package": "survival",
+      "Version": "3.4-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "04411ae66ab4659230c067c32966fc20",
+      "Requirements": [
+        "Matrix"
       ]
     },
     "sys": {

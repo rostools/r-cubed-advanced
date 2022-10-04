@@ -992,3 +992,17 @@ local({
   warning(paste(msg, collapse = "\n"), call. = FALSE)
 
 })
+
+local({
+  try_install_if_not_available <- function(pkg, source) {
+    if (!requireNamespace(pkg, quietly=TRUE))
+      try(renv::install(source), silent=TRUE)
+  }
+
+  try_install_if_not_available("rspm@0.2.2")
+  try_install_if_not_available("Enchufa2/rspm@0.2.2")
+  try_install_if_not_available("Enchufa2/rspm")
+
+  try(rspm::enable(), silent=TRUE)
+})
+
