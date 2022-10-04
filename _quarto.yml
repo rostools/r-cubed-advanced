@@ -39,6 +39,7 @@ format:
     include-before-body:
         - "includes/site-counter.html"
         - "includes/contribute.html"
-  docx:
-    from: markdown+emoji
+  # docx:
+  #   toc: false
+  #   from: markdown+emoji
 
