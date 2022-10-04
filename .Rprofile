@@ -1,5 +1,5 @@
 options(
-    repos = c(CRAN = "https://packagemanager.rstudio.com/all/latest"),
+    repos = c(RSPM = "https://packagemanager.rstudio.com/all/latest"),
     browserNLdisabled = TRUE,
     deparse.max.lines = 2,
     dplyr.summarize.inform = FALSE,
