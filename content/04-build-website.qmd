@@ -1,4 +1,4 @@
-# Building a website your analyses {build-website}
+# Building a website your analyses {#build-website}
 
 -   Displaying your output in reproducible formats: quarto website
     -   yml, navbar, contents
