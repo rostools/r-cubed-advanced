@@ -4,7 +4,8 @@ project:
     execute-dir: project
 
 book:
-    title: "Reproducible Research in R: ...title WIP..."
+    title: "Reproducible Research in R"
+    subtitle: "An advanced workshop on creating collaborative and automated analysis pipelines"
     author:
         - "Luke W. Johnston"
     apple-touch-icon: "images/apple-touch-icon.png"
@@ -33,7 +34,7 @@ format:
     from: markdown+emoji
     code-link: true
     theme:
-        - zephyr
+        - litera
         - includes/theme.scss
     include-before-body:
         - "includes/site-counter.html"

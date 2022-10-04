@@ -1,4 +1,4 @@
-# Reproducible Research in R: An advanced workshop on ... TBD <img src="images/apple-touch-icon.png" align="right" height="100/"/>
+# Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines <img src="images/apple-touch-icon.png" align="right" height="100/"/>
 
 [![License: CC BY
 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
