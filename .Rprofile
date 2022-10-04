@@ -16,6 +16,8 @@ if (interactive()) {
 }
 
 if (interactive()) {
+    renv::settings$snapshot.type("explicit")
+    suppressMessages(rspm::enable())
     source("renv/activate.R")
     options(Ncpus = 3)
 }
