@@ -14,30 +14,19 @@ jobs:
 
       - name: Setup R
         uses: r-lib/actions/setup-r@master
+        with:
+          use-public-rspm: true
 
-      # Not sure this is needed.
-      # - name: Setup pandoc
-      #   uses: r-lib/actions/setup-pandoc@master
+      - name: Install Linux packages
+        run: |
+          sudo apt install -y libcurl4-openssl-dev
+
+      - uses: r-lib/actions/setup-renv@v2
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          # To install LaTeX to build PDF book
           tinytex: false
-          # uncomment below and fill to pin a version
-          # version: 0.9.600
-
-      - name: Cache Renv packages
-        uses: actions/cache@v2
-        with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
-
-      - name: Install packages
-        run: |
-          R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
 
       - name: Publish to Netlify (and render)
         uses: quarto-dev/quarto-actions/publish@v2
