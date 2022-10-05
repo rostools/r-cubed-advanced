@@ -11,7 +11,8 @@ Imports:
     styler,
     lintr,
     gt,
-    here
+    here,
+    renv
 Suggests: 
     githubr (>= 0.1.0.9000),
     tidymodels,
