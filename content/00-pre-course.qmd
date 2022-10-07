@@ -1,26 +1,27 @@
 # Pre-course tasks {#pre-course}
 
-In order to participate in this course, you must complete this section
-for the pre-course tasks and finish with **completing the survey** at
-the end. These tasks are designed to make it easier for everyone to
-start the course with everything set up. For some of the tasks, you
-might not understand why you need to do them, but you will likely
-understand why once the course begins.
+In order to participate in this course, you must complete the pre-course
+tasks in this section as well as **completing the survey** at the end.
+These tasks are designed to make it easier for everyone to start the
+course with everything ready to go. For some of the tasks, you might not
+understand why you need to do them, but you will likely understand why
+once the course begins.
 
 Depending on your skills and knowledge, these tasks could take between
 **3-5 hrs to finish**, so we suggest planning a full day to complete
 them. Depending on your institution and how they handle installing
-software on work computers, you also might have to contact IT very early
-to make sure everything is properly installed and set up.
+software on work computers, you also might have to contact IT *very
+early* to make sure everything is properly installed and set up.
 
 ## Summary of tasks
 
 Here's a quick overview of the tasks you need to do. Specific details
 about them are found as you work through the section.
 
-1.  Install R, RStudio, and Git. For some people, depending on their
-    institution, this task can take the longest because you have to
-    contact your IT to install these packages.
+1.  Install as updated a version of R, RStudio, Quarto, and Git as
+    possible. For some people, depending on their institution, this task
+    can take the longest amount of time because you have to contact your
+    IT to install these packages.
 2.  Install the necessary R packages.
 3.  Read about Git from the introduction course and configure Git on
     your computer. If you haven't used Git before, this task could take
@@ -29,12 +30,13 @@ about them are found as you work through the section.
     -   You'll later need to paste this output into the survey.
 5.  Create an R Project, along with the folder and file setup.
 6.  Create an R Markdown file.
-7.  Write R code to download the data and save it to your computer. This
-    task will probably take up the most time, maybe 30-60 minutes.
+7.  Write (well, mostly copy and paste) R code to download the data and
+    save it to your computer. This task will probably take up maybe
+    30-60 minutes depending on your interest of exploring the data.
 8.  Run a check to see that everything is as expected
     -   You'll later need to paste this output into the survey.
 9.  Read the [Welcome](index.qmd) page.
-10. Read the [syllabus](content/syllabus.qmd).
+10. Read the [syllabus](content/00-syllabus.qmd).
 11. Read the [Code of Conduct](CODE_OF_CONDUCT.md).
 12. **Complete the pre-course survey**. This survey is pretty quick,
     maybe \~10 minutes.
@@ -49,28 +51,35 @@ runs smoothly. However, some of these tasks are meant for learning as
 well as for general setup, so we have defined the following learning
 objectives for this page:
 
+1.  TODO: ....
+
 ## Installing the latest programs
 
-Given this is an intermediate course, you should already have R and
+Given this is an advanced course, you should probably already have R and
 RStudio installed. However, you may not have the latest versions
 installed.
 
 1.  Have the latest version of
-    [R](https://cloud.r-project.org/index.html) installed (any version
-    above 4.2.0).
+    [R](https://cloud.r-project.org/index.html) installed (or at least
+    any version above `4.1.2`).
 2.  Have the latest version of
     [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
-    installed (any version above 2022.02.3+492 TODO: Update this?).
+    installed (or at least any version above `v2021.09.0+351`).
 
 There are a few other things to install:
 
 1.  [Git](https://git-scm.com/downloads). We'll be using Git (building
-    off of the Introduction course), so it needs to be installed.
+    off of previous courses), so it needs to be installed.
 2.  For some Windows users, you may need to install
     [Rtools](https://cran.r-project.org/bin/windows/Rtools/Rtools35.exe)
     in order for some R packages to be installed (which you'll do
     shortly). For some computers, installing Rtools can take some time.
     You need this in order for some packages to work.
+3.  [Quarto](https://quarto.org/docs/get-started/). Quarto is an
+    upgraded version of R Markdown. If you've used R Markdown before,
+    there isn't much difference, except you might notice that Quarto is
+    easier to use and more powerful. We will use Quarto to create the
+    reproducible documents and website at the end.
 
 All these programs are required for the course, even Git. Git, which is
 a software program to formally manage file versions, is used because of
@@ -86,68 +95,67 @@ for help.
 > administrative privileges*: You may encounter problems installing
 > software due to administrative reasons (e.g. you don't have permission
 > to install things). For issues with updating to the latest version of
-> R or RStudio, if you have at least 4.2.0 for R and at least
-> 2022.02.3+492 TODO: Update this? for RStudio, that should be fine. If
-> you have versions of R and RStudio older than that, it is necessary
-> for you to request that IT update your software if you can't yourself.
-> Unfortunately, given that Git is not a commonly used software for some
-> organizations, you may not have it installed and you *will* need to
-> ask IT to install it. We *require* it for the course, so please make
-> sure to give IT enough time to be able to install it for you.
+> R or RStudio, as long as you at least have the minimum version listed
+> above, it should be fine. If you have versions of R and RStudio older
+> than that, it is necessary for you to request that IT update your
+> software if you can't yourself. Unfortunately, given that Git and
+> Quarto are not a commonly used software for some organizations, you
+> may not have it installed and you *will* need to ask IT to install it.
+> We *require* it for the course, so please make sure to give IT enough
+> time to be able to install it for you.
 
-Once R, RStudio, and Git have been installed, open RStudio. *If at any
-point during these pre-course tasks you have any troubles*, try as best
-as you can to complete the task and then let us know about the issues in
-the pre-course survey (at the end of this section). If you continue
-having problems, indicate on the survey that you need help and we can
-try to book a quick video call to fix the problem. Otherwise, if you
-can, come to the course earlier (about 20-30 min) to get help.
+Once R, RStudio, Quarto, and Git have been installed, open RStudio. *If
+at any point during these pre-course tasks you have any troubles*, try
+as best as you can to complete the task and then let us know about the
+issues in the pre-course survey (at the end of this section). If you
+continue having problems, indicate on the survey that you need help and
+we can try to book a quick video call to fix the problem. Otherwise, if
+you can, come to the course earlier (about 20-30 min) to get help.
 
 ## Installing the R packages
 
 We will be using specific R packages for the course, so you will need to
-install them. A detailed walkthrough for installing the necessary
-packages is available on the [pre-course tasks for installing
-packages](https://r-cubed.rostools.org/pre-course.html#installing-r-packages)
-section of the introduction course, however, you only need to install
-the r3 helper package in order to install all the necessary packages by
-running these commands in the R Console:
+install them. All the packages needed for course are included in the
+course helper package `{r3}`, so you only need to install it by running
+these commands in the R Console:
 
-1.  Install the remotes package:
+1.  Install the `{remotes}` package:
 
     ``` r
     install.packages("remotes")
     ```
 
-2.  Install the r3 helper package for this course:
+2.  Install the `{r3}` helper package for this course and run the
+    `install_packages_advanced()` function from it:
 
     ``` r
-    remotes::install_gitlab("rostools/r3", upgrade = TRUE)
+    remotes::install_gitlab("rostools/r3", upgrade = TRUE, dependencies = TRUE)
+    r3::install_packages_advanced()
     ```
 
 *Note*: When you see a command like `something::something()`, for
 example with `remotes::install_gitlab()`, you would "read" this as:
 
-> R, can you please use the install_gitlab function from the remotes
-> package.
+> R, can you please use the `install_gitlab()` function from the
+> `{remotes}` package.
 
 The normal way of doing this would be to load the package with
 `library(remotes)` and then running the command (`install_gitlab()`).
 But by using the `::`, we tell R to directly use a function from a
 package, without needing to load the package and all of its other
-functions too. We use this trick because we only want to use the
-`install_gitlab()` command from the remotes package and not have to load
-all the other functions as well. In this course we will be using `::`
-often.
+functions too. We use this method because we only want to use the
+`install_gitlab()` command from the `{remotes}` package and not have to
+load all the other functions as well. In this course we will be using
+`::` often.
 
 ## Setting up Git
 
-Since Git has already been covered in the Introduction course, we won't
+Since Git has already been covered in the previous courses, we won't
 cover *learning it* during this course. However, since version control
 is a fundamental component of any modern data analysis workflow and
 *should be used*, we **will be using it throughout the course**. If you
-have used or currently use Git, you can skip this section. If you
-haven't used it, please do these tasks:
+have used or currently use Git, you can skip this section. If you *have
+not* used it, please do these tasks:
 
 1.  Follow the [pre-course tasks for
     Git](https://r-cubed.rostools.org/pre-course.html#setting-up-git-and-github)
@@ -155,8 +163,8 @@ haven't used it, please do these tasks:
     type in the RStudio Console:
 
     ``` r
-    # A pop-up to type in your name (first and last), 
-    # as well as your email
+    # There will be a pop-up to type in your name (first and 
+    # last), as well as your email
     r3::setup_git_config()
     ```
 
@@ -167,8 +175,8 @@ haven't used it, please do these tasks:
     learn or understand it better. For most of the course, we will be
     using Git as shown in the [Using Git in
     RStudio](https://r-cubed.rostools.org/version-control.html#using-git-in-rstudio)
-    section. Later on during the course, we might connect our projects
-    to GitHub, which is described in the [Synchronizing with
+    section. During the course, we will connect our projects to GitHub,
+    which is described in the [Synchronizing with
     GitHub](https://r-cubed.rostools.org/version-control.html#synchronizing-with-github)
     section.
 
@@ -193,17 +201,19 @@ The output you'll get for success will look something like this:
 
 **Eventually you will need to copy and paste the output into one of the
 survey questions**. *Note* that while GitHub is a natural connection to
-using Git, given the limited time available, we will not be going over
-how to use GitHub. If you want to learn about using GitHub, check out
-the [session](https://r-cubed.rostools.org/version-control.html) on it
-in the introduction course.
+using Git, given the limited time available, we will only be going over
+aspects of GitHub that relate to storing your project Git repository and
+setting up the website. If you want to learn more about using GitHub,
+check out the
+[session](https://r-cubed.rostools.org/version-control.html) on it in
+the introduction course.
 
 ## Create an R Project
 
 One of the basic steps to reproducibility and modern workflows in data
 analysis is to keep everything contained in a single location. In
-RStudio, this is done with R Projects. Please read all of [Section
-7.1](https://r-cubed.rostools.org/r-project-management.html#what-is-a-project-and-why-use-it)
+RStudio, this is done with R Projects. Please read all of [this
+section](https://r-cubed.rostools.org/r-project-management.html#what-is-a-project-and-why-use-it)
 from the introduction course to learn about R Projects and how they help
 keeping things self-contained. *You don't need to do any of the
 exercises or activities*.
@@ -218,11 +228,11 @@ can be done by either:
     prodigenr" and name the project "LearnR3" in the Directory Name,
     saving it to the "Desktop" with Browse.
 2.  Or, running the command
-    `prodigenr::setup_project("~/Desktop/LearnR3")` in the R Console.
+    `prodigenr::setup_project("~/Desktop/AdvancedR3")` in the R Console.
 
 ```{r, echo=FALSE, eval=FALSE, purl=TRUE}
 # For purling
-prodigenr::setup_project("~/Desktop/LearnR3")
+prodigenr::setup_project("~/Desktop/AdvancedR3")
 ```
 
 When the RStudio Project opens up again, run these three commands in the
@@ -234,27 +244,27 @@ usethis::use_blank_slate()
 usethis::use_r("functions", open = FALSE)
 ```
 
-Here we use the [usethis](https://usethis.r-lib.org/) package to help
-set things up. usethis is an extremely useful package for managing R
-Projects and we highly recommend checking it out more to see how you can
-use it more in your own work.
+Here we use the [`{usethis}`](https://usethis.r-lib.org/) package to
+help set things up. `{usethis}` is an extremely useful package for
+managing R Projects and we highly recommend checking it out more to see
+how you can use it more in your own work.
 
-## R Markdown
+## R Markdown and Quarto
 
-We teach and use R Markdown because it is one of the very first steps to
-being reproducible and because it is a very powerful tool to doing data
-analysis. Please do these two tasks:
+We teach and use R Markdown/Quarto because it is one of the very first
+steps to being reproducible and because it is a very powerful tool to
+doing data analysis. Please do these two tasks:
 
 1.  Please read over the [R Markdown
     section](https://r-cubed.rostools.org/reproducible-documents.html)
     of the introduction course. If you use R Markdown already, you can
     skip this step.
 
-2.  Open up the `LearnR3` project, either by clicking the
-    `LearnR3.Rproj` file or by using the "File -\> Open Project" menu.
-    Run the function below in the Console when RStudio is in the
-    `LearnR3` project, which will create a new file called `lesson.Rmd`
-    in the `doc/` folder.
+2.  Open up the `AdvancedR3` project, either by clicking the
+    `AdvancedR3.Rproj` file or by using the "File -\> Open Project"
+    menu. Run the function below in the Console when RStudio is in the
+    `AdvancedR3` project, which will create a new file called
+    `lesson.Rmd` in the `doc/` folder.
 
     ```{r, eval=FALSE, purl=TRUE}
     r3::create_rmarkdown_doc()
@@ -294,14 +304,14 @@ the dataset to prepare it for later processing. While in your `LearnR3`
 R Project, go to the Console pane in RStudio and type out:
 
 ```{r create-data-raw, eval=FALSE, purl=TRUE}
-usethis::use_data_raw("mmash")
+usethis::use_data_raw("nmr-omics")
 ```
 
 What this function does is create a new folder called `data-raw/` and
-creates an R script called `mmash.R` in that folder. This is where we
-will store the raw, original MMASH data that we'll get from the website.
-The R script should have opened up for you, otherwise, go into the
-`data-raw/` folder and open up the new `mmash.R` script.
+creates an R script called `nmr-omics.R` in that folder. This is where
+we will store the raw, original MMASH data that we'll get from the
+website. The R script should have opened up for you, otherwise, go into
+the `data-raw/` folder and open up the new `mmash.R` script.
 
 The first thing we want do is delete all the code in the script that is
 added there by default. Then we'll create a new line at the top and type
@@ -620,6 +630,9 @@ the survey question at the end.
 
 ## Course introduction
 
+Read the "how to read/use this website"... (talk about `::`, `()` and
+`/`, `{}`)
+
 Most of the course description is found in the
 [syllabus](syllabus.html). If you haven't read it, **please read it
 now**. Read over what the course will cover, what we expect you to learn
@@ -644,3 +657,7 @@ survey**](https://docs.google.com/forms/d/e/1FAIpQLSe2gpbN9ExCXyeTfJLgu_poemF0iU
 to finish this assignment.
 
 See you at the course!
+
+## Data
+
+https://zenodo.org/record/4997196
