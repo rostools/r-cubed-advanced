@@ -3,8 +3,8 @@
     "Version": "4.2.1",
     "Repositories": [
       {
-        "Name": "CRAN",
-        "URL": "https://cran.rstudio.com"
+        "Name": "RSPM",
+        "URL": "https://packagemanager.rstudio.com/all/latest"
       }
     ]
   },
@@ -831,23 +831,6 @@
       "Hash": "ab08ac61f3e1be454ae21911eb8bc2fe",
       "Requirements": []
     },
-    "githubr": {
-      "Package": "githubr",
-      "Version": "0.1.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "rostools",
-      "RemoteRepo": "githubr",
-      "RemoteRef": "master",
-      "RemoteSha": "f4d1d62c3e79543f8325255c04be01610a604850",
-      "Hash": "53675fa9ac45655b3ed6f5f1cf31ab70",
-      "Requirements": [
-        "gh",
-        "lifecycle",
-        "tibble"
-      ]
-    },
     "globals": {
       "Package": "globals",
       "Version": "0.16.1",
@@ -1471,6 +1454,14 @@
         "askpass"
       ]
     },
+    "packrat": {
+      "Package": "packrat",
+      "Version": "0.8.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "d84055adcb6bb1f4f0ce8c5f235bc328",
+      "Requirements": []
+    },
     "parallelly": {
       "Package": "parallelly",
       "Version": "1.32.1",
@@ -1726,6 +1717,22 @@
       "Requirements": [
         "magrittr",
         "rlang"
+      ]
+    },
+    "quarto": {
+      "Package": "quarto",
+      "Version": "1.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "298a252816cabed120391c955aced484",
+      "Requirements": [
+        "jsonlite",
+        "later",
+        "processx",
+        "rmarkdown",
+        "rsconnect",
+        "rstudioapi",
+        "yaml"
       ]
     },
     "ragg": {
@@ -2010,6 +2017,22 @@
         "vctrs"
       ]
     },
+    "rsconnect": {
+      "Package": "rsconnect",
+      "Version": "0.8.27",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "114103fbb50af041e93921ee67db8fa0",
+      "Requirements": [
+        "curl",
+        "digest",
+        "jsonlite",
+        "openssl",
+        "packrat",
+        "rstudioapi",
+        "yaml"
+      ]
+    },
     "rspm": {
       "Package": "rspm",
       "Version": "0.2.2",
@@ -2150,6 +2173,17 @@
         "rlang",
         "vctrs",
         "warp"
+      ]
+    },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "4079070fc210c7901c0832a3aeab894f",
+      "Requirements": [
+        "stringi",
+        "stringr"
       ]
     },
     "sourcetools": {
