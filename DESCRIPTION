@@ -12,9 +12,10 @@ Imports:
     lintr,
     gt,
     here,
-    renv
+    renv,
+    snakecase,
+    quarto
 Suggests: 
-    githubr (>= 0.1.0.9000),
     tidymodels,
     devtools,
     gert,
@@ -22,5 +23,4 @@ Suggests:
     remote,
     RefManageR,
     rspm
-Remotes: 
-    rostools/githubr
+LazyData: true
