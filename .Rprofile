@@ -3,6 +3,7 @@ options(
     browserNLdisabled = TRUE,
     deparse.max.lines = 2,
     renv.settings.snapshot.type = "explicit",
+    styler.addins_style_transformer = "styler::tidyverse_style(indent_by = 4)",
     renv.config.auto.snapshot = TRUE,
     dplyr.summarize.inform = FALSE,
     todor_patterns = c("FIXME", "TODO", "IDEA", "NOTE"),
