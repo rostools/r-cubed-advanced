@@ -1,19 +1,65 @@
 # Smoother project-based collaboration {#smoother-collaboration}
 
--   Smoother project-based collaboration
-    -   renv
-        -   set up environment
-        -   necessary vs helper packages (imports vs suggests)
-    -   styler/lintr
-        -   exercise: copy and paste code that is wrong. Run lintr and
-            see errors. Run styler to fix some of them up.
-            -   include something like `{{}}`
-        -   create a function in R to do it more efficiently (for
-            styler)
-    -   Quarto visual/canonical mode.
-    -   Precommits
-        -   exercise: copy and paste wrong code. Try to add and commit
-            to Git history.
-    -   Optional: Maybe reprex when trying to get help?
-    -   Code of conduct and contributing guides?
+{{< include includes/_wip.qmd >}}
 
+-   Smoother project-based collaboration
+
+More automated processes for collaborating around a project.
+
+## renv
+
+-   start with having the raw data script sourced.
+
+    -   Pretend it is a complex project, where this data is just the
+        start, more will be coming in. And you need to work with a few
+        others on the project, because it requires different expertises
+        involved.
+
+    -   Aim to make it easier for others to join project and follow a
+        common standard.
+
+-   set up environment
+
+    -   Open `.Rprofile` and add:
+
+    ``` r
+    options(
+        renv.settings.snapshot.type = "explicit",
+        renv.config.auto.snapshot = TRUE
+    )
+    ```
+
+-   required vs helper packages (imports vs suggests)
+
+    -   e.g. tidyverse in Depends?
+
+-   If it gets annoying, can always do: `renv::deactivate()`
+
+### Exercise:
+
+## Automatically follow a style guide
+
+Ctrl-Shift-P
+
+-   exercise: copy and paste code that is wrong. Run lintr and see
+    errors. Run styler to fix some of them up.
+
+    -   include something like `{{}}`
+
+-   create a function in R to do it more efficiently (for styler)
+
+-   caching `cache_activate()`
+
+```{r}
+options(
+  styler.addins_style_transformer = "styler::tidyverse_style(indent_by = 4)"
+)
+```
+
+## Standard markdown format
+
+-   Quarto visual/canonical mode.
+
+## Extras (quick read)
+
+-   Code of conduct and contributing guides?
