@@ -4,4 +4,11 @@
     up remote on server? through gert?
     -   As a side aspect, appendix?
     -   mention pr\_ helpers?
-
+-   One exercise could be to do the same thing but with the larger
+    lipidomics dataset.
+-   Precommits
+    -   exercise: copy and paste wrong code. Try to add and commit to
+        Git history.
+-   PR commands for styler?
+-   PR helpers with usethis?
+-   reprex?
