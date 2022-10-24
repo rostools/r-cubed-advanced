@@ -11,7 +11,6 @@ BibOptions(
     style = "markdown",
     max.names = 2,
     super = FALSE
-    # hyperlink = FALSE,
 )
 bib <- ReadBib(here::here("resources/refs.bib"))
 knitr::opts_chunk$set(echo = FALSE)
