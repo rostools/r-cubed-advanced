@@ -8,6 +8,16 @@ More automated processes for collaborating around a project.
 
 ## renv
 
+```{r, eval=FALSE}
+# If using linux, use rspm::renv_init()
+renv::init()
+renv::status()
+renv::snapshot()
+use_package("", "Suggests")
+use_package("", "Imports")
+renv::restore()
+```
+
 -   start with having the raw data script sourced.
 
     -   Pretend it is a complex project, where this data is just the
@@ -56,10 +66,13 @@ options(
 )
 ```
 
+-   exercise: copy and paste code that is wrong. Run lintr and see
+    errors. Run styler to fix some of them up.
+    -   include something like `{{}}`
+-   create a function in R to do it more efficiently (for styler)
+
 ## Standard markdown format
 
 -   Quarto visual/canonical mode.
 
 ## Extras (quick read)
-
--   Code of conduct and contributing guides?

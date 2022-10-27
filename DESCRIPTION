@@ -14,7 +14,8 @@ Imports:
     here,
     renv,
     snakecase,
-    quarto
+    quarto,
+    fontawesome
 Suggests: 
     tidymodels,
     devtools,
@@ -22,5 +23,8 @@ Suggests:
     usethis,
     remote,
     RefManageR,
-    rspm
+    rspm,
+    RcppTOML,
+    todor
 LazyData: true
+URL: https://github.com/rostools/r-cubed-advanced
