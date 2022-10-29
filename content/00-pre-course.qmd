@@ -141,7 +141,7 @@ you can, come to the course earlier (about 20-30 min) to get help.
 
 We will be using specific R packages for the course, so you will need to
 install them. All the packages needed for course are included in the
-course helper package `{r3}`, so you only need to install it by running
+course helper package r3, so you only need to install it by running
 these commands in the R Console:
 
 1.  Install the `{remotes}` package:
@@ -150,7 +150,7 @@ these commands in the R Console:
     install.packages("remotes")
     ```
 
-2.  Install the `{r3}` helper package for this course and run the
+2.  Install the r3 helper package for this course and run the
     `r3::install_packages_advanced()` function from it:
 
     ``` r
