@@ -270,10 +270,10 @@ usethis::use_blank_slate()
 usethis::use_r("functions", open = FALSE)
 ```
 
-Here we use the [`{usethis}`](https://usethis.r-lib.org/) package to
-help set things up. `{usethis}` is an extremely useful package for
-managing R Projects and we highly recommend checking it out more to see
-how you can use it more in your own work.
+Here we use the `{usethis}` package to help set things up. `{usethis}`
+is an extremely useful package for managing R Projects and we highly
+recommend checking it out more to see how you can use it more in your
+own work.
 
 ## R Markdown and Quarto
 
