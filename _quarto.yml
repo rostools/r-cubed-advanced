@@ -23,17 +23,18 @@ book:
         - content/00-syllabus.qmd
         - content/00-schedule.qmd
         - content/00-pre-course.qmd
-    appendix:
+    appendices:
         - appendix/conduct.qmd
     page-footer:
         center:
             - text: "License: CC BY 4.0 {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}}"
               href: LICENSE.md
 
-# bibliography: references.bib
+bibliography: includes/references.bib
 
 format:
   html:
+    df-print: tibble
     from: markdown+emoji
     code-link: true
     theme:
