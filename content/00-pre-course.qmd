@@ -16,25 +16,25 @@ early* to make sure everything is properly installed and set up.
 ## Summary of tasks
 
 Here's a quick overview of the tasks you need to do. Specific details
-about them are found as you work through the section.
+about them are found as you work through this section.
 
-1.  Install as updated a version of R, RStudio, Quarto, and Git as
-    possible. For some people, depending on their institution, this task
-    can take the longest amount of time because you have to contact your
-    IT to install these packages.
+1.  Install a version of R, RStudio, Quarto, and Git that is as updated
+    as possible. For some people, depending on their institution, this
+    task can take the **longest amount of time** because you have to
+    contact your IT to install these packages.
 2.  Install the necessary R packages.
 3.  Read about Git from the introduction course and configure Git on
     your computer. If you haven't used Git before, this task could take
     a while because of the reading.
-4.  Run a check to see if everything works.
-    -   You'll later need to paste this output into the survey.
+4.  Run a check to see if everything works. You'll later need to paste
+    this output into the survey.
 5.  Create an R Project, along with the folder and file setup.
 6.  Create an R Markdown file.
 7.  Write (well, mostly copy and paste) R code to download the data and
     save it to your computer. This task will probably take up maybe
     30-60 minutes depending on your interest of exploring the data.
-8.  Run a check to see that everything is as expected
-    -   You'll later need to paste this output into the survey.
+8.  Run a check to see that everything is as expected. You'll later need
+    to paste this output into the survey.
 9.  Read the [Welcome](index.qmd) page.
 10. Read the [syllabus](content/00-syllabus.qmd).
 11. Read the [Code of Conduct](CODE_OF_CONDUCT.md).
@@ -43,17 +43,21 @@ about them are found as you work through the section.
 
 Check each section for exact details on completing these tasks.
 
-## Learning objectives
+## Learning objective
 
 In general, these pre-course tasks are meant to help prepare you for the
 course and make sure everything is setup properly so the first session
 runs smoothly. However, some of these tasks are meant for learning as
-well as for general setup, so we have defined the following learning
-objectives for this page:
+well as for general setup, so we have defined the following learning o
+for this page:
 
-1.  TODO: ....
+1.  Learn about and then apply some basic reproducible workflows and
+    setups for the initial processing of raw data. For those who have
+    already participated in the [intermediate R
+    course](https://r-cubed-intermediate.rostools.org/), the objective
+    is to review what you previously learned.
 
-## Notes on reading the course website
+## Reading the course website
 
 There are a few "syntax" type formatting of the text in this website to
 be aware of:
@@ -145,10 +149,10 @@ these commands in the R Console:
     ```
 
 2.  Install the `{r3}` helper package for this course and run the
-    `install_packages_advanced()` function from it:
+    `r3::install_packages_advanced()` function from it:
 
     ``` r
-    remotes::install_gitlab("rostools/r3", upgrade = TRUE, dependencies = TRUE)
+    remotes::install_gitlab("rostools/r3")
     r3::install_packages_advanced()
     ```
 
@@ -214,9 +218,9 @@ The output you'll get for success will look something like this:
     ✔ Your RStudio is at the latest version of 2022.2.2.485!
     Checking Git config settings:
     ✔ Your Git configuration is all setup!
-      Git now knows that:
-      - Your name is 'Luke W. Johnston'
-      - Your email is 'lwjohnst@gmail.com'
+    Git now knows that:
+    - Your name is 'Luke W. Johnston'
+    - Your email is 'lwjohnst\@gmail.com'
 
 **Eventually you will need to copy and paste the output into one of the
 survey questions**. *Note* that while GitHub is a natural connection to
@@ -247,9 +251,10 @@ can be done by either:
     prodigenr" and name the project "LearnR3" in the Directory Name,
     saving it to the "Desktop" with Browse.
 2.  Or, running the command
-    `prodigenr::setup_project("~/Desktop/AdvancedR3")` in the R Console.
+    `prodigenr::setup_project("~/Desktop/AdvancedR3")` (or other
+    location like `Documents`) in the R Console.
 
-```{r, echo=FALSE, eval=FALSE, purl=TRUE}
+```{r run-prodigenr, echo=FALSE, eval=FALSE, purl=TRUE}
 # For purling
 prodigenr::setup_project("~/Desktop/AdvancedR3")
 ```
@@ -257,7 +262,7 @@ prodigenr::setup_project("~/Desktop/AdvancedR3")
 When the RStudio Project opens up again, run these three commands in the
 R Console:
 
-```{r, eval=FALSE, purl=TRUE}
+```{r more-project-setup, eval=FALSE, purl=TRUE}
 prodigenr::setup_with_git()
 usethis::use_blank_slate()
 usethis::use_r("functions", open = FALSE)
@@ -298,7 +303,7 @@ Please do these two tasks:
     `AdvancedR3` project, which will create a new file called
     `lesson.Rmd` in the `doc/` folder.
 
-    ```{r, eval=FALSE, purl=TRUE}
+    ```{r add-rmarkdown-doc, eval=FALSE, purl=TRUE}
     r3::create_rmarkdown_doc()
     ```
 
@@ -353,8 +358,8 @@ the end, though, the only important thing in the end is to run them all
 and get the `lipidomics` dataset to be saved as `data/lipidomics.rda`.
 The created files should look like this:
 
-```{r file-tree-data-folders, echo=FALSE}
-fs::dir_tree(here::here("."), glob = "data|data-raw")
+```{r file-tree-data-folders, echo=FALSE, comment=""}
+fs::dir_tree(glob = "data|data-raw")
 ```
 
 And the created dataset in `data/lipidomics.rda` should look like (using
