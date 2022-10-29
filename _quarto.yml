@@ -46,3 +46,11 @@ format:
   #   toc: false
   #   from: markdown+emoji
 
+knitr:
+  opts_chunk:
+    width: 68
+    # maybe?
+    collapse: true
+    comment: "#>"
+    # Use this to set class for output?
+    # cell-output: ....
