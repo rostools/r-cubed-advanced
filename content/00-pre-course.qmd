@@ -1,11 +1,12 @@
 # Pre-course tasks {#pre-course}
 
 In order to participate in this course, you must complete the pre-course
-tasks in this section as well as **completing the survey** at the end.
-These tasks are designed to make it easier for everyone to start the
-course with everything ready to go. For some of the tasks, you might not
-understand why you need to do them, but you will likely understand why
-once the course begins.
+tasks in this section as well as **completing the
+[survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**
+at the end. These tasks are designed to make it easier for everyone to
+start the course with everything ready to go. For some of the tasks, you
+might not understand why you need to do them, but you will likely
+understand why once the course begins.
 
 Depending on your skills and knowledge, these tasks could take between
 **3-5 hrs to finish**, so we suggest planning a full day to complete
@@ -37,9 +38,10 @@ about them are found as you work through this section.
     to paste this output into the survey.
 9.  Read the [Welcome](index.qmd) page.
 10. Read the [syllabus](content/00-syllabus.qmd).
-11. Read the [Code of Conduct](CODE_OF_CONDUCT.md).
-12. **Complete the pre-course survey**. This survey is pretty quick,
-    maybe \~10 minutes.
+11. Read the [Code of Conduct](appendix/CODE_OF_CONDUCT.md).
+12. **Complete the pre-course
+    [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
+    This survey is pretty quick, maybe \~10 minutes.
 
 Check each section for exact details on completing these tasks.
 
@@ -417,9 +419,8 @@ it, **read it now**. The survey at the end will ask about Conduct. We
 want to make sure this course is a supportive and safe environment for
 learning, so this Code of Conduct is important.
 
-You're almost done. Please fill out the [**pre-course survey**]() to
-finish this assignment.
-
-TODO: Include URL.
+You're almost done. Please fill out the [**pre-course
+survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)
+to finish this assignment.
 
 See you at the course!
