@@ -15,8 +15,10 @@ Imports:
     renv,
     snakecase,
     quarto,
-    fontawesome
+    fontawesome,
+    targets
 Suggests: 
+    prodigenr,
     tidymodels,
     devtools,
     gert,
