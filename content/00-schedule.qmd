@@ -8,7 +8,6 @@ general schedule outline is shown in the below table.
 
 ```{r schedule-table, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
 knitr::opts_chunk$set(echo = FALSE)
-options(knitr.kable.NA = "")
 library(dplyr)
 library(gt)
 add_link <- function(text, icon, link) {
