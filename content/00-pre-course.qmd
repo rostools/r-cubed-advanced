@@ -66,12 +66,10 @@ be aware of:
 
 -   Folder names always end with a `/`, for example `data/` means the
     data folder.
--   R variables are always shown as is, for instance, for the code
+-   R variables are always shown as is. For instance, for the code
     `x <- 10`, `x` is a variable because it was assigned with 10.
 -   Functions always end with `()`, for instance `mean()` or
     `read_csv()`.
--   R package names are always wrapped with `{}`, for instance `{dplyr}`
-    or `{tidyverse}`.
 -   Sometimes functions have their package name appended with `::` to
     indicate to run the code from the specific package, since we likely
     haven't loaded the package with `library()`. For instance, to
