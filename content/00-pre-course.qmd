@@ -386,10 +386,8 @@ Console, type out the code below. You only need to do this once.
 usethis::use_git_ignore("data-raw/nmr-omics/")
 ```
 
-TODO: Script to check project?
-
 ``` r
-r3::check_project_setup()
+r3:::check_project_setup_advanced()
 ```
 
 The output should look something a bit like the above text. If it
