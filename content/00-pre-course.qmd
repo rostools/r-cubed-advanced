@@ -97,9 +97,9 @@ There are a few other things to install:
     [Rtools](https://cran.r-project.org/bin/windows/Rtools/Rtools35.exe)
     in order for some R packages to be installed (which you'll do
     shortly). For some computers, installing Rtools can take some time.
-    You need this in order for some packages to work.
-3.  [Quarto](https://quarto.org/docs/get-started/). Quarto is an
-    upgraded version of R Markdown. If you've used R Markdown before,
+    *You need this in order for some packages to work.*
+3.  [Quarto](https://quarto.org/docs/get-started/). Quarto is a next
+    generation version of R Markdown. If you've used R Markdown before,
     there isn't much difference, except you might notice that Quarto is
     easier to use and more powerful. We will use Quarto to create the
     reproducible documents and website at the end.
