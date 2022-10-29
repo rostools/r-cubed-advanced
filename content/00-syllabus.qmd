@@ -1,5 +1,9 @@
 # Syllabus
 
+```{r force-downlit, include=FALSE}
+library(downlit)
+```
+
 Reproducibility and open scientific practices are increasingly in demand
 and needed by scientists and researchers in modern research
 environments. Our work often require or involve a high level of hands-on
