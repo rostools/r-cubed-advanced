@@ -49,6 +49,11 @@ renv::restore()
     -   Aim to make it easier for others to join project and follow a
         common standard.
 
+-   Folders and files added:
+
+    -   .Rprofile
+    -   renv
+
 -   set up environment
 
     -   Open `.Rprofile` and add:
@@ -66,18 +71,17 @@ renv::restore()
 
 -   If it gets annoying, can always do: `renv::deactivate()`
 
-### Exercise:
+## Exercise:
 
-## Automatically follow a style guide
+1.  
+
+## Programmatically follow a style guide
+
+```{r}
+styler::style_dir()
+```
 
 Ctrl-Shift-P
-
--   exercise: copy and paste code that is wrong. Run lintr and see
-    errors. Run styler to fix some of them up.
-
-    -   include something like `{{}}`
-
--   create a function in R to do it more efficiently (for styler)
 
 -   caching `cache_activate()`
 
@@ -87,13 +91,33 @@ options(
 )
 ```
 
--   exercise: copy and paste code that is wrong. Run lintr and see
-    errors. Run styler to fix some of them up.
-    -   include something like `{{}}`
+## Exercise: copy and paste code that is wrong.
+
+Run lintr and see errors. Run styler to fix some of them up.
+
+-   include something like `{{}}`
 -   create a function in R to do it more efficiently (for styler)
+
+## Automatic linting checks
+
+Can add GitHub Actions with lintr?
+
+use_github_action("lint-project")
+
+could even use
+
+use_github_action("style")
+
+this might be an extra.
 
 ## Standard markdown format
 
+Briefly talk about the visual mode.
+
 -   Quarto visual/canonical mode.
 
-## Extras (quick read)
+## Exercise:
+
+## Summary
+
+## Extras? (quick read)
