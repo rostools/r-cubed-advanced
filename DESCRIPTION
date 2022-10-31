@@ -16,7 +16,8 @@ Imports:
     snakecase,
     quarto,
     fontawesome,
-    targets
+    targets,
+    desc
 Suggests: 
     prodigenr,
     tidymodels,
