@@ -1673,6 +1673,22 @@
         "ps"
       ]
     },
+    "prodigenr": {
+      "Package": "prodigenr",
+      "Version": "0.6.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ace636d642a58ea29829e81656f5f2ee",
+      "Requirements": [
+        "cli",
+        "fs",
+        "rlang",
+        "rmarkdown",
+        "rprojroot",
+        "whisker",
+        "withr"
+      ]
+    },
     "prodlim": {
       "Package": "prodlim",
       "Version": "2019.11.13",
