@@ -2,11 +2,32 @@
 
 {{< include includes/_wip.qmd >}}
 
--   Smoother project-based collaboration
-
 More automated processes for collaborating around a project.
 
-## renv
+## Learning objectives
+
+The overall objective for this session is to:
+
+1.  Identify potential actions to streamline collaboration on a data
+    analysis project and create projects that apply many of these
+    actions using R.
+
+More specific objectives are to:
+
+1.  Explain what project-level R dependency management is, what a
+    "project environment" is, and why these concepts are important to
+    consider in collaborative and reproducible analyses.
+2.  Describe the difference between "workflow dependencies" and "build
+    dependencies",
+3.  Apply functions in the `{renv}` and `{usethis}` R packages to
+    implement these dependency management concepts.
+4.  Explain the role that following a style guide has on building a
+    common approach to reading (and writing) R code, and thus improve
+    project-level collaboration.
+5.  Use `{styler}`, `{lintr}`, and RStudio's canonical markdown mode to
+    programmatically check and apply style guides to your project files.
+
+## Formal R dependency management
 
 ```{r, eval=FALSE}
 # If using linux, use rspm::renv_init()
