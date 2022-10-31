@@ -18,7 +18,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v1
+        uses: r-lib/actions/setup-r-dependencies@v2
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
