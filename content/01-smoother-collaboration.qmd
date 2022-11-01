@@ -1,5 +1,9 @@
 # Smoother project-based collaboration {#smoother-collaboration}
 
+```{r}
+# zip from previous directory?
+```
+
 {{< include includes/_wip.qmd >}}
 
 More automated processes for collaborating around a project.
@@ -18,7 +22,7 @@ More specific objectives are to:
     "project environment" is, and why these concepts are important to
     consider in collaborative and reproducible analyses.
 2.  Describe the difference between "workflow dependencies" and "build
-    dependencies",
+    dependencies".
 3.  Apply functions in the `{renv}` and `{usethis}` R packages to
     implement these dependency management concepts.
 4.  Explain the role that following a style guide has on building a
@@ -27,17 +31,7 @@ More specific objectives are to:
 5.  Use `{styler}`, `{lintr}`, and RStudio's canonical markdown mode to
     programmatically check and apply style guides to your project files.
 
-## Formal R dependency management
-
-```{r, eval=FALSE}
-# If using linux, use rspm::renv_init()
-renv::init()
-renv::status()
-renv::snapshot()
-use_package("", "Suggests")
-use_package("", "Imports")
-renv::restore()
-```
+## Project-level R dependency management
 
 -   start with having the raw data script sourced.
 
@@ -49,10 +43,104 @@ renv::restore()
     -   Aim to make it easier for others to join project and follow a
         common standard.
 
+Levels of "management":
+
+-   Simplest, but primitive: Writing `library()` at the top of each R
+    script for each package that script needs.
+
+    -   Advantage: The easiest to conceptually understand and to use.
+    -   Disadvantage: Not as easy to easily install all these packages,
+        usually have to do them manually. Doesn't track project level
+        dependencies very well, since multiple scripts probably use
+        similar packages across them. Also doesn't track the *versions*
+        of the packages your project depends on, so if a package gets
+        updated and it breaks something, you might not be able to figure
+        out how to fix that issue (for those deadline crunches).
+
+-   More : We've covered dependency in the intermediate course.
+
+    -   Advantage:
+
+    -   Disadvantage: Your project might still rely on a package that is
+        installed on *your* computer and that influences your project,
+        but that might not be obvious as a dependency or that you forgot
+        to include it.
+
+Before doing exercise, let's all add and commit the changes.
+
+## Exercise: Add packages from the data processing script
+
+Time: \~10 minutes.
+
+Since the `DESCRIPTION` file will be used later on for the more formal
+dependency management, let's get it updated with the packages we are
+using in the `data-raw/nmr-omics.R` script. Open that file and complete
+these tasks:
+
+1.  Look for package dependencies that are declared with `library()` and
+    `::`.
+2.  Use `?usethis::use_package` to review how to use this function.
+3.  In the Console, run `usethis::use_package()` for each package you
+    find in `data-raw/nmr-omics.R` (from 1. above).
+4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
+    Pane and click the "Commit" button). What has been changed?
+
+```{r solution-add-processing-packages, eval=FALSE, solution=TRUE}
+#| code-fold: true
+#| code-summary: "Show the code"
+# TODO: Use solution code like past courses? Or the above?
+usethis::use_package("readxl")
+usethis::use_package("dplyr")
+usethis::use_package("tidyr")
+usethis::use_package("here")
+usethis::use_package("fs")
+usethis::use_package("usethis")
+```
+
+## Formal dependency management
+
+-   Fully functioning and most powerful: Creating ... Python uses these
+    heavily, called "virtual environments". These are relatively
+    self-contained with lists these
+
+    -   Advantage: Because every package that your project needs is
+        installed and connected *only* to your project, it becomes very
+        obvious (through errors) when you might be missing some other
+        dependency. It's very powerful and can help with reproducibility
+        when packages update
+
+    -   Disadvantage: It takes more learning and work to figure out
+        issues.
+
+::: aside
+It's sometimes very annoying to debug these "virtual environments". But
+thankfully you can turn it off! It still is worth it to start
+considering and accounting for how your dependencies might influence
+your project results and collaboration.
+:::
+
+```{r, eval=FALSE}
+renv::init()
+```
+
 -   Folders and files added:
 
     -   .Rprofile
     -   renv
+    -   renv.lock
+
+```{r, eval=FALSE}
+renv::init()
+```
+
+```{r, eval=FALSE}
+renv::status()
+renv::snapshot()
+```
+
+```{r, eval=FALSE}
+renv::restore()
+```
 
 -   set up environment
 
@@ -65,15 +153,69 @@ renv::restore()
     )
     ```
 
+Restart R session.
+
+If it gets annoying, can always do: `renv::deactivate()`
+
+Add and commit.
+
+## Exercise: Browse the newly created renv folders and files
+
+After running adding `{renv}` to the project, take a look through the
+newly created `renv/` folder and see what was added. Where are the
+packages now installed? Do you seeSee the packages added, and the
+symlink
+
+```{r, echo=FALSE}
+fs::dir_tree(here::here("renv"))
+```
+
+## Project environments
+
+what a "project environment" is
+
+why these concepts are important to consider in collaborative and
+reproducible analyses.
+
+```{r}
+# usethis::edit_r_profile("user")
+```
+
+```{r}
+# usethis::edit_r_profile("project")
+```
+
+```{r}
+fs::dir_tree(here::here("renv"), recurse = FALSE)
+```
+
+```{r}
+.libPaths()
+renv::deactivate()
+.libPaths()
+renv::activate()
+```
+
+## Two types of dependencies
+
+When you work on a research project that involves data analysis, you
+make use of two types of packages:
+
+1.  Packages you need to directly complete the analysis and generate the
+    results. These types of packages
+2.  Packages that assist you in doing your work.
+
+"workflow dependencies" and "build dependencies".
+
 -   required vs helper packages (imports vs suggests)
 
     -   e.g. tidyverse in Depends?
 
--   If it gets annoying, can always do: `renv::deactivate()`
+-   use_usethis()
 
 ## Exercise:
 
-1.  
+1.  Is the `{renv}` package necessary for
 
 ## Programmatically follow a style guide
 
@@ -101,6 +243,12 @@ Run lintr and see errors. Run styler to fix some of them up.
 ## Automatic linting checks
 
 Can add GitHub Actions with lintr?
+
+## Exercise: Create GitHub repository
+
+-   Check the SDCA ukbAid?
+
+## Adding lintr to the repository
 
 use_github_action("lint-project")
 
