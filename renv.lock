@@ -1945,6 +1945,12 @@
       "Version": "0.16.0",
       "Source": "Repository",
       "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "renv",
+      "RemoteRef": "renv",
+      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "0.16.0",
       "Hash": "c9e8442ab69bc21c9697ecf856c1e6c7",
       "Requirements": []
     },
