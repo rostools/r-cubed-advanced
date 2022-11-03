@@ -8,8 +8,6 @@ book:
     subtitle: "An advanced workshop on creating collaborative and automated analysis pipelines"
     author:
         - "Luke W. Johnston"
-    apple-touch-icon: "images/apple-touch-icon.png"
-    apple-touch-icon-size: 180
     favicon: "images/favicon.ico"
     site-url: "https://r-cubed-advanced.rostools.org"
     repo-url: "https://github.com/rostools/r-cubed-advanced"
