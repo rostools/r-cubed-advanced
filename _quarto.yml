@@ -21,6 +21,7 @@ book:
         - content/00-syllabus.qmd
         - content/00-schedule.qmd
         - content/00-pre-course.qmd
+        - content/01-smoother-collaboration.qmd
     appendices:
         - appendix/conduct.qmd
     page-footer:
