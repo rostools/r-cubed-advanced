@@ -3,8 +3,8 @@
 ```{r, include=FALSE, eval=TRUE}
 # automatically create a bib database for R packages
 knitr::write_bib(
-    unique(renv::dependencies()[[2]]),
-    here::here('includes/packages.bib')
+  unique(renv::dependencies()[[2]]),
+  here::here("includes/packages.bib")
 )
 ```
 

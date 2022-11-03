@@ -11,25 +11,27 @@ knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(gt)
 add_link <- function(text, icon, link) {
-    colour <- "#138d75"
-    added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;<a href=\"", link, "\">", text, "</a>")
-    if (link == "")
-        added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;", text)
-    return(gt::html(added_link))
+  colour <- "#138d75"
+  added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;<a href=\"", link, "\">", text, "</a>")
+  if (link == "") {
+    added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;", text)
+  }
+  return(gt::html(added_link))
 }
 
 schedule <- readr::read_csv(here::here("includes/schedule.csv"),
-                            col_types = "ccccc") %>%
-    mutate(across(everything(), ~ if_else(is.na(.x), "", .x))) %>%
-    mutate(
-        link = paste0("content/", link),
-        `Session topic` = list(`Session topic`, icon, link) %>% 
-            purrr::pmap(~ add_link(..1, ..2, ..3)) %>% 
-            unlist()
-        ) %>% 
-    select(-icon, -link) 
+  col_types = "ccccc"
+) %>%
+  mutate(across(everything(), ~ if_else(is.na(.x), "", .x))) %>%
+  mutate(
+    link = paste0("content/", link),
+    `Session topic` = list(`Session topic`, icon, link) %>%
+      purrr::pmap(~ add_link(..1, ..2, ..3)) %>%
+      unlist()
+  ) %>%
+  select(-icon, -link)
 
-# This worked until I changed the icon and linking. 
+# This worked until I changed the icon and linking.
 # Will need to fix it later, for now using kable().
 # schedule_table <- schedule %>%
 #     gt(groupname_col = "Day",
@@ -48,26 +50,26 @@ schedule <- readr::read_csv(here::here("includes/schedule.csv"),
 ## Day 1
 
 ```{r schedule-table-day-1}
-schedule %>% 
-    filter(Day == "Day 1") %>% 
-    select(-Day) %>% 
-    knitr::kable()
+schedule %>%
+  filter(Day == "Day 1") %>%
+  select(-Day) %>%
+  knitr::kable()
 ```
 
 ## Day 2
 
 ```{r schedule-table-day-2}
-schedule %>% 
-    filter(Day == "Day 2") %>% 
-    select(-Day) %>% 
-    knitr::kable()
+schedule %>%
+  filter(Day == "Day 2") %>%
+  select(-Day) %>%
+  knitr::kable()
 ```
 
 ## Day 3
 
 ```{r schedule-table-day-3}
-schedule %>% 
-    filter(Day == "Day 3") %>% 
-    select(-Day) %>% 
-    knitr::kable()
+schedule %>%
+  filter(Day == "Day 3") %>%
+  select(-Day) %>%
+  knitr::kable()
 ```

@@ -32,7 +32,9 @@ source(here::here("R/slide-setup.R"))
 
 .pull-right[
 ```{r, echo=FALSE, eval=FALSE}
-withr::with_dir("../", {fs::dir_tree("data-raw/", recurse = 1)})
+withr::with_dir("../", {
+  fs::dir_tree("data-raw/", recurse = 1)
+})
 ```
 
 ```text
