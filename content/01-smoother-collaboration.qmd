@@ -53,44 +53,120 @@ More specific objectives are to:
 
 ## Project-level R dependency management
 
--   start with having the raw data script sourced.
+One of the first things to consider when working collaboratively on a
+data analysis project (and probably other types of projects too) is what
+software to use for your project. This starts out at the highest level:
+Are you using R or some other software for the analysis? Since this is
+an R course, so we're assuming the software will be R! 😜
 
-    -   Pretend it is a complex project, where this data is just the
-        start, more will be coming in. And you need to work with a few
-        others on the project, because it requires different expertises
-        involved.
+The next consideration is which packages do you need that will
+ultimately be the ones your project depends on to get the results that
+you find. When working collaboratively with others, and yourself several
+months in the future, you need some way of knowing how to easily and
+quickly install or update these package dependencies.
 
-    -   Aim to make it easier for others to join project and follow a
-        common standard.
+Let's start with the `AdvancedR3` project that uses the `lipidomics`. We
+have code in the `data-raw/nmr-omics.R` file that uses some packages.
+Let's assume that your project will be more complex than this and that
+you will eventually need some collaborators to contribute who are
+experts in, for instance metabolomics data processing and in statistical
+analysis of high-dimensional data. You know you will end up needing to
+use other packages. You also know that you all need some way of tracking
+which packages are used so that when others join and contribute to the
+project, they can as seamlessly as possible install or update the
+packages your data analysis project needs. There are a few ways of
+"tracking" package dependencies.
 
-Levels of "management":
+```{markdown}
+#| code-fold: true
+#| code-summary: "test"
+**Does** this work?
+  Instructor comments: Get them to read this over? And then briefly talk about it?
+```
 
--   Simplest, but primitive: Writing `library()` at the top of each R
-    script for each package that script needs.
+1.  The simplest, but most primitive is to always make sure to use
+    `library()` at the top of each R script for each package that the R
+    script uses.
 
-    -   Advantage: The easiest to conceptually understand and to use.
-    -   Disadvantage: Not as easy to easily install all these packages,
-        usually have to do them manually. Doesn't track project level
-        dependencies very well, since multiple scripts probably use
-        similar packages across them. Also doesn't track the *versions*
-        of the packages your project depends on, so if a package gets
-        updated and it breaks something, you might not be able to figure
-        out how to fix that issue (for those deadline crunches).
+    -   Advantages:
 
--   More : We've covered dependency in the intermediate course.
+        -   This is the easiest to conceptually understand and to use.
+
+    -   Disadvantages:
+
+        -   It doesn't track project-level dependencies very well, since
+            multiple scripts probably use similar packages across them.
+            Which means you can't easily and quickly install or update
+            all the packages your project uses, since you will probably
+            have to go through each R script manually and install each
+            package manually. You might have seen some scripts with code
+            that looks like this at the top:
+
+            ``` r
+            if (!require("packagename")) {
+              install.packages("packagename")
+            }
+            ```
+
+            What this code does is check if a package exists, if not,
+            than it installs it. But! This is not an optimal methods to
+            track packages because `require()` won't load the package if
+            it doesn't find it. Which means you would have to re-run the
+            script probably a few times. Plus, sometimes you may need to
+            restart the R session after installing a package in order
+            for R to detect it probably.
+
+        -   It doesn't track the *versions* of the packages your project
+            depends on, so if a package gets updated and it breaks
+            something, you might not be able to figure out how to
+            quickly fix that issue, especially for those deadline
+            crunches.
+
+2.  The most common form, at least based on R packages and projects
+    found on GitHub, is making use of the `DESCRIPTION` file and
+    `usethis::use_package()` to track which package is used for a
+    project or not. We covered this style of dependency in the
+    [intermediate
+    course](https://r-cubed-intermediate.rostools.org/dry-functions.html#continuing-the-workflow).
+    We will also use this approach during this course, but expand a lot
+    more on it.
 
     -   Advantage:
 
-    -   Disadvantage: Your project might still rely on a package that is
-        installed on *your* computer and that influences your project,
-        but that might not be obvious as a dependency or that you forgot
-        to include it.
+        -   Relatively easy to conceptually understand, since you can
+            directly view the packages your project needs by opening the
+            `DESCRIPTION` file and looking at the contents.
 
-Before doing exercise, let's all add and commit the changes.
+        -   Because it is widely used, there are many processes already
+            built around making use of tracking dependencies this way.
+            For instance, you need to track package dependencies when
+            creating R packages.
+
+        -   Installing packages is as easy as opening the project and
+            running `remotes::install_deps()` in the Console, which will
+            install all the packages listed in the `DESCRIPTION` file.
+
+        -   Adding packages that you need is as easy as writing
+            `usethis::use_package("packagename")` in the Console.
+
+    -   Disadvantage:
+
+        -   Like the previous method, it doesn't easily keep track of
+            the versions of the packages you are using.
+
+        -   Your project might still rely on a package that is installed
+            on *your* computer and that influences your project, but
+            that might not be obvious as a dependency or that you forgot
+            to include.
+
+Before continuing to the exercise, we need to make sure to add and
+comment all the files from the project into the Git history. Open the
+Git interface by either typing `Ctrl-Shift-M` or by going to the Git
+pane and clicking the "Commit" button.
 
 ## Exercise: Add packages from the data processing script
 
-Time: \~10 minutes.
+> Time: \~10 minutes.
 
 Since the `DESCRIPTION` file will be used later on for the more formal
 dependency management, let's get it updated with the packages we are
