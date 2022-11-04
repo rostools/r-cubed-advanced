@@ -4,7 +4,7 @@
 # zip from previous directory?
 ```
 
-{{< include includes/_wip.qmd >}}
+{{< include /includes/_wip.qmd >}}
 
 More automated processes for collaborating around a project.
 
