@@ -47,7 +47,7 @@ schedule <- readr::read_csv(here::here("includes/schedule.csv"),
 #     opt_row_striping()
 ```
 
-## Day 1
+## Day 1 {.unnumbered}
 
 ```{r schedule-table-day-1}
 schedule %>%
@@ -56,7 +56,7 @@ schedule %>%
   knitr::kable()
 ```
 
-## Day 2
+## Day 2 {.unnumbered}
 
 ```{r schedule-table-day-2}
 schedule %>%
@@ -65,7 +65,7 @@ schedule %>%
   knitr::kable()
 ```
 
-## Day 3
+## Day 3 {.unnumbered}
 
 ```{r schedule-table-day-3}
 schedule %>%
