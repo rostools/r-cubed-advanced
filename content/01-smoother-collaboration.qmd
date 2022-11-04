@@ -181,16 +181,33 @@ these tasks:
 4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
     Pane and click the "Commit" button). What has been changed?
 
-```{r solution-add-processing-packages, eval=FALSE}
+```{r solution-add-processing-packages}
+#| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are really struggling or are out of time for the exercise."
-# TODO: Use solution code like past courses? Or the above?
 usethis::use_package("readxl")
 usethis::use_package("dplyr")
 usethis::use_package("tidyr")
 usethis::use_package("here")
 usethis::use_package("fs")
 usethis::use_package("usethis")
+```
+
+```{r exec-only-add-packages}
+#| include: false
+#| eval: false
+# Used to build the underlying project for the book
+usethis::with_project(
+  proj_dir,
+  {
+    usethis::use_package("readxl")
+    usethis::use_package("dplyr")
+    usethis::use_package("tidyr")
+    usethis::use_package("here")
+    usethis::use_package("fs")
+    usethis::use_package("usethis")
+  }
+)
 ```
 
 ## Formal dependency management
