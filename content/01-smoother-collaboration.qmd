@@ -2,11 +2,31 @@
 
 ```{r}
 # zip from previous directory?
+# proj_dir <- zip()
 ```
 
 {{< include /includes/_wip.qmd >}}
 
-More automated processes for collaborating around a project.
+Many of you probably work largely and mostly consistently on your own,
+but as your move through your career (in academia or industry), you will
+need to and maybe also want to *directly
+collaborate*[^01-smoother-collaboration-1] a lot more with others.
+Different types of collaboration (e.g. meetings, brainstorming,
+real-time co-writing) form the basis for almost all research-based work
+and probably most non-research-based work.
+
+[^01-smoother-collaboration-1]: Collaborate here meaning directly
+    contributing to a shared project, rather than discussed or planning
+    based collaborations (and definitely not emailing-files-around
+    collaboration).
+
+More direct collaboration on a project quickly becomes unmanageable when
+using traditional academic "workflows" (emailing around). That's when
+you need to start using tools designed for collaboration, like Git. But
+Git is just the starting point. There are many many other things to
+consider for workflows and processes to effectively collaborate with
+others. This session is about making use of more automated ways of
+structuring data analysis projects to ease collaboration.
 
 ## Learning objectives
 
