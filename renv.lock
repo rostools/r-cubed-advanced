@@ -1370,6 +1370,18 @@
       "Hash": "b3d98a967ec17c80f795719529812fa0",
       "Requirements": []
     },
+    "markdown": {
+      "Package": "markdown",
+      "Version": "1.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "b620b105af55519c26ca969a8da0930c",
+      "Requirements": [
+        "commonmark",
+        "mime",
+        "xfun"
+      ]
+    },
     "memoise": {
       "Package": "memoise",
       "Version": "2.0.1",
