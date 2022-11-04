@@ -17,7 +17,8 @@ Imports:
     quarto,
     fontawesome,
     targets,
-    desc
+    desc,
+    markdown
 Suggests: 
     prodigenr,
     tidymodels,
@@ -28,6 +29,7 @@ Suggests:
     RefManageR,
     rspm,
     RcppTOML,
-    todor
+    todor,
+    rmarkdown
 LazyData: true
 URL: https://github.com/rostools/r-cubed-advanced
