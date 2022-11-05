@@ -40,6 +40,7 @@ lipidomics_only <- lipidomics_full %>%
   select(-2:-4) %>%
   # Remove the subject data rows
   slice(-1:-4) %>%
+  mutate(across(-V1, as.numeric)) %>%
   # Make it so the metabolite values are all in one column,
   # which will make it easier to join with the subject data later.
   pivot_longer(-V1) %>%
@@ -54,6 +55,9 @@ subject_only <- lipidomics_full %>%
   slice(1:4) %>%
   pivot_longer(cols = -V4) %>%
   pivot_wider(names_from = V4, values_from = value) %>%
+  # There is a weird "​" before some of the numbers, so we have
+  # extract just the number first before converting to numeric.
+  mutate(Age = as.numeric(stringr::str_extract(Age, "\\d+"))) %>%
   rename_with(snakecase::to_snake_case)
 
 lipidomics <- full_join(
