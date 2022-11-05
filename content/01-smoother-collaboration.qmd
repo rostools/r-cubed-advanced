@@ -217,102 +217,270 @@ usethis::with_project(
 
 ## Formal dependency management
 
--   Fully functioning and most powerful: Creating ... Python uses these
-    heavily, called "virtual environments". These are relatively
-    self-contained with lists these
+While the approach of managing package dependencies through the
+`DESCRIPTION` file is quite powerful, it has the major disadvantage of
+not keeping track of the *version* of each of your packages. So instead
+we are going to use a package dedicated to handling project
+dependencies, called `{renv}`.
 
-    -   Advantage: Because every package that your project needs is
-        installed and connected *only* to your project, it becomes very
-        obvious (through errors) when you might be missing some other
-        dependency. It's very powerful and can help with reproducibility
-        when packages update
+`{renv}` is a package that manages package dependencies in a project by,
+in simple terms, creating a project-specific R "library". You might
+think of `library()` when you hear R library, and you aren't completely
+wrong. When you call, for instance, `library("usethis")`, R looks for
+the package `{usethis}` in your computer's "library" of R packages. This
+library can be found by running this function:
 
-    -   Disadvantage: It takes more learning and work to figure out
-        issues.
+```{r libpaths}
+.libPaths()
+```
+
+Those file paths are where all R packages are installed to. If there is
+more than one path, R checks the first before continuing to the next. So
+than what `{renv}` does is create another file path for R packages to be
+installed instead within the project. This isn't completely what it
+does, since there are a lot of very technical details to what `{renv}`
+does internally, but this is the basic concept.
+
+In the end, this makes your project relatively self-contained in its
+package dependencies.
+
+-   Advantages:
+
+    -   Installing all packages necessary for your project is as easy as
+        running `renv::restore()`. `{renv}` even gives you helpful tips
+        and instructions when things go wrong or if something is
+        missing.
+
+    -   *Every* package, including the packages that your packages
+        depend on, have their version tracked. So if a package gets
+        updated on CRAN, it doesn't affect you *until you choose*, when
+        you use `renv::update()`. If a package update breaks your code
+        and you have a deadline, you can easily go back to the older
+        versions of the packages.
+
+    -   Because your project is now self-contained with its own R
+        library, it becomes very obvious (through errors) when you might
+        be missing some other dependency because your code wouldn't run
+        until you install or fix that package dependency.
+
+    -   From a reproducibility point of view, as long as your project is
+        tracked by `{renv}`, it's easier to independently have your data
+        analysis be reproduced and verified.
+
+-   Disadvantages:
+
+    -   It takes a fair amount of learning to conceptually understand
+        what is going on.
+
+    -   When there are issues that come up, it can be difficult to
+        figure them out.
+
+    -   Because *all* packages, including those packages that your
+        packages depend on, are installed within your project,
+        installation times can sometimes be a bit long.
 
 ::: aside
 It's sometimes very annoying to debug these "virtual environments". But
-thankfully you can turn it off! It still is worth it to start
-considering and accounting for how your dependencies might influence
-your project results and collaboration.
+thankfully you can turn it off with `renv::deactivate()`! It still is
+worth it to start considering and accounting for how your dependencies
+might influence your project results and collaboration.
 :::
 
-```{r, eval=FALSE}
+Let's start using `{renv}` in our `AdvancedR3` project. In the Console,
+type out:
+
+```{r renv-init}
+#| eval: false
+#| purl: true
 renv::init()
 ```
 
--   Folders and files added:
-
-    -   .Rprofile
-    -   renv
-    -   renv.lock
-
-```{r, eval=FALSE}
-renv::init()
+```{r exec-only-renv-init}
+#| eval: false
+#| include: false
+# Used to build the underlying project for the book
+# TODO: Maybe not use this, since building the book will install/setup all these things.
+usethis::with_project(
+  proj_dir,
+  {
+    renv::init()
+  }
+)
 ```
 
-```{r, eval=FALSE}
-renv::status()
-renv::snapshot()
+The function `renv::init()` initializes the project to begin being
+managed by `{renv}`. It will ask a series of questions and then will
+install all the packages detected in the project. It adds several files
+to the project:
+
+```{r show-created-files}
+#| echo: false
+fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
 ```
 
-```{r, eval=FALSE}
+-   `.Rprofile`: This is the file that `{renv}` uses to build up its
+    machinery. With an `.Rprofile` within the project folder, we can
+    create a "project environment". By having this project environment
+    that is (mostly) self-contained, it allows us to be a bit closer to
+    having a fully reproducible analysis and it makes it easier to
+    collaborate together, since we all than share the same project
+    setup.
+
+-   `renv.lock`: This contains all the information about the packages
+    your project depends on, including where it was installed from (CRAN
+    or GitHub for example), what the version number is, and more. This
+    is like a supercharged version of the `DESCRIPTION` file.
+
+-   `renv/`: This folder contains several other files that make up the
+    machinery of `{renv}`. For instance, there is the `library/` folder
+    that contains all the R packages necessary for the project. Then
+    there's the `activate.R` script and `settings.dcf` file that both
+    work to management the dependencies, like installing, updating, and
+    removing.
+
+**Before we continue, let's commit the new files to the Git history**.
+
+The general workflow for using `{renv}` while working on your project is
+described in more detail on the [Introduction to
+renv](https://rstudio.github.io/renv/articles/renv.html#workflow)
+webpage. However, unlike the general workflow, we also want to continue
+using the `DESCRIPTION` file. That's because a lot of tools and
+workflows exist that make use of it, so we want to remain compatible
+with them.
+
+As we work on the project and realize we need to use a specific package,
+we would normally use `install.packages()` and then add `library()` to
+the script or R Markdown file. Later on, we'd eventually run
+`renv::snapshot()` to update the `renv.lock` file with the new packages
+we've installed. `renv::snapshot()` as well as `renv::init()` usually
+rely on "implicit" dependencies, meaning `{renv}` will search throughout
+the project for any packages used and add them to the `renv.lock` file.
+
+However, in science, we want to be more explicit rather than implicit.
+The way `{renv}` explicitly adds to the `renv.lock` file is by only
+scanning the `DESCRIPTION` file. In order for `{renv}` to always do
+this, we need to set an option for it. This option needs to be added to
+the project's `.Rprofile` file.
+
+We can quickly open this with:
+
+```{r}
+usethis::edit_r_profile("project")
+```
+
+Next, at the top of the file, add this code:
+
+```{r}
+options(renv.settings.snapshot.type = "explicit",
+        renv.config.auto.snapshot = TRUE)
+```
+
+These two options make it so that whenever you add a package with
+`usethis::use_package()` or `install.packages()`, `{renv}` will always
+run `renv::snapshot()` and the snapshot explicitly only look at the
+`DESCRIPTION` file. Let's restart the R session so that the `.Rprofile`
+changes get activated.
+
+Now our `{renv}` workflow will largely be automated for us, as long as
+we do `usethis::use_package()`. If we ever ever return to a project or
+collaborate on a project that uses `{renv}`, we can install all the
+necessary packages with:
+
+```{r renv-restore}
+#| eval: false
 renv::restore()
 ```
 
--   set up environment
+And if we need to update packages, we use:
 
-    -   Open `.Rprofile` and add:
+```{r renv-update}
+#| eval: false
+renv::update()
+```
 
-    ``` r
-    options(
-        renv.settings.snapshot.type = "explicit",
-        renv.config.auto.snapshot = TRUE
-    )
-    ```
+*Sometimes*, working with `{renv}` can get annoying and you just need to
+finish working on a task. If that's the case, you can always do
+`renv::deactivate()` to stop using `{renv}` and `renv::activate()` to
+reactivate it.
 
-Restart R session.
+**Let's commit the changes made to the Git history**.
 
-If it gets annoying, can always do: `renv::deactivate()`
+::: callout-info
+**Before continuing to the next exercise, please read this**.
 
-Add and commit.
+It's surprising how many issues can come up, from a reproducibility
+perspective, when it comes to managing package dependencies. You think
+something works well on your computer, but when you create a "virtual
+environment" like you do when using `{renv}`, you realize it might not
+work as well on other computers.
+
+When this happens, there are several functions you can use to help debug
+the situation.
+
+`renv::diagnostics()`
+
+:   List a *lot* of diagnostic information to look over. Sometimes its
+    too much, but can help figure out what's going on.
+
+`renv::clean()`
+
+:   Installing packages can sometimes lead to issues in the files of the
+    installed packages themselves or even left over temporary files.
+    This function tries to clean up these issues for you. It can also
+    clean up any unused packages
+
+`renv::repair()`
+
+:   Because of the way `{renv}` works, the connection to where an
+    installed package is actually found can get broken. So this function
+    tries to fix that and reinstall these broken packages.
+
+`renv::rebuild()`
+
+:   The last resort, use this to reinstall everything from scratch.
+:::
 
 ## Exercise: Browse the newly created renv folders and files
 
+> Time: \~10 minutes.
+
 After running adding `{renv}` to the project, take a look through the
 newly created `renv/` folder and see what was added. Where are the
-packages now installed? Do you seeSee the packages added, and the
-symlink
+packages now installed?
 
-```{r, echo=FALSE}
-fs::dir_tree(here::here("renv"))
+```{r ex-show-created-files}
+#| echo: false
+#| output: asis
+fs::dir_tree(path = "renv", all = TRUE, recurse = 1)
 ```
 
-## Project environments
+To better understand how `{renv}` creates this self-contained project,
+run this line of code:
 
-what a "project environment" is
-
-why these concepts are important to consider in collaborative and
-reproducible analyses.
-
-```{r}
-# usethis::edit_r_profile("user")
-```
-
-```{r}
-# usethis::edit_r_profile("project")
-```
-
-```{r}
-fs::dir_tree(here::here("renv"), recurse = FALSE)
-```
-
-```{r}
+```{r ex-lib-path-renv-active}
+#| eval: false
 .libPaths()
+```
+
+Notice where the file paths are. Then, run this code in the Console:
+
+```{r ex-renv-deactivate}
+#| eval: false
 renv::deactivate()
+```
+
+Open up the Git interface and see what was modified in the `.Rprofile`
+file. What was changed? Now switch back to the Console and run these
+lines of code:
+
+```{r ex-lib-path-renv-reactive}
+#| eval: false
 .libPaths()
 renv::activate()
 ```
+
+Notice how the file path location of the R library is different when
+`{renv}` is active or not?
 
 ## Two types of dependencies
 
@@ -320,24 +488,45 @@ When you work on a research project that involves data analysis, you
 make use of two types of packages:
 
 1.  Packages you need to directly complete the analysis and generate the
-    results. These types of packages
+    results. These types of packages...
 2.  Packages that assist you in doing your work.
 
-"workflow dependencies" and "build dependencies".
+A good way to determine if a package is a *build dependency* for your
+project is by seeing if you write and use functions from the package
+within an R script that does something to the data or analysis. If you
+*only* ever use functions from the package in the Console, than it is
+likely a *workflow dependency*.
 
 -   required vs helper packages (imports vs suggests)
 
     -   e.g. tidyverse in Depends?
 
--   use_usethis()
+-   Install only build dependencies if you track with DESCRIPTION:
+
+```{r}
+renv::install()
+```
+
+usethis::use_usethis()
 
 ## Exercise:
 
-1.  Is the `{renv}` package necessary for
+> Time: \~10 minutes
+
+Discuss with your neighbours the following questions. At the end we will
+write the code together.
+
+1.  Since the project uses `{renv}`, would you categorize the package as
+    a "workflow" dependency or a "build" dependency? Why? Depending your
+    answer, would you do:
+    1.  `use_package("renv", "Imports")`
+    2.  `use_package("renv", "Suggests")`
+2.  What about the `{usethis}` package? Which type of
 
 ## Programmatically follow a style guide
 
 ```{r}
+#| eval: false
 styler::style_dir()
 ```
 
@@ -345,45 +534,110 @@ Ctrl-Shift-P
 
 -   caching `cache_activate()`
 
+Change option in tools.
+
 ```{r}
 options(
   styler.addins_style_transformer = "styler::tidyverse_style(indent_by = 4)"
 )
 ```
 
-## Exercise: copy and paste code that is wrong.
+## Exercise: Copy and paste code that is wrong.
 
-Run lintr and see errors. Run styler to fix some of them up.
+1.  In your `doc/lesson.Rmd` file, create a new code chunk
+    (`Ctrl-Shift-I` or `Ctrl-Shift-P` followed by typing "chunk") at the
+    end of the file. Copy and paste the below code:
 
--   include something like `{{}}`
--   create a function in R to do it more efficiently (for styler)
+    ``` r
+    lipidomics%>%select()
+    ```
+
+2.  In the bottom of your `R/functions.R` file, copy and paste the below
+    code:
+
+    ``` r
+    ```
+
+3.  Run `lintr::lint_dir()` in the Console. What happens? Don't do
+    anything just yet, simply see what things were identified as
+    potential issues.
+
+4.  Normally you would want to run `styler::style_dir()` *after* you've
+    committed everything to Git (just in case)
 
 ## Automatic linting checks
 
+If you are collaborating on a project with collaborators who are not as
+experienced or who only occasionally contribute, you might want to have
+automatic linting checks (or styling) that are independent of you having
+to run them yourself. If your project is on GitHub, there is a really
+powerful service called [GitHub
+Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
+
 Can add GitHub Actions with lintr?
 
-## Exercise: Create GitHub repository
+## Exercise: Connect your project to GitHub
 
--   Check the SDCA ukbAid?
+> Time: \~20 minutes.
+
+-   Read through Connecting to GitHub appendix.
 
 ## Adding lintr to the repository
 
 use_github_action("lint-project")
 
-could even use
+## Styling Markdown files
 
-use_github_action("style")
+For multi-person collaborative projects, having some type of code
+styling and checker can really help with standardizing how the code
+looks like, which ultimately will make it easier to read each others
+code contributions.
 
-this might be an extra.
+But what about for Markdown files? While there isn't a package or
+function (yet) that styles the Markdown files, RStudio does have an
+option in their Tools to format Markdown into a "canonical form". The
+reason for this option is because they added a "visual editor mode" to
+writing R Markdown files (which is great if you are more comfortable
+with apps like Word). Let's test out this option. First, let's make sure
+everything has been committed to the Git history.
 
-## Standard markdown format
+::: callout-warning
+Use this option *only if* you have your project under Git version
+control, since it will directly modify and overwrite the contents of the
+entire file.
+:::
 
-Briefly talk about the visual mode.
+There are two ways of doing this:
 
--   Quarto visual/canonical mode.
+1.  Going into
+    [`Tools -> Project Options -> R Markdown`](https://rstudio.github.io/visual-markdown-editing/options.html#project-options)
+    and changing the options "Automatic text wrapping" to "column" (with
+    the default 72 width value) and "Write canonical visual mode
+    markdown" to "true".
+2.  Or setting [YAML
+    options](/https://rstudio.github.io/visual-markdown-editing/markdown.html#writer-options)
+    in either the project-level `_quarto.yml` file (we will cover this
+    in @sec-build-website) or at the file-level in the YAML header.
 
-## Exercise:
+For right now, we will do the file-level YAML settings. Open the
+`doc/lesson.Rmd` file and go to the top of the file. Right below the
+last `---`, create a new line above it and paste this code in:
+
+``` yaml
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+```
+
+Now, when you save your file, RStudio should automatically reformat the
+Markdown into a standardized format. If you want to switch to using the
+Visual Mode, use `Ctrl-Shift-F4` or the "Visual" button at the top of
+the Source Pane beside the bolding and italicizing buttons.
+
+The instructors won't be using the Visual Mode during the course,
+however you are welcome to. We will be using the "canonical" markdown
+mode though.
 
 ## Summary
 
-## Extras? (quick read)
