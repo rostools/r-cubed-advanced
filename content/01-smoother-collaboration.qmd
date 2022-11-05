@@ -53,6 +53,9 @@ More specific objectives are to:
 
 ## Project-level R dependency management
 
+> Note: This first session is more conceptual and is heavier on the
+> reading and explanation, but is important for the next sessions.
+
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
 software to use for your project. This starts out at the highest level:
@@ -84,11 +87,11 @@ packages your data analysis project needs. There are a few ways of
   Instructor comments: Get them to read this over? And then briefly talk about it?
 ```
 
-1.  The simplest, but most primitive is to always make sure to use
+1.  The simplest, but most primitive way is to always make sure to use
     `library()` at the top of each R script for each package that the R
     script uses.
 
-    -   Advantages:
+    -   Advantage:
 
         -   This is the easiest to conceptually understand and to use.
 
@@ -131,7 +134,7 @@ packages your data analysis project needs. There are a few ways of
     We will also use this approach during this course, but expand a lot
     more on it.
 
-    -   Advantage:
+    -   Advantages:
 
         -   Relatively easy to conceptually understand, since you can
             directly view the packages your project needs by opening the
@@ -149,7 +152,7 @@ packages your data analysis project needs. There are a few ways of
         -   Adding packages that you need is as easy as writing
             `usethis::use_package("packagename")` in the Console.
 
-    -   Disadvantage:
+    -   Disadvantages:
 
         -   Like the previous method, it doesn't easily keep track of
             the versions of the packages you are using.
@@ -179,12 +182,14 @@ these tasks:
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
 4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
-    Pane and click the "Commit" button). What has been changed?
+    Pane and click the "Commit" button). What has been changed? Commit
+    those changes to the Git history.
 
 ```{r solution-add-processing-packages}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are really struggling or are out of time for the exercise."
+#| purl: true
 usethis::use_package("readxl")
 usethis::use_package("dplyr")
 usethis::use_package("tidyr")
