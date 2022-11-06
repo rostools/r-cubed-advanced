@@ -60,6 +60,14 @@ Or by using `{renv}`:
 renv::restore()
 ```
 
+You might need to connect to GitHub via a personal access token if you
+encounter a "rate limit" when installing packages:
+
+``` r
+# usethis::create_github_token()
+Sys.setenv(GITHUB_PAT = readline())
+```
+
 ## Contributing
 
 If you are interested in contributing to the course material, please
