@@ -11,7 +11,6 @@ options(
   warnPartialMatchArgs = TRUE,
   warnPartialMatchDollar = TRUE,
   warnPartialMatchAttr = TRUE,
-  # crayon.enabled = FALSE #?
   digits = 3,
   width = 68,
   knitr.kable.NA = ""
