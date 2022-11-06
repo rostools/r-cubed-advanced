@@ -80,13 +80,6 @@ project, they can as seamlessly as possible install or update the
 packages your data analysis project needs. There are a few ways of
 "tracking" package dependencies.
 
-```{markdown}
-#| code-fold: true
-#| code-summary: "test"
-**Does** this work?
-  Instructor comments: Get them to read this over? And then briefly talk about it?
-```
-
 1.  The simplest, but most primitive way is to always make sure to use
     `library()` at the top of each R script for each package that the R
     script uses.
@@ -293,19 +286,6 @@ type out:
 #| eval: false
 #| purl: true
 renv::init()
-```
-
-```{r exec-only-renv-init}
-#| eval: false
-#| include: false
-# Used to build the underlying project for the book
-# TODO: Maybe not use this, since building the book will install/setup all these things.
-usethis::with_project(
-  proj_dir,
-  {
-    renv::init()
-  }
-)
 ```
 
 The function `renv::init()` initializes the project to begin being
