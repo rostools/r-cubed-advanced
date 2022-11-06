@@ -390,6 +390,8 @@ reactivate it.
 **Let's commit the changes made to the Git history**.
 
 ::: callout-info
+## Reading task
+
 **Before continuing to the next exercise, please read this**.
 
 It's surprising how many issues can come up, from a reproducibility
