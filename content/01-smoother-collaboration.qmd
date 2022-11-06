@@ -1,11 +1,6 @@
 # Smoother project-based collaboration {#smoother-collaboration}
 
-```{r}
-# zip from previous directory?
-# proj_dir <- zip()
-```
-
-{{< include /includes/_wip.qmd >}}
+{{< include ../includes/_wip.qmd >}}
 
 Many of you probably work largely and mostly consistently on your own,
 but as your move through your career (in academia or industry), you will
@@ -193,23 +188,6 @@ usethis::use_package("tidyr")
 usethis::use_package("here")
 usethis::use_package("fs")
 usethis::use_package("usethis")
-```
-
-```{r exec-only-add-packages}
-#| include: false
-#| eval: false
-# Used to build the underlying project for the book
-usethis::with_project(
-  proj_dir,
-  {
-    usethis::use_package("readxl")
-    usethis::use_package("dplyr")
-    usethis::use_package("tidyr")
-    usethis::use_package("here")
-    usethis::use_package("fs")
-    usethis::use_package("usethis")
-  }
-)
 ```
 
 ## Formal dependency management
@@ -810,5 +788,39 @@ The instructors won't be using the Visual Mode during the course,
 however you are welcome to. We will be using the "canonical" markdown
 mode though.
 
+Let's test it out. While in the `doc/lesson.Rmd` file, go to the bottom
+of the file and type out:
+
+``` markdown
+##This is poorly formatted
+- Definitely should have an empty space above this list.
+- This isn't a list, why not?
+```
+
+Save the file. What happens? Lists in Markdown must have an empty space
+above them to work properly. With this canonical mode on, we can get
+feedback right away that it isn't right. We fix it by adding that empty
+space.
+
+``` markdown
+## This is poorly formatted
+
+- Definitely should have an empty space above this list.
+- This isn't a list, why not?
+```
+
+Since this mode is on automatically, as we work through the sessions,
+we'll get lots of experience using it.
+
 ## Summary
 
+-   Track your project package dependencies with `{renv}` and combine it
+    with `options()` to automatically make snapshots so you can use the
+    `use_package()` function.
+-   Install the necessary dependencies with `renv::restore()` or
+    `renv::install()`.
+-   Follow a style guide by using `{lintr}` and `{styler}`. Combine with
+    the Command Palette (`Ctrl-Shift-P`) to quickly run their functions
+    on code you are actively working on.
+-   Use RStudio's canonical markdown mode to reformat Markdown into a
+    standard format.
