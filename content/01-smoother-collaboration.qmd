@@ -344,13 +344,17 @@ the project's `.Rprofile` file.
 
 We can quickly open this with:
 
-```{r}
+```{r open-rprofile-first-time}
+#| eval: false
+#| purl: true
 usethis::edit_r_profile("project")
 ```
 
 Next, at the top of the file, add this code:
 
-```{r}
+```{r snapshot-settings}
+#| eval: false
+#| purl: true
 options(renv.settings.snapshot.type = "explicit",
         renv.config.auto.snapshot = TRUE)
 ```
