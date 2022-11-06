@@ -24,16 +24,26 @@ book:
         - content/01-smoother-collaboration.qmd
     appendices:
         - appendix/conduct.qmd
+        - appendix/connect-github.qmd
     page-footer:
         center:
             - text: "License: CC BY 4.0 {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}}"
               href: LICENSE.md
 
 bibliography: includes/references.bib
+callout-appearance: simple
+reference-location: margin
+citation-location: margin
+
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
 
 format:
   html:
     df-print: tibble
+    code-overflow: scroll
     from: markdown+emoji
     code-link: true
     theme:
@@ -49,8 +59,5 @@ format:
 knitr:
   opts_chunk:
     width: 68
-    # maybe?
-    collapse: true
-    comment: "#>"
-    # Use this to set class for output?
-    # cell-output: ....
+    comment: ""
+    class-output: sourceCode
