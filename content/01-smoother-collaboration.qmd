@@ -474,11 +474,17 @@ Notice how the file path location of the R library is different when
 ## Two types of dependencies
 
 When you work on a research project that involves data analysis, you
-make use of two types of packages:
+likely use packages in two different ways:
 
-1.  Packages you need to directly complete the analysis and generate the
-    results. These types of packages...
-2.  Packages that assist you in doing your work.
+1.  Packages that directly contribute to data wrangling, analysis,
+    plotting, and making the manuscript. These types of packages are
+    generally called "build" or "deploy" dependencies. A package like
+    `{dplyr}` or `{tidyr}` would be build dependencies, since you use
+    them for processing data.
+2.  Packages that assist you in doing your work but aren't directly used
+    for data analysis. These types of packages would be called
+    "workflow" or "development" dependencies. `{renv}` would be
+    considered a workflow dependency.
 
 A good way to determine if a package is a *build dependency* for your
 project is by seeing if you write and use functions from the package
@@ -486,94 +492,270 @@ within an R script that does something to the data or analysis. If you
 *only* ever use functions from the package in the Console, than it is
 likely a *workflow dependency*.
 
--   required vs helper packages (imports vs suggests)
+The way you add these packages is different depending on the type it is.
+For build dependencies, we use the function we've already used before:
+`usethis::use_package("packagename")`. For workflow dependencies, it's
+the same function, but with a small difference. BUT! Before we cover it,
+let's add a setting to our `.Rprofile` to make our life a bit easier. We
+will be using `{usethis}` functions many times throughout the course, so
+a simple quality-of-life fix is to make it so we don't always have to do
+`usethis::`. Thankfully, there is a function that helps us set this up.
+First, open the the project `.Rprofile`. The `usethis::use_usethis()`
+function opens your **user** `.Rprofile`, so we will have to close it
+after running the function.
 
-    -   e.g. tidyverse in Depends?
-
--   Install only build dependencies if you track with DESCRIPTION:
-
-```{r}
-renv::install()
+```{r add-usethis-rprofile}
+#| eval: false
+#| purl: true
+usethis::edit_r_profile("project")
+usethis::use_usethis()
 ```
 
-usethis::use_usethis()
+Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
+`use_package()` to add `{renv}` as a workflow dependency.
 
-## Exercise:
+```{r suggests-dep}
+#| eval: false
+#| purl: true
+usethis::use_package("renv", "Suggests")
+```
 
-> Time: \~10 minutes
+Open the Git interface and see that under `Suggests:` in the
+`DESCRIPTION` file is `renv`. Let's commit these changes, as well as the
+changes to `.Rprofile`.
 
-Discuss with your neighbours the following questions. At the end we will
-write the code together.
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
 
-1.  Since the project uses `{renv}`, would you categorize the package as
-    a "workflow" dependency or a "build" dependency? Why? Depending your
-    answer, would you do:
-    1.  `use_package("renv", "Imports")`
-    2.  `use_package("renv", "Suggests")`
-2.  What about the `{usethis}` package? Which type of
+For the information block below, mention it to the learners but you
+don't need to go over it.
+:::
 
-## Programmatically follow a style guide
+::: callout-info
+When you come back to a project after a few months or if you start
+collaborating on a project, usually `renv::restore()` will be enough to
+install all types of dependencies. Sometimes though, workflow
+dependencies might not get installed. As long as they are tracked in the
+`DESCRIPTION` file though, you can force installation of them with:
 
-```{r}
+```{r install-deps}
+#| eval: false
+renv::install()
+```
+:::
+
+## "Linting" your code
+
+When you're working on your own and not needing to worry about anyone
+seeing your code, there's a natural temptation to write your code like
+you might write notes to yourself... scribbled and scrawled down
+quickly. Even when you are working with others or try to write more
+readable code, it still is very easy for
+"lint"[^01-smoother-collaboration-2] to accumulate.
+
+[^01-smoother-collaboration-2]: You know, the fluff you find in your
+    pockets 😝
+
+That's when "linters" (a type of "static code analysis" tool) become
+very useful. A linter will scan your code for common mistakes or syntax
+problems and list them out for you to fix. They don't directly fix them
+for you, though we will show how to do that later in this session.
+Linters are great when you are collaborating on a project with
+collaborators who are not as experienced in writing code or who only
+occasionally contribute so don't know the workflow culture of your
+project. In this way, you might want to have automatic linting checks
+(or styling) that are independent of you having to run them yourself.
+
+The main package for doing that is the `{lintr}` package. We'll get a
+chance to try out using `{renv}` since we need to install it to use it
+in our project.
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Before continuing, ask the learners which type of dependency they think
+`{lintr}` is or should be.
+:::
+
+```{r add-lintr-as-dep}
+#| eval: false
+#| purl: true
+use_package("lintr", "suggests")
+```
+
+Right now we don't have much code to "lint", but as we work through the
+course, we will make use of `{lintr}` before committing to Git. So, how
+do we use `{lintr}`? It's actually pretty easy, since there are only a
+few functions that do the linting, even though there are dozens of
+customizations you can make to `{lintr}`. The basic is to lint a single
+file, don't run this though:
+
+```{r lint-one-file}
+#| eval: false
+#| purl: true
+lintr::lint("R/functions.R")
+```
+
+A more encompassing function checks all files in the project (also,
+don't run it yet, we'll do that when we have more code in the project):
+
+```{r lint-project-dir}
+#| eval: false
+#| purl: true
+lintr::lint_dir()
+```
+
+This might be useful if you want to go over everything to check things.
+But, if you are working on a single file and want to do some linting of
+that, the better solution is to use the Command Palette (`Ctrl-Shift-P`)
+and type "lint". The first option is to lint the file you are working
+on. Let's open up the `data-raw/nmr-omics.R` script and try it out.
+There should be at least one note that says
+
+``` markdown
+Lines should not be more than 80 characters.
+```
+
+Keep in mind, that not all notes need to be changed. A linter is meant
+to be used as a guideline, not as a rule. It helps you to follow best
+practices and have some consistency between collaborators, but not to
+stress about making sure all notes are addressed.
+
+Since we will eventually connect our project Git repository to GitHub to
+display a website, we can actually make use of a really powerful service
+called [GitHub
+Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
+to also run `{lintr}` there for us. But before we can do that, we need
+to connect to GitHub. So before doing the next exercise, let's all
+**commit the changes to the Git history**.
+
+## Exercise: Connect your project to GitHub
+
+> Time: \~25 minutes.
+
+Let's complete these tasks to connect to GitHub.
+
+1.  If you haven't yet, please create a
+    [GitHub](https://github.com/join) account.
+2.  Read through and complete the tasks in @sec-connect-github.
+3.  Check your GitHub to make sure the project repository has been
+    uploaded to it.
+
+## Adding lintr to your GitHub
+
+Now that your `AdvancedR3` project is connected and up on GitHub, we can
+make use of the GitHub Actions. The RStudio team has a
+[repository](https://github.com/r-lib/actions/tree/v2/examples#example-workflows)
+that lists all R "Actions" that you can use to help streamline checks on
+your project. Specifically, we want to add the one for `{lintr}`, which
+we can add with:
+
+```{r lintr-action}
+#| eval: false
+#| purl: true
+use_github_action("lint-project")
+```
+
+This creates a file in `.github/workflows/lint-project.yaml`. In order
+for GitHub to start using it, we need to **commit it to the Git history
+and than push it to GitHub**.
+
+Once you've done that, switch to your project on GitHub and click the
+"Actions" tab at the top. Then click the "lint-project" link on the
+sidebar. This lists the checks that `{lintr}` has done on your project
+in an independent environment.
+
+## Automatically adhere to a style guide
+
+An advantage of `{lintr}` is that it does not make the changes it
+detects for you, but the disadvantage of `{lintr}`... is that it does
+not make the changes for you. Often checks that require manual action
+are the best way of finding and fixing things. But sometimes, especially
+with very common syntax formatting mistakes, like not using spacing
+properly, it is so much easier to have the computer fix it for you.
+Thankfully there is the `{styler}` package!
+
+Since we will use it for the project as a workflow dependency, let's add
+it to the `DESCRIPTION` file.
+
+```{r add-styler-dep}
+#| eval: false
+#| purl: true
+use_package("styler", "suggests")
+```
+
+Like `{lintr}`, there are only a few functions in `{styler}` that we
+need to use. The first is to style a single file, so let's try it in the
+Console:
+
+```{r style-file}
+styler::style_file("data-raw/nmr-omics.R")
+```
+
+Since we already have the file all nice and tidy, it doesn't do
+anything. But, this function is a bit much to type. We could also do it
+on all files in the project with:
+
+```{r style-dir}
 #| eval: false
 styler::style_dir()
 ```
 
-Ctrl-Shift-P
+But, like the linting we did above, we only need to style all the files
+occasionally. Usually we would need to only style the file we are
+actually working. We can do that through the Command Palette
+(`Ctrl-Shift-P`) and typing "style file", which should show the "Style
+active file" option. You'll try it out in the next exercise.
 
--   caching `cache_activate()`
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
 
-Change option in tools.
+Mention the callout block below, but don't go into it at all.
+:::
 
-```{r}
+::: callout-info
+You might be used to using 4 spaces for tabs instead of 2. The tidyverse
+style uses 2, so the default option in `{styler}`
+
+```{r styler-options-4-spaces}
 options(
   styler.addins_style_transformer = "styler::tidyverse_style(indent_by = 4)"
 )
 ```
+:::
 
-## Exercise: Copy and paste code that is wrong.
+## Exercise: Copy and paste code that is very wrong.
 
-1.  In your `doc/lesson.Rmd` file, create a new code chunk
+> Time: \~15 minutes.
+
+1.  Open your `doc/lesson.Rmd` file, create a new code chunk
     (`Ctrl-Shift-I` or `Ctrl-Shift-P` followed by typing "chunk") at the
     end of the file. Copy and paste the below code:
 
     ``` r
-    lipidomics%>%select()
+    library(dplyr)
+    load ( here::here( "data/lipidomics.rda") 
+    )
+    lipidomics%>%select(gender , age)%>%filter(age>=25)
     ```
 
-2.  In the bottom of your `R/functions.R` file, copy and paste the below
-    code:
+2.  Open the Git interface and commit the changes to the Git history.
+    Then push the changes to GitHub. Go to the Actions tab and see what
+    happens. It might take a few minutes to finish.
 
-    ``` r
-    ```
+3.  Go back to `doc/lesson.Rmd` file in RStudio and run `lintr::lint()`
+    with the Command Palette (`Ctrl-Shift-P` then type "lint file").
+    What happens? Don't do anything just yet, simply see what things
+    were identified as potential issues.
 
-3.  Run `lintr::lint_dir()` in the Console. What happens? Don't do
-    anything just yet, simply see what things were identified as
-    potential issues.
+4.  Run `styler::style_file()` using the Command Palette (`Ctrl-Shift-P`
+    then type "style file") while inside the `doc/lesson.Rmd` file. What
+    happens? Open the Git interface to see the changes made. Commit the
+    changes and push to GitHub. Go into the Actions tab to see what is
+    different now.
 
-4.  Normally you would want to run `styler::style_dir()` *after* you've
-    committed everything to Git (just in case)
-
-## Automatic linting checks
-
-If you are collaborating on a project with collaborators who are not as
-experienced or who only occasionally contribute, you might want to have
-automatic linting checks (or styling) that are independent of you having
-to run them yourself. If your project is on GitHub, there is a really
-powerful service called [GitHub
-Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
-
-Can add GitHub Actions with lintr?
-
-## Exercise: Connect your project to GitHub
-
-> Time: \~20 minutes.
-
--   Read through Connecting to GitHub appendix.
-
-## Adding lintr to the repository
-
-use_github_action("lint-project")
+5.  Re-run the `lintr::lint()` with the Command Palette. What's changed
+    since you did it last?
 
 ## Styling Markdown files
 
