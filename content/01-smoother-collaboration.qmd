@@ -394,7 +394,7 @@ reactivate it.
 **Let's commit the changes made to the Git history**.
 
 ::: callout-info
-## Reading task
+## Reading task: \~5 minutes
 
 **Before continuing to the next exercise, please read this**.
 
