@@ -436,7 +436,6 @@ packages now installed?
 
 ```{r ex-show-created-files}
 #| echo: false
-#| output: asis
 fs::dir_tree(path = "renv", all = TRUE, recurse = 1)
 ```
 
