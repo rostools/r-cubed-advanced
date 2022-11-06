@@ -80,6 +80,9 @@ project, they can as seamlessly as possible install or update the
 packages your data analysis project needs. There are a few ways of
 "tracking" package dependencies.
 
+::: callout-info
+## Reading task: \~5 minutes
+
 1.  The simplest, but most primitive way is to always make sure to use
     `library()` at the top of each R script for each package that the R
     script uses.
@@ -154,6 +157,7 @@ packages your data analysis project needs. There are a few ways of
             on *your* computer and that influences your project, but
             that might not be obvious as a dependency or that you forgot
             to include.
+:::
 
 Before continuing to the exercise, we need to make sure to add and
 comment all the files from the project into the Git history. Open the
