@@ -190,6 +190,14 @@ usethis::use_package("fs")
 usethis::use_package("usethis")
 ```
 
+```{r purl-only-commit-desc}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add(here::here("DESCRIPTION"))
+gert::git_commit("Add packages as dependencies to project.")
+```
+
 ## Formal dependency management
 
 While the approach of managing package dependencies through the
@@ -270,6 +278,14 @@ type out:
 renv::init()
 ```
 
+```{r purl-only-add-renv-init}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add(c("renv.lock", "renv", ".Rprofile"))
+gert::git_commit("Add renv machinery.")
+```
+
 The function `renv::init()` initializes the project to begin being
 managed by `{renv}`. It will ask a series of questions and then will
 install all the packages detected in the project. It adds several files
@@ -328,7 +344,6 @@ We can quickly open this with:
 
 ```{r open-rprofile-first-time}
 #| eval: false
-#| purl: true
 usethis::edit_r_profile("project")
 ```
 
@@ -336,9 +351,20 @@ Next, at the top of the file, add this code:
 
 ```{r snapshot-settings}
 #| eval: false
-#| purl: true
 options(renv.settings.snapshot.type = "explicit",
         renv.config.auto.snapshot = TRUE)
+```
+
+```{r purl-only-snapshot-settings}
+#| echo: false
+#| eval: false
+#| purl: true
+library(magrittr)
+readLines(here::here(".Rprofile")) %>% 
+  append('options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)') %>% 
+  writeLines(here::here(".Rprofile"))
+gert::git_add(".Rprofile")
+gert::git_commit("Add renv snapshot settings to profile.")
 ```
 
 These two options make it so that whenever you add a package with
@@ -484,9 +510,22 @@ after running the function.
 
 ```{r add-usethis-rprofile}
 #| eval: false
-#| purl: true
 usethis::edit_r_profile("project")
 usethis::use_usethis()
+```
+
+```{r purl-only-usethis-rprofile}
+#| echo: false
+#| eval: false
+#| purl: true
+readLines(here::here(".Rprofile")) %>% 
+  append("
+    if (interactive()) {
+      suppressMessages(require(usethis))
+    }") %>% 
+  writeLines(here::here(".Rprofile"))
+gert::git_add(".Rprofile")
+gert::git_commit("Add usethis settings to profile.")
 ```
 
 Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
@@ -496,6 +535,14 @@ Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
 #| eval: false
 #| purl: true
 usethis::use_package("renv", "Suggests")
+```
+
+```{r purl-only-update-desc-with-renv}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add("DESCRIPTION")
+gert::git_commit("Add renv as a suggests dependency.")
 ```
 
 Open the Git interface and see that under `Suggests:` in the
@@ -561,6 +608,14 @@ Before continuing, ask the learners which type of dependency they think
 use_package("lintr", "suggests")
 ```
 
+```{r purl-only-update-desc-with-lintr}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add("DESCRIPTION")
+gert::git_commit("Add lintr as a suggests dependency.")
+```
+
 Right now we don't have much code to "lint", but as we work through the
 course, we will make use of `{lintr}` before committing to Git. So, how
 do we use `{lintr}`? It's actually pretty easy, since there are only a
@@ -570,7 +625,6 @@ file, don't run this though:
 
 ```{r lint-one-file}
 #| eval: false
-#| purl: true
 lintr::lint("R/functions.R")
 ```
 
@@ -579,7 +633,6 @@ don't run it yet, we'll do that when we have more code in the project):
 
 ```{r lint-project-dir}
 #| eval: false
-#| purl: true
 lintr::lint_dir()
 ```
 
@@ -634,6 +687,14 @@ we can add with:
 use_github_action("lint-project")
 ```
 
+```{r purl-only-add-lint-action}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add(".github")
+gert::git_commit("Add lintr GitHub Action.")
+```
+
 This creates a file in `.github/workflows/lint-project.yaml`. In order
 for GitHub to start using it, we need to **commit it to the Git history
 and than push it to GitHub**.
@@ -660,6 +721,14 @@ it to the `DESCRIPTION` file.
 #| eval: false
 #| purl: true
 use_package("styler", "suggests")
+```
+
+```{r purl-only-update-desc-with-styler}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add("DESCRIPTION")
+gert::git_commit("Add styler as a suggests dependency.")
 ```
 
 Like `{lintr}`, there are only a few functions in `{styler}` that we
@@ -777,6 +846,20 @@ editor_options:
   markdown:
     wrap: 72
     canonical: true
+```
+
+```{r purl-only-editor-yaml-metadata}
+#| eval: false
+#| echo: false
+#| purl: true
+readLines("doc/lesson.Rmd") %>% 
+  append(
+  "editor_options:
+     markdown:
+       wrap: 72
+       canonical: true
+  ", after = 1) %>% 
+  writeLines("doc/lesson.Rmd")
 ```
 
 Now, when you save your file, RStudio should automatically reformat the

@@ -256,18 +256,31 @@ can be done by either:
     `prodigenr::setup_project("~/Desktop/AdvancedR3")` (or other
     location like `Documents`) in the R Console.
 
-```{r run-prodigenr, echo=FALSE, eval=FALSE, purl=TRUE}
-# For purling
+```{r purl-only-run-prodigenr}
+#| eval: false
+#| echo: false
+#| purl: true
 prodigenr::setup_project("~/Desktop/AdvancedR3")
+usethis::local_project("/Desktop/AdvancedR3")
 ```
 
 When the RStudio Project opens up again, run these three commands in the
 R Console:
 
-```{r more-project-setup, eval=FALSE, purl=TRUE}
+```{r more-project-setup}
+#| eval: false
+#| purl: true
 prodigenr::setup_with_git()
 usethis::use_blank_slate("project")
 usethis::use_r("functions", open = FALSE)
+```
+
+```{r purl-only-first-commit}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add(".")
+gert::git_commit("First commit.")
 ```
 
 Here we use the `{usethis}` package to help set things up. `{usethis}`
@@ -305,9 +318,19 @@ Please do these two tasks:
     `AdvancedR3` project, which will create a new file called
     `lesson.Rmd` in the `doc/` folder.
 
-    ```{r add-rmarkdown-doc, eval=FALSE, purl=TRUE}
+    ```{r add-rmarkdown-doc}
+    #| eval: false
+    #| purl: true
     r3::create_rmarkdown_doc()
     ```
+
+```{r purl-only-add-lesson-rmd}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add("doc/lesson.Rmd")
+gert::git_commit("Add draft lesson Rmd file.")
+```
 
 ## Download the course data
 
@@ -335,7 +358,9 @@ First step, we need to create the script to do these steps. While in
 your `AdvancedR3` R Project, go to the Console pane in RStudio and type
 out:
 
-```{r create-data-raw, eval=FALSE, purl=TRUE}
+```{r create-data-raw}
+#| eval: false
+#| purl: true
 usethis::use_data_raw("nmr-omics")
 ```
 
@@ -354,6 +379,16 @@ thing to do is delete all the code in the script. Than, copy and paste
 the code below into the script.
 
 ```{r insert-data-raw-script, file=here::here('data-raw/nmr-omics.R'), eval=FALSE}
+```
+
+```{r purl-only-paste-processing-code}
+#| eval: false
+#| echo: false
+#| purl: true
+library(magrittr)
+readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R") %>% 
+  writeLines(here::here("data-raw/nmr-omics.R"))
+source("data-raw/nmr-omics.R")
 ```
 
 Since this is an advanced course, you can run the lines one at a line
@@ -396,8 +431,18 @@ need to keep the raw data files in our Git history. So let's tell Git to
 ignore the files created in the `data-raw/nmr-omics/` folder. In the
 Console, type out the code below. You only need to do this once.
 
-```{r ignore-xlsx-files, eval=FALSE, purl=TRUE}
+```{r ignore-xlsx-files}
+#| eval: false
+#| purl: true
 usethis::use_git_ignore("data-raw/nmr-omics/")
+```
+
+```{r purl-only-processing-data}
+#| eval: false
+#| echo: false
+#| purl: true
+gert::git_add(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore"))
+gert::git_commit("Script to process omics data into lipidomics rda.")
 ```
 
 ``` r
@@ -464,4 +509,3 @@ to finish this assignment.
 See you at the course!
 
 ## References
-
