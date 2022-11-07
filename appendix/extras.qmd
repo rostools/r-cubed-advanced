@@ -12,3 +12,9 @@
 -   PR commands for styler?
 -   PR helpers with usethis?
 -   reprex?
+
+could even use
+
+use_github_action("style")
+
+this might be an extra.
