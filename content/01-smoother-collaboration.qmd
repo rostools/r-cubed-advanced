@@ -33,9 +33,10 @@ The overall objective for this session is to:
 
 More specific objectives are to:
 
-1.  Explain what project-level R dependency management is, what a
-    "project environment" is, and why these concepts are important to
-    consider in collaborative and reproducible analyses.
+1.  Explain what a "project-oriented" workflow is, what a project-level
+    R dependency management is, what a "project environment" is, and why
+    these concepts are important to consider in collaborative and
+    reproducible analyses.
 2.  Describe the difference between "workflow dependencies" and "build
     dependencies".
 3.  Apply functions in the `{renv}` and `{usethis}` R packages to
@@ -62,6 +63,19 @@ ultimately be the ones your project depends on to get the results that
 you find. When working collaboratively with others, and yourself several
 months in the future, you need some way of knowing how to easily and
 quickly install or update these package dependencies.
+
+Part of this approach requires that you follow a ["project-oriented"
+workflow](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)
+when working on, well, your project. In order to know how to track your
+project's package dependencies, you need to first know, what is a
+"project" and how do we work around it? Since the introduction course's
+first session on the [Management of R
+Projects](https://r-cubed.rostools.org/r-project-management.html), we've
+consistently taught and used this workflow-style. In fact, it is
+embedded into the use of the R Projects via the `.Rproj` files and in
+the use of the `{here}` package. So we already are following this
+approach from the start, which will make it easier to track package
+dependencies of our project.
 
 Let's start with the `AdvancedR3` project that uses the `lipidomics`. We
 have code in the `data-raw/nmr-omics.R` file that uses some packages.
