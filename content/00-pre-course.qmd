@@ -385,10 +385,9 @@ the code below into the script.
 #| eval: false
 #| echo: false
 #| purl: true
-library(magrittr)
-readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R") %>% 
+readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R") |>
   writeLines(here::here("data-raw/nmr-omics.R"))
-source("data-raw/nmr-omics.R")
+source(here::here("data-raw/nmr-omics.R"))
 ```
 
 Since this is an advanced course, you can run the lines one at a line
@@ -441,7 +440,7 @@ usethis::use_git_ignore("data-raw/nmr-omics/")
 #| eval: false
 #| echo: false
 #| purl: true
-gert::git_add(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore"))
+gert::git_add(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore", "DESCRIPTION"))
 gert::git_commit("Script to process omics data into lipidomics rda.")
 ```
 
