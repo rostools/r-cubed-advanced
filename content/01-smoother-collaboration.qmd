@@ -902,6 +902,38 @@ space.
 Since this mode is on automatically, as we work through the sessions,
 we'll get lots of experience using it.
 
+## Exercise: Update the README file, while using canonical markdown mode
+
+> Time: \~10 minutes.
+
+Open up the `README.md` file and copy and paste these YAML metadata to
+the top:
+
+``` markdown
+---
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+---
+```
+
+Then, start completing the `TODO` items. Save often and watch as the
+Markdown gets reformatted. After you are done, commit the changes you
+made to the Git history.
+
+```{r purl-only-editor-options-to-readme}
+#| eval: false
+#| echo: false
+#| purl: true
+editor_yaml <- paste("---", editor_options, "---", sep = "\n")
+readLines("README.md") |>
+  append(editor_options, after = 1) |>
+  writeLines("README.md")
+gert::git_add("README.md")
+gert::git_commit("Add editor options to README file.")
+```
+
 ## Summary
 
 -   Track your project package dependencies with `{renv}` and combine it
