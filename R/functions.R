@@ -18,11 +18,13 @@ extract_chunks <- function() {
   r_files <- fs::path_ext_set(r_files, ".R")
   purrr::walk2(qmd_files, r_files, knitr::purl, documentation = 0L, quiet = TRUE)
 
+  combined_r_file <- here::here("_ignore/code-to-build-project.R")
   fs::dir_create("_ignore")
   r_files |>
     purrr::map(readr::read_lines) |>
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
-    readr::write_lines(here::here("_ignore/code-to-build-project.R"))
+    readr::write_lines(combined_r_file)
+  fs::file_copy(combined_r_file, "~/Desktop")
 }
