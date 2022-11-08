@@ -176,6 +176,9 @@ these tasks:
 4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
     Pane and click the "Commit" button). What has been changed? Commit
     those changes to the Git history.
+    -   You'll see a newly created file called `.Rbuildignore`. We don't
+        really need this for this course, so let's do
+        `usethis::use_git_ignore(".Rbuildignore")`.
 
 ```{r solution-add-processing-packages}
 #| eval: false
@@ -194,7 +197,8 @@ usethis::use_package("usethis")
 #| eval: false
 #| echo: false
 #| purl: true
-gert::git_add(here::here("DESCRIPTION"))
+usethis::use_git_ignore(".Rbuildignore")
+gert::git_add(c("DESCRIPTION", ".gitignore"))
 gert::git_commit("Add packages as dependencies to project.")
 ```
 
@@ -359,9 +363,8 @@ options(renv.settings.snapshot.type = "explicit",
 #| echo: false
 #| eval: false
 #| purl: true
-library(magrittr)
-readLines(here::here(".Rprofile")) %>% 
-  append('options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)') %>% 
+readLines(here::here(".Rprofile"))|> 
+  append('options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)') |>
   writeLines(here::here(".Rprofile"))
 gert::git_add(".Rprofile")
 gert::git_commit("Add renv snapshot settings to profile.")
@@ -518,11 +521,8 @@ usethis::use_usethis()
 #| echo: false
 #| eval: false
 #| purl: true
-readLines(here::here(".Rprofile")) %>% 
-  append("
-    if (interactive()) {
-      suppressMessages(require(usethis))
-    }") %>% 
+readLines(here::here(".Rprofile")) |>
+  append("if (interactive()) {suppressMessages(require(usethis))}") |>
   writeLines(here::here(".Rprofile"))
 gert::git_add(".Rprofile")
 gert::git_commit("Add usethis settings to profile.")
@@ -534,13 +534,14 @@ Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
 ```{r suggests-dep}
 #| eval: false
 #| purl: true
-usethis::use_package("renv", "Suggests")
+usethis::use_package("renv", "suggests")
 ```
 
 ```{r purl-only-update-desc-with-renv}
 #| eval: false
 #| echo: false
 #| purl: true
+# Restart R session first.
 gert::git_add("DESCRIPTION")
 gert::git_commit("Add renv as a suggests dependency.")
 ```
@@ -748,6 +749,10 @@ on all files in the project with:
 styler::style_dir()
 ```
 
+::: callout-info
+You will probably be asked to install something, click "Yes".
+:::
+
 But, like the linting we did above, we only need to style all the files
 occasionally. Usually we would need to only style the file we are
 actually working. We can do that through the Command Palette
@@ -852,14 +857,16 @@ editor_options:
 #| eval: false
 #| echo: false
 #| purl: true
-readLines("doc/lesson.Rmd") %>% 
-  append(
+editor_options <-
   "editor_options:
-     markdown:
-       wrap: 72
-       canonical: true
-  ", after = 1) %>% 
+  markdown:
+    wrap: 72
+    canonical: true"
+readLines("doc/lesson.Rmd") |>
+  append(editor_options, after = 1) |>
   writeLines("doc/lesson.Rmd")
+gert::git_add("doc/lesson.Rmd")
+gert::git_commit("Add editor options to Rmd file.")
 ```
 
 Now, when you save your file, RStudio should automatically reformat the
