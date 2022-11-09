@@ -28,7 +28,7 @@ Suggests:
     devtools,
     gert,
     usethis,
-    remote,
+    remotes,
     RefManageR,
     rspm,
     RcppTOML,
