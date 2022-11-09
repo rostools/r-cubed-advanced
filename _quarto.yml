@@ -2,6 +2,7 @@ project:
     type: book
     output-dir: public
     execute-dir: project
+    pre-render: quarto render slides/*
 
 book:
     title: "Reproducible Research in R"
