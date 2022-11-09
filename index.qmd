@@ -1,9 +1,9 @@
 # Welcome! {.unnumbered}
 
-```{r, include=FALSE, eval=TRUE}
+```{r write-packages-to-bib, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(
-  unique(renv::dependencies()[[2]]),
+  unique(desc::desc_get_deps()$package[-1]),
   here::here("includes/packages.bib")
 )
 ```
