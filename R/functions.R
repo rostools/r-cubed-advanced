@@ -16,7 +16,12 @@ extract_chunks <- function() {
   qmd_files <- fs::dir_ls("content", regexp = "[0][1-4]|0-pre-course")
   r_files <- fs::path_temp(fs::path_file(qmd_files))
   r_files <- fs::path_ext_set(r_files, ".R")
-  purrr::walk2(qmd_files, r_files, knitr::purl, documentation = 0L, quiet = TRUE)
+  purrr::walk2(qmd_files,
+    r_files,
+    knitr::purl,
+    documentation = 0L,
+    quiet = TRUE
+  )
 
   combined_r_file <- here::here("_ignore/code-to-build-project.R")
   fs::dir_create("_ignore")
