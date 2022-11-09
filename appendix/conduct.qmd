@@ -1,4 +1,4 @@
-# Code of Conduct {#conduct}
+# Code of Conduct {#sec-conduct}
 
 Science thrives on diversity of thought and origin and we value the
 participation of every member of the scientific community and want all
@@ -91,4 +91,3 @@ and modified from other Codes of Conduct, specifically [Software
 Carpentry](https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html)
 and
 [UofTCoders](https://github.com/UofTCoders/studyGroup/blob/gh-pages/codeOfConduct.md).
-
