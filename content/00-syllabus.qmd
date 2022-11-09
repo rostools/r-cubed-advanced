@@ -1,4 +1,4 @@
-# Syllabus
+# Syllabus {#sec-syllabus}
 
 ```{r force-downlit, include=FALSE}
 library(downlit)
