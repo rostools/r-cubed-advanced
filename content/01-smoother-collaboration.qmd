@@ -353,6 +353,31 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
     work to management the dependencies, like installing, updating, and
     removing.
 
+```{mermaid figure-renv-environment}
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 40, 'rankSpacing': 20}}}%%
+graph LR
+    user["far:fa-folder User/"] --- root_docs
+    user --- root_desktop
+    user --- .Rprofile
+    subgraph global[Global fab:fa-r-project environment]
+        root_docs["far:fa-folder Documents/"] --- r["far:fa-folder R/ (global fab:fa-r-project library)"]
+        root_desktop["far:fa-folder Desktop/"] --- renv["far:fa-folder AdvancedR3/"]
+        root_docs --- 3["far:fa-folder other-projects/"]
+        .Rprofile
+        subgraph renv_env[Project fab:fa-r-project environment]
+            renv --- renv_folder["far:fa-folder renv/<br/>(fab:fa-r-project library)"]
+            renv --- proj_prof[.Rprofile]
+        end
+    end
+
+linkStyle 0,1,2,3,4,5,6,7 stroke-width:1px;
+
+classDef folderEnv fill:transparent,stroke-dasharray:5;
+class renv_env,global folderEnv
+```
+
 **Before we continue, let's commit the new files to the Git history**.
 
 The general workflow for using `{renv}` while working on your project is
