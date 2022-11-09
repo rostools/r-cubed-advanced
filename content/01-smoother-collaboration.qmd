@@ -819,6 +819,11 @@ actually working. We can do that through the Command Palette
 (`Ctrl-Shift-P`) and typing "style file", which should show the "Style
 active file" option. You'll try it out in the next exercise.
 
+The thing to note, though, is that `{styler}` isn't perfect, so by using
+it together with `{lintr}` and sometimes manually running reformatting
+(`Ctrl-Shift-A` or with the Command Palette `Ctrl-Shift-P` then
+"reformat") you will be able to fix most syntax issues.
+
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
 
