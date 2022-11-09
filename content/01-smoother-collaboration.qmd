@@ -1,4 +1,4 @@
-# Smoother project-based collaboration {#smoother-collaboration}
+# Smoother project-based collaboration {#sec-smoother-collaboration}
 
 {{< include ../includes/_wip.qmd >}}
 
@@ -934,7 +934,9 @@ editor_options:
 
 Then, start completing the `TODO` items. Save often and watch as the
 Markdown gets reformatted. After you are done, commit the changes you
-made to the Git history.
+made to the Git history. Then delete both `TODO.md` and the
+`doc/report.Rmd` files, followed by committing these deletions in the
+Git history.
 
 ```{r purl-only-editor-options-to-readme}
 #| eval: false
@@ -946,6 +948,8 @@ readLines("README.md") |>
   writeLines("README.md")
 gert::git_add("README.md")
 gert::git_commit("Add editor options to README file.")
+gert::git_rm(c("TODO.md", "doc/report.Rmd"))
+gert::git_commit("Remove these extra files")
 ```
 
 ## Summary
