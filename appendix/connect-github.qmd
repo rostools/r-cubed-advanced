@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-# Connecting to GitHub {#connect-github}
+# Connecting to GitHub {#sec-connect-github}
 
 One of the best ways of sharing your code (or really, any scientific
 output, like this website!) is through GitHub. Connecting your Git
