@@ -2,7 +2,7 @@ project:
     type: book
     output-dir: public
     execute-dir: project
-    pre-render: quarto render slides/*
+    pre-render: quarto render slides/*.qmd
 
 book:
     title: "Reproducible Research in R"
