@@ -413,15 +413,17 @@ Next, at the top of the file, add this code:
 
 ```{r snapshot-settings}
 #| eval: false
-options(renv.settings.snapshot.type = "explicit",
-        renv.config.auto.snapshot = TRUE)
+options(
+  renv.settings.snapshot.type = "explicit",
+  renv.config.auto.snapshot = TRUE
+)
 ```
 
 ```{r purl-only-snapshot-settings}
 #| echo: false
 #| eval: false
 #| purl: true
-readLines(here::here(".Rprofile"))|> 
+readLines(here::here(".Rprofile")) |>
   append('options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)') |>
   writeLines(here::here(".Rprofile"))
 gert::git_add(".Rprofile")
