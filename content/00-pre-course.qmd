@@ -37,8 +37,8 @@ about them are found as you work through this section.
 8.  Run a check to see that everything is as expected. You'll later need
     to paste this output into the survey.
 9.  Read the [Welcome](/index.qmd) page.
-10. Read the [syllabus](/content/00-syllabus.qmd).
-11. Read the [Code of Conduct](/appendix/conduct.qmd).
+10. Read the syllabus in @sec-syllabus.
+11. Read the Code of Conduct in @sec-conduct.
 12. **Complete the pre-course
     [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
     This survey is pretty quick, maybe \~10 minutes.
