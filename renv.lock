@@ -128,17 +128,6 @@
       "Hash": "e9c08b94391e9f3f97355841229124f2",
       "Requirements": []
     },
-    "RcppEigen": {
-      "Package": "RcppEigen",
-      "Version": "0.3.3.9.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "4c86baed78388ceb06f88e3e9a1d87f5",
-      "Requirements": [
-        "Matrix",
-        "Rcpp"
-      ]
-    },
     "RcppTOML": {
       "Package": "RcppTOML",
       "Version": "0.1.7",
@@ -494,14 +483,6 @@
         "vctrs",
         "withr"
       ]
-    },
-    "deldir": {
-      "Package": "deldir",
-      "Version": "1.0-6",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "65a3d4e2a1619bb85ae0fb64628da972",
-      "Requirements": []
     },
     "desc": {
       "Package": "desc",
@@ -923,16 +904,6 @@
       "Hash": "e30deda901954a80e035ad2e972ba7fd",
       "Requirements": []
     },
-    "gridExtra": {
-      "Package": "gridExtra",
-      "Version": "2.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "7d7f283939f563670a697165b2cf5560",
-      "Requirements": [
-        "gtable"
-      ]
-    },
     "gt": {
       "Package": "gt",
       "Version": "0.7.0",
@@ -1136,18 +1107,6 @@
       "Hash": "6154ec2223172bce8162d4153cda21f7",
       "Requirements": []
     },
-    "interp": {
-      "Package": "interp",
-      "Version": "1.1-3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "593dde779b230c60c4b589fd306bcd3e",
-      "Requirements": [
-        "Rcpp",
-        "RcppEigen",
-        "deldir"
-      ]
-    },
     "ipred": {
       "Package": "ipred",
       "Version": "0.9-13",
@@ -1177,14 +1136,6 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "8954069286b4b2b0d023d1b288dce978",
-      "Requirements": []
-    },
-    "jpeg": {
-      "Package": "jpeg",
-      "Version": "0.1-9",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "441ee36360a57b363f4fa3df0c364630",
       "Requirements": []
     },
     "jquerylib": {
@@ -1245,21 +1196,6 @@
       "Repository": "RSPM",
       "Hash": "b64cdbb2b340437c4ee047a1f4c4377b",
       "Requirements": []
-    },
-    "latticeExtra": {
-      "Package": "latticeExtra",
-      "Version": "0.6-30",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "0857b103442b4657416508733c8c6678",
-      "Requirements": [
-        "MASS",
-        "RColorBrewer",
-        "interp",
-        "jpeg",
-        "lattice",
-        "png"
-      ]
     },
     "lava": {
       "Package": "lava",
@@ -1350,24 +1286,6 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "7ce2733a9826b3aeb1775d56fd305472",
-      "Requirements": []
-    },
-    "mapdata": {
-      "Package": "mapdata",
-      "Version": "2.3.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "67b0f7c0e47c72ac78632843bb1cce35",
-      "Requirements": [
-        "maps"
-      ]
-    },
-    "maps": {
-      "Package": "maps",
-      "Version": "3.4.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "644a88fb036ab50cee0b715394eefa1a",
       "Requirements": []
     },
     "markdown": {
@@ -1650,14 +1568,6 @@
         "Rcpp"
       ]
     },
-    "png": {
-      "Package": "png",
-      "Version": "0.1-7",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "03b7076c234cb3331288919983326c55",
-      "Requirements": []
-    },
     "praise": {
       "Package": "praise",
       "Version": "1.0.0",
@@ -1816,18 +1726,6 @@
       "Hash": "5e3c5dc0b071b21fa128676560dbe94d",
       "Requirements": []
     },
-    "raster": {
-      "Package": "raster",
-      "Version": "3.6-3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "d550f9d6dbb4dce7cbd146b09d663343",
-      "Requirements": [
-        "Rcpp",
-        "sp",
-        "terra"
-      ]
-    },
     "rcmdcheck": {
       "Package": "rcmdcheck",
       "Version": "1.4.0",
@@ -1927,21 +1825,6 @@
       "Hash": "76c9e04c712a05848ae7a23d2f170a40",
       "Requirements": [
         "tibble"
-      ]
-    },
-    "remote": {
-      "Package": "remote",
-      "Version": "1.2.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "5c641e787545b7376c8c8dd6e021abd1",
-      "Requirements": [
-        "Rcpp",
-        "gridExtra",
-        "latticeExtra",
-        "mapdata",
-        "raster",
-        "scales"
       ]
     },
     "remotes": {
@@ -2262,16 +2145,6 @@
       "Hash": "947e4e02a79effa5d512473e10f41797",
       "Requirements": []
     },
-    "sp": {
-      "Package": "sp",
-      "Version": "1.5-0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "2a118bdd2db0a301711e0a9e3e3206d5",
-      "Requirements": [
-        "lattice"
-      ]
-    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.7.8",
@@ -2359,16 +2232,6 @@
         "vctrs",
         "withr",
         "yaml"
-      ]
-    },
-    "terra": {
-      "Package": "terra",
-      "Version": "1.6-17",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "3e264754dde87261bc7ccdb30d29d3b4",
-      "Requirements": [
-        "Rcpp"
       ]
     },
     "testthat": {
