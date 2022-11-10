@@ -33,3 +33,6 @@ extract_chunks <- function() {
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop")
 }
+
+run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
+run_lintr_text <- '`{lintr}` (`Ctrl-Shift-P`, then type "lint file")'
