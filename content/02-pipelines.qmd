@@ -1,8 +1,640 @@
-# Creating automatic analysis pipelines {#pipelines}
+---
+execute: 
+  eval: false
+---
 
-{{< include includes/_wip.qmd >}}
+# Creating automatic analysis pipelines {#sec-pipelines}
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+```
+
+{{< include ../includes/_wip.qmd >}}
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Before beginning, get them to recall what they remember of the previous
+session, either with something like Mentimeter or verbally. Preferably
+something like Mentimeter because it allows everyone to participate, not
+just the ones who are more comfortable being vocal to the whole group.
+:::
+
+## Learning objectives
+
+The overall objective for this session is to:
+
+1.  Identify and apply an approach to creating an analysis pipeline that
+    makes your analysis steps, from raw data to finished manuscript,
+    explicitly defined so that updating it by either you or
+    collaborators is as easy as running a single function.
+
+More specific objectives are to:
+
+1.  Describe the computational meaning of pipeline and how pipelines are
+    often done in research. Explain why a well-designed pipeline can
+    streamline your collaboration, reduce time spent doing an analysis,
+    make your analysis steps explicit and easier to work on, and
+    ultimately contribute to more fully reproducible research.
+2.  Explain the difference between a "function-oriented" workflow vs a
+    "script-oriented" workflow and why the function-based approach has
+    multiple advantages from a time- and effort-efficiency point of
+    view.
+3.  Use the functions within `{targets}` to apply the concepts of
+    building pipelines in your analysis project.
+4.  Continue applying the concepts and functions used from the previous
+    session.
+
+## Exercise: How do you re-run analyses when something changes?
+
+> Time: \~14 minutes.
+
+We've all been in situations where something in our analysis needs to
+change. Maybe we forgot to remove a certain condition (like unrealistic
+BMI). Or maybe our supervisor suggests something we hadn't considered in
+the analysis. Or maybe during peer review of our manuscript, a reviewer
+makes a suggestion that would improve the understanding of the paper.
+What ever the situation, we inevitably need to re-run our analysis. And
+depending on what the change was, we might need to run the full analysis
+all over again. So what is your **exact** workflow when you need to
+re-run code and update your results? Assume it's a change somewhere
+early in the data processing stage.
+
+1.  Take 2 min to think about the workflow you use. Try to think of the
+    *exact* steps you need to take, what *exactly* you do, and how long
+    that usually takes.
+2.  For 8 min, in your group share and discuss what you've thought. How
+    do your experiences compare to each other?
+3.  For the remaining time, we'll briefly share with everyone about what
+    they've thought and discussed.
+
+## What is a "pipeline"?
 
 -   Building reproducible analysis pipelines: targets
-    -   basic summaries of data
-    -   basic plot of data
-    -   basic report of data using summaries and plot
+
+    -   Add targets to repo
+    -   list out, what are the things we want to create, then go and
+        create them. (will do this for next session too.)
+
+Image of steps in a pipeline, what intermediate items there are, etc.
+
+## Using targets to manage the pipeline
+
+Ask, is it a workflow or build dependency?
+
+```{r}
+use_package("targets")
+```
+
+```{r}
+targets::use_targets()
+```
+
+```{r}
+#| echo: false
+# Run this in the project
+fs::dir_ls(regexp = "run.*|_targets.*")
+```
+
+```{r}
+gert::git_add(c("run.R", "run.sh", "_targets.R"))
+gert::git_commit("Start using targets")
+```
+
+```{r}
+# Need to?
+use_git_ignore("_targets")
+```
+
+-   basic summaries of data
+
+    -   Calculate basic statistics, like mean and SD of all variables.
+
+"function-oriented workflows" vs "script-based workflows"
+
+Advantage, disadvantage.
+
+https://books.ropensci.org/targets/functions.html#problems-with-script-based-workflows
+
+```{r}
+use_package("tidyverse", "depends")
+use_package("dplyr")
+```
+
+```{r}
+library(tidyverse)
+load(here::here("data/lipidomics.rda"))
+lipidomics %>%
+  group_by(metabolite) %>%
+  summarise(across(value, list(mean = mean, sd = sd))) %>%
+  mutate(across(where(is.numeric), round, digits = 1))
+```
+
+Run `r run_styler_text`.
+
+## Exercise: Convert summary statistics code into a function
+
+> Time: \~25 minutes.
+
+While inside the `doc/lesson.Rmd` file, use the "function-oriented"
+workflow, as taught in the [intermediate
+course](https://r-cubed-intermediate.rostools.org/dry-functions.html#the-basics-of-a-function),
+to take the code we wrote above and convert it into a function. Complete
+these tasks:
+
+1.  Wrap the code with `function() {...}` and name the new function
+    `descriptive_stats`.
+2.  Replace `lipidomics` with `data` and put `data` as an argument
+    inside the brackets of `function()`.
+3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
+    your function.
+4.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
+    sure it is formatted correctly. You might need to manually force a
+    styling if lines are too long.
+5.  With the *cursor* inside the function, add some roxygen
+    documentation with `Ctrl-Shift-P` followed by typing "roxygen
+    comment". Remove the lines that contain `@examples` and `@export`,
+    then fill in the other details (like the `@params` and `Title`). In
+    the `@return` section, write "A data.frame/tibble."
+6.  Cut and paste the function over into the `R/functions.R` file.
+7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
+    code by running `descriptive_stats(lipidomics)` in the Console. If
+    it works, do the last task.
+8.  Save both files and then open the Git interface and commit the
+    changes you made to them.
+
+Here is some scaffolding to help you get started:
+
+``` r
+descriptive_stats <- function(___) {
+  ___
+}
+```
+
+```{r solution-summary-stats-to-function}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data %>%
+    dplyr::group_by(metabolite) %>%
+    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
+}
+```
+
+```{r purl-only-summary-stats-function}
+#| purl: true
+#| echo: false
+"
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data %>%
+    dplyr::group_by(metabolite) %>%
+    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
+" |>
+  readr::write_lines(here::here("R/functions.R"))
+gert::git_add("R/functions.R")
+gert::git_commit("Add function to create descriptive stats.")
+```
+
+## Adding a step in the pipeline
+
+```{r}
+list(
+  tar_target(
+    name = lipidomics,
+    command = load(here::here("data/lipidomics.rda"))
+  ),
+  tar_target(
+    name = stats_by_metabolite,
+    command = descriptive_stats(lipidomics)
+  )
+)
+```
+
+Or Palette "run targets"
+
+```{r}
+targets::tar_make()
+```
+
+Try to run, won't because targets doesn't know about the packaages
+needed.
+
+use tar_option_set() and packages argument
+
+```{r}
+desc::desc_get_deps()$package[-1]
+```
+
+Try running again, might be able to.
+
+```{r}
+targets::tar_visnetwork()
+```
+
+```{r}
+targets::tar_outdated()
+```
+
+## Exercise: Examine the contents of the `_targets/` folder
+
+> Time: \~5 minutes.
+
+Like you did with `{renv}`, go into the `_targets/` folder and take a
+look around.
+
+TODO: Need to run on my end to know what to look for.
+
+## Exercise: Update function to also calculate median and IQR
+
+> Time: \~8 minutes.
+
+Let's make a change to our function and test out how the
+`tar_outdated()` and `tar_visnetwork()` work.
+
+1.  Open up the `R/functions.R` file.
+2.  Add median and interquartile range (IQR) to the `summarise()`
+    function, by adding it to the end of `list(mean = mean, sd = sd)`,
+    after the second `sd`. Note, IQR should look like `iqr = IQR` since
+    we want the output columns to have a lowercase for the column names.
+3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
+    using the Command Palette `Ctrl-Shift-P`, then "targets outdated" or
+    "targets visualize"). What does it show?
+4.  Run `r run_styler_text` and `r run_lintr_text`. You might need to
+    force a reformat if the code is too long by highlighting the line
+    and using `Ctrl-Shift-P`, then "reformat".
+5.  Run `tar_make()` in the Console (or `Ctrl-Shift-P`, then "targets
+    run", selecting the "background" option). Re-check for outdated
+    targets and visualize the network again.
+6.  Open up the Git interface and commit the changes to the Git history.
+
+```{r solution-summary-stats-to-function}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data %>%
+    dplyr::group_by(metabolite) %>%
+    dplyr::summarise(dplyr::across(value, list(
+      mean = mean,
+      sd = sd,
+      median = median,
+      iqr = IQR
+    ))) %>%
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
+}
+```
+
+```{r purl-only-summary-stats-fun-add-stats}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data %>%
+    dplyr::group_by(metabolite) %>%
+    dplyr::summarise(dplyr::across(value, list(
+      mean = mean,
+      sd = sd,
+      median = median,
+      iqr = IQR
+    ))) %>%
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
+}
+" |>
+  readr::write_lines(here::here("R/functions.R"), append = FALSE)
+```
+
+## Saving intermediate analysis outputs
+
+Be aware that intermediate data gets saved to `_targets/` folder. So we
+want Git to ignore it, so we don't accidentally save things we don't
+want in the history. If you need intermediate output, save as CSV to
+`data/`.
+
+-   basic plot of data
+
+    -   Very basic plot of count of gender, age, and class
+
+```{r}
+use_package("ggplot2")
+```
+
+```{r}
+lipidomics %>%
+  distinct(code, gender, class) %>%
+  ggplot(aes(x = class, fill = gender)) +
+  geom_bar(position = "dodge")
+ggsave(here::here("images/plot-count-stats.png"))
+
+ggplot(lipidomics, aes(x = value)) +
+  geom_histogram() +
+  facet_wrap(vars(metabolite), scales = "free")
+ggsave(here::here())
+```
+
+For targets that create an intermediate or output file, targets needs
+the file path as an output of the function when used within
+`use_target()`. In order to make it easier to include this in later
+functions, let's make a function for it.
+
+```{r output-switch}
+#' Switch output based on if it is interactive, otherwise it is a file path.
+#'
+#' @param output Output object to send to screen when running interactively.
+#' @param path The file path to where the intermediate object is saved.
+#'
+#' @return An object or a file path.
+#'
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    here::here(path)
+  }
+}
+```
+
+```{r purl-only-output-switch}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+#' Switch output based on if it is interactive, otherwise it is a file path.
+#'
+#' @param output Output object to send to screen when running interactively.
+#' @param path The file path to where the intermediate object is saved.
+#'
+#' @return An object or a file path.
+#'
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    here::here(path)
+  }
+}
+" |>
+  readr::write_lines(here::here("R/functions.R"), append = TRUE)
+gert::git_add("R/functions.R")
+gert::git_commit("Add function to switch output for targets use.")
+```
+
+## Exercise: Convert the plot code to a function and add as a target
+
+> Time: \~20 minutes.
+
+For now, we will only take the code to make the bar plot and convert it
+into a function. Just like you did with the `descriptive_stats()`
+function in the exercise above, complete these tasks:
+
+1.  Wrap the code with `function() {...}` and name the new function
+    `plot_count_stats`.
+2.  Replace `lipidomics` with `data` and put `data` as an argument
+    inside the brackets of `function()`.
+3.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
+    `{dplyr}` function used inside your function.
+4.  At the end of the function right after the `ggplot2::ggsave()` code,
+    use the `output_switch_for_targets()` function we create. See the
+    scaffolding code below.
+5.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
+    sure it is formatted correctly. You might need to manually force a
+    styling if lines are too long.
+6.  With the *cursor* inside the function, add some roxygen
+    documentation with `Ctrl-Shift-P` followed by typing "roxygen
+    comment". Remove the lines that contain `@examples` and `@export`,
+    then fill in the other details (like the `@params` and `Title`). In
+    the `@return` section, write "A plot object or a file path."
+7.  Cut and paste the function over into the `R/functions.R` file.
+8.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
+    code by running `plot_count_stats(lipidomics)` in the Console. If it
+    works, do the last task.
+9.  Save both files and then open the Git interface and commit the
+    changes you made to them.
+
+Use this scaffolding code to help guide you to write the code into a
+function.
+
+``` r
+plot_count_stats <- function(___) {
+  plot_output <- ___
+  
+  ggplot2::ggsave(
+    plot = plot_output, 
+    filename = here::here("images/plot-count-stats.png")
+  )
+  output_switch_for_targets(plot_output, ___)
+}
+```
+
+```{r solution-plot-count-as-function}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+## This should be in the R/functions.R file.
+#' Plot for basic count data.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A ggplot2 graph, or a file path.
+#'
+plot_count_stats <- function(data) {
+  plot_output <- data %>%
+    dplyr::distinct(code, gender, class) %>%
+    ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
+    ggplot2::geom_bar(position = "dodge")
+  ggplot2::ggsave(
+    plot = plot_output,
+    filename = here::here("images/plot-count-stats.png")
+  )
+  output_switch_for_targets(plot_output, "images/plot-count-stats.png")
+}
+```
+
+```{r purl-only-plot-count-as-function}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+#' Plot for basic count data.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A ggplot2 graph, or a file path.
+#'
+plot_count_stats <- function(data) {
+  plot_output <- data %>%
+    dplyr::distinct(code, gender, class) %>%
+    ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
+    ggplot2::geom_bar(position = 'dodge')
+  ggplot2::ggsave(
+    plot = plot_output,
+    filename = here::here('images/plot-count-stats.png')
+  )
+  output_switch_for_targets(plot_output, 'images/plot-count-stats.png')
+}
+" |>
+  readr::write_lines(here::here("R/functions.R"))
+gert::git_add("R/functions.R")
+gert::git_commit("Add function to create plot of count stats.")
+```
+
+## Including intermediate output results in targets
+
+Try to use file names consistently.
+
+```{r}
+use_target(
+  name = plot_count_stats,
+  command = plot_count_stats(lipidomics),
+  format = "file"
+)
+```
+
+## Incorporating targets with R MArkdown
+
+-   basic report of data using summaries and plot
+
+    -   Add Rmd file to targets
+    -   Use `tar_render()`
+
+```{r}
+targets::tar_read() # only one output
+targets::tar_load() # can load several at once
+```
+
+```{r}
+list(
+  tar_render()
+)
+```
+
+```{r}
+create_table <- function(data) {
+  data %>%
+    mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
+    select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+    knitr::kable(caption = "Descriptive statistics of the metabolites.")
+}
+```
+
+## Exercise: Removing the stored pipeline data
+
+> Time: \~10 minutes.
+
+Like with `{renv}`, sometimes you need to start from the beginning and
+clean everything up because there's an issue that you can't seem to fix.
+In this case, `{targets}` has a few functions to help out. Here are four
+that you can use to delete stuff (also [described on the targets
+book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-data-files)):
+
+`tar_invalidate()`
+
+:   This removes the metadata on the target in the pipeline, but doesn't
+    remove the object itself (which `tar_delete()` does). This will tell
+    `{targets}` that the target is out of date, since it has been
+    removed, even though the data object itself isn't present. You can
+    use this like you would `select()`, by naming the objects directly
+    or using the `{tidyselect}` helpers (e.g. `everything()`,
+    `starts_with()`).
+
+`tar_delete()`
+
+:   This deletes the stored objects (e.g. the `lipidomics` or
+    `stats_by_metabolite`) inside `_targets/`, but does not delete the
+    record in the pipeline. So `{targets}` will see that the pipeline
+    doesn't need to be rebuilt. This is useful if you want to remove
+    some data because it takes up a lot of space, or, in the case of
+    GDPR and privacy rules, you don't want to store any sensitive
+    personal health data in your project. Use it like
+    `tar_invalidate()`, with functions like `everything()` or
+    `starts_with()`.
+
+`tar_prune()`
+
+:   This function is useful to help clean up left over or unused objects
+    in the `_targets/` folder. You will probably not use this function
+    too often.
+
+`tar_destroy()`
+
+:   The most destructive, and probably more commonly used, function.
+    This will delete the entire `_targets/` folder for those times when
+    you want to start over and re-run the entire pipeline again.
+
+1.  Try out `tar_invalidate()` by running these code in the Console, one
+    at a time, and see what output they give:
+
+    ```{r test-out-invalidate}
+    #| purl: true
+    tar_read(lipidomics)
+    tar_invalidate(everything())
+    tar_read(lipidomics)
+    tar_outdated()
+    tar_make()
+    tar_outdated()
+    ```
+
+2.  Try out `tar_delete()` by also running these code in the Console,
+    one at a time, and see what output they give:
+
+    ```{r test-out-delete}
+    #| purl: true
+    tar_read(lipidomics)
+    tar_delete(everything())
+    tar_read(lipidomics)
+    tar_outdated()
+    tar_make()
+    tar_outdated()
+    ```
+
+While this isn't an issue for our data (since it is an open dataset),
+it's good practice to not store the original, individual level data in
+the `_targets/` folder for those of us working in more strict
+environments when it comes to personal health data.
+
+Open the `_targets.R` file and write this code at the end of the file:
+
+```{r}
+tar_delete(lipidomics)
+```
+
+```{r purl-only-delete-stored-data}
+#| eval: false
+#| echo: false
+#| purl: true
+"tar_delete(lipidomics)" |>
+  readr::write_lines(here::here("_targets.R"), append = TRUE)
+gert::git_add("_targets.R")
+gert::git_commit("Delete the stored lipidomics data in the _targets folder")
+```
+
+Before ending, open the Git interface and commit the changes you made.
+Then push your changes up to GitHub.
+
+## Summary
