@@ -1,5 +1,10 @@
 # Smoother project-based collaboration {#sec-smoother-collaboration}
 
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+```
+
 {{< include ../includes/_wip.qmd >}}
 
 Many of you probably work largely and mostly consistently on your own,
@@ -497,7 +502,7 @@ the situation.
 :   The last resort, use this to reinstall everything from scratch.
 :::
 
-## Exercise: Browse the newly created renv folders and files
+## Exercise: Browse the newly created `renv/` folders and files
 
 > Time: \~10 minutes.
 
@@ -987,15 +992,25 @@ Then, start completing the `TODO` items. Save often and watch as the
 Markdown gets reformatted. After you are done, commit the changes you
 made to the Git history. Then delete both `TODO.md` and the
 `doc/report.Rmd` files, followed by committing these deletions in the
-Git history.
+Git history. Click the "Push" button to push the changes to GitHub.
+
+TODO: Could actually wrap this purl only as an instructor detail too, to
+say "run this during exercise so you have it too"
 
 ```{r purl-only-editor-options-to-readme}
 #| eval: false
 #| echo: false
 #| purl: true
-editor_yaml <- paste("---", editor_options, "---", sep = "\n")
+editor_yaml <- "
+---
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+---
+"
 readLines("README.md") |>
-  append(editor_options, after = 1) |>
+  append(editor_yaml, after = 1) |>
   writeLines("README.md")
 gert::git_add("README.md")
 gert::git_commit("Add editor options to README file.")
