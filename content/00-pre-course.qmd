@@ -1,3 +1,8 @@
+---
+execute:
+  eval: false
+---
+
 # Pre-course tasks
 
 In order to participate in this course, you must complete the pre-course
@@ -257,7 +262,6 @@ can be done by either:
     location like `Documents`) in the R Console.
 
 ```{r purl-only-run-prodigenr}
-#| eval: false
 #| echo: false
 #| purl: true
 prodigenr::setup_project("~/Desktop/AdvancedR3")
@@ -268,7 +272,6 @@ When the RStudio Project opens up again, run these three commands in the
 R Console:
 
 ```{r more-project-setup}
-#| eval: false
 #| purl: true
 prodigenr::setup_with_git()
 usethis::use_blank_slate("project")
@@ -276,7 +279,6 @@ usethis::use_r("functions", open = FALSE)
 ```
 
 ```{r purl-only-first-commit}
-#| eval: false
 #| echo: false
 #| purl: true
 gert::git_add(".")
@@ -319,13 +321,11 @@ Please do these two tasks:
     `lesson.Rmd` in the `doc/` folder.
 
     ```{r add-rmarkdown-doc}
-    #| eval: false
     #| purl: true
     r3::create_rmarkdown_doc()
     ```
 
 ```{r purl-only-add-lesson-rmd}
-#| eval: false
 #| echo: false
 #| purl: true
 gert::git_add("doc/lesson.Rmd")
@@ -359,7 +359,6 @@ your `AdvancedR3` R Project, go to the Console pane in RStudio and type
 out:
 
 ```{r create-data-raw}
-#| eval: false
 #| purl: true
 usethis::use_data_raw("nmr-omics")
 ```
@@ -378,11 +377,10 @@ The R script should have opened up for you, otherwise, go into the
 thing to do is delete all the code in the script. Than, copy and paste
 the code below into the script.
 
-```{r insert-data-raw-script, file=here::here('data-raw/nmr-omics.R'), eval=FALSE}
+```{r insert-data-raw-script, file=here::here('data-raw/nmr-omics.R')}
 ```
 
 ```{r purl-only-paste-processing-code}
-#| eval: false
 #| echo: false
 #| purl: true
 readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R") |>
@@ -397,7 +395,7 @@ the end, though, the only important thing is to run all the code and get
 the `lipidomics` dataset to be saved as `data/lipidomics.rda`. The
 created files should look like this:
 
-```{r file-tree-data-folders, echo=FALSE, comment="", eval=FALSE}
+```{r file-tree-data-folders, echo=FALSE}
 fs::dir_tree(regexp = "data(-raw)?")
 ```
 
@@ -416,6 +414,7 @@ And the created dataset in `data/lipidomics.rda` should look like (using
 `load()`):
 
 ```{r show-created-data}
+#| eval: true
 load(here::here("data/lipidomics.rda"))
 lipidomics
 ```
@@ -431,13 +430,11 @@ ignore the files created in the `data-raw/nmr-omics/` folder. In the
 Console, type out the code below. You only need to do this once.
 
 ```{r ignore-xlsx-files}
-#| eval: false
 #| purl: true
 usethis::use_git_ignore("data-raw/nmr-omics/")
 ```
 
 ```{r purl-only-processing-data}
-#| eval: false
 #| echo: false
 #| purl: true
 gert::git_add(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore", "DESCRIPTION"))
