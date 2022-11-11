@@ -139,6 +139,7 @@ would want to do before the primary statistical analysis:
 4.  The paper with the results included.
 
 ```{mermaid fig-pipeline-schematic}
+%%| label: fig-pipeline-schematic
 %%| fig-cap: Very simple flow chart of steps in an analysis pipeline.
 %%| echo: false
 %%| eval: true

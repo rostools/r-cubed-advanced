@@ -359,6 +359,7 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
     removing.
 
 ```{mermaid fig-renv-environment}
+%%| label: fig-renv-environment
 %%| fig-cap: Simple schematic of how renv is a separate environment.
 %%| echo: false
 %%| eval: true
