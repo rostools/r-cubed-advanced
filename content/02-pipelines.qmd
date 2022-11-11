@@ -371,7 +371,7 @@ Let's make a change to our function and test out how the
     targets and visualize the network again.
 6.  Open up the Git interface and commit the changes to the Git history.
 
-```{r solution-summary-stats-to-function}
+```{r solution-more-summary-stats-to-function}
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 #' Calculate descriptive statistics of each metabolite.
@@ -393,7 +393,7 @@ descriptive_stats <- function(data) {
 }
 ```
 
-```{r purl-only-summary-stats-fun-add-stats}
+```{r purl-only-more-summary-stats-to-function}
 #| eval: false
 #| echo: false
 #| purl: true
