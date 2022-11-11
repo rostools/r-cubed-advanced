@@ -14,6 +14,7 @@ Imports:
     fs,
     gt,
     here,
+    igraph,
     lintr,
     markdown,
     prodigenr,
