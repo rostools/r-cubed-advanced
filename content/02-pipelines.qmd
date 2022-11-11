@@ -166,57 +166,226 @@ our pipeline, we can start using R to build it.
 
 ## Using targets to manage the pipeline
 
-Ask, is it a workflow or build dependency?
+There are a few packages to help build pipelines in R, but the most
+commonly used, well-designed, and maintained one is called `{targets}`.
+With this package, you specify outputs you want to create and
+`{targets}` will track them for you. So it will know which output
+depends on which other one and which ones need to be updated.
 
-```{r}
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Ask participants, which do they think it is: a build dependency or a
+workflow dependency. Because it is directly used to run analyses and
+process the data, it would be a build dependency.
+:::
+
+First, since we are using `{renv}`, we need to install `{targets}` in
+the project environment. And since `{targets}` is a build dependency, we
+add it to the `DESCRIPTION` file with:
+
+```{r add-targets-as-dep}
+#| purl: true
 use_package("targets")
 ```
 
-```{r}
+After it finishes being added to the project R library, let's set up our
+project to start using it!
+
+```{r use-targets}
+#| purl: true
 targets::use_targets()
 ```
 
-```{r}
+This will add several files:
+
+```{r purl-only-use-targets-files}
+#| eval: false
 #| echo: false
-# Run this in the project
+#| purl: true
+# TODO: Use to list out files created to paste into book.
 fs::dir_ls(regexp = "run.*|_targets.*")
+git_ci(c("run.R", "run.sh", "_targets.R"),
+       "Start using targets")
 ```
 
-```{r}
-gert::git_add(c("run.R", "run.sh", "_targets.R"))
-gert::git_commit("Start using targets")
+The most important file is the `_targets.R` file. The other two files
+are used for other situations (like running on a Linux server) that we
+won't cover in the course. Before we continue though, let's **commit
+these new files to the Git history**.
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Let them read it before going over it again to reinforce
+function-oriented workflows and how `{targets}` and the `tar_target()`
+works.
+:::
+
+::: callout-info
+## Reading task: \~8
+
+Next, open up the `_targets.R` and we'll take a look at what it
+contains.
+
+::: {.callout-info collapse="true"}
+## Click this to see the file contents
+
+```{r show-use-targets-file-contents}
+#| eval: true
+#| echo: false
+#| code-fold: true
+fs::path_package("targets", "pipelines", "use_targets.R") |>
+  readLines() |>
+  cat(sep = "\n")
+```
+:::
+
+Notice `tar_target()` function used at the end of the script. There are
+two main arguments for it `name` and `command`. The way that `{targets}`
+works is similar to how you'd write R code to assign the output of a
+function to an object.
+
+``` r
+object_name <- function_in_command(input_arguments)
 ```
 
-```{r}
-# Need to?
-use_git_ignore("_targets")
+Is the same as:
+
+``` r
+tar_target(
+  name = object_name,
+  command = function_in_command(input_arguments)
+)
 ```
 
--   basic summaries of data
+What this means is that `{targets}` follows a ["function-oriented"
+workflow](https://books.ropensci.org/targets/functions.html#problems-with-script-based-workflows),
+not a "script-based" workflow. What's the difference? In a
+script-oriented workflow, each R file is run in a specific order, so you
+might end up with an R file that has code like:
 
-    -   Calculate basic statistics, like mean and SD of all variables.
+``` r
+source("R/1-process-data.R")
+source("R/2-basic-statistics.R")
+source("R/3-create-plots.R")
+source("R/4-linear-regression.R")
+```
 
-"function-oriented workflows" vs "script-based workflows"
+While in a function-oriented workflow, it might look more like:
 
-Advantage, disadvantage.
+``` r
+source("R/functions.R")
+raw_data <- load_raw_data("file/path/data.csv")
+processed_data <- process_data(raw_data)
+basic_stats <- calculate_basic_statistics(processed_data)
+simple_plot <- create_plot(processed_data)
+model_results <- run_linear_reg(processed_data)
+```
 
-https://books.ropensci.org/targets/functions.html#problems-with-script-based-workflows
+With this workflow, each function takes an input dataset and contains
+all the code to create the results into one output, like a figure in a
+paper. If you've taken the [intermediate R
+course](https://r-cubed-intermediate.rostools.org/), you'll notice that
+this function-oriented workflow is the workflow we covered. There are so
+many advantages to this type of workflow and is the reason many powerful
+R packages are designed around making use of this type workflow.
 
-```{r}
+If we take these same code and convert it into the `{targets}` format,
+the end of `_targets.R` file would like this:
+
+``` r
+list(
+  tar_target(
+    name = raw_data,
+    command = load_raw_data("file/path/data.csv")
+  ),
+  tar_target(
+    name = processed_data,
+    command = process_data(raw_data)
+  ),
+  tar_target(
+    name = basic_stats,
+    command = calculate_basic_statistics(processed_data)
+  ),
+  tar_target(
+    name = simple_plot,
+    command = create_plot(processed_data)
+  ),
+  tar_target(
+    name = model_results,
+    command = run_linear_reg(processed_data)
+  ),
+  tar_target(
+    name = processed_data,
+    command = process_data(raw_data)
+  ),
+)
+```
+:::
+
+Let's start writing code to create the four items we listed above: some
+descriptive statistics, a plot of some discrete data, a plot of the
+continuous lipid variables, and a report (R Markdown). Since we'll use
+`{tidyverse}`, specifically `{dplyr}`, to calculate the summary
+statistics, we need to add it to our dependencies and install it in the
+project library. `{tidyverse}` is a special "meta"-package so we need to
+add it to the `"depends"` section of the `DESCRIPTION` file.
+
+```{r add-tidyverse-deps}
+#| purl: true
 use_package("tidyverse", "depends")
 use_package("dplyr")
 ```
 
-```{r}
-library(tidyverse)
-load(here::here("data/lipidomics.rda"))
+Open up the `doc/lesson.Rmd` file and create a new header and code chunk
+at the bottom of the file.
+
+    ## Basic statistics
+
+    ```{{r setup}}
+    library(tidyverse)
+    load(here::here("data/lipidomics.rda"))
+    ```
+
+    ```{{r basic-stats}}
+
+    ```
+
+```{r purl-only-markdown-basic-stats}
+#| eval: false
+#| echo: false
+#| purl: true
+c("\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)", 
+"load(here::here('data/lipidomics.rda'))\n```\n\n") |>
+  paste0(collapse = "\n") |> 
+  write_to_file("doc/lesson.Rmd")
+git_ci("doc/lesson.Rmd", "Add section on basic stats to rmd")
+```
+
+TODO: Save this markdown text in order to add to project via purl?
+
+We want to calculate the mean and SD for each metabolite and than, to
+make it more readable, to round the numbers to one digit. We covered
+this in the
+[functionals](https://r-cubed-intermediate.rostools.org/dry-functionals.html#summarizing-long-data-like-the-rr-dataset)
+session of the intermediate course, so we will apply these same
+principles and code here. To do that, we need to use `group_by()` on the
+`metabolites`, use `across()` inside `summarise()` so we can give it the
+`mean()` and `sd()` functions, followed by `mutate()`ing each numeric
+column (`across(where(is.numeric))`) to `round()` to 1 digit. Let's
+write out the code!
+
+```{r mean-sd-by-each-metabolite}
+#| eval: true
 lipidomics %>%
   group_by(metabolite) %>%
   summarise(across(value, list(mean = mean, sd = sd))) %>%
   mutate(across(where(is.numeric), round, digits = 1))
 ```
 
-Run `r run_styler_text`.
+After that, run `r run_styler_text` on the file. Than we will **commit**
+the changes to the Git history.
 
 ## Exercise: Convert summary statistics code into a function
 
