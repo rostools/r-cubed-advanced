@@ -324,6 +324,11 @@ use tar_option_set() and packages argument
 desc::desc_get_deps()$package[-1]
 ```
 
+```{r}
+# Need to?
+use_git_ignore("_targets")
+```
+
 Try running again, might be able to.
 
 ```{r}
