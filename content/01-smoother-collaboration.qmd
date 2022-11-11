@@ -358,7 +358,8 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
     work to management the dependencies, like installing, updating, and
     removing.
 
-```{mermaid figure-renv-environment}
+```{mermaid fig-renv-environment}
+%%| fig-cap: Simple schematic of how renv is a separate environment.
 %%| echo: false
 %%| eval: true
 %%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 40, 'rankSpacing': 20}}}%%
