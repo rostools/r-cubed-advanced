@@ -69,15 +69,96 @@ early in the data processing stage.
 3.  For the remaining time, we'll briefly share with everyone about what
     they've thought and discussed.
 
-## What is a "pipeline"?
+## What is a data analysis "pipeline"?
 
--   Building reproducible analysis pipelines: targets
+TODO: Should this be a reading exercise or the instructor talk about it?
 
-    -   Add targets to repo
-    -   list out, what are the things we want to create, then go and
-        create them. (will do this for next session too.)
+A pipeline can be any process where the steps between a start and an end
+point are very clear, explicit, and concrete. These highly distinct
+steps can be manual, human involved or can be completely automated by a
+robot or computer. For instance, in car factories, the pipeline from the
+input raw materials to the output vehicle are extremely well described
+and implemented. Or like during the pandemic, the pipeline for testing
+(at least in Denmark and several other countries) was highly structured
+and clear for the workers doing the testing and the people having the
+test done: A person goes in, scans their ID card, has the test done,
+worker inputs the results, results get sent immediately to the health
+agency as well as to the person based on their ID contact information
+(or via a secure app).
 
-Image of steps in a pipeline, what intermediate items there are, etc.
+However, in research, especially around data collection and analysis, we
+often hear or read about "pipelines". But looking closer, these aren't
+actual pipelines because the individual steps are not very clear and not
+well described, often requiring a fair amount of manual human attention
+and intervention. Particularly within computational environments, a
+pipeline is when there is minimal to *no* human intervention from raw
+input to finished output. Why aren't these data "pipelines" in research
+actual pipelines? Because:
+
+1.  Anything with data ultimately must be on the computer,
+2.  Anything automatically done on the computer must be done with code,
+3.  Not all researchers write code,
+4.  Researchers who do write code rarely publish and share it,
+5.  Code that is shared or published (either publicly or within the
+    research group) is not written in a way that allows a pipeline to
+    exist,
+6.  And, research is largely non-reproducible [@Trisovic2022;
+    @Seibold2021; @Laurinavichyute2021].
+
+A data analysis pipeline would by definition be a reproducible,
+readable, and code-based data analysis. we researchers as a group have a
+long way to go before we can start realistically implementing data
+analysis pipelines.
+
+This isn't to diminish the work of researchers, but a basic observation
+on the systemic, social, and structural environment that we researchers
+work in. We as researchers are not trained on how to write code, nor do
+we have a strong culture and incentive structure around learning,
+sharing, reviewing, and improving code. Nor are we often allowed to get
+(or use) funds to hire people who *are* trained on and skilled in
+programmatic thinking and programming. Otherwise courses like this
+wouldn't need to exist :shrug:
+
+So how would a data analysis pipeline look like? Before we get to that
+though, we have to separate two things: exploratory data analysis and
+final paper data analysis. In exploratory data analysis, there will
+likely be a lot of manual, interactive steps involved that may or may
+not need to be explicitly stated and included in the analysis plan and
+pipeline. But for the final paper and what results would be included, we
+generally have some basic first ideas. Let's list a few items that we
+would want to do before the primary statistical analysis:
+
+1.  A table of some basic descriptive statistics of the study
+    population, such as mean, standard deviation, or counts of basic
+    discrete data (like treatment group).
+2.  A figure visualizing the counts or other statistics for variables of
+    interest that are discrete/categorical. For the data in this course,
+    that would be variables like gender and age.
+3.  A figure showing the distribution of your main variables of
+    interest. In this case, ours are the lipidomic variables.
+4.  The paper with the results included.
+
+```{mermaid fig-pipeline-schematic}
+%%| fig-cap: Very simple flow chart of steps in an analysis pipeline.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
+graph LR
+    data[Data] --> fn_desc{{function}} 
+    fn_desc --> tab_desc[Table:<br>descriptive<br>statistics]
+    data --> fn_plot{{function}}
+    fn_plot{{function}} --> plot_discr[Plot:<br>Discrete<br>variables]
+    tab_desc --> paper[Paper]
+    plot_discr --> paper
+    data --> fn_plot_vars{{function}}
+    fn_plot_vars{{function}} --> plot_distrib[Plot:<br>Continuous<br>variables]
+    plot_distrib --> paper
+
+linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1px;
+```
+
+Now that we conceptually have drawn out the sets of tasks to complete in
+our pipeline, we can start using R to build it.
 
 ## Using targets to manage the pipeline
 
