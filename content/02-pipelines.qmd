@@ -7,7 +7,10 @@ execute:
 
 ```{r setup}
 #| include: false
+#| eval: true
 source(here::here("R/functions.R"))
+library(tidyverse)
+load(here::here("data/lipidomics.rda"))
 ```
 
 {{< include ../includes/_wip.qmd >}}
