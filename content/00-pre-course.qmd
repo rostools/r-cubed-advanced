@@ -281,8 +281,7 @@ usethis::use_r("functions", open = FALSE)
 ```{r purl-only-first-commit}
 #| echo: false
 #| purl: true
-gert::git_add(".")
-gert::git_commit("First commit.")
+git_ci(".", "First commit.")
 ```
 
 Here we use the `{usethis}` package to help set things up. `{usethis}`
@@ -328,8 +327,7 @@ Please do these two tasks:
 ```{r purl-only-add-lesson-rmd}
 #| echo: false
 #| purl: true
-gert::git_add("doc/lesson.Rmd")
-gert::git_commit("Add draft lesson Rmd file.")
+git_ci("doc/lesson.Rmd", "Add draft lesson Rmd file.")
 ```
 
 ## Download the course data
@@ -437,8 +435,8 @@ usethis::use_git_ignore("data-raw/nmr-omics/")
 ```{r purl-only-processing-data}
 #| echo: false
 #| purl: true
-gert::git_add(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore", "DESCRIPTION"))
-gert::git_commit("Script to process omics data into lipidomics rda.")
+git_ci(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore", "DESCRIPTION"),
+       "Script to process omics data into lipidomics rda.")
 ```
 
 ``` r

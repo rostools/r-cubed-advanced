@@ -236,8 +236,8 @@ usethis::use_package("usethis")
 #| echo: false
 #| purl: true
 usethis::use_git_ignore(".Rbuildignore")
-gert::git_add(c("DESCRIPTION", ".gitignore"))
-gert::git_commit("Add packages as dependencies to project.")
+git_ci(c("DESCRIPTION", ".gitignore"), 
+       "Add packages as dependencies to project.")
 ```
 
 ## Formal dependency management
@@ -324,8 +324,8 @@ renv::init()
 #| eval: false
 #| echo: false
 #| purl: true
-gert::git_add(c("renv.lock", "renv", ".Rprofile"))
-gert::git_commit("Add renv machinery.")
+git_ci(c("renv.lock", "renv", ".Rprofile"),
+       "Add renv machinery.")
 ```
 
 The function `renv::init()` initializes the project to begin being
@@ -429,11 +429,12 @@ options(
 #| echo: false
 #| eval: false
 #| purl: true
-readLines(here::here(".Rprofile")) |>
-  append('options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)') |>
-  writeLines(here::here(".Rprofile"))
-gert::git_add(".Rprofile")
-gert::git_commit("Add renv snapshot settings to profile.")
+write_to_file(
+  'options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)',
+  ".Rprofile",
+  append = TRUE
+)
+git_ci(".Rprofile", "Add renv snapshot settings to profile.")
 ```
 
 These two options make it so that whenever you add a package with
@@ -587,11 +588,10 @@ usethis::use_usethis()
 #| echo: false
 #| eval: false
 #| purl: true
-readLines(here::here(".Rprofile")) |>
-  append("if (interactive()) {suppressMessages(require(usethis))}") |>
-  writeLines(here::here(".Rprofile"))
-gert::git_add(".Rprofile")
-gert::git_commit("Add usethis settings to profile.")
+write_to_file("if (interactive()) {suppressMessages(require(usethis))}",
+              ".Rprofile",
+              append = TRUE)
+git_ci(".Rprofile", "Add usethis settings to profile.")
 ```
 
 Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
@@ -608,8 +608,7 @@ usethis::use_package("renv", "suggests")
 #| echo: false
 #| purl: true
 # Restart R session first.
-gert::git_add("DESCRIPTION")
-gert::git_commit("Add renv as a suggests dependency.")
+git_ci("DESCRIPTION", "Add renv as a suggests dependency.")
 ```
 
 Open the Git interface and see that under `Suggests:` in the
@@ -679,8 +678,7 @@ use_package("lintr", "suggests")
 #| eval: false
 #| echo: false
 #| purl: true
-gert::git_add("DESCRIPTION")
-gert::git_commit("Add lintr as a suggests dependency.")
+git_ci("DESCRIPTION", "Add lintr as a suggests dependency.")
 ```
 
 Right now we don't have much code to "lint", but as we work through the
@@ -758,8 +756,7 @@ use_github_action("lint-project")
 #| eval: false
 #| echo: false
 #| purl: true
-gert::git_add(".github")
-gert::git_commit("Add lintr GitHub Action.")
+git_ci(".github", "Add lintr GitHub Action.")
 ```
 
 This creates a file in `.github/workflows/lint-project.yaml`. In order
@@ -794,8 +791,7 @@ use_package("styler", "suggests")
 #| eval: false
 #| echo: false
 #| purl: true
-gert::git_add("DESCRIPTION")
-gert::git_commit("Add styler as a suggests dependency.")
+git_ci("DESCRIPTION", "Add styler as a suggests dependency.")
 ```
 
 Like `{lintr}`, there are only a few functions in `{styler}` that we
@@ -936,8 +932,7 @@ editor_options <-
 readLines("doc/lesson.Rmd") |>
   append(editor_options, after = 1) |>
   writeLines("doc/lesson.Rmd")
-gert::git_add("doc/lesson.Rmd")
-gert::git_commit("Add editor options to Rmd file.")
+git_ci("doc/lesson.Rmd", "Add editor options to Rmd file.")
 ```
 
 Now, when you save your file, RStudio should automatically reformat the
@@ -1025,8 +1020,7 @@ editor_options:
 readLines("README.md") |>
   append(editor_yaml, after = 1) |>
   writeLines("README.md")
-gert::git_add("README.md")
-gert::git_commit("Add editor options to README file.")
+git_ci("README.md", "Add editor options to README file.")
 gert::git_rm(c("TODO.md", "doc/report.Rmd"))
 gert::git_commit("Remove these extra files")
 ```
