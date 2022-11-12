@@ -469,7 +469,14 @@ git_ci("R/functions.R", "Add function to create descriptive stats.")
 
 ## Adding a step in the pipeline
 
-```{r}
+Now that we've created a function to calculate some basic statistics, we
+can now add it as a step in the `{targets}` pipeline. Open up the
+`_targets.R` file and go to the end of the file, where the `list()` and
+`tar_target()` code are found. In the first `tar_target()`, replace the
+target to load the lipidomic data. In the second, replace it with the
+`descriptive_stats()` function. It should look like:
+
+``` r
 list(
   tar_target(
     name = lipidomics,
@@ -482,33 +489,89 @@ list(
 )
 ```
 
-Or Palette "run targets"
+```{r purl-only-add-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+new_targets <- "
+list(
+  tar_target(
+    name = lipidomics,
+    command = load(here::here('data/lipidomics.rda'))
+  ),
+  tar_target(
+    name = stats_by_metabolite,
+    command = descriptive_stats(lipidomics)
+  )
+)
+"
+readLines(here::here("_targets.R"))[-28:-38] |>
+  append(new_targets) |>
+  writeLines(here::here("_targets.R"))
+git_ci("_targets.R", "Add new targets to run.")
+```
+
+Let's run `{targets}` to see what happens! You can either use the
+Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
+code in the Console:
 
 ```{r}
 targets::tar_make()
 ```
 
-Try to run, won't because targets doesn't know about the packaages
-needed.
+It probably won't run though. That's because `{targets}` doesn't know
+about the packages that you need for the pipeline. To add it, we need to
+go to the `tar_option_set()` section of the `_targets.R` file and
+replace the `packages = c("tibble")` with all the packages we use.
+Instead of typing each package out, we can paste them directly into the
+script using code, since we already track the packages in the
+`DESCRIPTION` file. To access the dependencies, we can use this
+function:
 
-use tar_option_set() and packages argument
-
-```{r}
-desc::desc_get_deps()$package[-1]
+``` r
+desc::desc_get_deps()$package
 ```
 
-```{r}
-# Need to?
+But this code also picks up the dependency on R itself. We can remove
+that with `[-1]` and put it in the place of the `packages` argument:
+
+``` r
+packages = desc::desc_get_deps()$package[-1]
+```
+
+```{r purl-only-add-packages-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+readLines(here::here("_targets.R"))[-12] |>
+  append("  packages = desc::desc_get_deps()$package[-1]", after = 11) |>
+  writeLines(here::here("_targets.R"))
+```
+
+Try running `{targets}` again with either `targets::tar_make()` or the
+Command Palette (`Ctrl-Shift-P`, then type "run targets"). It should run
+through! We also see that a new folder has been created called
+`_targets/`. Since we don't want to track this in Git, we should ignore
+it with:
+
+```{r ignore-targets-folder}
+#| purl: true
 use_git_ignore("_targets")
 ```
 
-Try running again, might be able to.
+We can visualize our individual pipeline targets that we track through
+`tar_target()` now too, which can be useful as you add more and more
+targets:
 
-```{r}
+```{r visualize-targets}
+#| purl: true
 targets::tar_visnetwork()
 ```
 
-```{r}
+Or to see what pipeline targets are outdated:
+
+```{r outdated-targets}
+#| purl: true
 targets::tar_outdated()
 ```
 
@@ -517,7 +580,14 @@ targets::tar_outdated()
 > Time: \~5 minutes.
 
 Like you did with `{renv}`, go into the `_targets/` folder and take a
-look around.
+look around. There are two important ones: `meta/` and `objects/`. Look
+in each to get familiar with the files there.
+
+-   The `meta/meta` file contains the metadata about the individual
+    pipeline targets that you add with `tar_target()`.
+-   The `objects/` folder contains the output of each `tar_target()`
+    (e.g. the data from `load()` or the statistics from
+    `descriptive_stats()`).
 
 TODO: Need to run on my end to know what to look for.
 
