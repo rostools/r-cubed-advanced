@@ -241,10 +241,14 @@ fs::path_package("targets", "pipelines", "use_targets.R") |>
 ```
 :::
 
-Notice `tar_target()` function used at the end of the script. There are
-two main arguments for it `name` and `command`. The way that `{targets}`
-works is similar to how you'd write R code to assign the output of a
-function to an object.
+One small thing to notice are the `#nolint` comments used throughout.
+These "tags" are used to tell `{lintr}` to ignore these lines when
+running the lintr.
+
+Next, notice `tar_target()` function used at the end of the script.
+There are two main arguments for it `name` and `command`. The way that
+`{targets}` works is similar to how you'd write R code to assign the
+output of a function to an object.
 
 ``` r
 object_name <- function_in_command(input_arguments)
