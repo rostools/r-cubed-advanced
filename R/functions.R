@@ -30,6 +30,7 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
+    prepend(readr::write_lines(here::here("R/build-project-functions.R"))) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop")
 }
