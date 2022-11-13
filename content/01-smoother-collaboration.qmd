@@ -471,8 +471,6 @@ reactivate it.
 ::: callout-info
 ## Reading task: \~5 minutes
 
-**Before continuing to the next exercise, please read this**.
-
 It's surprising how many issues can come up, from a reproducibility
 perspective, when it comes to managing package dependencies. You think
 something works well on your computer, but when you create a "virtual
