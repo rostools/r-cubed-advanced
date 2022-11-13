@@ -1,0 +1,137 @@
+# Introduction to course {#sec-introduction}
+
+[**Introduction slides**](../slides/introduction.html)
+
+```{=html}
+<iframe class="slide-deck" src="../slides/introduction.html"></iframe>
+```
+Or this one?
+
+```{r slides-page-frame, echo=FALSE}
+knitr::include_url("../slides/introduction.html", height = "375px")
+```
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+The slides contain speaking notes that you can view by pressing 'S' on
+the keyboard.
+:::
+
+## The Big Picture
+
+::: callout-info
+## Reading task: \~10 minutes
+
+This section provides a bigger picture view of what we will be doing,
+why we want to do it, how we will be going about doing it, and what it
+will look like in the end.
+
+Our big picture aim is:
+
+> We want to create an data analysis project that: 1) makes it easier
+> for direct contributions from collaborators and others, 2) allows us
+> to write processing and analysis steps (as code) in a more explicit
+> and ultimately reproducible way, 3) incorporates general-purpose tools
+> that simplify using (or switching) statistical analysis methods, and
+> 4) enables quick dissemination of results by creating a
+> project-specific website. All of which will be exemplified through a
+> simple analysis of a lipidomics study.
+
+Reproducible
+
+TODO: Pipeline, workflow image?
+
+How will it look like in the end, in a more "tangible" way? The most
+tangible thing are the folders and files on our computers. The folder
+and file structures below show where we start and where we end, so you
+can hopefully get a better understanding of how things look like. Right
+now, everyone's initial project structure should look like:
+
+    LearnR3
+    ├── data/
+    │   ├── lipidomics.rda
+    │   └── README.md
+    ├── data-raw/
+    │   ├── README.md
+    │   ├── nmr-omics/
+    │   │  ├── lipidomics.xlsx
+    │   │  └── README.txt
+    │   └── nmr-omics.R
+    ├── doc/
+    │   ├── README.md
+    │   ├── report.Rmd
+    │   └── lesson.Rmd
+    ├── R/
+    │   ├── functions.R
+    │   └── README.md
+    ├── .gitignore
+    ├── DESCRIPTION
+    ├── LearnR3.Rproj
+    ├── README.md
+    └── TODO.md
+
+At the end of this course, it should look something like:
+
+TODO: Paste from final output of running code in
+
+Why do we structure it this way?
+
+-   To follow "project-oriented" workflows (covered in
+    @sec-smoother-collaboration).
+-   To follow some standard conventions in R, like having a
+    `DESCRIPTION` file (which is important for
+    @sec-smoother-collaboration).
+-   To keep types of files separate, like raw data raw and in the
+    `data-raw/` folder, R scripts/functions in the `R/` folder, and
+    documents like R Markdown files in `doc/`.
+
+This also supports our workflow and processes, which will be something
+like:
+
+-   Install packages in a project-specific environment to track package
+    dependencies.
+-   Follow "function-oriented" workflows, where we use R Markdown
+    (`doc/lesson.Rmd`) to write and test out code, convert it into a
+    function, test it, and then move it into `R/functions.R`.
+    -   Developing functions in the R Markdown document makes it a bit
+        easier to quickly test code out and make sure it works before
+        moving the code over into a more formal location and structure.
+        Think of using the R Markdown file as a sandbox to test out and
+        play with code, without fear of messing things up.
+    -   We also test code out in the R Markdown *from a teaching and
+        learning perspective* because it's easier to show and weave in
+        text and comments with code as we do the code-alongs. It also
+        forces you to practice working within R Markdown documents,
+        which are key components to a reproducible workflow in R.
+    -   We keep the functions in a separate file because we will
+        frequently `source()` from it as we prototype and test out code
+        in the R Markdown file. It also creates a clear separation
+        between "finalized" code and prototyping code.
+-   Use a combination of restarting R (`Ctrl-Shift-F10` or
+    `Session -> Restart R`) and using `source()` (`Ctrl-Shift-S` while
+    in `R/functions.R`) to run the functions inside of `R/functions.R`.
+    -   We restart R because it is the only certain way to ensure that
+        the R workspace is completely clear. For reproducibility, we
+        should always aim to work from a "clean plate".
+-   Keeping code readable by frequently (automatically) checking the
+    formatting/styling of our code.
+-   For each "output" in a paper (like a figure or table), write one or
+    more functions to complete the output and include those functions as
+    "targets" or steps in a pipeline. Use this explicit pipeline to
+    track which steps need to be re-run and in which order for your data
+    analysis.
+-   Write accompanying text (or full paper) for the analysis in Markdown
+    so we can easily and quickly build websites (or Word docs) of our
+    work, for rapid dissemination.
+-   Automatically reformat Markdown text into a standard, more readable
+    format.
+-   Whenever we complete a task, we *add and commit* those file changes
+    and save them into the Git history.
+    -   We use Git because it is the best way of keeping track of what
+        was done to your files, when, and why. It keeps your work
+        transparent and makes it easier to share your code by uploading
+        to GitHub. Using version control should be a standard practice
+        to doing better science since it fits with the philosophy of
+        doing science.
+:::
