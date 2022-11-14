@@ -205,8 +205,10 @@ This will add several files:
 #| purl: true
 # TODO: Use to list out files created to paste into book.
 fs::dir_ls(regexp = "run.*|_targets.*")
-git_ci(c("run.R", "run.sh", "_targets.R"),
-       "Start using targets")
+git_ci(
+  c("run.R", "run.sh", "_targets.R"),
+  "Start using targets"
+)
 ```
 
 The most important file is the `_targets.R` file. The other two files
@@ -360,9 +362,11 @@ at the bottom of the file.
 #| eval: false
 #| echo: false
 #| purl: true
-c("\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)", 
-"load(here::here('data/lipidomics.rda'))\n```\n\n") |>
-  paste0(collapse = "\n") |> 
+c(
+  "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
+  "load(here::here('data/lipidomics.rda'))\n```\n\n"
+) |>
+  paste0(collapse = "\n") |>
   write_to_file("doc/lesson.Rmd")
 git_ci("doc/lesson.Rmd", "Add section on basic stats to rmd")
 ```
@@ -714,7 +718,10 @@ metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
   facet_wrap(vars(metabolite), scales = "free")
 metabolite_distribution_plot
-ggsave(here::here("images/metabolite-distribution.png"), metabolite_distribution_plot)
+ggsave(
+  here::here("images/metabolite-distribution.png"),
+  metabolite_distribution_plot
+)
 ```
 
 We now have the basic code to convert over into functions. There are
