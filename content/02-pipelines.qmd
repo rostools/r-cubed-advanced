@@ -664,77 +664,63 @@ descriptive_stats <- function(data) {
 
 ## Saving intermediate analysis outputs
 
-Be aware that intermediate data gets saved to `_targets/` folder. So we
-want Git to ignore it, so we don't accidentally save things we don't
-want in the history. If you need intermediate output, save as CSV to
-`data/`.
+Sometimes you may want a pipeline target to save the output to a file so
+you can save it to the Git history, like saving an figure, rather than
+store the result in the `_targets/` folder. To save outputs of a target
+outside of the `_targets/` folder, there are a few specific things we
+have to do.
 
--   basic plot of data
+First, let's write some code to create the plots for our items 2 and 3
+that we initially decided at the start of this session. Since we're
+using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
+file and to our `{renv}` project library.
 
-    -   Very basic plot of count of gender, age, and class
-
-```{r}
+```{r add-ggplot2-deps}
+#| purl: true
 use_package("ggplot2")
 ```
 
-```{r}
-lipidomics %>%
+Next, we'll write the code to create item 2: The bar plot of the counts
+of `gender` and `class`. We'll keep it simple for now. Because the data
+is structured in a long format, we need to trim it down to only the
+unique cases of `code`, `gender`, and `class` with `distinct()`. Then we
+can make the bar plot.
+
+```{r bar-plot-gender-class}
+#| eval: true
+gender_by_class_plot <- lipidomics %>%
   distinct(code, gender, class) %>%
   ggplot(aes(x = class, fill = gender)) +
   geom_bar(position = "dodge")
-ggsave(here::here("images/plot-count-stats.png"))
+gender_by_class_plot
+```
 
-ggplot(lipidomics, aes(x = value)) +
+Since we want to save this plot to a file, we'll use `ggsave()` to save
+it to a new folder called `images/`.
+
+```{r bar-plot-gender-class-to-file}
+ggsave(here::here("images/gender-by-class.png"), gender_by_class_plot)
+```
+
+Next, let's do item 3, the distribution of each metabolite. Here we'll
+use `geom_histogram()`, nothing too fancy. And since the data is already
+in long format, we can easily use `facet_wrap()` to create a plot for
+each metabolite. Like with the plot above, let's save it to a file. We
+use `scales = "free"` because each metabolite doesn't have the same
+range of values (some are small, others are quite large).
+
+```{r histogram-metabolites}
+metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
   facet_wrap(vars(metabolite), scales = "free")
-ggsave(here::here())
+metabolite_distribution_plot
+ggsave(here::here("images/metabolite-distribution.png"), metabolite_distribution_plot)
 ```
 
-For targets that create an intermediate or output file, targets needs
-the file path as an output of the function when used within
-`use_target()`. In order to make it easier to include this in later
-functions, let's make a function for it.
-
-```{r output-switch}
-#' Switch output based on if it is interactive, otherwise it is a file path.
-#'
-#' @param output Output object to send to screen when running interactively.
-#' @param path The file path to where the intermediate object is saved.
-#'
-#' @return An object or a file path.
-#'
-output_switch_for_targets <- function(output, path) {
-  if (interactive()) {
-    output
-  } else {
-    here::here(path)
-  }
-}
-```
-
-```{r purl-only-output-switch}
-#| eval: false
-#| echo: false
-#| purl: true
-"
-#' Switch output based on if it is interactive, otherwise it is a file path.
-#'
-#' @param output Output object to send to screen when running interactively.
-#' @param path The file path to where the intermediate object is saved.
-#'
-#' @return An object or a file path.
-#'
-output_switch_for_targets <- function(output, path) {
-  if (interactive()) {
-    output
-  } else {
-    here::here(path)
-  }
-}
-" |>
-  write_to_file("R/functions.R", append = TRUE)
-git_ci("R/functions.R", "Add function to switch output for targets use.")
-```
+We now have the basic code to convert over into functions. There are
+some special things `{targets}` needs in order for it to recognize that
+you want to save the output as a file. Before we do that though, we'll
+create the functions to start with.
 
 ## Exercise: Convert the plot code to a function and add as a target
 
@@ -748,36 +734,38 @@ function in the exercise above, complete these tasks:
     `plot_count_stats`.
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
-3.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
+3.  Replace the `"images/gender-by-class.png"` with `image_path` and put
+    `image_path` as an argument inside the brackets of `function()`.
+4.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
     `{dplyr}` function used inside your function.
-4.  At the end of the function right after the `ggplot2::ggsave()` code,
+5.  At the end of the function right after the `ggplot2::ggsave()` code,
     use the `output_switch_for_targets()` function we create. See the
     scaffolding code below.
-5.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
+6.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
     sure it is formatted correctly. You might need to manually force a
     styling if lines are too long.
-6.  With the *cursor* inside the function, add some roxygen
+7.  With the *cursor* inside the function, add some roxygen
     documentation with `Ctrl-Shift-P` followed by typing "roxygen
     comment". Remove the lines that contain `@examples` and `@export`,
     then fill in the other details (like the `@params` and `Title`). In
     the `@return` section, write "A plot object or a file path."
-7.  Cut and paste the function over into the `R/functions.R` file.
-8.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
+8.  Cut and paste the function over into the `R/functions.R` file.
+9.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
     code by running `plot_count_stats(lipidomics)` in the Console. If it
     works, do the last task.
-9.  Save both files and then open the Git interface and commit the
+10. Save both files and then open the Git interface and commit the
     changes you made to them.
 
 Use this scaffolding code to help guide you to write the code into a
 function.
 
 ``` r
-plot_count_stats <- function(___) {
+plot_count_stats <- function(___, ___) {
   plot_output <- ___
   
   ggplot2::ggsave(
     plot = plot_output, 
-    filename = here::here("images/plot-count-stats.png")
+    filename = here::here(___)
   )
   output_switch_for_targets(plot_output, ___)
 }
@@ -837,6 +825,52 @@ git_ci("R/functions.R", "Add function to create plot of count stats.")
 ## Including intermediate output results in targets
 
 Try to use file names consistently.
+
+For targets that create an intermediate or output file, targets needs
+the file path as an output of the function when used within
+`use_target()`. In order to make it easier to include this in later
+functions, let's make a function for it.
+
+```{r output-switch}
+#' Switch output based on if it is interactive, otherwise it is a file path.
+#'
+#' @param output Output object to send to screen when running interactively.
+#' @param path The file path to where the intermediate object is saved.
+#'
+#' @return An object or a file path.
+#'
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    here::here(path)
+  }
+}
+```
+
+```{r purl-only-output-switch}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+#' Switch output based on if it is interactive, otherwise it is a file path.
+#'
+#' @param output Output object to send to screen when running interactively.
+#' @param path The file path to where the intermediate object is saved.
+#'
+#' @return An object or a file path.
+#'
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    here::here(path)
+  }
+}
+" |>
+  write_to_file("R/functions.R", append = TRUE)
+git_ci("R/functions.R", "Add function to switch output for targets use.")
+```
 
 ```{r}
 use_target(
