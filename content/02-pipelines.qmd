@@ -746,23 +746,22 @@ function in the exercise above, complete these tasks:
     `image_path` as an argument inside the brackets of `function()`.
 4.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
     `{dplyr}` function used inside your function.
-5.  At the end of the function right after the `ggplot2::ggsave()` code,
-    use the `output_switch_for_targets()` function we create. See the
-    scaffolding code below.
-6.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
+5.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
     sure it is formatted correctly. You might need to manually force a
     styling if lines are too long.
-7.  With the *cursor* inside the function, add some roxygen
+6.  With the *cursor* inside the function, add some roxygen
     documentation with `Ctrl-Shift-P` followed by typing "roxygen
     comment". Remove the lines that contain `@examples` and `@export`,
     then fill in the other details (like the `@params` and `Title`). In
     the `@return` section, write "A plot object or a file path."
-8.  Cut and paste the function over into the `R/functions.R` file.
-9.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
+7.  Cut and paste the function over into the `R/functions.R` file.
+8.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
     code by running `plot_count_stats(lipidomics)` in the Console. If it
     works, do the last task.
-10. Save both files and then open the Git interface and commit the
+9.  Save both files and then open the Git interface and commit the
     changes you made to them.
+10. Repeat these tasks for the code for the metabolite distribution
+    plot. Call this new function `plot_distributions`.
 
 Use this scaffolding code to help guide you to write the code into a
 function.
