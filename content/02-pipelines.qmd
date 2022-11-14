@@ -410,7 +410,8 @@ these tasks:
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
 3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
-    your function.
+    your function (except for `where()`, which comes from the
+    `{tidyselect}` package).
 4.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
     sure it is formatted correctly. You might need to manually force a
     styling if lines are too long.
@@ -435,6 +436,7 @@ descriptive_stats <- function(___) {
 ```
 
 ```{r solution-summary-stats-to-function}
+#| eval: true
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 #' Calculate descriptive statistics of each metabolite.
@@ -447,7 +449,7 @@ descriptive_stats <- function(data) {
   data %>%
     dplyr::group_by(metabolite) %>%
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), round, digits = 1))
 }
 ```
 
