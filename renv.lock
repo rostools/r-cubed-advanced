@@ -2288,6 +2288,24 @@
         "cpp11"
       ]
     },
+    "tarchetypes": {
+      "Package": "tarchetypes",
+      "Version": "0.7.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "8f41bc6df46b51624f36b00379db8765",
+      "Requirements": [
+        "digest",
+        "dplyr",
+        "fs",
+        "rlang",
+        "targets",
+        "tibble",
+        "tidyselect",
+        "vctrs",
+        "withr"
+      ]
+    },
     "targets": {
       "Package": "targets",
       "Version": "0.14.0",
