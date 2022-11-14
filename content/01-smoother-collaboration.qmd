@@ -317,7 +317,7 @@ type out:
 ```{r renv-init}
 #| eval: false
 #| purl: true
-renv::init()
+renv::init(bare = TRUE)
 ```
 
 ```{r purl-only-add-renv-init}
@@ -329,9 +329,11 @@ git_ci(c("renv.lock", "renv", ".Rprofile"),
 ```
 
 The function `renv::init()` initializes the project to begin being
-managed by `{renv}`. It will ask a series of questions and then will
-install all the packages detected in the project. It adds several files
-to the project:
+managed by `{renv}`. By using the argument `bare = TRUE` we are telling
+`{renv}` to not search for dependencies in the project, since we want to
+do that ourselves shortly. It adds several files to the project:
+
+TODO: These files might not be created yet.
 
 ```{r show-created-files}
 #| echo: false
