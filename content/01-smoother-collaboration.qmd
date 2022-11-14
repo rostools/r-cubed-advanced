@@ -101,6 +101,8 @@ the use of the `{here}` package. So we already are following this
 approach from the start, which will make it easier to track package
 dependencies of our project.
 
+TODO: Image of this workflow?
+
 Let's start with the `AdvancedR3` project that uses the `lipidomics`. We
 have code in the `data-raw/nmr-omics.R` file that uses some packages.
 Let's assume that your project will be more complex than this and that
