@@ -37,3 +37,4 @@ extract_chunks <- function() {
 
 run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
 run_lintr_text <- '`{lintr}` (`Ctrl-Shift-P`, then type "lint file")'
+run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")'
