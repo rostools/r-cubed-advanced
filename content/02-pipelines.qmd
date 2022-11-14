@@ -688,7 +688,8 @@ Next, we'll write the code to create item 2: The bar plot of the counts
 of `gender` and `class`. We'll keep it simple for now. Because the data
 is structured in a long format, we need to trim it down to only the
 unique cases of `code`, `gender`, and `class` with `distinct()`. Then we
-can make the bar plot.
+can make the bar plot. We'll use `position = "dodge"` for the bars to be
+side by side, rather than stacked.
 
 ```{r bar-plot-gender-class}
 #| eval: true
