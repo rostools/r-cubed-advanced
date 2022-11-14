@@ -1022,41 +1022,108 @@ git_ci("R/functions.R", "Add output switch function, to use for targets")
 git_ci("_targets.R", "Update targets with plot items")
 ```
 
-## Incorporating targets with R MArkdown
+## Incorporating targets with R Markdown
 
--   basic report of data using summaries and plot
+Last, but not least, we want to make our final item: The R Markdown
+document. Adding an R Markdown document as a target inside `_targets.R`
+is fairly straightforward. We need to install the helper package
+`{tarchetypes}` first:
 
-    -   Add Rmd file to targets
-    -   Use `tar_render()`
-
-```{r}
-targets::tar_read() # like readRDS
-targets::tar_load() # like load
-```
-
-```{r}
+```{r tarchetypes-deps}
+#| purl: true
 use_package("tarchetypes")
 ```
 
-```{r}
+Then, inside `_targets.R`, uncomment the line where
+`library(tarchetypes)` is commented out. The function we need to use to
+build the R Markdown file is `tar_render()`, which needs two things: The
+`name`, like `tar_target()` needs, and the file path to the R Markdown
+file. Again, like the other `tar_target()` items, add it to the end of
+the `list()`:
+
+``` r
 list(
-  tar_render()
-  # tar_quarto()
+  ...,
+  tar_render(
+    name = lesson_rmd, 
+    path = "doc/lesson.Rmd"
+  )
 )
 ```
 
-```{r}
-create_table <- function(data) {
-  data %>%
-    mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
-    select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
-    knitr::kable(caption = "Descriptive statistics of the metabolites.")
-}
+TODO: Try replacing with `tar_quarto()` instead.
+
+Now when we run `r run_tar_make_text`, the R Markdown file also gets
+re-built. But when we use `targets::tar_visnetwork()`, we don't see the
+connections with plots and descriptive statistics. That's because we
+haven't used them in a way `{targets}` can recognize. For that, we need
+to use the function `targets::tar_read()`.
+
+TODO: Confirm that we don't see this.
+
+Let's open up the `doc/lesson.Rmd` file and create a new header and code
+chunk and make use of the `targets::tar_read()`
+
+    ## Results
+
+    ```{{r}}
+    targets::tar_read(df_stats_by_metabolite)
+    ```
+
+    ```{{r}}
+    knitr::include_graphics(targets::tar_read(fig_gender_by_class))
+    ```
+
+    ```{{r}}
+    knitr::include_graphics(targets::tar_read(fig_distribution_metabolites))
+    ```
+
+With `targets::tar_read()`, we can access all the stored target items
+using syntax like we would with `{dplyr}`, without quotes. For the
+`df_stats_by_metabolite`, we can do some minor wrangling with `mutate()`
+and `glue::glue()`, and than pipe it to `knitr::kable()` to create a
+table in the output document. The `{glue}` package is really handy for
+formatting text based on columns. If you use `{}` inside a quoted
+string, you can use columns from a data frame, like `value_mean`. So we
+can use it to format the final table text to be `mean value (SD value)`:
+
+```{r stats-to-table}
+targets::tar_read(df_stats_by_metabolite) %>% 
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+  knitr::kable(caption = "Descriptive statistics of the metabolites.")
+```
+
+```{r purl-only-stats-to-table}
+#| eval: false
+#| echo: false
+#| purl: true
+pretty_basic_stats_code <- '
+targets::tar_read(df_stats_by_metabolite) %>% 
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+  knitr::kable(caption = "Descriptive statistics of the metabolites.")
+'
+readLines(here::here("doc/lesson.Rmd")) |>
+  stringr::str_replace("targets::tar_read(df_stats_by_metabolite)", pretty_basic_stats_code) |>
+  writeLines(here::here("doc/lesson.Rmd"))
+styler::style_file("doc/lesson.Rmd")
+git_ci("doc/lesson.Rmd", "Basic stats as a pretty table.")
+```
+
+```{r execute-only-table-basic-stats}
+#| eval: true
+#| echo: false
+lipidomics %>% 
+  descriptive_stats() %>% 
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+  knitr::kable(caption = "Descriptive statistics of the metabolites.")
 ```
 
 ## Exercise: Removing the stored pipeline data
 
-> Time: \~10 minutes.
+> Time: \~15 minutes.
 
 Like with `{renv}`, sometimes you need to start from the beginning and
 clean everything up because there's an issue that you can't seem to fix.
@@ -1077,11 +1144,11 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 `tar_delete()`
 
 :   This deletes the stored objects (e.g. the `lipidomics` or
-    `stats_by_metabolite`) inside `_targets/`, but does not delete the
-    record in the pipeline. So `{targets}` will see that the pipeline
-    doesn't need to be rebuilt. This is useful if you want to remove
-    some data because it takes up a lot of space, or, in the case of
-    GDPR and privacy rules, you don't want to store any sensitive
+    `df_stats_by_metabolite`) inside `_targets/`, but does not delete
+    the record in the pipeline. So `{targets}` will see that the
+    pipeline doesn't need to be rebuilt. This is useful if you want to
+    remove some data because it takes up a lot of space, or, in the case
+    of GDPR and privacy rules, you don't want to store any sensitive
     personal health data in your project. Use it like
     `tar_invalidate()`, with functions like `everything()` or
     `starts_with()`.
@@ -1131,7 +1198,7 @@ environments when it comes to personal health data.
 
 Open the `_targets.R` file and write this code at the end of the file:
 
-```{r}
+```{r tar-delete-data}
 tar_delete(lipidomics)
 ```
 
