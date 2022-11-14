@@ -480,7 +480,9 @@ can now add it as a step in the `{targets}` pipeline. Open up the
 `_targets.R` file and go to the end of the file, where the `list()` and
 `tar_target()` code are found. In the first `tar_target()`, replace the
 target to load the lipidomic data. In the second, replace it with the
-`descriptive_stats()` function. It should look like:
+`descriptive_stats()` function. If we want to make it easier to remember
+what the target output is, we can add `df_` to remind us that it is a
+data frame. It should look like:
 
 ``` r
 list(
@@ -489,7 +491,7 @@ list(
     command = load(here::here("data/lipidomics.rda"))
   ),
   tar_target(
-    name = stats_by_metabolite,
+    name = df_stats_by_metabolite,
     command = descriptive_stats(lipidomics)
   )
 )
@@ -506,7 +508,7 @@ list(
     command = load(here::here('data/lipidomics.rda'))
   ),
   tar_target(
-    name = stats_by_metabolite,
+    name = df_stats_by_metabolite,
     command = descriptive_stats(lipidomics)
   )
 )
