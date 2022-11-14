@@ -523,7 +523,7 @@ Let's run `{targets}` to see what happens! You can either use the
 Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
 code in the Console:
 
-```{r}
+``` r
 targets::tar_make()
 ```
 
@@ -963,18 +963,19 @@ TODO: Check purl'ed code to see which line to replace with.
 Now, let's add the two functions to the `_targets.R` file, including
 adding the `format = "file"` argument. Let's write these two
 `tar_target()` items within the `list()` inside `_targets.R`. To make it
-easier to track things, keep the file name and target `name` the same.
+easier to track things, keep the file name and target `name` the same
+(except maybe add `fig_` at the start of the name).
 
 ``` r
 list(
   ...,
   tar_target(
-    name = gender_by_class,
+    name = fig_gender_by_class,
     command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
     format = "file"
   ),
   tar_target(
-    name = metabolite_distribution,
+    name = fig_metabolite_distribution,
     command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
     format = "file"
   )
@@ -1001,12 +1002,12 @@ styler::style_dir()
 update_targets_plots <- '
 ),
 tar_target(
-  name = gender_by_class,
+  name = fig_gender_by_class,
   command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
   format = "file"
 ),
 tar_target(
-  name = metabolite_distribution,
+  name = fig_metabolite_distribution,
   command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
   format = "file"
 )
