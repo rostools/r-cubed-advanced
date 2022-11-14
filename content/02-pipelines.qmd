@@ -774,11 +774,21 @@ plot_count_stats <- function(___, ___) {
     plot = plot_output, 
     filename = here::here(___)
   )
-  output_switch_for_targets(plot_output, ___)
+  plot_output
+}
+
+plot_distributions <- function(___, ___) {
+  plot_output <- ___
+  
+  ggplot2::ggsave(
+    plot = plot_output, 
+    filename = here::here(___)
+  )
+  plot_output
 }
 ```
 
-```{r solution-plot-count-as-function}
+```{r solution-plot-code-as-functions}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
@@ -786,19 +796,39 @@ plot_count_stats <- function(___, ___) {
 #' Plot for basic count data.
 #'
 #' @param data The lipidomics dataset.
+#' @param image_path The file path location where to save the image.
 #'
-#' @return A ggplot2 graph, or a file path.
+#' @return A ggplot2 graph.
 #'
-plot_count_stats <- function(data) {
+plot_count_stats <- function(data, image_path) {
   plot_output <- data %>%
     dplyr::distinct(code, gender, class) %>%
     ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
     ggplot2::geom_bar(position = "dodge")
   ggplot2::ggsave(
     plot = plot_output,
-    filename = here::here("images/plot-count-stats.png")
+    filename = here::here(image_path)
   )
-  output_switch_for_targets(plot_output, "images/plot-count-stats.png")
+  plot_output
+}
+
+#' Plot for basic distribution of metabolite data.
+#'
+#' @param data The lipidomics dataset.
+#' @param image_path The file path location where to save the image.
+#'
+#' @return A ggplot2 graph.
+#'
+plot_distributions <- function(data, image_path) {
+  plot_output <- data %>% 
+    ggplot2::ggplot(ggplot2::aes(x = value)) +
+    ggplot2::geom_histogram() +
+    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
+  ggplot2::ggsave(
+    plot = plot_output,
+    filename = here::here(image_path)
+  )
+  plot_output
 }
 ```
 
@@ -810,35 +840,80 @@ plot_count_stats <- function(data) {
 #' Plot for basic count data.
 #'
 #' @param data The lipidomics dataset.
+#' @param image_path The file path location where to save the image.
 #'
-#' @return A ggplot2 graph, or a file path.
+#' @return A ggplot2 graph.
 #'
-plot_count_stats <- function(data) {
+plot_count_stats <- function(data, image_path) {
   plot_output <- data %>%
     dplyr::distinct(code, gender, class) %>%
     ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
     ggplot2::geom_bar(position = 'dodge')
   ggplot2::ggsave(
     plot = plot_output,
-    filename = here::here('images/plot-count-stats.png')
+    filename = here::here(image_path)
   )
-  output_switch_for_targets(plot_output, 'images/plot-count-stats.png')
+  plot_output
+}
+
+#' Plot for basic distribution of metabolite data.
+#'
+#' @param data The lipidomics dataset.
+#' @param image_path The file path location where to save the image.
+#'
+#' @return A ggplot2 graph.
+#'
+plot_distributions <- function(data, image_path) {
+  plot_output <- data %>% 
+    ggplot2::ggplot(ggplot2::aes(x = value)) +
+    ggplot2::geom_histogram() +
+    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = 'free')
+  ggplot2::ggsave(
+    plot = plot_output,
+    filename = here::here(image_path)
+  )
+  plot_output
 }
 " |>
   write_to_file("R/functions.R")
 git_ci("R/functions.R", "Add function to create plot of count stats.")
 ```
 
-## Including intermediate output results in targets
+## Informing targets of the saved output files
 
-Try to use file names consistently.
+We now have the functions that we can put into the `_targets.R` file.
+Now we need to change the functions slightly in order for `{targets}` to
+know about the saved images. When we use the functions inside
+`tar_target()`, we need to do two things: have the function output the
+file path of the image rather than output the plot; and, set the
+argument `format` in `tar_target()` to `"file"`.
 
-For targets that create an intermediate or output file, targets needs
-the file path as an output of the function when used within
-`use_target()`. In order to make it easier to include this in later
-functions, let's make a function for it.
+To do the first, a simple fix would be to go into the plot functions and
+replace the `plot_output` at the end with `image_path`. But! That would
+mean that when we are testing out the function, we couldn't ever
+actually *see* the plot being created. Instead, we can create an
+`if () ... else()` condition to output the plot when we are working
+`interactive()`ly, otherwise output the image path when `{targets}` runs
+it.
+
+Since we'll be using this code at least twice, let's create another
+function to do this switch for us. Open up the `R/functions.R` file and
+start typing out the function:
 
 ```{r output-switch}
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    path
+  }
+}
+```
+
+After we've written it, we'll add some Roxygen documentation
+(`Ctrl-Shift-P`, then type "roxygen comment"):
+
+```{r output-switch-roxygen}
 #' Switch output based on if it is interactive, otherwise it is a file path.
 #'
 #' @param output Output object to send to screen when running interactively.
@@ -846,13 +921,6 @@ functions, let's make a function for it.
 #'
 #' @return An object or a file path.
 #'
-output_switch_for_targets <- function(output, path) {
-  if (interactive()) {
-    output
-  } else {
-    here::here(path)
-  }
-}
 ```
 
 ```{r purl-only-output-switch}
@@ -871,7 +939,7 @@ output_switch_for_targets <- function(output, path) {
   if (interactive()) {
     output
   } else {
-    here::here(path)
+    path
   }
 }
 " |>
@@ -879,12 +947,74 @@ output_switch_for_targets <- function(output, path) {
 git_ci("R/functions.R", "Add function to switch output for targets use.")
 ```
 
-```{r}
-use_target(
-  name = plot_count_stats,
-  command = plot_count_stats(lipidomics),
+Then, we go into the two plot functions and replace `plot_output` at the
+end with:
+
+``` r
+output_switch_for_targets(plot_output, image_path)
+```
+
+TODO: Check purl'ed code to see which line to replace with.
+
+Now, let's add the two functions to the `_targets.R` file, including
+adding the `format = "file"` argument. Let's write these two
+`tar_target()` items within the `list()` inside `_targets.R`. To make it
+easier to track things, keep the file name and target `name` the same.
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = gender_by_class,
+    command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
+    format = "file"
+  ),
+  tar_target(
+    name = metabolite_distribution,
+    command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
+    format = "file"
+  )
+)
+```
+
+Next, test that it works by running `targets::tar_visnetwork()` (or
+`Ctrl-Shift-P`, then type "target visual") or `targets::tar_outdated()`.
+You should see that the new items are "outdated". Then run
+`targets::tar_make()` (`Ctrl-Shift-P`, then "targets run") to update the
+pipeline. If it all works, than **commit the changes to the Git
+history**.
+
+```{r purl-only-plot-fns-in-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+# TODO: need to update these numbers.
+readLines(here::here("R/functions.R"))[c(-20, -25)] |>
+  append("output_switch_for_targets(plot_output, image_path)", after = 20) |>
+  append("output_switch_for_targets(plot_output, image_path)", after = 26) |>
+  writeLines(here::here("R/functions.R"))
+styler::style_dir()
+update_targets_plots <- '
+),
+tar_target(
+  name = gender_by_class,
+  command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
+  format = "file"
+),
+tar_target(
+  name = metabolite_distribution,
+  command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
   format = "file"
 )
+'
+# -20 to remove the previous `)`
+readLines(here::here("_targets.R"))[c(-20)] |>
+  append(update_targets_plots, after = -21) |>
+  writeLines(here::here("_targets.R"))
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("R/functions.R", "Add output switch function, to use for targets")
+git_ci("_targets.R", "Update targets with plot items")
 ```
 
 ## Incorporating targets with R MArkdown
@@ -895,13 +1025,18 @@ use_target(
     -   Use `tar_render()`
 
 ```{r}
-targets::tar_read() # only one output
-targets::tar_load() # can load several at once
+targets::tar_read() # like readRDS
+targets::tar_load() # like load
+```
+
+```{r}
+use_package("tarchetypes")
 ```
 
 ```{r}
 list(
   tar_render()
+  # tar_quarto()
 )
 ```
 
