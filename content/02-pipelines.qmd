@@ -1096,6 +1096,8 @@ chunk and make use of the `targets::tar_read()`
     knitr::include_graphics(targets::tar_read(fig_distribution_metabolites))
     ```
 
+TODO: Purl this markdown text
+
 With `targets::tar_read()`, we can access all the stored target items
 using syntax like we would with `{dplyr}`, without quotes. For the
 `df_stats_by_metabolite`, we can do some minor wrangling with `mutate()`
