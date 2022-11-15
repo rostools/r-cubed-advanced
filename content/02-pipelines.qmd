@@ -587,6 +587,15 @@ Or to see what pipeline targets are outdated:
 targets::tar_outdated()
 ```
 
+Before continuing, let's **commit the changes to the Git history**.
+
+```{r purl-only-commit-packages-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci(c(".gitignore", "_targets.R"), "Tell targets about packages, ignore _targets/")
+```
+
 ## Exercise: Examine the contents of the `_targets/` folder
 
 > Time: \~5 minutes.
