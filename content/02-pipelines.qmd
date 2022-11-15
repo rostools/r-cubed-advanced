@@ -1235,12 +1235,27 @@ tar_delete(lipidomics)
 #| echo: false
 #| purl: true
 "tar_delete(lipidomics)" |>
-  readr::write_lines(here::here("_targets.R"), append = TRUE)
-gert::git_add("_targets.R")
-gert::git_commit("Delete the stored lipidomics data in the _targets folder")
+  write_to_file("_targets.R", append = TRUE)
+git_ci("_targets.R", "Delete the stored lipidomics data in the _targets folder")
 ```
 
 Before ending, open the Git interface and commit the changes you made.
 Then push your changes up to GitHub.
 
 ## Summary
+
+-   Use a function-oriented workflow together with `{targets}` to build
+    your data analysis pipeline and track your "pipeline targets".
+-   List individual "pipeline targets" using `tar_target()` within the
+    `_targets.R` file.
+-   Visualize target items in your pipeline with
+    `targets::tar_visnetwork()` or list outdated items with
+    `targets::tar_outdated()`.
+-   When saving output as a file, ensure that your function outputs the
+    path to the file, *not* the output itself. Then use
+    `format = "file"` as an argument in `tar_target()`.
+-   Within R Markdown files, use `targets::tar_read()` to access saved
+    pipeline outputs. To include the R Markdown in the pipeline, use
+    `{tarchetypes}` and the function `tar_render()`.
+-   Delete stored pipeline output with `tar_delete()`.
+
