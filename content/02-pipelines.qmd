@@ -24,6 +24,21 @@ something like Mentimeter because it allows everyone to participate, not
 just the ones who are more comfortable being vocal to the whole group.
 :::
 
+Depending on how much time you've spent working on data analyses, you
+have probably experienced (many) times where you are working on a
+project and forget what code needs to be run first, what order other
+code needs to run in, and what pieces of code need to be re-run in order
+to update other results. Things get confusing quickly, even for fairly
+simple projects. This probably happens most often when you return to a
+project after a month or two and completely forget the state of the
+project and analysis.
+
+This is where formal data analysis pipeline tools come in and play a
+role. By setting up your analysis into distinct steps, with clear inputs
+and outputs, and use a system that tracks those inputs and outputs, you
+can make things a lot easier for yourself and others. This session is
+about applying tools that make and manage these pipelines.
+
 ## Learning objectives
 
 The overall objective for this session is to:
