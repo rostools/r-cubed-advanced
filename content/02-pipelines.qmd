@@ -1143,6 +1143,12 @@ lipidomics %>%
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 ```
 
+Re-run `r run_tar_vis_text` to see that it now detects the connections
+between the pipeline targets. Now, run `r run_tar_make_text` again to
+see everything re-build! Last things are to re-style
+`r run_styler_text`, then **commit** the changes to the Git history
+before moving on.
+
 ## Exercise: Removing the stored pipeline data
 
 > Time: \~15 minutes.
