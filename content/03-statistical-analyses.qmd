@@ -5,3 +5,39 @@
     -   rsamples
     -   parsnip
     -   recipes
+
+TODO: intro here
+
+{{< include ../includes/_wip.qmd >}}
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Before beginning, get them to recall what they remember of the previous
+session, either with something like Mentimeter or verbally. Preferably
+something like Mentimeter because it allows everyone to participate, not
+just the ones who are more comfortable being vocal to the whole group.
+:::
+
+## Learning objectives
+
+The overall objective for this session is to:
+
+1.  Identify and apply an approach to ...
+
+More specific objectives are to:
+
+1.  Describe the ...
+2.  Continue applying the concepts and functions used from the previous
+    session.
+
+outline:
+
+-   theory behind running analyses
+    -   caveats: Each statistical method requires knowledge on it and on
+        the underlying data, which we are **not** able to cover in this
+        course, as that is highly specific to the problem and field of
+        research.
+-   why tidymodels
+
+## Summary
