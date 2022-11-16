@@ -157,7 +157,7 @@ like:
 graph LR;
     yours(Your local) -->|Push| github(GitHub)
     github -->|Pull| yours
-    others(Collaborator's\nlocal) -->|Push| github
+    others(Collaborator's<br>local) -->|Push| github
     github -->|Pull| others
 ```
 
