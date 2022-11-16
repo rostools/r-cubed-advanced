@@ -1,13 +1,9 @@
 # Introduction to course {#sec-introduction}
 
-[**Introduction slides**](../slides/introduction.html)
+> [**Introduction slides**](../slides/introduction.html)
 
-```{=html}
-<iframe class="slide-deck" src="../slides/introduction.html"></iframe>
-```
-Or this one?
-
-```{r slides-page-frame, echo=FALSE}
+```{r intro-slides-iframe}
+#| echo: false
 knitr::include_url("../slides/introduction.html", height = "375px")
 ```
 
