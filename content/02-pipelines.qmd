@@ -336,11 +336,7 @@ list(
   tar_target(
     name = model_results,
     command = run_linear_reg(processed_data)
-  ),
-  tar_target(
-    name = processed_data,
-    command = process_data(raw_data)
-  ),
+  )
 )
 ```
 :::
@@ -1273,4 +1269,3 @@ Then push your changes up to GitHub.
     pipeline outputs. To include the R Markdown in the pipeline, use
     `{tarchetypes}` and the function `tar_render()`.
 -   Delete stored pipeline output with `tar_delete()`.
-
