@@ -148,4 +148,68 @@ quantification and statistical analysis of -omic data. But we ultimate
 need to show and use *something* in the text.
 :::
 
+## Exercise: Run model with a different metabolite
+
+> Time: \~10 minutes.
+
+Try running the same model workflow but run the model with
+`lipid_ch_3_1` instead of `cholesterol`.
+
+1.  In the `doc/lesson.Rmd` file, create a new `###` header and code
+    chunk at the bottom of the R Markdown file (see the scaffold
+    template below).
+2.  Start with creating a new data frame (call it `df_lipid_ch_3_1`),
+    `select()`ing `class`, `gender`, `age`, and `lipid_ch_3_1`.
+3.  Copy and paste the previous recipe `recipe_specs` we created above
+    and then replace all `cholesterol` with `lipid_ch_3_1`.
+4.  Copy and paste the same `model_workflow` code we created above,
+    re-using both the same `log_reg_specs` in the `add_model()` function
+    and `recipe_specs` (the one you modified in the task above) in the
+    `add_recipe()` function.
+5.  Run `fit()` on the `model_workflow`, making sure to use the
+    `df_lipid_ch_3_1` in the `data` argument.
+6.  Run the `fitted_model` in the Console to get the output results.
+    What is the coefficient for the `lipid_ch_3_1` compared to the
+    `cholesterol` result?
+7.  Use `r run_styler_text` on the R Markdown file. Then commit the
+    changes to the Git history.
+
+Use the scaffolding below as a guide. *Note*: The code has been
+purposefully written poorly so you can use `{styler}` to fix it up.
+
+    ### Model with a different metabolite
+    ``` {{r}}
+    ___ <- lipidomics_wide%>%select(___,___,___,___)
+
+    recipe_specs<-recipe(class ~ ___ +age+gender, 
+    data = ___) %>% 
+      step_normalize(___)
+
+    model_workflow <- workflow()%>% ___(___) %>% 
+      ___(___)
+      
+    fitted_model <- fit(model_workflow,data=___)
+      fitted_model
+    ```
+
+```{r solution-model-with-different-metabolite}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+df_lipid_ch_3_1 <- lipidomics_wide %>% 
+  select(class, gender, age, lipid_ch_3_1)
+
+recipe_specs <- recipe(class ~ lipid_ch_3_1 + age + gender, data = df_lipid_ch_3_1) %>% 
+  step_normalize(lipid_ch_3_1)
+
+model_workflow <- workflow() %>% 
+  add_model(log_reg_specs) %>% 
+  add_recipe(recipe_specs)
+  
+fitted_model <- fit(model_workflow, data = df_lipid_ch_3_1)
+fitted_model
+```
+
+<!-- TODO: Do I need to purl this at this point? Or only later as a function? -->
+
 ## Summary
