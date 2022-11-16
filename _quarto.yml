@@ -22,7 +22,9 @@ book:
         - content/00-syllabus.qmd
         - content/00-schedule.qmd
         - content/00-pre-course.qmd
+        - content/00-introduction.qmd
         - content/01-smoother-collaboration.qmd
+        - content/02-pipelines.qmd
     appendices:
         - appendix/conduct.qmd
         - appendix/connect-github.qmd
