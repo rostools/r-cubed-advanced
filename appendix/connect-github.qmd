@@ -103,7 +103,7 @@ website. In this case, you are telling GitHub (when interacting to it
 through RStudio, like uploading and downloading your changes) that you
 are who you claim to digitally be.
 
-::: callout-info
+::: callout-tip
 There is another great helper function that runs a lot of checks and
 gives some advice when it finds potential problems.
 

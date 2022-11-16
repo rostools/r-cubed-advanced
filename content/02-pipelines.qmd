@@ -245,7 +245,7 @@ works.
 Next, open up the `_targets.R` and we'll take a look at what it
 contains.
 
-::: {.callout-info collapse="true"}
+::: {.callout-note collapse="true"}
 ## Click this to see the file contents
 
 ```{r show-use-targets-file-contents}

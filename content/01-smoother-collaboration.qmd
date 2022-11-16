@@ -625,7 +625,7 @@ For the information block below, mention it to the learners but you
 don't need to go over it.
 :::
 
-::: callout-info
+::: callout-tip
 When you come back to a project after a few months or if you start
 collaborating on a project, usually `renv::restore()` will be enough to
 install all types of dependencies. Sometimes though, workflow
@@ -814,7 +814,7 @@ on all files in the project with:
 styler::style_dir()
 ```
 
-::: callout-info
+::: callout-note
 You will probably be asked to install something, click "Yes".
 :::
 
@@ -835,7 +835,7 @@ it together with `{lintr}` and sometimes manually running reformatting
 Mention the callout block below, but don't go into it at all.
 :::
 
-::: callout-info
+::: callout-tip
 You might be used to using 4 spaces for tabs instead of 2. The tidyverse
 style uses 2, so the default option in `{styler}`
 
