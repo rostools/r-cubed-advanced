@@ -30,7 +30,9 @@ Imports:
 Suggests: 
     devtools,
     DiagrammeR,
+    dplyr,
     gert,
+    ggplot2,
     gitcreds,
     RcppTOML,
     RefManageR,
