@@ -1,14 +1,12 @@
-# Running efficient statistical analyses {#statistical-analyses}
-
--   Running statistical models: tidymodels
-    -   broom
-    -   rsamples
-    -   parsnip
-    -   recipes
-
-TODO: intro here
+# Running efficient statistical analyses {#sec-statistical-analyses}
 
 {{< include ../includes/_wip.qmd >}}
+
+```{r setup}
+#| include: false
+library(tidyverse)
+load(here::here("data/lipidomics.rda"))
+```
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
@@ -19,21 +17,53 @@ something like Mentimeter because it allows everyone to participate, not
 just the ones who are more comfortable being vocal to the whole group.
 :::
 
+TODO: intro here
+
 ## Learning objectives
 
 The overall objective for this session is to:
 
-1.  Identify and apply an approach to ...
+1.  Describe the basic framework underlying most statistical analyses
+    and use R to generate statistical results using this framework.
 
 More specific objectives are to:
 
-1.  Describe the ...
-2.  Continue applying the concepts and functions used from the previous
-    session.
+1.  Describe the general "workflow" and steps involved in stating the
+    research question, constructing a model to help answer the question,
+    preparing the data to match the requirements of the model, fitting
+    it to the data, and finally extracting the results from the fitted
+    model.
+2.  Categorize the model definition step as a distinct, theory-driven
+    step, separate from the data, and use `{parsnip}` functions to help
+    with defining your model.
+3.  Identify various data transformation techniques and evaluate which
+    are good options given the data. Use functions in the `{recipes}`
+    package to apply these transformations to your data.
+4.  Recall principles of functional programming and apply them to
+    running statistical analyses by using the `{purrr}` package.
+5.  Use the `{broom}` package to extract the model results to later
+    present them in tabular (with `knitr::kable()`) or graphical format
+    (with `{ggplot2}`).
+6.  Describe what a resampling technique is, the types available, and
+    why it can help estimate the variability of model results. Apply
+    functions from `{rsample}` to use these techniques.
+7.  Continue applying the concepts and functions used from the previous
+    sessions.
 
-outline:
+Specific "anti"-objectives:
+
+-   Will **not** know how to choose and apply the appropriate
+    statistical model or test, nor understand any statistical theory,
+    nor interpret the statistical results correctly, nor determine the
+    relevant data transformations for the statistical approach. What we
+    show, we show *only as demonstration purposes only*, they could be
+    entirely wrong in how to do them correctly if an expert were to
+    review them.
+
+## Theory and "workflow" on statistical modeling
 
 -   theory behind running analyses
+
     -   caveats: Each statistical method requires knowledge on it and on
         the underlying data, which we are **not** able to cover in this
         course, as that is highly specific to the problem and field of
