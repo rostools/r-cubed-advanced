@@ -27,10 +27,10 @@ will look like in the end.
 
 Our big picture aim is:
 
-> We want to create an data analysis project that: 1) makes it easier
-> for direct contributions from collaborators and others, 2) allows us
-> to write processing and analysis steps (as code) in a more explicit
-> and ultimately reproducible way, 3) incorporates general-purpose tools
+> We want to create a data analysis project that: 1) makes it easier for
+> direct contributions from collaborators and others, 2) allows us to
+> write processing and analysis steps (as code) in a more explicit and
+> ultimately reproducible way, 3) incorporates general-purpose tools
 > that simplify using (or switching) statistical analysis methods, and
 > 4) enables quick dissemination of results by creating a
 > project-specific website. All of which will be exemplified through a
