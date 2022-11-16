@@ -115,4 +115,37 @@ the changes to the Git history.
 linear_reg_specs <- linear_reg() %>% 
   set_engine("lm")
 ```
+
+## Exercise: Which transformations make the most sense?
+
+> Time: \~15 minutes.
+
+Look at the list of `step_*` functions below and use the `?` or F1
+(while having the cursor on the function name) to access the help
+documentation. Consider the metabolite data in the `lipidomics` dataset.
+Which of these transformations might you use?
+
+```{r}
+#| eval: false
+recipes::step_log()
+recipes::step_scale()
+recipes::step_normalize()
+recipes::step_center()
+recipes::step_sqrt()
+```
+
+-   With your neighbour (or group), justify which `step_` transformation
+    you might use for the numeric metabolite data.
+-   In the last 2 minutes of the exercise, we will all share our
+    thoughts.
+
+::: callout-note
+The `step_` function we use in the text of this website in later
+sections may be different from what you decide on in your group and in
+the class as a whole. There isn't strictly a "right" answer here, since
+it would ultimately require domain expertise in both lipidomic
+quantification and statistical analysis of -omic data. But we ultimate
+need to show and use *something* in the text.
+:::
+
 ## Summary
