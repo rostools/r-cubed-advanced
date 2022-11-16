@@ -6,6 +6,7 @@ Depends:
     R (>= 4.0.0),
     tidyverse
 Imports: 
+    broom,
     cli,
     crayon,
     desc,
@@ -17,8 +18,10 @@ Imports:
     igraph,
     lintr,
     markdown,
+    parsnip,
     prodigenr,
     quarto,
+    recipes,
     renv,
     rlang,
     snakecase,
