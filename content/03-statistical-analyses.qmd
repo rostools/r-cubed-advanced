@@ -85,7 +85,58 @@ compared to other areas?
         the underlying data, which we are **not** able to cover in this
         course, as that is highly specific to the problem and field of
         research.
+        -   For instance, in this dataset, we would need someone
+            familiar with omics to help us interpret what the data means
+            and how to prepare it properly.
+    -   Several steps:
+        -   Diagram of these steps involved
+        -   research question, broken down into a specific form
+            -   Something influences something, adjusting for or
+                considering other somethings.
+        -   model specs
+        -   processing
+        -   fitting model to data
+        -   extract results from fitted model
+        -   present results
+
+-   List some basic questions
+
+-   What are some pipeline targets related to building model?
+
+    -   All results generated (to use as dependencies of the other two)
+    -   Table of specific results of statistical analysis
+    -   Plot of specific results of statistical analysis
+
+## Defining the model
+
+-   Basic model:
+
+    -   Outcome: CT vs T1D
+    -   Predictors: lipidomics
+    -   Covariates: age, gender
+    -   diagram of relationship
+
+first, subset data so only have one metabolite.
+
+-   logistic regression
+
 -   why tidymodels
+
+-   diagram of tidymodels separation
+
+    -   model definition
+    -   transformation recipe
+    -   data itself, along with formula
+
+-   parsnip
+
+    -   https://parsnip.tidymodels.org/reference/index.html#models
+    -   https://parsnip.tidymodels.org/articles/Examples.html
+
+```{r}
+log_reg_specs <- logistic_reg() %>% 
+  set_engine("glm")
+```
 
 ## Exercise: How would you define a linear regression with parsnip?
 
@@ -117,6 +168,35 @@ linear_reg_specs <- linear_reg() %>%
   set_engine("lm")
 ```
 
+## Data transformations specific to modeling
+
+-   Some problems:
+
+    -   we have three cholesterol values
+    -   values all have different ranges, will be an issue for
+        interpreting model estimates across metabolites
+    -   long data format
+
+```{r}
+library(tidyverse)
+load(here::here("data/lipidomics.rda"))
+lipidomics %>%
+  count(code, metabolite) %>%
+  filter(n > 1)
+```
+
+```{r}
+lipidomics_wide <- lipidomics %>%
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+  pivot_wider(names_from = metabolite, values_from = value, values_fn = mean)
+```
+
+-   recipes
+
+-   convenient with `recipes::step_impute_*` functions
+
+recipes::step_naomit()
+
 ## Exercise: Which transformations make the most sense?
 
 > Time: \~15 minutes.
@@ -126,7 +206,7 @@ Look at the list of `step_*` functions below and use the `?` or F1
 documentation. Consider the metabolite data in the `lipidomics` dataset.
 Which of these transformations might you use?
 
-```{r}
+```{r list-step-transforms}
 #| eval: false
 recipes::step_log()
 recipes::step_scale()
@@ -148,6 +228,14 @@ it would ultimately require domain expertise in both lipidomic
 quantification and statistical analysis of -omic data. But we ultimate
 need to show and use *something* in the text.
 :::
+
+## Creating a transformation "recipe"
+
+## Fitting the model by combining the recipe, model definition, and data
+
+```{r}
+workflows::workflow()
+```
 
 ## Exercise: Run model with a different metabolite
 
@@ -212,5 +300,64 @@ fitted_model
 ```
 
 <!-- TODO: Do I need to purl this at this point? Or only later as a function? -->
+
+## Extracting results from the fitted models
+
+-   broom
+
+    -   tidy
+    -   augment?
+
+## Exercise: How would we use functional programming to run multiple models?
+
+> Time: \~15 minutes.
+
+-   Review functional programming from the intermediate course
+
+-   explain how we can use functional programming to apply the model to
+    each metabolite. Don't look ahead!
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Draw this out on a whiteboard or something.
+:::
+
+## Apply logistic regression to each metabolite
+
+```{r}
+lipidomics %>% 
+  filter(metabolite == "Lipid -CH2-") %>% 
+  ggplot(aes(x = value, fill = class)) +
+  geom_dotplot(binwidth = 10)
+```
+
+## Determine variability in model estimates with resampling
+
+-   rsamples with plotting of each estimates
+
+-   Use bootstrap, but mention vfold_cv
+
+## Exercise: Running multiple models by metabolite *and* re-sampled bootstrapped set
+
+## Visualizing the variability of results
+
+-   Combine augment with rsamples and ggplot2 to plot different
+    estimates
+
+```{r}
+#| eval: false
+lipidomics %>%
+  # Deal with multiple cholesterols?
+  # group_by(code, gender, age, class, metabolite) %>%
+  # # .groups = "drop" to remove group_by structure, so we don't need to use ungroup
+  # summarise(value = mean(value), .groups = "drop") %>%
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+  group_split(metabolite) 
+  # map(~pivot_wider(.x, names_from = metabolite, values_from = value, values_fn = mean))
+  
+```
+
+## Exercise: Convert model building code into functions for targets
 
 ## Summary
