@@ -5,6 +5,7 @@
 ```{r setup}
 #| include: false
 library(tidyverse)
+library(tidymodels)
 load(here::here("data/lipidomics.rda"))
 ```
 
