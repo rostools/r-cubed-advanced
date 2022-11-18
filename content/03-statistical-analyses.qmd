@@ -310,17 +310,31 @@ fitted_model
 
 ## Exercise: How would we use functional programming to run multiple models?
 
-> Time: \~15 minutes.
+> Time: \~20 minutes.
 
--   Review functional programming from the intermediate course
+Functional programming underlies many core features of running
+statistical methods on data. This exercise is meant for you to review
+this concept and try to think of it in the context of statistcal
+modeling.
 
--   explain how we can use functional programming to apply the model to
-    each metabolite. Don't look ahead!
+-   For 10 minutes, go to the section on [Function
+    Programming](https://r-cubed-intermediate.rostools.org/dry-functionals.html#functional-programming)
+    in the Intermediate R course and review the concepts.
+
+-   For 8 minutes, discuss with your neighbour how we can use functional
+    programming to apply the model to each metabolite. Try to think how
+    the code would look like to that that. You don't need to write real
+    R code, but if writing pseudocode helps, go right ahead! Also, don't
+    look ahead :wink:
+
+-   For the remaining time, we will discuss as the whole group
+    somethings people thought of.
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
 
-Draw this out on a whiteboard or something.
+After they've finished, either write pseudocode in RStudio or draw this
+out on a whiteboard if it is available.
 :::
 
 ## Apply logistic regression to each metabolite
@@ -361,3 +375,4 @@ lipidomics %>%
 ## Exercise: Convert model building code into functions for targets
 
 ## Summary
+
