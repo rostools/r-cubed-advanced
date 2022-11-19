@@ -4,6 +4,7 @@
 
 ```{r setup}
 #| include: false
+source(here::here("R/functions.R"))
 library(tidyverse)
 library(tidymodels)
 load(here::here("data/lipidomics.rda"))
