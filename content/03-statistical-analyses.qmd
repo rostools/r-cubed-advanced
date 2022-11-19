@@ -79,64 +79,292 @@ compared to other areas?
 
 ## Theory and "workflow" on statistical modeling
 
--   theory behind running analyses
+Almost all fields of research, and definitely more heavily-quantitative
+and scientific fields like biomedicine and health, have math and
+statistics at the core of taking data to draw inferences or general
+observations about the world, at least the world that we measure.
 
-    -   caveats: Each statistical method requires knowledge on it and on
-        the underlying data, which we are **not** able to cover in this
-        course, as that is highly specific to the problem and field of
-        research.
-        -   For instance, in this dataset, we would need someone
-            familiar with omics to help us interpret what the data means
-            and how to prepare it properly.
-    -   Several steps:
-        -   Diagram of these steps involved
-        -   research question, broken down into a specific form
-            -   Something influences something, adjusting for or
-                considering other somethings.
-        -   model specs
-        -   processing
-        -   fitting model to data
-        -   extract results from fitted model
-        -   present results
+Any time we collect data and need to interpret what it means, we need
+statistics. And anytime we want to make inferences about the world from
+the data, to generalize to the outside world, we need to use statistics
+to determine the likelihood, or rather the uncertainty, in those
+inferences. Statistics is meant to quantify uncertainty.
 
--   List some basic questions
+How do we quantify uncertainty? By first creating a "theoretical model"
+that expresses mathematically our research question. For instance, we
+have a theoretical model that outdoor plants grow (non-linearly) with
+water and sunlight, but that more sunlight likely means less water (less
+rain). While *any* research question could be translated into a
+theoretical model, not all theoretical models can be *tested* against
+the real world. And that's where the second part comes in: Our
+theoretical model needs to be structured in a way that allows us to
+measure the items ("parameters") in our model, so that we can build a
+mathematical model from the data ("test it in the real world").
 
--   What are some pipeline targets related to building model?
+```{mermaid fig-model-plant-growth}
+%%| label: fig-model-plant-growth
+%%| fig-cap: Simple example of a theoretical model of plant growth.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
+graph LR
+    Sunlight --> Growth
+    Water --> Growth
+    Sunlight --- Water
 
-    -   All results generated (to use as dependencies of the other two)
-    -   Table of specific results of statistical analysis
-    -   Plot of specific results of statistical analysis
+linkStyle 0,1,2 stroke-width:1px;
+```
+
+Great research questions are designed in a way to fit a theoretical
+model on measurable parameters, so we can ultimately quantify the
+uncertainty in our observations (the data) and in the model. And the
+basic simplified math of a statistical model looks mostly the same:
+
+$$y = intercept + x + error $$
+
+It's a bit more complicated than this, but this is enough to describe
+for this course. Throughout the rest of the session, we use specific
+terms to describe each item in this formula. "Outcome" (also called
+"dependent variable") refers to the $y$, "predictor" (or "independent
+variable") refers to the $x$. The error and intercept are calculated for
+us when we fit the model to the data. The intercept is when x is equal
+to zero (the "y-intercept" on a plot). The error is difference better
+what the model estimates and what the real value is. It plays a role in
+quantifying the model's uncertainty.
+
+Considering the mathematical nature of statistical models, there is also
+a logic and "workflow" to making these models as well!
+
+1.  Write a research question, designed in a way that might look like
+    the diagram above. Usually this step may need to be done back and
+    forth, revising the question after trying to construct the
+    theoretical model, that describes the measurable (and unmeasurable)
+    parameters in the model, and vice versa.
+2.  Based on the model and the type of measured parameters used
+    (continuous vs binary), select the best mathematical model "type".
+    Nearly all models in statistics start from the base of a linear
+    regression (e.g. ANOVA is a special form of regression, t-test is a
+    simpler version of ANOVA), so the model "type" will probably be a
+    form of regression.
+3.  Measure your parameters (in the plant growth example, that might be
+    the amount of water given in liters per day, amount of plant growth
+    in weight, and amount of sunlight in hrs per day). Usually, this
+    measured data might need to be processed in a special way to fit the
+    specifics of the model, research question, and practices of the
+    field.
+4.  Fit the data to the theoretical model in order to estimate the
+    values ("coefficients") of the model parameters as well as the
+    uncertainty in those values.
+5.  Extract the values and their uncertainty from the model and present
+    them in relation to your research questions.
+
+<!-- TODO: Image of workflow? -->
+
+::: callout-caution
+The entire workflow for building statistical models requires highly
+specific domain knowledge on not only the statistics themselves, but
+also how the data was collected, what the values mean, what type of
+research questions to ask and how to ask them, how to interpret the
+results from the models, and how to process the data to fit the question
+and model.
+
+For instance, in our `lipidomics` dataset, if we were to actually use
+this data, we would need someone familiar with -omic technologies, how
+the data are measured, what the values actually mean, how to prepare
+them for the modeling, the specific modeling methods used for this
+field, and how we would actually interpret the findings. We have
+**none** of these things, so very likely we are doing things quite wrong
+here. We're only doing these modeling to highlight how to use the R
+packages.
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+A few things to repeat and reinforce:
+
+1.  The workflow of the image and that it all starts with the research
+    question.
+2.  The fact that almost all statistical methods are basically special
+    forms of linear regression.
+3.  That this model creation stage requires a variety of domain
+    expertise, not just statistical expertise.
+:::
+
+Going back to our own `lipidomics` dataset, we need to do the first
+step. And that is creating the question. While we don't have much data,
+there are a surprising number of questions we could ask. But we will
+keep it very simple, very basic, and very exploratory.
+
+1.  What is the estimated relationship of each metabolite with T1D
+    compared to control, adjusting for the influence of age and gender?
+2.  What is the variability for the estimate in each relationship?
+
+Next, because we are working within a "reproducible analysis" framework
+specifically with the use of `{targets}`, let's convert these questions
+in outputs to include as pipeline targets, along with a basic idea for
+the final functions that will make up these targets and their inputs and
+outputs. These targets will probably be quite different by end, but its
+a good to start thinking about what the end should look like.
+
+-   All results for estimated relationship (in case we want to use it
+    for other output)
+-   All results for variation in estimates of relationship (in case we
+    want to use it for other output)
+-   Plot of statistical estimate for each relationship
+-   Plot of variation in estimates for each relationship
+
+Potential function names might be:
+
+-   `calculate_estimates()`
+-   `calculate_variation()`
+-   `plot_estimates()`
+-   `plot_variation()`
+
+```{mermaid fig-model-possible-targets}
+%%| label: fig-model-possible-targets
+%%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
+graph TB
+    lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
+    model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
+    lipidomics -- "calculate_variation()" --> model_var[Model variation]
+    model_var -- "plot_variation()" --> plot_var[Plot of variation]
+    plot_est & plot_var --> rmd[R Markdown]
+
+linkStyle 0,1,2,3,4,5 stroke-width:1px;
+```
 
 ## Defining the model
 
--   Basic model:
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
 
-    -   Outcome: CT vs T1D
-    -   Predictors: lipidomics
-    -   Covariates: age, gender
-    -   diagram of relationship
+Verbally walk through this section, describing the theoretical model
+both graphically and mathematically. Go through why we use
+`{tidymodels}` rather than other approaches.
+:::
 
-first, subset data so only have one metabolite.
+Now that we've talked about the workflow around making models and have
+already written out some research questions, let's make a basic,
+graphical theoretical model:
 
--   logistic regression
+```{mermaid fig-model-research-question}
+%%| label: fig-model-research-question
+%%| fig-cap: Simple example of a theoretical model of plant growth.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
+graph TB
+    Metabolite --> T1D
+    Age & Gender --> T1D & Metabolite
 
--   why tidymodels
+linkStyle 0,1,2,3,4 stroke-width:1px;
+```
 
--   diagram of tidymodels separation
+Or mathematically:
 
-    -   model definition
-    -   transformation recipe
-    -   data itself, along with formula
+$$T1D = metabolite + age + gender$$
 
--   parsnip
+So, T1D status (or `class` in the `lipidomics` dataset) is our
+**outcome** and the individual metabolite, age, and gender are our
+**predictors**. Technically, age and gender would be "confounders" or
+"covariates", since we include them only because we think they influence
+the relationship between the metabolite and T1D.
 
-    -   https://parsnip.tidymodels.org/reference/index.html#models
-    -   https://parsnip.tidymodels.org/articles/Examples.html
+Now that we have a theoretical model, we need to choose our model type.
+Since T1D is binary (either you have it or you don't), the most likely
+choice is logistic regression, which requires a binary outcome variable.
+So we have the theoretical model and the type of model to use, how do we
+express this as code in R? There are many ways of doing the same thing
+in R. But some are a bit easier than others. One such approach, that is
+quite generic and fits with the ideals of the `{tidyverse}`, is a
+similar universe of packages called the `{tidymodels}`.
+
+Why do we teach `{tidymodels}`? Because they are built by software
+developers, employed by RStudio (who also employs the people who build
+the `{tidyverse}`), and they have a strong reputation for writing good
+documentation. Plus, the `{tidymodels}` set of packages also make
+creating and using models quite generic, so by teaching you these sets
+of tools, you can relatively easily change the model type, or how you
+process the data, or other specifications without having to learn a
+whole new package or set of tools.
+
+The reason `{tidymodels}` can do that is because they designed it in a
+way that makes a clear separation in the components of model building
+workflow that was described above, through the use of specific packages
+for each component.
+
+| Package       | Description                                                                                       |
+|---------------|---------------------------------------------------------------------------------------------------|
+| `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
+| `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
+| `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
+
+: Core packages within `{tidymodels}`.
+
+We'll start with the `{parsnip}` package first. Functions in this
+package are used to set the details of the model you want to use.
+Specifically,
+[functions](https://parsnip.tidymodels.org/reference/index.html#models)
+to indicate the model *"type"* (e.g. linear regression) and the
+`set_engines()` function to determine the "engine" to run the type
+(which R-based algorithm to use, like `glm()` compared to `lm()`). Check
+out the
+[Examples](https://parsnip.tidymodels.org/articles/Examples.html) page
+for code you might use depending on the model you want. The most
+commonly used model types would be `linear_reg()`, `logistic_reg()`, and
+`multinom_reg()`.
+
+We want to use logistic regression. So, open the `doc/lesson.Rmd` file
+and in the `setup` code chunk add `library(tidymodels)`, so it looks
+like:
+
+    ```{{r setup}}
+    library(tidyverse)
+    library(tidymodels)
+    load(here::here("data/lipidomics.rda"))
+    ```
+
+Since we will be using `{tidymodels}`, we need to install it, as well as
+explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages
+we will use. Like `{tidyverse}`, we need to set `{tidymodels}`
+differently because it is a "meta-package". We might need to force
+installing it with `install.packages("tidymodels")` so `{renv}`
+recognizes it.
 
 ```{r}
+#| purl: true
+#| eval: false
+use_package("tidymodels", "depends")
+# install.packages("tidymodels")
+use_package("parsnip")
+use_package("recipes")
+use_package("workflows")
+```
+
+Before continuing, let's **commit** the changes to the Git history.
+Next, in the `doc/lesson.Rmd` file, on the bottom of the document create
+a new header and code chunk:
+
+    ## Building the model
+
+    ```{{r}}
+
+    ```
+
+In the new code chunk, we will set up the model specs:
+
+```{r logistic-reg-specs}
 log_reg_specs <- logistic_reg() %>% 
   set_engine("glm")
+log_reg_specs
 ```
+
+Running this on it's own doesn't show much, as you can see. But we've
+now set the model we want to use.
 
 ## Exercise: How would you define a linear regression with parsnip?
 
