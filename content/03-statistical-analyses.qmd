@@ -277,7 +277,8 @@ the relationship between the metabolite and T1D.
 
 If we convert the formula into a form with the variables we have in the
 dataset as well as selecting only one metabolite for now (the
-cholesterol metabolite), it would be:
+cholesterol metabolite, which we add "metabolite" to differentiate it
+from other potential variables), it would be:
 
 $$class = metabolite\_cholesterol + age + gender$$
 
