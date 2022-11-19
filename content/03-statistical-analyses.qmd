@@ -674,6 +674,15 @@ recipes::step_sqrt()
 -   In the last 2 minutes of the exercise, we will all share our
     thoughts.
 
+::: callout-tip
+There are so many useful transformation functions available. For
+instance, if you often have to impute data, there are functions for
+that. You can check them out in the Console by typing
+`recipes::step_impute_` then hit the Tab key to see a list of them. Or,
+if you have some missing values, there's also the
+`recipes::step_naomit()`.
+:::
+
 ::: callout-note
 The `step_` function we use in the text of this website in later
 sections may be different from what you decide on in your group and in
