@@ -434,7 +434,7 @@ person has multiple rows. The second is that there seems to be a data
 input error, since there are three `Cholesterol` values, while all other
 metabolites only have one:
 
-```{r}
+```{r too-many-cholesterols}
 lipidomics %>%
   count(code, metabolite) %>%
   filter(n > 1)
@@ -455,7 +455,7 @@ first so they make better column names. We do that by combining
 `mutate()` with `snakecase::to_snake_case()`. First, in the Console,
 run:
 
-```{r}
+```{r snakecase-to-deps}
 #| purl: true
 #| eval: false
 use_package("snakecase")
@@ -484,7 +484,7 @@ using these code again later on, let's convert both the "metabolite to
 snakecase" and "pivot to wider" code into their own functions, before
 moving them over into the `R/functions.R` file.
 
-```{r}
+```{r first-snakecase-fn}
 metabolite_values_to_snakecase <- function(data) {
   data %>%
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
@@ -559,7 +559,7 @@ the function below. Unless learners have some questions.
 We can use curly-curly (combined with `across()`) to apply
 `snakecase::to_snake_case()` to columns of our choice.
 
-```{r}
+```{r second-snakecase-fn}
 column_values_to_snakecase <- function(data, cols) {
   data %>%
     dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
