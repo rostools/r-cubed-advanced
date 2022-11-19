@@ -655,7 +655,7 @@ Instead of using a formula and letting `recipe()` infer the outcome and
 predictors, we can explicitly select which variables are which. This has
 some nice features that we will use later on.
 
-```{r}
+```{r recipes-without-formula}
 recipe(lipidomics_wide) %>%
   update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome")
