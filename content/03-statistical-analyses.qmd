@@ -106,7 +106,7 @@ mathematical model from the data ("test it in the real world").
 %%| fig-cap: Simple example of a theoretical model of plant growth.
 %%| echo: false
 %%| eval: true
-%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
 graph LR
     Sunlight --> Growth
     Water --> Growth
