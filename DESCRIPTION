@@ -11,6 +11,7 @@ Imports:
     crayon,
     desc,
     downlit,
+    dplyr,
     fontawesome,
     fs,
     gt,
@@ -26,11 +27,11 @@ Imports:
     rlang,
     snakecase,
     styler,
-    targets
+    targets,
+    tidyr
 Suggests: 
     devtools,
     DiagrammeR,
-    dplyr,
     gert,
     ggplot2,
     gitcreds,
