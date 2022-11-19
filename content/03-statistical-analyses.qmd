@@ -706,6 +706,54 @@ need to show and use *something* in the text.
 
 ## Creating a transformation "recipe"
 
+We will use which ever transformation function we all decided in the
+exercise above, but for the text of this website, we will use
+`step_normalize()`. This function is useful because it makes each
+variable centered to zero and a value of 1 unit is translated to 1
+standard deviation of the original distribution. This means we can more
+easily compare values between variables. If we add this to the end of
+the recipe:
+
+```{r recipes-with-step-normalize}
+recipe(lipidomics_wide) %>%
+  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(class, new_role = "outcome") %>% 
+  step_normalize(starts_with("metabolite_"))
+```
+
+Next thing to do is convert this into a function, using the same
+workflow we've been using (which means this needs to be in the
+`R/functions.R` script). We'll also use the curly-curly again, since we
+might use a different metabolite later. Note, when adding all the
+`packagename::` to each function, the `starts_with()` function comes
+from the `{tidyselect}` package.
+
+```{r new-function-create-recipe-spec}
+#' A transformation recipe to pre-process the data.
+#'
+#' @param data The lipidomics dataset.
+#' @param metabolite_variable The column of the metabolite variable.
+#'
+#' @return
+#'
+create_recipe_spec <- function(data, metabolite_variable) {
+  recipes::recipe(data) %>%
+    recipes::update_role({{ metabolite_variable }}, age, gender, new_role = "predictor") %>%
+    recipes::update_role(class, new_role = "outcome") %>%
+    recipes::step_normalize(tidyselect::starts_with("metabolite_"))
+}
+```
+
+And test it out:
+
+```{r}
+recipe_specs <- lipidomics_wide %>%
+  create_recipe_spec(metabolite_cholesterol)
+recipe_specs
+```
+
+Run `run_styler_text`, then commit the changes made to the Git history.
+
 ## Fitting the model by combining the recipe, model definition, and data
 
 ```{r}
