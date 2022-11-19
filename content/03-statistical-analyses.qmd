@@ -632,14 +632,27 @@ metabolites_to_wider <- function(data, values_fn = mean) {
 
 ## Using recipes to manage transformations
 
--   recipes
+We've used `{dplyr}` and `{tidyr}` to start fixing some of the issues
+with the data. But now we have the third issue: How to make the results
+between metabolites comparable. That's where we use `{recipes}`.
 
-Mention using formula but switch to update_role
+The first function is `recipe()` and it takes two forms: with or without
+a formula. Remember the model formula we mentioned previously? Well,
+here is where we can use it to tell `{recipes}` about the model formula
+we intend to use so it knows what variables to apply the transformations
+that we choose.
 
-```{r}
-recipe(class ~ metabolite_lipid_ch_3_1 + age + gender, data = lipidomics_wide) %>%
-  step_center(starts_with("metabolite_"))
+For a few reasons that will be clearer later, we won't ultimately use
+the formula form of `recipe()`, but will show how it works. The
+
+```{r recipes-with-formula}
+recipe(class ~ metabolite_cholesterol + age + gender, data = lipidomics_wide)
 ```
+
+The alternative approach is to set "roles" using `update_roles()`.
+Instead of using a formula and letting `recipe()` infer the outcome and
+predictors, we can explicitly select which variables are which. This has
+some nice features that we will use later on.
 
 ```{r}
 recipe(lipidomics_wide) %>%
@@ -647,9 +660,7 @@ recipe(lipidomics_wide) %>%
   update_role(class, new_role = "outcome")
 ```
 
--   convenient with `recipes::step_impute_*` functions
-
-recipes::step_naomit()
+The next "step" is to select a transformation function.
 
 ## Exercise: Which transformations make the most sense?
 
