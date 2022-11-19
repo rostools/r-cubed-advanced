@@ -603,9 +603,10 @@ it into a new function.
 3.  Use `data %>%` at the beginning, like we did with the
     `column_values_to_snakecase()`. Inside the `pivot_wider()` code,
     replace `values_fn = mean` with `values_fn = values_fn`.
-4.  Add `r run_roxygen_comments`.
-5.  Move the function into the `R/functions.R` file.
-6.  Replace the code in the `doc/lesson.Rmd` file to make use of the new
+4.  Use `tidyr::` before the `pivot_wider()` function.
+5.  Add `r run_roxygen_comments`.
+6.  Move the function into the `R/functions.R` file.
+7.  Replace the code in the `doc/lesson.Rmd` file to make use of the new
     functions.
 
 ```{r solution-new-function-metabolite-to-wider}
