@@ -571,8 +571,9 @@ lipidomics %>%
 ```
 
 Move this new function over into the `R/functions.R` file, add
-`r run_roxygen_comment`, run `r run_styler_text`, and add the new
-function above the `pivot_wider()` code in the `doc/lessons.Rmd` file.
+`r run_roxygen_comment`, run `r run_styler_text`, `source()` the
+modified `R/functions.R` file, and add the new function above the
+`pivot_wider()` code in the `doc/lessons.Rmd` file.
 
 ```{r new-function-column-values-to-snakecase}
 #' Convert column value strings into snakecase.
