@@ -747,7 +747,7 @@ create_recipe_spec <- function(data, metabolite_variable) {
 
 And test it out:
 
-```{r}
+```{r use-create-recipe-specs-fn}
 recipe_specs <- lipidomics_wide %>%
   create_recipe_spec(metabolite_cholesterol)
 recipe_specs
@@ -757,8 +757,206 @@ Run `run_styler_text`, then commit the changes made to the Git history.
 
 ## Fitting the model by combining the recipe, model definition, and data
 
+We've now defined the model we want to use and created a transformation
+`{recipes}` specification. Now we can start putting them together and
+finally fit them to the data. Putting all these pieces together is done
+with the `{workflows}` package, so before we begin, let's add it to our
+dependencies:
+
+```{r workflows-to-deps}
+#| purl: true
+#| eval: false
+use_package("workflows")
+```
+
+Why use this package to manage these things, rather than simply run the
+statistical analysis and process the data as normal? When running
+multiple models (like we will do in the next section), the data
+transformation steps have to happen *right before* the data is fit to
+the model and needs to done on exactly the data used by the model. So if
+we have one data frame that we run multiple models on, but the
+transformation happens to the whole data frame, we could end up with
+issues due to how the transformations were applied. The `{workflows}`
+package keeps track of those things for us, so we can focus on the
+higher level thinking rather than on the small details of running the
+models.
+
+The `{workflows}` package has a few main functions for combining the
+recipe with the model specs, as well as several for updating an existing
+workflow (which might be useful if you need to run many models of
+slightly different types). All model workflows need to start with
+`workflow()`, followed by two main functions: `add_model()` and
+`add_recipe()`. Can you guess what they do?
+
+```{r use-workflow-for-model}
+workflow() %>% 
+  add_model(log_reg_specs) %>% 
+  add_recipe(recipe_specs)
+```
+
+While this code is already pretty concise, let's convert it into a
+function to make it simplified. We'll use the same function-oriented
+workflow that we've used before, where the function should ultimately be
+inside the `R/functions.R` file.
+
+```{r new-function-create-model-workflow}
+#' Create a workflow object of the model and transformations.
+#'
+#' @param model_specs The model specs
+#' @param recipe_specs The recipe specs
+#'
+#' @return A workflow object
+#'
+create_model_workflow <- function(model_specs, recipe_specs) {
+  workflows::workflow() %>%
+    workflows::add_model(model_specs) %>%
+    workflows::add_recipe(recipe_specs)
+}
+```
+
+<!-- TODO: image showing pieces at play that we need to eventually fit into targets/questions -->
+
+Instead of using the previously created objects, let's start the model
+creation from scratch:
+
+```{r full-model-workflow-from-almost-scratch}
+model_workflow <- create_model_workflow(
+  logistic_reg() %>% 
+    set_engine("glm"),
+  lipidomics_wide %>% 
+    create_recipe_spec(metabolite_cholesterol)
+) 
+model_workflow
+```
+
+Now, we can do the final thing: Fitting the data to the model with
+`fit()`! :raised_hands:
+
+```{r fit-model-workflow-to-data}
+fitted_model <- model_workflow %>% 
+  fit(lipidomics_wide)
+fitted_model
+```
+
+This gives us a lot of information, but what we are mostly interested in
+is the model estimates themselves. While this `fitted_model` object
+contains a lot additional information inside, `{workflows}` thankfully
+has a function to extract the information we want. In this case, it is
+the `extract_fit_parsnip()` function.
+
+```{r extract-model-fit}
+fitted_model %>%
+  extract_fit_parsnip()
+```
+
+To get this information in a tidier format, we use another function:
+`tidy()`. This function comes from the `{broom}` package, which is part
+of the `{tidymodels}`. But we should explicitly add it to the
+dependencies:
+
+```{r broom-to-deps}
+#| purl: true
+#| eval: false
+use_package("broom")
+```
+
+Then, we continue the `%>%` pipe, though we do need to set
+`exponentiate = TRUE` in `tidy()` because we are using a logistic
+regression model and the results need to be corrected to be more
+interpretable:
+
+```{r tidy-up-model-results}
+fitted_model %>%
+  extract_fit_parsnip() %>% 
+  tidy(exponentiate = TRUE)
+```
+
+We now have a data frame of our model results! Like we did with the
+`workflows()` code that we converted into a function, we do the same
+thing here: Make another function (and move it to `R/functions.R`)!
+:stuck_out_tongue:
+
+```{r new-function-tidy-model-output}
+#' Create a tidy output of the model results.
+#'
+#' @param workflow_fitted_model The model workflow object that has been fitted.
+#'
+#' @return A data frame.
+#'
+tidy_model_output <- function(workflow_fitted_model) {
+  workflow_fitted_model %>%
+    workflows::extract_fit_parsnip() %>%
+    broom::tidy(exponentiate = TRUE)
+}
+```
+
+Replacing the code in the `doc/lesson.Rmd` file to use the function.
+
+```{r use-tidy-model-output-fn}
+fitted_model %>% 
+  tidy_model_output()
+```
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+If you want, you can go over these details briefly or in more detail,
+depending on how comfortable you are. Or you can get them to read it
+only.
+:::
+
+::: callout-info
+## Reading task: \~10 minutes
+
+Let's explain this output a bit, each column at a time:
+
+-   `term`: If you recall the formula
+    $class = metabolite + sex + gender$, you'll see all but the `class`
+    object there in the column `term`. This column contains all the
+    predictor variables, including the intercept (from the original
+    model).
+
+-   `estimate`: This column is the "coefficient" linked to the term in
+    the model. The final mathematical model here looks like:
+
+    $$class = Intercept + (metabolite_estimate * metabolite_value) + (gender\_estimate * gender\_value) + ...$$
+
+    The estimate is the constant value you multiple the value of the
+    term with. The interpreting each of these values can be quite tricky
+    and can take a surprising amount of time to conceptually break it
+    down, so we won't do that here, since this isn't a statistics
+    course. The only thing you need to understand here is that the
+    `estimate` is value that tells us the *magnitude* of association
+    between the term and `class`. This value, along with the `std.error`
+    are the most important values we can get from the model and we will
+    be using them when presenting the results.
+
+-   `std.error`: This is the uncertainty in the `estimate` value. A
+    higher value means there is less certainty in the value of the
+    `estimate`.
+
+-   `statistic`: This value is used to, essentially, calculate the
+    `p.value`.
+
+-   `p.value`: This is the infamous value we researchers go crazy for
+    and think nothing else of. While there is a lot of attention to this
+    single value, it's importance is not as much as we tend to give it.
+    The interpretation of the p-value is even more difficult than the
+    `estimate` and again, we won't cover this at all in this course. We
+    won't be using this value at all in presenting the results.
+:::
+
+<!-- TODO: Use this code chunk below? -->
+
 ```{r}
-workflows::workflow()
+create_model_workflow(
+  logistic_reg() %>% 
+    set_engine("glm"),
+  lipidomics_wide %>% 
+    create_recipe_spec(metabolite_cholesterol)
+) %>% 
+  fit(lipidomics_wide) %>% 
+  tidy_model_output()
 ```
 
 ## Exercise: Run model with a different metabolite
@@ -766,73 +964,53 @@ workflows::workflow()
 > Time: \~10 minutes.
 
 Try running the same model workflow but run the model with
-`lipid_ch_3_1` instead of `cholesterol`.
+`metabolite_lipid_ch_3_1` instead of `metabolite_cholesterol`.
 
 1.  In the `doc/lesson.Rmd` file, create a new `###` header and code
     chunk at the bottom of the R Markdown file (see the scaffold
-    template below).
-2.  Start with creating a new data frame (call it `df_lipid_ch_3_1`),
-    `select()`ing `class`, `gender`, `age`, and `lipid_ch_3_1`.
-3.  Copy and paste the previous recipe `recipe_specs` we created above
-    and then replace all `cholesterol` with `lipid_ch_3_1`.
-4.  Copy and paste the same `model_workflow` code we created above,
-    re-using both the same `log_reg_specs` in the `add_model()` function
-    and `recipe_specs` (the one you modified in the task above) in the
-    `add_recipe()` function.
-5.  Run `fit()` on the `model_workflow`, making sure to use the
-    `df_lipid_ch_3_1` in the `data` argument.
-6.  Run the `fitted_model` in the Console to get the output results.
-    What is the coefficient for the `lipid_ch_3_1` compared to the
-    `cholesterol` result?
-7.  Use `r run_styler_text` on the R Markdown file. Then commit the
+    template below). You can use the code below as a scaffold, you can
+    even copy and paste it.
+2.  Copy and paste the previous workflow we created above and then
+    replace all `metabolite_cholesterol` with `metabolite_lipid_ch_3_1`
+    (or copy and paste the scaffold below).
+3.  Run the code to get the results for `metabolite_lipid_ch_3_1`. What
+    is the coefficient (`estimate`) for the `metabolite_lipid_ch_3_1`
+    compared to the `metabolite_cholesterol` result?
+4.  Use `r run_styler_text` on the R Markdown file. Then commit the
     changes to the Git history.
+5.  Notice the only difference between the code running the models on
+    `metabolite_cholesterol` compared to models on
+    `metabolite_lipid_ch_3_1`? Keep this in mind for the next exercise
+    :wink:
 
 Use the scaffolding below as a guide. *Note*: The code has been
 purposefully written poorly so you can use `{styler}` to fix it up.
 
     ### Model with a different metabolite
     ``` {{r}}
-    ___ <- lipidomics_wide%>%select(___,___,___,___)
-
-    recipe_specs<-recipe(class ~ ___ +age+gender, 
-    data = ___) %>% 
-      step_normalize(___)
-
-    model_workflow <- workflow()%>% ___(___) %>% 
-      ___(___)
-      
-    fitted_model <- fit(model_workflow,data=___)
-      fitted_model
+    create_model_workflow(___()%>%set_engine("glm"),
+    lipidomics_wide%>%create_recipe_spec(___)
+    ) %>%fit( lipidomics_wide ) %>% 
+    tidy_model_output()
     ```
 
 ```{r solution-model-with-different-metabolite}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-df_lipid_ch_3_1 <- lipidomics_wide %>% 
-  select(class, gender, age, lipid_ch_3_1)
-
-recipe_specs <- recipe(class ~ lipid_ch_3_1 + age + gender, data = df_lipid_ch_3_1) %>% 
-  step_normalize(lipid_ch_3_1)
-
-model_workflow <- workflow() %>% 
-  add_model(log_reg_specs) %>% 
-  add_recipe(recipe_specs)
-  
-fitted_model <- fit(model_workflow, data = df_lipid_ch_3_1)
-fitted_model
+create_model_workflow(
+  logistic_reg() %>% 
+    set_engine("glm"),
+  lipidomics_wide %>% 
+    create_recipe_spec(metabolite_lipid_ch_3_1)
+) %>% 
+  fit(lipidomics_wide) %>% 
+  tidy_model_output()
 ```
 
-<!-- TODO: Do I need to purl this at this point? Or only later as a function? -->
-
-## Extracting results from the fitted models
-
--   broom
-
-    -   tidy
-    -   augment?
-
 ## Exercise: How would we use functional programming to run multiple models?
+
+<!-- TODO: Move this up to right after introducing boostrapping? -->
 
 > Time: \~20 minutes.
 
