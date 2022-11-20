@@ -28,7 +28,8 @@ Imports:
     snakecase,
     styler,
     targets,
-    tidyr
+    tidyr,
+    workflows
 Suggests: 
     devtools,
     DiagrammeR,
