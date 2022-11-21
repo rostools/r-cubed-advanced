@@ -129,9 +129,9 @@ terms to describe each item in this formula. "Outcome" (also called
 "dependent variable") refers to the $y$, "predictor" (or "independent
 variable") refers to the $x$. The error and intercept are calculated for
 us when we fit the model to the data. The intercept is when x is equal
-to zero (the "y-intercept" on a plot). The error is difference better
-what the model estimates and what the real value is. It plays a role in
-quantifying the model's uncertainty.
+to zero (the "y-intercept" on a plot). The error is the difference
+between what the model estimates and what the real value is. It plays a
+role in quantifying the model's uncertainty.
 
 Considering the mathematical nature of statistical models, there is also
 a logic and "workflow" to making these models as well!
