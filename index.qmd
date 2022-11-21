@@ -8,15 +8,15 @@ knitr::write_bib(
 )
 ```
 
-Reproducibility and open scientific practices are increasingly demanded
-of, and needed by, scientists and researchers in our modern research
-environments. More frequently, our research work environments and
-projects include or require a high level of hands-on collaboration on
-scientific projects, especially on the data analysis, writing, and
-visualization stages of a research project. In a collaborative setting
-like this, many new challenges arise that we as researchers do not have
-the training for or knowledge on how to best resolve them. Challenges
-include:
+[![License: CC BY
+4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+Reproducibility and open scientific practices are increasingly in demand
+and needed by scientists and researchers in our modern research
+environments. More frequently, our work include a high level
+collaboration on scientific projects, and consequently many new
+challenges arise that we as researchers do not have the training for nor
+knowledge on how to resolve. Challenges include:
 
 -   Establishing common coding styles and standards to make it easier to
     read or review each others code;
@@ -29,29 +29,22 @@ include:
     and present the data and findings in a way that allows collaborators
     to re-generate the most recent results.
 
-Even without being in collaborative settings, solutions to these
-challenges can also streamline solo work on projects that are
-infrequently worked on or when research results need to be independently
-reproduced or audited with minimal effort for everyone involved.
+Training and awareness of the skills and knowledge necessary to create
+reproducible and transparent data analysis pipelines are still very much
+lacking for researchers. Partly due to this gap, how *exactly* an
+analysis is done to produce a given result is poorly, if at all,
+described in scientific studies. This could have major impact on the
+reproducibility an ultimately the reliablity of studies.
 
-Training on, and awareness of, the skills and knowledge necessary to
-create reproducible and transparent data analysis pipelines is still
-very much lacking for researchers. Due to this gap and other factors,
-how *exactly* an analysis is done to produce a given result is poorly,
-if at all, described in scientific studies. This hidden aspect of
-research could have major impacts on the reproducibility of studies.
-This course aims to provide training to help address these particular
-issues.
-
-The course is designed as a series of participatory live-coding lessons,
-where the instructor and learner code together, and is interspersed with
-hands-on exercises, reading, and group work using real-world datasets.
-This website contains all of the material for the course, from reading
-material to exercises to images. It is structured as a book, with
-"chapters" as lessons, given in order of appearance. We make heavy use
-of the website throughout the course where code-along sessions follow
-the material on the website nearly exactly (with slight modifications
-for time or more detailed explanations).
+This course is designed to address these issues in code-along sessions
+(instructor and learner coding together), reading activities, and
+exercises using real-world datasets. This website contains all of the
+material for the course, from reading material to exercises to images.
+It is structured as a book, with "chapters" as lessons, given in order
+of appearance. We make heavy use of the website throughout the course
+where code-along sessions follow the material on the website nearly
+exactly (with slight modifications for time or more detailed
+explanations).
 
 The course material was created using [Quarto](https://quarto.org/) to
 write the lessons and create the book format,
