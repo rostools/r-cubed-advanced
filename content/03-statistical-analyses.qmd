@@ -1019,18 +1019,20 @@ statistical methods on data. This exercise is meant for you to review
 this concept and try to think of it in the context of statistcal
 modeling.
 
--   For 10 minutes, go to the section on [Function
+-   For 10 minutes, go to the sections on [Function
     Programming](https://r-cubed-intermediate.rostools.org/dry-functionals.html#functional-programming)
-    in the Intermediate R course and review the concepts.
+    in the Intermediate R course as well as the
+    [split-apply-combine](https://r-cubed-intermediate.rostools.org/dry-functionals.html#split-apply-combine-technique-and-functionals)
+    and review the concepts.
 
 -   For 8 minutes, discuss with your neighbour how we can use functional
     programming to apply the model to each metabolite. Try to think how
-    the code would look like to that that. You don't need to write real
-    R code, but if writing pseudocode helps, go right ahead! Also, don't
+    the code would look like to do that. You don't need to write real R
+    code, but if writing pseudocode helps, go right ahead! Also, don't
     look ahead :wink:
 
--   For the remaining time, we will discuss as the whole group
-    somethings people thought of.
+-   For the remaining time, we will discuss as the whole group some of
+    the things people thought of.
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
@@ -1041,11 +1043,56 @@ out on a whiteboard if it is available.
 
 ## Apply logistic regression to each metabolite
 
+You might have thought of some ideas to run the model on each metabolite
+based on the `lipidomics_wide` dataset. However, these types of
+"split-apply-combine" tasks are best done using data in the long form.
+So we'll start with the original `lipidomics` dataset. The first thing
+we want to do is convert the metabolite names into snake case:
+
 ```{r}
-lipidomics %>% 
-  filter(metabolite == "Lipid -CH2-") %>% 
-  ggplot(aes(x = value, fill = class)) +
-  geom_dotplot(binwidth = 10)
+lipidomics %>%
+  column_values_to_snakecase(metabolite) 
+```
+
+The next step is to split the data up. We could use `group_by()`, but in
+order to make the most use of `{purrr}` functions like `map()`, we will
+use `group_split()` to convert the data frame into a set of lists.
+
+```{r}
+lipidomics %>%
+  column_values_to_snakecase(metabolite) %>% 
+  group_split(metabolite) 
+```
+
+Since logistic regression needs one row to be a single person, we'll use
+`map()` to apply our custom function `metabolites_to_wider()` on each of
+the split list items:
+
+```{r}
+lipidomics %>%
+  column_values_to_snakecase(metabolite) %>%
+  group_split(metabolite) %>%
+  map(metabolites_to_wider)
+```
+
+```{r}
+%>% 
+  map_dfr(~fit_model_to_tidy_output(.x, starts_with("metabolite")), .id = "model_id")
+all_metabolites_results %>% 
+  filter(str_detect(term, "metabolite_"))
+```
+
+```{r}
+fit_model_to_tidy_output <- function(data, metabolite) {
+  create_model_workflow(
+    logistic_reg() %>%
+      set_engine("glm"),
+    data %>%
+      create_recipe_spec({{metabolite}})
+  ) %>%
+    fit(data) %>%
+    tidy_model_output()
+}
 ```
 
 ## Determine variability in model estimates with resampling
@@ -1054,7 +1101,37 @@ lipidomics %>%
 
 -   Use bootstrap, but mention vfold_cv
 
-## Exercise: Running multiple models by metabolite *and* re-sampled bootstrapped set
+``` r
+set.seed(1324)
+bootstraps(df_lipid_ch_3_1, times = 10)
+
+set.seed(1324)
+bootstrap_samples <- create_model_workflow(
+  logistic_reg() %>% 
+    set_engine("glm"),
+  lipidomics_wide
+)
+  fit_resamples(
+  model_workflow,
+  resamples = df_lipid_ch_3_1 %>%
+    bootstraps(10),
+  control = control_resamples(extract = tidy_model_output, save_pred = TRUE)
+  # save_pred = TRUE is same thing as augment
+)
+
+map2(
+  bootstrap_samples$.extracts,
+  bootstrap_samples$id,
+  ~ .x[[".extracts"]][[1]] %>%
+    mutate(id = .y, .before = everything())
+)
+bootstrap_samples %>%
+  select(id, .extracts) %>%
+  unnest(cols = .extracts)
+# filter(between(estimate, 0)) %>%
+# ggplot(aes(x = estimate)) +
+# geom_dotplot()
+```
 
 ## Visualizing the variability of results
 
@@ -1063,18 +1140,18 @@ lipidomics %>%
 
 ```{r}
 #| eval: false
-lipidomics %>%
-  # Deal with multiple cholesterols?
-  # group_by(code, gender, age, class, metabolite) %>%
-  # # .groups = "drop" to remove group_by structure, so we don't need to use ungroup
-  # summarise(value = mean(value), .groups = "drop") %>%
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
-  group_split(metabolite) 
-  # map(~pivot_wider(.x, names_from = metabolite, values_from = value, values_fn = mean))
-  
 ```
 
-## Exercise: Convert model building code into functions for targets
+<!-- TODO: makke function for plot -->
+
+## Exercise: Running multiple models by metabolite *and* re-sampled bootstrapped set
+
+Using
+
+## Exercise: Add functions into targets and R Markdown file
+
+```{r}
+# TODO: Reuse all chunks that have functions and place them here to purl
+```
 
 ## Summary
-

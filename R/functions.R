@@ -39,3 +39,11 @@ run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
 run_lintr_text <- '`{lintr}` (`Ctrl-Shift-P`, then type "lint file")'
 run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")'
 run_tar_vis_text <- '`targets::tar_visnetwork()` (`Ctrl-Shift-P`, then type "targets visual")'
+run_roxygen_comments <- 'Roxygen comments (have the cursor inside the function, type `Ctrl-Shift-P`, then type "roxygen")'
+
+# This might need to be inside the file?
+# knitr::all_labels() |>
+#   stringr::str_detect("new-function") |>
+#   purrr::map(~knitr::knit_code$get(.x)) |>
+#   purrr::flatten_chr() |>
+#   readr::write_csv(...?)
