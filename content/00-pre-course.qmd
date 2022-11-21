@@ -113,7 +113,7 @@ There are a few other things to install:
 
 All these programs are required for the course, even Git. Git, which is
 a software program to formally manage file versions, is used because of
-it's popularity and the amount of documentation available for it. Check
+its popularity and the amount of documentation available for it. Check
 out the online book [Happy Git with R](https://happygitwithr.com/),
 especially the "Why Git" section, to understand why we are using Git.
 Windows users tend to have more trouble with installing Git than macOS
