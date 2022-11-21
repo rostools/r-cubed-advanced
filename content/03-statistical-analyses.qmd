@@ -862,8 +862,8 @@ use_package("broom")
 
 Then, we continue the `%>%` pipe, though we do need to set
 `exponentiate = TRUE` in `tidy()` because we are using a logistic
-regression model and the results need to be corrected to be more
-interpretable:
+regression model and the results need to be corrected to be more easily
+interpreted.
 
 ```{r tidy-up-model-results}
 fitted_model %>%
