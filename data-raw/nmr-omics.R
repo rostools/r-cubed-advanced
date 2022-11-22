@@ -15,7 +15,7 @@ nmr_omics_dir <- here("data-raw/nmr-omics")
 fs::dir_create(nmr_omics_dir)
 
 download.file("https://zenodo.org/record/6597902/files/README.txt",
-  destfile = here(nmr_omics_dir, "README.txt"), mode = "wb"
+  destfile = here(nmr_omics_dir, "README.txt")
 )
 
 download.file("https://zenodo.org/record/6597902/files/NMR_Integration_Data_Lipidomics.xlsx",
