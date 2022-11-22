@@ -155,8 +155,8 @@ these commands in the R Console:
     install.packages("remotes")
     ```
 
-2.  Install the r3 helper package for this course and run the
-    `r3::install_packages_advanced()` function from it:
+2.  Install the r3 helper package for this course and then install the
+    packages for the advanced course:
 
     ``` r
     remotes::install_gitlab("rostools/r3")
