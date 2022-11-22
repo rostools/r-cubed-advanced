@@ -995,12 +995,18 @@ list(
   ...,
   tar_target(
     name = fig_gender_by_class,
-    command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
+    command = plot_count_stats(
+      lipidomics, 
+      "images/gender-by-class.png"
+    ),
     format = "file"
   ),
   tar_target(
     name = fig_metabolite_distribution,
-    command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
+    command = plot_count_stats(
+      lipidomics, 
+      "images/metabolite-distribution.png"
+    ),
     format = "file"
   )
 )
