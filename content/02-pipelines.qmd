@@ -816,7 +816,7 @@ plot_distributions <- function(___, ___) {
 }
 ```
 
-```{r solution-plot-code-as-functions}
+```{r solution-new-function-plots}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
@@ -860,53 +860,6 @@ plot_distributions <- function(data, image_path) {
 }
 ```
 
-```{r purl-only-plot-count-as-function}
-#| eval: false
-#| echo: false
-#| purl: true
-"
-#' Plot for basic count data.
-#'
-#' @param data The lipidomics dataset.
-#' @param image_path The file path location where to save the image.
-#'
-#' @return A ggplot2 graph.
-#'
-plot_count_stats <- function(data, image_path) {
-  plot_output <- data %>%
-    dplyr::distinct(code, gender, class) %>%
-    ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
-    ggplot2::geom_bar(position = 'dodge')
-  ggplot2::ggsave(
-    plot = plot_output,
-    filename = here::here(image_path)
-  )
-  plot_output
-}
-
-#' Plot for basic distribution of metabolite data.
-#'
-#' @param data The lipidomics dataset.
-#' @param image_path The file path location where to save the image.
-#'
-#' @return A ggplot2 graph.
-#'
-plot_distributions <- function(data, image_path) {
-  plot_output <- data %>% 
-    ggplot2::ggplot(ggplot2::aes(x = value)) +
-    ggplot2::geom_histogram() +
-    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = 'free')
-  ggplot2::ggsave(
-    plot = plot_output,
-    filename = here::here(image_path)
-  )
-  plot_output
-}
-" |>
-  write_to_file("R/functions.R")
-git_ci("R/functions.R", "Add function to create plot of count stats.")
-```
-
 ## Informing targets of the saved output files
 
 We now have the functions that we can put into the `_targets.R` file.
@@ -941,21 +894,7 @@ output_switch_for_targets <- function(output, path) {
 After we've written it, we'll add some Roxygen documentation
 (`Ctrl-Shift-P`, then type "roxygen comment"):
 
-```{r output-switch-roxygen}
-#' Switch output based on if it is interactive, otherwise it is a file path.
-#'
-#' @param output Output object to send to screen when running interactively.
-#' @param path The file path to where the intermediate object is saved.
-#'
-#' @return An object or a file path.
-#'
-```
-
-```{r purl-only-output-switch}
-#| eval: false
-#| echo: false
-#| purl: true
-"
+```{r new-function-output-switch-for-targets}
 #' Switch output based on if it is interactive, otherwise it is a file path.
 #'
 #' @param output Output object to send to screen when running interactively.
@@ -970,9 +909,6 @@ output_switch_for_targets <- function(output, path) {
     path
   }
 }
-" |>
-  write_to_file("R/functions.R", append = TRUE)
-git_ci("R/functions.R", "Add function to switch output for targets use.")
 ```
 
 Then, we go into the two plot functions and replace `plot_output` at the
