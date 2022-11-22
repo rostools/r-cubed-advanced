@@ -1147,18 +1147,8 @@ Then we add it to the end of the pipe, but using `map_dfr()` to convert
 to a data frame:
 
 ```{r chain-generate-model-results}
-#| eval: false
 lipidomics %>%
-  column_values_to_snakecase(metabolite) %>%
-  group_split(metabolite) %>%
-  map(metabolites_to_wider) %>%
-  map_dfr(generate_model_results)
-```
-
-```{r exec-only-chain-generate-model-results}
-#| eval: true
-#| echo: false
-.Last.value %>%
+  split_by_metabolite() %>% 
   map_dfr(generate_model_results)
 ```
 
@@ -1168,9 +1158,7 @@ the metabolites, let's keep only `terms` that are metabolites using
 
 ```{r chain-filter-terms}
 model_estimates <- lipidomics %>%
-  column_values_to_snakecase(metabolite) %>%
-  group_split(metabolite) %>%
-  map(metabolites_to_wider) %>%
+  split_by_metabolite() %>% 
   map_dfr(generate_model_results) %>%
   filter(str_detect(term, "metabolite_"))
 model_estimates
