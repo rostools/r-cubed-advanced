@@ -1296,17 +1296,52 @@ calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
 }
 ```
 
-Lastly, add this
+Lastly, add the model results output to end of the `_targets.R` file,
+using the below scaffold as a guide.
 
-```{r}
+1.  Use `model_estimates` for the `name`.
+2.  Use the `calculate_estimates()` function in `command`, with
+    `lipidomics` and `"data/model-estimates.csv"` as the arguments.
+3.  Run `r run_styler_text` and than run `r run_tar_vis_text` to see if
+    the new target gets detected. If it does, than run
+    `r run_tar_make_text`.
+4.  Commit the changes to the Git history.
+
+``` r
 list(
   ...,
+  list(
+    name = ___,
+    command = ___(___, ___),
+    format = "file"
+  )
+)
+```
+
+```{r purl-only-model-estimates-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+update_target_calc_est <- ' 
+  ),
   list(
     name = model_estimates,
     command = calculate_estimates(lipidomics, "data/model-estimates.csv"),
     format = "file"
   )
 )
+' 
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = update_target_calc_est,
+  # TODO: Modify these numbers.
+  remove_original_lines = -30,
+  insert_at_line = 31
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Update targets with model results")
 ```
 
 ## Visualizing the estimates
@@ -1314,7 +1349,8 @@ list(
 ```{r}
 model_estimates <- lipidomics %>%
   calculate_estimate()
-# targets::tar_read("model_estimates")
+# model_estimates <- targets::tar_read("model_estimates") %>% 
+read_csv() %>% 
 ```
 
 ```{r}
