@@ -37,7 +37,6 @@ Suggests:
     ggplot2,
     gitcreds,
     RcppTOML,
-    RefManageR,
     remotes,
     rmarkdown,
     rspm,
