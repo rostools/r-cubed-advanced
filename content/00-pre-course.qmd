@@ -156,7 +156,13 @@ these commands in the R Console:
     ```
 
 2.  Install the r3 helper package for this course and run the
-    `r3::install_packages_advanced()` function from it:
+    `r3::install_packages_advanced()` function from it. This step may
+    take a lot longer than you anticipate and you may likely encounter a
+    lot of issues, especially if you come from more restrictive IT
+    environments and/or your work computer is very old or slow. This is
+    something that is completely out of our hands and is entirely an
+    organizational issue that we'd love to help with but can't. Keep
+    persisting though! :muscle:
 
     ``` r
     remotes::install_gitlab("rostools/r3")
