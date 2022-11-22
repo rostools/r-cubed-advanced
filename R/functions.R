@@ -13,7 +13,13 @@ extract_chunks <- function() {
   fs::dir_ls(here::here("R"), regexp = ".*[0-9][0-9]-.*\\.R$") |>
     fs::file_delete()
 
-  qmd_files <- fs::dir_ls("content", regexp = "[0][1-4]|0-pre-course")
+  qmd_files <- fs::path_abs(c(
+    "preamble/pre-course.qmd",
+    "sessions/smoother-collaboration.qmd",
+    "sessions/pipelines.qmd",
+    "sessions/statistical-analyses.qmd"
+  ))
+
   r_files <- fs::path_temp(fs::path_file(qmd_files))
   r_files <- fs::path_ext_set(r_files, ".R")
   purrr::walk2(qmd_files,
@@ -23,6 +29,13 @@ extract_chunks <- function() {
     quiet = TRUE
   )
 
+  project_custom_functions <- qmd_files |>
+    purrr::map(extract_function_labels_from_qmd) |>
+    purrr::compact() |>
+    stringr::str_c(collapse = "\n") %>%
+    append('"') %>%
+    prepend('" |> readr::write_lines("R/functions.R", append = TRUE)')
+
   combined_r_file <- here::here("_ignore/code-to-build-project.R")
   fs::dir_create("_ignore")
   r_files |>
@@ -30,9 +43,31 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
+    append(project_custom_functions) |>
     prepend(readr::write_lines(here::here("R/build-project-functions.R"))) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop")
+}
+
+
+extract_function_labels_from_qmd <- function(file) {
+  qmd_as_xml <- file |>
+    readr::read_lines() |>
+    commonmark::markdown_xml(extensions = TRUE) |>
+    xml2::read_xml()
+
+  qmd_as_xml |>
+    xml2::xml_find_all(
+      # d1 is the "namespace" of the xml spec, so need this
+      # to access the nodes that are called code_block,
+      # and within those code blocks, only keep those
+      # where the attribute "info" (@ means attribute) has
+      # the pattern 'new-function' in it.
+      ".//d1:code_block[contains(@info, 'new-function')]",
+      # Need this to force to use `d1` as namespace.
+      xml2::xml_ns(qmd_as_xml)
+    ) |>
+    xml2::xml_text()
 }
 
 run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
