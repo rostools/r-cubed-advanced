@@ -758,7 +758,7 @@ some special things `{targets}` needs in order for it to recognize that
 you want to save the output as a file. Before we do that though, we'll
 create the functions to start with.
 
-## Exercise: Convert the plot code to a function and add as a target
+## Exercise: Convert the plot code to a function
 
 > Time: \~20 minutes.
 
