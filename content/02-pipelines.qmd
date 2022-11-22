@@ -524,6 +524,7 @@ list(
   )
 )
 "
+# print_lines("_targets.R")
 revise_by_line_num(
   path = "_targets.R",
   insert_text = new_targets,
@@ -980,6 +981,7 @@ tar_target(
   format = "file"
 )
 '
+# print_lines("_targets.R")
 # -20 to remove the previous `)`
 revise_by_line_num(
   path = "_targets.R",
