@@ -1236,9 +1236,10 @@ ___ <- function(___, ___) {
 }
 ```
 
-<!-- TODO: Update code to use solution chunk settings. -->
-
-```{r}
+```{r solution-new-function-add-original-metabolite-names}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 #' Add the original metabolite names (not as snakecase) to the model results.
 #'
 #' @param model_results The data frame with the model results.
@@ -1262,26 +1263,27 @@ we would like to save the model results to a CSV file in the `data/`
 folder so we can more easily share the results.
 
 ``` r
-calculate_estimates <- function(data) {
+calculate_estimates <- function(data, csv_path = "data/model-estimates.R") {
   model_estimates <- ___ %>%
     # All the other code to create the results
     ___ %>% 
     add_original_metabolite_names(data) 
-  readr::write_csv(model_estimates, here::here("data/model-estimates.csv"))
-  output_switch_for_targets(model_estimates, "data/model-estimates.csv")
+  readr::write_csv(model_estimates, here::here(csv_path))
+  output_switch_for_targets(model_estimates, csv_path)
 }
 ```
 
-<!-- TODO: Update code to use solution chunk settings. -->
-
-```{r}
+```{r solution-new-function-calculate-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 #' Calculate the estimates for the model for each metabolite.
 #'
 #' @param data The lipidomics dataset.
 #'
 #' @return A data frame.
 #'
-calculate_estimates <- function(data, csv_path) {
+calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
   model_estimates <- data %>%
     column_values_to_snakecase(metabolite) %>%
     dplyr::group_split(metabolite) %>%
