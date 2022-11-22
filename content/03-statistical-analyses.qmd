@@ -1087,18 +1087,47 @@ lipidomics %>%
 ```
 
 Alright, we now have one data frame with only the single metabolite per
-list item. Like we did with the `metabolite_to_wider()`, we need to pipe
-the output into another `map()` function that has a custom function that
-runs the models. We don't have this function yet, so we need to create
-it. Convert the code we've used previously into a function, replacing
+list item. While again this bit of code is only a few lines, it also
+represents the conceptual action of "splitting the data into a list by
+metabolites". So let's create a function for this. Add the
+`r run_roxygen_comments`, run `r run_styler_text`, move into the
+`R/functions.R` file, and then `source()` the file.
+
+```{r new-function-split-by-metabolite}
+#' Convert the long form dataset into a list of wide form data frames.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A list of data frames.
+#'
+split_by_metabolite <- function(data) {
+  data %>%
+    column_values_to_snakecase(metabolite) %>%
+    dplyr::group_split(metabolite) %>%
+    purrr::map(metabolites_to_wider)
+}
+```
+
+The code should look like:
+
+```{r split-by-metabolite}
+lipidomics %>% 
+  split_by_metabolite()
+```
+
+Like we did with the `metabolite_to_wider()`, we need to pipe the output
+into another `map()` function that has a custom function that runs the
+models. We don't have this function yet, so we need to create it.
+Convert the code we've used previously into a function, replacing
 `lipidomics` with `data` and using `starts_with("metabolite_")` within
-the `create_recipe_spec()`. Add the `r run_roxygen_comments` and move
-into the `R/functions.R` file.
+the `create_recipe_spec()`. Add the `r run_roxygen_comments`, run
+`r run_styler_text`, move into the `R/functions.R` file, and then
+`source()` the file.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model
 #'
-#' @param data
+#' @param data The lipidomics dataset.
 #'
 #' @return A data frame.
 #'
