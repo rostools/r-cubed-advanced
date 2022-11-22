@@ -1,0 +1,13 @@
+# FAQ
+
+## I have an issue with installing packages, what do I do?
+
+This could be due to many many issues. Here are a few things you can
+try:
+
+-   Close all programs and open up RStudio again to try to restart.
+
+-   Set your anti-virus software to allow installing packages from CRAN
+    or GitHub/GitLab. Sometimes the anti-virus software will
+    automatically send you a notification to allow them, but maybe not
+    always, so you might have to check the settings of your software.
