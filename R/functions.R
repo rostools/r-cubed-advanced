@@ -29,10 +29,6 @@ extract_chunks <- function() {
     quiet = TRUE
   )
 
-  project_custom_functions <- qmd_files |>
-    purrr::map(extract_function_labels_from_qmd) |>
-    purrr::compact() |>
-    stringr::str_c(collapse = "\n") %>%
     append('"') %>%
     prepend('" |> readr::write_lines("R/functions.R", append = TRUE)')
 
@@ -47,6 +43,14 @@ extract_chunks <- function() {
     prepend(readr::write_lines(here::here("R/build-project-functions.R"))) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop")
+}
+
+extract_project_functions_from_qmd <- function() {
+  here::here(".") |>
+    fs::dir_ls(recurse = TRUE, glob = "*.qmd") |>
+    purrr::map(extract_function_labels_from_qmd) |>
+    purrr::compact() |>
+    readr::write_csv(here::here("R/project-functions.R"))
 }
 
 
