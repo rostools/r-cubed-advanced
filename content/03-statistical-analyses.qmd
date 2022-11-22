@@ -1392,20 +1392,25 @@ lipidomics_names %>%
 
 ```{r}
 set.seed(1324)
-bootstraps(lipidomics_wide, times = 10)
+lipidomics_list <- lipidomics %>% 
+  split_by_metabolite()
+
+bootstraps(lipidomics_list[[1]], times = 10)
+
+
 
 set.seed(1324)
-bootstrap_samples <- create_model_workflow(
+workflow_for_bootstrap <- create_model_workflow(
   logistic_reg() %>%
     set_engine("glm"),
-  lipidomics_wide
+  lipidomics_list[[1]] %>% 
+    create_recipe_spec(starts_with("metabolite_"))
 )
+
 fit_resamples(
-  model_workflow,
-  resamples = df_lipid_ch_3_1 %>%
-    bootstraps(10),
+  workflow_for_bootstrap,
+  resamples = bootstraps(lipidomics_list[[1]], 10),
   control = control_resamples(extract = tidy_model_output, save_pred = TRUE)
-  # save_pred = TRUE is same thing as augment
 )
 
 map2(
