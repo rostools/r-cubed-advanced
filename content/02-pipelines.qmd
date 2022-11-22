@@ -744,10 +744,16 @@ use `scales = "free"` because each metabolite doesn't have the same
 range of values (some are small, others are quite large).
 
 ```{r histogram-metabolites}
+#| eval: true
 metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
   facet_wrap(vars(metabolite), scales = "free")
 metabolite_distribution_plot
+```
+
+And then save it.
+
+```{r histogram-metabolites-save}
 ggsave(
   here::here("images/metabolite-distribution.png"),
   metabolite_distribution_plot
