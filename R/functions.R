@@ -29,7 +29,9 @@ extract_chunks <- function() {
     quiet = TRUE
   )
 
-    append('"') %>%
+  extract_project_functions_from_qmd()
+  project_custom_functions <- readr::read_lines(here::here("R/project-functions.R")) |>
+    append('"') |>
     prepend('" |> readr::write_lines("R/functions.R", append = TRUE)')
 
   combined_r_file <- here::here("_ignore/code-to-build-project.R")
@@ -48,30 +50,9 @@ extract_chunks <- function() {
 extract_project_functions_from_qmd <- function() {
   here::here(".") |>
     fs::dir_ls(recurse = TRUE, glob = "*.qmd") |>
-    purrr::map(extract_function_labels_from_qmd) |>
+    purrr::map(r3admin::extract_code_block_with_label_pattern, pattern = "new-function") |>
     purrr::compact() |>
     readr::write_csv(here::here("R/project-functions.R"))
-}
-
-
-extract_function_labels_from_qmd <- function(file) {
-  qmd_as_xml <- file |>
-    readr::read_lines() |>
-    commonmark::markdown_xml(extensions = TRUE) |>
-    xml2::read_xml()
-
-  qmd_as_xml |>
-    xml2::xml_find_all(
-      # d1 is the "namespace" of the xml spec, so need this
-      # to access the nodes that are called code_block,
-      # and within those code blocks, only keep those
-      # where the attribute "info" (@ means attribute) has
-      # the pattern 'new-function' in it.
-      ".//d1:code_block[contains(@info, 'new-function')]",
-      # Need this to force to use `d1` as namespace.
-      xml2::xml_ns(qmd_as_xml)
-    ) |>
-    xml2::xml_text()
 }
 
 run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
@@ -79,10 +60,3 @@ run_lintr_text <- '`{lintr}` (`Ctrl-Shift-P`, then type "lint file")'
 run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")'
 run_tar_vis_text <- '`targets::tar_visnetwork()` (`Ctrl-Shift-P`, then type "targets visual")'
 run_roxygen_comments <- 'Roxygen comments (have the cursor inside the function, type `Ctrl-Shift-P`, then type "roxygen")'
-
-# This might need to be inside the file?
-# knitr::all_labels() |>
-#   stringr::str_detect("new-function") |>
-#   purrr::map(~knitr::knit_code$get(.x)) |>
-#   purrr::flatten_chr() |>
-#   readr::write_csv(...?)
