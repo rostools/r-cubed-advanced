@@ -1,29 +1,29 @@
 Day,Time,Session topic,icon,link
 Day 1,9:30,Arrival; coffee and snacks,mug-hot,
-Day 1,10:00,Introduction to the course,person-chalkboard,../content/00-introduction.html
-Day 1,10:30,Smoother project-based collaboration (with short break),laptop-code,../content/01-smoother-collaboration.html
+Day 1,10:00,Introduction to the course,person-chalkboard,../sessions/introduction.html
+Day 1,10:30,Smoother project-based collaboration (with short break),laptop-code,../sessions/smoother-collaboration.html
 Day 1,12:30,Lunch,utensils,
 Day 1,13:30,Networking and social activity,user-group,
-Day 1,13:50,Continue previous session,laptop-code,../content/01-smoother-collaboration.html
+Day 1,13:50,Continue previous session,laptop-code,../sessions/smoother-collaboration.html
 Day 1,15:00,Coffee break and snacks,mug-hot,
-Day 1,15:15,Continue previous session,laptop-code,../content/01-smoother-collaboration.html
+Day 1,15:15,Continue previous session,laptop-code,../sessions/smoother-collaboration.html
 Day 1,16:15,End of day survey,comment-dots,https://docs.google.com/forms/d/e/1FAIpQLScwyqQJpuzoalyFQpiI3XjqWg6Aw8ox5ZFDJegYpmwNH0ekSQ/viewform?usp=sf_link
-Day 2,9:00,Short review; Creating automatic analysis pipelines,laptop-code,../content/02-pipelines.html
+Day 2,9:00,Short review; Creating automatic analysis pipelines,laptop-code,../sessions/pipelines.html
 Day 2,10:30,Coffee break and snacks,mug-hot,
-Day 2,10:45,Continue previous session,laptop-code,../content/02-pipelines.html
+Day 2,10:45,Continue previous session,laptop-code,../sessions/pipelines.html
 Day 2,12:30,Lunch,utensils,
 Day 2,13:30,Networking and social activity,user-group,
-Day 2,13:50,Running efficient statistical analyses,laptop-code,../content/03-statistical-analyses.html
+Day 2,13:50,Running efficient statistical analyses,laptop-code,../sessions/statistical-analyses.html
 Day 2,15:00,Coffee break and snacks,mug-hot,
-Day 2,15:15,Continue previous session,laptop-code,../content/03-statistical-analyses.html
+Day 2,15:15,Continue previous session,laptop-code,../sessions/statistical-analyses.html
 Day 2,16:15,End of day survey,comment-dots,https://docs.google.com/forms/d/e/1FAIpQLScwyqQJpuzoalyFQpiI3XjqWg6Aw8ox5ZFDJegYpmwNH0ekSQ/viewform?usp=sf_link
-Day 3,9:00,Short review; Continue previous session,laptop-code,../content/03-statistical-analyses.html
+Day 3,9:00,Short review; Continue previous session,laptop-code,../sessions/statistical-analyses.html
 Day 3,10:30,Coffee break and snacks,mug-hot,
-Day 3,10:45,Continue previous session,laptop-code,../content/03-statistical-analyses.html
+Day 3,10:45,Continue previous session,laptop-code,../sessions/statistical-analyses.html
 Day 3,12:30,Lunch,utensils,
 Day 3,13:30,Networking and social activity,user-group,
-Day 3,13:50,Publicizing your analyses with a website,laptop-code,../content/04-build-website.html
+Day 3,13:50,Publicizing your analyses with a website,laptop-code,../sessions/build-website.html
 Day 3,14:45,Coffee break and snacks,mug-hot,
-Day 3,15:00,Continue previous session,laptop-code,../content/04-build-website.html
+Day 3,15:00,Continue previous session,laptop-code,../sessions/build-website.html
 Day 3,16:00,Closing remarks,person-chalkboard,
 Day 3,16:15,End of day survey,comment-dots,https://docs.google.com/forms/d/e/1FAIpQLScwyqQJpuzoalyFQpiI3XjqWg6Aw8ox5ZFDJegYpmwNH0ekSQ/viewform?usp=sf_link
