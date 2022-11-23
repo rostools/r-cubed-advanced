@@ -8,9 +8,6 @@ knitr::write_bib(
 )
 ```
 
-[![License: CC BY
-4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-
 Reproducibility and open scientific practices are increasingly in demand
 and needed by scientists and researchers in our modern research
 environments. More frequently, our work include a high level
