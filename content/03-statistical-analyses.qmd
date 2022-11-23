@@ -161,7 +161,17 @@ a logic and "workflow" to making these models as well!
 5.  Extract the values and their uncertainty from the model and present
     them in relation to your research questions.
 
-<!-- TODO: Image of workflow? -->
+<!-- TODO: Image of workflow? Use app.diagrams.net? -->
+
+```{mermaid}
+graph TD
+    A[Research question] --> B((Statistical model))
+    B --> A
+    B --> C[Data collection]
+    C --> D[Data transformation]
+    D --> E[Scientific output]
+    E --> A
+```
 
 ::: callout-caution
 The entire workflow for building statistical models requires highly

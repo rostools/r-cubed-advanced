@@ -27,14 +27,19 @@ will look like in the end.
 
 Our big picture aim is:
 
-> We want to create a data analysis project that: 1) makes it easier for
-> direct contributions from collaborators and others, 2) allows us to
-> write processing and analysis steps (as code) in a more explicit and
-> ultimately reproducible way, 3) incorporates general-purpose tools
-> that simplify using (or switching) statistical analysis methods, and
-> 4) enables quick dissemination of results by creating a
-> project-specific website. All of which will be exemplified through a
-> simple analysis of a lipidomics study.
+> We want to create a data analysis project that:
+>
+> 1.  Makes it easier for direct contributions from collaborators and
+>     others,
+> 2.  Allows us to write processing and analysis steps (as code) in a
+>     more explicit and ultimately reproducible way,
+> 3.  Incorporates general-purpose tools that simplify using (or
+>     switching) statistical analysis methods, and
+> 4.  Enables quick dissemination of results by creating a
+>     project-specific website.
+>
+> All of which will be exemplified through a simple analysis of a
+> lipidomics study.
 
 Reproducible
 
@@ -43,8 +48,8 @@ TODO: Pipeline, workflow image?
 How will it look like in the end, in a more "tangible" way? The most
 tangible thing are the folders and files on our computers. The folder
 and file structures below show where we start and where we end, so you
-can hopefully get a better understanding of how things look like. Right
-now, everyone's initial project structure should look like:
+can hopefully get a better understanding of how things look. Right now,
+everyone's initial project structure should look like:
 
     LearnR3
     ├── data/

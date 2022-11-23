@@ -7,8 +7,8 @@ source(here::here("R/functions.R"))
 
 {{< include ../includes/_wip.qmd >}}
 
-Many of you probably work largely and mostly consistently on your own,
-but as your move through your career (in academia or industry), you will
+Many of you probably work largely and most consistently on your own, but
+as your move through your career (in academia or industry), you will
 need to and maybe also want to *directly
 collaborate*[^01-smoother-collaboration-1] a lot more with others.
 Different types of collaboration (e.g. meetings, brainstorming,
@@ -52,7 +52,7 @@ More specific objectives are to:
 5.  Use `{styler}`, `{lintr}`, and RStudio's canonical markdown mode to
     programmatically check and apply style guides to your project files.
 
-## Exercise: How do you *exactly* collaborate or contribute? To your own or others projects.
+## Exercise: How do you *exactly* collaborate or contribute? To your own or others' projects.
 
 > Time: \~10 minutes.
 
@@ -80,13 +80,12 @@ One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
 software to use for your project. This starts out at the highest level:
 Are you using R or some other software for the analysis? Since this is
-an R course, so we're assuming the software will be R! 😜
+an R course, we're assuming the software will be R! 😜
 
-The next consideration is which packages do you need that will
-ultimately be the ones your project depends on to get the results that
-you find. When working collaboratively with others, and yourself several
-months in the future, you need some way of knowing how to easily and
-quickly install or update these package dependencies.
+The next consideration is which packages your project depends on to
+produce the results. When working collaboratively with others, and
+yourself several months in the future, you need some way of knowing how
+to easily and quickly install or update these package dependencies.
 
 Part of this approach requires that you follow a ["project-oriented"
 workflow](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)
@@ -107,7 +106,7 @@ Let's start with the `AdvancedR3` project that uses the `lipidomics`. We
 have code in the `data-raw/nmr-omics.R` file that uses some packages.
 Let's assume that your project will be more complex than this and that
 you will eventually need some collaborators to contribute who are
-experts in, for instance metabolomics data processing and in statistical
+experts in for instance metabolomics data processing and in statistical
 analysis of high-dimensional data. You know you will end up needing to
 use other packages. You also know that you all need some way of tracking
 which packages are used so that when others join and contribute to the
@@ -142,13 +141,13 @@ packages your data analysis project needs. There are a few ways of
             }
             ```
 
-            What this code does is check if a package exists, if not,
-            than it installs it. But! This is not an optimal methods to
-            track packages because `require()` won't load the package if
-            it doesn't find it. Which means you would have to re-run the
-            script probably a few times. Plus, sometimes you may need to
+            This code checks if a package exists, if not, it installs
+            it. But! This is not an optimal method to track packages
+            because `require()` won't load the package if it doesn't
+            find it. Which means you would have to re-run the script
+            probably a few times. Plus, sometimes you may need to
             restart the R session after installing a package in order
-            for R to detect it probably.
+            for R to detect it properly.
 
         -   It doesn't track the *versions* of the packages your project
             depends on, so if a package gets updated and it breaks
@@ -157,10 +156,9 @@ packages your data analysis project needs. There are a few ways of
             crunches.
 
 2.  The most common form, at least based on R packages and projects
-    found on GitHub, is making use of the `DESCRIPTION` file and
-    `usethis::use_package()` to track which package is used for a
-    project or not. We covered this style of dependency in the
-    [intermediate
+    found on GitHub, makes use of the `DESCRIPTION` file and
+    `usethis::use_package()` to track if a package is used for a project
+    or not. We covered this style of dependency in the [intermediate
     course](https://r-cubed-intermediate.rostools.org/dry-functions.html#continuing-the-workflow).
     We will also use this approach during this course, but expand a lot
     more on it.
@@ -262,11 +260,11 @@ library can be found by running this function:
 ```
 
 Those file paths are where all R packages are installed to. If there is
-more than one path, R checks the first before continuing to the next. So
-than what `{renv}` does is create another file path for R packages to be
-installed instead within the project. This isn't completely what it
-does, since there are a lot of very technical details to what `{renv}`
-does internally, but this is the basic concept.
+more than one path, R checks the first before continuing to the next.
+`{renv}` instead creates a file path for R packages to be installed
+within the project. This isn't completely what it does, since there are
+a lot of very technical details to what `{renv}` does internally, but
+this is the basic concept.
 
 In the end, this makes your project relatively self-contained in its
 package dependencies.
@@ -280,10 +278,10 @@ package dependencies.
 
     -   *Every* package, including the packages that your packages
         depend on, have their version tracked. So if a package gets
-        updated on CRAN, it doesn't affect you *until you choose*, when
-        you use `renv::update()`. If a package update breaks your code
-        and you have a deadline, you can easily go back to the older
-        versions of the packages.
+        updated on CRAN, it doesn't affect you *until you choose*, using
+        `renv::update()`. If a package update breaks your code and you
+        have a deadline, you can easily go back to the older versions of
+        the packages.
 
     -   Because your project is now self-contained with its own R
         library, it becomes very obvious (through errors) when you might
@@ -347,8 +345,7 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
     create a "project environment". By having this project environment
     that is (mostly) self-contained, it allows us to be a bit closer to
     having a fully reproducible analysis and it makes it easier to
-    collaborate together, since we all than share the same project
-    setup.
+    collaborate, since we all than share the same project setup.
 
 -   `renv.lock`: This contains all the information about the packages
     your project depends on, including where it was installed from (CRAN
@@ -358,8 +355,8 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
 -   `renv/`: This folder contains several other files that make up the
     machinery of `{renv}`. For instance, there is the `library/` folder
     that contains all the R packages necessary for the project. Then
-    there's the `activate.R` script and `settings.dcf` file that both
-    work to management the dependencies, like installing, updating, and
+    there are the `activate.R` script and `settings.dcf` file that both
+    work to manage the dependencies, like installing, updating, and
     removing.
 
 ```{mermaid fig-renv-environment}
@@ -774,9 +771,9 @@ in an independent environment.
 ## Automatically adhere to a style guide
 
 An advantage of `{lintr}` is that it does not make the changes it
-detects for you, but the disadvantage of `{lintr}`... is that it does
-not make the changes for you. Often checks that require manual action
-are the best way of finding and fixing things. But sometimes, especially
+detects for you, but the disadvantage of `{lintr}` is that it does not
+make the changes for you. Often checks that require manual action are
+the best way of finding and fixing things. But sometimes, especially
 with very common syntax formatting mistakes, like not using spacing
 properly, it is so much easier to have the computer fix it for you.
 Thankfully there is the `{styler}` package!
@@ -883,8 +880,8 @@ options(
 
 For multi-person collaborative projects, having some type of code
 styling and checker can really help with standardizing how the code
-looks like, which ultimately will make it easier to read each others
-code contributions.
+looks, which ultimately will make it easier to read each other's code
+contributions.
 
 But what about for Markdown files? While there isn't a package or
 function (yet) that styles the Markdown files, RStudio does have an

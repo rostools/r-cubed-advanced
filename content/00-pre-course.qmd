@@ -113,7 +113,7 @@ There are a few other things to install:
 
 All these programs are required for the course, even Git. Git, which is
 a software program to formally manage file versions, is used because of
-it's popularity and the amount of documentation available for it. Check
+its popularity and the amount of documentation available for it. Check
 out the online book [Happy Git with R](https://happygitwithr.com/),
 especially the "Why Git" section, to understand why we are using Git.
 Windows users tend to have more trouble with installing Git than macOS
@@ -155,14 +155,14 @@ these commands in the R Console:
     install.packages("remotes")
     ```
 
-2.  Install the r3 helper package for this course and run the
-    `r3::install_packages_advanced()` function from it. This step may
-    take a lot longer than you anticipate and you may likely encounter a
-    lot of issues, especially if you come from more restrictive IT
-    environments and/or your work computer is very old or slow. This is
-    something that is completely out of our hands and is entirely an
-    organizational issue that we'd love to help with but can't. Keep
-    persisting though! :muscle:
+2.  Install the r3 helper package for this course and then install the
+    packages for the advanced course. This step may take a lot longer
+    than you anticipate and you may likely encounter a lot of issues,
+    especially if you come from more restrictive IT environments and/or
+    your work computer is very old or slow. This is something that is
+    completely out of our hands and is entirely an organizational issue
+    that we'd love to help with but can't. Keep persisting though!
+    :muscle:
 
     ``` r
     remotes::install_gitlab("rostools/r3")
