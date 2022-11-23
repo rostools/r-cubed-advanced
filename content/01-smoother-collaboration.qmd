@@ -771,7 +771,7 @@ in an independent environment.
 ## Automatically adhere to a style guide
 
 An advantage of `{lintr}` is that it does not make the changes it
-detects for you, but the disadvantage of `{lintr}`... is that it does
+detects for you, but the disadvantage of `{lintr}`is . . . that it does
 not make the changes for you. Often checks that require manual action
 are the best way of finding and fixing things. But sometimes, especially
 with very common syntax formatting mistakes, like not using spacing
@@ -880,8 +880,8 @@ options(
 
 For multi-person collaborative projects, having some type of code
 styling and checker can really help with standardizing how the code
-looks like, which ultimately will make it easier to read each others
-code contributions.
+looks, which ultimately will make it easier to read each other's code
+contributions.
 
 But what about for Markdown files? While there isn't a package or
 function (yet) that styles the Markdown files, RStudio does have an
