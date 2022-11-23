@@ -899,6 +899,21 @@ fitted_model %>%
   tidy_model_output()
 ```
 
+If we revise the code so it is one pipe, it would look like:
+
+```{r single-pipe-model-results}
+create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_wide %>%
+    create_recipe_spec(metabolite_cholesterol)
+) %>%
+  fit(lipidomics_wide) %>%
+  tidy_model_output()
+```
+
+Let's briefly cover what these columns and values mean.
+
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
 
@@ -948,18 +963,7 @@ Let's explain this output a bit, each column at a time:
     won't be using this value at all in presenting the results.
 :::
 
-<!-- TODO: Use this code chunk below? -->
-
-```{r}
-create_model_workflow(
-  logistic_reg() %>%
-    set_engine("glm"),
-  lipidomics_wide %>%
-    create_recipe_spec(metabolite_cholesterol)
-) %>%
-  fit(lipidomics_wide) %>%
-  tidy_model_output()
-```
+<!-- TODO: Split session here? Could be a nice review too -->
 
 ## Exercise: Run model with a different metabolite
 
