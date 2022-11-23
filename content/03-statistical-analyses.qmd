@@ -1115,7 +1115,7 @@ split_by_metabolite <- function(data) {
 The code should look like:
 
 ```{r split-by-metabolite}
-lipidomics %>% 
+lipidomics %>%
   split_by_metabolite()
 ```
 
@@ -1152,7 +1152,7 @@ to a data frame:
 
 ```{r chain-generate-model-results}
 lipidomics %>%
-  split_by_metabolite() %>% 
+  split_by_metabolite() %>%
   map_dfr(generate_model_results)
 ```
 
@@ -1162,7 +1162,7 @@ the metabolites, let's keep only `terms` that are metabolites using
 
 ```{r chain-filter-terms}
 model_estimates <- lipidomics %>%
-  split_by_metabolite() %>% 
+  split_by_metabolite() %>%
   map_dfr(generate_model_results) %>%
   filter(str_detect(term, "metabolite_"))
 model_estimates
@@ -1310,7 +1310,7 @@ calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
     dplyr::group_split(metabolite) %>%
     purrr::map(metabolites_to_wider) %>%
     purrr::map_dfr(generate_model_results) %>%
-    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>% 
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
     add_original_metabolite_names(data)
   readr::write_csv(model_estimates, here::here(csv_path))
   output_switch_for_targets(model_estimates, csv_path)
@@ -1320,7 +1320,7 @@ calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
 Lastly, add the model results output to end of the `_targets.R` file,
 using the below scaffold as a guide.
 
-1.  Use `model_estimates` for the `name`.
+1.  Use `df_model_estimates` for the `name`.
 2.  Use the `calculate_estimates()` function in `command`, with
     `lipidomics` and `"data/model-estimates.csv"` as the arguments.
 3.  Run `r run_styler_text` and than run `r run_tar_vis_text` to see if
@@ -1343,15 +1343,15 @@ list(
 #| eval: false
 #| echo: false
 #| purl: true
-update_target_calc_est <- ' 
+update_target_calc_est <- '
   ),
   list(
-    name = model_estimates,
+    name = df_model_estimates,
     command = calculate_estimates(lipidomics, "data/model-estimates.csv"),
     format = "file"
   )
 )
-' 
+'
 # print_lines("_targets.R")
 revise_by_line_num(
   path = "_targets.R",
@@ -1365,28 +1365,130 @@ targets::tar_make()
 git_ci("_targets.R", "Update targets with model results")
 ```
 
-## Visualizing the estimates
+## Visualizing the model estimates
 
-```{r}
-model_estimates <- lipidomics %>%
-  calculate_estimate()
-# model_estimates <- targets::tar_read("model_estimates") %>% 
-read_csv() %>% 
+We've got one target done for the modeling stage, three more to go!
+There are multiple ways of visualizing the results from models. A common
+approach is to use a "dot-and-whisker" plot like you might see in a
+meta-analysis. Often the "whisker" part is the measure of uncertainty
+like the confidence interval, and the "dot" is the estimate. For the
+confidence interval, we haven't calculated them at this point because
+the typical approach doesn't exactly work for our data (tested before
+the course). The next section will be covering another way of
+determining uncertainty. For this plot though, we will use the standard
+error of the estimate. Since we'll be using `{ggplot2}` to make figures,
+we need to add it to the dependency list:
+
+```{r ggplot2-to-deps}
+#| purl: true
+use_package("ggplot2")
 ```
 
+Inside the `doc/lesson.Rmd`, let's create a new header and code chunk at
+the bottom. We'll want to use `targets::tar_read(df_model_estimates)` so
+that `{targets}` is aware that the R Markdown file is dependent on this
+target. This `targets::tar_read()` will output a path to the CSV file,
+so we will need to use `read_csv()` to load it in.
+
+    ### Figure of model estimates
+
+    ```{{r}}
+    model_estimates <- targets::tar_read(df_model_estimates) %>% 
+      read_csv()
+    ```
+
+```{r exec-only-model-estimates}
+#| include: false
+model_estimates <- lipidomics %>%
+  calculate_estimates()
+```
+
+Then we'll start using `{ggplot2}` to visualize the results. For
+dot-whisker plots, the "geom" we would use is called
+`geom_pointrange()`. It requires four values:
+
+-   `x`: This will be the "dot", should we will use the `estimate`
+    column.
+-   `y`: This is the categorical variable that the "dot" is associated
+    with, in this case, it is the `metabolite` column.
+-   `xmin`: This is the lower end of the "whisker". Since the
+    `std.error` is a value representing uncertainty of the estimate on
+    either side of it (`+` or `-`), we will need to substract
+    `std.error` from the `estimate`.
+-   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
+    but adding `std.error` instead.
+
 ```{r}
-lipidomics_names %>%
+plot_estimates <- model_estimates %>%
   ggplot(aes(
     x = estimate, y = metabolite,
     xmin = estimate - std.error,
     xmax = estimate + std.error
   )) +
-  geom_pointrange() +
-  coord_fixed(xlim = c(-5, 5)) +
-  theme_minimal()
+  geom_pointrange()
+plot_estimates
 ```
 
+Wow, there is definitely something wrong here. The values of the
+estimate should realistically be somewhere between 0 and 5, usually
+less. We will eventually need to troubleshoot this issue, but for now,
+let's restrict the x axis to be between -5 and 5.
+
+```{r}
+plot_estimates +
+  coord_fixed(xlim = c(0, 5))
+```
+
+There are many more things we could start investigating based on these
+results, in order to fix them up. But for now, this will do.
+
 ## Exercise: Add plot function as a target in the pipeline
+
+> Time: \~15 minutes.
+
+Hopefully you've gotten comfortable with the function-oriented workflow,
+because we'll need to convert this code into a function and add it as a
+target in the pipeline. Use the scaffold below as a guide.
+
+1.  Replace `model_estimates` with `results`.
+2.  Use the `output_switch_for_targets()` function we created to output
+    either the `plot_results` or the `image_path`.
+3.  Move the function into the `R/functions.R` file, add
+    `r run_roxygen_comments`, and run `r run_styler_text`.
+
+``` r
+plot_estimates <- function(results, image_path) {
+  plot_results <- ___ %>% 
+    # Plot code here:
+    ___
+  ggplot2::ggsave(
+   plot = plot_results,
+   filename = here::here(image_path)
+  )
+  output_switch_for_targets(___, ___)
+}
+```
+
+Then, after doing that, add the new function as a target in the
+pipeline, name the new `name` as `fig_model_estimates`.
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = ___,
+    command = plot_estimates(___, ___),
+    format = "file"
+  )
+)
+```
+
+And add the `targets::tar_read()` in the R Markdown using
+`knitr::include_graphics()`
+
+    ```{{r}}
+    knitr::include_graphics(targets::tar_read(fig_model_estimates))
+    ```
 
 ## Determine variability in model estimates with resampling
 
@@ -1396,39 +1498,36 @@ lipidomics_names %>%
 
 ```{r}
 set.seed(1324)
-lipidomics_list <- lipidomics %>% 
+lipidomics_list <- lipidomics %>%
   split_by_metabolite()
 
 bootstraps(lipidomics_list[[1]], times = 10)
-
-
 
 set.seed(1324)
 workflow_for_bootstrap <- create_model_workflow(
   logistic_reg() %>%
     set_engine("glm"),
-  lipidomics_list[[1]] %>% 
+  lipidomics_list[[1]] %>%
     create_recipe_spec(starts_with("metabolite_"))
 )
 
-fit_resamples(
+bootstrapped_results <- fit_resamples(
   workflow_for_bootstrap,
-  resamples = bootstraps(lipidomics_list[[1]], 10),
+  resamples = bootstraps(lipidomics_list[[1]], times = 10),
   control = control_resamples(extract = tidy_model_output, save_pred = TRUE)
 )
 
-map2(
-  bootstrap_samples$.extracts,
-  bootstrap_samples$id,
-  ~ .x[[".extracts"]][[1]] %>%
-    mutate(id = .y, .before = everything())
-)
-bootstrap_samples %>%
+bootstrapped_results %>%
   select(id, .extracts) %>%
-  unnest(cols = .extracts)
-# filter(between(estimate, 0)) %>%
-# ggplot(aes(x = estimate)) +
-# geom_dotplot()
+  # Need to unnest twice since first `.extracts` is a nest of another two
+  # columns of `.extracts` and `.config`.
+  unnest(cols = .extracts) %>%
+  unnest(cols = .extracts) %>%
+  filter(str_detect(term, "metabolite_")) %>%
+  add_original_metabolite_names(lipidomics) %>%
+  ggplot(aes(x = estimate)) +
+  geom_dotplot() +
+  facet_wrap(vars(metabolite))
 ```
 
 ## Visualizing the variability of results
