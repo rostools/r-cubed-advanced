@@ -133,7 +133,7 @@ on the systemic, social, and structural environment surrounding us. We
 as researchers are not trained in writing code, nor do we have a strong
 culture and incentive structure around learning, sharing, reviewing, and
 improving code. Nor are we often allowed to get (or use) funds to hire
-people who *are* trained on and skilled in programmatic thinking and
+people who *are* trained and skilled in programmatic thinking and
 programming. Otherwise courses like this wouldn't need to exist :shrug:
 
 So how would a data analysis pipeline look? Before we get to that
