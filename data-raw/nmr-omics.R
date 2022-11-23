@@ -19,7 +19,7 @@ download.file("https://zenodo.org/record/6597902/files/README.txt",
 )
 
 download.file("https://zenodo.org/record/6597902/files/NMR_Integration_Data_Lipidomics.xlsx",
-  destfile = here(nmr_omics_dir, "lipidomics.xlsx")
+  destfile = here(nmr_omics_dir, "lipidomics.xlsx"), mode = "wb"
 )
 
 # Wrangle dataset into tidy long format -----------------------------------

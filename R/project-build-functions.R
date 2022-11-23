@@ -28,3 +28,7 @@ revise_by_line_num <- function(path, insert_text, remove_original_lines, insert_
     append(insert_text, after = insert_at_line) |>
     readr::write_lines(here::here(path))
 }
+
+print_lines <- function(path) {
+  readr::read_lines(here::here(path))
+}

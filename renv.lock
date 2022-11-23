@@ -171,22 +171,6 @@
         "Rcpp"
       ]
     },
-    "RefManageR": {
-      "Package": "RefManageR",
-      "Version": "1.4.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "d22e94d9088f55cc112e722888afcc70",
-      "Requirements": [
-        "bibtex",
-        "httr",
-        "jsonlite",
-        "lubridate",
-        "plyr",
-        "stringr",
-        "xml2"
-      ]
-    },
     "SQUAREM": {
       "Package": "SQUAREM",
       "Version": "2021.1",
@@ -235,16 +219,6 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "0c54cf3a08cc0e550fbd64ad33166143",
-      "Requirements": [
-        "backports"
-      ]
-    },
-    "bibtex": {
-      "Package": "bibtex",
-      "Version": "0.5.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "29fcec18cbab0a51605d78b5bfdd311a",
       "Requirements": [
         "backports"
       ]
@@ -1634,16 +1608,6 @@
         "rlang",
         "rprojroot",
         "withr"
-      ]
-    },
-    "plyr": {
-      "Package": "plyr",
-      "Version": "1.8.7",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "9c17c6ee41639ebdc1d7266546d3b627",
-      "Requirements": [
-        "Rcpp"
       ]
     },
     "praise": {

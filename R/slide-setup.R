@@ -1,19 +1,4 @@
 
-options(htmltools.dir.version = FALSE)
-
-# Insert references
-library(RefManageR)
-BibOptions(
-  match.date = "year.only",
-  check.entries = "warn",
-  bib.style = "numeric",
-  cite.style = "numeric",
-  style = "markdown",
-  max.names = 2,
-  super = FALSE
-)
-bib <- ReadBib(here::here("resources/refs.bib"))
-knitr::opts_chunk$set(echo = FALSE)
 
 # Customized theme
 library(xaringanthemer)

@@ -1,0 +1,1564 @@
+# Running efficient statistical analyses {#sec-statistical-analyses}
+
+{{< include ../includes/_wip.qmd >}}
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+extract_project_functions_from_qmd()
+source(here::here("R/project-functions.R"))
+library(tidyverse)
+library(tidymodels)
+load(here::here("data/lipidomics.rda"))
+```
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Before beginning, get them to recall what they remember of the previous
+session, either with something like Mentimeter or verbally. Preferably
+something like Mentimeter because it allows everyone to participate, not
+just the ones who are more comfortable being vocal to the whole group.
+:::
+
+TODO: intro here
+
+## Learning objectives
+
+The overall objective for this session is to:
+
+1.  Describe the basic framework underlying most statistical analyses
+    and use R to generate statistical results using this framework.
+
+More specific objectives are to:
+
+1.  Describe the general "workflow" and steps involved in stating the
+    research question, constructing a model to help answer the question,
+    preparing the data to match the requirements of the model, fitting
+    it to the data, and finally extracting the results from the fitted
+    model.
+2.  Categorize the model definition step as a distinct, theory-driven
+    step, separate from the data, and use `{parsnip}` functions to help
+    with defining your model.
+3.  Identify various data transformation techniques and evaluate which
+    are good options given the data. Use functions in the `{recipes}`
+    package to apply these transformations to your data.
+4.  Recall principles of functional programming and apply them to
+    running statistical analyses by using the `{purrr}` package.
+5.  Use the `{broom}` package to extract the model results to later
+    present them in tabular (with `knitr::kable()`) or graphical format
+    (with `{ggplot2}`).
+6.  Describe what a resampling technique is, the types available, and
+    why it can help estimate the variability of model results. Apply
+    functions from `{rsample}` to use these techniques.
+7.  Continue applying the concepts and functions used from the previous
+    sessions.
+
+Specific "anti"-objectives:
+
+-   Will **not** know how to choose and apply the appropriate
+    statistical model or test, nor understand any statistical theory,
+    nor interpret the statistical results correctly, nor determine the
+    relevant data transformations for the statistical approach. What we
+    show, we show *only as demonstration purposes only*, they could be
+    entirely wrong in how to do them correctly if an expert were to
+    review them.
+
+## Exercise: What does a "model" mean?
+
+> Time: \~8 minutes.
+
+In science and especially statistics, we talk a lot about "models". But
+what does model actually mean? What different types of definitions can
+you think of? Is there a different understanding of model in statistics
+compared to other areas?
+
+1.  Take 1 minute to think about your understanding of a model.
+2.  Then, over the next 4 minutes, discuss with your neighbour about the
+    meaning of "model" and see if you can come to a shared
+    understanding.
+3.  Finally, over the next 3 minutes, we will share all together what a
+    model is in the context of data analysis.
+
+## Theory and "workflow" on statistical modeling
+
+Almost all fields of research, and definitely more heavily-quantitative
+and scientific fields like biomedicine and health, have math and
+statistics at the core of taking data to draw inferences or general
+observations about the world, at least the world that we measure.
+
+Any time we collect data and need to interpret what it means, we need
+statistics. And anytime we want to make inferences about the world from
+the data, to generalize to the outside world, we need to use statistics
+to determine the likelihood, or rather the uncertainty, in those
+inferences. Statistics is meant to quantify uncertainty.
+
+How do we quantify uncertainty? By first creating a "theoretical model"
+that expresses mathematically our research question. For instance, we
+have a theoretical model that outdoor plants grow (non-linearly) with
+water and sunlight, but that more sunlight likely means less water (less
+rain). While *any* research question could be translated into a
+theoretical model, not all theoretical models can be *tested* against
+the real world. And that's where the second part comes in: Our
+theoretical model needs to be structured in a way that allows us to
+measure the items ("parameters") in our model, so that we can build a
+mathematical model from the data ("test it in the real world").
+
+```{mermaid fig-model-plant-growth}
+%%| label: fig-model-plant-growth
+%%| fig-cap: Simple example of a theoretical model of plant growth.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
+graph LR
+    Sunlight --> Growth
+    Water --> Growth
+    Sunlight --- Water
+
+linkStyle 0,1,2 stroke-width:1px;
+```
+
+Great research questions are designed in a way to fit a theoretical
+model on measurable parameters, so we can ultimately quantify the
+uncertainty in our observations (the data) and in the model. And the
+basic simplified math of a statistical model looks mostly the same:
+
+$$y = intercept + x + error $$
+
+It's a bit more complicated than this, but this is enough to describe
+for this course. Throughout the rest of the session, we use specific
+terms to describe each item in this formula. "Outcome" (also called
+"dependent variable") refers to the $y$, "predictor" (or "independent
+variable") refers to the $x$. The error and intercept are calculated for
+us when we fit the model to the data. The intercept is when x is equal
+to zero (the "y-intercept" on a plot). The error is the difference
+between what the model estimates and what the real value is. It plays a
+role in quantifying the model's uncertainty.
+
+Considering the mathematical nature of statistical models, there is also
+a logic and "workflow" to making these models as well!
+
+1.  Write a research question, designed in a way that might look like
+    the diagram above. Usually this step may need to be done back and
+    forth, revising the question after trying to construct the
+    theoretical model, that describes the measurable (and unmeasurable)
+    parameters in the model, and vice versa.
+2.  Based on the model and the type of measured parameters used
+    (continuous vs binary), select the best mathematical model "type".
+    Nearly all models in statistics start from the base of a linear
+    regression (e.g. ANOVA is a special form of regression, t-test is a
+    simpler version of ANOVA), so the model "type" will probably be a
+    form of regression.
+3.  Measure your parameters (in the plant growth example, that might be
+    the amount of water given in liters per day, amount of plant growth
+    in weight, and amount of sunlight in hrs per day). Usually, this
+    measured data might need to be processed in a special way to fit the
+    specifics of the model, research question, and practices of the
+    field.
+4.  Fit the data to the theoretical model in order to estimate the
+    values ("coefficients") of the model parameters as well as the
+    uncertainty in those values.
+5.  Extract the values and their uncertainty from the model and present
+    them in relation to your research questions.
+
+<!-- TODO: Image of workflow? Use app.diagrams.net? -->
+
+```{mermaid}
+graph TD
+    A[Research question] --> B((Statistical model))
+    B --> A
+    B --> C[Data collection]
+    C --> D[Data transformation]
+    D --> E[Scientific output]
+    E --> A
+```
+
+::: callout-caution
+The entire workflow for building statistical models requires highly
+specific domain knowledge on not only the statistics themselves, but
+also how the data was collected, what the values mean, what type of
+research questions to ask and how to ask them, how to interpret the
+results from the models, and how to process the data to fit the question
+and model.
+
+For instance, in our `lipidomics` dataset, if we were to actually use
+this data, we would need someone familiar with -omic technologies, how
+the data are measured, what the values actually mean, how to prepare
+them for the modeling, the specific modeling methods used for this
+field, and how we would actually interpret the findings. We have
+**none** of these things, so very likely we are doing things quite wrong
+here. We're only doing these modeling to highlight how to use the R
+packages.
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+A few things to repeat and reinforce:
+
+1.  The workflow of the image and that it all starts with the research
+    question.
+2.  The fact that almost all statistical methods are basically special
+    forms of linear regression.
+3.  That this model creation stage requires a variety of domain
+    expertise, not just statistical expertise.
+:::
+
+Going back to our own `lipidomics` dataset, we need to do the first
+step. And that is creating the question. While we don't have much data,
+there are a surprising number of questions we could ask. But we will
+keep it very simple, very basic, and very exploratory.
+
+1.  What is the estimated relationship of each metabolite with T1D
+    compared to control, adjusting for the influence of age and gender?
+2.  What is the variability for the estimate in each relationship?
+
+Next, because we are working within a "reproducible analysis" framework
+specifically with the use of `{targets}`, let's convert these questions
+in outputs to include as pipeline targets, along with a basic idea for
+the final functions that will make up these targets and their inputs and
+outputs. These targets will probably be quite different by end, but its
+a good to start thinking about what the end should look like.
+
+-   All results for estimated relationship (in case we want to use it
+    for other output)
+-   All results for variation in estimates of relationship (in case we
+    want to use it for other output)
+-   Plot of statistical estimate for each relationship
+-   Plot of variation in estimates for each relationship
+
+Potential function names might be:
+
+-   `calculate_estimates()`
+-   `calculate_variation()`
+-   `plot_estimates()`
+-   `plot_variation()`
+
+```{mermaid fig-model-possible-targets}
+%%| label: fig-model-possible-targets
+%%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
+graph TB
+    lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
+    model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
+    lipidomics -- "calculate_variation()" --> model_var[Model variation]
+    model_var -- "plot_variation()" --> plot_var[Plot of variation]
+    plot_est & plot_var --> rmd[R Markdown]
+
+linkStyle 0,1,2,3,4,5 stroke-width:1px;
+```
+
+## Defining the model
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Verbally walk through this section, describing the theoretical model
+both graphically and mathematically. Go through why we use
+`{tidymodels}` rather than other approaches.
+:::
+
+Now that we've talked about the workflow around making models and have
+already written out some research questions, let's make a basic,
+graphical theoretical model:
+
+```{mermaid fig-model-research-question}
+%%| label: fig-model-research-question
+%%| fig-cap: Simple example of a theoretical model of plant growth.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
+graph TB
+    Metabolite --> T1D
+    Age & Gender --> T1D & Metabolite
+
+linkStyle 0,1,2,3,4 stroke-width:1px;
+```
+
+Or mathematically:
+
+$$T1D = metabolite + age + gender$$
+
+So, T1D status (or `class` in the `lipidomics` dataset) is our
+**outcome** and the individual metabolite, age, and gender are our
+**predictors**. Technically, age and gender would be "confounders" or
+"covariates", since we include them only because we think they influence
+the relationship between the metabolite and T1D.
+
+If we convert the formula into a form with the variables we have in the
+dataset as well as selecting only one metabolite for now (the
+cholesterol metabolite, which we add "metabolite" to differentiate it
+from other potential variables), it would be:
+
+$$class = metabolite\_cholesterol + age + gender$$
+
+Now that we have a theoretical model, we need to choose our model type.
+Since T1D is binary (either you have it or you don't), the most likely
+choice is logistic regression, which requires a binary outcome variable.
+So we have the theoretical model and the type of model to use, how do we
+express this as code in R? There are many ways of doing the same thing
+in R. But some are a bit easier than others. One such approach, that is
+quite generic and fits with the ideals of the `{tidyverse}`, is a
+similar universe of packages called the `{tidymodels}`.
+
+Why do we teach `{tidymodels}`? Because they are built by software
+developers, employed by RStudio (who also employs the people who build
+the `{tidyverse}`), and they have a strong reputation for writing good
+documentation. Plus, the `{tidymodels}` set of packages also make
+creating and using models quite generic, so by teaching you these sets
+of tools, you can relatively easily change the model type, or how you
+process the data, or other specifications without having to learn a
+whole new package or set of tools.
+
+The reason `{tidymodels}` can do that is because they designed it in a
+way that makes a clear separation in the components of model building
+workflow that was described above, through the use of specific packages
+for each component.
+
+| Package       | Description                                                                                       |
+|---------------|---------------------------------------------------------------------------------------------------|
+| `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
+| `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
+| `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
+
+: Core packages within `{tidymodels}`.
+
+We'll start with the `{parsnip}` package first. Functions in this
+package are used to set the details of the model you want to use.
+Specifically,
+[functions](https://parsnip.tidymodels.org/reference/index.html#models)
+to indicate the model *"type"* (e.g. linear regression) and the
+`set_engines()` function to determine the "engine" to run the type
+(which R-based algorithm to use, like `glm()` compared to `lm()`). Check
+out the
+[Examples](https://parsnip.tidymodels.org/articles/Examples.html) page
+for code you might use depending on the model you want. The most
+commonly used model types would be `linear_reg()`, `logistic_reg()`, and
+`multinom_reg()`.
+
+We want to use logistic regression. So, open the `doc/lesson.Rmd` file
+and in the `setup` code chunk add `library(tidymodels)`, so it looks
+like:
+
+    ```{{r setup}}
+    library(tidyverse)
+    library(tidymodels)
+    load(here::here("data/lipidomics.rda"))
+    ```
+
+Since we will be using `{tidymodels}`, we need to install it, as well as
+explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages
+we will use. Like `{tidyverse}`, we need to set `{tidymodels}`
+differently because it is a "meta-package". We might need to force
+installing it with `install.packages("tidymodels")` so `{renv}`
+recognizes it.
+
+```{r tidymodels-to-deps}
+#| purl: true
+#| eval: false
+use_package("tidymodels", "depends")
+# install.packages("tidymodels")
+use_package("parsnip")
+use_package("recipes")
+use_package("workflows")
+```
+
+Before continuing, let's **commit** the changes to the Git history.
+Next, in the `doc/lesson.Rmd` file, on the bottom of the document create
+a new header and code chunk:
+
+    ## Building the model
+
+    ```{{r}}
+
+    ```
+
+In the new code chunk, we will set up the model specs:
+
+```{r logistic-reg-specs}
+log_reg_specs <- logistic_reg() %>%
+  set_engine("glm")
+log_reg_specs
+```
+
+Running this on it's own doesn't show much, as you can see. But we've
+now set the model we want to use.
+
+## Exercise: How would you define a linear regression with parsnip?
+
+> Time: \~10 minutes.
+
+Using [parsnip's "Examples"
+vignette](https://parsnip.tidymodels.org/articles/Examples.html) as well
+as the code we wrote for the logistic regression above as a template,
+write `{parsnip}` code that would define a simple (an engine of`"lm"`)
+linear regression model. Begin by making a new Markdown header and code
+chunk at the bottom of the `doc/lesson.Rmd` file, like listed below:
+
+    ## Exercises
+    ### Linear regression model definition
+
+    ```{{r}}
+
+    ```
+
+After writing the code, run `r run_styler_text`. We will eventually
+delete these exercise text in the R Markdown file, but for now, commit
+the changes to the Git history.
+
+```{r solution-define-linear-reg-model}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+linear_reg_specs <- linear_reg() %>%
+  set_engine("lm")
+```
+
+## Data transformations specific to modeling
+
+Setting the model type was pretty easy right? The more difficult part
+comes next with the data transformations. `{recipes}` functions are
+almost entirely used to apply transformations that a model might
+specifically need, like mean-centering, removing missing values, and
+other aspects of data processing.
+
+Let's consider our `lipidomics` dataset. We have at least three easy
+observations about the data, two of which ca be fixed with a single
+`{tidyr}` function, while the third one can be fixed with `{recipes}`.
+Can you spot them?
+
+```{r print-lipidomics-data}
+lipidomics
+```
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Ask them if they can spot these differences. Give them a few minutes to
+think and respond.
+:::
+
+The first isn't always an issue and depends heavily on the model type
+you use. Since we are using logistic regression, it assumes that each
+row is an individual person. But our data is in the long format, so each
+person has multiple rows. The second is that there seems to be a data
+input error, since there are three `Cholesterol` values, while all other
+metabolites only have one:
+
+```{r too-many-cholesterols}
+lipidomics %>%
+  count(code, metabolite) %>%
+  filter(n > 1)
+```
+
+We can fix both the long format and multiple cholesterol issues by using
+`tidyr::pivot_wider()`. Before we do, the last issue is that each
+metabolite has quite large differences in the values and ranges of data.
+Again, this depends on what we want to do, but in our research questions
+we are wanting to know how each metabolite influences T1D. In order to
+best interpret the results and compare across metabolites, we should
+ideally have all the metabolites with a similar range and distribution
+of values.
+
+Let's fix the first two issues first. While we probably only need to use
+`pivot_wider()`, we should probably first tidy up the metabolite names
+first so they make better column names. We do that by combining
+`mutate()` with `snakecase::to_snake_case()`. First, in the Console,
+run:
+
+```{r snakecase-to-deps}
+#| purl: true
+#| eval: false
+use_package("snakecase")
+```
+
+Then, in the `doc/lesson.Rmd` file, we rename the metabolite names and
+pivot_wider. Since we want an easy way of identifying columns that are
+metabolites, we will add a `"metabolite_"` prefix using the argument
+`names_prefix`. To actually fix the multiple cholesterol issue, we
+should look more into the data documentation or contact the authors. But
+for this course, we will merge the values by calculating a mean before
+pivoting. We do this by setting the `values_fn` with `mean`.
+
+```{r lipidomic-to-wider}
+lipidomics_wide <- lipidomics %>%
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+  pivot_wider(
+    names_from = metabolite, values_from = value, values_fn = mean,
+    names_prefix = "metabolite_"
+  )
+lipidomics_wide
+```
+
+Since we're using a function-oriented workflow and since we will be
+using these code again later on, let's convert both the "metabolite to
+snakecase" and "pivot to wider" code into their own functions, before
+moving them over into the `R/functions.R` file.
+
+```{r first-snakecase-fn}
+metabolite_values_to_snakecase <- function(data) {
+  data %>%
+    dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
+}
+lipidomics %>%
+  metabolite_values_to_snakecase()
+```
+
+This on its own should work. *However*, the column we want to change
+might not always be called `metabolite`, or we might want to change it
+later. So, to make this function a bit more generic, we can use
+something called "curly-curly" (it looks like `{{}}` when used) and
+"non-standard evaluation" (NSE).
+
+::: callout-info
+## Reading task: \~10 minutes
+
+When you write your own functions that make use of functions in the
+`{tidyverse}`, you may eventually encounter an error that might not be
+very easy to figure out. Here's a very simple example using `select()`,
+where one of your function's arguments is to select columns:
+
+```{r test-nse, error=TRUE}
+test_nse <- function(data, column) {
+  data %>%
+    dplyr::select(column)
+}
+
+lipidomics %>%
+  test_nse(class)
+```
+
+The error occurs because of something called "[non-standard
+evaluation](http://adv-r.had.co.nz/Computing-on-the-language.html)" (or
+NSE). NSE is a major feature of R and is used quite a lot throughout R.
+NSE is used a lot in the `{tidyverse}` packages. It's one of the first
+things computer scientists complain about when they use R, because it is
+not a common thing in other programming languages. But NSE is what
+allows you to use formulas (e.g. `y ~ x + x2` in modeling, which we will
+show shortly) or allows you to type out `select(class, age)` or
+`library(purrr)`. In "standard evaluation", these would instead be
+`select("Gender", "BMI")` or `library("purrr")`. So NSE gives
+flexibility and ease of use for the user (we don't have to type quotes
+every time) when doing data analysis, but can give some headaches when
+programming in R, like when making functions. There's more detail about
+this on the [dplyr
+website](https://dplyr.tidyverse.org/articles/programming.html#warm-up),
+which lists some options to handle NSE while programming. The easiest
+approach is to wrap the argument with "curly-curly" (`{{}}`).
+
+```{r test-nse-fixed}
+test_nse <- function(data, columns) {
+  data %>%
+    dplyr::select({{ columns }})
+}
+
+lipidomics %>%
+  test_nse(class)
+
+lipidomics %>%
+  test_nse(c(class, age))
+```
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+You don't need to go over what they read, you can continue with making
+the function below. Unless learners have some questions.
+:::
+
+We can use curly-curly (combined with `across()`) to apply
+`snakecase::to_snake_case()` to columns of our choice.
+
+```{r second-snakecase-fn}
+column_values_to_snakecase <- function(data, cols) {
+  data %>%
+    dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
+}
+
+lipidomics %>%
+  column_values_to_snakecase(metabolite)
+```
+
+Move this new function over into the `R/functions.R` file, add
+`r run_roxygen_comment`, run `r run_styler_text`, `source()` the
+modified `R/functions.R` file, and add the new function above the
+`pivot_wider()` code in the `doc/lessons.Rmd` file.
+
+```{r new-function-column-values-to-snakecase}
+#' Convert column value strings into snakecase.
+#'
+#' @param data Data with string columns.
+#' @param cols The column to convert into snakecase.
+#'
+#' @return A data frame.
+#'
+column_values_to_snakecase <- function(data, cols) {
+  data %>%
+    dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
+}
+```
+
+## Exercise: Convert the pivot code into a function
+
+> Time: \~10 minutes.
+
+Just like with the `mutate()`, take the `pivot_wider()` code and convert
+it into a new function.
+
+1.  Name the new function `metabolites_to_wider`.
+2.  Include two arguments in the new `function()`: `data` and
+    `values_fn`. Set the default for `values_fn` to be `mean`. We add
+    this argument in case we want to merge the duplicate cholesterol
+    variables with something other than the mean.
+3.  Use `data %>%` at the beginning, like we did with the
+    `column_values_to_snakecase()`. Inside the `pivot_wider()` code,
+    replace `values_fn = mean` with `values_fn = values_fn`.
+4.  Use `tidyr::` before the `pivot_wider()` function.
+5.  Add `r run_roxygen_comments`.
+6.  Move the function into the `R/functions.R` file.
+7.  Replace the code in the `doc/lesson.Rmd` file to make use of the new
+    functions.
+
+```{r solution-new-function-metabolite-to-wider}
+#| eval: true
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Convert the metabolite long format into a wider one.
+#'
+#' @param data The lipidomics dataset.
+#' @param values_fn A function to summarize the multiple cholesterol values.
+#'
+#' @return A wide data frame.
+#'
+metabolites_to_wider <- function(data, values_fn = mean) {
+  data %>%
+    tidyr::pivot_wider(
+      names_from = metabolite,
+      values_from = value,
+      values_fn = values_fn,
+      names_prefix = "metabolite_"
+    )
+}
+```
+
+## Using recipes to manage transformations
+
+We've used `{dplyr}` and `{tidyr}` to start fixing some of the issues
+with the data. But now we have the third issue: How to make the results
+between metabolites comparable. That's where we use `{recipes}`.
+
+The first function is `recipe()` and it takes two forms: with or without
+a formula. Remember the model formula we mentioned previously? Well,
+here is where we can use it to tell `{recipes}` about the model formula
+we intend to use so it knows what variables to apply the transformations
+that we choose.
+
+For a few reasons that will be clearer later, we won't ultimately use
+the formula form of `recipe()`, but will show how it works. The
+
+```{r recipes-with-formula}
+recipe(class ~ metabolite_cholesterol + age + gender, data = lipidomics_wide)
+```
+
+The alternative approach is to set "roles" using `update_roles()`.
+Instead of using a formula and letting `recipe()` infer the outcome and
+predictors, we can explicitly select which variables are which. This has
+some nice features that we will use later on.
+
+```{r recipes-without-formula}
+recipe(lipidomics_wide) %>%
+  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(class, new_role = "outcome")
+```
+
+The next "step" is to select a transformation function.
+
+## Exercise: Which transformations make the most sense?
+
+> Time: \~15 minutes.
+
+Look at the list of `step_*` functions below and use the `?` or F1
+(while having the cursor on the function name) to access the help
+documentation. Consider the metabolite data in the `lipidomics` dataset.
+Which of these transformations might you use?
+
+```{r list-step-transforms}
+#| eval: false
+recipes::step_log()
+recipes::step_scale()
+recipes::step_normalize()
+recipes::step_center()
+recipes::step_sqrt()
+```
+
+-   With your neighbour (or group), justify which `step_` transformation
+    you might use for the numeric metabolite data.
+-   In the last 2 minutes of the exercise, we will all share our
+    thoughts.
+
+::: callout-tip
+There are so many useful transformation functions available. For
+instance, if you often have to impute data, there are functions for
+that. You can check them out in the Console by typing
+`recipes::step_impute_` then hit the Tab key to see a list of them. Or,
+if you have some missing values, there's also the
+`recipes::step_naomit()`.
+:::
+
+::: callout-note
+The `step_` function we use in the text of this website in later
+sections may be different from what you decide on in your group and in
+the class as a whole. There isn't strictly a "right" answer here, since
+it would ultimately require domain expertise in both lipidomic
+quantification and statistical analysis of -omic data. But we ultimate
+need to show and use *something* in the text.
+:::
+
+## Creating a transformation "recipe"
+
+We will use which ever transformation function we all decided in the
+exercise above, but for the text of this website, we will use
+`step_normalize()`. This function is useful because it makes each
+variable centered to zero and a value of 1 unit is translated to 1
+standard deviation of the original distribution. This means we can more
+easily compare values between variables. If we add this to the end of
+the recipe:
+
+```{r recipes-with-step-normalize}
+recipe(lipidomics_wide) %>%
+  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(class, new_role = "outcome") %>%
+  step_normalize(starts_with("metabolite_"))
+```
+
+Next thing to do is convert this into a function, using the same
+workflow we've been using (which means this needs to be in the
+`R/functions.R` script). We'll also use the curly-curly again, since we
+might use a different metabolite later. Note, when adding all the
+`packagename::` to each function, the `starts_with()` function comes
+from the `{tidyselect}` package.
+
+```{r new-function-create-recipe-spec}
+#' A transformation recipe to pre-process the data.
+#'
+#' @param data The lipidomics dataset.
+#' @param metabolite_variable The column of the metabolite variable.
+#'
+#' @return
+#'
+create_recipe_spec <- function(data, metabolite_variable) {
+  recipes::recipe(data) %>%
+    recipes::update_role({{ metabolite_variable }}, age, gender, new_role = "predictor") %>%
+    recipes::update_role(class, new_role = "outcome") %>%
+    recipes::step_normalize(tidyselect::starts_with("metabolite_"))
+}
+```
+
+And test it out:
+
+```{r use-create-recipe-specs-fn}
+recipe_specs <- lipidomics_wide %>%
+  create_recipe_spec(metabolite_cholesterol)
+recipe_specs
+```
+
+Run `run_styler_text`, then commit the changes made to the Git history.
+
+## Fitting the model by combining the recipe, model definition, and data
+
+We've now defined the model we want to use and created a transformation
+`{recipes}` specification. Now we can start putting them together and
+finally fit them to the data. Putting all these pieces together is done
+with the `{workflows}` package, so before we begin, let's add it to our
+dependencies:
+
+```{r workflows-to-deps}
+#| purl: true
+#| eval: false
+use_package("workflows")
+```
+
+Why use this package to manage these things, rather than simply run the
+statistical analysis and process the data as normal? When running
+multiple models (like we will do in the next section), the data
+transformation steps have to happen *right before* the data is fit to
+the model and needs to done on exactly the data used by the model. So if
+we have one data frame that we run multiple models on, but the
+transformation happens to the whole data frame, we could end up with
+issues due to how the transformations were applied. The `{workflows}`
+package keeps track of those things for us, so we can focus on the
+higher level thinking rather than on the small details of running the
+models.
+
+The `{workflows}` package has a few main functions for combining the
+recipe with the model specs, as well as several for updating an existing
+workflow (which might be useful if you need to run many models of
+slightly different types). All model workflows need to start with
+`workflow()`, followed by two main functions: `add_model()` and
+`add_recipe()`. Can you guess what they do?
+
+```{r use-workflow-for-model}
+workflow() %>%
+  add_model(log_reg_specs) %>%
+  add_recipe(recipe_specs)
+```
+
+While this code is already pretty concise, let's convert it into a
+function to make it simplified. We'll use the same function-oriented
+workflow that we've used before, where the function should ultimately be
+inside the `R/functions.R` file.
+
+```{r new-function-create-model-workflow}
+#' Create a workflow object of the model and transformations.
+#'
+#' @param model_specs The model specs
+#' @param recipe_specs The recipe specs
+#'
+#' @return A workflow object
+#'
+create_model_workflow <- function(model_specs, recipe_specs) {
+  workflows::workflow() %>%
+    workflows::add_model(model_specs) %>%
+    workflows::add_recipe(recipe_specs)
+}
+```
+
+<!-- TODO: image showing pieces at play that we need to eventually fit into targets/questions -->
+
+Instead of using the previously created objects, let's start the model
+creation from scratch:
+
+```{r full-model-workflow-from-almost-scratch}
+model_workflow <- create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_wide %>%
+    create_recipe_spec(metabolite_cholesterol)
+)
+model_workflow
+```
+
+Now, we can do the final thing: Fitting the data to the model with
+`fit()`! :raised_hands:
+
+```{r fit-model-workflow-to-data}
+fitted_model <- model_workflow %>%
+  fit(lipidomics_wide)
+fitted_model
+```
+
+This gives us a lot of information, but what we are mostly interested in
+is the model estimates themselves. While this `fitted_model` object
+contains a lot additional information inside, `{workflows}` thankfully
+has a function to extract the information we want. In this case, it is
+the `extract_fit_parsnip()` function.
+
+```{r extract-model-fit}
+fitted_model %>%
+  extract_fit_parsnip()
+```
+
+To get this information in a tidier format, we use another function:
+`tidy()`. This function comes from the `{broom}` package, which is part
+of the `{tidymodels}`. But we should explicitly add it to the
+dependencies:
+
+```{r broom-to-deps}
+#| purl: true
+#| eval: false
+use_package("broom")
+```
+
+Then, we continue the `%>%` pipe, though we do need to set
+`exponentiate = TRUE` in `tidy()` because we are using a logistic
+regression model and the results need to be corrected to be more easily
+interpreted.
+
+```{r tidy-up-model-results}
+fitted_model %>%
+  extract_fit_parsnip() %>%
+  tidy(exponentiate = TRUE)
+```
+
+We now have a data frame of our model results! Like we did with the
+`workflows()` code that we converted into a function, we do the same
+thing here: Make another function (and move it to `R/functions.R`)!
+:stuck_out_tongue:
+
+```{r new-function-tidy-model-output}
+#' Create a tidy output of the model results.
+#'
+#' @param workflow_fitted_model The model workflow object that has been fitted.
+#'
+#' @return A data frame.
+#'
+tidy_model_output <- function(workflow_fitted_model) {
+  workflow_fitted_model %>%
+    workflows::extract_fit_parsnip() %>%
+    broom::tidy(exponentiate = TRUE)
+}
+```
+
+Replacing the code in the `doc/lesson.Rmd` file to use the function.
+
+```{r use-tidy-model-output-fn}
+fitted_model %>%
+  tidy_model_output()
+```
+
+If we revise the code so it is one pipe, it would look like:
+
+```{r single-pipe-model-results}
+create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_wide %>%
+    create_recipe_spec(metabolite_cholesterol)
+) %>%
+  fit(lipidomics_wide) %>%
+  tidy_model_output()
+```
+
+Let's briefly cover what these columns and values mean.
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+If you want, you can go over these details briefly or in more detail,
+depending on how comfortable you are. Or you can get them to read it
+only.
+:::
+
+::: callout-info
+## Reading task: \~10 minutes
+
+Let's explain this output a bit, each column at a time:
+
+-   `term`: If you recall the formula
+    $class = metabolite + sex + gender$, you'll see all but the `class`
+    object there in the column `term`. This column contains all the
+    predictor variables, including the intercept (from the original
+    model).
+
+-   `estimate`: This column is the "coefficient" linked to the term in
+    the model. The final mathematical model here looks like:
+
+    $$class = Intercept + (metabolite_estimate * metabolite_value) + (gender\_estimate * gender\_value) + ...$$
+
+    The estimate is the constant value you multiple the value of the
+    term with. The interpreting each of these values can be quite tricky
+    and can take a surprising amount of time to conceptually break it
+    down, so we won't do that here, since this isn't a statistics
+    course. The only thing you need to understand here is that the
+    `estimate` is value that tells us the *magnitude* of association
+    between the term and `class`. This value, along with the `std.error`
+    are the most important values we can get from the model and we will
+    be using them when presenting the results.
+
+-   `std.error`: This is the uncertainty in the `estimate` value. A
+    higher value means there is less certainty in the value of the
+    `estimate`.
+
+-   `statistic`: This value is used to, essentially, calculate the
+    `p.value`.
+
+-   `p.value`: This is the infamous value we researchers go crazy for
+    and think nothing else of. While there is a lot of attention to this
+    single value, it's importance is not as much as we tend to give it.
+    The interpretation of the p-value is even more difficult than the
+    `estimate` and again, we won't cover this at all in this course. We
+    won't be using this value at all in presenting the results.
+:::
+
+<!-- TODO: Split session here? Could be a nice review too -->
+
+## Exercise: Run model with a different metabolite
+
+> Time: \~10 minutes.
+
+Try running the same model workflow but run the model with
+`metabolite_lipid_ch_3_1` instead of `metabolite_cholesterol`.
+
+1.  In the `doc/lesson.Rmd` file, create a new `###` header and code
+    chunk at the bottom of the R Markdown file (see the scaffold
+    template below). You can use the code below as a scaffold, you can
+    even copy and paste it.
+2.  Copy and paste the previous workflow we created above and then
+    replace all `metabolite_cholesterol` with `metabolite_lipid_ch_3_1`
+    (or copy and paste the scaffold below).
+3.  Run the code to get the results for `metabolite_lipid_ch_3_1`. What
+    is the coefficient (`estimate`) for the `metabolite_lipid_ch_3_1`
+    compared to the `metabolite_cholesterol` result?
+4.  Use `r run_styler_text` on the R Markdown file. Then commit the
+    changes to the Git history.
+5.  Notice the only difference between the code running the models on
+    `metabolite_cholesterol` compared to models on
+    `metabolite_lipid_ch_3_1`? Keep this in mind for the next exercise
+    :wink:
+
+Use the scaffolding below as a guide. *Note*: The code has been
+purposefully written poorly so you can use `{styler}` to fix it up.
+
+    ### Model with a different metabolite
+    ``` {{r}}
+    create_model_workflow(___()%>%set_engine("glm"),
+    lipidomics_wide%>%create_recipe_spec(___)
+    ) %>%fit( lipidomics_wide ) %>% 
+    tidy_model_output()
+    ```
+
+```{r solution-model-with-different-metabolite}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_wide %>%
+    create_recipe_spec(metabolite_lipid_ch_3_1)
+) %>%
+  fit(lipidomics_wide) %>%
+  tidy_model_output()
+```
+
+## Exercise: How would we use functional programming to run multiple models?
+
+> Time: \~20 minutes.
+
+Functional programming underlies many core features of running
+statistical methods on data. This exercise is meant for you to review
+this concept and try to think of it in the context of statistcal
+modeling.
+
+-   For 10 minutes, go to the sections on [Function
+    Programming](https://r-cubed-intermediate.rostools.org/dry-functionals.html#functional-programming)
+    in the Intermediate R course as well as the
+    [split-apply-combine](https://r-cubed-intermediate.rostools.org/dry-functionals.html#split-apply-combine-technique-and-functionals)
+    and review the concepts.
+
+-   For 8 minutes, discuss with your neighbour how we can use functional
+    programming to apply the model to each metabolite. Try to think how
+    the code would look like to do that. You don't need to write real R
+    code, but if writing pseudocode helps, go right ahead! Also, don't
+    look ahead :wink:
+
+-   For the remaining time, we will discuss as the whole group some of
+    the things people thought of.
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+After they've finished, either write pseudocode in RStudio or draw this
+out on a whiteboard if it is available. There will probably be several
+different approaches, many of which could also be implemented just fine.
+Ultimately we will replace `create_recipe_spec(metabolite_...)` with
+`create_recipe_spec(starts_with("metabolite_"))`.
+:::
+
+## Apply logistic regression to each metabolite
+
+You might have thought of some ideas to run the model on each metabolite
+based on the `lipidomics_wide` dataset. However, these types of
+"split-apply-combine" tasks are best done using data in the long form.
+So we'll start with the original `lipidomics` dataset. The first thing
+we want to do is convert the metabolite names into snake case:
+
+```{r chain-col-to-snakecase}
+lipidomics %>%
+  column_values_to_snakecase(metabolite)
+```
+
+The next step is to split the data up. We could use `group_by()`, but in
+order to make the most use of `{purrr}` functions like `map()`, we will
+use `group_split()` to convert the data frame into a set of lists.
+
+```{r chain-split-by-metabolite}
+lipidomics %>%
+  column_values_to_snakecase(metabolite) %>%
+  group_split(metabolite)
+```
+
+Since logistic regression needs one row to be a single person, we'll use
+`map()` to apply our custom function `metabolites_to_wider()` on each of
+the split list items:
+
+```{r chain-map-to-wider}
+#| eval: false
+lipidomics %>%
+  column_values_to_snakecase(metabolite) %>%
+  group_split(metabolite) %>%
+  map(metabolites_to_wider)
+```
+
+```{r exec-only-chain-map-to-wider}
+#| eval: true
+#| echo: false
+.Last.value %>%
+  map(metabolites_to_wider)
+```
+
+Alright, we now have one data frame with only the single metabolite per
+list item. While again this bit of code is only a few lines, it also
+represents the conceptual action of "splitting the data into a list by
+metabolites". So let's create a function for this. Add the
+`r run_roxygen_comments`, run `r run_styler_text`, move into the
+`R/functions.R` file, and then `source()` the file.
+
+```{r new-function-split-by-metabolite}
+#' Convert the long form dataset into a list of wide form data frames.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A list of data frames.
+#'
+split_by_metabolite <- function(data) {
+  data %>%
+    column_values_to_snakecase(metabolite) %>%
+    dplyr::group_split(metabolite) %>%
+    purrr::map(metabolites_to_wider)
+}
+```
+
+The code should look like:
+
+```{r split-by-metabolite}
+lipidomics %>%
+  split_by_metabolite()
+```
+
+Like we did with the `metabolite_to_wider()`, we need to pipe the output
+into another `map()` function that has a custom function that runs the
+models. We don't have this function yet, so we need to create it.
+Convert the code we've used previously into a function, replacing
+`lipidomics` with `data` and using `starts_with("metabolite_")` within
+the `create_recipe_spec()`. Add the `r run_roxygen_comments`, run
+`r run_styler_text`, move into the `R/functions.R` file, and then
+`source()` the file.
+
+```{r new-function-generate-model-results}
+#' Generate the results of a model
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A data frame.
+#'
+generate_model_results <- function(data) {
+  create_model_workflow(
+    parsnip::logistic_reg() %>%
+      parsnip::set_engine("glm"),
+    data %>%
+      create_recipe_spec(tidyselect::starts_with("metabolite_"))
+  ) %>%
+    parsnip::fit(data) %>%
+    tidy_model_output()
+}
+```
+
+Then we add it to the end of the pipe, but using `map_dfr()` to convert
+to a data frame:
+
+```{r chain-generate-model-results}
+lipidomics %>%
+  split_by_metabolite() %>%
+  map_dfr(generate_model_results)
+```
+
+Since we are only interested in the results for the model results for
+the metabolites, let's keep only `terms` that are metabolites using
+`filter()` and `str_detect()`.
+
+```{r chain-filter-terms}
+model_estimates <- lipidomics %>%
+  split_by_metabolite() %>%
+  map_dfr(generate_model_results) %>%
+  filter(str_detect(term, "metabolite_"))
+model_estimates
+```
+
+Wow! We're basically at our first `{targets}` output! Before continuing,
+there is one aesthetic thing we can add: The original variable names,
+rather than the snake case version. Since the original variable still
+exists in our `lipidomics` dataset, we can join it to the
+`model_estimates` object with `full_join()`, along with a few other
+minor changes. First, we'll `seelct()` only the `metabolite` and then
+create a duplicate column of `metabolite` called `term` (to match the
+`model_estimates`) using `mutate()`.
+
+```{r duplicate-original-vars}
+lipidomics %>%
+  select(metabolite) %>%
+  mutate(term = metabolite)
+```
+
+Right after that we will use our custom `column_values_to_snakecase()`
+function on the `term` column.
+
+```{r dup-column-to-snakecase}
+lipidomics %>%
+  select(metabolite) %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term)
+```
+
+We can see that we are missing the `metabolite_` text before each snake
+case'd name, so we can add that with `mutate()` and `str_c()`:
+
+```{r dup-column-append-metabolite}
+lipidomics %>%
+  select(metabolite) %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term) %>%
+  mutate(term = str_c("metabolite_", term))
+```
+
+There are 504 rows, which we only need the unique values of `term` and
+`metabolite` using `distinct()`.
+
+```{r dup-column-distinct}
+lipidomics %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term) %>%
+  mutate(term = str_c("metabolite_", term)) %>%
+  distinct(term, metabolite)
+```
+
+The last step is to `right_join()` with the `model_estimates`:
+
+```{r dup-column-full-join}
+lipidomics %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term) %>%
+  mutate(term = str_c("metabolite_", term)) %>%
+  distinct(term, metabolite) %>%
+  right_join(model_estimates, by = "term")
+```
+
+Awesome :smile: Now can you guess what we are going to do next? That's
+right, making a function of both the model creation code and this code
+to add the original variable names. Then we can add our first
+`{targets}` output!
+
+## Exercise: Creating functions for model results and adding as a target in the pipeline
+
+> Time: \~25 minutes.
+
+Convert the code that calculates the model estimates as well as the code
+that adds the original metabolite names into functions. Start with the
+code for the metabolite names, using the scaffold below as a starting
+point.
+
+1.  Name the new function `add_original_metabolite_names`.
+2.  Within the `function()`, add two arguments, where the first is
+    called `model_results` and the second is called `data`.
+3.  Paste the code we created into the function, replacing `lipidomics`
+    with `data` and `model_estimates` with `model_results`.
+4.  Add `dplyr::` and `stringr::` before their respective functions.
+5.  Add the `r run_roxygen_comments`.
+6.  Run `r run_styler_text` to the file to fix up the code.
+7.  Cut and paste the function over into the `R/functions.R` file.
+8.  Commit the changes you've made so far.
+
+``` r
+___ <- function(___, ___) {
+  ___ %>%
+}
+```
+
+```{r solution-new-function-add-original-metabolite-names}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Add the original metabolite names (not as snakecase) to the model results.
+#'
+#' @param model_results The data frame with the model results.
+#' @param data The original lipidomics dataset.
+#'
+#' @return A data frame.
+#'
+add_original_metabolite_names <- function(model_results, data) {
+  data %>%
+    dplyr::mutate(term = metabolite) %>%
+    column_values_to_snakecase(term) %>%
+    dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
+    dplyr::distinct(term, metabolite) %>%
+    dplyr::right_join(model_results, by = "term")
+}
+```
+
+Do the same thing with the code that creates the model results, using
+the scaffold below as a starting point. The only difference here is that
+we would like to save the model results to a CSV file in the `data/`
+folder so we can more easily share the results.
+
+``` r
+calculate_estimates <- function(data, csv_path = "data/model-estimates.R") {
+  model_estimates <- ___ %>%
+    # All the other code to create the results
+    ___ %>% 
+    add_original_metabolite_names(data) 
+  readr::write_csv(model_estimates, here::here(csv_path))
+  output_switch_for_targets(model_estimates, csv_path)
+}
+```
+
+```{r solution-new-function-calculate-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Calculate the estimates for the model for each metabolite.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A data frame.
+#'
+calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
+  model_estimates <- data %>%
+    column_values_to_snakecase(metabolite) %>%
+    dplyr::group_split(metabolite) %>%
+    purrr::map(metabolites_to_wider) %>%
+    purrr::map_dfr(generate_model_results) %>%
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
+    add_original_metabolite_names(data)
+  readr::write_csv(model_estimates, here::here(csv_path))
+  output_switch_for_targets(model_estimates, csv_path)
+}
+```
+
+Lastly, add the model results output to end of the `_targets.R` file,
+using the below scaffold as a guide.
+
+1.  Use `df_model_estimates` for the `name`.
+2.  Use the `calculate_estimates()` function in `command`, with
+    `lipidomics` and `"data/model-estimates.csv"` as the arguments.
+3.  Run `r run_styler_text` and than run `r run_tar_vis_text` to see if
+    the new target gets detected. If it does, than run
+    `r run_tar_make_text`.
+4.  Commit the changes to the Git history.
+
+``` r
+list(
+  ...,
+  list(
+    name = ___,
+    command = ___(___, ___),
+    format = "file"
+  )
+)
+```
+
+```{r purl-only-model-estimates-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+update_target_calc_est <- '
+  ),
+  list(
+    name = df_model_estimates,
+    command = calculate_estimates(lipidomics, "data/model-estimates.csv"),
+    format = "file"
+  )
+)
+'
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = update_target_calc_est,
+  # TODO: Modify these numbers.
+  remove_original_lines = -30,
+  insert_at_line = 31
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Update targets with model results")
+```
+
+## Visualizing the model estimates
+
+We've got one target done for the modeling stage, three more to go!
+There are multiple ways of visualizing the results from models. A common
+approach is to use a "dot-and-whisker" plot like you might see in a
+meta-analysis. Often the "whisker" part is the measure of uncertainty
+like the confidence interval, and the "dot" is the estimate. For the
+confidence interval, we haven't calculated them at this point because
+the typical approach doesn't exactly work for our data (tested before
+the course). The next section will be covering another way of
+determining uncertainty. For this plot though, we will use the standard
+error of the estimate. Since we'll be using `{ggplot2}` to make figures,
+we need to add it to the dependency list:
+
+```{r ggplot2-to-deps}
+#| purl: true
+use_package("ggplot2")
+```
+
+Inside the `doc/lesson.Rmd`, let's create a new header and code chunk at
+the bottom. We'll want to use `targets::tar_read(df_model_estimates)` so
+that `{targets}` is aware that the R Markdown file is dependent on this
+target. This `targets::tar_read()` will output a path to the CSV file,
+so we will need to use `read_csv()` to load it in.
+
+    ### Figure of model estimates
+
+    ```{{r}}
+    model_estimates <- targets::tar_read(df_model_estimates) %>% 
+      read_csv()
+    ```
+
+```{r exec-only-model-estimates}
+#| include: false
+model_estimates <- lipidomics %>%
+  calculate_estimates()
+```
+
+Then we'll start using `{ggplot2}` to visualize the results. For
+dot-whisker plots, the "geom" we would use is called
+`geom_pointrange()`. It requires four values:
+
+-   `x`: This will be the "dot", should we will use the `estimate`
+    column.
+-   `y`: This is the categorical variable that the "dot" is associated
+    with, in this case, it is the `metabolite` column.
+-   `xmin`: This is the lower end of the "whisker". Since the
+    `std.error` is a value representing uncertainty of the estimate on
+    either side of it (`+` or `-`), we will need to substract
+    `std.error` from the `estimate`.
+-   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
+    but adding `std.error` instead.
+
+```{r}
+plot_estimates <- model_estimates %>%
+  ggplot(aes(
+    x = estimate, y = metabolite,
+    xmin = estimate - std.error,
+    xmax = estimate + std.error
+  )) +
+  geom_pointrange()
+plot_estimates
+```
+
+Wow, there is definitely something wrong here. The values of the
+estimate should realistically be somewhere between 0 and 5, usually
+less. We will eventually need to troubleshoot this issue, but for now,
+let's restrict the x axis to be between -5 and 5.
+
+```{r}
+plot_estimates +
+  coord_fixed(xlim = c(0, 5))
+```
+
+There are many more things we could start investigating based on these
+results, in order to fix them up. But for now, this will do.
+
+## Exercise: Add plot function as a target in the pipeline
+
+> Time: \~15 minutes.
+
+Hopefully you've gotten comfortable with the function-oriented workflow,
+because we'll need to convert this code into a function and add it as a
+target in the pipeline. Use the scaffold below as a guide.
+
+1.  Replace `model_estimates` with `results`.
+2.  Use the `output_switch_for_targets()` function we created to output
+    either the `plot_results` or the `image_path`.
+3.  Move the function into the `R/functions.R` file, add
+    `r run_roxygen_comments`, and run `r run_styler_text`.
+
+``` r
+plot_estimates <- function(results, image_path) {
+  plot_results <- ___ %>% 
+    # Plot code here:
+    ___
+  ggplot2::ggsave(
+   plot = plot_results,
+   filename = here::here(image_path)
+  )
+  output_switch_for_targets(___, ___)
+}
+```
+
+Then, after doing that, add the new function as a target in the
+pipeline, name the new `name` as `fig_model_estimates`.
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = ___,
+    command = plot_estimates(___, ___),
+    format = "file"
+  )
+)
+```
+
+And add the `targets::tar_read()` in the R Markdown using
+`knitr::include_graphics()`
+
+    ```{{r}}
+    knitr::include_graphics(targets::tar_read(fig_model_estimates))
+    ```
+
+## Determine variability in model estimates with resampling
+
+-   rsamples with plotting of each estimates
+
+-   Use bootstrap, but mention vfold_cv
+
+```{r}
+set.seed(1324)
+lipidomics_list <- lipidomics %>%
+  split_by_metabolite()
+
+bootstraps(lipidomics_list[[1]], times = 10)
+
+set.seed(1324)
+workflow_for_bootstrap <- create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_list[[1]] %>%
+    create_recipe_spec(starts_with("metabolite_"))
+)
+
+bootstrapped_results <- fit_resamples(
+  workflow_for_bootstrap,
+  resamples = bootstraps(lipidomics_list[[1]], times = 10),
+  control = control_resamples(extract = tidy_model_output, save_pred = TRUE)
+)
+
+bootstrapped_results %>%
+  select(id, .extracts) %>%
+  # Need to unnest twice since first `.extracts` is a nest of another two
+  # columns of `.extracts` and `.config`.
+  unnest(cols = .extracts) %>%
+  unnest(cols = .extracts) %>%
+  filter(str_detect(term, "metabolite_")) %>%
+  add_original_metabolite_names(lipidomics) %>%
+  ggplot(aes(x = estimate)) +
+  geom_dotplot() +
+  facet_wrap(vars(metabolite))
+```
+
+## Visualizing the variability of results
+
+-   Combine augment with rsamples and ggplot2 to plot different
+    estimates
+
+```{r}
+#| eval: false
+```
+
+<!-- TODO: makke function for plot -->
+
+## Exercise: Running multiple models by metabolite *and* re-sampled bootstrapped set
+
+Using
+
+## Exercise: Add functions into targets and R Markdown file
+
+```{r}
+# TODO: Reuse all chunks that have functions and place them here to purl
+```
+
+## Summary
