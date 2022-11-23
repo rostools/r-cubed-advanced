@@ -159,18 +159,16 @@ a logic and "workflow" to making these models as well!
 5.  Extract the values and their uncertainty from the model and present
     them in relation to your research questions.
 
-<!-- TODO: Image of workflow? -->
+<!-- TODO: Image of workflow? Use app.diagrams.net? -->
 
 ```{mermaid}
 graph TD
     A[Research question] --> B((Statistical model))
     B --> A
     B --> C[Data collection]
-    C --> D[Data processing]
-    
+    C --> D[Data transformation]
     D --> E[Scientific output]
     E --> A
-
 ```
 
 ::: callout-caution
@@ -318,7 +316,7 @@ workflow that was described above, through the use of specific packages
 for each component.
 
 | Package       | Description                                                                                       |
-|---------------|---------------------------------------------------------|
+|---------------|---------------------------------------------------------------------------------------------------|
 | `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
 | `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
