@@ -22,6 +22,7 @@ Imports:
     parsnip,
     prodigenr,
     quarto,
+    r3admin (>= 0.0.1),
     recipes,
     renv,
     rlang,
@@ -36,7 +37,6 @@ Suggests:
     gert,
     ggplot2,
     gitcreds,
-    r3admin,
     RcppTOML,
     remotes,
     rmarkdown,
@@ -47,3 +47,5 @@ Suggests:
     usethis
 Encoding: UTF-8
 LazyData: true
+Remotes:  
+    rostools/r3admin
