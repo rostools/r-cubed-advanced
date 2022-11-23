@@ -161,6 +161,18 @@ a logic and "workflow" to making these models as well!
 
 <!-- TODO: Image of workflow? -->
 
+```{mermaid}
+graph TD
+    A[Research question] --> B((Statistical model))
+    B --> A
+    B --> C[Data collection]
+    C --> D[Data processing]
+    
+    D --> E[Scientific output]
+    E --> A
+
+```
+
 ::: callout-caution
 The entire workflow for building statistical models requires highly
 specific domain knowledge on not only the statistics themselves, but
@@ -306,7 +318,7 @@ workflow that was described above, through the use of specific packages
 for each component.
 
 | Package       | Description                                                                                       |
-|---------------|---------------------------------------------------------------------------------------------------|
+|---------------|---------------------------------------------------------|
 | `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
 | `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
