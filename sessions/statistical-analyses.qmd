@@ -5,6 +5,8 @@
 ```{r setup}
 #| include: false
 source(here::here("R/functions.R"))
+extract_project_functions_from_qmd()
+source(here::here("R/project-functions.R"))
 library(tidyverse)
 library(tidymodels)
 load(here::here("data/lipidomics.rda"))
@@ -159,7 +161,17 @@ a logic and "workflow" to making these models as well!
 5.  Extract the values and their uncertainty from the model and present
     them in relation to your research questions.
 
-<!-- TODO: Image of workflow? -->
+<!-- TODO: Image of workflow? Use app.diagrams.net? -->
+
+```{mermaid}
+graph TD
+    A[Research question] --> B((Statistical model))
+    B --> A
+    B --> C[Data collection]
+    C --> D[Data transformation]
+    D --> E[Scientific output]
+    E --> A
+```
 
 ::: callout-caution
 The entire workflow for building statistical models requires highly
@@ -514,7 +526,7 @@ test_nse <- function(data, column) {
     dplyr::select(column)
 }
 
-lipidomics %>% 
+lipidomics %>%
   test_nse(class)
 ```
 
@@ -539,13 +551,13 @@ approach is to wrap the argument with "curly-curly" (`{{}}`).
 ```{r test-nse-fixed}
 test_nse <- function(data, columns) {
   data %>%
-    dplyr::select({{columns}})
+    dplyr::select({{ columns }})
 }
 
-lipidomics %>% 
+lipidomics %>%
   test_nse(class)
 
-lipidomics %>% 
+lipidomics %>%
   test_nse(c(class, age))
 ```
 :::
@@ -718,7 +730,7 @@ the recipe:
 ```{r recipes-with-step-normalize}
 recipe(lipidomics_wide) %>%
   update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
-  update_role(class, new_role = "outcome") %>% 
+  update_role(class, new_role = "outcome") %>%
   step_normalize(starts_with("metabolite_"))
 ```
 
@@ -789,8 +801,8 @@ slightly different types). All model workflows need to start with
 `add_recipe()`. Can you guess what they do?
 
 ```{r use-workflow-for-model}
-workflow() %>% 
-  add_model(log_reg_specs) %>% 
+workflow() %>%
+  add_model(log_reg_specs) %>%
   add_recipe(recipe_specs)
 ```
 
@@ -821,11 +833,11 @@ creation from scratch:
 
 ```{r full-model-workflow-from-almost-scratch}
 model_workflow <- create_model_workflow(
-  logistic_reg() %>% 
+  logistic_reg() %>%
     set_engine("glm"),
-  lipidomics_wide %>% 
+  lipidomics_wide %>%
     create_recipe_spec(metabolite_cholesterol)
-) 
+)
 model_workflow
 ```
 
@@ -833,7 +845,7 @@ Now, we can do the final thing: Fitting the data to the model with
 `fit()`! :raised_hands:
 
 ```{r fit-model-workflow-to-data}
-fitted_model <- model_workflow %>% 
+fitted_model <- model_workflow %>%
   fit(lipidomics_wide)
 fitted_model
 ```
@@ -867,7 +879,7 @@ interpreted.
 
 ```{r tidy-up-model-results}
 fitted_model %>%
-  extract_fit_parsnip() %>% 
+  extract_fit_parsnip() %>%
   tidy(exponentiate = TRUE)
 ```
 
@@ -893,9 +905,24 @@ tidy_model_output <- function(workflow_fitted_model) {
 Replacing the code in the `doc/lesson.Rmd` file to use the function.
 
 ```{r use-tidy-model-output-fn}
-fitted_model %>% 
+fitted_model %>%
   tidy_model_output()
 ```
+
+If we revise the code so it is one pipe, it would look like:
+
+```{r single-pipe-model-results}
+create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_wide %>%
+    create_recipe_spec(metabolite_cholesterol)
+) %>%
+  fit(lipidomics_wide) %>%
+  tidy_model_output()
+```
+
+Let's briefly cover what these columns and values mean.
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
@@ -946,18 +973,7 @@ Let's explain this output a bit, each column at a time:
     won't be using this value at all in presenting the results.
 :::
 
-<!-- TODO: Use this code chunk below? -->
-
-```{r}
-create_model_workflow(
-  logistic_reg() %>% 
-    set_engine("glm"),
-  lipidomics_wide %>% 
-    create_recipe_spec(metabolite_cholesterol)
-) %>% 
-  fit(lipidomics_wide) %>% 
-  tidy_model_output()
-```
+<!-- TODO: Split session here? Could be a nice review too -->
 
 ## Exercise: Run model with a different metabolite
 
@@ -999,18 +1015,16 @@ purposefully written poorly so you can use `{styler}` to fix it up.
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 create_model_workflow(
-  logistic_reg() %>% 
+  logistic_reg() %>%
     set_engine("glm"),
-  lipidomics_wide %>% 
+  lipidomics_wide %>%
     create_recipe_spec(metabolite_lipid_ch_3_1)
-) %>% 
-  fit(lipidomics_wide) %>% 
+) %>%
+  fit(lipidomics_wide) %>%
   tidy_model_output()
 ```
 
 ## Exercise: How would we use functional programming to run multiple models?
-
-<!-- TODO: Move this up to right after introducing boostrapping? -->
 
 > Time: \~20 minutes.
 
@@ -1054,7 +1068,7 @@ we want to do is convert the metabolite names into snake case:
 
 ```{r chain-col-to-snakecase}
 lipidomics %>%
-  column_values_to_snakecase(metabolite) 
+  column_values_to_snakecase(metabolite)
 ```
 
 The next step is to split the data up. We could use `group_by()`, but in
@@ -1063,8 +1077,8 @@ use `group_split()` to convert the data frame into a set of lists.
 
 ```{r chain-split-by-metabolite}
 lipidomics %>%
-  column_values_to_snakecase(metabolite) %>% 
-  group_split(metabolite) 
+  column_values_to_snakecase(metabolite) %>%
+  group_split(metabolite)
 ```
 
 Since logistic regression needs one row to be a single person, we'll use
@@ -1082,23 +1096,52 @@ lipidomics %>%
 ```{r exec-only-chain-map-to-wider}
 #| eval: true
 #| echo: false
-.Last.value %>% 
+.Last.value %>%
   map(metabolites_to_wider)
 ```
 
 Alright, we now have one data frame with only the single metabolite per
-list item. Like we did with the `metabolite_to_wider()`, we need to pipe
-the output into another `map()` function that has a custom function that
-runs the models. We don't have this function yet, so we need to create
-it. Convert the code we've used previously into a function, replacing
+list item. While again this bit of code is only a few lines, it also
+represents the conceptual action of "splitting the data into a list by
+metabolites". So let's create a function for this. Add the
+`r run_roxygen_comments`, run `r run_styler_text`, move into the
+`R/functions.R` file, and then `source()` the file.
+
+```{r new-function-split-by-metabolite}
+#' Convert the long form dataset into a list of wide form data frames.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A list of data frames.
+#'
+split_by_metabolite <- function(data) {
+  data %>%
+    column_values_to_snakecase(metabolite) %>%
+    dplyr::group_split(metabolite) %>%
+    purrr::map(metabolites_to_wider)
+}
+```
+
+The code should look like:
+
+```{r split-by-metabolite}
+lipidomics %>%
+  split_by_metabolite()
+```
+
+Like we did with the `metabolite_to_wider()`, we need to pipe the output
+into another `map()` function that has a custom function that runs the
+models. We don't have this function yet, so we need to create it.
+Convert the code we've used previously into a function, replacing
 `lipidomics` with `data` and using `starts_with("metabolite_")` within
-the `create_recipe_spec()`. Add the `r run_roxygen_comments` and move
-into the `R/functions.R` file.
+the `create_recipe_spec()`. Add the `r run_roxygen_comments`, run
+`r run_styler_text`, move into the `R/functions.R` file, and then
+`source()` the file.
 
 ```{r new-function-generate-model-results}
-#' Generate the results of a model 
+#' Generate the results of a model
 #'
-#' @param data 
+#' @param data The lipidomics dataset.
 #'
 #' @return A data frame.
 #'
@@ -1118,18 +1161,8 @@ Then we add it to the end of the pipe, but using `map_dfr()` to convert
 to a data frame:
 
 ```{r chain-generate-model-results}
-#| eval: false
 lipidomics %>%
-  column_values_to_snakecase(metabolite) %>%
-  group_split(metabolite) %>%
-  map(metabolites_to_wider) %>% 
-  map_dfr(generate_model_results)
-```
-
-```{r exec-only-chain-generate-model-results}
-#| eval: true
-#| echo: false
-.Last.value %>% 
+  split_by_metabolite() %>%
   map_dfr(generate_model_results)
 ```
 
@@ -1138,70 +1171,334 @@ the metabolites, let's keep only `terms` that are metabolites using
 `filter()` and `str_detect()`.
 
 ```{r chain-filter-terms}
-#| eval: false
+model_estimates <- lipidomics %>%
+  split_by_metabolite() %>%
+  map_dfr(generate_model_results) %>%
+  filter(str_detect(term, "metabolite_"))
+model_estimates
+```
+
+Wow! We're basically at our first `{targets}` output! Before continuing,
+there is one aesthetic thing we can add: The original variable names,
+rather than the snake case version. Since the original variable still
+exists in our `lipidomics` dataset, we can join it to the
+`model_estimates` object with `full_join()`, along with a few other
+minor changes. First, we'll `seelct()` only the `metabolite` and then
+create a duplicate column of `metabolite` called `term` (to match the
+`model_estimates`) using `mutate()`.
+
+```{r duplicate-original-vars}
 lipidomics %>%
-  column_values_to_snakecase(metabolite) %>%
-  group_split(metabolite) %>%
-  map(metabolites_to_wider) %>% 
-  map_dfr(generate_model_results) %>% 
-  filter(str_detect(term, "metabolite_"))
+  select(metabolite) %>%
+  mutate(term = metabolite)
 ```
 
-```{r exec-only-chain-filter-terms}
-#| eval: true
-#| echo: false
-.Last.value %>% 
-  filter(str_detect(term, "metabolite_"))
+Right after that we will use our custom `column_values_to_snakecase()`
+function on the `term` column.
+
+```{r dup-column-to-snakecase}
+lipidomics %>%
+  select(metabolite) %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term)
 ```
 
-```{r}
-lipidomics_names <- lipidomics %>% 
-  mutate(term = metabolite) %>% 
-  column_values_to_snakecase(term) %>% 
-  mutate(term = str_c("metabolite_", term)) %>% 
-  distinct(term, metabolite) %>% 
-  full_join(model_estimates)
+We can see that we are missing the `metabolite_` text before each snake
+case'd name, so we can add that with `mutate()` and `str_c()`:
+
+```{r dup-column-append-metabolite}
+lipidomics %>%
+  select(metabolite) %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term) %>%
+  mutate(term = str_c("metabolite_", term))
 ```
 
-Wow! We're basically at our first `{targets}` output! This is a good
-place to convert this code into a function and add a `{targets}`
-pipeline for it.
+There are 504 rows, which we only need the unique values of `term` and
+`metabolite` using `distinct()`.
 
-## Exercise: Adding model results as a target in the pipeline
+```{r dup-column-distinct}
+lipidomics %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term) %>%
+  mutate(term = str_c("metabolite_", term)) %>%
+  distinct(term, metabolite)
+```
 
-> Time: \~15 minutes.
+The last step is to `right_join()` with the `model_estimates`:
 
-```{r}
-calculate_estimate <- function(data) {
+```{r dup-column-full-join}
+lipidomics %>%
+  mutate(term = metabolite) %>%
+  column_values_to_snakecase(term) %>%
+  mutate(term = str_c("metabolite_", term)) %>%
+  distinct(term, metabolite) %>%
+  right_join(model_estimates, by = "term")
+```
+
+Awesome :smile: Now can you guess what we are going to do next? That's
+right, making a function of both the model creation code and this code
+to add the original variable names. Then we can add our first
+`{targets}` output!
+
+## Exercise: Creating functions for model results and adding as a target in the pipeline
+
+> Time: \~25 minutes.
+
+Convert the code that calculates the model estimates as well as the code
+that adds the original metabolite names into functions. Start with the
+code for the metabolite names, using the scaffold below as a starting
+point.
+
+1.  Name the new function `add_original_metabolite_names`.
+2.  Within the `function()`, add two arguments, where the first is
+    called `model_results` and the second is called `data`.
+3.  Paste the code we created into the function, replacing `lipidomics`
+    with `data` and `model_estimates` with `model_results`.
+4.  Add `dplyr::` and `stringr::` before their respective functions.
+5.  Add the `r run_roxygen_comments`.
+6.  Run `r run_styler_text` to the file to fix up the code.
+7.  Cut and paste the function over into the `R/functions.R` file.
+8.  Commit the changes you've made so far.
+
+``` r
+___ <- function(___, ___) {
+  ___ %>%
+}
+```
+
+```{r solution-new-function-add-original-metabolite-names}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Add the original metabolite names (not as snakecase) to the model results.
+#'
+#' @param model_results The data frame with the model results.
+#' @param data The original lipidomics dataset.
+#'
+#' @return A data frame.
+#'
+add_original_metabolite_names <- function(model_results, data) {
   data %>%
+    dplyr::mutate(term = metabolite) %>%
+    column_values_to_snakecase(term) %>%
+    dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
+    dplyr::distinct(term, metabolite) %>%
+    dplyr::right_join(model_results, by = "term")
+}
+```
+
+Do the same thing with the code that creates the model results, using
+the scaffold below as a starting point. The only difference here is that
+we would like to save the model results to a CSV file in the `data/`
+folder so we can more easily share the results.
+
+``` r
+calculate_estimates <- function(data, csv_path = "data/model-estimates.R") {
+  model_estimates <- ___ %>%
+    # All the other code to create the results
+    ___ %>% 
+    add_original_metabolite_names(data) 
+  readr::write_csv(model_estimates, here::here(csv_path))
+  output_switch_for_targets(model_estimates, csv_path)
+}
+```
+
+```{r solution-new-function-calculate-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Calculate the estimates for the model for each metabolite.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A data frame.
+#'
+calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
+  model_estimates <- data %>%
     column_values_to_snakecase(metabolite) %>%
     dplyr::group_split(metabolite) %>%
     purrr::map(metabolites_to_wider) %>%
     purrr::map_dfr(generate_model_results) %>%
-    dplyr::filter(stringr::str_detect(term, "metabolite_"))
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
+    add_original_metabolite_names(data)
+  readr::write_csv(model_estimates, here::here(csv_path))
+  output_switch_for_targets(model_estimates, csv_path)
 }
 ```
 
-## Visualizing the estimates
+Lastly, add the model results output to end of the `_targets.R` file,
+using the below scaffold as a guide.
 
-```{r}
-model_estimates <- lipidomics %>% 
-  calculate_estimate()
-# targets::tar_read("model_estimates") 
+1.  Use `df_model_estimates` for the `name`.
+2.  Use the `calculate_estimates()` function in `command`, with
+    `lipidomics` and `"data/model-estimates.csv"` as the arguments.
+3.  Run `r run_styler_text` and than run `r run_tar_vis_text` to see if
+    the new target gets detected. If it does, than run
+    `r run_tar_make_text`.
+4.  Commit the changes to the Git history.
+
+``` r
+list(
+  ...,
+  list(
+    name = ___,
+    command = ___(___, ___),
+    format = "file"
+  )
+)
 ```
 
-```{r}
-lipidomics_names %>% 
-  ggplot(aes(x = estimate, y = metabolite, 
-             xmin = estimate - std.error,
-             xmax = estimate + std.error
-             )) +
-  geom_pointrange() +
-  coord_fixed(xlim = c(-5, 5)) +
-  theme_minimal()
+```{r purl-only-model-estimates-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+update_target_calc_est <- '
+  ),
+  list(
+    name = df_model_estimates,
+    command = calculate_estimates(lipidomics, "data/model-estimates.csv"),
+    format = "file"
+  )
+)
+'
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = update_target_calc_est,
+  # TODO: Modify these numbers.
+  remove_original_lines = -30,
+  insert_at_line = 31
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Update targets with model results")
 ```
+
+## Visualizing the model estimates
+
+We've got one target done for the modeling stage, three more to go!
+There are multiple ways of visualizing the results from models. A common
+approach is to use a "dot-and-whisker" plot like you might see in a
+meta-analysis. Often the "whisker" part is the measure of uncertainty
+like the confidence interval, and the "dot" is the estimate. For the
+confidence interval, we haven't calculated them at this point because
+the typical approach doesn't exactly work for our data (tested before
+the course). The next section will be covering another way of
+determining uncertainty. For this plot though, we will use the standard
+error of the estimate. Since we'll be using `{ggplot2}` to make figures,
+we need to add it to the dependency list:
+
+```{r ggplot2-to-deps}
+#| purl: true
+use_package("ggplot2")
+```
+
+Inside the `doc/lesson.Rmd`, let's create a new header and code chunk at
+the bottom. We'll want to use `targets::tar_read(df_model_estimates)` so
+that `{targets}` is aware that the R Markdown file is dependent on this
+target. This `targets::tar_read()` will output a path to the CSV file,
+so we will need to use `read_csv()` to load it in.
+
+    ### Figure of model estimates
+
+    ```{{r}}
+    model_estimates <- targets::tar_read(df_model_estimates) %>% 
+      read_csv()
+    ```
+
+```{r exec-only-model-estimates}
+#| include: false
+model_estimates <- lipidomics %>%
+  calculate_estimates()
+```
+
+Then we'll start using `{ggplot2}` to visualize the results. For
+dot-whisker plots, the "geom" we would use is called
+`geom_pointrange()`. It requires four values:
+
+-   `x`: This will be the "dot", should we will use the `estimate`
+    column.
+-   `y`: This is the categorical variable that the "dot" is associated
+    with, in this case, it is the `metabolite` column.
+-   `xmin`: This is the lower end of the "whisker". Since the
+    `std.error` is a value representing uncertainty of the estimate on
+    either side of it (`+` or `-`), we will need to substract
+    `std.error` from the `estimate`.
+-   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
+    but adding `std.error` instead.
+
+```{r}
+plot_estimates <- model_estimates %>%
+  ggplot(aes(
+    x = estimate, y = metabolite,
+    xmin = estimate - std.error,
+    xmax = estimate + std.error
+  )) +
+  geom_pointrange()
+plot_estimates
+```
+
+Wow, there is definitely something wrong here. The values of the
+estimate should realistically be somewhere between 0 and 5, usually
+less. We will eventually need to troubleshoot this issue, but for now,
+let's restrict the x axis to be between -5 and 5.
+
+```{r}
+plot_estimates +
+  coord_fixed(xlim = c(0, 5))
+```
+
+There are many more things we could start investigating based on these
+results, in order to fix them up. But for now, this will do.
 
 ## Exercise: Add plot function as a target in the pipeline
+
+> Time: \~15 minutes.
+
+Hopefully you've gotten comfortable with the function-oriented workflow,
+because we'll need to convert this code into a function and add it as a
+target in the pipeline. Use the scaffold below as a guide.
+
+1.  Replace `model_estimates` with `results`.
+2.  Use the `output_switch_for_targets()` function we created to output
+    either the `plot_results` or the `image_path`.
+3.  Move the function into the `R/functions.R` file, add
+    `r run_roxygen_comments`, and run `r run_styler_text`.
+
+``` r
+plot_estimates <- function(results, image_path) {
+  plot_results <- ___ %>% 
+    # Plot code here:
+    ___
+  ggplot2::ggsave(
+   plot = plot_results,
+   filename = here::here(image_path)
+  )
+  output_switch_for_targets(___, ___)
+}
+```
+
+Then, after doing that, add the new function as a target in the
+pipeline, name the new `name` as `fig_model_estimates`.
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = ___,
+    command = plot_estimates(___, ___),
+    format = "file"
+  )
+)
+```
+
+And add the `targets::tar_read()` in the R Markdown using
+`knitr::include_graphics()`
+
+    ```{{r}}
+    knitr::include_graphics(targets::tar_read(fig_model_estimates))
+    ```
 
 ## Determine variability in model estimates with resampling
 
@@ -1211,34 +1508,36 @@ lipidomics_names %>%
 
 ```{r}
 set.seed(1324)
-bootstraps(lipidomics_wide, times = 10)
+lipidomics_list <- lipidomics %>%
+  split_by_metabolite()
+
+bootstraps(lipidomics_list[[1]], times = 10)
 
 set.seed(1324)
-bootstrap_samples <- create_model_workflow(
-  logistic_reg() %>% 
+workflow_for_bootstrap <- create_model_workflow(
+  logistic_reg() %>%
     set_engine("glm"),
-  lipidomics_wide
-)
-  fit_resamples(
-  model_workflow,
-  resamples = df_lipid_ch_3_1 %>%
-    bootstraps(10),
-  control = control_resamples(extract = tidy_model_output, save_pred = TRUE)
-  # save_pred = TRUE is same thing as augment
+  lipidomics_list[[1]] %>%
+    create_recipe_spec(starts_with("metabolite_"))
 )
 
-map2(
-  bootstrap_samples$.extracts,
-  bootstrap_samples$id,
-  ~ .x[[".extracts"]][[1]] %>%
-    mutate(id = .y, .before = everything())
+bootstrapped_results <- fit_resamples(
+  workflow_for_bootstrap,
+  resamples = bootstraps(lipidomics_list[[1]], times = 10),
+  control = control_resamples(extract = tidy_model_output, save_pred = TRUE)
 )
-bootstrap_samples %>%
+
+bootstrapped_results %>%
   select(id, .extracts) %>%
-  unnest(cols = .extracts)
-# filter(between(estimate, 0)) %>%
-# ggplot(aes(x = estimate)) +
-# geom_dotplot()
+  # Need to unnest twice since first `.extracts` is a nest of another two
+  # columns of `.extracts` and `.config`.
+  unnest(cols = .extracts) %>%
+  unnest(cols = .extracts) %>%
+  filter(str_detect(term, "metabolite_")) %>%
+  add_original_metabolite_names(lipidomics) %>%
+  ggplot(aes(x = estimate)) +
+  geom_dotplot() +
+  facet_wrap(vars(metabolite))
 ```
 
 ## Visualizing the variability of results

@@ -43,7 +43,7 @@ about applying tools that make and manage these pipelines.
 
 The overall objective for this session is to:
 
-1.  Identify and apply an approach to creating an analysis pipeline that
+1.  Identify and apply an approach to create an analysis pipeline that
     makes your analysis steps, from raw data to finished manuscript,
     explicitly defined so that updating it by either you or
     collaborators is as easy as running a single function.
@@ -73,7 +73,7 @@ change. Maybe we forgot to remove a certain condition (like unrealistic
 BMI). Or maybe our supervisor suggests something we hadn't considered in
 the analysis. Or maybe during peer review of our manuscript, a reviewer
 makes a suggestion that would improve the understanding of the paper.
-What ever the situation, we inevitably need to re-run our analysis. And
+Whatever the situation, we inevitably need to re-run our analysis. And
 depending on what the change was, we might need to run the full analysis
 all over again. So what is your **exact** workflow when you need to
 re-run code and update your results? Assume it's a change somewhere
@@ -124,20 +124,19 @@ actual pipelines? Because:
     @Seibold2021; @Laurinavichyute2021].
 
 A data analysis pipeline would by definition be a reproducible,
-readable, and code-based data analysis. we researchers as a group have a
+readable, and code-based data analysis. We researchers as a group have a
 long way to go before we can start realistically implementing data
 analysis pipelines.
 
 This isn't to diminish the work of researchers, but a basic observation
-on the systemic, social, and structural environment that we researchers
-work in. We as researchers are not trained on how to write code, nor do
-we have a strong culture and incentive structure around learning,
-sharing, reviewing, and improving code. Nor are we often allowed to get
-(or use) funds to hire people who *are* trained on and skilled in
-programmatic thinking and programming. Otherwise courses like this
-wouldn't need to exist :shrug:
+on the systemic, social, and structural environment surrounding us. We
+as researchers are not trained in writing code, nor do we have a strong
+culture and incentive structure around learning, sharing, reviewing, and
+improving code. Nor are we often allowed to get (or use) funds to hire
+people who *are* trained and skilled in programmatic thinking and
+programming. Otherwise courses like this wouldn't need to exist :shrug:
 
-So how would a data analysis pipeline look like? Before we get to that
+So how would a data analysis pipeline look? Before we get to that
 though, we have to separate two things: exploratory data analysis and
 final paper data analysis. In exploratory data analysis, there will
 likely be a lot of manual, interactive steps involved that may or may
@@ -204,8 +203,8 @@ add it to the `DESCRIPTION` file with:
 use_package("targets")
 ```
 
-After it finishes being added to the project R library, let's set up our
-project to start using it!
+Now that it's added to the project R library, let's set up our project
+to start using it!
 
 ```{r use-targets}
 #| purl: true
@@ -384,7 +383,7 @@ git_ci("doc/lesson.Rmd", "Add section on basic stats to rmd")
 
 TODO: Save this markdown text in order to add to project via purl?
 
-We want to calculate the mean and SD for each metabolite and than, to
+We want to calculate the mean and SD for each metabolite and then, to
 make it more readable, to round the numbers to one digit. We covered
 this in the
 [functionals](https://r-cubed-intermediate.rostools.org/dry-functionals.html#summarizing-long-data-like-the-rr-dataset)
@@ -524,6 +523,7 @@ list(
   )
 )
 "
+# print_lines("_targets.R")
 revise_by_line_num(
   path = "_targets.R",
   insert_text = new_targets,
@@ -697,7 +697,7 @@ descriptive_stats <- function(data) {
 ## Saving intermediate analysis outputs
 
 Sometimes you may want a pipeline target to save the output to a file so
-you can save it to the Git history, like saving an figure, rather than
+you can save it to the Git history, like saving a figure, rather than
 store the result in the `_targets/` folder. To save outputs of a target
 outside of the `_targets/` folder, there are a few specific things we
 have to do.
@@ -743,10 +743,16 @@ use `scales = "free"` because each metabolite doesn't have the same
 range of values (some are small, others are quite large).
 
 ```{r histogram-metabolites}
+#| eval: true
 metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
   facet_wrap(vars(metabolite), scales = "free")
 metabolite_distribution_plot
+```
+
+And then save it.
+
+```{r histogram-metabolites-save}
 ggsave(
   here::here("images/metabolite-distribution.png"),
   metabolite_distribution_plot
@@ -758,7 +764,7 @@ some special things `{targets}` needs in order for it to recognize that
 you want to save the output as a file. Before we do that though, we'll
 create the functions to start with.
 
-## Exercise: Convert the plot code to a function and add as a target
+## Exercise: Convert the plot code to a function
 
 > Time: \~20 minutes.
 
@@ -816,7 +822,7 @@ plot_distributions <- function(___, ___) {
 }
 ```
 
-```{r solution-plot-code-as-functions}
+```{r solution-new-function-plots}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
@@ -860,53 +866,6 @@ plot_distributions <- function(data, image_path) {
 }
 ```
 
-```{r purl-only-plot-count-as-function}
-#| eval: false
-#| echo: false
-#| purl: true
-"
-#' Plot for basic count data.
-#'
-#' @param data The lipidomics dataset.
-#' @param image_path The file path location where to save the image.
-#'
-#' @return A ggplot2 graph.
-#'
-plot_count_stats <- function(data, image_path) {
-  plot_output <- data %>%
-    dplyr::distinct(code, gender, class) %>%
-    ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
-    ggplot2::geom_bar(position = 'dodge')
-  ggplot2::ggsave(
-    plot = plot_output,
-    filename = here::here(image_path)
-  )
-  plot_output
-}
-
-#' Plot for basic distribution of metabolite data.
-#'
-#' @param data The lipidomics dataset.
-#' @param image_path The file path location where to save the image.
-#'
-#' @return A ggplot2 graph.
-#'
-plot_distributions <- function(data, image_path) {
-  plot_output <- data %>% 
-    ggplot2::ggplot(ggplot2::aes(x = value)) +
-    ggplot2::geom_histogram() +
-    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = 'free')
-  ggplot2::ggsave(
-    plot = plot_output,
-    filename = here::here(image_path)
-  )
-  plot_output
-}
-" |>
-  write_to_file("R/functions.R")
-git_ci("R/functions.R", "Add function to create plot of count stats.")
-```
-
 ## Informing targets of the saved output files
 
 We now have the functions that we can put into the `_targets.R` file.
@@ -941,21 +900,7 @@ output_switch_for_targets <- function(output, path) {
 After we've written it, we'll add some Roxygen documentation
 (`Ctrl-Shift-P`, then type "roxygen comment"):
 
-```{r output-switch-roxygen}
-#' Switch output based on if it is interactive, otherwise it is a file path.
-#'
-#' @param output Output object to send to screen when running interactively.
-#' @param path The file path to where the intermediate object is saved.
-#'
-#' @return An object or a file path.
-#'
-```
-
-```{r purl-only-output-switch}
-#| eval: false
-#| echo: false
-#| purl: true
-"
+```{r new-function-output-switch-for-targets}
 #' Switch output based on if it is interactive, otherwise it is a file path.
 #'
 #' @param output Output object to send to screen when running interactively.
@@ -970,9 +915,6 @@ output_switch_for_targets <- function(output, path) {
     path
   }
 }
-" |>
-  write_to_file("R/functions.R", append = TRUE)
-git_ci("R/functions.R", "Add function to switch output for targets use.")
 ```
 
 Then, we go into the two plot functions and replace `plot_output` at the
@@ -995,12 +937,18 @@ list(
   ...,
   tar_target(
     name = fig_gender_by_class,
-    command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
+    command = plot_count_stats(
+      lipidomics, 
+      "images/gender-by-class.png"
+    ),
     format = "file"
   ),
   tar_target(
     name = fig_metabolite_distribution,
-    command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
+    command = plot_count_stats(
+      lipidomics, 
+      "images/metabolite-distribution.png"
+    ),
     format = "file"
   )
 )
@@ -1038,6 +986,7 @@ tar_target(
   format = "file"
 )
 '
+# print_lines("_targets.R")
 # -20 to remove the previous `)`
 revise_by_line_num(
   path = "_targets.R",
@@ -1156,7 +1105,7 @@ lipidomics %>%
 
 Re-run `r run_tar_vis_text` to see that it now detects the connections
 between the pipeline targets. Now, run `r run_tar_make_text` again to
-see everything re-build! Last things are to re-style
+see everything re-build! Last things are to re-style using
 `r run_styler_text`, then **commit** the changes to the Git history
 before moving on.
 
