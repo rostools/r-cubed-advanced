@@ -5,6 +5,8 @@
 ```{r setup}
 #| include: false
 source(here::here("R/functions.R"))
+extract_project_functions_from_qmd()
+source(here::here("R/project-functions.R"))
 library(tidyverse)
 library(tidymodels)
 load(here::here("data/lipidomics.rda"))
