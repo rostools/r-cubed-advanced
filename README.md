@@ -15,7 +15,7 @@ for the course, including the website source files and other associated
 course administration files.
 
 For more detail on the course, check out the
-[syllabus](https://r-cubed-advanced.rostools.org/content/00-syllabus.html).
+[syllabus](https://r-cubed-advanced.rostools.org/preamble/syllabus.html).
 
 ## Instructional Design
 
@@ -35,7 +35,7 @@ out in completing the exercises.
 
 The teaching material is found mainly in the main project folder:
 
--   `content/00-syllabus.qmd`: Contains the syllabus file.
+-   `preamble/syllabus.qmd`: Contains the syllabus file.
 -   Files in `content/` starting with a number: Contains the code-along
     teaching material.
 
