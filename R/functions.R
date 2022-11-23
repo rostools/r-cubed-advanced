@@ -48,11 +48,12 @@ extract_chunks <- function() {
 }
 
 extract_project_functions_from_qmd <- function() {
-  here::here(".") |>
+  here::here() |>
     fs::dir_ls(recurse = TRUE, glob = "*.qmd") |>
-    purrr::map(r3admin::extract_code_block_with_label_pattern, pattern = "new-function") |>
+    purrr::map(r3admin::extract_code_block_with_label_string, string_match = "new-function") |>
     purrr::compact() |>
-    readr::write_csv(here::here("R/project-functions.R"))
+    unlist() |>
+    readr::write_lines(here::here("R/project-functions.R"))
 }
 
 run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
