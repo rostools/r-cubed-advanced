@@ -17,39 +17,6 @@
       "Hash": "b2866e62bab9378c3cc9476a1954226b",
       "Requirements": []
     },
-    "DiagrammeR": {
-      "Package": "DiagrammeR",
-      "Version": "1.0.9.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "DiagrammeR",
-      "RemoteUsername": "rich-iannone",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "3b5f18ae9c39bc20fd56689a1927981e7baf7a71",
-      "Hash": "fd694c3827a83bd66d214e2be52d0744",
-      "Requirements": [
-        "RColorBrewer",
-        "downloader",
-        "dplyr",
-        "glue",
-        "htmltools",
-        "htmlwidgets",
-        "igraph",
-        "influenceR",
-        "magrittr",
-        "purrr",
-        "readr",
-        "rlang",
-        "rstudioapi",
-        "scales",
-        "stringr",
-        "tibble",
-        "tidyr",
-        "viridis",
-        "visNetwork"
-      ]
-    },
     "DiceDesign": {
       "Package": "DiceDesign",
       "Version": "1.9",
@@ -240,14 +207,6 @@
       "Requirements": [
         "bit"
       ]
-    },
-    "bitops": {
-      "Package": "bitops",
-      "Version": "1.0-7",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "b7d8d8ee39869c18d8846a184dd8a1af",
-      "Requirements": []
     },
     "blob": {
       "Package": "blob",
@@ -591,16 +550,6 @@
         "yaml"
       ]
     },
-    "downloader": {
-      "Package": "downloader",
-      "Version": "0.4",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "f4f2a915e0dedbdf016a83b63477349f",
-      "Requirements": [
-        "digest"
-      ]
-    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.0.10",
@@ -680,17 +629,6 @@
       "Repository": "CRAN",
       "Hash": "77bd60a6157420d4ffa93b27cf6a58b8",
       "Requirements": []
-    },
-    "fontawesome": {
-      "Package": "fontawesome",
-      "Version": "0.4.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "c5a628c2570aa86a96cc6ef739d8bfda",
-      "Requirements": [
-        "htmltools",
-        "rlang"
-      ]
     },
     "forcats": {
       "Package": "forcats",
@@ -923,41 +861,6 @@
       "Hash": "e30deda901954a80e035ad2e972ba7fd",
       "Requirements": []
     },
-    "gridExtra": {
-      "Package": "gridExtra",
-      "Version": "2.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "7d7f283939f563670a697165b2cf5560",
-      "Requirements": [
-        "gtable"
-      ]
-    },
-    "gt": {
-      "Package": "gt",
-      "Version": "0.7.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "b6f71436ae6088b9a773a5253217ade1",
-      "Requirements": [
-        "base64enc",
-        "bitops",
-        "cli",
-        "commonmark",
-        "dplyr",
-        "fs",
-        "ggplot2",
-        "glue",
-        "htmltools",
-        "magrittr",
-        "rlang",
-        "sass",
-        "scales",
-        "stringr",
-        "tibble",
-        "tidyselect"
-      ]
-    },
     "gtable": {
       "Package": "gtable",
       "Version": "0.3.1",
@@ -1138,17 +1041,6 @@
         "rlang",
         "tibble",
         "tidyr"
-      ]
-    },
-    "influenceR": {
-      "Package": "influenceR",
-      "Version": "0.1.0.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "04a569c515130c758eff1939499d7cc5",
-      "Requirements": [
-        "Matrix",
-        "igraph"
       ]
     },
     "ini": {
@@ -1749,6 +1641,25 @@
         "yaml"
       ]
     },
+    "r3admin": {
+      "Package": "r3admin",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rostools",
+      "RemoteRepo": "r3admin",
+      "RemoteRef": "main",
+      "RemoteSha": "e0cabdaa6a93b3ea4b470139459fa8e59814a71d",
+      "Hash": "cc2d567767202b435b36a6006f037f0a",
+      "Requirements": [
+        "clipr",
+        "commonmark",
+        "fs",
+        "readr",
+        "xml2"
+      ]
+    },
     "ragg": {
       "Package": "ragg",
       "Version": "1.2.4",
@@ -2139,7 +2050,6 @@
         "crayon",
         "ellipsis",
         "fastmap",
-        "fontawesome",
         "glue",
         "htmltools",
         "httpuv",
@@ -2592,18 +2502,6 @@
         "rlang"
       ]
     },
-    "viridis": {
-      "Package": "viridis",
-      "Version": "0.6.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "ee96aee95a7a563e5496f8991e9fde4b",
-      "Requirements": [
-        "ggplot2",
-        "gridExtra",
-        "viridisLite"
-      ]
-    },
     "viridisLite": {
       "Package": "viridisLite",
       "Version": "0.4.1",
@@ -2611,19 +2509,6 @@
       "Repository": "RSPM",
       "Hash": "62f4b5da3e08d8e5bcba6cac15603f70",
       "Requirements": []
-    },
-    "visNetwork": {
-      "Package": "visNetwork",
-      "Version": "2.1.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "3e48b097e8d9a91ecced2ed4817a678d",
-      "Requirements": [
-        "htmltools",
-        "htmlwidgets",
-        "jsonlite",
-        "magrittr"
-      ]
     },
     "vroom": {
       "Package": "vroom",

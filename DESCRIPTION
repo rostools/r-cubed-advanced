@@ -12,9 +12,8 @@ Imports:
     desc,
     downlit,
     dplyr,
-    fontawesome,
     fs,
-    gt,
+    ggplot2,
     here,
     igraph,
     lintr,
@@ -33,9 +32,7 @@ Imports:
     workflows
 Suggests: 
     devtools,
-    DiagrammeR,
     gert,
-    ggplot2,
     gitcreds,
     RcppTOML,
     remotes,
