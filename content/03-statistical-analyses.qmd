@@ -1016,8 +1016,6 @@ create_model_workflow(
 
 ## Exercise: How would we use functional programming to run multiple models?
 
-<!-- TODO: Move this up to right after introducing boostrapping? -->
-
 > Time: \~20 minutes.
 
 Functional programming underlies many core features of running
@@ -1217,7 +1215,7 @@ lipidomics %>%
   distinct(term, metabolite)
 ```
 
-The last step is to `full_join()` with the `model_estimates`:
+The last step is to `right_join()` with the `model_estimates`:
 
 ```{r dup-column-full-join}
 lipidomics %>%
@@ -1225,7 +1223,7 @@ lipidomics %>%
   column_values_to_snakecase(term) %>%
   mutate(term = str_c("metabolite_", term)) %>%
   distinct(term, metabolite) %>%
-  full_join(model_estimates)
+  right_join(model_estimates, by = "term")
 ```
 
 Awesome :smile: Now can you guess what we are going to do next? That's
@@ -1276,7 +1274,7 @@ add_original_metabolite_names <- function(model_results, data) {
     column_values_to_snakecase(term) %>%
     dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
     dplyr::distinct(term, metabolite) %>%
-    dplyr::full_join(model_results)
+    dplyr::right_join(model_results, by = "term")
 }
 ```
 
