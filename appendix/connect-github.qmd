@@ -134,11 +134,16 @@ use Git and save your changes to the Git history, whenever you "Push"
 your changes it will be sent to your project on GitHub. The diagram
 below shows how it conceptually looks like:
 
-```{mermaid}
+```{mermaid fig-local-vs-remote}
+%%| label: fig-local-vs-remote
+%%| fig-cap: Schematic showing a local repository connected to GitHub's remote repository.
+%%| echo: false
 %%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}}}%%
 graph LR;
     yours(Your local) -->|Push| github(GitHub)
     github -->|Pull| yours
+linkStyle 0,1 stroke-width:1px;
 ```
 
 The "Your local" is your own computer. Whenever you "push" to GitHub, it
@@ -152,13 +157,18 @@ thousands of workers use Git and services like GitHub to work together
 on massive projects. The way collaboration works would conceptually look
 like:
 
-```{mermaid}
+```{mermaid fig-local-collab-and-remote}
+%%| label: fig-local-collab-and-remote
+%%| fig-cap: Schematic showing a local repository, GitHub's remote repository, and a collaborator's repository.
+%%| echo: false
 %%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}}}%%
 graph LR;
     yours(Your local) -->|Push| github(GitHub)
     github -->|Pull| yours
     others(Collaborator's<br>local) -->|Push| github
     github -->|Pull| others
+linkStyle 0,1,2,3 stroke-width:1px;
 ```
 
 This approach to collaborating makes it much easier to contribute
