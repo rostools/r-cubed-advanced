@@ -1003,12 +1003,15 @@ made to the Git history. Then delete both `TODO.md` and the
 `doc/report.Rmd` files, followed by committing these deletions in the
 Git history. Click the "Push" button to push the changes to GitHub.
 
-TODO: Could actually wrap this purl only as an instructor detail too, to
-say "run this during exercise so you have it too"
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
 
-```{r purl-only-editor-options-to-readme}
+Use this code to help synchronize with what the learners are doing. Copy
+and paste this code into the RStudio Console of the `AdvancedR3`
+project.
+
+```{r editor-options-to-readme}
 #| eval: false
-#| echo: false
 #| purl: true
 editor_yaml <- "
 ---
@@ -1025,6 +1028,7 @@ git_ci("README.md", "Add editor options to README file.")
 gert::git_rm(c("TODO.md", "doc/report.Rmd"))
 gert::git_commit("Remove these extra files")
 ```
+:::
 
 ## Summary
 
