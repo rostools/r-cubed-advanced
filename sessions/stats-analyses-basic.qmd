@@ -26,7 +26,24 @@ something like Mentimeter because it allows everyone to participate, not
 just the ones who are more comfortable being vocal to the whole group.
 :::
 
-TODO: intro here
+Running statistical analyses is a relatively methodical and well-defined
+process, even if there is often a lot of trial and error involved.
+Sometimes it may feel overwhelming and complicated, which it definitely
+can be, but it doesn't have to be. By taking a structured approach to
+running statistical analyses, you can make it easier on yourself and
+feel more in control.
+
+In R, statistical methods are often created and developed by researcher
+with little to no training in software development and often have very
+different ways of using them. This has some advantages, like being able
+to have the cutting edge statistical methods available to us, but has a
+major disadvantage of often having to learn a completely different way
+of running a statistical analysis, even if they are fairly similar to
+ones you've used before. So having a framework for running statistical
+analyses, regardless of who created them, can provide that needed
+structure and vastly simplify the analysis. This session will be
+covering a general framework for running statistical analyses,
+regardless of the exact statistical method.
 
 ## Learning objectives
 
@@ -778,14 +795,7 @@ Run `run_styler_text`, then commit the changes made to the Git history.
 We've now defined the model we want to use and created a transformation
 `{recipes}` specification. Now we can start putting them together and
 finally fit them to the data. Putting all these pieces together is done
-with the `{workflows}` package, so before we begin, let's add it to our
-dependencies:
-
-```{r workflows-to-deps}
-#| purl: true
-#| eval: false
-use_package("workflows")
-```
+with the `{workflows}` package.
 
 Why use this package to manage these things, rather than simply run the
 statistical analysis and process the data as normal? When running
@@ -979,4 +989,31 @@ Let's explain this output a bit, each column at a time:
     won't be using this value at all in presenting the results.
 :::
 
+Before ending, open the Git interface and commit the changes you made.
+Then push your changes up to GitHub.
+
 ## Summary
+
+-   Create research questions that (ideally) are structured in a way to
+    mimic how the statistical analysis will be done, preferably in a
+    "formula" style like $y = x1 + x2 + ... + error$ and in a diagram
+    style with links connecting variables.
+-   Statistical analyses, while requiring some trial and error, are
+    surprisingly structured in the workflow and steps taken. Use this
+    structure to help guide you in completing tasks related to running
+    analyses.
+-   Use `{parsnip}` functions to define the model you want to use, like
+    `logistic_reg()` for logistic regression, and set the computational
+    "engine" with `set_engine()`.
+-   Use `{recipes}` functions to set up the data transformation steps
+    necessary to effectively run the statistical analysis, like adding
+    variable "roles" (outcome vs predictor) using `update_roles()` and
+    adding transformation steps using any of the dozen different `step_`
+    functions.
+-   Use `{workflows}` functions to develop an analysis `workflow()` that
+    combines the defined model with `add_model()`, the transformation
+    steps with `add_recipe()`, and the data with `fit()`.
+-   Use `{broom}` to `tidy()` the model output, extracted using
+    `extract_fit_parsnip()` to get a data frame of the estimates and
+    standard error for the variables in the model.
+
