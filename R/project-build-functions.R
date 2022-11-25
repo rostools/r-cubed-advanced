@@ -13,21 +13,25 @@ revise_by_text <- function(path, original, replacement) {
     readr::write_lines(here::here(path))
 }
 
-revise_by_line_num <- function(path, insert_text, remove_original_lines, insert_at_line) {
-  old_text <- readr::read_lines(here::here(path))
+revise_by_line_num <-
+  function(path,
+           insert_text,
+           remove_original_lines,
+           insert_at_line) {
+    old_text <- readr::read_lines(here::here(path))
 
-  if (!missing(remove_original_lines)) {
-    old_text <- old_text[remove_original_lines]
+    if (!missing(remove_original_lines)) {
+      old_text <- old_text[remove_original_lines]
+    }
+
+    if (!missing(insert_at_line)) {
+      insert_at_line <- length(old_text)
+    }
+
+    old_text |>
+      append(insert_text, after = insert_at_line) |>
+      readr::write_lines(here::here(path))
   }
-
-  if (!missing(insert_at_line)) {
-    insert_at_line <- length(old_text)
-  }
-
-  old_text |>
-    append(insert_text, after = insert_at_line) |>
-    readr::write_lines(here::here(path))
-}
 
 print_lines <- function(path) {
   readr::read_lines(here::here(path))

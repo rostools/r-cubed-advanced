@@ -18,7 +18,8 @@ download.file("https://zenodo.org/record/6597902/files/README.txt",
   destfile = here(nmr_omics_dir, "README.txt")
 )
 
-download.file("https://zenodo.org/record/6597902/files/NMR_Integration_Data_Lipidomics.xlsx",
+download.file(
+  "https://zenodo.org/record/6597902/files/NMR_Integration_Data_Lipidomics.xlsx", # nolint
   destfile = here(nmr_omics_dir, "lipidomics.xlsx"), mode = "wb"
 )
 

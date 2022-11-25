@@ -29,10 +29,11 @@ extract_chunks <- function() {
     quiet = TRUE
   )
 
-  extract_project_functions_from_qmd()
-  project_custom_functions <- readr::read_lines(here::here("R/project-functions.R")) |>
+  extract_functions_from_qmd()
+  project_custom_functions <- here::here("R/project-functions.R") |>
+    readr::read_lines() |>
     append('"') |>
-    prepend('" |> readr::write_lines("R/functions.R", append = TRUE)')
+    purrr::prepend('" |> readr::write_lines("R/functions.R", append = TRUE)')
 
   combined_r_file <- here::here("_ignore/code-to-build-project.R")
   fs::dir_create("_ignore")
@@ -42,15 +43,16 @@ extract_chunks <- function() {
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
     append(project_custom_functions) |>
-    prepend(readr::write_lines(here::here("R/build-project-functions.R"))) |>
+    purrr::prepend(readr::write_lines(here::here("R/build-project-functions.R"))) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop")
 }
 
-extract_project_functions_from_qmd <- function() {
+extract_functions_from_qmd <- function() {
   here::here() |>
     fs::dir_ls(recurse = TRUE, glob = "*.qmd") |>
-    purrr::map(r3admin::extract_code_block_with_label_string, string_match = "new-function") |>
+    purrr::map(r3admin::extract_code_block_with_label_string,
+               string_match = "new-function") |>
     purrr::compact() |>
     unlist() |>
     readr::write_lines(here::here("R/project-functions.R"))
@@ -58,6 +60,6 @@ extract_project_functions_from_qmd <- function() {
 
 run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
 run_lintr_text <- '`{lintr}` (`Ctrl-Shift-P`, then type "lint file")'
-run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")'
-run_tar_vis_text <- '`targets::tar_visnetwork()` (`Ctrl-Shift-P`, then type "targets visual")'
-run_roxygen_comments <- 'Roxygen comments (have the cursor inside the function, type `Ctrl-Shift-P`, then type "roxygen")'
+run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")' # nolint
+run_tar_vis_text <- '`targets::tar_visnetwork()` (`Ctrl-Shift-P`, then type "targets visual")' # nolint
+run_roxygen_comments <- 'Roxygen comments (have the cursor inside the function, type `Ctrl-Shift-P`, then type "roxygen")' # nolint
