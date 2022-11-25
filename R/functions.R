@@ -10,14 +10,11 @@ extract_chunks <- function() {
     purl = FALSE
   )
 
-  fs::dir_ls(here::here("R"), regexp = ".*[0-9][0-9]-.*\\.R$") |>
-    fs::file_delete()
-
   qmd_files <- fs::path_abs(c(
     "preamble/pre-course.qmd",
     "sessions/smoother-collaboration.qmd",
     "sessions/pipelines.qmd",
-    "sessions/statistical-analyses.qmd"
+    "sessions/stats-analyses-basic.qmd"
   ))
 
   r_files <- fs::path_temp(fs::path_file(qmd_files))
@@ -29,11 +26,9 @@ extract_chunks <- function() {
     quiet = TRUE
   )
 
+  functions_r_file <- here::here("R/project-functions.R")
   extract_functions_from_qmd()
-  project_custom_functions <- here::here("R/project-functions.R") |>
-    readr::read_lines() |>
-    append('"') |>
-    purrr::prepend('" |> readr::write_lines("R/functions.R", append = TRUE)')
+  fs::file_copy(functions_r_file, "~/Desktop", overwrite = TRUE)
 
   combined_r_file <- here::here("_ignore/code-to-build-project.R")
   fs::dir_create("_ignore")
@@ -42,10 +37,9 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
-    append(project_custom_functions) |>
-    purrr::prepend(readr::write_lines(here::here("R/build-project-functions.R"))) |>
+    purrr::prepend("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')") |>
     readr::write_lines(combined_r_file)
-  fs::file_copy(combined_r_file, "~/Desktop")
+  fs::file_copy(combined_r_file, "~/Desktop", overwrite = TRUE)
 }
 
 extract_functions_from_qmd <- function() {
