@@ -1460,17 +1460,19 @@ plot_estimates
 ```
 
 Wow, there is definitely something wrong here. The values of the
-estimate should realistically be somewhere between 0 and 5, usually
-less. We will eventually need to troubleshoot this issue, but for now,
-let's restrict the x axis to be between -5 and 5.
+estimate should realistically be somewhere between 0 (can't have a
+negative odds) and 2 (in biology and health research, odds ratios are
+rarely above 2), very unlikely more than 5. We will eventually need to
+troubleshoot this issue, but for now, let's restrict the x axis to be
+between 0 and 5.
 
-```{r}
+```{r plot-estimates-coord-fixed}
 plot_estimates +
   coord_fixed(xlim = c(0, 5))
 ```
 
-There are many more things we could start investigating based on these
-results, in order to fix them up. But for now, this will do.
+There are so many things we could start investigating based on these
+results in order to fix them up. But for now, this will do.
 
 ## Exercise: Add plot function as a target in the pipeline
 
