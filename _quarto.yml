@@ -29,6 +29,7 @@ book:
       - sessions/introduction.qmd
       - sessions/smoother-collaboration.qmd
       - sessions/pipelines.qmd
+      - sessions/stats-analyses-basic.qmd
   appendices:
     - appendix/conduct.qmd
     - appendix/connect-github.qmd
