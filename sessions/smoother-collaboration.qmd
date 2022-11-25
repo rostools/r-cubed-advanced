@@ -10,12 +10,12 @@ source(here::here("R/functions.R"))
 Many of you probably work largely and most consistently on your own, but
 as your move through your career (in academia or industry), you will
 need to and maybe also want to *directly
-collaborate*[^01-smoother-collaboration-1] a lot more with others.
+collaborate*[^smoother-collaboration-1] a lot more with others.
 Different types of collaboration (e.g. meetings, brainstorming,
 real-time co-writing) form the basis for almost all research-based work
 and probably most non-research-based work.
 
-[^01-smoother-collaboration-1]: Collaborate here meaning directly
+[^smoother-collaboration-1]: Collaborate here meaning directly
     contributing to a shared project, rather than discussed or planning
     based collaborations (and definitely not emailing-files-around
     collaboration).
@@ -643,9 +643,9 @@ seeing your code, there's a natural temptation to write your code like
 you might write notes to yourself... scribbled and scrawled down
 quickly. Even when you are working with others or try to write more
 readable code, it still is very easy for
-"lint"[^01-smoother-collaboration-2] to accumulate.
+"lint"[^smoother-collaboration-2] to accumulate.
 
-[^01-smoother-collaboration-2]: You know, the fluff you find in your
+[^smoother-collaboration-2]: You know, the fluff you find in your
     pockets 😝
 
 That's when "linters" (a type of "static code analysis" tool) become
