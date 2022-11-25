@@ -167,7 +167,12 @@ a logic and "workflow" to making these models as well!
 
 <!-- TODO: Image of workflow? Use app.diagrams.net? -->
 
-```{mermaid}
+```{mermaid fig-model-building-workflow}
+%%| label: fig-model-building-workflow
+%%| fig-cap: Simple schematic of the workflow for conducting statistical analysis.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 40, 'rankSpacing': 20}}}%%
 graph TD
     A[Research question] --> B((Statistical model))
     B --> A
@@ -175,6 +180,8 @@ graph TD
     C --> D[Data transformation]
     D --> E[Scientific output]
     E --> A
+    
+linkStyle 0,1,2,3,4,5 stroke-width:1px;
 ```
 
 ::: callout-caution
