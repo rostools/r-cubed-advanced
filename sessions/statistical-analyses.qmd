@@ -1427,7 +1427,7 @@ dot-whisker plots, the "geom" we would use is called
 -   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
     but adding `std.error` instead.
 
-```{r}
+```{r plot-estimates-pointrangne-only}
 plot_estimates <- model_estimates %>%
   ggplot(aes(
     x = estimate, y = metabolite,
