@@ -1501,6 +1501,35 @@ plot_estimates <- function(results, image_path) {
 }
 ```
 
+```{r solution-new-function-plot-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Plot the estimates and standard errors of the model results.
+#'
+#' @param results The model estimate results.
+#' @param image_path Path to where image will be saved.
+#'
+#' @return A ggplot2 figure.
+#'
+plot_estimates <- function(results, image_path) {
+  plot_results <- results %>%
+    ggplot2::ggplot(ggplot2::aes(
+      x = estimate, y = metabolite,
+      xmin = estimate - std.error,
+      xmax = estimate + std.error
+    )) +
+    ggplot2::geom_pointrange() +
+    ggplot2::coord_fixed(xlim = c(0, 5))
+
+  ggplot2::ggsave(
+    plot = plot_results,
+    filename = here::here(image_path)
+  )
+  output_switch_for_targets(plot_results, image_path)
+}
+```
+
 Then, after doing that, add the new function as a target in the
 pipeline, name the new `name` as `fig_model_estimates`.
 
