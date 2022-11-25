@@ -683,10 +683,10 @@
     },
     "future": {
       "Package": "future",
-      "Version": "1.28.0",
+      "Version": "1.29.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f3e26a942d4ee32cec9403e1ddd7000b",
+      "Hash": "783c201d2edfee73263de8e17cbdfa8e",
       "Requirements": [
         "digest",
         "globals",
