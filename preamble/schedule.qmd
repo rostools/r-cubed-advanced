@@ -15,7 +15,7 @@ add_link <- function(text, icon, link) {
   if (link == "") {
     added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;", text)
   }
-  return(gt::html(added_link))
+  return(htmltools::HTML(added_link))
 }
 
 schedule <- here::here("includes/schedule.csv") %>%
