@@ -244,8 +244,8 @@ graph TB
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
     lipidomics -- "calculate_variation()" --> model_var[Model variation]
     model_var -- "plot_variation()" --> plot_var[Plot of variation]
-    plot_est & plot_var --> rmd[R Markdown]
-
+    plot_est & plot_var -- "tar_read()" --> rmd[R Markdown]
+    
 linkStyle 0,1,2,3,4,5 stroke-width:1px;
 ```
 
