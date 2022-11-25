@@ -1,0 +1,14 @@
+# Resources
+
+{{< include ../includes/_wip.qmd >}}
+
+## Continued learning
+
+<!-- TODO: Make a separate website for continued learning? -->
+
+-   [rstats.wtf](https://rstats.wtf/)
+-   [R Programming for Data
+    Science](https://bookdown.org/rdpeng/rprogdatascience/)
+-   [Advanced R](https://adv-r.hadley.nz/)
+-   [Data Science](https://datasciencebook.ca/)
+-   [R Packages](https://r-pkgs.org/)
