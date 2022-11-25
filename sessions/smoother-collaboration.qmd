@@ -223,6 +223,7 @@ these tasks:
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are really struggling or are out of time for the exercise."
 #| purl: true
+usethis::use_package("stringr")
 usethis::use_package("readxl")
 usethis::use_package("dplyr")
 usethis::use_package("tidyr")
