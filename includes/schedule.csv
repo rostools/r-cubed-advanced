@@ -13,13 +13,13 @@ Day 2,10:30,Coffee break and snacks,mug-hot,
 Day 2,10:45,Continue previous session,laptop-code,../sessions/pipelines.html
 Day 2,12:30,Lunch,utensils,
 Day 2,13:30,Networking and social activity,user-group,
-Day 2,13:50,Running efficient statistical analyses,laptop-code,../sessions/statistical-analyses.html
+Day 2,13:50,A general approach to doing statistical analyses,laptop-code,../sessions/stats-analyses-basic.html
 Day 2,15:00,Coffee break and snacks,mug-hot,
-Day 2,15:15,Continue previous session,laptop-code,../sessions/statistical-analyses.html
+Day 2,15:15,Continue previous session,laptop-code,../sessions/stats-analyses-basic.html
 Day 2,16:15,End of day survey,comment-dots,https://docs.google.com/forms/d/e/1FAIpQLScwyqQJpuzoalyFQpiI3XjqWg6Aw8ox5ZFDJegYpmwNH0ekSQ/viewform?usp=sf_link
-Day 3,9:00,Short review; Continue previous session,laptop-code,../sessions/statistical-analyses.html
+Day 3,9:00,Short review; Efficiently running many analyses at once,laptop-code,../sessions/stats-analyses-multiple.html
 Day 3,10:30,Coffee break and snacks,mug-hot,
-Day 3,10:45,Continue previous session,laptop-code,../sessions/statistical-analyses.html
+Day 3,10:45,Continue previous session,laptop-code,../sessions/stats-analyses-multiple.html
 Day 3,12:30,Lunch,utensils,
 Day 3,13:30,Networking and social activity,user-group,
 Day 3,13:50,Publicizing your analyses with a website,laptop-code,../sessions/build-website.html
