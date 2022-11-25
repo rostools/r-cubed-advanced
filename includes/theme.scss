@@ -12,3 +12,11 @@ $font-size-root: 18px;
 $code-block-border-left: "grey60";
 
 /*-- scss:rules --*/
+
+svg {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  height: auto !important;
+  width: auto !important;
+}
