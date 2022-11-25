@@ -606,7 +606,7 @@ lipidomics %>%
 ```
 
 Move this new function over into the `R/functions.R` file, add
-`r run_roxygen_comment`, run `r run_styler_text`, `source()` the
+`r run_roxygen_comments`, run `r run_styler_text`, `source()` the
 modified `R/functions.R` file, and add the new function above the
 `pivot_wider()` code in the `doc/lessons.Rmd` file.
 
@@ -1016,4 +1016,3 @@ Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
-
