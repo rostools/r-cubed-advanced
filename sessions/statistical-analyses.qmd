@@ -46,8 +46,7 @@ More specific objectives are to:
 4.  Recall principles of functional programming and apply them to
     running statistical analyses by using the `{purrr}` package.
 5.  Use the `{broom}` package to extract the model results to later
-    present them in tabular (with `knitr::kable()`) or graphical format
-    (with `{ggplot2}`).
+    present them in graphical format (with `{ggplot2}`).
 6.  Describe what a resampling technique is, the types available, and
     why it can help estimate the variability of model results. Apply
     functions from `{rsample}` to use these techniques.
