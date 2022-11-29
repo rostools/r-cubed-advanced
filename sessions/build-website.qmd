@@ -2,5 +2,10 @@
 
 -   Displaying your output in reproducible formats: quarto website
     -   yml, navbar, contents
+    -   freeze?
 -   Connect to GitHub and make website
     -   Actions?
+    -   Add link to GitHub description section.
+-   License? Probably good idea.
+    -   use_ccby_license()
+-   Update README with link.
