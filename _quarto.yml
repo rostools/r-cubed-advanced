@@ -3,6 +3,8 @@ project:
   output-dir: public
   execute-dir: project
   pre-render: quarto render slides/*.qmd
+  resources:
+    - content/00-pre-course.html
 
 book:
   title: "Reproducible Research in R"
