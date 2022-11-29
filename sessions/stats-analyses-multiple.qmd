@@ -15,6 +15,12 @@ source(here::here("R/project-functions.R"))
 library(tidyverse)
 library(tidymodels)
 load(here::here("data/lipidomics.rda"))
+lipidomics_wide <- lipidomics %>%
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+  pivot_wider(
+    names_from = metabolite, values_from = value, values_fn = mean,
+    names_prefix = "metabolite_"
+  )
 ```
 
 ::: {.callout-note appearance="minimal" collapse="true"}
@@ -24,6 +30,9 @@ Before beginning, get them to recall what they remember of the previous
 session, either with something like Mentimeter or verbally. Preferably
 something like Mentimeter because it allows everyone to participate, not
 just the ones who are more comfortable being vocal to the whole group.
+
+Depending on what they write, might need to briefly go over the previous
+session.
 :::
 
 TODO: intro here
@@ -51,7 +60,7 @@ Specific "anti"-objectives:
 
 ## Exercise: Run model with a different metabolite
 
-> Time: \~10 minutes.
+> Time: \~15 minutes.
 
 Try running the same model workflow but run the model with
 `metabolite_lipid_ch_3_1` instead of `metabolite_cholesterol`.
@@ -134,11 +143,20 @@ Ultimately we will replace `create_recipe_spec(metabolite_...)` with
 
 ## Apply logistic regression to each metabolite
 
-You might have thought of some ideas to run the model on each metabolite
-based on the `lipidomics_wide` dataset. However, these types of
-"split-apply-combine" tasks are best done using data in the long form.
-So we'll start with the original `lipidomics` dataset. The first thing
-we want to do is convert the metabolite names into snake case:
+You may have thought of many different ways to run the model on each
+metabolite based on the `lipidomics_wide` dataset. However, these types
+of "split-apply-combine" tasks are (usually) best done using data in the
+long form. So we'll start with the original `lipidomics` dataset. Create
+a header and code chunk at the end of the `doc/lesson.Rmd` file:
+
+    ## Running multiple models
+
+    ```{{r}}
+
+    ```
+
+The first thing we want to do is convert the metabolite names into snake
+case:
 
 ```{r chain-col-to-snakecase}
 lipidomics %>%
@@ -151,9 +169,9 @@ use `group_split()` to convert the data frame into a set of
 lists[^stats-analyses-multiple-1]. Let's first add `{purrr}` as a
 dependency:
 
-[^stats-analyses-multiple-1]: There is probably a more efficient way of
-    coding this instead of making a list, but as the saying goes
-    ["premature optimization is the root of all
+[^stats-analyses-multiple-1]: There is probably a more computationally
+    efficient way of coding this instead of making a list, but as the
+    saying goes ["premature optimization is the root of all
     evil"](https://stackify.com/premature-optimization-evil/). For our
     purposes, this is a very good approach, but for very large datasets
     and hundreds of potential models to run, this method would need to
@@ -165,15 +183,18 @@ dependency:
 use_package("purrr")
 ```
 
+Then we run `group_split()` on the `metabolite` column, which will
+output a lot of data frames as a list.
+
 ```{r chain-split-by-metabolite}
 lipidomics %>%
   column_values_to_snakecase(metabolite) %>%
   group_split(metabolite)
 ```
 
-Since logistic regression needs one row to be a single person, we'll use
-`map()` to apply our custom function `metabolites_to_wider()` on each of
-the split list items:
+Remember that logistic regression models need each row to be a single
+person, so we'll use the functional `map()` to apply our custom function
+`metabolites_to_wider()` on each of the split list items:
 
 ```{r chain-map-to-wider}
 #| eval: false
@@ -190,12 +211,13 @@ lipidomics %>%
   map(metabolites_to_wider)
 ```
 
-Alright, we now have one data frame with only the single metabolite per
-list item. While again this bit of code is only a few lines, it also
-represents the conceptual action of "splitting the data into a list by
-metabolites". So let's create a function for this. Add the
-`r run_roxygen_comments`, run `r run_styler_text`, move into the
-`R/functions.R` file, and then `source()` the file.
+Alright, we now a list of data frames where each data frame has only one
+of the metabolites. These bits of code represent the conceptual action
+of "splitting the data into a list by metabolites". Since we're
+following a function-oriented workflow, let's create a function for
+this. Convert it into a function, add the `r run_roxygen_comments`, run
+`r run_styler_text`, move into the `R/functions.R` file, and then
+`source()` the file.
 
 ```{r new-function-split-by-metabolite}
 #' Convert the long form dataset into a list of wide form data frames.
@@ -212,7 +234,7 @@ split_by_metabolite <- function(data) {
 }
 ```
 
-The code should look like:
+In the `doc/lesson.Rmd`, use the new function in the code:
 
 ```{r split-by-metabolite}
 lipidomics %>%
@@ -221,12 +243,12 @@ lipidomics %>%
 
 Like we did with the `metabolite_to_wider()`, we need to pipe the output
 into another `map()` function that has a custom function that runs the
-models. We don't have this function yet, so we need to create it.
-Convert the code we've used previously into a function, replacing
-`lipidomics` with `data` and using `starts_with("metabolite_")` within
-the `create_recipe_spec()`. Add the `r run_roxygen_comments`, run
-`r run_styler_text`, move into the `R/functions.R` file, and then
-`source()` the file.
+models. We don't have this function yet, so we need to create it. Let's
+convert the modeling code we used in the exercise above into a function,
+replacing `lipidomics` with `data` and using
+`starts_with("metabolite_")` within the `create_recipe_spec()`. Add the
+`r run_roxygen_comments`, run `r run_styler_text`, move into the
+`R/functions.R` file, and then `source()` the file.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model
@@ -256,9 +278,9 @@ lipidomics %>%
   map_dfr(generate_model_results)
 ```
 
-Since we are only interested in the results for the model results for
-the metabolites, let's keep only `terms` that are metabolites using
-`filter()` and `str_detect()`.
+Since we are only interested in the model results for the metabolites,
+let's keep only the `term` rows that are metabolites using `filter()`
+and `str_detect()`.
 
 ```{r chain-filter-terms}
 model_estimates <- lipidomics %>%
@@ -272,7 +294,7 @@ Wow! We're basically at our first `{targets}` output! Before continuing,
 there is one aesthetic thing we can add: The original variable names,
 rather than the snake case version. Since the original variable still
 exists in our `lipidomics` dataset, we can join it to the
-`model_estimates` object with `full_join()`, along with a few other
+`model_estimates` object with `right_join()`, along with a few other
 minor changes. First, we'll `seelct()` only the `metabolite` and then
 create a duplicate column of `metabolite` called `term` (to match the
 `model_estimates`) using `mutate()`.
@@ -304,8 +326,8 @@ lipidomics %>%
   mutate(term = str_c("metabolite_", term))
 ```
 
-There are 504 rows, which we only need the unique values of `term` and
-`metabolite` using `distinct()`.
+There are 504 rows, but we only need the unique values of `term` and
+`metabolite`, which we can get with `distinct()`.
 
 ```{r dup-column-distinct}
 lipidomics %>%
@@ -478,11 +500,12 @@ the course). The next section will be covering another way of
 determining uncertainty. For this plot though, we will use the standard
 error of the estimate.
 
-Inside the `doc/lesson.Rmd`, let's create a new header and code chunk at
-the bottom. We'll want to use `targets::tar_read(df_model_estimates)` so
-that `{targets}` is aware that the R Markdown file is dependent on this
-target. This `targets::tar_read()` will output a path to the CSV file,
-so we will need to use `read_csv()` to load it in.
+Inside the `doc/report.Rmd`, let's create a new header and code chunk
+inside the `## Results` section. We'll want to use
+`targets::tar_read(df_model_estimates)` so that `{targets}` is aware
+that the R Markdown file is dependent on this target. This
+`targets::tar_read()` will output a path to the CSV file, so we will
+need to use `read_csv()` to load it in.
 
     ### Figure of model estimates
 
@@ -490,6 +513,8 @@ so we will need to use `read_csv()` to load it in.
     model_estimates <- targets::tar_read(df_model_estimates) %>% 
       read_csv()
     ```
+
+<!-- TODO: Add this to purl for the report.Rmd? -->
 
 ```{r exec-only-model-estimates}
 #| include: false
@@ -523,12 +548,12 @@ plot_estimates <- model_estimates %>%
 plot_estimates
 ```
 
-Wow, there is definitely something wrong here. The values of the
+Woah, there is definitely something wrong here. The values of the
 estimate should realistically be somewhere between 0 (can't have a
 negative odds) and 2 (in biology and health research, odds ratios are
-rarely above 2), very unlikely more than 5. We will eventually need to
-troubleshoot this issue, but for now, let's restrict the x axis to be
-between 0 and 5.
+rarely above 2), definitely unlikely to be more than 5. We will
+eventually need to troubleshoot this issue, but for now, let's restrict
+the x axis to be between 0 and 5.
 
 ```{r plot-estimates-coord-fixed}
 plot_estimates +
@@ -543,8 +568,8 @@ results in order to fix them up. But for now, this will do.
 > Time: \~15 minutes.
 
 Hopefully you've gotten comfortable with the function-oriented workflow,
-because we'll need to convert this code into a function and add it as a
-target in the pipeline. Use the scaffold below as a guide.
+because we'll need to convert this plot code into a function and add it
+as a target in the pipeline. Use the scaffold below as a guide.
 
 1.  Replace `model_estimates` with `results`.
 2.  Use the `output_switch_for_targets()` function we created to output
@@ -608,8 +633,8 @@ list(
 )
 ```
 
-And add the `targets::tar_read()` in the R Markdown using
-`knitr::include_graphics()`:
+And replace all the plot code in the `doc/report.Rmd` file with the
+`targets::tar_read()` inside the `knitr::include_graphics()`:
 
     ```{{r}}
     knitr::include_graphics(targets::tar_read(fig_model_estimates))
@@ -640,6 +665,7 @@ revise_by_line_num(
   insert_at_line = 31
 )
 
+# TODO: Add R Markdown to be purled too.
 targets::tar_visnetwork()
 targets::tar_make()
 git_ci("_targets", "Add plot estimates target")
