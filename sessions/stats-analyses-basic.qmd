@@ -24,6 +24,9 @@ Before beginning, get them to recall what they remember of the previous
 session, either with something like Mentimeter or verbally. Preferably
 something like Mentimeter because it allows everyone to participate, not
 just the ones who are more comfortable being vocal to the whole group.
+
+Depending on what they write, might need to briefly go over the previous
+session.
 :::
 
 Running statistical analyses is a relatively methodical and well-defined
