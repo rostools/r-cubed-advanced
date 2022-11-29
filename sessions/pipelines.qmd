@@ -1039,6 +1039,9 @@ to use the function `targets::tar_read()`.
 
 TODO: Confirm that we don't see this.
 
+TODO: Switch to using `doc/report.Rmd` for this? So we can more easily
+delete everything iin the `doc/lesson.Rmd`?
+
 Let's open up the `doc/lesson.Rmd` file and create a new header and code
 chunk and make use of the `targets::tar_read()`
 
@@ -1218,3 +1221,4 @@ Then push your changes up to GitHub.
     pipeline outputs. To include the R Markdown in the pipeline, use
     `{tarchetypes}` and the function `tar_render()`.
 -   Delete stored pipeline output with `tar_delete()`.
+
