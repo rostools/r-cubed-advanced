@@ -9,3 +9,6 @@
 -   License? Probably good idea.
     -   use_ccby_license()
 -   Update README with link.
+-   Make ggplot2 figures nicer, as an exercise? Add the theme to each
+    plot or with theme_set()
+-   Make table of model estimates and variation?
