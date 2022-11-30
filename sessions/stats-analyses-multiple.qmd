@@ -21,6 +21,7 @@ lipidomics_wide <- lipidomics %>%
     names_from = metabolite, values_from = value, values_fn = mean,
     names_prefix = "metabolite_"
   )
+metabolites_with_bootstrap_results <- read_csv(here::here("data/model-variation.csv"))
 ```
 
 ::: {.callout-note appearance="minimal" collapse="true"}
@@ -673,13 +674,19 @@ git_ci("_targets", "Add plot estimates target")
 
 ## Determine variability in model estimates with resampling
 
-We've already noticed that there is something strange with the estimates
-for some of the metabolites. What we want to do now is calculate a more
-realistic, data-specific measure of variation. The way we do that is
-through "resampling".
+Depending on the type of research questions, there are several ways to
+assess variability (or uncertainty) in the model results. We could use
+the calculated standard error of the estimate or calculate the
+confidence interval from the standard error (using
+`tidy(conf.int = TRUE)`). The disadvantage of this approach is that it
+isn't very accurate for the data. Plus, when we have such small sample
+sizes, some issues can limit the use of these typical measures of
+uncertainty. And we've already noticed that there is something strange
+with the estimates for some of the metabolites.
 
-There are many resampling techniques, and they all have slightly
-different uses. The one we will use is called the
+So instead, we can use something that is a bit more targetted to the
+data called "resampling". There are many resampling techniques, and they
+all have slightly different uses. The one we will use is called the
 ["bootstrap"](https://en.wikipedia.org/wiki/Bootstrapping_(statistics))[^stats-analyses-multiple-2].
 What bootstrapping does is take the data and randomly resamples it as
 many times as there are rows. This means you can potentially resample
@@ -699,14 +706,14 @@ data on one person!
 
 What's the advantage of this? It is a way of directly calculating the
 standard error from the data itself (rather than from a formula), so it
-gives a more accurate view of how uncertain the model estimate for our
-data. Usually, creating between 50 to 100 "resampled sets" is sufficient
-to calculate a value for the variation. Because running models with
-bootstrapped sets can take a long time to process, we will only do 10,
-or fewer if your computer is slow.
+gives a more accurate view of how uncertain the model estimate is for
+our data. Usually, creating between 50 to 100 "resampled sets" is
+sufficient to calculate a value for the variation. Because running
+models with bootstrapped sets can take a long time to process, we will
+only resample 10 times, or less if your computer is slow.
 
-The `{rsamples}` package handles "resampling". So let's add it to our
-dependency list:
+We're using the `{rsamples}` package to handle "resampling". So let's
+add it to our dependency list:
 
 ```{r rsamples-to-deps}
 #| purl: true
@@ -715,9 +722,11 @@ use_package("rsamples")
 ```
 
 We will eventually run bootstraps on all the metabolites, so we will
-need to use our `split_by_metabolite()` function first. But we will only
-use the first item in that list (accessed with `[[1]]`). Create another
-code chunk at the bottom of `doc/lesson.Rmd` to add this code:
+need to use our `split_by_metabolite()` function first. For now, we will
+only use the first item in that list (accessed with `[[1]]`) to show
+that the code works without running on all the metabolites every time.
+Create another code chunk at the bottom of `doc/lesson.Rmd` to add this
+code:
 
 ```{r split-metabolite-for-bootstrap}
 lipidomics_list <- lipidomics %>%
@@ -729,12 +738,11 @@ lipidomics_list <- lipidomics %>%
 
 > *You don't need to run the code in this reading section*.
 
-The `bootstraps()` function is how we create resampled sets, so let's
-test it out. Since this is done randomly, we should use `set.seed()` in
-order for the analysis to be reproducible. Nothing is truly random in
-computers, but rather "pseudorandom". In order for our analysis to be
-reproducible, we use `set.seed()` to force a specific "pseudorandom"
-value.
+The `bootstraps()` function is how we create resampled sets. Since this
+is done randomly, we should use `set.seed()` in order for the analysis
+to be reproducible. Nothing is truly random in computers, and instead is
+actually "pseudorandom". In order for our analysis to be reproducible,
+we use `set.seed()` to force a specific "pseudorandom" value.
 
 ```{r show-bootstrap-first-item}
 set.seed(1324)
@@ -746,7 +754,7 @@ tibble/data frame where one or more of the columns are actually a list
 object. In our case, each bootstrapped set (marked by the `id`) has
 instructions on how the resampled data will look like. We can see what
 it looks like by accessing the `splits` column and looking at the first
-item with `[[]]`:
+item with `[[1]]`:
 
 ```{r show-split-contents}
 bootstraps(lipidomics_list[[1]], times = 10)$splits[[1]]
@@ -819,7 +827,7 @@ bootstrapped_results <- fit_resamples(
 bootstrapped_results
 ```
 
-You'll see that it gives another nested tibble, but with more columsn
+You'll see that it gives another nested tibble, but with more columns
 included. Before we start selecting the results that we want, let's
 convert the code above into a function, using the function-oriented
 workflow we've used throughout the course.
@@ -856,24 +864,56 @@ bootstrapped_results <- lipidomics_list[[1]] %>%
 bootstrapped_results
 ```
 
-```{r}
+Let's explain this output a bit. The `fit_resamples()` function outputs
+a nested tibble, where each row is a resampled set. The columns that
+begin with `.` (`.metrics` or `.extracts`) are extracted details from
+each model fit to the resampled set. We'll ignore all but the
+`.extracts` column, since that is the column that we set to extract the
+`tidy_model_output()`. Let's `select()` only the `id` and the
+`.extracts` column and use `unnest()` to convert the nested tibble to a
+regular tibble based on the column given.
+
+```{r unnext-extracts}
 bootstrapped_results %>% 
   select(id, .extracts) %>%
   unnest(cols = .extracts)
 ```
 
+Alright, this is actually another nested tibble (we can see based on the
+new column `.extracts` where each row is called a `<tibble>`). So let's
+again `unnest()` this new `.extracts` column.
+
+```{r unnest-unnest-bootstrap}
+bootstrapped_results %>% 
+  select(id, .extracts) %>%
+  unnest(cols = .extracts) %>%
+  unnest(cols = .extracts)
+```
+
+Now this is something we are familiar with looking at! It shows the
+`term`, the `estimate`, as well as the bootstrap `id`. Like before, we
+only want the metabolite `estimate`, so we can use `filter()` and
+`str_detect()` like last time, as well as add the original variable
+names with `add_original_metabolite_names()`.
+
 ```{r}
 bootstrapped_results %>% 
   select(id, .extracts) %>%
-  # Need to unnest twice since first `.extracts` is a nest of another two
-  # columns of `.extracts` and `.config`.
   unnest(cols = .extracts) %>%
   unnest(cols = .extracts) %>%
   filter(str_detect(term, "metabolite_")) %>%
   add_original_metabolite_names(lipidomics) 
 ```
 
-```{r}
+Using the same workflow as before, let's convert this into a function:
+
+```{r new-function-tidy-bootstrap-output}
+#' Tidy up the bootstrap output.
+#'
+#' @param bootstrap_results The bootstrap object with model results.
+#'
+#' @return A data frame.
+#'
 tidy_bootstrap_output <- function(bootstrap_results) {
   bootstrap_results %>% 
     dplyr::select(id, .extracts) %>%
@@ -886,16 +926,65 @@ tidy_bootstrap_output <- function(bootstrap_results) {
 }
 ```
 
-```{r}
-lipidomics %>% 
-  # calculate_variation()
+Then we can start from the beginning again, right from `lipidomics`, to
+`split_by_metabolite()`, to `map()`'ing with
+`generate_model_variation()`, and finally to `map_dfr()` with
+`tidy_bootstrap_output()`. Keep in mind, this will take a while to run.
+
+```{r chain-data-to-bootstrap-results}
+#| eval: false
+metabolites_with_bootstrap_results <- lipidomics %>% 
   split_by_metabolite() %>% 
-  .[1:2] %>% 
   map(generate_model_variation) %>% 
   map_dfr(tidy_bootstrap_output)
+metabolites_with_bootstrap_results
 ```
 
 ```{r}
+#| echo: false
+metabolites_with_bootstrap_results
+```
+
+## Exercise: Convert to function and add as a target in the pipeline
+
+> Time: \~15 minutes.
+
+Continue the workflow we've applied throughout the course:
+
+1.  Move the code into a function structure (use the scaffold below as a
+    guide).
+2.  Include two arguments in the `function()` called `data` and
+    `results_path`.
+3.  Replace `lipidomics` in the code with `data`.
+4.  Add the `r run_roxgyen_comments`.
+5.  Cut and paste the function over into the `R/functions.R` file.
+6.  Run `r run_style_text` and `r run_lintr_text` (try to fix any
+    issues).
+7.  Commit the changes to the Git history.
+
+Use this code as a guide for the function.
+
+``` r
+calculate_variation <- function(___, results_path = "data/model-variation.csv") {
+  bootstrapped_results <- ___ %>% 
+    # Code from above.
+    ___
+  readr::write_csv(bootstrapped_results, here::here(results_path))
+  output_switch_for_targets(bootstrapped_results, results_path)
+}
+```
+
+```{r solution-new-function-calculate-variation}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Calculate the uncertainty in results.
+#'
+#' @param data The lipidomics data.
+#' @param results_path Path to save a CSV of the results.
+#'
+#' @return A data frame (or file path)
+#'
 calculate_variation <- function(data, results_path = "data/model-variation.csv") {
   bootstrapped_results <- data %>% 
     split_by_metabolite() %>% 
@@ -904,39 +993,59 @@ calculate_variation <- function(data, results_path = "data/model-variation.csv")
   readr::write_csv(bootstrapped_results, here::here(results_path))
   output_switch_for_targets(bootstrapped_results, results_path)
 }
-
-  
-
 ```
 
-```{r plot-variation}
-bootstrapped_results %>%
-  select(id, .extracts) %>%
-  # Need to unnest twice since first `.extracts` is a nest of another two
-  # columns of `.extracts` and `.config`.
-  unnest(cols = .extracts) %>%
-  unnest(cols = .extracts) %>%
-  filter(str_detect(term, "metabolite_")) %>%
-  add_original_metabolite_names(lipidomics) %>%
-  ggplot(aes(x = estimate)) +
-  geom_dotplot() +
-  facet_wrap(vars(metabolite))
+Next, add the function to `_targets.R`.
+
+1.  Create another `tar_target()` item in the `list()` at the bottom of
+    the file.
+2.  Use `df_model_variation` as the `name` and `calculate_variation()`
+    as the `command` with `lipidomics` and `"data/model-variation.csv"`
+    as the two arguments.
+3.  Set `"file"` as the `format`.
+4.  Run `r run_tar_vis_text` to see what targets are outdated and then
+    run `r run_tar_make_text`.
+5.  Commit the changes to the Git history.
+
+Use this code as a scaffold:
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = ___,
+    command = ___,
+    format = ___
+  )
+)
+```
+
+```{r solution-calculate-variation-to-pipeline}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+list(
+  # ...,
+  tar_target(
+    name = df_model_variation,
+    command = calculate_variation(lipidomics, "data/model-variation.csv"),
+    format = "file"
+  )
+)
 ```
 
 ## Visualizing the variability of results
 
--   Combine augment with rsamples and ggplot2 to plot different
-    estimates
+```{r plot-variation}
+metabolites_with_bootstrap_results %>%
+  ggplot(aes(x = estimate)) +
+  geom_dotplot() +
+  facet_wrap(vars(metabolite), scales = "free") 
+```
 
 ```{r}
 #| eval: false
 ```
-
-<!-- TODO: makke function for plot -->
-
-## Exercise: Running multiple models by metabolite *and* re-sampled bootstrapped set
-
-Using
 
 ## Exercise: Add functions into targets and R Markdown file
 
