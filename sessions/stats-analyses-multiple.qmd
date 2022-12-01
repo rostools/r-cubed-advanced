@@ -845,21 +845,21 @@ generate_model_variation <- function(data) {
       parsnip::set_engine("glm"),
     data %>%
       create_recipe_spec(tidyselect::starts_with("metabolite_"))
-  ) %>% 
+  ) %>%
     tune::fit_resamples(
-    resamples = rsample::bootstraps(data, times = 10),
-    control = tune::control_resamples(
-      extract = tidy_model_output,
-      save_pred = TRUE
+      resamples = rsample::bootstraps(data, times = 10),
+      control = tune::control_resamples(
+        extract = tidy_model_output,
+        save_pred = TRUE
+      )
     )
-  )
 }
 ```
 
 Re-writing the code to use the function, it becomes:
 
 ```{r}
-bootstrapped_results <- lipidomics_list[[1]] %>% 
+bootstrapped_results <- lipidomics_list[[1]] %>%
   generate_model_variation()
 bootstrapped_results
 ```
@@ -874,7 +874,7 @@ each model fit to the resampled set. We'll ignore all but the
 regular tibble based on the column given.
 
 ```{r unnext-extracts}
-bootstrapped_results %>% 
+bootstrapped_results %>%
   select(id, .extracts) %>%
   unnest(cols = .extracts)
 ```
@@ -884,7 +884,7 @@ new column `.extracts` where each row is called a `<tibble>`). So let's
 again `unnest()` this new `.extracts` column.
 
 ```{r unnest-unnest-bootstrap}
-bootstrapped_results %>% 
+bootstrapped_results %>%
   select(id, .extracts) %>%
   unnest(cols = .extracts) %>%
   unnest(cols = .extracts)
@@ -897,12 +897,12 @@ only want the metabolite `estimate`, so we can use `filter()` and
 names with `add_original_metabolite_names()`.
 
 ```{r}
-bootstrapped_results %>% 
+bootstrapped_results %>%
   select(id, .extracts) %>%
   unnest(cols = .extracts) %>%
   unnest(cols = .extracts) %>%
   filter(str_detect(term, "metabolite_")) %>%
-  add_original_metabolite_names(lipidomics) 
+  add_original_metabolite_names(lipidomics)
 ```
 
 Using the same workflow as before, let's convert this into a function:
@@ -915,14 +915,14 @@ Using the same workflow as before, let's convert this into a function:
 #' @return A data frame.
 #'
 tidy_bootstrap_output <- function(bootstrap_results) {
-  bootstrap_results %>% 
+  bootstrap_results %>%
     dplyr::select(id, .extracts) %>%
     # Need to unnest twice since first `.extracts` is a nest of another two
     # columns of `.extracts` and `.config`.
     tidyr::unnest(cols = .extracts) %>%
     tidyr::unnest(cols = .extracts) %>%
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
-    add_original_metabolite_names(lipidomics) 
+    add_original_metabolite_names(lipidomics)
 }
 ```
 
@@ -933,9 +933,9 @@ Then we can start from the beginning again, right from `lipidomics`, to
 
 ```{r chain-data-to-bootstrap-results}
 #| eval: false
-metabolites_with_bootstrap_results <- lipidomics %>% 
-  split_by_metabolite() %>% 
-  map(generate_model_variation) %>% 
+metabolites_with_bootstrap_results <- lipidomics %>%
+  split_by_metabolite() %>%
+  map(generate_model_variation) %>%
   map_dfr(tidy_bootstrap_output)
 metabolites_with_bootstrap_results
 ```
@@ -986,9 +986,9 @@ calculate_variation <- function(___, results_path = "data/model-variation.csv") 
 #' @return A data frame (or file path)
 #'
 calculate_variation <- function(data, results_path = "data/model-variation.csv") {
-  bootstrapped_results <- data %>% 
-    split_by_metabolite() %>% 
-    map(generate_model_variation) %>% 
+  bootstrapped_results <- data %>%
+    split_by_metabolite() %>%
+    map(generate_model_variation) %>%
     map_dfr(tidy_bootstrap_output)
   readr::write_csv(bootstrapped_results, here::here(results_path))
   output_switch_for_targets(bootstrapped_results, results_path)
@@ -1036,21 +1036,101 @@ list(
 
 ## Visualizing the variability of results
 
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Take your time explaining why we might use a figure like this, and what
+you're trying to show. Since there isn't much code involved, there is
+time to explain.
+:::
+
+Like we did with the estimates, let's visualize the results. Visualizing
+the estimates was pretty easy, visualizing the variation is even easier.
+We want to show the range of `estimate` values across all the
+bootstrapped models, by `metabolite` variable. There's a neat geom in
+`{ggplot2}` called `geom_dotplot()` that is similar to a histogram, but
+instead shows individual data points instead of bars. And since we want
+to show the variation by `metabolite`, we can use `facet_wrap()`. We
+will use `scales = "free"` because the range of values for `estimate`
+are different for each `metabolite`.
+
 ```{r plot-variation}
 metabolites_with_bootstrap_results %>%
   ggplot(aes(x = estimate)) +
   geom_dotplot() +
-  facet_wrap(vars(metabolite), scales = "free") 
+  facet_wrap(vars(metabolite), scales = "free")
 ```
+
+This nicely shows the ranges of values in the `estimate`, really
+highlighting how uncertain the results are for answering our original
+research questions. This figure could also be improved quite a bit from
+a visual and aesthetic point of view, but at least from a content point
+of view, it shows what we want. For now, we'll stick with this and
+finish our last pipeline target before putting everything into the
+`doc/report.Rmd` file.
+
+Let's use our function workflow with this code:
+
+1.  Create the code as a function, add a `data` argument, and replace
+    the input data object name with `data`.
+2.  Move the code into the `R/functions.R` file.
+3.  Add the `r run_roxygen_comments` and fill it in.
+4.  Run `r run_styler_text`.
+
+```{r new-function-plot-variation}
+#' Plot the uncertainty in the estimates of the models.
+#'
+#' @param model_results The model results with the variation.
+#'
+#' @return A ggplot2 image (or a file path).
+#'
+plot_variation <- function(model_results, image_path) {
+  plot_output <- model_results %>%
+    ggplot2::ggplot(ggplot2::aes(x = estimate)) +
+    ggplot2::geom_dotplot() +
+    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
+  ggplot2::ggsave(here::here(image_path), plot_output)
+  output_switch_for_targets(plot_output, image_path)
+}
+```
+
+Then we'll add it as a pipeline target to the `_targets.R` file.
 
 ```{r}
-#| eval: false
+list(
+  ...,
+  tar_target(
+    name = fig_model_variation,
+    command = plot_variation(df_model_variation, "images/fig-model-variation.png"),
+    format = "file"
+  )
+)
 ```
 
-## Exercise: Add functions into targets and R Markdown file
+Run `r run_tar_viz_text` and then run `r run_tar_make_text`. Once
+everything has been built, commit everything to the Git history.
 
-```{r}
-# TODO: Reuse all chunks that have functions and place them here to purl
-```
+## Combine all the output into the R Markdown file
+
+Now its' time to add the model results and plots to the `doc/report.Rmd`
+file. Open it up and create another code chunk at the bottom of the
+file. Like we did with the other outputs (like the figures), we'll use
+`tar_read()` to reference the image path.
+
+    ```{{r}}
+    knitr::include_graphics(tar_read(fig_model_estimates))
+    ```
+
+    ```{{r}}
+    knitr::include_graphics(tar_read(fig_model_variations))
+    ```
+
+Run `r run_tar_viz_text`, then `r run_tar_make_text`. We now have the
+report rendered to an HTML file! If you open it up in a browser, we can
+see the figures added to it. In the next session we will get more into
+making the document output nicer looking and creating it as a website.
+
+TODO: Check that the output is rendered to html.
 
 ## Summary
+
