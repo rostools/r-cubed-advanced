@@ -1017,14 +1017,16 @@ Then, inside `_targets.R`, uncomment the line where
 build the R Markdown file is `tar_render()`, which needs two things: The
 `name`, like `tar_target()` needs, and the file path to the R Markdown
 file. Again, like the other `tar_target()` items, add it to the end of
-the `list()`:
+the `list()`. Since we're using the `doc/lesson.Rmd` as a sandbox, we
+won't include it as a pipeline target. Instead we will use the
+`doc/report.Rmd` file:
 
 ``` r
 list(
   ...,
   tar_render(
-    name = lesson_rmd, 
-    path = "doc/lesson.Rmd"
+    name = report_rmd, 
+    path = "doc/report.Rmd"
   )
 )
 ```
@@ -1039,20 +1041,26 @@ to use the function `targets::tar_read()`.
 
 TODO: Confirm that we don't see this.
 
-TODO: Switch to using `doc/report.Rmd` for this? So we can more easily
-delete everything iin the `doc/lesson.Rmd`?
+Let's open up the `doc/report.Rmd` file, add a `setup` code chunk below
+the YAML header, and create a new header and code chunk and make use of
+the `targets::tar_read()`
 
-Let's open up the `doc/lesson.Rmd` file and create a new header and code
-chunk and make use of the `targets::tar_read()`
+TODO: Confirm this works.
+
+    ```{{r setup}}
+    library(tidyverse)
+    library(targets)
+    lipidomics <- tar_read(lipidomics)
+    ```
 
     ## Results
 
     ```{{r}}
-    targets::tar_read(df_stats_by_metabolite)
+    tar_read(df_stats_by_metabolite)
     ```
 
     ```{{r}}
-    knitr::include_graphics(targets::tar_read(fig_gender_by_class))
+    knitr::include_graphics(tar_read(fig_gender_by_class))
     ```
 
     ```{{r}}
@@ -1088,12 +1096,12 @@ targets::tar_read(df_stats_by_metabolite) %>%
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 '
 revise_by_text(
-  path = "doc/lesson.Rmd",
+  path = "doc/report.Rmd",
   original = "targets::tar_read(df_stats_by_metabolite)",
   replacement = pretty_basic_stats_code
 )
-styler::style_file("doc/lesson.Rmd")
-git_ci("doc/lesson.Rmd", "Basic stats as a pretty table.")
+styler::style_file("doc/report.Rmd")
+git_ci("doc/report.Rmd", "Basic stats as a pretty table.")
 ```
 
 ```{r execute-only-table-basic-stats}

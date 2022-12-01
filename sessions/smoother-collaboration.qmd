@@ -999,9 +999,9 @@ editor_options:
 
 Then, start completing the `TODO` items. Save often and watch as the
 Markdown gets reformatted. After you are done, commit the changes you
-made to the Git history. Then delete both `TODO.md` and the
-`doc/report.Rmd` files, followed by committing these deletions in the
-Git history. Click the "Push" button to push the changes to GitHub.
+made to the Git history. Then delete both `TODO.md`, followed by
+committing these deletions in the Git history. Click the "Push" button
+to push the changes to GitHub.
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
@@ -1025,8 +1025,8 @@ readLines("README.md") |>
   append(editor_yaml, after = 1) |>
   writeLines("README.md")
 git_ci("README.md", "Add editor options to README file.")
-gert::git_rm(c("TODO.md", "doc/report.Rmd"))
-gert::git_commit("Remove these extra files")
+gert::git_rm("TODO.md")
+gert::git_commit("Don't need this file anymore.")
 ```
 :::
 
