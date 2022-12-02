@@ -15,21 +15,20 @@ search: false
 
 ## Question: How many of you want to work more closely with others?
 
--   :heavy_check_mark: Go to your assigned table and group (see list)
--   :heavy_check_mark: Introduce yourself to your group members
--   :heavy_check_mark: Open your `LearnR3.Rproj` RStudio project
--   :heavy_check_mark: Make sure your `data-raw/` looks like the thing
-    on the side
+## Checklist
+
+-   :heavy_check_mark: Go to your assigned table
+-   :heavy_check_mark: Open your `AdvancedR3.Rproj` RStudio project
+-   :heavy_check_mark: Make sure project folder looks like the thing on
+    the side
     -   **NO** other files should be there besides these (some of you
         have other files and folders)
-    -   If not, re-do the pre-course download data tasks and ask us for
-        help
 -   :heavy_check_mark: Just in case, do
     `r3::install_packages_advanced()`
 
-## Motivation for this course
+# Motivation for this course
 
-## `r emo::ji("shrug")`...Because code sharing is almost non-existent in science
+## 
 
 ### Code sharing: From scientific principle of "reproducibility"
 
@@ -61,19 +60,19 @@ search: false
 -   During lunch, try to sit besides someone you don't know or know less
     than the others.
 
-### Getting or asking for help `r emo::ji("raising_hand_woman")`
+### Getting or asking for help :raising_hand_woman:
 
-\- Put the sticky on your laptop to get help
+-   Put the sticky on your laptop to get help
 
-\- There are lots of helpers
+-   There are lots of helpers
 
-\- Team members, help out too
+-   Team members, help out too
 
-\- We're all learning here!
+-   We're all learning here!
 
-\- This is a supportive and safe environment
+-   This is a supportive and safe environment
 
-\- Remember our [Code of Conduct](conduct.html)\]
+-   Remember our [Code of Conduct](conduct.html)
 
 ### Practice using stickies: Does your `data-raw/` look as this?
 
@@ -102,5 +101,4 @@ still struggle with R?
 
 ## We are always looking to improve the course
 
-### So your feedback is so helpful and important `r emo::ji("grin")`
-
+### So your feedback is so helpful and important :grin:
