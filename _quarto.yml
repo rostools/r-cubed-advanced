@@ -47,6 +47,7 @@ bibliography:
   - includes/references.bib
   - includes/packages.bib
 csl: includes/vancouver.csl
+
 callout-appearance: simple
 reference-location: margin
 citation-location: margin
