@@ -482,8 +482,8 @@ need to use `read_csv()` to load it in.
 
 ```{r exec-only-model-estimates}
 #| include: false
-model_estimates <- lipidomics %>%
-  calculate_estimates()
+model_estimates <- here::here("data/model-estimates.csv") %>%
+  readr::read_csv(show_col_types = FALSE)
 ```
 
 Then we'll start using `{ggplot2}` to visualize the results. For
