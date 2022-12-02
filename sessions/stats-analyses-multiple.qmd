@@ -79,57 +79,6 @@ Specific "anti"-objectives:
 
 -   Same as the "anti"-objectives of @sec-stats-analysis-basic.
 
-TODO: Maybe not do this exercise?
-
-## Exercise: Run model with a different metabolite
-
-> Time: \~15 minutes.
-
-Try running the same model workflow but run the model with
-`metabolite_lipid_ch_3_1` instead of `metabolite_cholesterol`.
-
-1.  In the `doc/lesson.Rmd` file, create a new `###` header and code
-    chunk at the bottom of the R Markdown file (see the scaffold
-    template below). You can use the code below as a scaffold, you can
-    even copy and paste it.
-2.  Copy and paste the previous workflow we created above and then
-    replace all `metabolite_cholesterol` with `metabolite_lipid_ch_3_1`
-    (or copy and paste the scaffold below).
-3.  Run the code to get the results for `metabolite_lipid_ch_3_1`. What
-    is the coefficient (`estimate`) for the `metabolite_lipid_ch_3_1`
-    compared to the `metabolite_cholesterol` result?
-4.  Use `r run_styler_text` on the R Markdown file. Then commit the
-    changes to the Git history.
-5.  Notice the only difference between the code running the models on
-    `metabolite_cholesterol` compared to models on
-    `metabolite_lipid_ch_3_1`? Keep this in mind for the next exercise
-    :wink:
-
-Use the scaffolding below as a guide. *Note*: The code has been
-purposefully written poorly so you can use `{styler}` to fix it up.
-
-    ### Model with a different metabolite
-    ``` {{r}}
-    create_model_workflow(___()%>%set_engine("glm"),
-    lipidomics_wide%>%create_recipe_spec(___)
-    ) %>%fit( lipidomics_wide ) %>% 
-    tidy_model_output()
-    ```
-
-```{r solution-model-with-different-metabolite}
-#| eval: false
-#| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-create_model_workflow(
-  logistic_reg() %>%
-    set_engine("glm"),
-  lipidomics_wide %>%
-    create_recipe_spec(metabolite_lipid_ch_3_1)
-) %>%
-  fit(lipidomics_wide) %>%
-  tidy_model_output()
-```
-
 ## Exercise: How would we use functional programming to run multiple models?
 
 > Time: \~20 minutes.
