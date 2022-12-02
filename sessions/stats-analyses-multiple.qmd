@@ -169,17 +169,9 @@ person, so we'll use the functional `map()` to apply our custom function
 `metabolites_to_wider()` on each of the split list items:
 
 ```{r chain-map-to-wider}
-#| eval: false
 lipidomics %>%
   column_values_to_snakecase(metabolite) %>%
   group_split(metabolite) %>%
-  map(metabolites_to_wider)
-```
-
-```{r exec-only-chain-map-to-wider}
-#| eval: true
-#| echo: false
-.Last.value %>%
   map(metabolites_to_wider)
 ```
 
