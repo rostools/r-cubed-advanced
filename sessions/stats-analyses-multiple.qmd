@@ -501,10 +501,11 @@ dot-whisker plots, the "geom" we would use is called
 -   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
     but adding `std.error` instead.
 
-```{r plot-estimates-pointrangne-only}
-plot_estimates <- model_estimates %>%
+```{r plot-estimates-pointrange-only}
+plot_estimates <- model_estimates %>% 
   ggplot(aes(
-    x = estimate, y = metabolite,
+    x = estimate, 
+    y = metabolite,
     xmin = estimate - std.error,
     xmax = estimate + std.error
   )) +
@@ -919,9 +920,9 @@ Continue the workflow we've applied throughout the course:
 2.  Include two arguments in the `function()` called `data` and
     `results_path`.
 3.  Replace `lipidomics` in the code with `data`.
-4.  Add the `r run_roxgyen_comments`.
+4.  Add the `r run_roxygen_comments`.
 5.  Cut and paste the function over into the `R/functions.R` file.
-6.  Run `r run_style_text` and `r run_lintr_text` (try to fix any
+6.  Run `r run_styler_text` and `r run_lintr_text` (try to fix any
     issues).
 7.  Commit the changes to the Git history.
 
@@ -1059,7 +1060,7 @@ plot_variation <- function(model_results, image_path) {
 
 Then we'll add it as a pipeline target to the `_targets.R` file.
 
-```{r}
+``` r
 list(
   ...,
   tar_target(
@@ -1070,7 +1071,7 @@ list(
 )
 ```
 
-Run `r run_tar_viz_text` and then run `r run_tar_make_text`. Once
+Run `r run_tar_vis_text` and then run `r run_tar_make_text`. Once
 everything has been built, commit everything to the Git history.
 
 ## Combine all the output into the R Markdown file
@@ -1088,7 +1089,7 @@ file. Like we did with the other outputs (like the figures), we'll use
     knitr::include_graphics(tar_read(fig_model_variations))
     ```
 
-Run `r run_tar_viz_text`, then `r run_tar_make_text`. We now have the
+Run `r run_tar_vis_text`, then `r run_tar_make_text`. We now have the
 report rendered to an HTML file! If you open it up in a browser, we can
 see the figures added to it. In the next session we will get more into
 making the document output nicer looking and creating it as a website.
@@ -1113,4 +1114,3 @@ TODO: Check that the output is rendered to html.
     of models, easily and with minimal code.
 -   Visualize variation in data with alternatives to histograms like
     `geom_dotplot()`.
-
