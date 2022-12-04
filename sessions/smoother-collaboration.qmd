@@ -100,7 +100,9 @@ the use of the `{here}` package. So we already are following this
 approach from the start, which will make it easier to track package
 dependencies of our project.
 
-TODO: Image of this workflow?
+![Cartoon of combining R Projects with the `{here}` package, compared to
+the common approach of using `setwd()`. [Artwork by
+\@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/e684ee45-98fc-469e-997c-e2d68b0096cd_rw_1920.png?h=d754f634e6fc1e292430124fbe44dad7)
 
 Let's start with the `AdvancedR3` project that uses the `lipidomics`. We
 have code in the `data-raw/nmr-omics.R` file that uses some packages.
@@ -248,6 +250,10 @@ While the approach of managing package dependencies through the
 not keeping track of the *version* of each of your packages. So instead
 we are going to use a package dedicated to handling project
 dependencies, called `{renv}`.
+
+![Cartoon showing a simplified version of what `{renv}` does for R
+Projects, by making them more self-contained. [Artwork by
+\@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/3c1eda6b-be13-4257-9c32-4cf865f171ae_rw_1920.png?h=5a6482956a683b2fc417f965674456de)
 
 `{renv}` is a package that manages package dependencies in a project by,
 in simple terms, creating a project-specific R "library". You might
