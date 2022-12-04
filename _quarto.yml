@@ -4,6 +4,7 @@ project:
   execute-dir: project
   pre-render: quarto render slides/*.qmd
   resources:
+    - slides/*
     - content/00-pre-course.html
 
 book:
