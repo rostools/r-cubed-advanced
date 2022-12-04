@@ -7,3 +7,5 @@ public
 includes/packages.bib
 data-raw/nmr-omics/
 _ignore
+slides/*.html
+slides/*_files/*
