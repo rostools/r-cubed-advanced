@@ -1,4 +1,4 @@
-# Building a website your analyses {#build-website}
+# Building a website your analyses {#sec-build-website}
 
 {{< include ../includes/_wip.qmd >}}
 
@@ -14,43 +14,131 @@ The overall objective for this session is to:
 
 More specific objectives are to:
 
-1.  Recall principles of functional programming and apply them to
-    running statistical analyses by using the `{purrr}` package.
-2.  Continue applying the concepts and functions used from the previous
+1.  Describe how websites are essentially folders and files, where some
+    files need to be named a specific way (like the `index.html` file).
+2.  Explain how Quarto executes R code in a document and creates
+    different file formats from it, like Word or HTML. Use Quarto's YAML
+    header options, like `format: docx` or `format: html`, to create
+    different file outputs.
+3.  Use the `_quarto.yml` file along with Quarto options to apply the
+    understanding of how websites work and to build then them.
+4.  Use GitHub Actions to automate generating and uploading the website,
+    then demonstrate how to make the material open by adding a license
+    to the repository.
+5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-## What is Quarto?
+## What is a website and why create one?
+
+## What is Quarto and why use it?
+
+-   YAML header
+
+![Cartoon showing the general workflow that Quarto uses to create
+different file outputs. [Artwork by
+\@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/b5217f2a-f129-4bf9-90dc-c5b9783d0ea8_rw_1920.png?h=0d8c9fc177975359270821bcba83986c)
+
+## Exercise: Convert R Markdown YAML to Quarto style
+
+add affiliation, author name, etc
+
+try creating a word document.
+
+## Using Quarto to build a project website
+
+Need to create an `index.qmd` file and a `_quarto.yml` file.
+
+```{r}
+fs::file_create("_quarto.yml")
+fs::file_create("index.qmd")
+```
+
+``` yml
+project:
+  type: website
+```
+
+``` yml
+website:
+  title: "UPDATE"
+  search: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: doc/report.Rmd
+        text: "Report"
+```
 
 -   Displaying your output in reproducible formats: quarto website
     -   yml, navbar, contents
 
-## Exercise: Convert R Markdown YAML to Quarto
+``` yml
+format:
+  html:
+    theme: litera
+```
 
-## Setup project to build a website
+``` yml
+knitr:
+  opts_chunk:
+    echo: false
+```
 
-## Exercise: Add website as a pipeline targe
+## Exercise: Add website as a pipeline target
+
+`tar_quarto()`
+
+``` yml
+editor_options:
+  markdown:
+  wrap: 72
+  canonical: true
+```
 
 ## Automate rendering the website
 
 -   Combine with freeze?
 
+``` yml
+execute:
+  freeze: auto
+```
+
 -   Connect to GitHub and make website
 
     -   Actions?
-    -   Add link to GitHub description section.
-
--   Update README with link.
 
 ## Exercise: Add license to repository
 
+-   Add link to GitHub description section.
+
+-   Update README with link.
+
 -   License? Probably good idea.
+
     -   use_ccby_license()
+
+``` yml
+website:
+  ...
+  page-footer:
+    center:
+      - text: "License: CC BY 4.0"
+```
 
 ## Exercise: Make figures prettier
 
 -   Make ggplot2 figures nicer, as an exercise? Add the theme to each
     plot or with theme_set()
 -   Add figure captions, fig heights, widths
+    -   using quarto style code
 -   Make table of model estimates and variation?
+
+## Make we
+
+## Resources
+
+-   Bibliography
 
 ## Summary
