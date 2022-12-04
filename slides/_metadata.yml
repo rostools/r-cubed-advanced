@@ -1,5 +1,10 @@
 format:
   revealjs:
-    menu: false
-    progress: false
+    from: markdown+emoji
+    theme:
+      - simple
+      - theme.scss
+    menu: true
+    progress: true
+    logo: ../images/favicon.ico
 search: false
