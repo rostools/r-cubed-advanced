@@ -91,10 +91,6 @@ There will be lots of bumps along the way!
 
 # Activities
 
-## :walking_woman::walking_man: How many of you work mostly on your own in your project(s)? {.center}
-
-## :walking_woman::walking_man: How many of you want to work more closely or collaboratively with others? {.center}
-
 ## :walking_woman::walking_man: How do you perceive your skill in R? {.center}
 
 ::: notes
@@ -109,3 +105,25 @@ Staying where you are, raise your hand if you would answer yes to this
 question. If it was part of a statistics course, it doesn't really
 count.
 :::
+
+## :walking_woman::walking_man: Have you attended at least one of these courses before? {.center}
+
+::: notes
+Only have those who indicated they did have training (from previous
+question).
+:::
+
+## :walking_woman::walking_man: How many of you work mostly on your own in your project(s)? {.center}
+
+::: notes
+Range from almost entirely alone to never alone.
+:::
+
+## :walking_woman::walking_man: How easy is it to collaborate with others on your project(s)? {.center}
+
+## :walking_woman::walking_man: How many of you want to work more closely or collaboratively with others? {.center}
+
+::: notes
+Range from definitely no to definitely yes.
+:::
+
