@@ -1,3 +1,16 @@
+---
+format:
+  revealjs:
+    from: markdown+emoji
+    theme:
+      - simple
+      - theme.scss
+    menu: true
+    progress: true
+    logo: ../images/favicon.ico
+search: false
+---
+
 # Welcome to the Advanced R^3^ course!
 
 -   :heavy_check_mark: Go to your assigned table
@@ -97,3 +110,4 @@ Staying where you are, raise your hand if you would answer yes to this
 question. If it was part of a statistics course, it doesn't really
 count.
 :::
+
