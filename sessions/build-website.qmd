@@ -1,15 +1,56 @@
 # Building a website your analyses {#build-website}
 
+{{< include ../includes/_wip.qmd >}}
+
+Intro
+
+## Learning objectives
+
+The overall objective for this session is to:
+
+1.  Explain what a website is, what minimum files are needed, and how to
+    use Quarto as a framework for creating them and including them as
+    part of a pipeline.
+
+More specific objectives are to:
+
+1.  Recall principles of functional programming and apply them to
+    running statistical analyses by using the `{purrr}` package.
+2.  Continue applying the concepts and functions used from the previous
+    sessions.
+
+## What is Quarto?
+
 -   Displaying your output in reproducible formats: quarto website
     -   yml, navbar, contents
-    -   freeze?
+
+## Exercise: Convert R Markdown YAML to Quarto
+
+## Setup project to build a website
+
+## Exercise: Add website as a pipeline targe
+
+## Automate rendering the website
+
+-   Combine with freeze?
+
 -   Connect to GitHub and make website
+
     -   Actions?
     -   Add link to GitHub description section.
+
+-   Update README with link.
+
+## Exercise: Add license to repository
+
 -   License? Probably good idea.
     -   use_ccby_license()
--   Update README with link.
+
+## Exercise: Make figures prettier
+
 -   Make ggplot2 figures nicer, as an exercise? Add the theme to each
     plot or with theme_set()
--   Make table of model estimates and variation?
 -   Add figure captions, fig heights, widths
+-   Make table of model estimates and variation?
+
+## Summary
