@@ -36,6 +36,7 @@ book:
       - sessions/stats-analyses-basic.qmd
       - sessions/stats-analyses-multiple.qmd
   appendices:
+    - appendix/social.qmd
     - appendix/conduct.qmd
     - appendix/connect-github.qmd
     - appendix/resources.qmd
