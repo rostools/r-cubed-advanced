@@ -65,12 +65,11 @@ Ask who knows what reproducibility is and could explain it.
 :::
 :::
 
-## Disclaimer: This material is *brand* new and *need* your feedback to improve it :grin: {.center}
+## Disclaimer: This material is *brand* new {.center}
 
-::: aside
-Please also be kind and understanding, there will be lots of bumps along
-the way!
-:::
+### We *need* your feedback to improve it :grin:
+
+There will be lots of bumps along the way!
 
 ## Getting or asking for help :raising_hand_woman:
 
@@ -92,11 +91,11 @@ the way!
 
 # Activities
 
-## :walking_woman: :walking_man: How many of you work mostly on your own in your project(s)? {.center}
+## :walking_woman::walking_man: How many of you work mostly on your own in your project(s)? {.center}
 
-## :walking_woman: :walking_man: How many of you want to work more closely or collaboratively with others? {.center}
+## :walking_woman::walking_man: How many of you want to work more closely or collaboratively with others? {.center}
 
-## :woman_walking: :man_walking: How do you perceive your skill in R? {.center}
+## :walking_woman::walking_man: How do you perceive your skill in R? {.center}
 
 ::: notes
 Along the wall, arrange to one side is "novice/basic" and other side is
@@ -110,4 +109,3 @@ Staying where you are, raise your hand if you would answer yes to this
 question. If it was part of a statistics course, it doesn't really
 count.
 :::
-

@@ -4,10 +4,13 @@
 
 > [**Introduction slides**](../slides/introduction.html)
 
-```{r intro-slides-iframe}
-#| echo: false
-knitr::include_url("../slides/introduction.html", height = "375px")
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/introduction.html"></iframe>
 ```
+
+</div>
 
 Hopefully you see that you can do a lot with very little code.
 
@@ -146,3 +149,4 @@ like:
         to doing better science since it fits with the philosophy of
         doing science.
 :::
+

@@ -2,9 +2,10 @@ project:
   type: book
   output-dir: public
   execute-dir: project
-  pre-render: quarto render slides/*.qmd
+  post-render: quarto render slides/introduction.qmd
   resources:
-    - slides/*
+    - slides/*.html
+    - slides/introduction_files
     - content/00-pre-course.html
 
 book:
