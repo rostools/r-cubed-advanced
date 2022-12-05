@@ -266,7 +266,7 @@ can be done by either:
 2.  Or, running the command
     `prodigenr::setup_project("~/Desktop/AdvancedR3")` (or other
     location like `Documents`) in the R Console and manually switching to
-    it using: "File -\> Open Project" and navigating to the project location.
+    it using: `File -> Open Project` and navigating to the project location.
     
 ```{r purl-only-run-prodigenr}
 #| echo: false
