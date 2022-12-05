@@ -46,40 +46,154 @@ feel comfortable with it.
 
 ## Websites, what they are and why researchers should create more
 
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Talk through this point, showing the websites and reinforcing that a
+website isn't anything special, it's just a different type of file then
+they typically use or create.
+:::
+
 Websites are a bit of a mystery in many ways. You open a browser, go to
 Google, search for something, click a link, scroll through the website,
 and read text, view images, or watch videos. But what are websites
 actually?
 
-At their core, a file on your computer and a webpage you click into are
-exactly the same. A website is literally a series of folders and files
-on a server in another country. Let's use Posit (the new RStudio company
-name) as an example. The website <https://posit.co/> is the same as your
-computer's root folder (Windows it is usually `C:/` while Linux and
-MacOS is `/`). The website <https://posit.co/resources/> (notice the
-`resources/` ending) is like a `/resources/` folder in your computer
-(e.g. in Windows it would be `C:/resources/`).
+At their simplest and most basic core, a file on your computer and a
+webpage you click into are exactly the same. A website is literally a
+series of folders and files on a server in another country. Let's use
+Posit (the new RStudio company name) as an example. The website
+<https://posit.co/> is like a folder called `posit.co/` on your
+computer. The website <https://posit.co/resources/> (notice the
+`resources/` ending) is like a `resources/` folder in the `posit.co/`
+main folder on your computer. But you might ask, you just said a webpage
+is like a file, so where is the file name in
+<https://posit.co/resources/>? Well, browsers do something special when
+they see an URL with no file ending: They assume some default files to
+look for. When a URL doesn't include a file ending, the browser looks
+for files that are named either `index` or `default`. The most common
+file name for a webpage is `index.html`. But it can also be `index.php`,
+`index.asp`, or `default.htm`. We can test which file name a webpage is
+by typing the file name at the end of the URL. If we try
+<https://posit.co/resources/index.html>, we get a 404 error, meaning the
+file doesn't exist. But if we try
+<https://posit.co/resources/index.php>, if works! So making a website is
+as simple as having HTML files in a folder and uploading that folder
+onto a website hosting service. The services themselves can be tricky to
+use, but some are dead easy, like GitHub Pages is, which we will show
+later on.
 
-`index.php` or `index.html`
-
-    index.asp
-    index.cfm
-    index.jsp
-    default.htm
+So why should researchers make websites? Because it is the easiest way
+to disseminate your work, your projects, who you are as a researcher,
+and to have more impact and outreach. Given the current tools available
+and their ease of use, there is no reason any researcher (even
+non-technical ones) couldn't use websites as a way of publishing more of
+your work. Especially since if you are already learning about the
+workflow around using R, building functions, writing R Markdown (or
+Quarto), and using Git and GitHub, adding a website builder into this
+workflow is surprisingly easy.
 
 ## What is Quarto and why use it?
 
--   YAML header
+[Quarto](https://quarto.org/) is the next-generation R Markdown document
+generator. You might not even realize it, but if you are using a
+relatively recent version of RStudio, you are already using Quarto to
+knit your R Markdown documents. In terms of writing Markdown syntax,
+there is no difference between R Markdown and Quarto (since they both
+use [Pandoc](http://pandoc.org/) internally). The differences become
+obvious when you want to make more complex outputs like websites, books,
+or presentations or if you want to use another language like Python.
+Quarto is "language-agnostic", meaning it isn't limited to only R
+(unlike R Markdown for the most part). And it is even easier to use than
+R Markdown and the documentation on Quarto's website is very high
+quality. Over the next few years, R Markdown will be slowly phased out
+in favour of Quarto, for good reason. It is an massive upgrade in
+features and usability.
 
 ![Cartoon showing the general workflow that Quarto uses to create
 different file outputs. [Artwork by
 \@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/b5217f2a-f129-4bf9-90dc-c5b9783d0ea8_rw_1920.png?h=0d8c9fc177975359270821bcba83986c)
 
+Let's start the comparison with the YAML header differences between R
+Markdown and Quarto:
+
+::: columns
+::: {.column width="50%"}
+### Quarto: Word documents
+
+``` yml
+format: docx
+```
+
+### Quarto: HTML documents
+
+``` yml
+format: html
+```
+:::
+
+::: {.column width="50%"}
+### R Markdown: Word documents
+
+``` yml
+output: word_document
+```
+
+### R Markdown: HTML documents
+
+``` yml
+output: html_document
+```
+:::
+:::
+
+As you can see, they aren't too different. But as you use it more
+though, it becomes obvious how powerful Quarto is. Let's open the
+`doc/report.Rmd` file and delete all the existing YAML metadata and
+convert to the formal Quarto format. We'll create a HTML output document
+for now.
+
+``` yml
+title: "Analysis of lipidomics"
+format: html
+```
+
+We can use the same keybinding shortcut as with R Markdown:
+`Ctrl-Shift-K`. You can also use the Command Palette (`Ctrl-Shift-P`)
+followed by typing "render".
+
+One big upgrade from R Markdown is that Quarto has a strong focus on
+scholarly writing and formatting, for instance by adding authors and
+affiliation metadata that gets added to the output document. It looks
+like:
+
+``` yml
+author:
+  - name: Jane
+    orcid: 0000-0000-0000-0000
+    email: mymail@email.com
+    affiliations:
+      - name: Insitution Name
+        address: Street 10
+        city: City
+        postal-code: 0000
+```
+
 ## Exercise: Convert R Markdown YAML to Quarto style
 
-add affiliation, author name, etc
+> Time: \~10 minutes.
 
-try creating a word document.
+In the `doc/report.Rmd` file, add your author information to the YAML
+header.
+
+1.  Add the `author:` metadata below the `title:` and above the
+    `format:` metadata.
+2.  Include your `name` and `affiliations` (with only the `- name:` for
+    institution).
+3.  Render the document with `Ctrl-Shift-K`. See what gets changed.
+4.  Replace `format: html` with `format: docx` and re-render the
+    document. Switch back to `html`.
+5.  Commit the changes to the Git history.
 
 ## Using Quarto to build a project website
 
