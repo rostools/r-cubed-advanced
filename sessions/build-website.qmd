@@ -28,7 +28,44 @@ More specific objectives are to:
 5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-## What is a website and why create one?
+## Exercise: What is a website?
+
+> Time: \~5 minutes.
+
+With your neighbour, discuss and come to an agreement about what
+*exactly is* a website? Could you explain it to an 80 year old? Or a 10
+year old? Or to the class? Don't look ahead!
+:stuck_out_tongue_winking_eye:
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Ask if anyone wants to share, though they don't need to if they don't
+feel comfortable with it.
+:::
+
+## Websites, what they are and why researchers should create more
+
+Websites are a bit of a mystery in many ways. You open a browser, go to
+Google, search for something, click a link, scroll through the website,
+and read text, view images, or watch videos. But what are websites
+actually?
+
+At their core, a file on your computer and a webpage you click into are
+exactly the same. A website is literally a series of folders and files
+on a server in another country. Let's use Posit (the new RStudio company
+name) as an example. The website <https://posit.co/> is the same as your
+computer's root folder (Windows it is usually `C:/` while Linux and
+MacOS is `/`). The website <https://posit.co/resources/> (notice the
+`resources/` ending) is like a `/resources/` folder in your computer
+(e.g. in Windows it would be `C:/resources/`).
+
+`index.php` or `index.html`
+
+    index.asp
+    index.cfm
+    index.jsp
+    default.htm
 
 ## What is Quarto and why use it?
 
