@@ -6,7 +6,6 @@ project:
   resources:
     - slides/*.html
     - slides/introduction_files
-    - content/00-pre-course.html
 
 book:
   title: "Reproducible Research in R"
@@ -83,3 +82,6 @@ knitr:
     width: 68
     comment: ""
     class-output: sourceCode
+
+execute:
+  freeze: auto
