@@ -1,4 +1,4 @@
-# Building a website your analyses {#sec-build-website}
+# Publicizing your analyses with a website {#sec-build-website}
 
 {{< include ../includes/_wip.qmd >}}
 
