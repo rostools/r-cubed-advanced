@@ -78,6 +78,11 @@ Specific "anti"-objectives:
     entirely wrong in how to do them correctly if an expert were to
     review them.
 
+::: callout-warning
+We will be making *a lot* of function throughout this session and the
+next. This is just a fair warning!
+:::
+
 ## Exercise: What does a "model" mean?
 
 > Time: \~8 minutes.
@@ -1024,3 +1029,4 @@ Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
+

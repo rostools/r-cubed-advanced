@@ -12,10 +12,6 @@
 
 </div>
 
-Hopefully you see that you can do a lot with very little code.
-
-Warning: Will be making a lot of functions.
-
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
 
@@ -149,4 +145,3 @@ like:
         to doing better science since it fits with the philosophy of
         doing science.
 :::
-
