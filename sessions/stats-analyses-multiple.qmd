@@ -691,7 +691,7 @@ lipidomics_list <- lipidomics %>%
   split_by_metabolite()
 ```
 
-::: callout-info
+::: callout-note
 ## Reading task: \~10 minutes
 
 > *You don't need to run the code in this reading section*.

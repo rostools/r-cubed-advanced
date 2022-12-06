@@ -250,7 +250,7 @@ function-oriented workflows and how `{targets}` and the `tar_target()`
 works.
 :::
 
-::: callout-info
+::: callout-note
 ## Reading task: \~8
 
 Next, open up the `_targets.R` and we'll take a look at what it
@@ -459,7 +459,7 @@ these tasks:
 8.  Save both files and then open the Git interface and commit the
     changes you made to them.
 
-::: callout-info
+::: {.callout-note appearance="default"}
 In the intermediate course, we highly suggested using `return()` at the
 end of the function. Technically we don't need an explicit `return()`,
 since the output of the last code that R runs within the function will

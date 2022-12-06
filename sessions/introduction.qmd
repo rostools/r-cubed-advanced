@@ -21,7 +21,7 @@ the keyboard.
 
 ## The Big Picture
 
-::: callout-info
+::: callout-note
 ## Reading task: \~10 minutes
 
 This section provides a bigger picture view of what we will be doing,

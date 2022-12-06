@@ -116,7 +116,7 @@ project, they can as seamlessly as possible install or update the
 packages your data analysis project needs. There are a few ways of
 "tracking" package dependencies.
 
-::: callout-info
+::: callout-note
 ## Reading task: \~5 minutes
 
 1.  The simplest, but most primitive way is to always make sure to use
@@ -505,7 +505,7 @@ reactivate it.
 
 **Let's commit the changes made to the Git history**.
 
-::: callout-info
+::: callout-note
 ## Reading task: \~5 minutes
 
 It's surprising how many issues can come up, from a reproducibility
@@ -663,7 +663,7 @@ For the information block below, mention it to the learners but you
 don't need to go over it. Especially mention the second part of the tip.
 :::
 
-::: callout-tip
+::: {.callout-tip appearance="default"}
 When you come back to a project after a few months or if you start
 collaborating on a project, usually `renv::restore()` will be enough to
 install all types of dependencies. Sometimes though, workflow
@@ -881,7 +881,7 @@ on all files in the project with:
 styler::style_dir()
 ```
 
-::: callout-note
+::: {.callout-note appearance="default"}
 You will probably be asked to install something, click "Yes".
 :::
 
@@ -902,7 +902,7 @@ it together with `{lintr}` and sometimes manually running reformatting
 Mention the callout block below, but don't go into it at all.
 :::
 
-::: callout-tip
+::: {.callout-tip appearance="default"}
 You might be used to using 4 spaces for tabs instead of 2. The tidyverse
 style uses 2, so the default option in `{styler}`
 
@@ -961,7 +961,7 @@ writing R Markdown files (which is great if you are more comfortable
 with apps like Word). Let's test out this option. First, let's make sure
 everything has been committed to the Git history.
 
-::: callout-warning
+::: {.callout-warning appearance="default"}
 Use this option *only if* you have your project under Git version
 control, since it will directly modify and overwrite the contents of the
 entire file.

@@ -78,7 +78,7 @@ Specific "anti"-objectives:
     entirely wrong in how to do them correctly if an expert were to
     review them.
 
-::: callout-warning
+::: {.callout-warning appearance="default"}
 We will be making *a lot* of function throughout this session and the
 next. This is just a fair warning!
 :::
@@ -199,7 +199,7 @@ graph TD
 linkStyle 0,1,2,3,4,5 stroke-width:1px;
 ```
 
-::: callout-caution
+::: {.callout-caution appearance="default"}
 The entire workflow for building statistical models requires highly
 specific domain knowledge on not only the statistics themselves, but
 also how the data was collected, what the values mean, what type of
@@ -539,7 +539,7 @@ later. So, to make this function a bit more generic, we can use
 something called "curly-curly" (it looks like `{{}}` when used) and
 "non-standard evaluation" (NSE).
 
-::: callout-info
+::: callout-note
 ## Reading task: \~10 minutes
 
 When you write your own functions that make use of functions in the
@@ -726,7 +726,7 @@ recipes::step_sqrt()
 -   In the last 2 minutes of the exercise, we will all share our
     thoughts.
 
-::: callout-tip
+::: {.callout-tip appearance="default"}
 There are so many useful transformation functions available. For
 instance, if you often have to impute data, there are functions for
 that. You can check them out in the Console by typing
@@ -735,7 +735,7 @@ if you have some missing values, there's also the
 `recipes::step_naomit()`.
 :::
 
-::: callout-note
+::: {.callout-note appearance="default"}
 The `step_` function we use in the text of this website in later
 sections may be different from what you decide on in your group and in
 the class as a whole. There isn't strictly a "right" answer here, since
@@ -956,7 +956,7 @@ depending on how comfortable you are. Or you can get them to read it
 only.
 :::
 
-::: callout-info
+::: callout-note
 ## Reading task: \~10 minutes
 
 Let's explain this output a bit, each column at a time:
@@ -1029,4 +1029,3 @@ Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
-
