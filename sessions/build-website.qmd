@@ -229,7 +229,7 @@ We won't add much for now, only need to add a `#` header:
 Next, let's create the `_quarto.yml` file that will have all the
 settings for the website.
 
-```{r fs-create-index-qmd}
+```{r fs-create-quarto-yml}
 #| eval: false
 edit_file("_quarto.yml")
 ```
