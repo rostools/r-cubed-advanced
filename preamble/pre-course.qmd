@@ -273,7 +273,7 @@ can be done by either:
 #| echo: false
 #| purl: true
 prodigenr::setup_project("~/Desktop/AdvancedR3")
-usethis::local_project("/Desktop/AdvancedR3")
+usethis::local_project("~/Desktop/AdvancedR3")
 ```
 
 When the RStudio Project opens up again, run these three commands in the
@@ -326,9 +326,18 @@ Please do these two tasks:
     folder.
 
     ```{r add-rmarkdown-doc}
-    #| purl: true
     r3::create_rmarkdown_doc()
     ```
+
+```{r purl-only-create-lesson-rmd}
+#| purl: true
+rmarkdown::draft(
+  file = fs::path("doc", "lesson.Rmd"),
+  template = "basic-rmd",
+  package = "r3",
+  edit = FALSE
+)
+```
 
 ```{r purl-only-add-lesson-rmd}
 #| echo: false

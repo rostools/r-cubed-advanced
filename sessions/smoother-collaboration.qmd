@@ -342,7 +342,7 @@ renv::init(bare = TRUE)
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c("renv.lock", "renv", ".Rprofile"),
+git_ci(c("renv", ".Rprofile"),
        "Add renv machinery.")
 ```
 
@@ -379,10 +379,11 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
     having a fully reproducible analysis and it makes it easier to
     collaborate, since we all than share the same project setup.
 
--   `renv.lock`: This contains all the information about the packages
-    your project depends on, including where it was installed from (CRAN
-    or GitHub for example), what the version number is, and more. This
-    is like a supercharged version of the `DESCRIPTION` file.
+-   `renv.lock`: (Might not be created yet) This contains all the
+    information about the packages your project depends on, including
+    where it was installed from (CRAN or GitHub for example), what the
+    version number is, and more. This is like a supercharged version of
+    the `DESCRIPTION` file.
 
 -   `renv/`: This folder contains several other files that make up the
     machinery of `{renv}`. For instance, there is the `library/` folder
@@ -463,12 +464,15 @@ options(
 #| echo: false
 #| eval: false
 #| purl: true
+# Need this for below code.
+renv::install("readr")
 write_to_file(
   'options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)',
   ".Rprofile",
   append = TRUE
 )
 git_ci(".Rprofile", "Add renv snapshot settings to profile.")
+git_ci(c("renv.lock", "renv"), "Save lock file.")
 ```
 
 These two options make it so that whenever you add a package with
@@ -644,7 +648,7 @@ usethis::use_package("renv", "suggests")
 #| eval: false
 #| echo: false
 #| purl: true
-# Restart R session first.
+# Admin: Restart R session first.
 git_ci("DESCRIPTION", "Add renv as a suggests dependency.")
 ```
 
@@ -656,7 +660,7 @@ changes to `.Rprofile`.
 ## Instructor note
 
 For the information block below, mention it to the learners but you
-don't need to go over it.
+don't need to go over it. Especially mention the second part of the tip.
 :::
 
 ::: callout-tip
@@ -670,6 +674,11 @@ dependencies might not get installed. As long as they are tracked in the
 #| eval: false
 renv::install()
 ```
+
+Depending on your operating system (Windows, MacOS, or Linux), using
+`use_package()` might actually install the package again, even though
+you already have it. In that case, you can use
+`renv::install("packagename")` first, before than using `use_package()`.
 :::
 
 ## "Linting" your code
@@ -704,6 +713,13 @@ in our project.
 Before continuing, ask the learners which type of dependency they think
 `{lintr}` is or should be.
 :::
+
+```{r purl-only-renv-install-lintr}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("lintr")
+```
 
 ```{r add-lintr-as-dep}
 #| eval: false
@@ -827,6 +843,13 @@ Thankfully there is the `{styler}` package!
 
 Since we will use it for the project as a workflow dependency, let's add
 it to the `DESCRIPTION` file.
+
+```{r purl-only-renv-install-styler}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("styler")
+```
 
 ```{r add-styler-dep}
 #| eval: false
@@ -1071,7 +1094,7 @@ readLines("README.md") |>
   append(editor_yaml, after = 1) |>
   writeLines("README.md")
 git_ci("README.md", "Add editor options to README file.")
-gert::git_rm("TODO.md")
+fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
 :::
@@ -1088,4 +1111,3 @@ gert::git_commit("Don't need this file anymore.")
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-

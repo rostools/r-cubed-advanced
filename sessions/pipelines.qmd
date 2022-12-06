@@ -198,6 +198,13 @@ First, since we are using `{renv}`, we need to install `{targets}` in
 the project environment. And since `{targets}` is a build dependency, we
 add it to the `DESCRIPTION` file with:
 
+```{r purl-only-renv-install-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("targets")
+```
+
 ```{r add-targets-as-dep}
 #| purl: true
 use_package("targets")
@@ -213,12 +220,17 @@ targets::use_targets()
 
 This will add several files:
 
+    .
+    ├── _targets.R
+    ├── run.R
+    └── run.sh
+
 ```{r purl-only-use-targets-files}
 #| eval: false
 #| echo: false
 #| purl: true
 # TODO: Use to list out files created to paste into book.
-fs::dir_ls(regexp = "run.*|_targets.*")
+fs::dir_tree(regexp = "run.*|_targets.*")
 git_ci(
   c("run.R", "run.sh", "_targets.R"),
   "Start using targets"
@@ -348,14 +360,23 @@ statistics, we need to add it to our dependencies and install it in the
 project library. `{tidyverse}` is a special "meta"-package so we need to
 add it to the `"depends"` section of the `DESCRIPTION` file.
 
+```{r purl-only-renv-install-tidyverse-dplyr}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("tidyverse")
+renv::install("dplyr")
+```
+
 ```{r add-tidyverse-deps}
 #| purl: true
 use_package("tidyverse", "depends")
 use_package("dplyr")
 ```
 
-Open up the `doc/lesson.Rmd` file and create a new header and code chunk
-at the bottom of the file.
+Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
+Git history. Open up the `doc/lesson.Rmd` file and create a new header
+and code chunk at the bottom of the file.
 
     ## Basic statistics
 
@@ -373,6 +394,7 @@ at the bottom of the file.
 #| eval: false
 #| echo: false
 #| purl: true
+git_ci("DESCRIPTION", "Add tidyverse and targets to deps")
 c(
   "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
   "source(here::here('R/functions.R'))",
@@ -382,8 +404,6 @@ c(
   write_to_file("doc/lesson.Rmd")
 git_ci("doc/lesson.Rmd", "Add section on basic stats to rmd")
 ```
-
-TODO: Save this markdown text in order to add to project via purl?
 
 We want to calculate the mean and SD for each metabolite and then, to
 make it more readable, to round the numbers to one digit. We covered
@@ -455,7 +475,7 @@ descriptive_stats <- function(___) {
 }
 ```
 
-```{r solution-summary-stats-to-function}
+```{r solution-descriptive-stats}
 #| eval: true
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
@@ -471,26 +491,6 @@ descriptive_stats <- function(data) {
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), round, digits = 1))
 }
-```
-
-```{r purl-only-summary-stats-function}
-#| purl: true
-#| echo: false
-"
-#' Calculate descriptive statistics of each metabolite.
-#'
-#' @param data Lipidomics dataset.
-#'
-#' @return A data.frame/tibble.
-#'
-descriptive_stats <- function(data) {
-  data %>%
-    dplyr::group_by(metabolite) %>%
-    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
-" |>
-  write_to_file("R/functions.R")
-git_ci("R/functions.R", "Add function to create descriptive stats.")
 ```
 
 ## Adding a step in the pipeline
@@ -541,19 +541,46 @@ with
 readr::write_csv(lipidomics, here::here("data/lipidomics.csv"))
 ```
 
+```{r purl-only-remove-use-data-data-raw}
+#| eval: false
+#| echo: false
+#| purl: true
+revise_by_text(
+  "data-raw/nmr-omics.R",
+  "^usethis::use_data.*$",
+  'readr::write_csv(lipidomics, here::here("data/lipidomics.csv"))'
+)
+source(here::here("data-raw/nmr-omics.R"))
+git_ci("data-raw/nmr-omics.R", "Use csv for data instead.")
+```
+
 We haven't added `{readr}` as a dependency yet, so let's add it to the
 DESCRIPTION file.
 
 ```{r}
-#| purl: true
-#| eval: false
 use_package("readr")
 ```
 
-We can now source the script (to generate a new data file) and update
-the `_targets.R` file. Because of the way `{targets}` works, we need to
-first create a pipeline target of *only* the path to the data file, and
-then we can load it with `{readr}`.
+We can now source the script (to generate a new data file), delete the
+old `data/lipidomics.rda` file, and update the `_targets.R` file. First,
+let's tell Git to ignore this new data file.
+
+```{r ignore-data-csv}
+#| purl: true
+#| eval: false
+use_git_ignore("data/lipidomics.csv")
+```
+
+```{r purl-only-ignore-data-csv}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci(".gitignore", "Don't track data.")
+```
+
+Because of the way `{targets}` works, we need to first create a pipeline
+target of *only* the path to the data file, and then we can load it with
+`{readr}`.
 
 ``` r
 list(
@@ -598,7 +625,8 @@ list(
 revise_by_line_num(
   path = "_targets.R",
   insert_text = new_targets,
-  remove_original_lines = -28:-38
+  remove_original_lines = -28:-38,
+  insert_at_line = 28
 )
 git_ci("_targets.R", "Add new targets to run.")
 ```
@@ -666,7 +694,8 @@ use_git_ignore("_targets")
 
 We can visualize our individual pipeline targets that we track through
 `tar_target()` now too, which can be useful as you add more and more
-targets:
+targets. We will (likely) need to install an extra package (done
+automatically):
 
 ```{r visualize-targets}
 #| purl: true
@@ -686,7 +715,8 @@ Before continuing, let's **commit the changes to the Git history**.
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c(".gitignore", "_targets.R"), "Tell targets about packages, ignore _targets/")
+git_ci(c(".gitignore", "_targets.R", "DESCRIPTION", "renv.lock"), 
+       "Tell targets about packages, ignore _targets/")
 ```
 
 ## Exercise: Examine the contents of the `_targets/` folder
@@ -728,7 +758,7 @@ Let's make a change to our function and test out how the
     targets and visualize the network again.
 6.  Open up the Git interface and commit the changes to the Git history.
 
-```{r solution-more-summary-stats-to-function}
+```{r solution-new-function-descriptive-stats}
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 #' Calculate descriptive statistics of each metabolite.
@@ -750,32 +780,6 @@ descriptive_stats <- function(data) {
 }
 ```
 
-```{r purl-only-more-summary-stats-to-function}
-#| eval: false
-#| echo: false
-#| purl: true
-"
-#' Calculate descriptive statistics of each metabolite.
-#'
-#' @param data Lipidomics dataset.
-#'
-#' @return A data.frame/tibble.
-#'
-descriptive_stats <- function(data) {
-  data %>%
-    dplyr::group_by(metabolite) %>%
-    dplyr::summarise(dplyr::across(value, list(
-      mean = mean,
-      sd = sd,
-      median = median,
-      iqr = IQR
-    ))) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
-}
-" |>
-  write_to_file("R/functions.R")
-```
-
 ## Saving intermediate analysis outputs
 
 Sometimes you may want a pipeline target to save the output to a file so
@@ -788,6 +792,13 @@ First, let's write some code to create the plots for our items 2 and 3
 that we initially decided at the start of this session. Since we're
 using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
 file and to our `{renv}` project library.
+
+```{r purl-only-renv-install-ggplot2}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("ggplot2")
+```
 
 ```{r add-ggplot2-deps}
 #| purl: true
@@ -1047,13 +1058,11 @@ history**.
 #| eval: false
 #| echo: false
 #| purl: true
-# TODO: need to update these numbers.
 revise_by_text(
   path = "R/functions.R",
   original = "plot_output$",
   replacement = "output_switch_for_targets(plot_output, image_path)"
 )
-styler::style_dir()
 
 update_targets_plots <- '
 ),
@@ -1073,11 +1082,14 @@ tar_target(
 revise_by_line_num(
   path = "_targets.R",
   insert_text = update_targets_plots,
-  remove_original_lines = -20,
-  insert_at_line = 21
+  remove_original_lines = -42:-43,
+  insert_at_line = 41
 )
+
+styler::style_dir()
 targets::tar_visnetwork()
 targets::tar_make()
+git_ci("DESCRIPTION", "Add ggplot2 to deps")
 git_ci("R/functions.R", "Add output switch function, to use for targets")
 git_ci("_targets.R", "Update targets with plot items")
 ```
@@ -1088,6 +1100,13 @@ Last, but not least, we want to make our final item: The R Markdown
 document. Adding an R Markdown document as a target inside `_targets.R`
 is fairly straightforward. We need to install the helper package
 `{tarchetypes}` first:
+
+```{r purl-only-renv-install-tarchetypes}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("tarchetypes")
+```
 
 ```{r tarchetypes-deps}
 #| purl: true
@@ -1112,8 +1131,6 @@ list(
   )
 )
 ```
-
-TODO: Try replacing with `tar_quarto()` instead.
 
 Now when we run `r run_tar_make_text`, the R Markdown file also gets
 re-built. But when we use `targets::tar_visnetwork()`, we don't see the
