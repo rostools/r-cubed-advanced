@@ -614,8 +614,19 @@ function:
 desc::desc_get_deps()$package
 ```
 
-But this code also picks up the dependency on R itself. We can remove
-that with `[-1]` and put it in the place of the `packages` argument:
+But this code also picks up the dependency on R itself. Usually the R
+dependency is listed as the first item. If it isn't, we will run:
+
+```{r}
+#| eval: false
+#| purl: true
+use_tidy_description()
+```
+
+This function fixes up the `DESCRIPTION` file, with R now being the
+first item. Using the same code as above from the `{desc}` package, we
+can remove R with`[-1]` and put it in the place of the `packages`
+argument in the `_targets.R` file:
 
 ``` r
 packages = desc::desc_get_deps()$package[-1]
