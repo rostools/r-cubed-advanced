@@ -729,14 +729,32 @@ them below.
 Why the change? They needed to develop an approach that worked with
 other languages as well, like Python. `{knitr}` is an R-specific
 package, so they needed a more language agnostic way of setting chunk
-options.
+options. A full list of the code chunk options is found in the [Cell
+Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
+section of the website.
 
 ## Exercise: Make figures prettier
 
+> Time: \~20 minutes
+
+Looking through the [Cell
+Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
+documentation, complete these tasks.
+
+-   Add a `fig-cap` option to each of the figures.
+
+-   For the distribution and variation plots, set the code chunk option
+    `column` to `page` to make it bigger.
+
 -   Make ggplot2 figures nicer, as an exercise? Add the theme to each
     plot or with theme_set()
+
+-   Change the theme of all the figures by setting
+
 -   Add figure captions, fig heights, widths
+
     -   using quarto style code
+
 -   Make table of model estimates and variation?
 
 ## Make website prettier?
@@ -746,4 +764,3 @@ options.
 -   Bibliography
 
 ## Summary
-
