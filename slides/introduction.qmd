@@ -1,6 +1,7 @@
 ---
 format:
   revealjs:
+    embed-resources: true
     from: markdown+emoji
     theme:
       - simple
