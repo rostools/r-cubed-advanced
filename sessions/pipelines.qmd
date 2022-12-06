@@ -540,7 +540,52 @@ code in the Console:
 targets::tar_make()
 ```
 
-It probably won't run though. That's because `{targets}` doesn't know
+It won't run though. That's because `{targets}` does not work when being
+given data in a '.rda' format. Instead `{targets}` want a "raw" datafile
+that itself can store as '.rda'. To account for this we need to alter our data
+wrangling script. As the data wrangling in not part of our actual workflow and 
+we don't want `{renv}` to track the packages used we will momentarily deactivate 
+`{renv}` using `renv::deactivate()`. From here we will open up
+the the `nmr-omics.r` script and replace:
+
+``` r
+usethis::use_data(lipidomics, overwrite = TRUE)
+``` 
+with
+
+``` r
+readr::write_csv(lipidomics, "data/lipidomics.csv")
+``` 
+We can now source the script (to generate a new data file), reactivate our `{renv}` 
+environment using `renv::activate()`, and update the `_targets.R` file. 
+
+``` r
+list(
+    tar_target(
+        name = file,
+        command = "data/lipidomics.csv",
+        format = "file"),
+    tar_target(
+        name = lipidomics,
+        command = read_csv(file, show_col_types = FALSE)),
+    tar_target(
+        name = df_stats_by_metabolite,
+        command = descriptive_stats(lipidomics)
+    )
+)
+```
+
+As we are now using `{readr}` we should add this to the DESCRIPTION file.
+
+Now, let's try running `{targets}` again! You can either use the
+Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
+code in the Console:
+
+``` r
+targets::tar_make()
+```
+
+It probably won’t run though. That’s because `{targets}` doesn’t know 
 about the packages that you need for the pipeline. To add it, we need to
 go to the `tar_option_set()` section of the `_targets.R` file and
 replace the `packages = c("tibble")` with all the packages we use.
