@@ -799,16 +799,16 @@ history.
 
 We've now defined the model we want to use and created a transformation
 `{recipes}` specification. Now we can start putting them together and
-finally fit them to the data. Putting all these pieces together is done
-with the `{workflows}` package.
+finally fit them to the data. This is done with the `{workflows}`
+package.
 
-Why use this package to manage these things, rather than simply run the
-statistical analysis and process the data as normal? When running
-multiple models (like we will do in the next section), the data
-transformation steps have to happen *right before* the data is fit to
-the model and needs to done on exactly the data used by the model. So if
-we have one data frame that we run multiple models on, but the
-transformation happens to the whole data frame, we could end up with
+Why use this package, rather than simply run the statistical analysis
+and process the data as normal? When running multiple models (like we
+will do in the next section) that may require different data structures,
+the data transformation steps have to happen *right before* the data is
+fit to the model and need to be done on exactly the data used by the
+model. So if we have one data frame that we run multiple models on, but
+the transformation happens to the whole data frame, we could end up with
 issues due to how the transformations were applied. The `{workflows}`
 package keeps track of those things for us, so we can focus on the
 higher level thinking rather than on the small details of running the
@@ -893,10 +893,13 @@ dependencies:
 use_package("broom")
 ```
 
-Then, we continue the `%>%` pipe, though we do need to set
-`exponentiate = TRUE` in `tidy()` because we are using a logistic
-regression model and the results need to be corrected to be more easily
-interpreted.
+Then, we add the `tidy()` function to our model using the `%>%` pipe.
+Since we are using a logistic regression model, we need to consider how
+we want the estimates to be presented, probably depending on how we want
+to visualize our results. If we set `exponentiate = TRUE` in `tidy()`,
+the output estimates will be odds ratios, if we set
+`exponentiate = FALSE`, we will get the log odds ratios or the beta
+coefficient. Here we choose `exponentiate = TRUE`:
 
 ```{r tidy-up-model-results}
 fitted_model %>%
@@ -969,15 +972,17 @@ Let's explain this output a bit, each column at a time:
 
     $$class = Intercept + (metabolite_estimate * metabolite_value) + (gender\_estimate * gender\_value) + ...$$
 
-    The estimate is the constant value you multiple the value of the
-    term with. The interpreting each of these values can be quite tricky
-    and can take a surprising amount of time to conceptually break it
-    down, so we won't do that here, since this isn't a statistics
-    course. The only thing you need to understand here is that the
-    `estimate` is value that tells us the *magnitude* of association
-    between the term and `class`. This value, along with the `std.error`
-    are the most important values we can get from the model and we will
-    be using them when presenting the results.
+    In our example, we chose to get the odds ratios. In the mathematical
+    model above, the estimate is represented as the log odds ratio or
+    beta coefficient - the constant value you multiply the value of the
+    term with. Interpreting each of these values can be quite tricky and
+    can take a surprising amount of time to conceptually break down, so
+    we won't do that here, since this isn't a statistics course. The
+    only thing you need to understand here is that the `estimate` is the
+    value that tells us the *magnitude* of association between the term
+    and `class`. This value, along with the `std.error` are the most
+    important values we can get from the model and we will be using them
+    when presenting the results.
 
 -   `std.error`: This is the uncertainty in the `estimate` value. A
     higher value means there is less certainty in the value of the
@@ -988,10 +993,10 @@ Let's explain this output a bit, each column at a time:
 
 -   `p.value`: This is the infamous value we researchers go crazy for
     and think nothing else of. While there is a lot of attention to this
-    single value, it's importance is not as much as we tend to give it.
-    The interpretation of the p-value is even more difficult than the
-    `estimate` and again, we won't cover this at all in this course. We
-    won't be using this value at all in presenting the results.
+    single value, we tend to give it more attention than warranted. The
+    interpretation of the p-value is even more difficult than the
+    `estimate` and again, we won't cover this in this course. We won't
+    be using this value at all in presenting the results.
 :::
 
 Before ending, open the Git interface and commit the changes you made.
