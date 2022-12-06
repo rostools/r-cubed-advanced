@@ -361,6 +361,7 @@ at the bottom of the file.
 
     ```{{r setup}}
     library(tidyverse)
+    source(here::here("R/functions.R"))
     load(here::here("data/lipidomics.rda"))
     ```
 
@@ -374,6 +375,7 @@ at the bottom of the file.
 #| purl: true
 c(
   "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
+  "source(here::here('R/functions.R'))",
   "load(here::here('data/lipidomics.rda'))\n```\n\n"
 ) |>
   paste0(collapse = "\n") |>
