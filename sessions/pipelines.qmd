@@ -439,6 +439,14 @@ these tasks:
 8.  Save both files and then open the Git interface and commit the
     changes you made to them.
 
+::: callout-info
+In the intermediate course, we highly suggested using `return()` at the
+end of the function. Technically we don't need an explicit `return()`,
+since the output of the last code that R runs within the function will
+be the output of the function. This is called an "implicit return" and
+we will be using this feature throughout the rest of this course.
+:::
+
 Here is some scaffolding to help you get started:
 
 ``` r
