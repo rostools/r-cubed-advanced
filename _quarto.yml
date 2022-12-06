@@ -36,6 +36,7 @@ book:
       - sessions/stats-analyses-basic.qmd
       - sessions/stats-analyses-multiple.qmd
   appendices:
+    - appendix/social.qmd
     - appendix/conduct.qmd
     - appendix/connect-github.qmd
     - appendix/resources.qmd
@@ -58,8 +59,8 @@ crossref:
 
 editor_options:
   markdown:
-  wrap: 72
-  canonical: true
+    wrap: 72
+    canonical: true
 
 format:
   html:

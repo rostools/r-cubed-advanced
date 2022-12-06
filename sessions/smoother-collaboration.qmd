@@ -100,7 +100,9 @@ the use of the `{here}` package. So we already are following this
 approach from the start, which will make it easier to track package
 dependencies of our project.
 
-TODO: Image of this workflow?
+![Cartoon of combining R Projects with the `{here}` package, compared to
+the common approach of using `setwd()`. [Artwork by
+\@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/e684ee45-98fc-469e-997c-e2d68b0096cd_rw_1920.png?h=d754f634e6fc1e292430124fbe44dad7)
 
 Let's start with the `AdvancedR3` project that uses the `lipidomics`. We
 have code in the `data-raw/nmr-omics.R` file that uses some packages.
@@ -227,6 +229,7 @@ usethis::use_package("stringr")
 usethis::use_package("readxl")
 usethis::use_package("dplyr")
 usethis::use_package("tidyr")
+usethis::use_package("snakecase")
 usethis::use_package("here")
 usethis::use_package("fs")
 usethis::use_package("usethis")
@@ -248,6 +251,10 @@ While the approach of managing package dependencies through the
 not keeping track of the *version* of each of your packages. So instead
 we are going to use a package dedicated to handling project
 dependencies, called `{renv}`.
+
+![Cartoon showing a simplified version of what `{renv}` does for R
+Projects, by making them more self-contained. [Artwork by
+\@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/3c1eda6b-be13-4257-9c32-4cf865f171ae_rw_1920.png?h=5a6482956a683b2fc417f965674456de)
 
 `{renv}` is a package that manages package dependencies in a project by,
 in simple terms, creating a project-specific R "library". You might
@@ -332,9 +339,23 @@ git_ci(c("renv.lock", "renv", ".Rprofile"),
 The function `renv::init()` initializes the project to begin being
 managed by `{renv}`. By using the argument `bare = TRUE` we are telling
 `{renv}` to not search for dependencies in the project, since we want to
-do that ourselves shortly. It adds several files to the project:
+do that ourselves.
 
-TODO: These files might not be created yet.
+When initilizing a `{renv}` instance using `bare = TRUE` we create a new
+`.libPath()` location that does not contain any of the packages we
+previously defined as project dependencies. You can notice this if you
+attempt to type `usethis::`, you'll notice that nothing comes up.
+Therefore, before being able to continue our workflow we need to tell
+`{renv}` to install the packages we have already defined as
+dependencies. This can be done with `renv::install()`:
+
+```{r renv-install}
+#| eval: false
+#| purl: true
+renv::install()
+```
+
+After doing this we should have several files in our project folder:
 
 ```{r show-created-files}
 #| echo: false
@@ -949,7 +970,7 @@ Let's test it out. While in the `doc/lesson.Rmd` file, go to the bottom
 of the file and type out:
 
 ``` markdown
-##This is poorly formatted
+## This is poorly formatted
 - Definitely should have an empty space above this list.
 - This isn't a list, why not?
 ```

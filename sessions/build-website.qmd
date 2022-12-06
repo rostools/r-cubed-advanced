@@ -1,6 +1,13 @@
-# Building a website your analyses {#build-website}
+# Publicizing your analyses with a website {#sec-build-website}
 
 {{< include ../includes/_wip.qmd >}}
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+extract_functions_from_qmd()
+source(here::here("R/project-functions.R"))
+```
 
 Intro
 
@@ -14,43 +21,617 @@ The overall objective for this session is to:
 
 More specific objectives are to:
 
-1.  Recall principles of functional programming and apply them to
-    running statistical analyses by using the `{purrr}` package.
-2.  Continue applying the concepts and functions used from the previous
+1.  Describe how websites are essentially folders and files, where some
+    files need to be named a specific way (like the `index.html` file).
+2.  Explain how Quarto executes R code in a document and creates
+    different file formats from it, like Word or HTML. Use Quarto's YAML
+    header options, like `format: docx` or `format: html`, to create
+    different file outputs.
+3.  Use the `_quarto.yml` file along with Quarto options to apply the
+    understanding of how websites work and to build then them.
+4.  Use GitHub Actions to automate generating and uploading the website,
+    then demonstrate how to make the material open by adding a license
+    to the repository.
+5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-## What is Quarto?
+## Exercise: What is a website?
 
--   Displaying your output in reproducible formats: quarto website
-    -   yml, navbar, contents
+> Time: \~5 minutes.
 
-## Exercise: Convert R Markdown YAML to Quarto
+With your neighbour, discuss and come to an agreement about what
+*exactly is* a website? Could you explain it to an 80 year old? Or a 10
+year old? Or to the class? Don't look ahead!
+:stuck_out_tongue_winking_eye:
 
-## Setup project to build a website
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
 
-## Exercise: Add website as a pipeline targe
+Ask if anyone wants to share, though they don't need to if they don't
+feel comfortable with it.
+:::
+
+## Websites, what they are and why researchers should create more
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Talk through this point, showing the websites and reinforcing that a
+website isn't anything special, it's just a different type of file then
+they typically use or create.
+:::
+
+Websites are a bit of a mystery in many ways. You open a browser, go to
+Google, search for something, click a link, scroll through the website,
+and read text, view images, or watch videos. But what are websites
+actually?
+
+At their simplest and most basic core, a file on your computer and a
+webpage you click into are exactly the same. A website is literally a
+series of folders and files on a server in another country. Let's use
+Posit (the new RStudio company name) as an example. The website
+<https://posit.co/> is like a folder called `posit.co/` on your
+computer. The website <https://posit.co/resources/> (notice the
+`resources/` ending) is like a `resources/` folder in the `posit.co/`
+main folder on your computer. But you might ask, you just said a webpage
+is like a file, so where is the file name in
+<https://posit.co/resources/>? Well, browsers do something special when
+they see an URL with no file ending: They assume some default files to
+look for. When a URL doesn't include a file ending, the browser looks
+for files that are named either `index` or `default`. The most common
+file name for a webpage is `index.html`. But it can also be `index.php`,
+`index.asp`, or `default.htm`. We can test which file name a webpage is
+by typing the file name at the end of the URL. If we try
+<https://posit.co/resources/index.html>, we get a 404 error, meaning the
+file doesn't exist. But if we try
+<https://posit.co/resources/index.php>, if works! So making a website is
+as simple as having HTML files in a folder and uploading that folder
+onto a website hosting service. The services themselves can be tricky to
+use, but some are dead easy, like GitHub Pages is, which we will show
+later on.
+
+So why should researchers make websites? Because it is the easiest way
+to disseminate your work, your projects, who you are as a researcher,
+and to have more impact and outreach. Given the current tools available
+and their ease of use, there is no reason any researcher (even
+non-technical ones) couldn't use websites as a way of publishing more of
+your work. Especially since if you are already learning about the
+workflow around using R, building functions, writing R Markdown (or
+Quarto), and using Git and GitHub, adding a website builder into this
+workflow is surprisingly easy.
+
+## What is Quarto and why use it?
+
+[Quarto](https://quarto.org/) is the next-generation R Markdown document
+generator. You might not even realize it, but if you are using a
+relatively recent version of RStudio, you are already using Quarto to
+knit your R Markdown documents. In terms of writing Markdown syntax,
+there is no difference between R Markdown and Quarto (since they both
+use [Pandoc](http://pandoc.org/) internally). The differences become
+obvious when you want to make more complex outputs like websites, books,
+or presentations or if you want to use another language like Python.
+Quarto is "language-agnostic", meaning it isn't limited to only R
+(unlike R Markdown for the most part). And it is even easier to use than
+R Markdown and the documentation on Quarto's website is very high
+quality. Over the next few years, R Markdown will be slowly phased out
+in favour of Quarto, for good reason. It is an massive upgrade in
+features and usability.
+
+![Cartoon showing the general workflow that Quarto uses to create
+different file outputs. [Artwork by
+\@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/b5217f2a-f129-4bf9-90dc-c5b9783d0ea8_rw_1920.png?h=0d8c9fc177975359270821bcba83986c)
+
+Let's start the comparison with the YAML header differences between R
+Markdown and Quarto:
+
+::: columns
+::: {.column width="50%"}
+### Quarto: Word documents
+
+``` yml
+format: docx
+```
+
+### Quarto: HTML documents
+
+``` yml
+format: html
+```
+:::
+
+::: {.column width="50%"}
+### R Markdown: Word documents
+
+``` yml
+output: word_document
+```
+
+### R Markdown: HTML documents
+
+``` yml
+output: html_document
+```
+:::
+:::
+
+As you can see, they aren't too different. But as you use it more
+though, it becomes obvious how powerful Quarto is. Let's open the
+`doc/report.Rmd` file and delete all the existing YAML metadata and
+convert to the formal Quarto format. We'll create a HTML output document
+for now.
+
+``` yml
+title: "Analysis of lipidomics"
+format: html
+```
+
+We can use the same keybinding shortcut as with R Markdown:
+`Ctrl-Shift-K`. You can also use the Command Palette (`Ctrl-Shift-P`)
+followed by typing "render".
+
+One big upgrade from R Markdown is that Quarto has a strong focus on
+scholarly writing and formatting, for instance by adding authors and
+affiliation metadata that gets added to the output document. It looks
+like:
+
+``` yml
+author:
+  - name: Jane
+    orcid: 0000-0000-0000-0000
+    email: mymail@email.com
+    affiliations:
+      - name: Insitution Name
+        address: Street 10
+        city: City
+        postal-code: 0000
+```
+
+## Exercise: Convert R Markdown YAML to Quarto style
+
+> Time: \~10 minutes.
+
+In the `doc/report.Rmd` file, add your author information to the YAML
+header.
+
+1.  Add the `author:` metadata below the `title:` and above the
+    `format:` metadata.
+2.  Include your `name` and `affiliations` (with only the `- name:` for
+    institution).
+3.  Render the document with `Ctrl-Shift-K`. See what gets changed.
+4.  Replace `format: html` with `format: docx` and re-render the
+    document. Switch back to `html`.
+5.  Commit the changes to the Git history.
+
+## Using Quarto to build a project website
+
+Now for the fun part, to use Quarto to build a website! At this stage,
+we only need two files: An `index.qmd` file and a `_quarto.yml` file. As
+we covered above, a browser will always look for a file called `index`
+when the URL is only a folder. So for our main project folder, we need
+this file. Let's create this file with `{usethis}` to both create and
+than open it:
+
+```{r fs-create-index-qmd}
+#| eval: false
+edit_file("index.qmd")
+```
+
+We won't add much for now, only need to add a `#` header:
+
+    # Lipidomics study
+
+Next, let's create the `_quarto.yml` file that will have all the
+settings for the website.
+
+```{r fs-create-index-qmd}
+#| eval: false
+edit_file("_quarto.yml")
+```
+
+There are many "top-level" settings that we can include in this file.
+The first one is the `project:` metadata, which tells Quarto details
+about the project as a whole. Since we want to create website, the
+option to set it would be `type: website`:
+
+``` yml
+project:
+  type: website
+```
+
+The next bit is to tell Quarto some details about the website. Websites
+in general are structured with the content, a navigation bar ("navbar"),
+and possibly some links on the side (think of how websites like YouTube
+or Twitter are structured). This is the same for Quarto. Each included
+`.Rmd`, `.md`, or `.qmd` files are the content and Quarto adds the
+navbar. But we have to include what gets added to the navbar.
+
+The first "top-level" metadata is `website:` and the first second-level
+metadata is usually the `title:` of the website (that will be shown on
+the navbar). Next, let's set up the `navbar:` second-level header. There
+are two sub-levels to `navbar:`, `left:` and `right:`. These tell Quarto
+what links should be put on the right-side of the navbar or the
+left-side. We'll start with the `left:`. Underneath, we need to give it
+a list of either file names or a pair of `href:` and `text:` or `icon:`
+metadata. To keep things simple, we'll use the `href:` and `text:` for
+each item for the `index.qmd` and the `doc/report.Rmd` files. Like a
+list in Markdown, a list in YAML starts with a `-`, where a pair of
+metadata belong to a single `-`. Our `website:` settings should look
+like this now:
+
+``` yml
+website:
+  title: "Lipidomics analysis"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: doc/report.Rmd
+        text: "Report"
+```
+
+After we've set the settings for the `website:`, we need to tell Quarto
+what output files to create. We could do this for each individual file,
+but adding `format: html` to each YAML header. But we'd be duplicating a
+lot of options. Instead, we can put it in the `_quarto.yml` file and set
+the `format:` for all files in the project. There are many many options
+we can set here, but the biggest one is what `theme:` you want. There
+are several theme templates listed on the [Quarto HTML Theming
+page](https://quarto.org/docs/output-formats/html-themes.html). We'll
+use a simple one called `simplex`.
+
+::: callout-info
+You can always override the project-level settings from the
+`_quarto.yml` file by using the `format:` (or other options) in the YAML
+header of an individual Markdown file.
+:::
+
+``` yml
+format:
+  html:
+    theme: simplex
+```
+
+We have enough for Quarto to know how to build the website, but let's
+add one more thing. For documents on an analysis, we usually want to
+show the output of code but not the code itself. In `{knitr}`, there is
+a code chunk option `echo` that hides the code from the final output
+document. In Quarto, you can set project-level `{knitr}` options with
+the top-level metadata `knitr:` along with the second-level metadata
+`opts_chunk:`. Below it we can add settings that affect code chunks,
+like `echo`. Let's hide all code from the website:
+
+``` yml
+knitr:
+  opts_chunk:
+    echo: false
+```
+
+We can *almost* build the website. The last thing to do is prevent the
+`doc/lesson.Rmd` file from being rendered (since we will use this file
+as more of a sandbox). To stop Quarto from rendering it when building
+the website, we simply need to add `_` at the start of the filename. So
+let's do that with `{fs}`.
+
+```{r rename-lesson-to-stop-quarto}
+#| purl: true
+#| eval: false
+fs::file_move("doc/lesson.Rmd", "doc/_lesson.Rmd")
+```
+
+Now let's build the website. You can either use the "Render" button on
+the top of use `Ctrl-Shift-B` for "Build". Let's do it now. The website
+should pop up in either the Viewer Pane or as a new window. If not, we
+can debug what's going on. Let's commit the changes to the `_quarto.yml`
+and other `.Rmd` or `.qmd` files to the Git history.
+
+```{r purl-only-add-quarto-website-building}
+#| eval: false
+#| echo: false
+#| purl: true
+'
+project:
+  type: website
+website:
+  title: "Lipidomics analysis"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: doc/report.Rmd
+        text: "Report"
+format:
+  html:
+    theme: simplex
+knitr:
+  opts_chunk:
+    echo: false
+' |>
+  readr::write_lines("_quarto.yml")
+"# Lipidomics study" |>
+  readr::write_lines("index.qmd")
+git_ci(c("doc/lesson.Rmd", "doc/_lesson.Rmd"), "Rename file lesson file.")
+git_ci(c("_quarto.yml", "index.qmd"), 
+       "Add Quarto infrastructure to project.")
+```
+
+## Exercise: Look through the new website folder
+
+> Time: \~5 minutes.
+
+In your main project folder, there should now be a folder called
+`_site/`. Look through the folder. What files are now created? Open up
+the `index.html` file in your browser while in RStudio by clicking the
+`index.html` file and then selecting the "Open in web browser".
+
+<!-- TODO: Confirm the name of the website folder. -->
+
+Recall how we described what a website is. Can you see how these files
+and folders are simply HTML files that the browser shows as website? In
+the browser URL, change the `index.html` ending link to
+`doc/report.html`. See how it changes to the file based on how it is
+structured in the folder?
+
+## Exercise: Add Quarto to the pipeline
+
+> Time: \~5 minutes.
+
+While `{targets}` is useful for connecting pipeline targets and keeping
+track of dependencies between them, it isn't made to track full
+websites. This is for many good reasons that are very technical and not
+necessary to describe here. So while we can't build the website with
+`{targets}`, we should still connect the Quarto `doc/report.Rmd` file
+with the rest of the pipeline. We previously used `tar_render()`, but we
+should now use `tar_quarto()`.
+
+1.  Open the `_targets.R` file, find the `tar_render()` code, and
+    replace it with `tar_quarto()`. Leave everything else the same.
+2.  Run `r run_tar_vis_text` and then `r run_tar_make_text`.
+3.  Commit *only* the changes made to `_targets.R` to the Git history.
+
+<!-- TODO: Replace target with purl only code -->
+
+```{r solution-tar-quarto-to-pipeline}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+list(
+  # ...,
+  tar_quarto(
+    name = report_rmd,
+    path = "doc/report.Rmd"
+  )
+)
+```
+
+```{r purl-only-tar-quarto-to-pipeline}
+#| eval: false
+#| echo: false
+#| purl: true
+revise_by_text(
+  "_targets.R",
+  "tar_render",
+  "tar_quarto"
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Switch to using Quarto in targets.")
+```
+
+<!-- TODO: Might need to git ignore the html files created in doc -->
+
+## Exercise: Add collaboration setting to `_quarto.yml` file
+
+> Time: \~5 minutes.
+
+Like we did in @sec-smoother-collaboration with the `editor_options`
+setting we added in our R Markdown file, let's make this setting global
+to the whole project. Cut and paste that metadata from `doc/lesson.Rmd`
+into the bottom of `_quarto.yml`:
+
+``` yml
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+```
+
+```{r purl-only-add-editor-options-to-quarto}
+#| eval: false
+#| echo: false
+#| purl: true
+editor_options_lines <- c(
+  "editor_options:",
+  "  markdown:",
+  "    wrap: 72",
+  "    canonical: true"
+)
+write_to_file(editor_options_lines, "_quarto.yml", append = TRUE)
+git_ci("_quarto.yml", "Add editor options to quarto.")
+```
 
 ## Automate rendering the website
 
--   Combine with freeze?
+There is a way that we could create the website into the `_site/`
+folder, commit it to Git, and have GitHub host the website for us. But
+than we'd be saving a lot of files that could be updated quite often,
+which is annoying to keep track of. Instead, we can make use of GitHub
+Actions to build and publish our website for us.
 
--   Connect to GitHub and make website
+<!-- TODO: Not sure about using freeze... will come back to this. -->
 
-    -   Actions?
-    -   Add link to GitHub description section.
+There is a way to have GitHub completely (re-)build the website from
+scratch each time, including running any R code. However, our project
+doesn't have much R code and we have data that we don't keep in the
+project Git history. So we need to run the computations locally first so
+GitHub and build the website without the data. This is done through
+something called "execution freezes". In the `_quarto.yml` file, add
+this metadata settings to the bottom:
 
--   Update README with link.
+``` yml
+execute:
+  freeze: auto
+```
+
+Then when we re-render the website with `Ctrl-Shift-B`, there will be a
+new folder created called `_freeze/`. Inside this folder are
+instructions to Quarto on how to run the code chunks inside the `.Rmd`
+file. Commit this folder to the Git history.
+
+```{r purl-only-freeze-executions}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+execute:
+  freeze: auto
+" |>
+  write_to_file("_quarto.yml")
+quarto::quarto_render()
+git_ci(c("_quarto.yml", "_freeze"), "Add freeze execution to project.")
+```
+
+Like we did with the `{lintr}` Action by adding the
+`.github/workflows/lint-project.yaml` file, to get GitHub Actions to
+build the website we need to do two things first. Run a command to set
+things up and then add a new Action workflow file.
+
+To set our repository up for the Action, we need to run
+`quarto publish gh-pages` once in the **Terminal** (*not the R
+Console*). We open the Terminal either through the menu
+`Tools -> Terminal -> New Terminal` or with the Command Palette
+(`Ctrl-Shift-P`) along with typing the text "terminal". Or, we can make
+use of the R's `system()` function:
+
+```{r quarto-publish-gh-pages}
+#| purl: true
+#| eval: false
+system("quarto publish gh-pages")
+```
+
+Next is add the Action workflow file:
+
+```{r add-quarto-action-workflow}
+#| eval: false
+edit_file(".github/workflows/build-website.yaml")
+```
+
+Then we can copy and paste the template code from the [Quarto Example
+Action](https://github.com/quarto-dev/quarto-actions/blob/main/examples/quarto-publish-example.yml)
+file, which is (slightly modified) below. We don't need to understand
+this code, at least not for this course. Because it is template code,
+it's there to be copied and pasted (for the most part).
+
+``` yml
+on:
+  push:
+    branches: 
+      - main
+      - master
+
+name: Render and Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          # To install LaTeX to build PDF book 
+          tinytex: false
+          # uncomment below and fill to pin a version
+          # version: 0.9.600
+      
+      - name: Publish to GitHub Pages (and render)
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          # this secret is always available for github actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+```
+
+Let's commit this new file to the Git history and push the changes up to
+GitHub. While we wait for the GitHub Action to finish, complete the next
+exercise.
+
+```{r purl-only-add-quarto-action}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+on:
+  push:
+    branches: 
+      - main
+      - master
+
+name: Render and Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          # To install LaTeX to build PDF book 
+          tinytex: false
+          # uncomment below and fill to pin a version
+          # version: 0.9.600
+      
+      - name: Publish to GitHub Pages (and render)
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          # this secret is always available for github actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+" |>
+  readr::write_lines(".github/workflows/build-website.yaml")
+git_ci(".github/workflows/build-website.yaml", "Add Action to build website.")
+```
 
 ## Exercise: Add license to repository
 
+-   Add link to GitHub description section.
+
+-   Update README with link.
+
 -   License? Probably good idea.
+
     -   use_ccby_license()
+
+``` yml
+website:
+  ...
+  page-footer:
+    center:
+      - text: "License: CC BY 4.0"
+```
+
+## Using Quarto-style code options
+
+Explain about the Quarto options in the code chunks.
 
 ## Exercise: Make figures prettier
 
 -   Make ggplot2 figures nicer, as an exercise? Add the theme to each
     plot or with theme_set()
 -   Add figure captions, fig heights, widths
+    -   using quarto style code
 -   Make table of model estimates and variation?
+
+## Make website prettier?
+
+## Resources
+
+-   Bibliography
 
 ## Summary
