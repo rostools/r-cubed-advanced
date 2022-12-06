@@ -285,7 +285,7 @@ are several theme templates listed on the [Quarto HTML Theming
 page](https://quarto.org/docs/output-formats/html-themes.html). We'll
 use a simple one called `simplex`.
 
-::: callout-info
+::: {.callout-tip appearance="default"}
 You can always override the project-level settings from the
 `_quarto.yml` file by using the `format:` (or other options) in the YAML
 header of an individual Markdown file.
@@ -660,7 +660,7 @@ to the GitHub repository.
 
 6.  Commit the changes to the `README.md` to the Git history.
 
-::: callout-info
+::: {.callout-tip appearance="default"}
 Sometimes you might make a change to files that aren't part of the
 website and don't want to trigger the GitHub Action, since it would be a
 waste of resources (computing time still costs energy). GitHub Actions
