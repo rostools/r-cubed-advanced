@@ -340,19 +340,21 @@ managed by `{renv}`. By using the argument `bare = TRUE` we are telling
 `{renv}` to not search for dependencies in the project, since we want to
 do that ourselves.
 
-When initilizing a renv instance using `bare = TRUE` we create a new .libpath 
-that does not contain any of the packages we previously defined as project
-dependencies. You can notice this if you atempt typing `usethis::`, where 
-you will notice that nothing comes up. Therfore, before being able to continue
-our workflow we need to tell renv to install the packages we have allready defined
-as dependencies. This can be acomplished using `renv::install()`. Lets do that:
+When initilizing a `{renv}` instance using `bare = TRUE` we create a new
+`.libPath()` location that does not contain any of the packages we
+previously defined as project dependencies. You can notice this if you
+attempt to type `usethis::`, you'll notice that nothing comes up.
+Therefore, before being able to continue our workflow we need to tell
+`{renv}` to install the packages we have already defined as
+dependencies. This can be done with `renv::install()`:
 
 ```{r renv-install}
 #| eval: false
 #| purl: true
 renv::install()
 ```
-After having done this we should have several files in our project folder:
+
+After doing this we should have several files in our project folder:
 
 ```{r show-created-files}
 #| echo: false
