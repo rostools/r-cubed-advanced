@@ -36,17 +36,17 @@ can be, but it doesn't have to be. By taking a structured approach to
 running statistical analyses, you can make it easier on yourself and
 feel more in control.
 
-In R, statistical methods are often created and developed by researcher
-with little to no training in software development and often have very
-different ways of using them. This has some advantages, like being able
-to have the cutting edge statistical methods available to us, but has a
-major disadvantage of often having to learn a completely different way
-of running a statistical analysis, even if they are fairly similar to
-ones you've used before. So having a framework for running statistical
-analyses, regardless of who created them, can provide that needed
-structure and vastly simplify the analysis. This session will be
-covering a general framework for running statistical analyses,
-regardless of the exact statistical method.
+In R, statistical methods are often created and developed by researchers
+with little to no training in software development and who often use
+them differently. This has some advantages, like having the cutting edge
+statistical methods available to us, but has a major disadvantage of
+often having to learn a completely different way of running a
+statistical analysis, even if it is fairly similar to ones you've used
+before. So having a framework for running statistical analyses,
+regardless of who created them, can provide that needed structure and
+vastly simplify the analysis. This session will be covering a general
+framework for running statistical analyses, regardless of the exact
+statistical method.
 
 ## Learning objectives
 
@@ -104,13 +104,13 @@ compared to other areas?
 Almost all fields of research, and definitely more heavily-quantitative
 and scientific fields like biomedicine and health, have math and
 statistics at the core of taking data to draw inferences or general
-observations about the world, at least the world that we measure.
+observations about the world.
 
 Any time we collect data and need to interpret what it means, we need
 statistics. And anytime we want to make inferences about the world from
-the data, to generalize to the outside world, we need to use statistics
-to determine the likelihood, or rather the uncertainty, in those
-inferences. Statistics is meant to quantify uncertainty.
+the data, we need to use statistics to determine the likelihood, or
+rather the uncertainty, in those inferences. Statistics is meant to
+quantify uncertainty.
 
 How do we quantify uncertainty? By first creating a "theoretical model"
 that expresses mathematically our research question. For instance, we
@@ -144,26 +144,26 @@ basic simplified math of a statistical model looks mostly the same:
 
 $$y = intercept + x + error $$
 
-It's a bit more complicated than this, but this is enough to describe
+It's a bit more complicated than this, but this is enough to describe it
 for this course. Throughout the rest of the session, we use specific
 terms to describe each item in this formula. "Outcome" (also called
 "dependent variable") refers to the $y$, "predictor" (or "independent
 variable") refers to the $x$. The error and intercept are calculated for
 us when we fit the model to the data. The intercept is when x is equal
 to zero (the "y-intercept" on a plot). The error is the difference
-between what the model estimates and what the real value is. It plays a
-role in quantifying the model's uncertainty.
+between what the model estimates and the real value. It plays a role in
+quantifying the model's uncertainty.
 
 Considering the mathematical nature of statistical models, there is also
-a logic and "workflow" to making these models as well!
+a logic and "workflow" to making these models!
 
 1.  Write a research question, designed in a way that might look like
-    the diagram above. Usually this step may need to be done back and
-    forth, revising the question after trying to construct the
-    theoretical model, that describes the measurable (and unmeasurable)
-    parameters in the model, and vice versa.
+    the diagram above. Usually this step needs to be revisited, revising
+    the question after trying to construct the theoretical model, that
+    describes the measurable (and unmeasurable) parameters in the model,
+    and vice versa.
 2.  Based on the model and the type of measured parameters used
-    (continuous vs binary), select the best mathematical model "type".
+    (continuous or binary), select the best mathematical model "type".
     Nearly all models in statistics start from the base of a linear
     regression (e.g. ANOVA is a special form of regression, t-test is a
     simpler version of ANOVA), so the model "type" will probably be a
@@ -171,7 +171,7 @@ a logic and "workflow" to making these models as well!
 3.  Measure your parameters (in the plant growth example, that might be
     the amount of water given in liters per day, amount of plant growth
     in weight, and amount of sunlight in hrs per day). Usually, this
-    measured data might need to be processed in a special way to fit the
+    measured data need to be processed in a special way to fit the
     specifics of the model, research question, and practices of the
     field.
 4.  Fit the data to the theoretical model in order to estimate the
@@ -213,7 +213,7 @@ the data are measured, what the values actually mean, how to prepare
 them for the modeling, the specific modeling methods used for this
 field, and how we would actually interpret the findings. We have
 **none** of these things, so very likely we are doing things quite wrong
-here. We're only doing these modeling to highlight how to use the R
+here. We're only doing this modeling to highlight how to use the R
 packages.
 :::
 
@@ -231,24 +231,25 @@ A few things to repeat and reinforce:
 :::
 
 Going back to our own `lipidomics` dataset, we need to do the first
-step. And that is creating the question. While we don't have much data,
-there are a surprising number of questions we could ask. But we will
-keep it very simple, very basic, and very exploratory.
+step: Creating the question. While we don't have much data, there are a
+surprising number of questions we could ask. But we will keep it very
+simple, very basic, and very exploratory.
 
 1.  What is the estimated relationship of each metabolite with T1D
-    compared to control, adjusting for the influence of age and gender?
+    compared to the controls, adjusting for the influence of age and
+    gender?
 2.  What is the variability for the estimate in each relationship?
 
 Next, because we are working within a "reproducible analysis" framework
 specifically with the use of `{targets}`, let's convert these questions
 in outputs to include as pipeline targets, along with a basic idea for
 the final functions that will make up these targets and their inputs and
-outputs. These targets will probably be quite different by end, but its
-a good to start thinking about what the end should look like.
+outputs. These targets will probably be quite different by the end, but
+it's a good start to think about what it should look like in the end.
 
--   All results for estimated relationship (in case we want to use it
+-   All results for estimated relationships (in case we want to use it
     for other output)
--   All results for variation in estimates of relationship (in case we
+-   All results for variation in estimates of relationships (in case we
     want to use it for other output)
 -   Plot of statistical estimate for each relationship
 -   Plot of variation in estimates for each relationship
@@ -323,11 +324,11 @@ $$class = metabolite\_cholesterol + age + gender$$
 Now that we have a theoretical model, we need to choose our model type.
 Since T1D is binary (either you have it or you don't), the most likely
 choice is logistic regression, which requires a binary outcome variable.
-So we have the theoretical model and the type of model to use, how do we
-express this as code in R? There are many ways of doing the same thing
-in R. But some are a bit easier than others. One such approach, that is
-quite generic and fits with the ideals of the `{tidyverse}`, is a
-similar universe of packages called the `{tidymodels}`.
+So we have the theoretical model and the type of model to use - how do
+we express this as code in R? There are many ways of doing the same
+thing in R, but some are a bit easier than others. One such approach,
+that is quite generic and fits with the ideals of the `{tidyverse}`, is
+a similar universe of packages called the `{tidymodels}`.
 
 Why do we teach `{tidymodels}`? Because they are built by software
 developers, employed by RStudio (who also employs the people who build
@@ -339,9 +340,9 @@ process the data, or other specifications without having to learn a
 whole new package or set of tools.
 
 The reason `{tidymodels}` can do that is because they designed it in a
-way that makes a clear separation in the components of model building
-workflow that was described above, through the use of specific packages
-for each component.
+way that makes a clear separation in the components of the model
+building workflow that was described above, through the use of specific
+packages for each component.
 
 | Package       | Description                                                                                       |
 |---------------|---------------------------------------------------------------------------------------------------|
@@ -351,9 +352,8 @@ for each component.
 
 : Core packages within `{tidymodels}`.
 
-We'll start with the `{parsnip}` package first. Functions in this
-package are used to set the details of the model you want to use.
-Specifically,
+We'll start with the `{parsnip}` package. Functions in this package are
+used to set the details of the model you want to use. Specifically,
 [functions](https://parsnip.tidymodels.org/reference/index.html#models)
 to indicate the model *"type"* (e.g. linear regression) and the
 `set_engines()` function to determine the "engine" to run the type
@@ -375,11 +375,10 @@ like:
     ```
 
 Since we will be using `{tidymodels}`, we need to install it, as well as
-explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages
-we will use. Like `{tidyverse}`, we need to set `{tidymodels}`
-differently because it is a "meta-package". We might need to force
-installing it with `install.packages("tidymodels")` so `{renv}`
-recognizes it.
+explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
+Like `{tidyverse}`, we need to set `{tidymodels}` differently because it
+is a "meta-package". We might need to force installing it with
+`install.packages("tidymodels")` so `{renv}` recognizes it.
 
 ```{r tidymodels-to-deps}
 #| purl: true
@@ -450,10 +449,12 @@ almost entirely used to apply transformations that a model might
 specifically need, like mean-centering, removing missing values, and
 other aspects of data processing.
 
-Let's consider our `lipidomics` dataset. We have at least three easy
-observations about the data, two of which ca be fixed with a single
-`{tidyr}` function, while the third one can be fixed with `{recipes}`.
-Can you spot them?
+Let's consider our `lipidomics` dataset. In order for us to start our
+statistical analysis, we need the data to be structured in a certain way
+to be able to smoothly use it as input in our model. We have at least
+three easy observations on necessary transformations of the data, two of
+which ca be fixed with a single `{tidyr}` function, while the third one
+can be fixed with `{recipes}`. Can you spot them?
 
 ```{r print-lipidomics-data}
 lipidomics
@@ -466,12 +467,12 @@ Ask them if they can spot these differences. Give them a few minutes to
 think and respond.
 :::
 
-The first isn't always an issue and depends heavily on the model type
-you use. Since we are using logistic regression, it assumes that each
-row is an individual person. But our data is in the long format, so each
-person has multiple rows. The second is that there seems to be a data
-input error, since there are three `Cholesterol` values, while all other
-metabolites only have one:
+The first observation isn't always an issue and depends heavily on the
+model type you use. Since we are using logistic regression, the model
+assumes that each row is an individual person. But our data is in the
+long format, so each person has multiple rows. The second observation is
+that there seems to be a data input error, since there are three
+`Cholesterol` values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
 lipidomics %>%
@@ -482,11 +483,11 @@ lipidomics %>%
 We can fix both the long format and multiple cholesterol issues by using
 `tidyr::pivot_wider()`. Before we do, the last issue is that each
 metabolite has quite large differences in the values and ranges of data.
-Again, this depends on what we want to do, but in our research questions
-we are wanting to know how each metabolite influences T1D. In order to
-best interpret the results and compare across metabolites, we should
-ideally have all the metabolites with a similar range and distribution
-of values.
+Again, whether this is an issue depends on what we want to do, but in
+our research question we want to know how each metabolite influences
+T1D. In order to best interpret the results and compare across
+metabolites, we should ideally have all the metabolites with a similar
+range and distribution of values.
 
 Let's fix the first two issues first. While we probably only need to use
 `pivot_wider()`, we should probably first tidy up the metabolite names
@@ -519,7 +520,7 @@ lipidomics_wide
 ```
 
 Since we're using a function-oriented workflow and since we will be
-using these code again later on, let's convert both the "metabolite to
+using this code again later on, let's convert both the "metabolite to
 snakecase" and "pivot to wider" code into their own functions, before
 moving them over into the `R/functions.R` file.
 
@@ -673,14 +674,14 @@ metabolites_to_wider <- function(data, values_fn = mean) {
 ## Using recipes to manage transformations
 
 We've used `{dplyr}` and `{tidyr}` to start fixing some of the issues
-with the data. But now we have the third issue: How to make the results
-between metabolites comparable. That's where we use `{recipes}`.
+with the data. But we still have the third issue: How to make the
+results between metabolites comparable. That's where we use `{recipes}`.
 
 The first function is `recipe()` and it takes two forms: with or without
 a formula. Remember the model formula we mentioned previously? Well,
 here is where we can use it to tell `{recipes}` about the model formula
-we intend to use so it knows what variables to apply the transformations
-that we choose.
+we intend to use so it knows on what variables to apply the chosen
+transformations.
 
 For a few reasons that will be clearer later, we won't ultimately use
 the formula form of `recipe()`, but will show how it works. The
@@ -745,8 +746,8 @@ need to show and use *something* in the text.
 
 ## Creating a transformation "recipe"
 
-We will use which ever transformation function we all decided in the
-exercise above, but for the text of this website, we will use
+You will use whichever transformation function your group decided on in
+the exercise above, but for the text of this website, we will use
 `step_normalize()`. This function is useful because it makes each
 variable centered to zero and a value of 1 unit is translated to 1
 standard deviation of the original distribution. This means we can more
@@ -791,22 +792,23 @@ recipe_specs <- lipidomics_wide %>%
 recipe_specs
 ```
 
-Run `run_styler_text`, then commit the changes made to the Git history.
+Run `r run_styler_text`, then commit the changes made to the Git
+history.
 
 ## Fitting the model by combining the recipe, model definition, and data
 
 We've now defined the model we want to use and created a transformation
 `{recipes}` specification. Now we can start putting them together and
-finally fit them to the data. Putting all these pieces together is done
-with the `{workflows}` package.
+finally fit them to the data. This is done with the `{workflows}`
+package.
 
-Why use this package to manage these things, rather than simply run the
-statistical analysis and process the data as normal? When running
-multiple models (like we will do in the next section), the data
-transformation steps have to happen *right before* the data is fit to
-the model and needs to done on exactly the data used by the model. So if
-we have one data frame that we run multiple models on, but the
-transformation happens to the whole data frame, we could end up with
+Why use this package, rather than simply run the statistical analysis
+and process the data as normal? When running multiple models (like we
+will do in the next section) that may require different data structures,
+the data transformation steps have to happen *right before* the data is
+fit to the model and need to be done on exactly the data used by the
+model. So if we have one data frame that we run multiple models on, but
+the transformation happens to the whole data frame, we could end up with
 issues due to how the transformations were applied. The `{workflows}`
 package keeps track of those things for us, so we can focus on the
 higher level thinking rather than on the small details of running the
@@ -891,10 +893,13 @@ dependencies:
 use_package("broom")
 ```
 
-Then, we continue the `%>%` pipe, though we do need to set
-`exponentiate = TRUE` in `tidy()` because we are using a logistic
-regression model and the results need to be corrected to be more easily
-interpreted.
+Then, we add the `tidy()` function to our model using the `%>%` pipe.
+Since we are using a logistic regression model, we need to consider how
+we want the estimates to be presented, probably depending on how we want
+to visualize our results. If we set `exponentiate = TRUE` in `tidy()`,
+the output estimates will be odds ratios, if we set
+`exponentiate = FALSE`, we will get the log odds ratios or the beta
+coefficient. Here we choose `exponentiate = TRUE`:
 
 ```{r tidy-up-model-results}
 fitted_model %>%
@@ -965,17 +970,22 @@ Let's explain this output a bit, each column at a time:
 -   `estimate`: This column is the "coefficient" linked to the term in
     the model. The final mathematical model here looks like:
 
-    $$class = Intercept + (metabolite_estimate * metabolite_value) + (gender\_estimate * gender\_value) + ...$$
+$$
+class = Intercept + (metabolite\_estimate \times metabolite\_value) + \\
+  (gender\_estimate \times gender\_value) + ...
+$$
 
-    The estimate is the constant value you multiple the value of the
-    term with. The interpreting each of these values can be quite tricky
-    and can take a surprising amount of time to conceptually break it
-    down, so we won't do that here, since this isn't a statistics
-    course. The only thing you need to understand here is that the
-    `estimate` is value that tells us the *magnitude* of association
-    between the term and `class`. This value, along with the `std.error`
-    are the most important values we can get from the model and we will
-    be using them when presenting the results.
+    In our example, we chose to get the odds ratios. In the mathematical
+    model above, the estimate is represented as the log odds ratio or
+    beta coefficient - the constant value you multiply the value of the
+    term with. Interpreting each of these values can be quite tricky and
+    can take a surprising amount of time to conceptually break down, so
+    we won't do that here, since this isn't a statistics course. The
+    only thing you need to understand here is that the `estimate` is the
+    value that tells us the *magnitude* of association between the term
+    and `class`. This value, along with the `std.error` are the most
+    important values we can get from the model and we will be using them
+    when presenting the results.
 
 -   `std.error`: This is the uncertainty in the `estimate` value. A
     higher value means there is less certainty in the value of the
@@ -986,10 +996,10 @@ Let's explain this output a bit, each column at a time:
 
 -   `p.value`: This is the infamous value we researchers go crazy for
     and think nothing else of. While there is a lot of attention to this
-    single value, it's importance is not as much as we tend to give it.
-    The interpretation of the p-value is even more difficult than the
-    `estimate` and again, we won't cover this at all in this course. We
-    won't be using this value at all in presenting the results.
+    single value, we tend to give it more attention than warranted. The
+    interpretation of the p-value is even more difficult than the
+    `estimate` and again, we won't cover this in this course. We won't
+    be using this value at all in presenting the results.
 :::
 
 Before ending, open the Git interface and commit the changes you made.
