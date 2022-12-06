@@ -87,7 +87,16 @@ early in the data processing stage.
 
 ## What is a data analysis "pipeline"?
 
-TODO: Should this be a reading exercise or the instructor talk about it?
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+After they finish reading this section, briefly walk through it. In
+particular, emphasize what we want to make at the end, even though that
+goal might change as the analysis progresses.
+:::
+
+::: callout-note
+## Reading task: \~10 minutes
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
@@ -175,6 +184,7 @@ linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1px;
 
 Now that we conceptually have drawn out the sets of tasks to complete in
 our pipeline, we can start using R to build it.
+:::
 
 ## Using targets to manage the pipeline
 
