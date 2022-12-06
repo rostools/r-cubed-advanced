@@ -605,15 +605,20 @@ the same function, but with a small difference. BUT! Before we cover it,
 let's add a setting to our `.Rprofile` to make our life a bit easier. We
 will be using `{usethis}` functions many times throughout the course, so
 a simple quality-of-life fix is to make it so we don't always have to do
-`usethis::`. Thankfully, there is a function that helps us set this up.
-First, open the the project `.Rprofile`. The `usethis::use_usethis()`
-function opens your **user** `.Rprofile`, so we will have to close it
-after running the function.
+`usethis::`. Thankfully, there is a function that can help. Create and
+open the project `.Rprofile` with `usethis::edit_r_profile()`.
 
 ```{r add-usethis-rprofile}
 #| eval: false
 usethis::edit_r_profile("project")
-usethis::use_usethis()
+```
+
+Then copy and paste this code into the `.Rprofile`:
+
+``` r
+if (interactive()) {
+  suppressMessages(require(usethis))
+}
 ```
 
 ```{r purl-only-usethis-rprofile}
