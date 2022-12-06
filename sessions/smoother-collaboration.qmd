@@ -5,8 +5,6 @@
 source(here::here("R/functions.R"))
 ```
 
-{{< include ../includes/_wip.qmd >}}
-
 Many of you probably work largely and most consistently on your own, but
 as your move through your career (in academia or industry), you will
 need to and maybe also want to *directly

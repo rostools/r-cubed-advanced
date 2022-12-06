@@ -13,8 +13,6 @@ library(tidyverse)
 load(here::here("data/lipidomics.rda"))
 ```
 
-{{< include ../includes/_wip.qmd >}}
-
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
 
