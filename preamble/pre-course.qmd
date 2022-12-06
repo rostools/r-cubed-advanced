@@ -321,11 +321,9 @@ Please do these two tasks:
     of the introduction course. If you use R Markdown already, you can
     skip this step.
 
-2.  Open up the `AdvancedR3` project, either by clicking the
-    `AdvancedR3.Rproj` file or by using the "File -\> Open Project"
-    menu. Run the function below in the Console when RStudio is in the
-    `AdvancedR3` project, which will create a new file called
-    `lesson.Rmd` in the `doc/` folder.
+2.  In the R Console while inside the `AdvancedR3` project, run the
+    function to create a new file called `lesson.Rmd` in the `doc/`
+    folder.
 
     ```{r add-rmarkdown-doc}
     #| purl: true
@@ -509,6 +507,3 @@ survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et
 to finish this assignment.
 
 See you at the course!
-
-## References
-
