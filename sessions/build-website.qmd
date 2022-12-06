@@ -311,19 +311,25 @@ knitr:
 Great! Now we can build the website! You can either use the "Render"
 button on the top of use `Ctrl-Shift-B` for "Build". Let's do it now.
 The website should pop up in either the Viewer Pane or as a new window.
-If not, we can debug what's going on.
+If not, we can debug what's going on. Let's commit the changes to the
+`_quarto.yml` and other `.Rmd` or `.qmd` files to the Git history.
 
-Before moving on to the exercise, let's add one setting that we did
-earlier that can help with collaboration. That's the `editor_options` we
-added in our R Markdown file in the first session. Let's cut and paste
-that metadata from `doc/lesson.Rmd` into the bottom of `_quarto.yml`:
+## Exercise: Look through the new website folder
 
-``` yml
-editor_options:
-  markdown:
-    wrap: 72
-    canonical: true
-```
+> Time: \~5 minutes.
+
+In your main project folder, there should now be a folder called
+`_site/`. Look through the folder. What files are now created? Open up
+the `index.html` file in your browser while in RStudio by clicking the
+`index.html` file and then selecting the "Open in web browser".
+
+<!-- TODO: Confirm the name of the website folder. -->
+
+Recall how we described what a website is. Can you see how these files
+and folders are simply HTML files that the browser shows as website? In
+the browser URL, change the `index.html` ending link to
+`doc/report.html`. See how it changes to the file based on how it is
+structured in the folder?
 
 ## Exercise: Add Quarto to the pipeline
 
@@ -340,7 +346,7 @@ should now use `tar_quarto()`.
 1.  Open the `_targets.R` file, find the `tar_render()` code, and
     replace it with `tar_quarto()`. Leave everything else the same.
 2.  Run `r run_tar_vis_text` and then `r run_tar_make_text`.
-3.  Commit all changes to the Git history.
+3.  Commit *only* the changes made to `_targets.R` to the Git history.
 
 <!-- TODO: Replace target with purl only code -->
 
@@ -351,7 +357,7 @@ should now use `tar_quarto()`.
 list(
   # ...,
   tar_quarto(
-    name = report_rmd, 
+    name = report_rmd,
     path = "doc/report.Rmd"
   )
 )
@@ -371,9 +377,39 @@ targets::tar_make()
 git_ci("_targets.R", "Switch to using Quarto in targets.")
 ```
 
+## Exercise: Add collaboration setting to `_quarto.yml` file
+
+> Time: \~5 minutes.
+
+Like we did in @sec-smoother-collaboration with the `editor_options`
+setting we added in our R Markdown file, let's make this setting global
+to the whole project. Cut and paste that metadata from `doc/lesson.Rmd`
+into the bottom of `_quarto.yml`:
+
+``` yml
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+```
+
+```{r purl-only-add-editor-options-to-quarto}
+#| eval: false
+#| echo: false
+#| purl: true
+editor_options_lines <- c(
+  "editor_options:",
+  "  markdown:",
+  "    wrap: 72",
+  "    canonical: true"
+)
+write_to_file(editor_options_lines, "_quarto.yml", append = TRUE)
+git_ci("_quarto.yml", "Add editor options to quarto.")
+```
+
 ## Automate rendering the website
 
--   Combine with freeze?
+We could - Combine with freeze?
 
 ``` yml
 execute:
