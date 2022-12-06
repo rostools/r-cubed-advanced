@@ -62,6 +62,7 @@ Ask who knows what reproducibility is and could explain it.
     -   Draw table name from bowl each morning
     -   During lunch, sit beside someone you don't know
     -   Several networking activities (usually after lunch)
+-   *Warning*: You will be making a lot of functions!
 :::
 :::
 
@@ -86,6 +87,11 @@ There will be lots of bumps along the way!
 -   Remember our **Code of Conduct**
 :::
 :::
+
+. . .
+
+> *Warning*: Those using OneDrive/Dropbox probably will encounter
+> issues, move project to Desktop?
 
 ## Practice using stickies: Did you complete the checklist from the beginning? {.center}
 
@@ -126,4 +132,3 @@ Range from almost entirely alone to never alone.
 ::: notes
 Range from definitely no to definitely yes.
 :::
-
