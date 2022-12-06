@@ -2,6 +2,13 @@
 
 {{< include ../includes/_wip.qmd >}}
 
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+extract_functions_from_qmd()
+source(here::here("R/project-functions.R"))
+```
+
 Intro
 
 ## Learning objectives
