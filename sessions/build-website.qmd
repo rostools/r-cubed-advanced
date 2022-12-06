@@ -598,22 +598,77 @@ jobs:
 git_ci(".github/workflows/build-website.yaml", "Add Action to build website.")
 ```
 
-## Exercise: Add license to repository
+## Exercise: Add licensing information to repository
 
--   Add link to GitHub description section.
+> Time: \~10 minutes.
 
--   Update README with link.
+You've now created and published a website! If you value sharing though,
+there's a few extra things you need to do. Whenever you create
+something, legally it is copyrighted to you. If you do nothing else, no
+one is able to use what you share because legally they are not allowed
+to. That's where licenses come in. A license is a legal document that
+tells others what they can and can't do with your copyrighted material.
+If you are publishing research work or other creative works and you want
+others to easily re-use it, you need to add a license document to your
+repository. A commonly used and recommended license for research and
+creative work is the Creative Commons Attribution 4.0 license, so we
+will use that.
 
--   License? Probably good idea.
+1.  In the R Console, type out `use_ccby_license()`.
 
-    -   use_ccby_license()
+2.  Add a simple license text to the bottom of each webpage by opening
+    `_quarto.yml`, going to the `website:` section, and adding this to
+    the bottom of it:
 
-``` yml
-website:
-  ...
-  page-footer:
-    center:
-      - text: "License: CC BY 4.0"
+    ``` yml
+      page-footer:
+        center:
+          - text: "License: CC BY 4.0"
+    ```
+
+3.  Check that it works by rendering the website again with
+    `Ctrl-Shift-B`. Scroll to the bottom of the webpage that pops up to
+    check that it has been added.
+
+Next, let's add some discoverability items to the `README.md` file and
+to the GitHub repository.
+
+1.  Go to your project's GitHub page.
+
+2.  Confirm that the Actions worked by going to the "Actions" tab. If
+    there is a green check mark there, than continue to the next item.
+    Otherwise, put up a "help sticky".
+
+3.  Open up your project's GitHub page and go to `Settings -> Pages`.
+    You should see a link to your new website. Copy that link.
+
+4.  Go to the "Code" tab, then click the gear icon on the right side, to
+    the right of "About". In the box that pops up, paste the link in the
+    "Website" textbox.
+
+5.  In your RStudio project, open up the `README.md` file (e.g. with
+    `edit_file("README.md")`). Add some text below the first `#` header,
+    pasting the link where the `LINK` text is in this template:
+
+        Check out the project's [website](LINK).
+
+6.  Commit the changes to the `README.md` to the Git history.
+
+::: callout-info
+Sometimes you might make a change to files that aren't part of the
+website and don't want to trigger the GitHub Action, since it would be a
+waste of resources (computing time still costs energy). GitHub Actions
+run every time you push up. So if you don't want the last commit in the
+Git history to trigger the Actions, you can add the text
+`[skip actions]` to the end of the commit message.
+:::
+
+```{r purl-only-licensing-to-repo}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci(c(".Rbuildignore", "DESCRIPTION", "LICENSE.md"),
+       "Add License file.")
 ```
 
 ## Using Quarto-style code options
