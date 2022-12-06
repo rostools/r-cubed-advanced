@@ -325,9 +325,51 @@ editor_options:
     canonical: true
 ```
 
-## Exercise: Add website as a pipeline target
+## Exercise: Add Quarto to the pipeline
 
-`tar_quarto()`
+> Time: \~8 minutes.
+
+While `{targets}` is useful for connecting pipeline targets and keeping
+track of dependencies between them, it isn't made to track full
+websites. This is for many good reasons that are very technical and not
+necessary to describe here. So while we can't build the website with
+`{targets}`, we should still connect the Quarto `doc/report.Rmd` file
+with the rest of the pipeline. We previously used `tar_render()`, but we
+should now use `tar_quarto()`.
+
+1.  Open the `_targets.R` file, find the `tar_render()` code, and
+    replace it with `tar_quarto()`. Leave everything else the same.
+2.  Run `r run_tar_vis_text` and then `r run_tar_make_text`.
+3.  Commit all changes to the Git history.
+
+<!-- TODO: Replace target with purl only code -->
+
+```{r solution-tar-quarto-to-pipeline}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+list(
+  # ...,
+  tar_quarto(
+    name = report_rmd, 
+    path = "doc/report.Rmd"
+  )
+)
+```
+
+```{r purl-only-tar-quarto-to-pipeline}
+#| eval: false
+#| echo: false
+#| purl: true
+revise_by_text(
+  "_targets.R",
+  "tar_render",
+  "tar_quarto"
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Switch to using Quarto in targets.")
+```
 
 ## Automate rendering the website
 
