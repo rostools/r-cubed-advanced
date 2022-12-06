@@ -14,7 +14,9 @@ extract_chunks <- function() {
     "preamble/pre-course.qmd",
     "sessions/smoother-collaboration.qmd",
     "sessions/pipelines.qmd",
-    "sessions/stats-analyses-basic.qmd"
+    "sessions/stats-analyses-basic.qmd",
+    "sessions/stats-analyses-multiple.qmd",
+    "sessions/build-website.qmd"
   ))
 
   r_files <- fs::path_temp(fs::path_file(qmd_files))
@@ -29,6 +31,11 @@ extract_chunks <- function() {
   functions_r_file <- here::here("R/project-functions.R")
   extract_functions_from_qmd()
   fs::file_copy(functions_r_file, "~/Desktop", overwrite = TRUE)
+  fs::file_copy(
+    here::here("R/project-build-functions.R"),
+    "~/Desktop",
+    overwrite = TRUE
+  )
 
   combined_r_file <- here::here("_ignore/code-to-build-project.R")
   fs::dir_create("_ignore")
@@ -37,7 +44,8 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
-    purrr::prepend("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')") |>
+    purrr::prepend("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", before = 3) |>
+    purrr::prepend("source('../project-build-functions.R')", before = 3) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop", overwrite = TRUE)
 }
