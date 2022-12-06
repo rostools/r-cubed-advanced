@@ -110,12 +110,15 @@ there is no difference between R Markdown and Quarto (since they both
 use [Pandoc](http://pandoc.org/) internally). The differences become
 obvious when you want to make more complex outputs like websites, books,
 or presentations or if you want to use another language like Python.
+
 Quarto is "language-agnostic", meaning it isn't limited to only R
 (unlike R Markdown for the most part). And it is even easier to use than
 R Markdown and the documentation on Quarto's website is very high
-quality. Over the next few years, R Markdown will be slowly phased out
-in favour of Quarto, for good reason. It is an massive upgrade in
-features and usability.
+quality. For instance, with the use of the "Search" feature in the
+Quarto website (in the right-hand corner), you can search the
+documentation very easily. Over the next few years, R Markdown will be
+slowly phased out in favour of Quarto, for good reason. It is an massive
+upgrade in features and usability.
 
 ![Cartoon showing the general workflow that Quarto uses to create
 different file outputs. [Artwork by
@@ -125,28 +128,31 @@ Let's start the comparison with the YAML header differences between R
 Markdown and Quarto:
 
 ::: columns
-::: {.column width="50%"}
-### Quarto: Word documents
+::: {.column width="45%"}
+**Quarto: Word**
 
 ``` yml
 format: docx
 ```
 
-### Quarto: HTML documents
+**Quarto: HTML**
 
 ``` yml
 format: html
 ```
 :::
 
-::: {.column width="50%"}
-### R Markdown: Word documents
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+**R Markdown: Word**
 
 ``` yml
 output: word_document
 ```
 
-### R Markdown: HTML documents
+**R Markdown: HTML**
 
 ``` yml
 output: html_document
