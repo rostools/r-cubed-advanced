@@ -345,7 +345,7 @@ building workflow that was described above, through the use of specific
 packages for each component.
 
 | Package       | Description                                                                                       |
-|-----------------|-------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
 | `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
@@ -972,6 +972,7 @@ Let's explain this output a bit, each column at a time:
 
     $$class = Intercept + (metabolite_estimate * metabolite_value) + (gender\_estimate * gender\_value) + ...$$
 
+    NOTE: the equation is not showing right on the website\
     In our example, we chose to get the odds ratios. In the mathematical
     model above, the estimate is represented as the log odds ratio or
     beta coefficient - the constant value you multiply the value of the
