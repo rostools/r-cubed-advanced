@@ -212,7 +212,6 @@ this file. Let's create this file with `{usethis}` to both create and
 than open it:
 
 ```{r fs-create-index-qmd}
-#| purl: true
 #| eval: false
 edit_file("index.qmd")
 ```
@@ -225,7 +224,6 @@ Next, let's create the `_quarto.yml` file that will have all the
 settings for the website.
 
 ```{r fs-create-index-qmd}
-#| purl: true
 #| eval: false
 edit_file("_quarto.yml")
 ```
@@ -290,7 +288,7 @@ header of an individual Markdown file.
 ``` yml
 format:
   html:
-    theme: litera
+    theme: simplex
 ```
 
 We have enough for Quarto to know how to build the website, but let's
@@ -308,11 +306,53 @@ knitr:
     echo: false
 ```
 
-Great! Now we can build the website! You can either use the "Render"
-button on the top of use `Ctrl-Shift-B` for "Build". Let's do it now.
-The website should pop up in either the Viewer Pane or as a new window.
-If not, we can debug what's going on. Let's commit the changes to the
-`_quarto.yml` and other `.Rmd` or `.qmd` files to the Git history.
+We can *almost* build the website. The last thing to do is prevent the
+`doc/lesson.Rmd` file from being rendered (since we will use this file
+as more of a sandbox). To stop Quarto from rendering it when building
+the website, we simply need to add `_` at the start of the filename. So
+let's do that with `{fs}`.
+
+```{r rename-lesson-to-stop-quarto}
+#| purl: true
+#| eval: false
+fs::file_move("doc/lesson.Rmd", "doc/_lesson.Rmd")
+```
+
+Now let's build the website. You can either use the "Render" button on
+the top of use `Ctrl-Shift-B` for "Build". Let's do it now. The website
+should pop up in either the Viewer Pane or as a new window. If not, we
+can debug what's going on. Let's commit the changes to the `_quarto.yml`
+and other `.Rmd` or `.qmd` files to the Git history.
+
+```{r purl-only-add-quarto-website-building}
+#| eval: false
+#| echo: false
+#| purl: true
+'
+project:
+  type: website
+website:
+  title: "Lipidomics analysis"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: doc/report.Rmd
+        text: "Report"
+format:
+  html:
+    theme: simplex
+knitr:
+  opts_chunk:
+    echo: false
+' |>
+  readr::write_lines("_quarto.yml")
+"# Lipidomics study" |>
+  readr::write_lines("index.qmd")
+git_ci(c("doc/lesson.Rmd", "doc/_lesson.Rmd"), "Rename file lesson file.")
+git_ci(c("_quarto.yml", "index.qmd"), 
+       "Add Quarto infrastructure to project.")
+```
 
 ## Exercise: Look through the new website folder
 
@@ -333,7 +373,7 @@ structured in the folder?
 
 ## Exercise: Add Quarto to the pipeline
 
-> Time: \~8 minutes.
+> Time: \~5 minutes.
 
 While `{targets}` is useful for connecting pipeline targets and keeping
 track of dependencies between them, it isn't made to track full
@@ -377,6 +417,8 @@ targets::tar_make()
 git_ci("_targets.R", "Switch to using Quarto in targets.")
 ```
 
+<!-- TODO: Might need to git ignore the html files created in doc -->
+
 ## Exercise: Add collaboration setting to `_quarto.yml` file
 
 > Time: \~5 minutes.
@@ -409,16 +451,152 @@ git_ci("_quarto.yml", "Add editor options to quarto.")
 
 ## Automate rendering the website
 
-We could - Combine with freeze?
+There is a way that we could create the website into the `_site/`
+folder, commit it to Git, and have GitHub host the website for us. But
+than we'd be saving a lot of files that could be updated quite often,
+which is annoying to keep track of. Instead, we can make use of GitHub
+Actions to build and publish our website for us.
+
+<!-- TODO: Not sure about using freeze... will come back to this. -->
+
+There is a way to have GitHub completely (re-)build the website from
+scratch each time, including running any R code. However, our project
+doesn't have much R code and we have data that we don't keep in the
+project Git history. So we need to run the computations locally first so
+GitHub and build the website without the data. This is done through
+something called "execution freezes". In the `_quarto.yml` file, add
+this metadata settings to the bottom:
 
 ``` yml
 execute:
   freeze: auto
 ```
 
--   Connect to GitHub and make website
+Then when we re-render the website with `Ctrl-Shift-B`, there will be a
+new folder created called `_freeze/`. Inside this folder are
+instructions to Quarto on how to run the code chunks inside the `.Rmd`
+file. Commit this folder to the Git history.
 
-    -   Actions?
+```{r purl-only-freeze-executions}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+execute:
+  freeze: auto
+" |>
+  write_to_file("_quarto.yml")
+quarto::quarto_render()
+git_ci(c("_quarto.yml", "_freeze"), "Add freeze execution to project.")
+```
+
+Like we did with the `{lintr}` Action by adding the
+`.github/workflows/lint-project.yaml` file, to get GitHub Actions to
+build the website we need to do two things first. Run a command to set
+things up and then add a new Action workflow file.
+
+To set our repository up for the Action, we need to run
+`quarto publish gh-pages` once in the **Terminal** (*not the R
+Console*). We open the Terminal either through the menu
+`Tools -> Terminal -> New Terminal` or with the Command Palette
+(`Ctrl-Shift-P`) along with typing the text "terminal". Or, we can make
+use of the R's `system()` function:
+
+```{r quarto-publish-gh-pages}
+#| purl: true
+#| eval: false
+system("quarto publish gh-pages")
+```
+
+Next is add the Action workflow file:
+
+```{r add-quarto-action-workflow}
+#| eval: false
+edit_file(".github/workflows/build-website.yaml")
+```
+
+Then we can copy and paste the template code from the [Quarto Example
+Action](https://github.com/quarto-dev/quarto-actions/blob/main/examples/quarto-publish-example.yml)
+file, which is (slightly modified) below. We don't need to understand
+this code, at least not for this course. Because it is template code,
+it's there to be copied and pasted (for the most part).
+
+``` yml
+on:
+  push:
+    branches: 
+      - main
+      - master
+
+name: Render and Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          # To install LaTeX to build PDF book 
+          tinytex: false
+          # uncomment below and fill to pin a version
+          # version: 0.9.600
+      
+      - name: Publish to GitHub Pages (and render)
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          # this secret is always available for github actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+```
+
+Let's commit this new file to the Git history and push the changes up to
+GitHub. While we wait for the GitHub Action to finish, complete the next
+exercise.
+
+```{r purl-only-add-quarto-action}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+on:
+  push:
+    branches: 
+      - main
+      - master
+
+name: Render and Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          # To install LaTeX to build PDF book 
+          tinytex: false
+          # uncomment below and fill to pin a version
+          # version: 0.9.600
+      
+      - name: Publish to GitHub Pages (and render)
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          # this secret is always available for github actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+" |>
+  readr::write_lines(".github/workflows/build-website.yaml")
+git_ci(".github/workflows/build-website.yaml", "Add Action to build website.")
+```
 
 ## Exercise: Add license to repository
 
@@ -438,6 +616,10 @@ website:
       - text: "License: CC BY 4.0"
 ```
 
+## Using Quarto-style code options
+
+Explain about the Quarto options in the code chunks.
+
 ## Exercise: Make figures prettier
 
 -   Make ggplot2 figures nicer, as an exercise? Add the theme to each
@@ -446,7 +628,7 @@ website:
     -   using quarto style code
 -   Make table of model estimates and variation?
 
-## Make we
+## Make website prettier?
 
 ## Resources
 
