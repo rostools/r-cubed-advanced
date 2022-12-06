@@ -59,8 +59,8 @@ crossref:
 
 editor_options:
   markdown:
-  wrap: 72
-  canonical: true
+    wrap: 72
+    canonical: true
 
 format:
   html:
