@@ -44,5 +44,6 @@ Suggests:
     usethis
 Encoding: UTF-8
 LazyData: true
-Remotes:  
+Remotes: 
     rostools/r3admin
+License: CC BY 4.0
