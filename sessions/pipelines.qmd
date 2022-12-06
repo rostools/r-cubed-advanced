@@ -945,7 +945,7 @@ list(
   ),
   tar_target(
     name = fig_metabolite_distribution,
-    command = plot_count_stats(
+    command = plot_distributions(
       lipidomics, 
       "images/metabolite-distribution.png"
     ),
@@ -982,7 +982,7 @@ tar_target(
 ),
 tar_target(
   name = fig_metabolite_distribution,
-  command = plot_count_stats(lipidomics, "images/metabolite-distribution.png"),
+  command = plot_distributions(lipidomics, "images/metabolite-distribution.png"),
   format = "file"
 )
 '
