@@ -338,9 +338,23 @@ git_ci(c("renv.lock", "renv", ".Rprofile"),
 The function `renv::init()` initializes the project to begin being
 managed by `{renv}`. By using the argument `bare = TRUE` we are telling
 `{renv}` to not search for dependencies in the project, since we want to
-do that ourselves shortly. It adds several files to the project:
+do that ourselves.
 
-TODO: These files might not be created yet.
+When initilizing a `{renv}` instance using `bare = TRUE` we create a new
+`.libPath()` location that does not contain any of the packages we
+previously defined as project dependencies. You can notice this if you
+attempt to type `usethis::`, you'll notice that nothing comes up.
+Therefore, before being able to continue our workflow we need to tell
+`{renv}` to install the packages we have already defined as
+dependencies. This can be done with `renv::install()`:
+
+```{r renv-install}
+#| eval: false
+#| purl: true
+renv::install()
+```
+
+After doing this we should have several files in our project folder:
 
 ```{r show-created-files}
 #| echo: false
