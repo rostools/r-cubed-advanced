@@ -77,8 +77,7 @@ More specific objectives are to:
 
 Specific "anti"-objectives:
 
--   Same as the "anti"-objectives of @sec-stats-analysis-basic. NOTE: I
-    don't this is showing right on the website?
+-   Same as the "anti"-objectives of @sec-stats-analyses-basic.
 
 ## Exercise: How would we use functional programming to run multiple models?
 

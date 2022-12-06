@@ -38,9 +38,9 @@ feel more in control.
 
 In R, statistical methods are often created and developed by researchers
 with little to no training in software development and who often use
-them in differently. This has some advantages, like having the cutting
-edge statistical methods available to us, but has a major disadvantage
-of often having to learn a completely different way of running a
+them differently. This has some advantages, like having the cutting edge
+statistical methods available to us, but has a major disadvantage of
+often having to learn a completely different way of running a
 statistical analysis, even if it is fairly similar to ones you've used
 before. So having a framework for running statistical analyses,
 regardless of who created them, can provide that needed structure and
@@ -231,7 +231,7 @@ A few things to repeat and reinforce:
 :::
 
 Going back to our own `lipidomics` dataset, we need to do the first
-step: creating the question. While we don't have much data, there are a
+step: Creating the question. While we don't have much data, there are a
 surprising number of questions we could ask. But we will keep it very
 simple, very basic, and very exploratory.
 
@@ -244,8 +244,8 @@ Next, because we are working within a "reproducible analysis" framework
 specifically with the use of `{targets}`, let's convert these questions
 in outputs to include as pipeline targets, along with a basic idea for
 the final functions that will make up these targets and their inputs and
-outputs. These targets will probably be quite different by end, but it's
-a good start to think about what it should look like in the end.
+outputs. These targets will probably be quite different by the end, but
+it's a good start to think about what it should look like in the end.
 
 -   All results for estimated relationships (in case we want to use it
     for other output)
@@ -345,7 +345,7 @@ building workflow that was described above, through the use of specific
 packages for each component.
 
 | Package       | Description                                                                                       |
-|------------------|------------------------------------------------------|
+|---------------|---------------------------------------------------------------------------------------------------|
 | `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
 | `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
@@ -970,9 +970,11 @@ Let's explain this output a bit, each column at a time:
 -   `estimate`: This column is the "coefficient" linked to the term in
     the model. The final mathematical model here looks like:
 
-    $$class = Intercept + (metabolite_estimate * metabolite_value) + (gender\_estimate * gender\_value) + ...$$
+$$
+class = Intercept + (metabolite\_estimate \times metabolite\_value) + \\
+  (gender\_estimate \times gender\_value) + ...
+$$
 
-    NOTE: the equation is not showing right on the website\
     In our example, we chose to get the odds ratios. In the mathematical
     model above, the estimate is represented as the log odds ratio or
     beta coefficient - the constant value you multiply the value of the
