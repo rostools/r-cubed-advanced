@@ -507,22 +507,83 @@ list(
 )
 ```
 
+Let's run `{targets}` to see what happens! You can either use the
+Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
+code in the Console:
+
+``` r
+targets::tar_make()
+```
+
+It won't run though. That's because `{targets}` does not work when being
+given data in a `.rda` format. Instead `{targets}` want a "raw" data
+file that itself can store as `.rda`. To account for this we need to
+alter our data wrangling script. From here we will open up the the
+`data-raw/nmr-omics.r` script and replace:
+
+``` r
+usethis::use_data(lipidomics, overwrite = TRUE)
+```
+
+with
+
+``` r
+readr::write_csv(lipidomics, here::here("data/lipidomics.csv"))
+```
+
+We haven't added `{readr}` as a dependency yet, so let's add it to the
+DESCRIPTION file.
+
+```{r}
+#| purl: true
+#| eval: false
+use_package("readr")
+```
+
+We can now source the script (to generate a new data file) and update
+the `_targets.R` file. Because of the way `{targets}` works, we need to
+first create a pipeline target of *only* the path to the data file, and
+then we can load it with `{readr}`.
+
+``` r
+list(
+    tar_target(
+        name = file,
+        command = "data/lipidomics.csv",
+        format = "file"
+    ),
+    tar_target(
+        name = lipidomics,
+        command = readr::read_csv(file, show_col_types = FALSE)
+    ),
+    tar_target(
+        name = df_stats_by_metabolite,
+        command = descriptive_stats(lipidomics)
+    )
+)
+```
+
 ```{r purl-only-add-to-targets}
 #| eval: false
 #| echo: false
 #| purl: true
-new_targets <- "
+new_targets <- '
 list(
-  tar_target(
-    name = lipidomics,
-    command = load(here::here('data/lipidomics.rda'))
-  ),
-  tar_target(
-    name = df_stats_by_metabolite,
-    command = descriptive_stats(lipidomics)
-  )
+    tar_target(
+        name = file,
+        command = "data/lipidomics.csv",
+        format = "file"
+    ),
+    tar_target(
+        name = lipidomics,
+        command = readr::read_csv(file, show_col_types = FALSE)
+    ),
+    tar_target(
+        name = df_stats_by_metabolite,
+        command = descriptive_stats(lipidomics)
+    )
 )
-"
+'
 # print_lines("_targets.R")
 revise_by_line_num(
   path = "_targets.R",
@@ -532,9 +593,9 @@ revise_by_line_num(
 git_ci("_targets.R", "Add new targets to run.")
 ```
 
-Let's run `{targets}` to see what happens! You can either use the
-Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
-code in the Console:
+Now, let's try running `{targets}` again! You can either use the Command
+Palette (`Ctrl-Shift-P`, then type "run targets") or run this code in
+the Console:
 
 ``` r
 targets::tar_make()
@@ -1229,4 +1290,3 @@ Then push your changes up to GitHub.
     pipeline outputs. To include the R Markdown in the pipeline, use
     `{tarchetypes}` and the function `tar_render()`.
 -   Delete stored pipeline output with `tar_delete()`.
-
