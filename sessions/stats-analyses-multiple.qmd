@@ -207,7 +207,7 @@ lipidomics %>%
 ```
 
 Like we did with the `metabolite_to_wider()`, we need to pipe the output
-into another `map()` function that has a custom function that runs the
+into another `map()` function that has a custom function running the
 models. We don't have this function yet, so we need to create it. Let's
 convert the modeling code we used in the exercise above into a function,
 replacing `lipidomics` with `data` and using
@@ -260,7 +260,7 @@ there is one aesthetic thing we can add: The original variable names,
 rather than the snake case version. Since the original variable still
 exists in our `lipidomics` dataset, we can join it to the
 `model_estimates` object with `right_join()`, along with a few other
-minor changes. First, we'll `seelct()` only the `metabolite` and then
+minor changes. First, we'll `select()` only the `metabolite` and then
 create a duplicate column of `metabolite` called `term` (to match the
 `model_estimates`) using `mutate()`.
 
@@ -491,14 +491,13 @@ Then we'll start using `{ggplot2}` to visualize the results. For
 dot-whisker plots, the "geom" we would use is called
 `geom_pointrange()`. It requires four values:
 
--   `x`: This will be the "dot", should we will use the `estimate`
-    column.
+-   `x`: This will be the "dot", representing the `estimate` column.
 -   `y`: This is the categorical variable that the "dot" is associated
     with, in this case, it is the `metabolite` column.
 -   `xmin`: This is the lower end of the "whisker". Since the
     `std.error` is a value representing uncertainty of the estimate on
-    either side of it (`+` or `-`), we will need to substract
-    `std.error` from the `estimate`.
+    either side of it (`+` or `-`), we will need to subtract `std.error`
+    from the `estimate`.
 -   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
     but adding `std.error` instead.
 
@@ -649,9 +648,9 @@ sizes, some issues can limit the use of these typical measures of
 uncertainty. And we've already noticed that there is something strange
 with the estimates for some of the metabolites.
 
-So instead, we can use something that is a bit more targetted to the
-data called "resampling". There are many resampling techniques, and they
-all have slightly different uses. The one we will use is called the
+So instead, we can use something that is a bit more targeted to the data
+called "resampling". There are many resampling techniques, and they all
+have slightly different uses. The one we will use is called the
 ["bootstrap"](https://en.wikipedia.org/wiki/Bootstrapping_(statistics))[^stats-analyses-multiple-2].
 What bootstrapping does is take the data and randomly resamples it as
 many times as there are rows. This means you can potentially resample
@@ -663,8 +662,8 @@ data on one person!
 [^stats-analyses-multiple-2]: Another common technique is called
     ["v-fold
     cross-validation"](https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation),
-    which is provides a way of assessing how well the model as a whole
-    performs at fitting the data, rather than where bootstrap determines
+    which provides a way of assessing how well the model as a whole
+    performs at fitting the data, rather than bootstrap which determines
     how varied the estimate can be.
 
 <!-- TODO: Make a diagram of this at some point. -->
@@ -717,8 +716,8 @@ bootstraps(lipidomics_list[[1]], times = 10)
 This output is called a "nested tibble". A nested tibble is a
 tibble/data frame where one or more of the columns are actually a list
 object. In our case, each bootstrapped set (marked by the `id`) has
-instructions on how the resampled data will look like. We can see what
-it looks like by accessing the `splits` column and looking at the first
+instructions on how the resampled data will look. We can see what it
+looks like by accessing the `splits` column and looking at the first
 item with `[[1]]`:
 
 ```{r show-split-contents}
@@ -762,7 +761,7 @@ will use `fit_resamples()` to run the model on the bootstrapped data.
 Instead of the `data` argument in `fit()`, it is the `resamples`
 argument where we provide the `bootstraps()` sets. We could run the code
 with only the workflow object and the resampled data, but there's an
-extra argument in `fit_resamples()` that `control`'s some actions taken
+extra argument in `fit_resamples()` that controls some actions taken
 during the fitting by using the `control_resamples()` function. For
 instance, we can save the predictions with `save_pred = TRUE` and we can
 process the output with our `tidy_model_output()` function in the
@@ -1095,7 +1094,8 @@ report rendered to an HTML file! If you open it up in a browser, we can
 see the figures added to it. In the next session we will get more into
 making the document output nicer looking and creating it as a website.
 
-TODO: Check that the output is rendered to html.
+TODO: Check that the output is rendered to html. Don't forget the TODO
+:)
 
 ## Summary
 
@@ -1104,7 +1104,7 @@ TODO: Check that the output is rendered to html.
     with minimal code.
 -   Consistently create small functions that do a specific conceptual
     action and chain them together into larger conceptual actions, which
-    can than more easily be incorporated into a `{targets}` pipeline.
+    can then more easily be incorporated into a `{targets}` pipeline.
     Small, multiple functions combined together are easier to manage
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
@@ -1115,4 +1115,3 @@ TODO: Check that the output is rendered to html.
     of models, easily and with minimal code.
 -   Visualize variation in data with alternatives to histograms like
     `geom_dotplot()`.
-
