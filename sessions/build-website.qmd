@@ -667,13 +667,60 @@ Git history to trigger the Actions, you can add the text
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c(".Rbuildignore", "DESCRIPTION", "LICENSE.md"),
+license_footer <- '
+  page-footer:
+    center:
+      - text: "License: CC BY 4.0"
+' 
+print_lines("_quarto.yml")
+revise_by_lines(
+  "_quarto.yml",
+  license_footer,
+  remove_original_lines = 30,
+  insert_at_line = 31
+)
+git_ci(c(".Rbuildignore", "DESCRIPTION", 
+         "LICENSE.md", "_quarto.yml"),
        "Add License file.")
 ```
 
 ## Using Quarto-style code options
 
-Explain about the Quarto options in the code chunks.
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Walk through this section with them. They will use this information in
+the next exercise.
+:::
+
+Another difference with Quarto compared to R Markdown is how code chunk
+options are set. While you can continue using `{knitr}` style code chunk
+options, it's best to start switching to using the Quarto style. Compare
+them below.
+
+::: columns
+::: {.column width="50%"}
+## knitr-style chunk options
+
+    ```{{r, echo=FALSE, warning=TRUE}}
+    1:10
+    ```
+:::
+
+::: {.column width="50%"}
+## Quarto-style chunk options
+
+    ```{{r}}
+    #| echo: false
+    #| warning: true
+    ```
+:::
+:::
+
+Why the change? They needed to develop an approach that worked with
+other languages as well, like Python. `{knitr}` is an R-specific
+package, so they needed a more language agnostic way of setting chunk
+options.
 
 ## Exercise: Make figures prettier
 
@@ -690,3 +737,4 @@ Explain about the Quarto options in the code chunks.
 -   Bibliography
 
 ## Summary
+
