@@ -9,8 +9,6 @@ extract_functions_from_qmd()
 source(here::here("R/project-functions.R"))
 ```
 
-Intro
-
 ## Learning objectives
 
 The overall objective for this session is to:
@@ -768,3 +766,15 @@ chunk of the `doc/report.Rmd` file, make a new theme object and use
     ```
 
 ## Summary
+
+-   Use Quarto, along with their referring to their documentation, to
+    create various types of output documents, including websites.
+-   Add an `index.qmd` file as well as the `_quarto.yml` file with
+    Quarto settings to build a website.
+-   Make use of execution freezes and GitHub Actions to host your
+    website on GitHub.
+-   Add a license file (for instance, with `use_ccby_license()`) to
+    allow others to re-use your work.
+-   Use Quarto code chunk options, along with `{ggplot2}` theme
+    functions, to make figures more visually appealing on their own and
+    in the document.
