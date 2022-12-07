@@ -1,7 +1,5 @@
 # Efficiently running many analyses at once {#sec-stats-analyses-multiple}
 
-{{< include ../includes/_wip.qmd >}}
-
 ```{r setup}
 #| include: false
 source(here::here("R/functions.R"))
@@ -1117,7 +1115,8 @@ report rendered to an HTML file! If you open it up in a browser, we can
 see the figures added to it. In the next session we will get more into
 making the document output nicer looking and creating it as a website.
 
-TODO: Check that the output is rendered to html. Don't forget the TODO
+<!-- TODO: Check that the output is rendered to html. Don't forget the TODO -->
+
 :)
 
 ## Summary
@@ -1138,3 +1137,4 @@ TODO: Check that the output is rendered to html. Don't forget the TODO
     of models, easily and with minimal code.
 -   Visualize variation in data with alternatives to histograms like
     `geom_dotplot()`.
+
