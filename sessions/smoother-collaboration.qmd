@@ -538,47 +538,6 @@ the situation.
 :   The last resort, use this to reinstall everything from scratch.
 :::
 
-## Exercise: Browse the newly created `renv/` folders and files
-
-> Time: \~10 minutes.
-
-After running adding `{renv}` to the project, take a look through the
-newly created `renv/` folder and see what was added. Where are the
-packages now installed?
-
-```{r ex-show-created-files}
-#| echo: false
-fs::dir_tree(path = "renv", all = TRUE, recurse = 1)
-```
-
-To better understand how `{renv}` creates this self-contained project,
-run this line of code:
-
-```{r ex-lib-path-renv-active}
-#| eval: false
-.libPaths()
-```
-
-Notice where the file paths are. Then, run this code in the Console:
-
-```{r ex-renv-deactivate}
-#| eval: false
-renv::deactivate()
-```
-
-Open up the Git interface and see what was modified in the `.Rprofile`
-file. What was changed? Now switch back to the Console and run these
-lines of code:
-
-```{r ex-lib-path-renv-reactive}
-#| eval: false
-.libPaths()
-renv::activate()
-```
-
-Notice how the file path location of the R library is different when
-`{renv}` is active or not?
-
 ## Two types of dependencies
 
 When you work on a research project that involves data analysis, you
