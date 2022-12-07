@@ -237,7 +237,7 @@ This will add several files:
 #| eval: false
 #| echo: false
 #| purl: true
-# TODO: Use to list out files created to paste into book.
+# Admin: Use to list out files created to paste into book.
 fs::dir_tree(regexp = "run.*|_targets.*")
 git_ci(
   c("run.R", "run.sh", "_targets.R"),

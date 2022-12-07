@@ -180,8 +180,6 @@ a logic and "workflow" to making these models!
 5.  Extract the values and their uncertainty from the model and present
     them in relation to your research questions.
 
-<!-- TODO: Image of workflow? Use app.diagrams.net? -->
-
 ```{mermaid fig-model-building-workflow}
 %%| label: fig-model-building-workflow
 %%| fig-cap: Simple schematic of the workflow for conducting statistical analysis.
