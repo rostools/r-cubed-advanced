@@ -236,7 +236,7 @@ usethis::use_package("fs")
 usethis::use_package("usethis")
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Make sure that everyone has added the right packages, since it can be
@@ -613,7 +613,7 @@ Open the Git interface and see that under `Suggests:` in the
 `DESCRIPTION` file is `renv`. Let's commit these changes, as well as the
 changes to `.Rprofile`.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 For the information block below, mention it to the learners but you
@@ -664,7 +664,7 @@ The main package for doing that is the `{lintr}` package. We'll get a
 chance to try out using `{renv}` since we need to install it to use it
 in our project.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Before continuing, ask the learners which type of dependency they think
@@ -722,7 +722,7 @@ There *should* be at least one note that says:
 Lines should not be more than 80 characters.
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 If there is no note, check if the participants have the `# nolint` at
@@ -853,7 +853,7 @@ it together with `{lintr}` and sometimes manually running reformatting
 (`Ctrl-Shift-A` or with the Command Palette `Ctrl-Shift-P` then
 "reformat") you will be able to fix most syntax issues.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Mention the callout block below, but don't go into it at all.
@@ -1029,7 +1029,7 @@ made to the Git history. Then delete both `TODO.md`, followed by
 committing these deletions in the Git history. Click the "Push" button
 to push the changes to GitHub.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Use this code to help synchronize with what the learners are doing. Copy

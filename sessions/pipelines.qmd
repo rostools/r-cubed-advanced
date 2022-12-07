@@ -13,7 +13,7 @@ library(tidyverse)
 load(here::here("data/lipidomics.rda"))
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Before beginning, get them to recall what they remember of the previous
@@ -87,7 +87,7 @@ early in the data processing stage.
 
 ## What is a data analysis "pipeline"?
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 After they finish reading this section, briefly walk through it. In
@@ -194,7 +194,7 @@ With this package, you specify outputs you want to create and
 `{targets}` will track them for you. So it will know which output
 depends on which other one and which ones need to be updated.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Ask participants, which do they think it is: a build dependency or a
@@ -250,7 +250,7 @@ are used for other situations (like running on a Linux server) that we
 won't cover in the course. Before we continue though, let's **commit
 these new files to the Git history**.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Let them read it before going over it again to reinforce

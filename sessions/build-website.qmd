@@ -44,7 +44,7 @@ With your neighbour, discuss and come to an agreement about what
 year old? Or to the class? Don't look ahead!
 :stuck_out_tongue_winking_eye:
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Ask if anyone wants to share, though they don't need to if they don't
@@ -53,7 +53,7 @@ feel comfortable with it.
 
 ## Websites, what they are and why researchers should create more
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Talk through this point, showing the websites and reinforcing that a
@@ -692,7 +692,7 @@ git_ci(c(".Rbuildignore", "DESCRIPTION",
 
 ## Using Quarto-style code options
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Walk through this section with them. They will use this information in

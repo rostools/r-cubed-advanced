@@ -12,7 +12,7 @@ library(tidymodels)
 load(here::here("data/lipidomics.rda"))
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Before beginning, get them to recall what they remember of the previous
@@ -217,7 +217,7 @@ here. We're only doing this modeling to highlight how to use the R
 packages.
 :::
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 A few things to repeat and reinforce:
@@ -279,7 +279,7 @@ linkStyle 0,1,2,3,4,5 stroke-width:1px;
 
 ## Defining the model
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Verbally walk through this section, describing the theoretical model
@@ -460,7 +460,7 @@ can be fixed with `{recipes}`. Can you spot them?
 lipidomics
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Ask them if they can spot these differences. Give them a few minutes to
@@ -589,7 +589,7 @@ lipidomics %>%
 ```
 :::
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 You don't need to go over what they read, you can continue with making
@@ -948,7 +948,7 @@ create_model_workflow(
 
 Let's briefly cover what these columns and values mean.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 If you want, you can go over these details briefly or in more detail,
