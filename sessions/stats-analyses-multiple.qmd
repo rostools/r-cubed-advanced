@@ -16,10 +16,16 @@ lipidomics_wide <- lipidomics %>%
     names_from = metabolite, values_from = value, values_fn = mean,
     names_prefix = "metabolite_"
   )
+# lipidomics %>% 
+#   calculate_estimates() %>% 
+#   readr::write_csv(here::here("data/model-estimates.csv"))
+# lipidomics %>% 
+#   calculate_variation() %>% 
+#   readr::write_csv(here::here("data/model-variation.csv"))
 metabolites_with_bootstrap_results <- read_csv(here::here("data/model-variation.csv"))
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Before beginning, get them to recall what they remember of the previous
@@ -98,7 +104,7 @@ modeling.
 -   For the remaining time, we will discuss our thoughts in the whole
     group.
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 After they've finished, either write pseudocode in RStudio or draw this
@@ -360,18 +366,14 @@ add_original_metabolite_names <- function(model_results, data) {
 ```
 
 Do the same thing with the code that creates the model results, using
-the scaffold below as a starting point. The only difference here is that
-we would like to save the model results to a CSV file in the `data/`
-folder so we can more easily share the results.
+the scaffold below as a starting point.
 
 ``` r
-calculate_estimates <- function(data, csv_path = "data/model-estimates.R") {
-  model_estimates <- ___ %>%
+calculate_estimates <- function(data) {
+  ___ %>%
     # All the other code to create the results
     ___ %>% 
     add_original_metabolite_names(data) 
-  readr::write_csv(model_estimates, here::here(csv_path))
-  output_switch_for_targets(model_estimates, csv_path)
 }
 ```
 
@@ -385,16 +387,14 @@ calculate_estimates <- function(data, csv_path = "data/model-estimates.R") {
 #'
 #' @return A data frame.
 #'
-calculate_estimates <- function(data, csv_path = "data/model-estimates.csv") {
-  model_estimates <- data %>%
+calculate_estimates <- function(data) {
+  data %>%
     column_values_to_snakecase(metabolite) %>%
     dplyr::group_split(metabolite) %>%
     purrr::map(metabolites_to_wider) %>%
     purrr::map_dfr(generate_model_results) %>%
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
     add_original_metabolite_names(data)
-  readr::write_csv(model_estimates, here::here(csv_path))
-  output_switch_for_targets(model_estimates, csv_path)
 }
 ```
 
@@ -403,7 +403,7 @@ using the below scaffold as a guide.
 
 1.  Use `df_model_estimates` for the `name`.
 2.  Use the `calculate_estimates()` function in `command`, with
-    `lipidomics` and `"data/model-estimates.csv"` as the arguments.
+    `lipidomics` as the argument.
 3.  Run `r run_styler_text` and than run `r run_tar_vis_text` to see if
     the new target gets detected. If it does, than run
     `r run_tar_make_text`.
@@ -414,8 +414,7 @@ list(
   ...,
   list(
     name = ___,
-    command = ___(___, ___),
-    format = "file"
+    command = ___(___)
   )
 )
 ```
@@ -428,8 +427,7 @@ update_target_calc_est <- '
   ),
   list(
     name = df_model_estimates,
-    command = calculate_estimates(lipidomics, "data/model-estimates.csv"),
-    format = "file"
+    command = calculate_estimates(lipidomics)
   )
 )
 '
@@ -437,7 +435,7 @@ update_target_calc_est <- '
 revise_by_line_num(
   path = "_targets.R",
   insert_text = update_target_calc_est,
-  # TODO: Modify these numbers.
+  # Modify these numbers.
   remove_original_lines = -30,
   insert_at_line = 31
 )
@@ -461,19 +459,37 @@ error of the estimate.
 
 Inside the `doc/report.Rmd`, let's create a new header and code chunk
 inside the `## Results` section. We'll want to use
-`targets::tar_read(df_model_estimates)` so that `{targets}` is aware
-that the R Markdown file is dependent on this target. This
-`targets::tar_read()` will output a path to the CSV file, so we will
-need to use `read_csv()` to load it in.
+`tar_read(df_model_estimates)` so that `{targets}` is aware that the R
+Markdown file is dependent on this target.
 
     ### Figure of model estimates
 
     ```{{r}}
-    model_estimates <- targets::tar_read(df_model_estimates) %>% 
-      read_csv()
+    model_estimates <- tar_read(df_model_estimates)
     ```
 
-<!-- TODO: Add this to purl for the report.Rmd? -->
+```{r purl-only-model-estimate-md-text}
+#| eval: false
+#| echo: false
+#| purl: true
+model_estimate_md_text <- c(
+  "### Figure of model estimates",
+  "",
+  "```{r}",
+  "model_estimates <- tar_read(df_model_estimates)",
+  "```"
+)
+  
+print_file("doc/report.Rmd")
+revise_by_line_num(
+  "doc/report.Rmd",
+  model_estimate_md_text,
+  # Update numbers
+  remove_original_lines = -40,
+  insert_at_line = 39
+)
+git_ci("doc/report.Rmd", "Add code for model estimates to report.")
+```
 
 ```{r exec-only-model-estimates}
 #| include: false
@@ -531,21 +547,14 @@ because we'll need to convert this plot code into a function and add it
 as a target in the pipeline. Use the scaffold below as a guide.
 
 1.  Replace `model_estimates` with `results`.
-2.  Use the `output_switch_for_targets()` function we created to output
-    either the `plot_results` or the `image_path`.
-3.  Move the function into the `R/functions.R` file, add
+2.  Move the function into the `R/functions.R` file, add
     `r run_roxygen_comments`, and run `r run_styler_text`.
 
 ``` r
-plot_estimates <- function(results, image_path) {
-  plot_results <- ___ %>% 
+plot_estimates <- function(results) {
+  ___ %>% 
     # Plot code here:
     ___
-  ggplot2::ggsave(
-   plot = plot_results,
-   filename = here::here(image_path)
-  )
-  output_switch_for_targets(___, ___)
 }
 ```
 
@@ -556,12 +565,11 @@ plot_estimates <- function(results, image_path) {
 #' Plot the estimates and standard errors of the model results.
 #'
 #' @param results The model estimate results.
-#' @param image_path Path to where image will be saved.
 #'
 #' @return A ggplot2 figure.
 #'
-plot_estimates <- function(results, image_path) {
-  plot_results <- results %>%
+plot_estimates <- function(results) {
+  results %>%
     ggplot2::ggplot(ggplot2::aes(
       x = estimate, y = metabolite,
       xmin = estimate - std.error,
@@ -569,12 +577,6 @@ plot_estimates <- function(results, image_path) {
     )) +
     ggplot2::geom_pointrange() +
     ggplot2::coord_fixed(xlim = c(0, 5))
-
-  ggplot2::ggsave(
-    plot = plot_results,
-    filename = here::here(image_path)
-  )
-  output_switch_for_targets(plot_results, image_path)
 }
 ```
 
@@ -586,17 +588,16 @@ list(
   ...,
   tar_target(
     name = ___,
-    command = plot_estimates(___, ___),
-    format = "file"
+    command = plot_estimates(___)
   )
 )
 ```
 
 And replace all the plot code in the `doc/report.Rmd` file with the
-`targets::tar_read()` inside the `knitr::include_graphics()`:
+`tar_read()`:
 
     ```{{r}}
-    knitr::include_graphics(targets::tar_read(fig_model_estimates))
+    tar_read(fig_model_estimates)
     ```
 
 Run `r run_tar_make_text` to update the pipeline. Then commit the
@@ -606,11 +607,28 @@ changes to the Git history.
 #| eval: false
 #| echo: false
 #| purl: true
+plot_estimates_md_text <- c(
+  "",
+  "```{{r}}",
+  "tar_read(fig_model_estimates)",
+  "```",
+  ""
+)
+
+print_file("doc/report.Rmd")
+revise_by_line_num(
+  "doc/report.Rmd",
+  plot_estimates_md_text,
+  # Update numbers
+  remove_original_lines = -40,
+  insert_at_line = 39
+)
+git_ci("doc/report.Rmd", "Add code for model estimates to report.")
+
 update_target_plot_est <- '),
 tar_target(
   name = fig_model_estimates,
-  command = plot_estimates(df_model_estimates, "images/fig-model-estimates"),
-  format = "file"
+  command = plot_estimates(df_model_estimates)
 )
 )
 '
@@ -619,12 +637,11 @@ styler::style_file("_targets.R")
 revise_by_line_num(
   path = "_targets.R",
   insert_text = update_target_calc_est,
-  # TODO: Modify these numbers.
+  # Modify these numbers.
   remove_original_lines = -30,
   insert_at_line = 31
 )
 
-# TODO: Add R Markdown to be purled too.
 targets::tar_visnetwork()
 targets::tar_make()
 git_ci("_targets", "Add plot estimates target")
@@ -911,8 +928,7 @@ Continue the workflow we've applied throughout the course:
 
 1.  Move the code into a function structure (use the scaffold below as a
     guide).
-2.  Include two arguments in the `function()` called `data` and
-    `results_path`.
+2.  Include one argument in the `function()` called `data`.
 3.  Replace `lipidomics` in the code with `data`.
 4.  Add the `r run_roxygen_comments`.
 5.  Cut and paste the function over into the `R/functions.R` file.
@@ -923,12 +939,10 @@ Continue the workflow we've applied throughout the course:
 Use this code as a guide for the function.
 
 ``` r
-calculate_variation <- function(___, results_path = "data/model-variation.csv") {
-  bootstrapped_results <- ___ %>% 
+calculate_variation <- function(___) {
+  ___ %>% 
     # Code from above.
     ___
-  readr::write_csv(bootstrapped_results, here::here(results_path))
-  output_switch_for_targets(bootstrapped_results, results_path)
 }
 ```
 
@@ -939,17 +953,14 @@ calculate_variation <- function(___, results_path = "data/model-variation.csv") 
 #' Calculate the uncertainty in results.
 #'
 #' @param data The lipidomics data.
-#' @param results_path Path to save a CSV of the results.
 #'
 #' @return A data frame (or file path)
 #'
-calculate_variation <- function(data, results_path = "data/model-variation.csv") {
-  bootstrapped_results <- data %>%
+calculate_variation <- function(data) {
+  data %>%
     split_by_metabolite() %>%
-    map(generate_model_variation) %>%
-    map_dfr(tidy_bootstrap_output)
-  readr::write_csv(bootstrapped_results, here::here(results_path))
-  output_switch_for_targets(bootstrapped_results, results_path)
+    purrr::map(generate_model_variation) %>%
+    purrr::map_dfr(tidy_bootstrap_output)
 }
 ```
 
@@ -958,12 +969,10 @@ Next, add the function to `_targets.R`.
 1.  Create another `tar_target()` item in the `list()` at the bottom of
     the file.
 2.  Use `df_model_variation` as the `name` and `calculate_variation()`
-    as the `command` with `lipidomics` and `"data/model-variation.csv"`
-    as the two arguments.
-3.  Set `"file"` as the `format`.
-4.  Run `r run_tar_vis_text` to see what targets are outdated and then
+    as the `command` with `lipidomics` as argument.
+3.  Run `r run_tar_vis_text` to see what targets are outdated and then
     run `r run_tar_make_text`.
-5.  Commit the changes to the Git history.
+4.  Commit the changes to the Git history.
 
 Use this code as a scaffold:
 
@@ -972,10 +981,34 @@ list(
   ...,
   tar_target(
     name = ___,
-    command = ___,
-    format = ___
+    command = ___
   )
 )
+```
+
+```{r purl-only-variation-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+variation_targets_code <- '
+  ),
+  tar_target(
+    name = df_model_variation,
+    command = calculate_variation(lipidomics)
+  )
+)
+'
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = variation_targets_code,
+  # Modify these numbers.
+  remove_original_lines = -30,
+  insert_at_line = 31
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Update targets with model variation")
 ```
 
 ```{r solution-calculate-variation-to-pipeline}
@@ -986,15 +1019,14 @@ list(
   # ...,
   tar_target(
     name = df_model_variation,
-    command = calculate_variation(lipidomics, "data/model-variation.csv"),
-    format = "file"
+    command = calculate_variation(lipidomics)
   )
 )
 ```
 
 ## Visualizing the variability of results
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Take your time explaining why we might use a figure like this, and what
@@ -1040,15 +1072,13 @@ Let's use our function workflow with this code:
 #'
 #' @param model_results The model results with the variation.
 #'
-#' @return A ggplot2 image (or a file path).
+#' @return A ggplot2 image.
 #'
-plot_variation <- function(model_results, image_path) {
-  plot_output <- model_results %>%
+plot_variation <- function(model_results) {
+  model_results %>%
     ggplot2::ggplot(ggplot2::aes(x = estimate)) +
     ggplot2::geom_dotplot() +
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
-  ggplot2::ggsave(here::here(image_path), plot_output)
-  output_switch_for_targets(plot_output, image_path)
 }
 ```
 
@@ -1059,8 +1089,7 @@ list(
   ...,
   tar_target(
     name = fig_model_variation,
-    command = plot_variation(df_model_variation, "images/fig-model-variation.png"),
-    format = "file"
+    command = plot_variation(df_model_variation)
   )
 )
 ```
@@ -1076,11 +1105,11 @@ file. Like we did with the other outputs (like the figures), we'll use
 `tar_read()` to reference the image path.
 
     ```{{r}}
-    knitr::include_graphics(tar_read(fig_model_estimates))
+    tar_read(fig_model_estimates)
     ```
 
     ```{{r}}
-    knitr::include_graphics(tar_read(fig_model_variations))
+    tar_read(fig_model_variations)
     ```
 
 Run `r run_tar_vis_text`, then `r run_tar_make_text`. We now have the
