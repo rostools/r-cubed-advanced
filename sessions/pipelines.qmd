@@ -729,19 +729,18 @@ git_ci(c(".gitignore", "_targets.R", "DESCRIPTION", "renv.lock"),
 
 ## Exercise: Examine the contents of the `_targets/` folder
 
-> Time: \~5 minutes.
+> Time: \~2 minutes.
 
-Like you did with `{renv}`, go into the `_targets/` folder and take a
-look around. There are two important ones: `meta/` and `objects/`. Look
-in each to get familiar with the files there.
+To get a bit familiar with how `{targets}` works, go into the
+`_targets/` folder and take a look around. There are two important ones:
+`meta/` and `objects/`. Look in each to get familiar with the files
+there.
 
 -   The `meta/meta` file contains the metadata about the individual
     pipeline targets that you add with `tar_target()`.
 -   The `objects/` folder contains the output of each `tar_target()`
     (e.g. the data from `load()` or the statistics from
     `descriptive_stats()`).
-
-TODO: Need to run on my end to know what to look for.
 
 ## Exercise: Update function to also calculate median and IQR
 
@@ -1336,3 +1335,4 @@ Then push your changes up to GitHub.
     pipeline outputs. To include the R Markdown in the pipeline, use
     `{tarchetypes}` and the function `tar_render()`.
 -   Delete stored pipeline output with `tar_delete()`.
+
