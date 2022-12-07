@@ -587,8 +587,8 @@ git_ci(".gitignore", "Don't track data.")
 ```
 
 Because of the way `{targets}` works, we need to first create a pipeline
-target of *only* the path to the data file, and then we can load it with
-`{readr}`.
+target of *only* the path to the data file with the `format = "file"`,
+and then we can load it with `{readr}`.
 
 ``` r
 list(
@@ -787,15 +787,10 @@ descriptive_stats <- function(data) {
 }
 ```
 
-## Saving intermediate analysis outputs
+## Creating figure outputs
 
-Sometimes you may want a pipeline target to save the output to a file so
-you can save it to the Git history, like saving a figure, rather than
-store the result in the `_targets/` folder. To save outputs of a target
-outside of the `_targets/` folder, there are a few specific things we
-have to do.
-
-First, let's write some code to create the plots for our items 2 and 3
+Not only can we create data frames with targets (like above), but also
+figures. Let's write some code to create the plots for our items 2 and 3
 that we initially decided at the start of this session. Since we're
 using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
 file and to our `{renv}` project library.
@@ -828,19 +823,12 @@ gender_by_class_plot <- lipidomics %>%
 gender_by_class_plot
 ```
 
-Since we want to save this plot to a file, we'll use `ggsave()` to save
-it to a new folder called `images/`.
-
-```{r bar-plot-gender-class-to-file}
-ggsave(here::here("images/gender-by-class.png"), gender_by_class_plot)
-```
-
 Next, let's do item 3, the distribution of each metabolite. Here we'll
 use `geom_histogram()`, nothing too fancy. And since the data is already
 in long format, we can easily use `facet_wrap()` to create a plot for
-each metabolite. Like with the plot above, let's save it to a file. We
-use `scales = "free"` because each metabolite doesn't have the same
-range of values (some are small, others are quite large).
+each metabolite. We use `scales = "free"` because each metabolite
+doesn't have the same range of values (some are small, others are quite
+large).
 
 ```{r histogram-metabolites}
 #| eval: true
@@ -850,19 +838,7 @@ metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
 metabolite_distribution_plot
 ```
 
-And then save it.
-
-```{r histogram-metabolites-save}
-ggsave(
-  here::here("images/metabolite-distribution.png"),
-  metabolite_distribution_plot
-)
-```
-
-We now have the basic code to convert over into functions. There are
-some special things `{targets}` needs in order for it to recognize that
-you want to save the output as a file. Before we do that though, we'll
-create the functions to start with.
+We now have the basic code to convert over into functions.
 
 ## Exercise: Convert the plot code to a function
 
@@ -876,53 +852,39 @@ function in the exercise above, complete these tasks:
     `plot_count_stats`.
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
-3.  Replace the `"images/gender-by-class.png"` with `image_path` and put
-    `image_path` as an argument inside the brackets of `function()`.
-4.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
+3.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
     `{dplyr}` function used inside your function.
-5.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
+4.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
     sure it is formatted correctly. You might need to manually force a
     styling if lines are too long.
-6.  With the *cursor* inside the function, add some roxygen
+5.  With the *cursor* inside the function, add some roxygen
     documentation with `Ctrl-Shift-P` followed by typing "roxygen
     comment". Remove the lines that contain `@examples` and `@export`,
     then fill in the other details (like the `@params` and `Title`). In
-    the `@return` section, write "A plot object or a file path."
-7.  Cut and paste the function over into the `R/functions.R` file.
-8.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
+    the `@return` section, write "A plot object."
+6.  Cut and paste the function over into the `R/functions.R` file.
+7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
     code by running `plot_count_stats(lipidomics)` in the Console. If it
     works, do the last task.
-9.  Save both files and then open the Git interface and commit the
+8.  Save both files and then open the Git interface and commit the
     changes you made to them.
-10. Repeat these tasks for the code for the metabolite distribution
+9.  Repeat these tasks for the code for the metabolite distribution
     plot. Call this new function `plot_distributions`.
 
 Use this scaffolding code to help guide you to write the code into a
 function.
 
 ``` r
-plot_count_stats <- function(___, ___) {
-  plot_output <- ___
-  
-  ggplot2::ggsave(
-    plot = plot_output, 
-    filename = here::here(___)
-  )
-  plot_output
+plot_count_stats <- function(___) {
+  ___
 }
 
-plot_distributions <- function(___, ___) {
-  plot_output <- ___
-  
-  ggplot2::ggsave(
-    plot = plot_output, 
-    filename = here::here(___)
-  )
-  plot_output
+plot_distributions <- function(___) {
+  ___
 }
 ```
 
-```{r solution-new-function-plots}
+```{r solution-new-function-descriptive-plots}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
@@ -930,126 +892,47 @@ plot_distributions <- function(___, ___) {
 #' Plot for basic count data.
 #'
 #' @param data The lipidomics dataset.
-#' @param image_path The file path location where to save the image.
 #'
 #' @return A ggplot2 graph.
 #'
-plot_count_stats <- function(data, image_path) {
-  plot_output <- data %>%
+plot_count_stats <- function(data) {
+  data %>%
     dplyr::distinct(code, gender, class) %>%
     ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
     ggplot2::geom_bar(position = "dodge")
-  ggplot2::ggsave(
-    plot = plot_output,
-    filename = here::here(image_path)
-  )
-  plot_output
 }
 
 #' Plot for basic distribution of metabolite data.
 #'
 #' @param data The lipidomics dataset.
-#' @param image_path The file path location where to save the image.
 #'
 #' @return A ggplot2 graph.
 #'
-plot_distributions <- function(data, image_path) {
-  plot_output <- data %>% 
+plot_distributions <- function(data) {
+  data %>% 
     ggplot2::ggplot(ggplot2::aes(x = value)) +
     ggplot2::geom_histogram() +
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
-  ggplot2::ggsave(
-    plot = plot_output,
-    filename = here::here(image_path)
-  )
-  plot_output
 }
 ```
 
-## Informing targets of the saved output files
+## Adding the plots as pipeline targets
 
-We now have the functions that we can put into the `_targets.R` file.
-Now we need to change the functions slightly in order for `{targets}` to
-know about the saved images. When we use the functions inside
-`tar_target()`, we need to do two things: have the function output the
-file path of the image rather than output the plot; and, set the
-argument `format` in `tar_target()` to `"file"`.
-
-To do the first, a simple fix would be to go into the plot functions and
-replace the `plot_output` at the end with `image_path`. But! That would
-mean that when we are testing out the function, we couldn't ever
-actually *see* the plot being created. Instead, we can create an
-`if () ... else()` condition to output the plot when we are working
-`interactive()`ly, otherwise output the image path when `{targets}` runs
-it.
-
-Since we'll be using this code at least twice, let's create another
-function to do this switch for us. Open up the `R/functions.R` file and
-start typing out the function:
-
-```{r output-switch}
-output_switch_for_targets <- function(output, path) {
-  if (interactive()) {
-    output
-  } else {
-    path
-  }
-}
-```
-
-After we've written it, we'll add some Roxygen documentation
-(`Ctrl-Shift-P`, then type "roxygen comment"):
-
-```{r new-function-output-switch-for-targets}
-#' Switch output based on if it is interactive, otherwise it is a file path.
-#'
-#' @param output Output object to send to screen when running interactively.
-#' @param path The file path to where the intermediate object is saved.
-#'
-#' @return An object or a file path.
-#'
-output_switch_for_targets <- function(output, path) {
-  if (interactive()) {
-    output
-  } else {
-    path
-  }
-}
-```
-
-Then, we go into the two plot functions and replace `plot_output` at the
-end with:
-
-``` r
-output_switch_for_targets(plot_output, image_path)
-```
-
-TODO: Check purl'ed code to see which line to replace with.
-
-Now, let's add the two functions to the `_targets.R` file, including
-adding the `format = "file"` argument. Let's write these two
-`tar_target()` items within the `list()` inside `_targets.R`. To make it
-easier to track things, keep the file name and target `name` the same
-(except maybe add `fig_` at the start of the name).
+Now, let's add the two functions to the `_targets.R` file. Let's write
+these two `tar_target()` items within the `list()` inside `_targets.R`.
+To make it easier to track things, add `fig_` to the start of the `name`
+given.
 
 ``` r
 list(
   ...,
   tar_target(
     name = fig_gender_by_class,
-    command = plot_count_stats(
-      lipidomics, 
-      "images/gender-by-class.png"
-    ),
-    format = "file"
+    command = plot_count_stats(lipidomics)
   ),
   tar_target(
     name = fig_metabolite_distribution,
-    command = plot_distributions(
-      lipidomics, 
-      "images/metabolite-distribution.png"
-    ),
-    format = "file"
+    command = plot_distributions(lipidomics)
   )
 )
 ```
@@ -1065,23 +948,15 @@ history**.
 #| eval: false
 #| echo: false
 #| purl: true
-revise_by_text(
-  path = "R/functions.R",
-  original = "plot_output$",
-  replacement = "output_switch_for_targets(plot_output, image_path)"
-)
-
 update_targets_plots <- '
 ),
 tar_target(
   name = fig_gender_by_class,
-  command = plot_count_stats(lipidomics, "images/gender-by-class.png"),
-  format = "file"
+  command = plot_count_stats(lipidomics)
 ),
 tar_target(
   name = fig_metabolite_distribution,
-  command = plot_distributions(lipidomics, "images/metabolite-distribution.png"),
-  format = "file"
+  command = plot_distributions(lipidomics)
 )
 '
 # print_lines("_targets.R")
@@ -1145,13 +1020,9 @@ connections with plots and descriptive statistics. That's because we
 haven't used them in a way `{targets}` can recognize. For that, we need
 to use the function `targets::tar_read()`.
 
-TODO: Confirm that we don't see this.
-
 Let's open up the `doc/report.Rmd` file, add a `setup` code chunk below
 the YAML header, and create a new header and code chunk and make use of
 the `targets::tar_read()`
-
-TODO: Confirm this works.
 
     ```{{r setup}}
     library(tidyverse)
@@ -1166,14 +1037,14 @@ TODO: Confirm this works.
     ```
 
     ```{{r}}
-    knitr::include_graphics(tar_read(fig_gender_by_class))
+    tar_read(fig_gender_by_class)
     ```
 
     ```{{r}}
-    knitr::include_graphics(targets::tar_read(fig_distribution_metabolites))
+    tar_read(fig_distribution_metabolites)
     ```
 
-TODO: Purl this markdown text
+<!-- TODO: Purl this markdown text -->
 
 With `targets::tar_read()`, we can access all the stored target items
 using syntax like we would with `{dplyr}`, without quotes. For the
@@ -1203,7 +1074,7 @@ targets::tar_read(df_stats_by_metabolite) %>%
 '
 revise_by_text(
   path = "doc/report.Rmd",
-  original = "targets::tar_read(df_stats_by_metabolite)",
+  original = "tar_read\\(df_stats_by_metabolite\\)",
   replacement = pretty_basic_stats_code
 )
 styler::style_file("doc/report.Rmd")
@@ -1328,11 +1199,7 @@ Then push your changes up to GitHub.
 -   Visualize target items in your pipeline with
     `targets::tar_visnetwork()` or list outdated items with
     `targets::tar_outdated()`.
--   When saving output as a file, ensure that your function outputs the
-    path to the file, *not* the output itself. Then use
-    `format = "file"` as an argument in `tar_target()`.
 -   Within R Markdown files, use `targets::tar_read()` to access saved
     pipeline outputs. To include the R Markdown in the pipeline, use
     `{tarchetypes}` and the function `tar_render()`.
 -   Delete stored pipeline output with `tar_delete()`.
-
