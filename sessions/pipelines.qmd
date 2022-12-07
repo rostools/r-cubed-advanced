@@ -1044,7 +1044,39 @@ the `targets::tar_read()`
     tar_read(fig_distribution_metabolites)
     ```
 
-<!-- TODO: Purl this markdown text -->
+```{r purl-only-basic-stats-markdown-text}
+#| eval: false
+#| echo: false
+#| purl: true
+basic_stats_md_text <- c("```{r setup}",
+  "library(tidyverse)",
+  "library(targets)",
+  "lipidomics <- tar_read(lipidomics)",
+  "```",
+  "",
+  "## Results",
+  "",
+  "```{r}",
+  "tar_read(df_stats_by_metabolite)",
+  "```",
+  "",
+  "```{r}",
+  "tar_read(fig_gender_by_class)",
+  "```",
+  "",
+  "```{r}",
+  "tar_read(fig_distribution_metabolites)",
+  "```")
+print_file("doc/report.Rmd")
+revise_by_line_num(
+  "doc/report.Rmd",
+  basic_stats_md_text,
+  # Update numbers
+  remove_original_lines = -30,
+  insert_at_line = 29
+)
+git_ci("doc/report.Rmd", "Add code for basic stats to report.")
+```
 
 With `targets::tar_read()`, we can access all the stored target items
 using syntax like we would with `{dplyr}`, without quotes. For the
