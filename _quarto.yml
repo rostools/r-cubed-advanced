@@ -51,7 +51,7 @@ bibliography:
   - includes/packages.bib
 csl: includes/vancouver.csl
 
-callout-appearance: simple
+callout-appearance: minimal
 reference-location: margin
 citation-location: margin
 crossref:
