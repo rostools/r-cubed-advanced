@@ -1091,11 +1091,45 @@ editor_options:
 readLines("README.md") |>
   append(editor_yaml, after = 1) |>
   writeLines("README.md")
-git_ci("README.md", "Add editor options to README file.")
+gert::git_add("README.md")
+gert::git_commit("Add editor options to README file.")
 fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
 :::
+
+## Add r3 in order to complete the survey
+
+We're at the end of the session and now need to fill in the survey.
+There is a function in r3, but r3 isn't installed in our project
+library. However, because r3 has a few GitHub packages as dependencies,
+we need to tell `{renv}` to authenticate us to GitHub so we can install
+as much as we want (GitHub only allows a few unauthenticated installed,
+as a security feature against hackers and cyber attacks). We need to
+create a variable called `GITHUB_TOKEN` by running this function from
+`{credentials}`.
+
+```{r set-github-pat}
+#| eval: false
+credentials::set_github_pat(TRUE)
+```
+
+Then we can install the r3 package into our project with
+`renv::install()`. Because the r3 package is on GitLab, we need to tell
+`{renv}` about its location by adding `gitlab::` followed by the "user"
+(which is `rostools`) and than the repository (`r3`).
+
+```{r install-r3}
+#| eval: false
+renv::install("gitlab::rostools/r3")
+```
+
+Now we can open the feedback survey:
+
+```{r}
+#| eval: false
+r3::open_feedback_survey_advanced()
+```
 
 ## Summary
 

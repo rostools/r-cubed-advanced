@@ -49,14 +49,9 @@ Packages used and depended on for this course are included in the
 root directory (where the `r-cubed-advanced.Rproj` file is located:
 
 ``` r
-# install.packages("remotes")
-remotes::install_deps()
-```
-
-Or by using `{renv}`:
-
-``` r
 # install.packages("renv")
+renv::install()
+# Or:
 renv::restore()
 ```
 
@@ -65,7 +60,7 @@ encounter a "rate limit" when installing packages:
 
 ``` r
 # usethis::create_github_token()
-Sys.setenv(GITHUB_PAT = readline())
+credentials::set_github_pat(TRUE)
 ```
 
 ## Contributing
