@@ -80,7 +80,6 @@ format:
 
 knitr:
   opts_chunk:
-    width: 68
     comment: ""
     class-output: sourceCode
 
