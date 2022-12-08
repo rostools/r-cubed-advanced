@@ -9,6 +9,23 @@ extract_functions_from_qmd()
 source(here::here("R/project-functions.R"))
 ```
 
+Disseminating our research and work is one of the key tasks of being a
+researcher. We researchers are sadly very limited in our focus on
+publishing papers, when our work can encompass much more than just
+papers and when there are other forms of publishing aside from papers.
+One of the most effective forms of disseminating content is in creating
+a website, thanks to the power of Google indexing.
+
+With current software tools and services, Making simple websites like
+blogs has historically been fairly easy. Making websites presenting
+analytical work and outputs on the other hand, has been a difficult
+area. Over the last 10 years, many tools and packages have been created
+that try to simplify that task. They each have had their strengths, and
+their major flaws. The most recent software, though, is a massive
+improvement of previous attempts. In this session we will be covering
+how to make websites for code-based analysis projects that builds on top
+of R Markdown that is familiar to many R users.
+
 ## Learning objectives
 
 The overall objective for this session is to:
