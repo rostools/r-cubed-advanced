@@ -372,10 +372,14 @@ and in the `setup` code chunk add `library(tidymodels)`, so it looks
 like:
 
     ```{{r setup}}
+    targets::tar_config_set(store = here::here("_targets"))
     library(tidyverse)
     library(tidymodels)
+    source(here::here("R/functions.R"))
     lipidomics <- tar_read(lipidomics)
     ```
+
+Then, **delete** everything below this code chunk.
 
 Since we will be using `{tidymodels}`, we need to install it, as well as
 explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
