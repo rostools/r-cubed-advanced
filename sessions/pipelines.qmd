@@ -130,7 +130,7 @@ actual pipelines? Because:
 6.  And, research is largely non-reproducible [@Trisovic2022;
     @Seibold2021; @Laurinavichyute2021].
 
-<!-- TODO: The Seibold ref doesn't work... -->
+<!-- FIXME: The Seibold ref doesn't work... -->
 
 A data analysis pipeline would by definition be a reproducible,
 readable, and code-based data analysis. We researchers as a group have a
