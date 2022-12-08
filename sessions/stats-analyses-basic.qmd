@@ -87,6 +87,20 @@ compared to other areas?
 
 ## Theory and "workflow" on statistical modeling
 
+::: {.callout-note collapse="true"}
+## Instructor note
+
+Let them read it over than go over it briefly, focusing on what a model
+is, that we should create research questions while thinking in the
+framework of models, and the general workflow for doing statistical
+analyses.
+:::
+
+<!-- TODO: Create a revealjs presentation on this? -->
+
+::: callout-info
+## Reading task: \~15 minutes
+
 Almost all fields of research, and definitely more heavily-quantitative
 and scientific fields like biomedicine and health, have math and
 statistics at the core of taking data to draw inferences or general
@@ -199,6 +213,7 @@ field, and how we would actually interpret the findings. We have
 **none** of these things, so very likely we are doing things quite wrong
 here. We're only doing this modeling to highlight how to use the R
 packages.
+:::
 :::
 
 ::: {.callout-note collapse="true"}
