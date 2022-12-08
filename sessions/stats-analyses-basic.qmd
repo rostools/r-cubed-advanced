@@ -144,6 +144,10 @@ basic simplified math of a statistical model looks mostly the same:
 
 $$y = intercept + x + error $$
 
+So if we use the example of plant growth, it would look like:
+
+$$Growth = Sunlight + Water$$
+
 It's a bit more complicated than this, but this is enough to describe it
 for this course. Throughout the rest of the session, we use specific
 terms to describe each item in this formula. "Outcome" (also called
