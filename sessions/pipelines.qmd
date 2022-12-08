@@ -729,21 +729,6 @@ git_ci(c(".gitignore", "_targets.R", "DESCRIPTION", "renv.lock"),
        "Tell targets about packages, ignore _targets/")
 ```
 
-## Exercise: Examine the contents of the `_targets/` folder
-
-> Time: \~2 minutes.
-
-To get a bit familiar with how `{targets}` works, go into the
-`_targets/` folder and take a look around. There are two important ones:
-`meta/` and `objects/`. Look in each to get familiar with the files
-there.
-
--   The `meta/meta` file contains the metadata about the individual
-    pipeline targets that you add with `tar_target()`.
--   The `objects/` folder contains the output of each `tar_target()`
-    (e.g. the data from `read_csv()` or the statistics from
-    `descriptive_stats()`).
-
 ## Exercise: Update function to also calculate median and IQR
 
 > Time: \~8 minutes.
