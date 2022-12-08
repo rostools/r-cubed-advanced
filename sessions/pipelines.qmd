@@ -741,7 +741,7 @@ there.
 -   The `meta/meta` file contains the metadata about the individual
     pipeline targets that you add with `tar_target()`.
 -   The `objects/` folder contains the output of each `tar_target()`
-    (e.g. the data from `load()` or the statistics from
+    (e.g. the data from `read_csv()` or the statistics from
     `descriptive_stats()`).
 
 ## Exercise: Update function to also calculate median and IQR
@@ -785,7 +785,7 @@ descriptive_stats <- function(data) {
       median = median,
       iqr = IQR
     ))) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), round, digits = 1))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), round, digits = 1))
 }
 ```
 
