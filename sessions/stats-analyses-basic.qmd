@@ -355,7 +355,7 @@ like:
     ```{{r setup}}
     library(tidyverse)
     library(tidymodels)
-    load(here::here("data/lipidomics.rda"))
+    lipidomics <- tar_read(lipidomics)
     ```
 
 Since we will be using `{tidymodels}`, we need to install it, as well as
