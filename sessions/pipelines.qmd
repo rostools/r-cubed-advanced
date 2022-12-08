@@ -1114,11 +1114,12 @@ Re-run `r run_tar_vis_text` to see that it now detects the connections
 between the pipeline targets. Now, run `r run_tar_make_text` again to
 see everything re-build! Last things are to re-style using
 `r run_styler_text`, then **commit** the changes to the Git history
-before moving on.
+before moving on. Then push your changes up to GitHub.
 
-## Exercise: Removing the stored pipeline data
+## Fixing issues in the stored pipeline data
 
-> Time: \~15 minutes.
+::: callout-note
+## Reading task: \~10 minutes
 
 Like with `{renv}`, sometimes you need to start from the beginning and
 clean everything up because there's an issue that you can't seem to fix.
@@ -1159,55 +1160,7 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 :   The most destructive, and probably more commonly used, function.
     This will delete the entire `_targets/` folder for those times when
     you want to start over and re-run the entire pipeline again.
-
-1.  Try out `tar_invalidate()` by running these code in the Console, one
-    at a time, and see what output they give:
-
-    ```{r test-out-invalidate}
-    #| purl: true
-    tar_read(lipidomics)
-    tar_invalidate(everything())
-    tar_read(lipidomics)
-    tar_outdated()
-    tar_make()
-    tar_outdated()
-    ```
-
-2.  Try out `tar_delete()` by also running these code in the Console,
-    one at a time, and see what output they give:
-
-    ```{r test-out-delete}
-    #| purl: true
-    tar_read(lipidomics)
-    tar_delete(everything())
-    tar_read(lipidomics)
-    tar_outdated()
-    tar_make()
-    tar_outdated()
-    ```
-
-While this isn't an issue for our data (since it is an open dataset),
-it's good practice to not store the original, individual level data in
-the `_targets/` folder for those of us working in more strict
-environments when it comes to personal health data.
-
-Open the `_targets.R` file and write this code at the end of the file:
-
-```{r tar-delete-data}
-tar_delete(lipidomics)
-```
-
-```{r purl-only-delete-stored-data}
-#| eval: false
-#| echo: false
-#| purl: true
-"tar_delete(lipidomics)" |>
-  write_to_file("_targets.R", append = TRUE)
-git_ci("_targets.R", "Delete the stored lipidomics data in the _targets folder")
-```
-
-Before ending, open the Git interface and commit the changes you made.
-Then push your changes up to GitHub.
+:::
 
 ## Summary
 
