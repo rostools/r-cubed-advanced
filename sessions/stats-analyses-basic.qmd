@@ -983,7 +983,7 @@ Let's explain this output a bit, each column at a time:
 -   `estimate`: This column is the "coefficient" linked to the term in
     the model. The final mathematical model here looks like:
 
-    $$ class = Intercept + (metabolite\_estimate \times metabolite\_value) + \\ (gender\_estimate \times gender\_value) + ...$$
+    $$ \displaylines{class = Intercept + (metabolite\_estimate \times metabolite\_value) + \\ (gender\_estimate \times gender\_value) + ...}$$
 
     In our example, we chose to get the odds ratios. In the mathematical
     model above, the estimate is represented as the log odds ratio or
