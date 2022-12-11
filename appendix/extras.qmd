@@ -18,3 +18,138 @@ could even use
 use_github_action("style")
 
 this might be an extra.
+
+## Saving intermediate analysis outputs
+
+Sometimes you may want a pipeline target to save the output to a file so
+you can save it to the Git history, like saving a figure, rather than
+store the result in the `_targets/` folder. To save outputs of a target
+outside of the `_targets/` folder, there are a few specific things we
+have to do.
+
+First, let's write some code to create the plots for our items 2 and 3
+that we initially decided at the start of this session. Since we're
+using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
+file and to our `{renv}` project library.
+
+```{r purl-only-renv-install-ggplot2}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("ggplot2")
+```
+
+```{r add-ggplot2-deps}
+#| purl: true
+use_package("ggplot2")
+```
+
+Next, we'll write the code to create item 2: The bar plot of the counts
+of `gender` and `class`. We'll keep it simple for now. Because the data
+is structured in a long format, we need to trim it down to only the
+unique cases of `code`, `gender`, and `class` with `distinct()`. Then we
+can make the bar plot. We'll use `position = "dodge"` for the bars to be
+side by side, rather than stacked.
+
+```{r bar-plot-gender-class}
+#| eval: true
+gender_by_class_plot <- lipidomics %>%
+  distinct(code, gender, class) %>%
+  ggplot(aes(x = class, fill = gender)) +
+  geom_bar(position = "dodge")
+gender_by_class_plot
+```
+
+Since we want to save this plot to a file, we'll use `ggsave()` to save
+it to a new folder called `images/`.
+
+```{r bar-plot-gender-class-to-file}
+ggsave(here::here("images/gender-by-class.png"), gender_by_class_plot)
+```
+
+Next, let's do item 3, the distribution of each metabolite. Here we'll
+use `geom_histogram()`, nothing too fancy. And since the data is already
+in long format, we can easily use `facet_wrap()` to create a plot for
+each metabolite. Like with the plot above, let's save it to a file. We
+use `scales = "free"` because each metabolite doesn't have the same
+range of values (some are small, others are quite large).
+
+```{r histogram-metabolites}
+#| eval: true
+metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
+  geom_histogram() +
+  facet_wrap(vars(metabolite), scales = "free")
+metabolite_distribution_plot
+```
+
+And then save it.
+
+```{r histogram-metabolites-save}
+ggsave(
+  here::here("images/metabolite-distribution.png"),
+  metabolite_distribution_plot
+)
+```
+
+We now have the basic code to convert over into functions. There are
+some special things `{targets}` needs in order for it to recognize that
+you want to save the output as a file. Before we do that though, we'll
+create the functions to start with.
+
+## Informing targets of the saved output files
+
+We now have the functions that we can put into the `_targets.R` file.
+Now we need to change the functions slightly in order for `{targets}` to
+know about the saved images. When we use the functions inside
+`tar_target()`, we need to do two things: have the function output the
+file path of the image rather than output the plot; and, set the
+argument `format` in `tar_target()` to `"file"`.
+
+To do the first, a simple fix would be to go into the plot functions and
+replace the `plot_output` at the end with `image_path`. But! That would
+mean that when we are testing out the function, we couldn't ever
+actually *see* the plot being created. Instead, we can create an
+`if () ... else()` condition to output the plot when we are working
+`interactive()`ly, otherwise output the image path when `{targets}` runs
+it.
+
+Since we'll be using this code at least twice, let's create another
+function to do this switch for us. Open up the `R/functions.R` file and
+start typing out the function:
+
+```{r output-switch}
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    path
+  }
+}
+```
+
+After we've written it, we'll add some Roxygen documentation
+(`Ctrl-Shift-P`, then type "roxygen comment"):
+
+```{r new-function-output-switch-for-targets}
+#' Switch output based on if it is interactive, otherwise it is a file path.
+#'
+#' @param output Output object to send to screen when running interactively.
+#' @param path The file path to where the intermediate object is saved.
+#'
+#' @return An object or a file path.
+#'
+output_switch_for_targets <- function(output, path) {
+  if (interactive()) {
+    output
+  } else {
+    path
+  }
+}
+```
+
+Then, we go into the two plot functions and replace `plot_output` at the
+end with:
+
+``` r
+output_switch_for_targets(plot_output, image_path)
+```
