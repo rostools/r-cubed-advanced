@@ -60,7 +60,7 @@ encounter a "rate limit" when installing packages:
 
 ``` r
 # usethis::create_github_token()
-credentials::set_github_pat(TRUE)
+credentials::set_github_pat()
 ```
 
 ## Contributing
