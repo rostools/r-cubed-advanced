@@ -4,6 +4,7 @@ options(
   deparse.max.lines = 2,
   renv.settings.snapshot.type = "explicit",
   renv.config.auto.snapshot = TRUE,
+  renv.config.pak.enabled = TRUE,
   styler.cache_root = "styler",
   Ncpus = 3,
   dplyr.summarize.inform = FALSE,
