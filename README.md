@@ -63,6 +63,15 @@ encounter a "rate limit" when installing packages:
 credentials::set_github_pat()
 ```
 
+For Linux users (and maybe Mac?), you will probably need to install
+extra dependencies:
+
+``` bash
+sudo apt install librdf0-dev libharfbuzz-dev libfribidi-dev \
+  libxml2-dev libglpk-dev gfortran libsodium-dev \
+  libpoppler-cpp-dev
+```
+
 ## Contributing
 
 If you are interested in contributing to the course material, please
