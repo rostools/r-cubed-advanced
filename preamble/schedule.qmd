@@ -6,8 +6,11 @@ hands-on exercises, all with using a real-world, open dataset. There are
 few lectures, only given at the start and end of the workshop. The
 general schedule outline is shown in the below table.
 
-```{r schedule-table, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
-knitr::opts_chunk$set(echo = FALSE)
+::: panel-tabset
+```{r schedule-table}
+#| eval: true
+#| echo: false
+#| output: asis
 library(dplyr)
 add_link <- function(text, icon, link) {
   colour <- "#138d75"
@@ -18,7 +21,7 @@ add_link <- function(text, icon, link) {
   return(htmltools::HTML(added_link))
 }
 
-schedule <- here::here("includes/schedule.csv") %>%
+schedule <- here::here("preamble/schedule.csv") %>%
   readr::read_csv(col_types = "ccccc") %>%
   mutate(across(everything(), ~ if_else(is.na(.x), "", .x))) %>%
   mutate(
@@ -27,33 +30,16 @@ schedule <- here::here("includes/schedule.csv") %>%
       unlist()
   ) %>%
   select(-icon, -link)
-```
 
-::: panel-tabset
-## Day 1 {.unnumbered}
-
-```{r schedule-table-day-1}
-schedule %>%
-  filter(Day == "Day 1") %>%
-  select(-Day) %>%
-  knitr::kable()
-```
-
-## Day 2 {.unnumbered}
-
-```{r schedule-table-day-2}
-schedule %>%
-  filter(Day == "Day 2") %>%
-  select(-Day) %>%
-  knitr::kable()
-```
-
-## Day 3 {.unnumbered}
-
-```{r schedule-table-day-3}
-schedule %>%
-  filter(Day == "Day 3") %>%
-  select(-Day) %>%
-  knitr::kable()
+unique(schedule$Day) %>%
+  purrr::map_chr(\(day) {
+    knitr::knit_child(
+      input = here::here("preamble/_schedule-days.qmd"),
+      envir = environment(),
+      quiet = TRUE
+    )
+  }) %>%
+  cat(sep = "\n")
 ```
 :::
+
