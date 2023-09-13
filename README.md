@@ -33,14 +33,17 @@ out in completing the exercises.
 
 ## Lesson content
 
-The teaching material is found mainly in the main project folder:
+The teaching material is found mainly in the project folders:
 
--   `preamble/syllabus.qmd`: Contains the syllabus file.
--   Files in `content/` starting with a number: Contains the code-along
-    teaching material.
+-   `preamble/`: Contains the syllabus and the schedule files.
+-   `sessions/`: Contains the code-along teaching material, as well as
+    associated links to the lecture slides.
+-   `slides/`: Contains the slides, created as Revealjs HTML slides by
+    using Quarto.
+-   `appendix/`: Contains the supplemental or secondary content.
 
-The website is generated from [Quarto](https://quarto.org/), so it
-follows the file and folder structure conventions from that package.
+The website is generated from [Quarto](https://quarto.org), so follows
+the file and folder structure conventions from that package.
 
 ## Installing necessary packages
 
@@ -61,6 +64,15 @@ encounter a "rate limit" when installing packages:
 ``` r
 # usethis::create_github_token()
 credentials::set_github_pat()
+```
+
+For Linux users (and maybe Mac?), you will probably need to install
+extra dependencies:
+
+``` bash
+sudo apt install librdf0-dev libharfbuzz-dev libfribidi-dev \
+  libxml2-dev libglpk-dev gfortran libsodium-dev \
+  libpoppler-cpp-dev
 ```
 
 ## Contributing

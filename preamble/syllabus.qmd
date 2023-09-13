@@ -66,8 +66,8 @@ and to build networks of support and collaboration.
 
 The specific software and technologies we will cover in this course are
 R, RStudio, Git, GitHub, and Quarto, while the specific R packages are
-`{renv}`, `{styler}`, `{lintr}`, `{targets}`, and several of the
-`{tidymodels}` packages.
+`{renv}`, `{styler}`, `{targets}`, and several of the `{tidymodels}`
+packages.
 
 ## Is this course for you?
 
@@ -91,10 +91,10 @@ Considering that this is a natural extension of the
 [intermediate](https://r-cubed-intermediate.rostools.org/) r-cubed
 courses, this course builds on the knowledge and skills learned during
 those courses, including Git, RStudio R Projects, functions, functional
-programming, and R Markdown. If you *do not* have familiarity with these
-tools, you will need to go over the material from the introductory and
-intermediate courses beforehand (more details about pre-course tasks
-will be sent out a couple of weeks before the course).
+programming, and Quarto / R Markdown. If you *do not* have familiarity
+with these tools, you will need to go over the material from the
+introductory and intermediate courses beforehand (more details about
+pre-course tasks will be sent out a couple of weeks before the course).
 
 While having these assumptions help to focus the content of the course,
 if you have an interest in learning R but don't fit any of the above
