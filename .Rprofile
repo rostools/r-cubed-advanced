@@ -1,9 +1,9 @@
 options(
-  repos = c(RSPM = "https://packagemanager.rstudio.com/all/latest"),
   browserNLdisabled = TRUE,
   deparse.max.lines = 2,
   renv.settings.snapshot.type = "explicit",
   renv.config.auto.snapshot = TRUE,
+  renv.config.pak.enabled = TRUE,
   styler.cache_root = "styler",
   Ncpus = 3,
   dplyr.summarize.inform = FALSE,
@@ -17,12 +17,13 @@ options(
 )
 options(renv.config.repos.override = getOption("repos"))
 
+source("renv/activate.R")
+
 if (interactive()) {
   suppressMessages(require(devtools))
   suppressMessages(require(usethis))
   suppressMessages(require(gert))
   try(rspm::enable(), silent = TRUE)
-  source("renv/activate.R")
 }
 
 # Do it this way to fix a GitHub Action build issue.
