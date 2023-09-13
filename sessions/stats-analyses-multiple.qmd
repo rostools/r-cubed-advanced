@@ -7,7 +7,7 @@ extract_functions_from_qmd()
 source(here::here("R/project-functions.R"))
 library(tidyverse)
 library(tidymodels)
-load(here::here("data/lipidomics.rda"))
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 lipidomics_wide <- lipidomics %>%
   mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
   pivot_wider(
@@ -120,11 +120,13 @@ of "split-apply-combine" tasks are (usually) best done using data in the
 long form. So we'll start with the original `lipidomics` dataset. Create
 a header and code chunk at the end of the `doc/lesson.Rmd` file:
 
-    ## Running multiple models
+````         
+## Running multiple models
 
-    ```{{r}}
+```{{r}}
 
-    ```
+```
+````
 
 The first thing we want to do is convert the metabolite names into snake
 case:
@@ -460,11 +462,13 @@ inside the `## Results` section. We'll want to use
 `tar_read(df_model_estimates)` so that `{targets}` is aware that the R
 Markdown file is dependent on this target.
 
-    ### Figure of model estimates
+````         
+### Figure of model estimates
 
-    ```{{r}}
-    model_estimates <- tar_read(df_model_estimates)
-    ```
+```{{r}}
+model_estimates <- tar_read(df_model_estimates)
+```
+````
 
 ```{r purl-only-model-estimate-md-text}
 #| eval: false
@@ -594,9 +598,9 @@ list(
 And replace all the plot code in the `doc/report.Rmd` file with the
 `tar_read()`:
 
-    ```{{r}}
-    tar_read(fig_model_estimates)
-    ```
+```{{{r}}}
+tar_read(fig_model_estimates)
+```
 
 Run `r run_tar_make_text` to update the pipeline. Then commit the
 changes to the Git history.
@@ -1102,13 +1106,13 @@ file. Open it up and create another code chunk at the bottom of the
 file. Like we did with the other outputs (like the figures), we'll use
 `tar_read()` to reference the image path.
 
-    ```{{r}}
-    tar_read(fig_model_estimates)
-    ```
+```{{{r}}}
+tar_read(fig_model_estimates)
+```
 
-    ```{{r}}
-    tar_read(fig_model_variations)
-    ```
+```{{r}}
+tar_read(fig_model_variations)
+```
 
 Run `r run_tar_vis_text`, then `r run_tar_make_text`. We now have the
 report rendered to an HTML file! If you open it up in a browser, we can

@@ -730,7 +730,8 @@ options(
 
     ``` r
     library(dplyr)
-    load ( here::here( "data/lipidomics.rda") 
+    lipidomics <- 
+    read_csv( here:: here("data/lipidomics.csv" )
     )
     lipidomics%>%select(gender , age)%>%filter(age>=25)
     ```

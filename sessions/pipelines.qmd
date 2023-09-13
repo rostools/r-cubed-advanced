@@ -10,7 +10,7 @@ execute:
 #| eval: true
 source(here::here("R/functions.R"))
 library(tidyverse)
-load(here::here("data/lipidomics.rda"))
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
 ::: {.callout-note collapse="true"}
@@ -230,10 +230,12 @@ targets::use_targets()
 
 This will add several files:
 
-    .
-    ├── _targets.R
-    ├── run.R
-    └── run.sh
+```         
+.
+├── _targets.R
+├── run.R
+└── run.sh
+```
 
 ```{r purl-only-use-targets-files}
 #| eval: false
@@ -388,17 +390,19 @@ Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
 Git history. Open up the `doc/lesson.Rmd` file and create a new header
 and code chunk at the bottom of the file.
 
-    ## Basic statistics
+````         
+## Basic statistics
 
-    ```{{r setup}}
-    library(tidyverse)
-    source(here::here("R/functions.R"))
-    load(here::here("data/lipidomics.rda"))
-    ```
+```{{r setup}}
+library(tidyverse)
+source(here::here("R/functions.R"))
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+```
 
-    ```{{r basic-stats}}
+```{{r basic-stats}}
 
-    ```
+```
+````
 
 ```{r purl-only-markdown-basic-stats}
 #| eval: false
@@ -408,7 +412,7 @@ git_ci("DESCRIPTION", "Add tidyverse and targets to deps")
 c(
   "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
   "source(here::here('R/functions.R'))",
-  "load(here::here('data/lipidomics.rda'))\n```\n\n"
+  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"  
 ) |>
   paste0(collapse = "\n") |>
   write_to_file("doc/lesson.Rmd")
@@ -518,13 +522,20 @@ data frame. It should look like:
 list(
   tar_target(
     name = lipidomics,
-    command = load(here::here("data/lipidomics.rda"))
+    command = readr::read_csv(here::here("data/lipidomics.csv"))
   ),
   tar_target(
     name = df_stats_by_metabolite,
     command = descriptive_stats(lipidomics)
   )
 )
+```
+
+We haven't added `{readr}` as a dependency yet, so let's add it to the
+DESCRIPTION file.
+
+```{r}
+use_package("readr")
 ```
 
 Let's run `{targets}` to see what happens! You can either use the
@@ -535,58 +546,7 @@ code in the Console:
 targets::tar_make()
 ```
 
-It won't run though. That's because `{targets}` does not work when being
-given data in a `.rda` format. Instead `{targets}` want a "raw" data
-file that itself can store as `.rda`. To account for this we need to
-alter our data wrangling script. From here we will open up the the
-`data-raw/nmr-omics.r` script and replace:
-
-``` r
-usethis::use_data(lipidomics, overwrite = TRUE)
-```
-
-with
-
-``` r
-readr::write_csv(lipidomics, here::here("data/lipidomics.csv"))
-```
-
-```{r purl-only-remove-use-data-data-raw}
-#| eval: false
-#| echo: false
-#| purl: true
-revise_by_text(
-  "data-raw/nmr-omics.R",
-  "^usethis::use_data.*$",
-  'readr::write_csv(lipidomics, here::here("data/lipidomics.csv"))'
-)
-source(here::here("data-raw/nmr-omics.R"))
-git_ci("data-raw/nmr-omics.R", "Use csv for data instead.")
-```
-
-We haven't added `{readr}` as a dependency yet, so let's add it to the
-DESCRIPTION file.
-
-```{r}
-use_package("readr")
-```
-
-We can now source the script (to generate a new data file), delete the
-old `data/lipidomics.rda` file, and update the `_targets.R` file. First,
-let's tell Git to ignore this new data file.
-
-```{r ignore-data-csv}
-#| purl: true
-#| eval: false
-use_git_ignore("data/lipidomics.csv")
-```
-
-```{r purl-only-ignore-data-csv}
-#| eval: false
-#| echo: false
-#| purl: true
-git_ci(".gitignore", "Don't track data.")
-```
+<!-- TODO: Check how this works, and update next section -->
 
 Because of the way `{targets}` works, we need to first create a pipeline
 target of *only* the path to the data file with the `format = "file"`,
@@ -1011,25 +971,25 @@ Let's open up the `doc/report.Rmd` file, add a `setup` code chunk below
 the YAML header, and create a new header and code chunk and make use of
 the `targets::tar_read()`
 
-    ```{{r setup}}
-    library(tidyverse)
-    library(targets)
-    lipidomics <- tar_read(lipidomics)
-    ```
+```{{{r setup}}}
+library(tidyverse)
+library(targets)
+lipidomics <- tar_read(lipidomics)
+```
 
-    ## Results
+## Results
 
-    ```{{r}}
-    tar_read(df_stats_by_metabolite)
-    ```
+```{{r}}
+tar_read(df_stats_by_metabolite)
+```
 
-    ```{{r}}
-    tar_read(fig_gender_by_class)
-    ```
+```{{r}}
+tar_read(fig_gender_by_class)
+```
 
-    ```{{r}}
-    tar_read(fig_distribution_metabolites)
-    ```
+```{{r}}
+tar_read(fig_distribution_metabolites)
+```
 
 ```{r purl-only-basic-stats-markdown-text}
 #| eval: false

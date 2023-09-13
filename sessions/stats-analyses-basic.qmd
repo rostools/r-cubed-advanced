@@ -7,7 +7,7 @@ extract_functions_from_qmd()
 source(here::here("R/project-functions.R"))
 library(tidyverse)
 library(tidymodels)
-load(here::here("data/lipidomics.rda"))
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
 Running statistical analyses is a relatively methodical and well-defined
@@ -371,13 +371,13 @@ We want to use logistic regression. So, open the `doc/lesson.Rmd` file
 and in the `setup` code chunk add `library(tidymodels)`, so it looks
 like:
 
-    ```{{r setup}}
-    targets::tar_config_set(store = here::here("_targets"))
-    library(tidyverse)
-    library(tidymodels)
-    source(here::here("R/functions.R"))
-    lipidomics <- tar_read(lipidomics)
-    ```
+```{{{r setup}}}
+targets::tar_config_set(store = here::here("_targets"))
+library(tidyverse)
+library(tidymodels)
+source(here::here("R/functions.R"))
+lipidomics <- tar_read(lipidomics)
+```
 
 Then, **delete** everything below this code chunk.
 
@@ -401,11 +401,13 @@ Before continuing, let's **commit** the changes to the Git history.
 Next, in the `doc/lesson.Rmd` file, on the bottom of the document create
 a new header and code chunk:
 
-    ## Building the model
+````         
+## Building the model
 
-    ```{{r}}
+```{{r}}
 
-    ```
+```
+````
 
 In the new code chunk, we will set up the model specs:
 
@@ -429,12 +431,14 @@ write `{parsnip}` code that would define a simple (an engine of`"lm"`)
 linear regression model. Begin by making a new Markdown header and code
 chunk at the bottom of the `doc/lesson.Rmd` file, like listed below:
 
-    ## Exercises
-    ### Linear regression model definition
+````         
+## Exercises
+### Linear regression model definition
 
-    ```{{r}}
+```{{r}}
 
-    ```
+```
+````
 
 After writing the code, run `r run_styler_text`. We will eventually
 delete these exercise text in the R Markdown file, but for now, commit
@@ -1039,3 +1043,4 @@ Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
+

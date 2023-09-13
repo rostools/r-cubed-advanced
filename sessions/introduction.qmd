@@ -50,28 +50,30 @@ and file structures below show where we start and where we end, so you
 can hopefully get a better understanding of how things look. Right now,
 everyone's initial project structure should look like:
 
-    LearnR3
-    ├── data/
-    │   ├── lipidomics.rda
-    │   └── README.md
-    ├── data-raw/
-    │   ├── README.md
-    │   ├── nmr-omics/
-    │   │  ├── lipidomics.xlsx
-    │   │  └── README.txt
-    │   └── nmr-omics.R
-    ├── doc/
-    │   ├── README.md
-    │   ├── report.Rmd
-    │   └── lesson.Rmd
-    ├── R/
-    │   ├── functions.R
-    │   └── README.md
-    ├── .gitignore
-    ├── DESCRIPTION
-    ├── LearnR3.Rproj
-    ├── README.md
-    └── TODO.md
+```         
+LearnR3
+├── data/
+│   ├── lipidomics.csv
+│   └── README.md
+├── data-raw/
+│   ├── README.md
+│   ├── nmr-omics/
+│   │  ├── lipidomics.xlsx
+│   │  └── README.txt
+│   └── nmr-omics.R
+├── doc/
+│   ├── README.md
+│   ├── report.Rmd
+│   └── lesson.Rmd
+├── R/
+│   ├── functions.R
+│   └── README.md
+├── .gitignore
+├── DESCRIPTION
+├── LearnR3.Rproj
+├── README.md
+└── TODO.md
+```
 
 <!-- At the end of this course, it should look something like: -->
 
@@ -141,3 +143,4 @@ like:
         to doing better science since it fits with the philosophy of
         doing science.
 :::
+
