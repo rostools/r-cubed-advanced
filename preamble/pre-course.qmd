@@ -223,15 +223,17 @@ r3::check_setup()
 
 The output you'll get for success will look something like this:
 
-    Checking R version:
-    ✔ Your R is at the latest version of 4.2.0!
-    Checking RStudio version:
-    ✔ Your RStudio is at the latest version of 2022.2.2.485!
-    Checking Git config settings:
-    ✔ Your Git configuration is all setup!
-    Git now knows that:
-    - Your name is 'Luke W. Johnston'
-    - Your email is 'lwjohnst\@gmail.com'
+```         
+Checking R version:
+✔ Your R is at the latest version of 4.2.0!
+Checking RStudio version:
+✔ Your RStudio is at the latest version of 2022.2.2.485!
+Checking Git config settings:
+✔ Your Git configuration is all setup!
+Git now knows that:
+- Your name is 'Luke W. Johnston'
+- Your email is 'lwjohnst\@gmail.com'
+```
 
 **Eventually you will need to copy and paste the output into one of the
 survey questions**. *Note* that while GitHub is a natural connection to
@@ -403,7 +405,7 @@ Since this is an advanced course, you can run the lines one at a line
 and see what they do on your own (or `source()` them all at once). The
 comments provided give guidance on what the code is doing and why. In
 the end, though, the only important thing is to run all the code and get
-the `lipidomics` dataset to be saved as `data/lipidomics.rda`. The
+the `lipidomics` dataset to be saved as `data/lipidomics.csv`. The
 created files should look like this:
 
 ```{r file-tree-data-folders, echo=FALSE}
@@ -413,7 +415,7 @@ fs::dir_tree(regexp = "data(-raw)?")
 ``` text
 AdvancedR3
 ├── data
-│   └── lipidomics.rda
+│   └── lipidomics.csv
 └── data-raw
     ├── nmr-omics
     │   ├── README.txt
@@ -421,18 +423,18 @@ AdvancedR3
     └── nmr-omics.R
 ```
 
-And the created dataset in `data/lipidomics.rda` should look like (using
-`load()`):
+And the created dataset in `data/lipidomics.csv` should look like (using
+`readr::read_csv()`):
 
 ```{r show-created-data}
 #| eval: true
-load(here::here("data/lipidomics.rda"))
+readr::read_csv(here::here("data/lipidomics.csv"))
 lipidomics
 ```
 
 Take a look through the downloaded `data-raw/nmr-omics/README.txt` and
 `data-raw/nmr-omics/lipidomics.xlsx` files, as well as the created
-`data/lipidomics.rda` to begin better understanding the dataset.
+`data/lipidomics.csv` to begin better understanding the dataset.
 
 We are using Git to track changes made to files in our project. The
 original metabolomics dataset is stored on Zenodo, so we don't actually
@@ -448,8 +450,8 @@ usethis::use_git_ignore("data-raw/nmr-omics/")
 ```{r purl-only-processing-data}
 #| echo: false
 #| purl: true
-git_ci(c("data-raw/nmr-omics.R", "data/lipidomics.rda", ".gitignore", "DESCRIPTION"),
-       "Script to process omics data into lipidomics rda.")
+git_ci(c("data-raw/nmr-omics.R", "data/lipidomics.csv", ".gitignore", "DESCRIPTION"),
+       "Script to process omics data into lipidomics csv.")
 ```
 
 ``` r
@@ -469,7 +471,7 @@ Show folders and files of project:
 ├── TODO.md
 ├── data
 │   ├── README.md
-│   └── lipidomics.rda
+│   └── lipidomics.csv
 ├── data-raw
 │   ├── README.md
 │   ├── nmr-omics
