@@ -19,6 +19,7 @@ Imports:
     igraph,
     lintr,
     markdown,
+    pak,
     parsnip,
     prodigenr,
     quarto,
