@@ -1,0 +1,179 @@
+# Linting your code for style
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+```
+
+## Learning objectives
+
+1.  Explain the role that following a style guide has on building a
+    common approach to reading (and writing) R code, and thus improve
+    project-level collaboration.
+2.  Use `{lintr}` to programmatically check and apply style guides to
+    your project files.
+
+## "Linting" your code
+
+When you're working on your own and not needing to worry about anyone
+seeing your code, there's a natural temptation to write your code like
+you might write notes to yourself... scribbled and scrawled down
+quickly. Even when you are working with others or try to write more
+readable code, it still is very easy for "lint"[^linting-1] to
+accumulate.
+
+[^linting-1]: You know, the fluff you find in your pockets 😝
+
+That's when "linters" (a type of "static code analysis" tool) become
+very useful. A linter will scan your code for common mistakes or syntax
+problems and list them out for you to fix. They don't directly fix them
+for you, though we will show how to do that later in this session.
+Linters are great when you are collaborating on a project with
+collaborators who are not as experienced in writing code or who only
+occasionally contribute so don't know the workflow culture of your
+project. In this way, you might want to have automatic linting checks
+(or styling) that are independent of you having to run them yourself.
+
+The main package for doing that is the `{lintr}` package. We'll get a
+chance to try out using `{renv}` since we need to install it to use it
+in our project.
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+Before continuing, ask the learners which type of dependency they think
+`{lintr}` is or should be.
+:::
+
+```{r purl-only-renv-install-lintr}
+#| eval: false
+#| echo: false
+#| purl: true
+renv::install("lintr")
+```
+
+```{r add-lintr-as-dep}
+#| eval: false
+#| purl: true
+use_package("lintr", "suggests")
+```
+
+```{r purl-only-update-desc-with-lintr}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci("DESCRIPTION", "Add lintr as a suggests dependency.")
+```
+
+Right now we don't have much code to "lint", but as we work through the
+course, we will make use of `{lintr}` before committing to Git. So, how
+do we use `{lintr}`? It's actually pretty easy, since there are only a
+few functions that do the linting, even though there are dozens of
+customizations you can make to `{lintr}`. The basic is to lint a single
+file, don't run this though:
+
+```{r lint-one-file}
+#| eval: false
+lintr::lint("R/functions.R")
+```
+
+A more encompassing function checks all files in the project (also,
+don't run it yet, we'll do that when we have more code in the project):
+
+```{r lint-project-dir}
+#| eval: false
+lintr::lint_dir()
+```
+
+This might be useful if you want to go over everything to check things.
+But, if you are working on a single file and want to do some linting of
+that, the better solution is to use the Command Palette (`Ctrl-Shift-P`)
+and type "lint". The first option is to lint the file you are working
+on. Let's open up the `data-raw/nmr-omics.R` script and try it out.
+There *should* be at least one note that says:
+
+``` markdown
+Lines should not be more than 80 characters.
+```
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+If there is no note, check if the participants have the `# nolint` at
+the end of the line with the second `download.file()`. To show what
+happens, get them to remove it, run `lintr::lint_dir()` again, and then
+bring it back.
+:::
+
+Keep in mind, that not all notes need to be changed. A linter is meant
+to be used as a guideline, not as a rule. It helps you to follow best
+practices and have some consistency between collaborators, but not to
+stress about making sure all notes are addressed. We can suppress lint
+warnings by adding a `# nolint` comment.
+
+Since we will eventually connect our project Git repository to GitHub to
+display a website, we can actually make use of a really powerful service
+called [GitHub
+Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
+to also run `{lintr}` there for us. But before we can do that, we need
+to connect to GitHub. So before doing the next exercise, let's all
+**commit the changes to the Git history**.
+
+## Exercise: Connect your project to GitHub
+
+> Time: \~25 minutes.
+
+Let's complete these tasks to connect to GitHub.
+
+1.  If you haven't yet, please create a
+    [GitHub](https://github.com/join) account.
+
+2.  Add the `{gitcreds}` package as a workflow dependency. You'll need
+    it for the next item
+
+    ``` r
+    use_package("gitcreds", "suggests")
+    ```
+
+3.  Read through and complete the tasks in the [Connect to GitHub
+    Guide]().
+
+4.  Check your GitHub to make sure the project repository has been
+    uploaded to it.
+
+## Adding lintr to your GitHub
+
+Now that your `AdvancedR3` project is connected and up on GitHub, we can
+make use of the GitHub Actions. The RStudio team has a
+[repository](https://github.com/r-lib/actions/tree/v2/examples#example-workflows)
+that lists all R "Actions" that you can use to help streamline checks on
+your project. Specifically, we want to add the one for `{lintr}`, which
+we can add with:
+
+```{r lintr-action}
+#| eval: false
+#| purl: true
+use_github_action("lint-project")
+```
+
+```{r purl-only-add-lint-action}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci(".github", "Add lintr GitHub Action.")
+```
+
+This creates a file in `.github/workflows/lint-project.yaml`. In order
+for GitHub to start using it, we need to **commit it to the Git history
+and than push it to GitHub**.
+
+Once you've done that, switch to your project on GitHub and click the
+"Actions" tab at the top. Then click the "lint-project" link on the
+sidebar. This lists the checks that `{lintr}` has done on your project
+in an independent environment.
+
+## Summary
+
+-   Follow a style guide by using `{lintr}`. Combine with the Command
+    Palette (`Ctrl-Shift-P`) to quickly run their functions on code you
+    are actively working on.
