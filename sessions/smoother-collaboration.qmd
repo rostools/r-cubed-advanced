@@ -753,7 +753,12 @@ Let's complete these tasks to connect to GitHub.
 
 1.  If you haven't yet, please create a
     [GitHub](https://github.com/join) account.
-2.  Read through and complete the tasks in @sec-connect-github.
+2. Add the `{gitcreds}` package as a workflow dependency. You'll need it for the next item
+
+    ``` r
+    use_package("gitcreds", "suggests")
+    ```
+2.  Read through and complete the tasks in the [Connect to GitHub Guide]().
 3.  Check your GitHub to make sure the project repository has been
     uploaded to it.
 
