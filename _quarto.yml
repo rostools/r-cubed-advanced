@@ -38,7 +38,6 @@ book:
   appendices:
     - appendix/social.qmd
     - appendix/conduct.qmd
-    - appendix/connect-github.qmd
     - appendix/resources.qmd
     - appendix/references.qmd
   page-footer:
