@@ -31,7 +31,7 @@ end of the course, participants will be able to:
 > reproducible data analysis pipeline and workflow looks like, and then
 > create a project that follows these concepts by using R.
 
-Our specific **learning outcomes** are to:
+Our specific **learning objectives** are to:
 
 1.  Identify potential actions to streamline collaboration on a data
     analysis project and create projects that apply many of these
