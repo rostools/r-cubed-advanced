@@ -37,7 +37,6 @@ book:
       - sessions/build-website.qmd
   appendices:
     - appendix/social.qmd
-    - appendix/conduct.qmd
     - appendix/resources.qmd
     - appendix/references.qmd
   page-footer:
