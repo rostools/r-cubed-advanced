@@ -91,8 +91,8 @@ when working on, well, your project. In order to know how to track your
 project's package dependencies, you need to first know, what is a
 "project" and how do we work around it? Since the introduction course's
 first session on the [Management of R
-Projects](https://r-cubed.rostools.org/r-project-management.html), we've
-consistently taught and used this workflow-style. In fact, it is
+Projects](https://r-cubed-intro.rostools.org/sessions/project-management.html),
+we've consistently taught and used this workflow-style. In fact, it is
 embedded into the use of the R Projects via the `.Rproj` files and in
 the use of the `{here}` package. So we already are following this
 approach from the start, which will make it easier to track package
