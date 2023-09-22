@@ -138,14 +138,14 @@ The output you'll get for success will look something like this:
 
 ```         
 Checking R version:
-✔ Your R is at the latest version of 4.2.0!
+✔ Your R is at the latest version of 4.3.1!
 Checking RStudio version:
-✔ Your RStudio is at the latest version of 2022.2.2.485!
+✔ Your RStudio is at the latest version of 2023.6.0.421!
 Checking Git config settings:
 ✔ Your Git configuration is all setup!
-Git now knows that:
-- Your name is 'Luke W. Johnston'
-- Your email is 'lwjohnst\@gmail.com'
+  Git now knows that:
+  - Your name is 'Luke W. Johnston'
+  - Your email is 'lwjohnst@gmail.com'
 ```
 
 **Eventually you will need to copy and paste the output into one of the
@@ -154,15 +154,15 @@ using Git, given the limited time available, we will only be going over
 aspects of GitHub that relate to storing your project Git repository and
 setting up the website. If you want to learn more about using GitHub,
 check out the
-[session](https://r-cubed.rostools.org/version-control.html) on it in
-the introduction course.
+[session](https://r-cubed-intro.rostools.org/sessions/version-control.html)
+on it in the introduction course.
 
 ## Create an R Project
 
 One of the basic steps to reproducibility and modern workflows in data
 analysis is to keep everything contained in a single location. In
 RStudio, this is done with R Projects. Please read all of [this
-section](https://r-cubed.rostools.org/r-project-management.html#what-is-a-project-and-why-use-it)
+section](https://r-cubed-intro.rostools.org/sessions/project-management.html#what-is-a-project-and-why-use-it)
 from the introduction course to learn about R Projects and how they help
 keep things self-contained. *You don't need to do any of the exercises
 or activities*.
