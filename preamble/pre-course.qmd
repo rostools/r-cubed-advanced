@@ -333,7 +333,7 @@ And the created dataset in `data/lipidomics.csv` should look like (using
 
 ```{r show-created-data}
 #| eval: true
-readr::read_csv(here::here("data/lipidomics.csv"))
+lipidomics <- readr::read_csv(here::here("data/lipidomics.csv"))
 lipidomics
 ```
 
