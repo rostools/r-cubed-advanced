@@ -258,7 +258,7 @@ rmarkdown::draft(
 git_ci("doc/lesson.Rmd", "Add draft lesson Rmd file.")
 ```
 
-## Download the course data
+## Download the course data {#sec-download-data}
 
 We're going to use a real world dataset to demonstrate the concepts in
 this course. We're going to use an openly licensed dataset with
