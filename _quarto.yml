@@ -2,24 +2,19 @@ project:
   type: book
   output-dir: public
   execute-dir: project
-  pre-render: quarto render slides/introduction.qmd
+  pre-render:
+    - mkdir -p _temp
+    - bash _build-slides.sh
   resources:
     - slides/*.html
-    - slides/introduction_files
 
 book:
   title: "Reproducible Research in R"
   subtitle: "An advanced workshop on creating collaborative and automated analysis pipelines"
   author:
     - "Luke W. Johnston"
-  favicon: "images/favicon.ico"
   site-url: "https://r-cubed-advanced.rostools.org"
   repo-url: "https://github.com/rostools/r-cubed-advanced"
-  repo-branch: main
-  repo-actions: [edit, issue, source]
-  search:
-    location: navbar
-    type: overlay
   chapters:
     - index.qmd
     - part: "Preamble"
@@ -38,22 +33,19 @@ book:
   appendices:
     - appendix/social.qmd
     - appendix/resources.qmd
+    - LICENSE.md
     - appendix/references.qmd
   page-footer:
     center:
       - text: "License: CC BY 4.0 {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}}"
-        href: LICENSE.md
+        href: LICENSE.html
+      - text: "Code of Conduct"
+        href: "https://guides.rostools.org/conduct.html"
 
 bibliography:
   - includes/references.bib
   - includes/packages.bib
 csl: includes/vancouver.csl
-
-callout-appearance: minimal
-reference-location: margin
-citation-location: margin
-crossref:
-  chapters: true
 
 editor_options:
   markdown:
@@ -61,25 +53,10 @@ editor_options:
     canonical: true
 
 format:
-  html:
-    df-print: tibble
-    code-overflow: scroll
-    from: markdown+emoji
-    code-link: true
-    theme:
-      - litera
-      - includes/theme.scss
+  r3-theme-html:
     include-before-body:
-      - "includes/site-counter.html"
       - "includes/contribute.html"
-  # docx:
-  #   toc: false
-  #   from: markdown+emoji
-
-knitr:
-  opts_chunk:
-    comment: ""
-    class-output: sourceCode
+      - "includes/site-counter.html"
 
 execute:
   freeze: auto
