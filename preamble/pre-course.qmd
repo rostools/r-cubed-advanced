@@ -312,7 +312,8 @@ the end, though, the only important thing is to run all the code and get
 the `lipidomics` dataset to be saved as `data/lipidomics.csv`. The
 created files should look like this:
 
-```{r file-tree-data-folders, echo=FALSE}
+```{r file-tree-data-folders}
+#| echo: false
 fs::dir_tree(regexp = "data(-raw)?")
 ```
 
