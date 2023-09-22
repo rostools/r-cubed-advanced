@@ -37,7 +37,8 @@ about them are found as you work through this section.
     Git before, this task could take a while because of the reading.
 6.  Run a check with `r3::check_setup()` to see if everything works.
     You'll later need to paste this output into the survey.
-7.  Create an R Project in @sec-, along with the folder and file setup.
+7.  Create an R Project in @sec-create-project, along with the folder
+    and file setup.
 8.  Create an Quarto file.
 9.  Write (well, mostly copy and paste) R code to download the data and
     save it to your computer. This task will probably take up maybe
@@ -157,7 +158,7 @@ check out the
 [session](https://r-cubed-intro.rostools.org/sessions/version-control.html)
 on it in the introduction course.
 
-## Create an R Project
+## Create an R Project {#sec-create-project}
 
 One of the basic steps to reproducibility and modern workflows in data
 analysis is to keep everything contained in a single location. In
@@ -395,7 +396,7 @@ doesn't, start over by deleting everything in the `data-raw/` folder
 again. If your output looks a bit like the above, than copy and paste
 the output into the survey question at the end.
 
-## Course introduction
+## Course introduction {#sec-course-details}
 
 Most of the course description is found in the syllabus (@sec-syllabus).
 If you haven't read it, **please read it now**. Read over what the
