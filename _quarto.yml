@@ -9,7 +9,7 @@ project:
     - slides/*.html
 
 book:
-  title: "Reproducible Research in R"
+  title: "Advanced Reproducible Research in R"
   subtitle: "An advanced workshop on creating collaborative and automated analysis pipelines"
   author:
     - "Luke W. Johnston"
