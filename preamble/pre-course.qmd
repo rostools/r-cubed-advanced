@@ -239,18 +239,9 @@ Please do these two tasks:
     folder.
 
     ```{r add-rmarkdown-doc}
+    #| purl: true
     r3::create_qmd_doc()
     ```
-
-```{r purl-only-create-lesson-rmd}
-#| purl: true
-rmarkdown::draft(
-  file = fs::path("doc", "lesson.Rmd"),
-  template = "basic-rmd",
-  package = "r3",
-  edit = FALSE
-)
-```
 
 ```{r purl-only-add-lesson-rmd}
 #| echo: false
