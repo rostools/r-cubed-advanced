@@ -68,123 +68,32 @@ objectives for this page:
     course](https://r-cubed-intermediate.rostools.org/), the objective
     is to review what you previously learned.
 
-## Reading the course website
+## Reading the course website {#sec-reading-website}
 
-There are a few "syntax" type formatting of the text in this website to
-be aware of:
+```{r}
+#| echo: false
+#| eval: true
+#| output: asis
+r3admin::read_common("reading-website.md")
+```
 
--   Folder names always end with a `/`, for example `data/` means the
-    data folder.
--   R variables are always shown as is. For instance, for the code
-    `x <- 10`, `x` is a variable because it was assigned with 10.
--   Functions always end with `()`, for instance `mean()` or
-    `read_csv()`.
--   Sometimes functions have their package name appended with `::` to
-    indicate to run the code from the specific package, since we likely
-    haven't loaded the package with `library()`. For instance, to
-    install packages from GitHub using the `{remotes}` package we use
-    `remotes::install_github()`.
+## Installing the latest programs {#sec-install-programs}
 
-## Installing the latest programs
+```{r}
+#| echo: false
+#| eval: true
+#| output: asis
+r3admin::read_common("installing-programs.md")
+```
 
-Given this is an advanced course, you should probably already have R and
-RStudio installed. However, you may not have the latest versions
-installed.
+## Installing the R packages {#sec-install-r-packages}
 
-1.  Have the latest version of
-    [R](https://cloud.r-project.org/index.html) installed (or at least
-    any version above `4.1.2`). Check by running `R.version.string` in
-    the console.
-2.  Have the latest version of
-    [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
-    installed (or at least any version above `v2021.09.0+351`). Check by
-    going to the menu "Help -\> About RStudio".
-
-There are a few other things to install:
-
-1.  [Git](https://git-scm.com/downloads). We'll be using Git (continuing
-    to build off of the previous courses), so it needs to be installed.
-2.  For some Windows users, you may need to install
-    [Rtools](https://cran.r-project.org/bin/windows/Rtools/Rtools35.exe)
-    in order for some R packages to be successfully installed (which
-    you'll do shortly). For some computers, installing Rtools can take
-    some time. *You need this in order for some packages to work.*
-3.  [Quarto](https://quarto.org/docs/get-started/). Quarto is a next
-    generation version of R Markdown. If you've used R Markdown before,
-    there isn't much difference, except you might notice that Quarto is
-    easier to use and more powerful. We will use Quarto to create the
-    reproducible documents and website at the end.
-
-All these programs are required for the course, even Git. Git, which is
-a software program to formally manage file versions, is used because of
-its popularity and the amount of documentation available for it. Check
-out the online book [Happy Git with R](https://happygitwithr.com/),
-especially the "Why Git" section, to understand why we are using Git.
-Windows users tend to have more trouble with installing Git than macOS
-or Linux users. See the section on [Installing Git for
-Windows](https://happygitwithr.com/install-git.html#install-git-windows)
-for help.
-
-> *A note to those who have or use work laptops with restrictive
-> administrative privileges*: You may encounter problems installing
-> software due to administrative reasons (e.g. you don't have permission
-> to install things). For issues with updating to the latest version of
-> R or RStudio, as long as you at least have the minimum version listed
-> above, it should be fine. If you have versions of R and RStudio older
-> than that, it is necessary for you to request that IT update your
-> software if you can't yourself. Unfortunately, given that Git and
-> Quarto are not a commonly used software for some organizations, you
-> may not have it installed and you *will* need to ask IT to install it.
-> We *require* it for the course, so please make sure to give IT enough
-> time to be able to install it for you.
-
-Once R, RStudio, Quarto, and Git have been installed, open RStudio. *If
-at any point during these pre-course tasks you have any troubles*, try
-as best as you can to complete the task and then let us know about the
-issues in the pre-course survey (at the end of this section). If you
-continue having problems, indicate on the survey that you need help and
-we can try to book a quick video call to fix the problem. Otherwise, if
-you can, come to the course earlier (about 20-30 min) to get help.
-
-## Installing the R packages
-
-We will be using specific R packages for the course, so you will need to
-install them. All the packages needed for course are included in the
-course helper package r3, so you only need to install it by running
-these commands in the R Console:
-
-1.  Install the `{pak}` package:
-
-    ``` r
-    install.packages("pak")
-    ```
-
-2.  Install the r3 helper package for this course and then install the
-    packages for the advanced course. This step may take a lot longer
-    than you anticipate and you may likely encounter a lot of issues,
-    especially if you come from more restrictive IT environments and/or
-    your work computer is very old or slow. This is something that is
-    completely out of our hands and is entirely an organizational issue
-    that we'd love to help with but can't. Keep persisting though!
-    :muscle:
-
-    ``` r
-    pak::pak("rostools/r3")
-    r3::install_packages_advanced()
-    ```
-
-*Note*: When you see a command like `something::something()`, for
-example with `pak::pak()`, you would "read" this as:
-
-> R, can you please use the `pak()` function from the `{pak}` package.
-
-The normal way of doing this would be to load the package with
-`library(pak)` and then running the command (`pak()`). But by using the
-`::`, we tell R to directly use a function from a package, without
-needing to load the package and all of its other functions too. We use
-this method because we only want to use the `pak()` command from the
-`{pak}` package and not have to load all the other functions as well. In
-this course we will be using `::` often.
+```{r}
+#| echo: false
+#| eval: true
+#| output: asis
+r3admin::read_template_pkg_install("advanced")
+```
 
 ## Setting up Git
 
