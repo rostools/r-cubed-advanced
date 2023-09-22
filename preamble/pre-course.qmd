@@ -95,7 +95,7 @@ r3admin::read_common("installing-programs.md")
 r3admin::read_template_pkg_install("advanced")
 ```
 
-## Setting up Git
+## Setting up Git {#sec-setup-git}
 
 Since Git has already been covered in the previous courses, we won't
 cover *learning it* during this course. However, since version control
@@ -105,7 +105,7 @@ have used or currently use Git and GitHub, you can skip these two tasks.
 If you *have not* used it, please do these tasks:
 
 1.  Follow the [pre-course tasks for Git and
-    GitHub](https://r-cubed.rostools.org/pre-course.html#setting-up-git-and-github)
+    GitHub](https://r-cubed-intro.rostools.org/preamble/pre-course.html#setting-up-git-and-github)
     from the introduction course. Specifically, type in the RStudio
     Console:
 
@@ -116,15 +116,15 @@ If you *have not* used it, please do these tasks:
     ```
 
 2.  **Please read** through the [Version Control
-    lesson](https://r-cubed.rostools.org/version-control.html) of the
-    introduction course. *You don't need to do any of the exercises or
-    activities*, but you are welcome to do them if it will help you
-    learn or understand it better. For most of the course, we will be
-    using Git as shown in the [Using Git in
-    RStudio](https://r-cubed.rostools.org/version-control.html#using-git-in-rstudio)
+    lesson](https://r-cubed-intro.rostools.org/sessions/version-control.html)
+    of the introduction course. *You don't need to do any of the
+    exercises or activities*, but you are welcome to do them if it will
+    help you learn or understand it better. For most of the course, we
+    will be using Git as shown in the [Using Git in
+    RStudio](https://r-cubed-intro.rostools.org/sessions/version-control.html#using-git-in-rstudio)
     section. During the course, we will connect our projects to GitHub,
     which is described in the [Synchronizing with
-    GitHub](https://r-cubed.rostools.org/version-control.html#synchronizing-with-github)
+    GitHub](https://r-cubed-intro.rostools.org/sessions/version-control.html#synchronizing-with-github)
     section.
 
 Regardless of whether you've done the steps above or not, *everyone*
