@@ -1664,7 +1664,7 @@
     },
     "pak": {
       "Package": "pak",
-      "Version": "0.5.1",
+      "Version": "0.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1672,7 +1672,7 @@
         "tools",
         "utils"
       ],
-      "Hash": "7ef6f300721d2beb43e73f476ec3476e"
+      "Hash": "8b18efeaf9e27136a65692bcec07fc7a"
     },
     "parallelly": {
       "Package": "parallelly",
@@ -2922,15 +2922,9 @@
     },
     "zen4R": {
       "Package": "zen4R",
-      "Version": "0.9",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "zen4R",
-      "RemoteUsername": "eblondel",
-      "RemotePkgRef": "eblondel/zen4R",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "dac0255e82040497200c02d8a3a7207899d6bf86",
+      "Version": "0.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -2943,7 +2937,7 @@
         "tools",
         "xml2"
       ],
-      "Hash": "4d68e06a3755212a721f525258316cdd"
+      "Hash": "e6d517e3f281b9b0f81e8a919dbe9bc8"
     },
     "zip": {
       "Package": "zip",
