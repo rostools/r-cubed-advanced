@@ -438,8 +438,8 @@ lipidomics %>%
   mutate(across(where(is.numeric), round, digits = 1))
 ```
 
-After that, run `r run_styler_text` on the file. Than we will **commit**
-the changes to the Git history.
+After that, style the file using {{< var keybind.styler >}} on the file.
+Than we will **commit** the changes to the Git history.
 
 ## Exercise: Convert summary statistics code into a function
 
@@ -458,9 +458,9 @@ these tasks:
 3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
     your function (except for `where()`, which comes from the
     `{tidyselect}` package).
-4.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
-    sure it is formatted correctly. You might need to manually force a
-    styling if lines are too long.
+4.  Style the code using {{< var keybind.styler >}} to make sure it is
+    formatted correctly. You might need to manually force a styling if
+    lines are too long.
 5.  With the *cursor* inside the function, add some roxygen
     documentation with `Ctrl-Shift-P` followed by typing "roxygen
     comment". Remove the lines that contain `@examples` and `@export`,
@@ -704,9 +704,9 @@ Let's make a change to our function and test out how the
 3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
     using the Command Palette `Ctrl-Shift-P`, then "targets outdated" or
     "targets visualize"). What does it show?
-4.  Run `r run_styler_text` and `r run_lintr_text`. You might need to
-    force a reformat if the code is too long by highlighting the line
-    and using `Ctrl-Shift-P`, then "reformat".
+4.  Style using {{< var keybind.styler >}}. You might need to force a
+    reformat if the code is too long by highlighting the line and using
+    `Ctrl-Shift-P`, then "reformat".
 5.  Run `tar_make()` in the Console (or `Ctrl-Shift-P`, then "targets
     run", selecting the "background" option). Re-check for outdated
     targets and visualize the network again.
@@ -801,9 +801,9 @@ function in the exercise above, complete these tasks:
     inside the brackets of `function()`.
 3.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
     `{dplyr}` function used inside your function.
-4.  Run `r run_styler_text` and `r run_lintr_text` on the code to make
-    sure it is formatted correctly. You might need to manually force a
-    styling if lines are too long.
+4.  Style using {{< var keybind.styler >}} to make sure it is formatted
+    correctly. You might need to manually force a styling if lines are
+    too long.
 5.  With the *cursor* inside the function, add some roxygen
     documentation with `Ctrl-Shift-P` followed by typing "roxygen
     comment". Remove the lines that contain `@examples` and `@export`,
@@ -1073,8 +1073,8 @@ lipidomics %>%
 Re-run `r run_tar_vis_text` to see that it now detects the connections
 between the pipeline targets. Now, run `r run_tar_make_text` again to
 see everything re-build! Last things are to re-style using
-`r run_styler_text`, then **commit** the changes to the Git history
-before moving on. Then push your changes up to GitHub.
+{{< var keybind.styler >}}, then **commit** the changes to the Git
+history before moving on. Then push your changes up to GitHub.
 
 ## Fixing issues in the stored pipeline data
 

@@ -180,9 +180,9 @@ Alright, we now a list of data frames where each data frame has only one
 of the metabolites. These bits of code represent the conceptual action
 of "splitting the data into a list by metabolites". Since we're
 following a function-oriented workflow, let's create a function for
-this. Convert it into a function, add the `r run_roxygen_comments`, run
-`r run_styler_text`, move into the `R/functions.R` file, and then
-`source()` the file.
+this. Convert it into a function, add the `r run_roxygen_comments`,
+style using {{< var keybind.styler >}}, move into the `R/functions.R`
+file, and then `source()` the file.
 
 ```{r new-function-split-by-metabolite}
 #' Convert the long form dataset into a list of wide form data frames.
@@ -212,8 +212,8 @@ models. We don't have this function yet, so we need to create it. Let's
 convert the modeling code we used in the exercise above into a function,
 replacing `lipidomics` with `data` and using
 `starts_with("metabolite_")` within the `create_recipe_spec()`. Add the
-`r run_roxygen_comments`, run `r run_styler_text`, move into the
-`R/functions.R` file, and then `source()` the file.
+`r run_roxygen_comments`, use {{< var keybind.styler >}} to style, move
+into the `R/functions.R` file, and then `source()` the file.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model
@@ -334,7 +334,7 @@ point.
     with `data` and `model_estimates` with `model_results`.
 4.  Add `dplyr::` and `stringr::` before their respective functions.
 5.  Add the `r run_roxygen_comments`.
-6.  Run `r run_styler_text` to the file to fix up the code.
+6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
 7.  Cut and paste the function over into the `R/functions.R` file.
 8.  Commit the changes you've made so far.
 
@@ -404,9 +404,9 @@ using the below scaffold as a guide.
 1.  Use `df_model_estimates` for the `name`.
 2.  Use the `calculate_estimates()` function in `command`, with
     `lipidomics` as the argument.
-3.  Run `r run_styler_text` and than run `r run_tar_vis_text` to see if
-    the new target gets detected. If it does, than run
-    `r run_tar_make_text`.
+3.  Use {{< var keybind.styler >}} to style and than run
+    `r run_tar_vis_text` to see if the new target gets detected. If it
+    does, than run `r run_tar_make_text`.
 4.  Commit the changes to the Git history.
 
 ``` r
@@ -550,7 +550,8 @@ as a target in the pipeline. Use the scaffold below as a guide.
 
 1.  Replace `model_estimates` with `results`.
 2.  Move the function into the `R/functions.R` file, add
-    `r run_roxygen_comments`, and run `r run_styler_text`.
+    `r run_roxygen_comments`, and use {{< var keybind.styler >}} to
+    style.
 
 ``` r
 plot_estimates <- function(results) {
@@ -934,8 +935,7 @@ Continue the workflow we've applied throughout the course:
 3.  Replace `lipidomics` in the code with `data`.
 4.  Add the `r run_roxygen_comments`.
 5.  Cut and paste the function over into the `R/functions.R` file.
-6.  Run `r run_styler_text` and `r run_lintr_text` (try to fix any
-    issues).
+6.  Style using {{< var keybind.styler >}}.
 7.  Commit the changes to the Git history.
 
 Use this code as a guide for the function.
@@ -1067,7 +1067,7 @@ Let's use our function workflow with this code:
     the input data object name with `data`.
 2.  Move the code into the `R/functions.R` file.
 3.  Add the `r run_roxygen_comments` and fill it in.
-4.  Run `r run_styler_text`.
+4.  Style the code using {{< var keybind.styler >}}.
 
 ```{r new-function-plot-variation}
 #' Plot the uncertainty in the estimates of the models.
@@ -1141,4 +1141,3 @@ making the document output nicer looking and creating it as a website.
     of models, easily and with minimal code.
 -   Visualize variation in data with alternatives to histograms like
     `geom_dotplot()`.
-

@@ -440,9 +440,9 @@ chunk at the bottom of the `doc/lesson.qmd` file, like listed below:
 ```
 ````
 
-After writing the code, run `r run_styler_text`. We will eventually
-delete these exercise text in the R Markdown file, but for now, commit
-the changes to the Git history.
+After writing the code, style the file using {{< var keybind.styler >}}.
+We will eventually delete these exercise text in the R Markdown file,
+but for now, commit the changes to the Git history.
 
 ```{r solution-define-linear-reg-model}
 #| eval: false
@@ -619,9 +619,9 @@ lipidomics %>%
 ```
 
 Move this new function over into the `R/functions.R` file, add
-`r run_roxygen_comments`, run `r run_styler_text`, `source()` the
-modified `R/functions.R` file, and add the new function above the
-`pivot_wider()` code in the `doc/lessons.Rmd` file.
+`r run_roxygen_comments`, style using {{< var keybind.styler >}},
+`source()` the modified `R/functions.R` file, and add the new function
+above the `pivot_wider()` code in the `doc/lessons.Rmd` file.
 
 ```{r new-function-column-values-to-snakecase}
 #' Convert column value strings into snakecase.
@@ -802,8 +802,8 @@ recipe_specs <- lipidomics_wide %>%
 recipe_specs
 ```
 
-Run `r run_styler_text`, then commit the changes made to the Git
-history.
+Style using {{< var keybind.styler >}}, then commit the changes made to
+the Git history.
 
 ## Fitting the model by combining the recipe, model definition, and data
 
@@ -1043,4 +1043,3 @@ Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
-
