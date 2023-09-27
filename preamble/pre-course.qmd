@@ -361,7 +361,7 @@ git_ci(c("data-raw/nmr-omics.R", "data/lipidomics.csv", ".gitignore", "DESCRIPTI
 ```
 
 ``` r
-r3:::check_project_setup_advanced()
+r3::check_project_setup_advanced()
 ```
 
 ``` text
