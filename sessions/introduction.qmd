@@ -64,7 +64,7 @@ LearnR3
 ├── doc/
 │   ├── README.md
 │   ├── report.Rmd
-│   └── lesson.Rmd
+│   └── lesson.qmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
@@ -96,7 +96,7 @@ like:
 -   Install packages in a project-specific environment to track package
     dependencies.
 -   Follow "function-oriented" workflows, where we use R Markdown
-    (`doc/lesson.Rmd`) to write and test out code, convert it into a
+    (`doc/lesson.qmd`) to write and test out code, convert it into a
     function, test it, and then move it into `R/functions.R`.
     -   Developing functions in the R Markdown document makes it a bit
         easier to quickly test code out and make sure it works before
@@ -112,10 +112,10 @@ like:
         frequently `source()` from it as we prototype and test out code
         in the R Markdown file. It also creates a clear separation
         between "finalized" code and prototyping code.
--   Use `doc/lesson.Rmd` as an exploring and testing document, like a
+-   Use `doc/lesson.qmd` as an exploring and testing document, like a
     sandbox analogy used above, while using `doc/report.Rmd` as the
     document to structure our analysis and results. If needed we can
-    easily delete everything in the `doc/lesson.Rmd` file.
+    easily delete everything in the `doc/lesson.qmd` file.
 -   Use a combination of restarting R (`Ctrl-Shift-F10` or
     `Session -> Restart R`) and using `source()` (`Ctrl-Shift-S` while
     in `R/functions.R`) to run the functions inside of `R/functions.R`.

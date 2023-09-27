@@ -328,7 +328,7 @@ knitr:
 ```
 
 We can *almost* build the website. The last thing to do is prevent the
-`doc/lesson.Rmd` file from being rendered (since we will use this file
+`doc/lesson.qmd` file from being rendered (since we will use this file
 as more of a sandbox). To stop Quarto from rendering it when building
 the website, we simply need to add `_` at the start of the filename. So
 let's do that with `{fs}`.
@@ -336,7 +336,7 @@ let's do that with `{fs}`.
 ```{r rename-lesson-to-stop-quarto}
 #| purl: true
 #| eval: false
-fs::file_move("doc/lesson.Rmd", "doc/_lesson.Rmd")
+fs::file_move("doc/lesson.qmd", "doc/_lesson.qmd")
 ```
 
 Now let's build the website. You can either use the "Render" button on
@@ -370,7 +370,7 @@ knitr:
   readr::write_lines("_quarto.yml")
 "# Lipidomics study" |>
   readr::write_lines("index.qmd")
-git_ci(c("doc/lesson.Rmd", "doc/_lesson.Rmd"), "Rename file lesson file.")
+git_ci(c("doc/lesson.qmd", "doc/_lesson.qmd"), "Rename file lesson file.")
 git_ci(c("_quarto.yml", "index.qmd"), 
        "Add Quarto infrastructure to project.")
 ```
@@ -446,7 +446,7 @@ git_ci("_targets.R", "Switch to using Quarto in targets.")
 
 Like we did in @sec-smoother-collaboration with the `editor_options`
 setting we added in our R Markdown file, let's make this setting global
-to the whole project. Cut and paste that metadata from `doc/lesson.Rmd`
+to the whole project. Cut and paste that metadata from `doc/lesson.qmd`
 into the bottom of `_quarto.yml`:
 
 ``` yml

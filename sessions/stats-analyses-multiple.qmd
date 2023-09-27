@@ -118,7 +118,7 @@ You may have thought of many different ways to run the model on each
 metabolite based on the `lipidomics_wide` dataset. However, these types
 of "split-apply-combine" tasks are (usually) best done using data in the
 long form. So we'll start with the original `lipidomics` dataset. Create
-a header and code chunk at the end of the `doc/lesson.Rmd` file:
+a header and code chunk at the end of the `doc/lesson.qmd` file:
 
 ````         
 ## Running multiple models
@@ -199,7 +199,7 @@ split_by_metabolite <- function(data) {
 }
 ```
 
-In the `doc/lesson.Rmd`, use the new function in the code:
+In the `doc/lesson.qmd`, use the new function in the code:
 
 ```{r split-by-metabolite}
 lipidomics %>%
@@ -702,7 +702,7 @@ We will eventually run bootstraps on all the metabolites, so we will
 need to use our `split_by_metabolite()` function first. For now, we will
 only use the first item in that list (accessed with `[[1]]`) to show
 that the code works without running on all the metabolites every time.
-Create another code chunk at the bottom of `doc/lesson.Rmd` to add this
+Create another code chunk at the bottom of `doc/lesson.qmd` to add this
 code:
 
 ```{r split-metabolite-for-bootstrap}
