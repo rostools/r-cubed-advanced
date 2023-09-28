@@ -640,13 +640,22 @@ you already have it. In that case, you can use
 
 ## Automatically adhere to a style guide
 
-An advantage of `{lintr}` is that it does not make the changes it
-detects for you, but the disadvantage of `{lintr}` is that it does not
-make the changes for you. Often checks that require manual action are
-the best way of finding and fixing things. But sometimes, especially
-with very common syntax formatting mistakes, like not using spacing
-properly, it is so much easier to have the computer fix it for you.
-Thankfully there is the `{styler}` package!
+When you're working on your own and not needing to worry about anyone
+seeing your code, there's a natural temptation to write your code like
+you might write notes to yourself... scribbled and scrawled down
+quickly. Even when you are working with others or try to write more
+readable code, it is very easy for code to "drift" towards being poorly
+formatted, especially when deadlines are close.
+
+That's when "linters" or "stylers" (types of "static code analysis"
+tools) become very useful. They will scan your code for common mistakes
+or syntax problems and either list them out for you to fix or fix them
+for you automatically. Linters are great when you are collaborating on a
+project with collaborators who are not as experienced in writing code or
+who only occasionally contribute so don't know the workflow culture of
+your project. In this way, you might want to have automatic
+linting/styling checks that are independent of you having to run them
+yourself. This is where the `{styler}` package comes in!
 
 Since we will use it for the project as a workflow dependency, let's add
 it to the `DESCRIPTION` file.

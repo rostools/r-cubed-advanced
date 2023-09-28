@@ -60,8 +60,6 @@ extract_functions_from_qmd <- function() {
     readr::write_lines(here::here("R/project-functions.R"))
 }
 
-run_styler_text <- '`{styler}` (`Ctrl-Shift-P`, then type "style file")'
-run_lintr_text <- '`lintr::lint_dir()` in the R Console'
 run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")' # nolint
 run_tar_vis_text <- '`targets::tar_visnetwork()` (`Ctrl-Shift-P`, then type "targets visual")' # nolint
 run_roxygen_comments <- 'Roxygen comments (have the cursor inside the function, type `Ctrl-Shift-P`, then type "roxygen")' # nolint

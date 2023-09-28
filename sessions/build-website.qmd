@@ -511,10 +511,9 @@ quarto::quarto_render()
 git_ci(c("_quarto.yml", "_freeze"), "Add freeze execution to project.")
 ```
 
-Like we did with the `{lintr}` Action by adding the
-`.github/workflows/lint-project.yaml` file, to get GitHub Actions to
-build the website we need to do two things first. Run a command to set
-things up and then add a new Action workflow file.
+To get GitHub Actions to build the website we need to do two things
+first. Run a command to set things up and then add a new Action workflow
+file.
 
 To set our repository up for the Action, we need to run
 `quarto publish gh-pages` once in the **Terminal** (*not the R
@@ -795,3 +794,4 @@ chunk of the `doc/report.Rmd` file, make a new theme object and use
 -   Use Quarto code chunk options, along with `{ggplot2}` theme
     functions, to make figures more visually appealing on their own and
     in the document.
+
