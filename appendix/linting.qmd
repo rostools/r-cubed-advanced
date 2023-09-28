@@ -1,5 +1,7 @@
 # Linting your code for style
 
+<!-- NOTE: This isn't included in the website right now -->
+
 ```{r setup}
 #| include: false
 source(here::here("R/functions.R"))
