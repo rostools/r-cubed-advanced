@@ -231,14 +231,14 @@ make a website of the analysis that we will do over the course.
 
 Please do these two tasks:
 
-1.  Please read over the [R Markdown
+1.  Please read over the [R Markdown/Quarto
     section](https://r-cubed-intro.rostools.org/sessions/reproducible-documents.html)
-    of the introduction course. If you use R Markdown already, you can
-    skip this step.
+    of the introduction course. If you use R Markdown or Quarto already,
+    you can skip this step.
 
 2.  In the R Console while inside the `AdvancedR3` project, run the
-    function to create a new file called `lesson.qmd` in the `doc/`
-    folder.
+    function to create a new Quarto file called `lesson.qmd` in the
+    `doc/` folder.
 
     ```{r add-rmarkdown-doc}
     #| purl: true
