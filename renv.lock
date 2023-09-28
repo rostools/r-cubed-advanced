@@ -1763,7 +1763,7 @@
       "RemoteUsername": "rostools",
       "RemotePkgRef": "rostools/r3admin",
       "RemoteRef": "HEAD",
-      "RemoteSha": "aca90595784542d90f492c8c535e47c77b806578",
+      "RemoteSha": "92660d7ded725a90c982d101475870bd47f87c61",
       "Requirements": [
         "R",
         "checkmate",
@@ -1801,10 +1801,9 @@
         "whisker",
         "withr",
         "xml2",
-        "yaml",
-        "zen4R"
+        "yaml"
       ],
-      "Hash": "94930450c268c253a0ef03b9df8e632f"
+      "Hash": "8c1b83c596d21f895ba9542c1f593b2a"
     },
     "ragg": {
       "Package": "ragg",
