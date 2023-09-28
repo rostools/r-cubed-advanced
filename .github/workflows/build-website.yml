@@ -18,7 +18,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install system dependencies
-        run: sudo apt install libcurl4-openssl-dev libgmp3-dev librdf-dev
+        run: sudo apt install libcurl4-openssl-dev libgmp3-dev
 
       - name: Install package dependencies
         uses: r-lib/actions/setup-renv@v2
