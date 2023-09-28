@@ -15,7 +15,6 @@ options(
   width = 68,
   knitr.kable.NA = ""
 )
-options(renv.config.repos.override = getOption("repos"))
 
 source("renv/activate.R")
 
