@@ -17,16 +17,8 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install system packages
-        run: |
-          sudo add-apt-repository ppa:cran/libgit2
-          sudo apt update
-          sudo apt-get install -y --no-install-recommends libxml2-dev libcurl4-openssl-dev
-
-      - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          cache-version: 2
+      - name: Install package dependencies
+        uses: r-lib/actions/setup-renv@v2
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
