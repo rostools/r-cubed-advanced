@@ -934,24 +934,6 @@
       ],
       "Hash": "ab08ac61f3e1be454ae21911eb8bc2fe"
     },
-    "githubr": {
-      "Package": "githubr",
-      "Version": "0.1.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "githubr",
-      "RemoteUsername": "rostools",
-      "RemotePkgRef": "rostools/githubr",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "f4d1d62c3e79543f8325255c04be01610a604850",
-      "Requirements": [
-        "gh",
-        "lifecycle",
-        "tibble"
-      ],
-      "Hash": "b73178f5c83cb6e6e3a578954a917430"
-    },
     "gitlabr": {
       "Package": "gitlabr",
       "Version": "2.0.1",
@@ -1894,7 +1876,7 @@
       "RemoteUsername": "rostools",
       "RemotePkgRef": "rostools/r3admin",
       "RemoteRef": "HEAD",
-      "RemoteSha": "b1c91b095c3f541e9d7ef5944a349a3def42adc6",
+      "RemoteSha": "aca90595784542d90f492c8c535e47c77b806578",
       "Requirements": [
         "R",
         "checkmate",
@@ -1907,7 +1889,6 @@
         "fs",
         "gert",
         "ghclass",
-        "githubr",
         "gitlabr",
         "glue",
         "googledrive",
@@ -1936,7 +1917,7 @@
         "yaml",
         "zen4R"
       ],
-      "Hash": "5b8b512275ae3b87286ebcc4aba79f01"
+      "Hash": "94930450c268c253a0ef03b9df8e632f"
     },
     "ragg": {
       "Package": "ragg",
