@@ -43,8 +43,9 @@ about them are found as you work through this section.
 9.  Write (well, mostly copy and paste) R code to download the data and
     save it to your computer. This task will probably take up maybe
     30-60 minutes depending on your interest of exploring the data.
-10. Run a check to see that everything is as expected. You'll later need
-    to paste this output into the survey.
+10. Run a check using `r3::check_project_setup_advanced()` to see that
+    everything is as expected. You'll later need to paste this output
+    into the survey.
 11. Read about the basic course details in @sec-course-details.
 12. Read the syllabus in @sec-syllabus.
 13. Read the [Code of
