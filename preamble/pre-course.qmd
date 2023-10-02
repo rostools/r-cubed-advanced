@@ -237,7 +237,7 @@ Please do these two tasks:
     you can skip this step.
 
 2.  In the R Console while inside the `AdvancedR3` project, run the
-    function to create a new Quarto file called `lesson.qmd` in the
+    function to create a new Quarto file called `learning.qmd` in the
     `doc/` folder.
 
     ```{r add-rmarkdown-doc}
@@ -248,7 +248,7 @@ Please do these two tasks:
 ```{r purl-only-add-lesson-rmd}
 #| echo: false
 #| purl: true
-git_ci("doc/lesson.qmd", "Add draft lesson qmd file.")
+git_ci("doc/learning.qmd", "Add draft lesson qmd file.")
 ```
 
 ## Download the course data {#sec-download-data}
@@ -387,7 +387,7 @@ Show folders and files of project:
 │   └── nmr-omics.R
 └── doc
     ├── README.md
-    ├── lesson.qmd
+    ├── learning.qmd
     └── report.Rmd
 ```
 

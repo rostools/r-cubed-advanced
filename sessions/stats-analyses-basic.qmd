@@ -367,7 +367,7 @@ for code you might use depending on the model you want. The most
 commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 `multinom_reg()`.
 
-We want to use logistic regression. So, open the `doc/lesson.qmd` file
+We want to use logistic regression. So, open the `doc/learning.qmd` file
 and in the `setup` code chunk add `library(tidymodels)`, so it looks
 like:
 
@@ -398,7 +398,7 @@ use_package("workflows")
 ```
 
 Before continuing, let's **commit** the changes to the Git history.
-Next, in the `doc/lesson.qmd` file, on the bottom of the document create
+Next, in the `doc/learning.qmd` file, on the bottom of the document create
 a new header and code chunk:
 
 ````         
@@ -429,7 +429,7 @@ vignette](https://parsnip.tidymodels.org/articles/Examples.html) as well
 as the code we wrote for the logistic regression above as a template,
 write `{parsnip}` code that would define a simple (an engine of`"lm"`)
 linear regression model. Begin by making a new Markdown header and code
-chunk at the bottom of the `doc/lesson.qmd` file, like listed below:
+chunk at the bottom of the `doc/learning.qmd` file, like listed below:
 
 ````         
 ## Exercises
@@ -504,7 +504,7 @@ range and distribution of values.
 Let's fix the first two issues first. While we probably only need to use
 `pivot_wider()`, we should probably first tidy up the metabolite names
 first so they make better column names. We do that by combining
-`mutate()` with `snakecase::to_snake_case()`. In the `doc/lesson.qmd`
+`mutate()` with `snakecase::to_snake_case()`. In the `doc/learning.qmd`
 file, we rename the metabolite names before using `pivot_wider()`. Since
 we want an easy way of identifying columns that are metabolites, we will
 add a `"metabolite_"` prefix using the argument `names_prefix`. To
@@ -655,7 +655,7 @@ it into a new function.
 4.  Use `tidyr::` before the `pivot_wider()` function.
 5.  Add `r run_roxygen_comments`.
 6.  Move the function into the `R/functions.R` file.
-7.  Replace the code in the `doc/lesson.qmd` file to make use of the new
+7.  Replace the code in the `doc/learning.qmd` file to make use of the new
     functions.
 
 ```{r solution-new-function-metabolite-to-wider}
@@ -941,7 +941,7 @@ tidy_model_output <- function(workflow_fitted_model) {
 }
 ```
 
-Replacing the code in the `doc/lesson.qmd` file to use the function.
+Replacing the code in the `doc/learning.qmd` file to use the function.
 
 ```{r use-tidy-model-output-fn}
 #| column: page-inset-right

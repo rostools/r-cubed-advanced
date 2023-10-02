@@ -733,7 +733,7 @@ options(
 
 > Time: \~15 minutes.
 
-1.  Open your `doc/lesson.qmd` file, create a new code chunk
+1.  Open your `doc/learning.qmd` file, create a new code chunk
     (`Ctrl-Shift-I` or `Ctrl-Shift-P` followed by typing "chunk") at the
     end of the file. Copy and paste the below code:
 
@@ -749,13 +749,13 @@ options(
     Then push the changes to GitHub. Go to the Actions tab and see what
     happens. It might take a few minutes to finish.
 
-3.  Go back to `doc/lesson.qmd` file in RStudio and run `lintr::lint()`
+3.  Go back to `doc/learning.qmd` file in RStudio and run `lintr::lint()`
     with the Command Palette (`Ctrl-Shift-P` then type "lint file").
     What happens? Don't do anything just yet, simply see what things
     were identified as potential issues.
 
 4.  Run `styler::style_file()` using the Command Palette (`Ctrl-Shift-P`
-    then type "style file") while inside the `doc/lesson.qmd` file. What
+    then type "style file") while inside the `doc/learning.qmd` file. What
     happens? Open the Git interface to see the changes made. Commit the
     changes and push to GitHub. Go into the Actions tab to see what is
     different now.
@@ -797,7 +797,7 @@ There are two ways of doing this:
     in @sec-build-website) or at the file-level in the YAML header.
 
 For right now, we will do the file-level YAML settings. Open the
-`doc/lesson.qmd` file and go to the top of the file. Right below the
+`doc/learning.qmd` file and go to the top of the file. Right below the
 last `---`, create a new line above it and paste this code in:
 
 ``` yaml
@@ -816,10 +816,10 @@ editor_options <-
   markdown:
     wrap: 72
     canonical: true"
-readLines("doc/lesson.qmd") |>
+readLines("doc/learning.qmd") |>
   append(editor_options, after = 1) |>
-  writeLines("doc/lesson.qmd")
-git_ci("doc/lesson.qmd", "Add editor options to Rmd file.")
+  writeLines("doc/learning.qmd")
+git_ci("doc/learning.qmd", "Add editor options to Rmd file.")
 ```
 
 Now, when you save your file, RStudio should automatically reformat the
@@ -831,7 +831,7 @@ The instructors won't be using the Visual Mode during the course,
 however you are welcome to. We will be using the "canonical" markdown
 mode though.
 
-Let's test it out. While in the `doc/lesson.qmd` file, go to the bottom
+Let's test it out. While in the `doc/learning.qmd` file, go to the bottom
 of the file and type out:
 
 ``` markdown

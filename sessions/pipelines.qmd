@@ -383,7 +383,7 @@ use_package("dplyr")
 ```
 
 Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
-Git history. Open up the `doc/lesson.qmd` file and create a new header
+Git history. Open up the `doc/learning.qmd` file and create a new header
 and code chunk at the bottom of the file.
 
 ````         
@@ -411,8 +411,8 @@ c(
   "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"  
 ) |>
   paste0(collapse = "\n") |>
-  write_to_file("doc/lesson.qmd")
-git_ci("doc/lesson.qmd", "Add section on basic stats to rmd")
+  write_to_file("doc/learning.qmd")
+git_ci("doc/learning.qmd", "Add section on basic stats to rmd")
 ```
 
 We want to calculate the mean and SD for each metabolite and then, to
@@ -441,7 +441,7 @@ Than we will **commit** the changes to the Git history.
 
 > Time: \~25 minutes.
 
-While inside the `doc/lesson.qmd` file, use the "function-oriented"
+While inside the `doc/learning.qmd` file, use the "function-oriented"
 workflow, as taught in the [intermediate
 course](https://r-cubed-intermediate.rostools.org/dry-functions.html#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function. Complete
@@ -943,7 +943,7 @@ Then, inside `_targets.R`, uncomment the line where
 build the R Markdown file is `tar_render()`, which needs two things: The
 `name`, like `tar_target()` needs, and the file path to the R Markdown
 file. Again, like the other `tar_target()` items, add it to the end of
-the `list()`. Since we're using the `doc/lesson.qmd` as a sandbox, we
+the `list()`. Since we're using the `doc/learning.qmd` as a sandbox, we
 won't include it as a pipeline target. Instead we will use the
 `doc/report.Rmd` file:
 
