@@ -4,6 +4,7 @@ options(
   renv.settings.snapshot.type = "explicit",
   renv.config.auto.snapshot = TRUE,
   renv.config.pak.enabled = TRUE,
+  renv.config.ppm.enabled = TRUE,
   styler.cache_root = "styler",
   Ncpus = 3,
   dplyr.summarize.inform = FALSE,
@@ -22,7 +23,6 @@ if (interactive()) {
   suppressMessages(require(devtools))
   suppressMessages(require(usethis))
   suppressMessages(require(gert))
-  try(rspm::enable(), silent = TRUE)
 }
 
 # Do it this way to fix a GitHub Action build issue.

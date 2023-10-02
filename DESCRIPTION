@@ -39,7 +39,6 @@ Suggests:
     RcppTOML,
     remotes,
     rmarkdown,
-    rspm,
     tarchetypes,
     todor,
     usethis
