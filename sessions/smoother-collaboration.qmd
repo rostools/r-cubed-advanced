@@ -441,6 +441,11 @@ scanning the `DESCRIPTION` file. In order for `{renv}` to always do
 this, we need to set an option for it. This option needs to be added to
 the project's `.Rprofile` file.
 
+We also want to use the `{pak}` package to install R packages instead of
+`install.packages()` because it is much more powerful and faster. We can
+tell `{renv}` to use `{pak}` instead by adding an option, which we will
+be doing anyway.
+
 We can quickly open this with:
 
 ```{r open-rprofile-first-time}
@@ -454,7 +459,8 @@ Next, at the top of the file, add this code:
 #| eval: false
 options(
   renv.settings.snapshot.type = "explicit",
-  renv.config.auto.snapshot = TRUE
+  renv.config.auto.snapshot = TRUE,
+  renv.config.pak.enabled = TRUE
 )
 ```
 
@@ -465,7 +471,7 @@ options(
 # Need this for below code.
 renv::install("readr")
 write_to_file(
-  'options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE)',
+  'options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE, renv.config.pak.enabled = TRUE)',
   ".Rprofile",
   append = TRUE
 )
@@ -473,9 +479,9 @@ git_ci(".Rprofile", "Add renv snapshot settings to profile.")
 git_ci(c("renv.lock", "renv"), "Save lock file.")
 ```
 
-These two options make it so that whenever you add a package with
-`usethis::use_package()` or `install.packages()`, `{renv}` will always
-run `renv::snapshot()` and the snapshot explicitly only look at the
+These three options make it so that whenever you add a package with
+`usethis::use_package()` or `pak::pak()`, `{renv}` will always run
+`renv::snapshot()` and the snapshot explicitly only look at the
 `DESCRIPTION` file. Let's restart the R session so that the `.Rprofile`
 changes get activated.
 
@@ -749,16 +755,16 @@ options(
     Then push the changes to GitHub. Go to the Actions tab and see what
     happens. It might take a few minutes to finish.
 
-3.  Go back to `doc/learning.qmd` file in RStudio and run `lintr::lint()`
-    with the Command Palette (`Ctrl-Shift-P` then type "lint file").
-    What happens? Don't do anything just yet, simply see what things
-    were identified as potential issues.
+3.  Go back to `doc/learning.qmd` file in RStudio and run
+    `lintr::lint()` with the Command Palette (`Ctrl-Shift-P` then type
+    "lint file"). What happens? Don't do anything just yet, simply see
+    what things were identified as potential issues.
 
 4.  Run `styler::style_file()` using the Command Palette (`Ctrl-Shift-P`
-    then type "style file") while inside the `doc/learning.qmd` file. What
-    happens? Open the Git interface to see the changes made. Commit the
-    changes and push to GitHub. Go into the Actions tab to see what is
-    different now.
+    then type "style file") while inside the `doc/learning.qmd` file.
+    What happens? Open the Git interface to see the changes made. Commit
+    the changes and push to GitHub. Go into the Actions tab to see what
+    is different now.
 
 5.  Re-run the `lintr::lint()` with the Command Palette. What's changed
     since you did it last?
@@ -831,8 +837,8 @@ The instructors won't be using the Visual Mode during the course,
 however you are welcome to. We will be using the "canonical" markdown
 mode though.
 
-Let's test it out. While in the `doc/learning.qmd` file, go to the bottom
-of the file and type out:
+Let's test it out. While in the `doc/learning.qmd` file, go to the
+bottom of the file and type out:
 
 ``` markdown
 ## This is poorly formatted

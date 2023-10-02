@@ -385,21 +385,21 @@ Since we will be using `{tidymodels}`, we need to install it, as well as
 explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
 Like `{tidyverse}`, we need to set `{tidymodels}` differently because it
 is a "meta-package". We might need to force installing it with
-`install.packages("tidymodels")` so `{renv}` recognizes it.
+`pak::pak("tidymodels")` so `{renv}` recognizes it.
 
 ```{r tidymodels-to-deps}
 #| purl: true
 #| eval: false
 use_package("tidymodels", "depends")
-# install.packages("tidymodels")
+# pak::pak("tidymodels")
 use_package("parsnip")
 use_package("recipes")
 use_package("workflows")
 ```
 
 Before continuing, let's **commit** the changes to the Git history.
-Next, in the `doc/learning.qmd` file, on the bottom of the document create
-a new header and code chunk:
+Next, in the `doc/learning.qmd` file, on the bottom of the document
+create a new header and code chunk:
 
 ````         
 ## Building the model
@@ -655,8 +655,8 @@ it into a new function.
 4.  Use `tidyr::` before the `pivot_wider()` function.
 5.  Add `r run_roxygen_comments`.
 6.  Move the function into the `R/functions.R` file.
-7.  Replace the code in the `doc/learning.qmd` file to make use of the new
-    functions.
+7.  Replace the code in the `doc/learning.qmd` file to make use of the
+    new functions.
 
 ```{r solution-new-function-metabolite-to-wider}
 #| eval: true
