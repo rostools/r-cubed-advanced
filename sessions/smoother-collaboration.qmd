@@ -967,13 +967,13 @@ credentials::set_github_pat(TRUE)
 ```
 
 Then we can install the r3 package into our project with
-`renv::install()`. Because the r3 package is on GitLab, we need to tell
-`{renv}` about its location by adding `gitlab::` followed by the "user"
+`renv::install()`. Because the r3 package is on GitHub, we need to tell
+`{renv}` about its location by adding `github::` followed by the "user"
 (which is `rostools`) and than the repository (`r3`).
 
 ```{r install-r3}
 #| eval: false
-renv::install("gitlab::rostools/r3")
+renv::install("github::rostools/r3")
 ```
 
 Now we can open the feedback survey:
