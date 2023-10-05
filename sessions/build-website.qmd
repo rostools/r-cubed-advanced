@@ -377,23 +377,6 @@ git_ci(c("_quarto.yml", "index.qmd"),
        "Add Quarto infrastructure to project.")
 ```
 
-## Exercise: Look through the new website folder
-
-> Time: \~5 minutes.
-
-In your main project folder, there should now be a folder called
-`_site/`. Look through the folder. What files are now created? Open up
-the `index.html` file in your browser while in RStudio by clicking the
-`index.html` file and then selecting the "Open in web browser".
-
-<!-- TODO: Confirm the name of the website folder. -->
-
-Recall how we described what a website is. Can you see how these files
-and folders are simply HTML files that the browser shows as website? In
-the browser URL, change the `index.html` ending link to
-`doc/report.html`. See how it changes to the file based on how it is
-structured in the folder?
-
 ## Exercise: Add Quarto to the pipeline
 
 > Time: \~5 minutes.
