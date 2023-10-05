@@ -54,6 +54,7 @@ Ask who knows what reproducibility is and could explain it.
 ::: {.column width="50%"}
 -   Less about coding, more about connecting with others
     -   Draw table name from bowl each morning
+    -   Introduce yourself to those at your table
     -   During lunch, sit beside someone you don't know
     -   Several networking activities (usually after lunch)
 -   *Warning*: You will be making a lot of functions!
