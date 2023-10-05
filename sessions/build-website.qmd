@@ -239,7 +239,9 @@ edit_file("index.qmd")
 
 We won't add much for now, only need to add a `#` header:
 
-    # Lipidomics study
+```         
+# Lipidomics study
+```
 
 Next, let's create the `_quarto.yml` file that will have all the
 settings for the website.
@@ -446,8 +448,8 @@ git_ci("_targets.R", "Switch to using Quarto in targets.")
 
 Like we did in @sec-smoother-collaboration with the `editor_options`
 setting we added in our R Markdown file, let's make this setting global
-to the whole project. Cut and paste that metadata from `doc/learning.qmd`
-into the bottom of `_quarto.yml`:
+to the whole project. Cut and paste that metadata from
+`doc/learning.qmd` into the bottom of `_quarto.yml`:
 
 ``` yml
 editor_options:
@@ -670,7 +672,9 @@ to the GitHub repository.
     `edit_file("README.md")`). Add some text below the first `#` header,
     pasting the link where the `LINK` text is in this template:
 
-        Check out the project's [website](LINK).
+    ```         
+    Check out the project's [website](LINK).
+    ```
 
 6.  Commit the changes to the `README.md` to the Git history.
 
@@ -722,9 +726,9 @@ them below.
 ::: {.column width="45%"}
 **knitr-style chunk options**
 
-    ```{{r, echo=FALSE, warning=TRUE}}
-    1:10
-    ```
+```{{{r, echo=FALSE, warning=TRUE}}}
+1:10
+```
 :::
 
 ::: {.column width="10%"}
@@ -733,10 +737,10 @@ them below.
 ::: {.column width="45%"}
 **Quarto-style chunk options**
 
-    ```{{r}}
-    #| echo: false
-    #| warning: true
-    ```
+```{{{r}}}
+#| echo: false
+#| warning: true
+```
 :::
 :::
 
@@ -746,40 +750,6 @@ package, so they needed a more language agnostic way of setting chunk
 options. A full list of the code chunk options is found in the [Cell
 Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
 section of the website.
-
-## Exercise: Make figures prettier
-
-> Time: \~25 minutes
-
-Looking through the [Cell
-Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
-documentation, complete these tasks.
-
--   Add a `fig-cap` option to each of the figures.
-
--   For the distribution and variation plots, set the code chunk option
-    `column` to `page` to make it bigger.
-
-Look through the `{ggplot2}` documentation on `theme_set()` and
-`theme()` to update the look of all your figures. In the `setup` code
-chunk of the `doc/report.Rmd` file, make a new theme object and use
-`theme_set()` to apply that theme to all plots. Use this as a scaffold:
-
-    ```{{r setup}}
-    # ... previous code
-    updated_theme <- theme(
-      # ... make changes
-    )
-
-    # Or start with a template like theme_classic()
-
-    updated_theme <- theme_TEMPLATE() +
-      theme(
-        # ...
-      )
-
-    theme_set(updated_theme)
-    ```
 
 ## Summary
 
@@ -791,7 +761,3 @@ chunk of the `doc/report.Rmd` file, make a new theme object and use
     website on GitHub.
 -   Add a license file (for instance, with `use_ccby_license()`) to
     allow others to re-use your work.
--   Use Quarto code chunk options, along with `{ggplot2}` theme
-    functions, to make figures more visually appealing on their own and
-    in the document.
-

@@ -1,0 +1,37 @@
+# Extra exercises
+
+## Building a website with Quarto
+
+### Exercise: Make figures prettier
+
+> Time: \~25 minutes
+
+Looking through the [Cell
+Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
+documentation, complete these tasks.
+
+-   Add a `fig-cap` option to each of the figures.
+
+-   For the distribution and variation plots, set the code chunk option
+    `column` to `page` to make it bigger.
+
+Look through the `{ggplot2}` documentation on `theme_set()` and
+`theme()` to update the look of all your figures. In the `setup` code
+chunk of the `doc/report.Rmd` file, make a new theme object and use
+`theme_set()` to apply that theme to all plots. Use this as a scaffold:
+
+```{{{r setup}}}
+# ... previous code
+updated_theme <- theme(
+  # ... make changes
+)
+
+# Or start with a template like theme_classic()
+
+updated_theme <- theme_TEMPLATE() +
+  theme(
+    # ...
+  )
+
+theme_set(updated_theme)
+```
