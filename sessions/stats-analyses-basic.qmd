@@ -710,16 +710,19 @@ recipe(lipidomics_wide) %>%
   update_role(class, new_role = "outcome")
 ```
 
-The next "step" is to select a transformation function.
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
 
-## Exercise: Which transformations make the most sense?
+Describe this next paragraph by switching to this website and showing
+the list of some of the steps available in the code chunk below.
+:::
 
-> Time: \~15 minutes.
-
-Look at the list of `step_*` functions below and use the `?` or F1
-(while having the cursor on the function name) to access the help
-documentation. Consider the metabolite data in the `lipidomics` dataset.
-Which of these transformations might you use?
+The next "step" is to select a transformation function. There are many
+`step_*` functions (some shown below) that are available in `{recipes}`
+and which one you decide to use depends heavily on your data and your
+research question. So take your time thinking through which
+transformations you actually need for your analysis, rather than quickly
+using one or more of them.
 
 ```{r list-step-transforms}
 #| eval: false
@@ -730,11 +733,6 @@ recipes::step_center()
 recipes::step_sqrt()
 ```
 
--   With your neighbour (or group), justify which `step_` transformation
-    you might use for the numeric metabolite data.
--   In the last 2 minutes of the exercise, we will all share our
-    thoughts.
-
 ::: {.callout-tip appearance="default"}
 There are so many useful transformation functions available. For
 instance, if you often have to impute data, there are functions for
@@ -744,24 +742,12 @@ if you have some missing values, there's also the
 `recipes::step_naomit()`.
 :::
 
-::: {.callout-note appearance="default"}
-The `step_` function we use in the text of this website in later
-sections may be different from what you decide on in your group and in
-the class as a whole. There isn't strictly a "right" answer here, since
-it would ultimately require domain expertise in both lipidomic
-quantification and statistical analysis of -omic data. But we ultimate
-need to show and use *something* in the text.
-:::
-
-## Creating a transformation "recipe"
-
-You will use whichever transformation function your group decided on in
-the exercise above, but for the text of this website, we will use
-`step_normalize()`. This function is useful because it makes each
-variable centered to zero and a value of 1 unit is translated to 1
-standard deviation of the original distribution. This means we can more
-easily compare values between variables. If we add this to the end of
-the recipe:
+There are many transformations we could use for the `lipidomics`
+dataset, but we will use `step_normalize()` for this course. This
+function is useful because it makes each variable centered to zero and a
+value of 1 unit is translated to 1 standard deviation of the original
+distribution. This means we can more easily compare values between
+variables. We can add this to the end of the recipe:
 
 ```{r recipes-with-step-normalize}
 recipe(lipidomics_wide) %>%
