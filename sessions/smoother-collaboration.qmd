@@ -248,8 +248,10 @@ easy to miss some of the packages referenced using `::`.
 #| echo: false
 #| purl: true
 usethis::use_git_ignore(".Rbuildignore")
-git_ci(c("DESCRIPTION", ".gitignore"), 
-       "Add packages as dependencies to project.")
+git_ci(
+  c("DESCRIPTION", ".gitignore"),
+  "Add packages as dependencies to project."
+)
 ```
 
 ## Formal dependency management
@@ -340,8 +342,10 @@ renv::init(bare = TRUE)
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c("renv", ".Rprofile"),
-       "Add renv machinery.")
+git_ci(
+  c("renv", ".Rprofile"),
+  "Add renv machinery."
+)
 ```
 
 The function `renv::init()` initializes the project to begin being
@@ -593,8 +597,9 @@ if (interactive()) {
 #| eval: false
 #| purl: true
 write_to_file("if (interactive()) {suppressMessages(require(usethis))}",
-              ".Rprofile",
-              append = TRUE)
+  ".Rprofile",
+  append = TRUE
+)
 git_ci(".Rprofile", "Add usethis settings to profile.")
 ```
 
