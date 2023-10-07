@@ -206,11 +206,12 @@ dependency management, let's get it updated with the packages we are
 using in the `data-raw/nmr-omics.R` script. Open that file and complete
 these tasks:
 
-1.  Look for package dependencies that are declared with `library()` and
-    `::`. It can help to use "Find / Replace Text" feature in RStudio
-    for all the `::` used in the script. Use the Command Palette
-    (`Ctrl-Shift-P`, then "find replace") to quickly select this option,
-    or `Edit -> Find and replace` (`Ctrl-Shift-J`).
+1.  **Manually** look for package dependencies in the R script that are
+    declared with `library()` and `::`. It can help to use "Find /
+    Replace Text" feature in RStudio for all the `::` used in the
+    script. Use the Command Palette (`Ctrl-Shift-P`, then "find
+    replace") to quickly select this option, or
+    `Edit -> Find and replace` (`Ctrl-Shift-J`).
 2.  Use `?usethis::use_package` to review how to use this function.
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
@@ -960,3 +961,4 @@ r3::open_feedback_survey_advanced()
     are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+
