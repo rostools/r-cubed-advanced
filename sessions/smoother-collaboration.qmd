@@ -649,6 +649,34 @@ you already have it. In that case, you can use
 `renv::install("packagename")` first, before than using `use_package()`.
 :::
 
+## Exercise: Connect your project to GitHub
+
+> Time: \~25 minutes.
+
+Since we will eventually connect our project Git repository to GitHub to
+display a website as well as to practice the workflow, we'll connect our
+project to GitHub right now.
+
+Let's complete these tasks to connect to GitHub.
+
+1.  First, commit the latest changes to the Git history.
+
+2.  If you haven't yet, please create a
+    [GitHub](https://github.com/join) account.
+
+3.  Add the `{gitcreds}` package as a workflow dependency. You'll need
+    it for the next item
+
+    ``` r
+    use_package("gitcreds", "suggests")
+    ```
+
+4.  Read through and complete the tasks in the [Connect to GitHub
+    Guide](https://guides.rostools.org/connect-github).
+
+5.  Check your GitHub to make sure the project repository has been
+    uploaded to it.
+
 ## Automatically adhere to a style guide
 
 ::: callout-note
@@ -886,33 +914,6 @@ gert::git_commit("Add editor options to README file.")
 fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
-
-## Exercise: Connect your project to GitHub
-
-> Time: \~25 minutes.
-
-Since we will eventually connect our project Git repository to GitHub to
-display a website, we'll do that right now.
-
-Let's complete these tasks to connect to GitHub.
-
-1.  First, commit the latest changes to the Git history.
-
-2.  If you haven't yet, please create a
-    [GitHub](https://github.com/join) account.
-
-3.  Add the `{gitcreds}` package as a workflow dependency. You'll need
-    it for the next item
-
-    ``` r
-    use_package("gitcreds", "suggests")
-    ```
-
-4.  Read through and complete the tasks in the [Connect to GitHub
-    Guide](https://guides.rostools.org/connect-github).
-
-5.  Check your GitHub to make sure the project repository has been
-    uploaded to it.
 
 ## Add r3 in order to complete the survey
 
