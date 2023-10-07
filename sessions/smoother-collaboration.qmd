@@ -651,11 +651,21 @@ you already have it. In that case, you can use
 
 ## Automatically adhere to a style guide
 
-When you're working on your own and not needing to worry about anyone
-seeing your code, there's a natural temptation to write your code like
-you might write notes to yourself... scribbled and scrawled down
-quickly. Even when you are working with others or try to write more
-readable code, it is very easy for code to "drift" towards being poorly
+::: callout-note
+## Reading task: \~5 minutes
+
+We've covered how to adhere to a style guide in both the introductory as
+well as the intermediate course, because it is such a useful and
+powerful tool to easily write more readable code. We'll expand on it in
+this course because it fits precisely with the theme of collaboration.
+That's because, when you're working on your own and not needing to worry
+about anyone seeing your code, there's a natural temptation to write
+your code like you might write notes to yourself... scribbled and
+scrawled down quickly. But when working with others, how it looks can
+greatly impact how quickly and easily others are able to read and
+interpret your code. Multiply all the collaborators on a project with
+this natural temptation for quick (and sloppy) coding, you can imagine
+how easy it is for code to massively "drift" towards being poorly
 formatted, especially when deadlines are close.
 
 That's when "linters" or "stylers" (types of "static code analysis"
@@ -671,13 +681,6 @@ yourself. This is where the `{styler}` package comes in!
 Since we will use it for the project as a workflow dependency, let's add
 it to the `DESCRIPTION` file.
 
-```{r purl-only-renv-install-styler}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("styler")
-```
-
 ```{r add-styler-dep}
 #| eval: false
 #| purl: true
@@ -690,38 +693,35 @@ use_package("styler", "suggests")
 #| purl: true
 git_ci("DESCRIPTION", "Add styler as a suggests dependency.")
 ```
+:::
 
-Like `{lintr}`, there are only a few functions in `{styler}` that we
-need to use. The first is to style a single file, so let's try it in the
-Console:
+There are only a few functions in `{styler}` that we need to use. The
+first is to style a single file by using `styler::style_file()`.
+However, an easier function is the "style active file" RStudio addin.
+Usually we would only need to style the file that we are actually
+working on, We can do that through the Command Palette (`Ctrl-Shift-P`)
+and typing "style file", which should show the "Style active file"
+option. This is what we will do frequently throughout the course.
 
-```{r style-file}
-styler::style_file("data-raw/nmr-omics.R")
-```
+Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
+{{< var keybind.styler >}} to style the file. There won't be any changes
+since the file is already tidy.
 
-Since we already have the file all nice and tidy, it doesn't do
-anything. But, this function is a bit much to type. We could also do it
-on all files in the project with:
+::: {.callout-note appearance="default"}
+You will probably be asked to install something, click "Yes".
+:::
+
+If you wanted to run `{styler}` on all the files, we can use:
 
 ```{r style-dir}
 #| eval: false
 styler::style_dir()
 ```
 
-::: {.callout-note appearance="default"}
-You will probably be asked to install something, click "Yes".
-:::
-
-But, like the linting we did above, we only need to style all the files
-occasionally. Usually we would need to only style the file we are
-actually working. We can do that through the Command Palette
-(`Ctrl-Shift-P`) and typing "style file", which should show the "Style
-active file" option. You'll try it out in the next exercise.
-
-The thing to note, though, is that `{styler}` isn't perfect, so by using
-it together with `{lintr}` and sometimes manually running reformatting
+The thing to note, though, is that `{styler}` isn't perfect, so you
+might sometimes have to manually fix run the reformatting
 (`Ctrl-Shift-A` or with the Command Palette `Ctrl-Shift-P` then
-"reformat") you will be able to fix most syntax issues.
+"reformat").
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -739,40 +739,6 @@ options(
 )
 ```
 :::
-
-## Exercise: Copy and paste code that is very wrong.
-
-> Time: \~15 minutes.
-
-1.  Open your `doc/learning.qmd` file, create a new code chunk
-    (`Ctrl-Shift-I` or `Ctrl-Shift-P` followed by typing "chunk") at the
-    end of the file. Copy and paste the below code:
-
-    ``` r
-    library(dplyr)
-    lipidomics <- 
-    read_csv( here:: here("data/lipidomics.csv" )
-    )
-    lipidomics%>%select(gender , age)%>%filter(age>=25)
-    ```
-
-2.  Open the Git interface and commit the changes to the Git history.
-    Then push the changes to GitHub. Go to the Actions tab and see what
-    happens. It might take a few minutes to finish.
-
-3.  Go back to `doc/learning.qmd` file in RStudio and run
-    `lintr::lint()` with the Command Palette (`Ctrl-Shift-P` then type
-    "lint file"). What happens? Don't do anything just yet, simply see
-    what things were identified as potential issues.
-
-4.  Run `styler::style_file()` using the Command Palette (`Ctrl-Shift-P`
-    then type "style file") while inside the `doc/learning.qmd` file.
-    What happens? Open the Git interface to see the changes made. Commit
-    the changes and push to GitHub. Go into the Actions tab to see what
-    is different now.
-
-5.  Re-run the `lintr::lint()` with the Command Palette. What's changed
-    since you did it last?
 
 ## Styling Markdown files
 
