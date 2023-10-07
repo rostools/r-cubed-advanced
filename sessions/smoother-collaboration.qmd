@@ -895,14 +895,8 @@ made to the Git history. Then delete both `TODO.md`, followed by
 committing these deletions in the Git history. Click the "Push" button
 to push the changes to GitHub.
 
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Use this code to help synchronize with what the learners are doing. Copy
-and paste this code into the RStudio Console of the `AdvancedR3`
-project.
-
-```{r editor-options-to-readme}
+```{r purl-only-editor-options-to-readme}
+#| echo: false
 #| eval: false
 #| purl: true
 editor_yaml <- "
@@ -921,7 +915,6 @@ gert::git_commit("Add editor options to README file.")
 fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
-:::
 
 ## Exercise: Connect your project to GitHub
 
