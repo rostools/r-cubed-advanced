@@ -17,10 +17,6 @@ lipidomics_wide <- lipidomics %>%
 # lipidomics %>% 
 #   calculate_estimates() %>% 
 #   readr::write_csv(here::here("data/model-estimates.csv"))
-# lipidomics %>% 
-#   calculate_variation() %>% 
-#   readr::write_csv(here::here("data/model-variation.csv"))
-metabolites_with_bootstrap_results <- read_csv(here::here("data/model-variation.csv"))
 ```
 
 ::: {.callout-note collapse="true"}
