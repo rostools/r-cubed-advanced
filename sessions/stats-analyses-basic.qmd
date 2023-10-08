@@ -218,6 +218,45 @@ field, and how we would actually interpret the findings. We have
 here. We're only doing this modeling to highlight how to use the R
 packages.
 :::
+
+Going back to our own `lipidomics` dataset, we need to do the first
+step: Creating the question. While we don't have much data, there are a
+surprising number of questions we could ask. But we will keep it very
+simple, very basic, and very exploratory.
+
+1.  What is the estimated relationship of each metabolite with T1D
+    compared to the controls, adjusting for the influence of age and
+    gender?
+
+Next, because we are working within a "reproducible analysis" framework
+specifically with the use of `{targets}`, let's convert this question
+into outputs to include as pipeline targets, along with a basic idea for
+the final functions that will make up these targets and their inputs and
+outputs. These targets will probably be quite different by the end, but
+it's a good start to think about what it should look like in the end.
+
+-   All results for estimated relationships (in case we want to use it
+    for other output)
+-   Plot of statistical estimate for each relationship
+
+Potential function names might be:
+
+-   `calculate_estimates()`
+-   `plot_estimates()`
+
+```{mermaid fig-model-possible-targets}
+%%| label: fig-model-possible-targets
+%%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
+%%| echo: false
+%%| eval: true
+%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
+graph TB
+    lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
+    model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
+    plot_est -- "tar_read()" --> rmd[R Markdown]
+    
+linkStyle 0,1,2 stroke-width:1px;
+```
 :::
 
 ::: {.callout-note collapse="true"}
@@ -231,64 +270,24 @@ A few things to repeat and reinforce:
     forms of linear regression.
 3.  That this model creation stage requires a variety of domain
     expertise, not just statistical expertise.
+
+Also repeat the question to ask, the outputs, as well as the functions
+and their flow that we can translate into the `{targets}` pipeline.
 :::
-
-Going back to our own `lipidomics` dataset, we need to do the first
-step: Creating the question. While we don't have much data, there are a
-surprising number of questions we could ask. But we will keep it very
-simple, very basic, and very exploratory.
-
-1.  What is the estimated relationship of each metabolite with T1D
-    compared to the controls, adjusting for the influence of age and
-    gender?
-2.  What is the variability for the estimate in each relationship?
-
-Next, because we are working within a "reproducible analysis" framework
-specifically with the use of `{targets}`, let's convert these questions
-in outputs to include as pipeline targets, along with a basic idea for
-the final functions that will make up these targets and their inputs and
-outputs. These targets will probably be quite different by the end, but
-it's a good start to think about what it should look like in the end.
-
--   All results for estimated relationships (in case we want to use it
-    for other output)
--   All results for variation in estimates of relationships (in case we
-    want to use it for other output)
--   Plot of statistical estimate for each relationship
--   Plot of variation in estimates for each relationship
-
-Potential function names might be:
-
--   `calculate_estimates()`
--   `calculate_variation()`
--   `plot_estimates()`
--   `plot_variation()`
-
-```{mermaid fig-model-possible-targets}
-%%| label: fig-model-possible-targets
-%%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
-%%| echo: false
-%%| eval: true
-%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
-graph TB
-    lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
-    model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
-    lipidomics -- "calculate_variation()" --> model_var[Model variation]
-    model_var -- "plot_variation()" --> plot_var[Plot of variation]
-    plot_est & plot_var -- "tar_read()" --> rmd[R Markdown]
-    
-linkStyle 0,1,2,3,4,5 stroke-width:1px;
-```
 
 ## Defining the model
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
 
-Verbally walk through this section, describing the theoretical model
-both graphically and mathematically. Go through why we use
-`{tidymodels}` rather than other approaches.
+Let them read it first and then briefly verbally walk through this
+section, describing the theoretical model both graphically and
+mathematically. Go through why we use `{tidymodels}` rather than other
+approaches.
 :::
+
+::: callout-note
+## Reading task: \~10 minutes
 
 Now that we've talked about the workflow around making models and have
 already written out some research questions, let's make a basic,
@@ -366,6 +365,7 @@ out the
 for code you might use depending on the model you want. The most
 commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 `multinom_reg()`.
+:::
 
 We want to use logistic regression. So, open the `doc/learning.qmd` file
 and in the `setup` code chunk add `library(tidymodels)`, so it looks
