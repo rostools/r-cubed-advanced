@@ -371,7 +371,7 @@ We want to use logistic regression. So, open the `doc/learning.qmd` file
 and in the `setup` code chunk add `library(tidymodels)`, so it looks
 like:
 
-```{{{r setup}}}
+```{{r setup}}
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(tidymodels)

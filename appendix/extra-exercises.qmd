@@ -37,7 +37,7 @@ Look through the `{ggplot2}` documentation on `theme_set()` and
 chunk of the `doc/report.Rmd` file, make a new theme object and use
 `theme_set()` to apply that theme to all plots. Use this as a scaffold:
 
-```{{{r setup}}}
+```{{r setup}}
 # ... previous code
 updated_theme <- theme(
   # ... make changes

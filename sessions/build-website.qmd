@@ -661,7 +661,7 @@ them below.
 ::: {.column width="45%"}
 **knitr-style chunk options**
 
-```{{{r, echo=FALSE, warning=TRUE}}}
+```{{r, echo=FALSE, warning=TRUE}}
 1:10
 ```
 :::
@@ -672,7 +672,7 @@ them below.
 ::: {.column width="45%"}
 **Quarto-style chunk options**
 
-```{{{r}}}
+```{{r}}
 #| echo: false
 #| warning: true
 ```

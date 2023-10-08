@@ -967,7 +967,7 @@ Let's open up the `doc/report.Rmd` file, add a `setup` code chunk below
 the YAML header, and create a new header and code chunk and make use of
 the `targets::tar_read()`
 
-```{{{r setup}}}
+```{{r setup}}
 library(tidyverse)
 library(targets)
 lipidomics <- tar_read(lipidomics)

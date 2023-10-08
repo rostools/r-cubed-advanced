@@ -585,7 +585,7 @@ list(
 And replace all the plot code in the `doc/report.Rmd` file with the
 `tar_read()`:
 
-```{{{r}}}
+```{{r}}
 tar_read(fig_model_estimates)
 ```
 
@@ -643,12 +643,8 @@ file. Open it up and create another code chunk at the bottom of the
 file. Like we did with the other outputs (like the figures), we'll use
 `tar_read()` to reference the image path.
 
-```{{{r}}}
-tar_read(fig_model_estimates)
-```
-
 ```{{r}}
-tar_read(fig_model_variations)
+tar_read(fig_model_estimates)
 ```
 
 Run `r run_tar_vis_text`, then `r run_tar_make_text`. We now have the
