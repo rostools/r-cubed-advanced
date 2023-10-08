@@ -98,7 +98,7 @@ analyses.
 
 <!-- TODO: Create a revealjs presentation on this? -->
 
-::: callout-info
+::: callout-note
 ## Reading task: \~15 minutes
 
 Almost all fields of research, and definitely more heavily-quantitative
