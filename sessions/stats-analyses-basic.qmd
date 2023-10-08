@@ -371,7 +371,8 @@ Let's switch to working in the `doc/learning.qmd` file to create those
 logistic regression models. Since we've already created some items in
 the `{targets}` pipeline, we'll need to tell the Quarto file where to
 find this "store" of outputs, and import the data using `tar_read()`. We
-also need to add `library(tidymodels)` to the `setup` code chunk.
+also need to add `library(tidymodels)` to the `setup` code chunk. Copy
+and paste this code chunk below into the Quarto file.
 
 ```{{r setup}}
 targets::tar_config_set(store = here::here("_targets"))
@@ -1031,4 +1032,3 @@ Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
-
