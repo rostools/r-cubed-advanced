@@ -387,13 +387,14 @@ Git history. Open up the `doc/learning.qmd` file and create a new header
 and code chunk at the bottom of the file.
 
 ````         
-## Basic statistics
 
 ```{{r setup}}
 library(tidyverse)
 source(here::here("R/functions.R"))
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
+
+## Basic statistics
 
 ```{{r basic-stats}}
 
