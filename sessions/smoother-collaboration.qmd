@@ -825,7 +825,7 @@ editor_options <-
 readLines("doc/learning.qmd") |>
   append(editor_options, after = 1) |>
   writeLines("doc/learning.qmd")
-git_ci("doc/learning.qmd", "Add editor options to Rmd file.")
+git_ci("doc/learning.qmd", "Add editor options to qmd file.")
 ```
 
 Now, when you save your file, RStudio should automatically reformat the
@@ -961,4 +961,3 @@ r3::open_feedback_survey_advanced()
     are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-

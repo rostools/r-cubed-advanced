@@ -253,7 +253,7 @@ Potential function names might be:
 graph TB
     lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
-    plot_est -- "tar_read()" --> rmd[R Markdown]
+    plot_est -- "tar_read()" --> qmd[Quarto]
     
 linkStyle 0,1,2 stroke-width:1px;
 ```
@@ -444,8 +444,8 @@ chunk at the bottom of the `doc/learning.qmd` file, like listed below:
 ````
 
 After writing the code, style the file using {{< var keybind.styler >}}.
-We will eventually delete these exercise text in the R Markdown file,
-but for now, commit the changes to the Git history.
+We will eventually delete these exercise text in the Quarto file, but
+for now, commit the changes to the Git history.
 
 ```{r solution-define-linear-reg-model}
 #| eval: false
@@ -624,7 +624,7 @@ lipidomics %>%
 Move this new function over into the `R/functions.R` file, add
 `r run_roxygen_comments`, style using {{< var keybind.styler >}},
 `source()` the modified `R/functions.R` file, and add the new function
-above the `pivot_wider()` code in the `doc/lessons.Rmd` file.
+above the `pivot_wider()` code in the `doc/learning.qmd` file.
 
 ```{r new-function-column-values-to-snakecase}
 #' Convert column value strings into snakecase.

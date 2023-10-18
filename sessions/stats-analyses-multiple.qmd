@@ -439,7 +439,7 @@ the typical approach doesn't exactly work for our data (tested before
 the course). For this plot though, we will use the standard error of the
 estimate.
 
-Inside the `doc/report.Rmd`, let's create a new header and code chunk
+Inside the `doc/learning.qmd`, let's create a new header and code chunk
 inside the `## Results` section. We'll want to use
 `tar_read(df_model_estimates)` so that `{targets}` is aware that the R
 Markdown file is dependent on this target.
@@ -464,15 +464,15 @@ model_estimate_md_text <- c(
   "```"
 )
   
-print_file("doc/report.Rmd")
+print_file("doc/learning.qmd")
 revise_by_line_num(
-  "doc/report.Rmd",
+  "doc/learning.qmd",
   model_estimate_md_text,
   # Update numbers
   remove_original_lines = -40,
   insert_at_line = 39
 )
-git_ci("doc/report.Rmd", "Add code for model estimates to report.")
+git_ci("doc/learning.qmd", "Add code for model estimates to report.")
 ```
 
 ```{r exec-only-model-estimates}
@@ -578,7 +578,7 @@ list(
 )
 ```
 
-And replace all the plot code in the `doc/report.Rmd` file with the
+And replace all the plot code in the `doc/learning.qmd` file with the
 `tar_read()`:
 
 ```{{r}}
@@ -600,15 +600,15 @@ plot_estimates_md_text <- c(
   ""
 )
 
-print_file("doc/report.Rmd")
+print_file("doc/learning.qmd")
 revise_by_line_num(
-  "doc/report.Rmd",
+  "doc/learning.qmd",
   plot_estimates_md_text,
   # Update numbers
   remove_original_lines = -40,
   insert_at_line = 39
 )
-git_ci("doc/report.Rmd", "Add code for model estimates to report.")
+git_ci("doc/learning.qmd", "Add code for model estimates to report.")
 
 update_target_plot_est <- '),
 tar_target(
@@ -632,12 +632,12 @@ targets::tar_make()
 git_ci("_targets", "Add plot estimates target")
 ```
 
-## Combine all the output into the R Markdown file
+## Combine all the output into the Quarto file
 
-Now its' time to add the model results and plots to the `doc/report.Rmd`
-file. Open it up and create another code chunk at the bottom of the
-file. Like we did with the other outputs (like the figures), we'll use
-`tar_read()` to reference the image path.
+Now its' time to add the model results and plots to the
+`doc/learning.qmd` file. Open it up and create another code chunk at the
+bottom of the file. Like we did with the other outputs (like the
+figures), we'll use `tar_read()` to reference the image path.
 
 ```{{r}}
 tar_read(fig_model_estimates)

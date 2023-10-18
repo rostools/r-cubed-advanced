@@ -34,7 +34,7 @@ documentation, complete these tasks.
 
 Look through the `{ggplot2}` documentation on `theme_set()` and
 `theme()` to update the look of all your figures. In the `setup` code
-chunk of the `doc/report.Rmd` file, make a new theme object and use
+chunk of the `doc/learning.qmd` file, make a new theme object and use
 `theme_set()` to apply that theme to all plots. Use this as a scaffold:
 
 ```{{r setup}}

@@ -432,7 +432,7 @@ research questions. This figure could also be improved quite a bit from
 a visual and aesthetic point of view, but at least from a content point
 of view, it shows what we want. For now, we'll stick with this and
 finish our last pipeline target before putting everything into the
-`doc/report.Rmd` file.
+`doc/learning.qmd` file.
 
 Let's use our function workflow with this code:
 

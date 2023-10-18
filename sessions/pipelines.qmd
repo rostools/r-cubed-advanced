@@ -412,7 +412,7 @@ c(
 ) |>
   paste0(collapse = "\n") |>
   write_to_file("doc/learning.qmd")
-git_ci("doc/learning.qmd", "Add section on basic stats to rmd")
+git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 ```
 
 We want to calculate the mean and SD for each metabolite and then, to
@@ -919,11 +919,11 @@ git_ci("R/functions.R", "Add output switch function, to use for targets")
 git_ci("_targets.R", "Update targets with plot items")
 ```
 
-## Incorporating targets with R Markdown
+## Incorporating Quarto targets
 
-Last, but not least, we want to make our final item: The R Markdown
-document. Adding an R Markdown document as a target inside `_targets.R`
-is fairly straightforward. We need to install the helper package
+Last, but not least, we want to make our final item: The Quarto
+document. Adding a Quarto document as a target inside `_targets.R` is
+fairly straightforward. We need to install the helper package
 `{tarchetypes}` first:
 
 ```{r purl-only-renv-install-tarchetypes}
@@ -940,32 +940,32 @@ use_package("tarchetypes")
 
 Then, inside `_targets.R`, uncomment the line where
 `library(tarchetypes)` is commented out. The function we need to use to
-build the R Markdown file is `tar_render()`, which needs two things: The
-`name`, like `tar_target()` needs, and the file path to the R Markdown
-file. Again, like the other `tar_target()` items, add it to the end of
-the `list()`. Since we're using the `doc/learning.qmd` as a sandbox, we
-won't include it as a pipeline target. Instead we will use the
-`doc/report.Rmd` file:
+build the Quarto file is `tar_quarto()` (or `tar_render()` for R
+Markdown files), which needs two things: The `name`, like `tar_target()`
+needs, and the file path to the Quarto file. Again, like the other
+`tar_target()` items, add it to the end of the `list()`. Since we're
+using the `doc/learning.qmd` as a sandbox, we won't include it as a
+pipeline target. Instead we will use the `doc/learning.qmd` file:
 
 ``` r
 list(
   ...,
-  tar_render(
-    name = report_rmd, 
-    path = "doc/report.Rmd"
+  tar_quarto(
+    name = quarto_doc, 
+    path = "doc/learning.qmd"
   )
 )
 ```
 
-Now when we run `r run_tar_make_text`, the R Markdown file also gets
+Now when we run `r run_tar_make_text`, the Quarto file also gets
 re-built. But when we use `targets::tar_visnetwork()`, we don't see the
 connections with plots and descriptive statistics. That's because we
 haven't used them in a way `{targets}` can recognize. For that, we need
 to use the function `targets::tar_read()`.
 
-Let's open up the `doc/report.Rmd` file, add a `setup` code chunk below
-the YAML header, and create a new header and code chunk and make use of
-the `targets::tar_read()`
+Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
+below the YAML header, and create a new header and code chunk and make
+use of the `targets::tar_read()`
 
 ```{{r setup}}
 library(tidyverse)
@@ -1010,15 +1010,15 @@ basic_stats_md_text <- c("```{r setup}",
   "```{r}",
   "tar_read(fig_distribution_metabolites)",
   "```")
-print_file("doc/report.Rmd")
+print_file("doc/learning.qmd")
 revise_by_line_num(
-  "doc/report.Rmd",
+  "doc/learning.qmd",
   basic_stats_md_text,
   # Update numbers
   remove_original_lines = -30,
   insert_at_line = 29
 )
-git_ci("doc/report.Rmd", "Add code for basic stats to report.")
+git_ci("doc/learning.qmd", "Add code for basic stats to report.")
 ```
 
 With `targets::tar_read()`, we can access all the stored target items
@@ -1048,12 +1048,12 @@ targets::tar_read(df_stats_by_metabolite) %>%
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 '
 revise_by_text(
-  path = "doc/report.Rmd",
+  path = "doc/learning.qmd",
   original = "tar_read\\(df_stats_by_metabolite\\)",
   replacement = pretty_basic_stats_code
 )
-styler::style_file("doc/report.Rmd")
-git_ci("doc/report.Rmd", "Basic stats as a pretty table.")
+styler::style_file("doc/learning.qmd")
+git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
 ```
 
 ```{r execute-only-table-basic-stats}
@@ -1127,7 +1127,7 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 -   Visualize target items in your pipeline with
     `targets::tar_visnetwork()` or list outdated items with
     `targets::tar_outdated()`.
--   Within R Markdown files, use `targets::tar_read()` to access saved
-    pipeline outputs. To include the R Markdown in the pipeline, use
-    `{tarchetypes}` and the function `tar_render()`.
+-   Within R Markdown / Quarto files, use `targets::tar_read()` to
+    access saved pipeline outputs. To include the Quarto in the
+    pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
