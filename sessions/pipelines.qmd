@@ -724,13 +724,6 @@ that we initially decided at the start of this session. Since we're
 using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
 file and to our `{renv}` project library.
 
-```{r purl-only-renv-install-ggplot2}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("ggplot2")
-```
-
 ```{r add-ggplot2-deps}
 #| purl: true
 use_package("ggplot2")
@@ -911,13 +904,6 @@ Last, but not least, we want to make our final item: The Quarto
 document. Adding a Quarto document as a target inside `_targets.R` is
 fairly straightforward. We need to install the helper package
 `{tarchetypes}` first:
-
-```{r purl-only-renv-install-tarchetypes}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("tarchetypes")
-```
 
 ```{r tarchetypes-deps}
 #| purl: true
