@@ -71,7 +71,7 @@ next. This is just a fair warning!
 
 ## Exercise: What does a "model" mean?
 
-> Time: \~8 minutes.
+> Time: \~6 minutes.
 
 In science and especially statistics, we talk a lot about "models". But
 what does model actually mean? What different types of definitions can
@@ -79,10 +79,10 @@ you think of? Is there a different understanding of model in statistics
 compared to other areas?
 
 1.  Take 1 minute to think about your understanding of a model.
-2.  Then, over the next 4 minutes, discuss with your neighbour about the
+2.  Then, over the next 3 minutes, discuss with your neighbour about the
     meaning of "model" and see if you can come to a shared
     understanding.
-3.  Finally, over the next 3 minutes, we will share all together what a
+3.  Finally, over the next 2 minutes, we will share all together what a
     model is in the context of data analysis.
 
 ## Theory and "workflow" on statistical modeling
