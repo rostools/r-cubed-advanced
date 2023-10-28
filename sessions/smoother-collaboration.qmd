@@ -471,7 +471,6 @@ options(
 #| eval: false
 #| purl: true
 # Need this for below code.
-renv::install("readr")
 write_to_file(
   'options(renv.settings.snapshot.type = "explicit", renv.config.auto.snapshot = TRUE, renv.config.pak.enabled = TRUE)',
   ".Rprofile",

@@ -208,13 +208,6 @@ First, since we are using `{renv}`, we need to install `{targets}` in
 the project environment. And since `{targets}` is a build dependency, we
 add it to the `DESCRIPTION` file with:
 
-```{r purl-only-renv-install-targets}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("targets")
-```
-
 ```{r add-targets-as-dep}
 #| purl: true
 use_package("targets")
@@ -361,20 +354,12 @@ list(
 :::
 
 Let's start writing code to create the four items we listed above: some
-descriptive statistics, a plot of some discrete data, a plot of the
-continuous lipid variables, and a report (R Markdown). Since we'll use
-`{tidyverse}`, specifically `{dplyr}`, to calculate the summary
-statistics, we need to add it to our dependencies and install it in the
-project library. `{tidyverse}` is a special "meta"-package so we need to
-add it to the `"depends"` section of the `DESCRIPTION` file.
-
-```{r purl-only-renv-install-tidyverse-dplyr}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("tidyverse")
-renv::install("dplyr")
-```
+descriptive statistics, a plot of the continuous lipid variables, and a
+report (R Markdown). Since we'll use `{tidyverse}`, specifically
+`{dplyr}`, to calculate the summary statistics, we need to add it to our
+dependencies and install it in the project library. `{tidyverse}` is a
+special "meta"-package so we need to add it to the `"depends"` section
+of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| purl: true
