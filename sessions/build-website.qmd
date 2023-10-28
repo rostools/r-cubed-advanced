@@ -312,14 +312,14 @@ format:
     theme: simplex
 ```
 
-We have enough for Quarto to know how to build the website, but let's
-add one more thing. For documents on an analysis, we usually want to
-show the output of code but not the code itself. In `{knitr}`, there is
-a code chunk option `echo` that hides the code from the final output
-document. In Quarto, you can set project-level `{knitr}` options with
-the top-level metadata `knitr:` along with the second-level metadata
-`opts_chunk:`. Below it we can add settings that affect code chunks,
-like `echo`. Let's hide all code from the website:
+While we have enough for Quarto to know how to build the website, let's
+add one more thing to the Quarto settings. For documents on an analysis,
+we usually want to show the output of code but not the code itself. In
+`{knitr}`, there is a code chunk option `echo` that hides the code from
+the final output document. In Quarto, you can set project-level
+`{knitr}` options with the top-level metadata `knitr:` along with the
+second-level metadata `opts_chunk:`. Below it we can add settings that
+affect code chunks, like `echo`. Let's hide all code from the website:
 
 ``` yml
 knitr:
@@ -345,8 +345,23 @@ project:
 Now let's build the website. You can either use the "Render" button on
 the top of use `Ctrl-Shift-B` for "Build". Let's do it now. The website
 should pop up in either the Viewer Pane or as a new window. If not, we
-can debug what's going on. Let's commit the changes to the `_quarto.yml`
-and the `index.qmd` file to the Git history.
+can debug what's going on.
+
+The next step is to commit the changes we've made, but you'll also see
+that a new folder called `_site/` has been created. This folder contains
+all the files that form the website, like the HTML files and style
+files. While we could add these files to the Git history and make it so
+that GitHub uses those to host as a website, we're going to set up
+GitHub later to build the website for us automatically. So we'll add the
+`_site/` folder to the `.gitignore` file with:
+
+```{r}
+#| eval: false
+usethis::use_git_ignore("_site")
+```
+
+Now we can commit the changes to the `_quarto.yml`, the `.gitignore`
+file, and the `index.qmd` file to the Git history.
 
 ```{r purl-only-add-quarto-website-building}
 #| eval: false
