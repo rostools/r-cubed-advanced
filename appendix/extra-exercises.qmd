@@ -1,5 +1,39 @@
 # Extra exercises
 
+## A general approach to doing statistical analyses
+
+### Exercise: How would you define a linear regression with parsnip?
+
+> Time: \~10 minutes.
+
+Using [parsnip's "Examples"
+vignette](https://parsnip.tidymodels.org/articles/Examples.html) as well
+as the code we wrote for the logistic regression above as a template,
+write `{parsnip}` code that would define a simple (an engine of`"lm"`)
+linear regression model. Begin by making a new Markdown header and code
+chunk at the bottom of the `doc/learning.qmd` file, like listed below:
+
+````         
+## Exercises
+### Linear regression model definition
+
+```{{r}}
+
+```
+````
+
+After writing the code, style the file using {{< var keybind.styler >}}.
+We will eventually delete these exercise text in the Quarto file, but
+for now, commit the changes to the Git history.
+
+```{r solution-define-linear-reg-model}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+linear_reg_specs <- linear_reg() %>%
+  set_engine("lm")
+```
+
 ## Building a website with Quarto
 
 ### Exercise: Look through the new website folder
@@ -29,8 +63,8 @@ documentation, complete these tasks.
 
 -   Add a `fig-cap` option to each of the figures.
 
--   For the distribution and variation plots, set the code chunk option
-    `column` to `page` to make it bigger.
+-   For the distribution plot, set the code chunk option `column` to
+    `page` to make it bigger.
 
 Look through the `{ggplot2}` documentation on `theme_set()` and
 `theme()` to update the look of all your figures. In the `setup` code
