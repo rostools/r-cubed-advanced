@@ -157,12 +157,9 @@ would want to do before the primary statistical analysis:
 1.  A table of some basic descriptive statistics of the study
     population, such as mean, standard deviation, or counts of basic
     discrete data (like treatment group).
-2.  A figure visualizing the counts or other statistics for variables of
-    interest that are discrete/categorical. For the data in this course,
-    that would be variables like gender and age.
-3.  A figure showing the distribution of your main variables of
+2.  A figure showing the distribution of your main variables of
     interest. In this case, ours are the lipidomic variables.
-4.  The paper with the results included.
+3.  The paper with the results included.
 
 ```{mermaid fig-pipeline-schematic}
 %%| label: fig-pipeline-schematic
@@ -173,15 +170,12 @@ would want to do before the primary statistical analysis:
 graph LR
     data[Data] --> fn_desc{{function}} 
     fn_desc --> tab_desc[Table:<br>descriptive<br>statistics]
-    data --> fn_plot{{function}}
-    fn_plot{{function}} --> plot_discr[Plot:<br>Discrete<br>variables]
     tab_desc --> paper[Paper]
-    plot_discr --> paper
     data --> fn_plot_vars{{function}}
     fn_plot_vars{{function}} --> plot_distrib[Plot:<br>Continuous<br>variables]
     plot_distrib --> paper
 
-linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1px;
+linkStyle 0,1,2,3,4,5 stroke-width:1px;
 ```
 
 Now that we conceptually have drawn out the sets of tasks to complete in
@@ -719,38 +713,22 @@ descriptive_stats <- function(data) {
 ## Creating figure outputs
 
 Not only can we create data frames with targets (like above), but also
-figures. Let's write some code to create the plots for our items 2 and 3
-that we initially decided at the start of this session. Since we're
-using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
-file and to our `{renv}` project library.
+figures. Let's write some code to create the plot for our item 2 that we
+initially decided at the start of this session. Since we're using
+`{ggplot2}` to write this code, let's add it to our `DESCRIPTION` file
+and to our `{renv}` project library.
 
 ```{r add-ggplot2-deps}
 #| purl: true
 use_package("ggplot2")
 ```
 
-Next, we'll write the code to create item 2: The bar plot of the counts
-of `gender` and `class`. We'll keep it simple for now. Because the data
-is structured in a long format, we need to trim it down to only the
-unique cases of `code`, `gender`, and `class` with `distinct()`. Then we
-can make the bar plot. We'll use `position = "dodge"` for the bars to be
-side by side, rather than stacked.
-
-```{r bar-plot-gender-class}
-#| eval: true
-gender_by_class_plot <- lipidomics %>%
-  distinct(code, gender, class) %>%
-  ggplot(aes(x = class, fill = gender)) +
-  geom_bar(position = "dodge")
-gender_by_class_plot
-```
-
-Next, let's do item 3, the distribution of each metabolite. Here we'll
-use `geom_histogram()`, nothing too fancy. And since the data is already
-in long format, we can easily use `facet_wrap()` to create a plot for
-each metabolite. We use `scales = "free"` because each metabolite
-doesn't have the same range of values (some are small, others are quite
-large).
+Next, we'll write the code to create item 2: The distribution of each
+metabolite. We'll use `geom_histogram()`, nothing too fancy. And since
+the data is already in long format, we can easily use `facet_wrap()` to
+create a plot for each metabolite. We use `scales = "free"` because each
+metabolite doesn't have the same range of values (some are small, others
+are quite large).
 
 ```{r histogram-metabolites}
 #| eval: true
@@ -764,18 +742,19 @@ We now have the basic code to convert over into functions.
 
 ## Exercise: Convert the plot code to a function
 
-> Time: \~20 minutes.
+> Time: \~10 minutes.
 
-For now, we will only take the code to make the bar plot and convert it
-into a function. Just like you did with the `descriptive_stats()`
-function in the exercise above, complete these tasks:
+For now, we will only take the code to make the distribution plot and
+convert it into a function. Just like you did with the
+`descriptive_stats()` function in the exercise above, complete these
+tasks:
 
 1.  Wrap the code with `function() {...}` and name the new function
-    `plot_count_stats`.
+    `plot_distributions`.
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
-3.  Add `ggplot2::` and `dplyr::` to the start of each `{ggplot2}` and
-    `{dplyr}` function used inside your function.
+3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
+    inside your function.
 4.  Style using {{< var keybind.styler >}} to make sure it is formatted
     correctly. You might need to manually force a styling if lines are
     too long.
@@ -786,21 +765,15 @@ function in the exercise above, complete these tasks:
     the `@return` section, write "A plot object."
 6.  Cut and paste the function over into the `R/functions.R` file.
 7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
-    code by running `plot_count_stats(lipidomics)` in the Console. If it
-    works, do the last task.
+    code by running `plot_distributions(lipidomics)` in the Console. If
+    it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
     changes you made to them.
-9.  Repeat these tasks for the code for the metabolite distribution
-    plot. Call this new function `plot_distributions`.
 
 Use this scaffolding code to help guide you to write the code into a
 function.
 
 ``` r
-plot_count_stats <- function(___) {
-  ___
-}
-
 plot_distributions <- function(___) {
   ___
 }
@@ -811,19 +784,6 @@ plot_distributions <- function(___) {
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 ## This should be in the R/functions.R file.
-#' Plot for basic count data.
-#'
-#' @param data The lipidomics dataset.
-#'
-#' @return A ggplot2 graph.
-#'
-plot_count_stats <- function(data) {
-  data %>%
-    dplyr::distinct(code, gender, class) %>%
-    ggplot2::ggplot(ggplot2::aes(x = class, fill = gender)) +
-    ggplot2::geom_bar(position = "dodge")
-}
-
 #' Plot for basic distribution of metabolite data.
 #'
 #' @param data The lipidomics dataset.
@@ -838,20 +798,16 @@ plot_distributions <- function(data) {
 }
 ```
 
-## Adding the plots as pipeline targets
+## Adding the plot function as pipeline targets
 
-Now, let's add the two functions to the `_targets.R` file. Let's write
-these two `tar_target()` items within the `list()` inside `_targets.R`.
-To make it easier to track things, add `fig_` to the start of the `name`
+Now, let's add the plot function to the `_targets.R` file. Let's write
+this `tar_target()` item within the `list()` inside `_targets.R`. To
+make it easier to track things, add `fig_` to the start of the `name`
 given.
 
 ``` r
 list(
   ...,
-  tar_target(
-    name = fig_gender_by_class,
-    command = plot_count_stats(lipidomics)
-  ),
   tar_target(
     name = fig_metabolite_distribution,
     command = plot_distributions(lipidomics)
@@ -861,7 +817,7 @@ list(
 
 Next, test that it works by running `targets::tar_visnetwork()` (or
 `Ctrl-Shift-P`, then type "target visual") or `targets::tar_outdated()`.
-You should see that the new items are "outdated". Then run
+You should see that the new item is "outdated". Then run
 `targets::tar_make()` (`Ctrl-Shift-P`, then "targets run") to update the
 pipeline. If it all works, than **commit the changes to the Git
 history**.
@@ -871,10 +827,6 @@ history**.
 #| echo: false
 #| purl: true
 update_targets_plots <- '
-),
-tar_target(
-  name = fig_gender_by_class,
-  command = plot_count_stats(lipidomics)
 ),
 tar_target(
   name = fig_metabolite_distribution,
@@ -895,7 +847,7 @@ targets::tar_visnetwork()
 targets::tar_make()
 git_ci("DESCRIPTION", "Add ggplot2 to deps")
 git_ci("R/functions.R", "Add output switch function, to use for targets")
-git_ci("_targets.R", "Update targets with plot items")
+git_ci("_targets.R", "Update targets with plot item")
 ```
 
 ## Incorporating Quarto targets
@@ -931,13 +883,18 @@ list(
 
 Now when we run `r run_tar_make_text`, the Quarto file also gets
 re-built. But when we use `targets::tar_visnetwork()`, we don't see the
-connections with plots and descriptive statistics. That's because we
+connections with plot and descriptive statistics. That's because we
 haven't used them in a way `{targets}` can recognize. For that, we need
 to use the function `targets::tar_read()`.
 
 Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
 below the YAML header, and create a new header and code chunk and make
-use of the `targets::tar_read()`
+use of the `targets::tar_read()`. Because the Quarto file is in anoth
+
+````         
+---
+# YAML header
+---
 
 ```{{r setup}}
 library(tidyverse)
@@ -952,12 +909,9 @@ tar_read(df_stats_by_metabolite)
 ```
 
 ```{{r}}
-tar_read(fig_gender_by_class)
-```
-
-```{{r}}
 tar_read(fig_distribution_metabolites)
 ```
+````
 
 ```{r purl-only-basic-stats-markdown-text}
 #| eval: false
@@ -973,10 +927,6 @@ basic_stats_md_text <- c("```{r setup}",
   "",
   "```{r}",
   "tar_read(df_stats_by_metabolite)",
-  "```",
-  "",
-  "```{r}",
-  "tar_read(fig_gender_by_class)",
   "```",
   "",
   "```{r}",
