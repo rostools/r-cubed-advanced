@@ -333,13 +333,13 @@ that is quite generic and fits with the ideals of the `{tidyverse}`, is
 a similar universe of packages called the `{tidymodels}`.
 
 Why do we teach `{tidymodels}`? Because they are built by software
-developers, employed by RStudio (who also employs the people who build
-the `{tidyverse}`), and they have a strong reputation for writing good
-documentation. Plus, the `{tidymodels}` set of packages also make
-creating and using models quite generic, so by teaching you these sets
-of tools, you can relatively easily change the model type, or how you
-process the data, or other specifications without having to learn a
-whole new package or set of tools.
+developers, employed by Posit (who also employs the people who build the
+`{tidyverse}` and RStudio), and they have a strong reputation for
+writing good documentation. Plus, the `{tidymodels}` set of packages
+also make creating and using models quite generic, so by teaching you
+these sets of tools, you can relatively easily change the model type, or
+how you process the data, or other specifications without having to
+learn a whole new package or set of tools.
 
 The reason `{tidymodels}` can do that is because they designed it in a
 way that makes a clear separation in the components of the model
