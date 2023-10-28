@@ -138,6 +138,12 @@ like:
         to GitHub. Using version control should be a standard practice
         to doing better science since it fits with the philosophy of
         doing science.
+
+::: callout-tip
+If you finish exercises faster than others in the course, try your hand
+at working through the [Extra Exercises](appendix/extra-exercises.qmd)
+section.
+:::
 :::
 
 ## Small fixes
@@ -152,3 +158,4 @@ Before we start, let's fix up a few things:
     `.Rbuildignore` file. This file is related to building packages,
     which we aren't doing, and is sometimes created when using the
     functions in `{usethis}`.
+
