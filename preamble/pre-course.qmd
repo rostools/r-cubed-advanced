@@ -197,8 +197,8 @@ R Console:
 ```{r more-project-setup}
 #| purl: true
 prodigenr::setup_with_git()
-usethis::use_blank_slate("project")
 usethis::use_r("functions", open = FALSE)
+usethis::use_blank_slate("project")
 ```
 
 ```{r purl-only-first-commit}
