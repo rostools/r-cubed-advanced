@@ -357,7 +357,7 @@ GitHub later to build the website for us automatically. So we'll add the
 
 ```{r}
 #| eval: false
-usethis::use_git_ignore("_site")
+use_git_ignore("_site")
 ```
 
 Now we can commit the changes to the `_quarto.yml`, the `.gitignore`

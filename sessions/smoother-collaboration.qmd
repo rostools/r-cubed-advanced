@@ -606,7 +606,7 @@ Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
 ```{r suggests-dep}
 #| eval: false
 #| purl: true
-usethis::use_package("renv", "suggests")
+use_package("renv", "suggests")
 ```
 
 ```{r purl-only-update-desc-with-renv}
