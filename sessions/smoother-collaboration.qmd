@@ -218,9 +218,6 @@ these tasks:
 4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
     Pane and click the "Commit" button). What has been changed? Commit
     those changes to the Git history.
-    -   You'll see a newly created file called `.Rbuildignore`. We don't
-        really need this for this course, so let's do
-        `usethis::use_git_ignore(".Rbuildignore")`.
 
 ```{r solution-add-processing-packages}
 #| eval: false

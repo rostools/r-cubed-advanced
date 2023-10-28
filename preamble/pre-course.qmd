@@ -192,13 +192,18 @@ prodigenr::setup_project("~/Desktop/AdvancedR3")
 usethis::local_project("~/Desktop/AdvancedR3")
 ```
 
-When the RStudio Project opens up again, run these three commands in the
-R Console:
+When the RStudio Project opens up again, run these commands in the R
+Console to finish the setup:
 
 ```{r more-project-setup}
 #| purl: true
+# Add Git to the project
 prodigenr::setup_with_git()
+# Create a `functions.R` file in the `R/` folder
 usethis::use_r("functions", open = FALSE)
+# Ignore this file that gets created by some usethis functions
+usethis::use_git_ignore(".Rbuildignore")
+# Set some project options to start fresh each time
 usethis::use_blank_slate("project")
 ```
 
@@ -424,4 +429,3 @@ survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et
 to finish this assignment.
 
 See you at the course!
-

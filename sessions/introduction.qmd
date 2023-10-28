@@ -144,5 +144,11 @@ like:
 
 Before we start, let's fix up a few things:
 
+<!-- TODO: Move these over into the pre-course tasks (or delete them) after the course ends. -->
+
 1.  Delete the `doc/report.Rmd` file, since we will be working with the
     Quarto `doc/learning.qmd` file instead.
+2.  Run `usethis::use_git_ignore(".Rbuildignore")` to stop tracking the
+    `.Rbuildignore` file. This file is related to building packages,
+    which we aren't doing, and is sometimes created when using the
+    functions in `{usethis}`.
