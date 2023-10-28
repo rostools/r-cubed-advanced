@@ -177,7 +177,8 @@ can be done by either:
 1.  Using RStudio's New Project menu item: "File -\> New Project -\> New
     Directory", scroll down to "Scientific Analysis Project using
     prodigenr" and name the project "AdvancedR3" in the Directory Name,
-    saving it to the "Desktop" with Browse.
+    saving it to the "Desktop" with Browse. **Note**: You might need to
+    restart RStudio if you don't see this option.
 2.  Or, running the command
     `prodigenr::setup_project("~/Desktop/AdvancedR3")` (or other
     location like `Documents`) in the R Console and manually switching
@@ -423,3 +424,4 @@ survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et
 to finish this assignment.
 
 See you at the course!
+
