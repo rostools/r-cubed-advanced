@@ -842,20 +842,22 @@ bottom of the file and type out:
 - This isn't a list, why not?
 ```
 
-Save the file. What happens? Lists in Markdown must have an empty space
-above them to work properly. With this canonical mode on, we can get
-feedback right away that it isn't right. We fix it by adding that empty
-space.
+Save the file. What happens? Lists in Markdown need to have an empty
+space above them to work properly (except for when below a header, but
+in all other cases it needs a space above). With this canonical mode on,
+we can get feedback right away that it isn't right. It gets
+automatically fixed by adding that empty space.
 
 ``` markdown
 ## This is poorly formatted
 
-- Definitely should have an empty space above this list.
-- This isn't a list, why not?
+-  Definitely should have an empty space above this list.
+-  This isn't a list, why not?
 ```
 
-Since this mode is on automatically, as we work through the sessions,
-we'll get lots of experience using it.
+Since this mode is on automatically in the `doc/learning.qmd` file, as
+we work through the sessions, we'll get lots of experience using it.
+We'll also eventually switch so that the whole project uses this mode.
 
 ## Exercise: A few small changes to improve your workflow
 
