@@ -377,12 +377,11 @@ and paste this code chunk below into the Quarto file.
 ```{{r setup}}
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
+library(targets)
 library(tidymodels)
 source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
-
-Then, **delete** everything below this code chunk.
 
 Since we will be using `{tidymodels}`, we need to install it, as well as
 explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
