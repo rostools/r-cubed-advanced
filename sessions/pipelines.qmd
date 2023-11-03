@@ -726,12 +726,12 @@ write this code, let's add it to our `DESCRIPTION` file and to our
 use_package("ggplot2")
 ```
 
-Next, we'll write the code to this plot of the distribution of each
-metabolite. We'll use `geom_histogram()`, nothing too fancy. And since
-the data is already in long format, we can easily use `facet_wrap()` to
-create a plot for each metabolite. We use `scales = "free"` because each
-metabolite doesn't have the same range of values (some are small, others
-are quite large).
+Next, we'll switch back to `doc/lesson.qmd` and write the code to this
+plot of the distribution of each metabolite. We'll use
+`geom_histogram()`, nothing too fancy. And since the data is already in
+long format, we can easily use `facet_wrap()` to create a plot for each
+metabolite. We use `scales = "free"` because each metabolite doesn't
+have the same range of values (some are small, others are quite large).
 
 ```{r histogram-metabolites}
 #| eval: true
