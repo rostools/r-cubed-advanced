@@ -595,26 +595,27 @@ script using code, since we already track the packages in the
 `DESCRIPTION` file. To access the dependencies, we can use this
 function:
 
-``` r
-desc::desc_get_deps()$package
+```{r}
+# The output shown below lists the dependencies 
+# for this course website.
+renv::dependencies()
 ```
 
-But this code also picks up the dependency on R itself. Usually the R
-dependency is listed as the first item. If it isn't, we will run:
+This function will find all uses of packages as dependencies in a
+project, so it can also list duplicate packages. To show only the unique
+packages used, we'll use `unique()` and `$Package` (the variable name),
+as well as stopping the function from outputting messages with
+`quiet = TRUE`:
 
 ```{r}
-#| eval: false
-#| purl: true
-use_tidy_description()
+unique(renv::dependencies(quiet = TRUE)$Package)
 ```
 
-This function fixes up the `DESCRIPTION` file, with R now being the
-first item. Using the same code as above from the `{desc}` package, we
-can remove R with`[-1]` and put it in the place of the `packages`
-argument in the `_targets.R` file:
+This code we can now place in the `packages` argument of
+`tar_option_set()` in the `_targets.R` file:
 
 ``` r
-packages = desc::desc_get_deps()$package[-1]
+packages = unique(renv::dependencies(quiet = TRUE)$Package)
 ```
 
 ```{r purl-only-add-packages-to-targets}
@@ -624,7 +625,7 @@ packages = desc::desc_get_deps()$package[-1]
 revise_by_text(
   path = "_targets.R",
   original = "packages = .*$",
-  replacement = "packages = desc::desc_get_deps()$package[-1],"
+  replacement = "packages = unique(renv::dependencies(quiet = TRUE)$Package),"
 )
 ```
 
