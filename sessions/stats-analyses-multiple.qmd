@@ -389,8 +389,9 @@ using the below scaffold as a guide.
 2.  Use the `calculate_estimates()` function in `command`, with
     `lipidomics` as the argument.
 3.  Use {{< var keybind.styler >}} to style and than run
-    `r run_tar_vis_text` to see if the new target gets detected. If it
-    does, than run `r run_tar_make_text`.
+    `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}} to
+    see if the new target gets detected. If it does, than run
+    `targets::tar_make()` with {{< var keybind.targets_make >}}.
 4.  Commit the changes to the Git history.
 
 ``` r
@@ -586,8 +587,8 @@ And replace all the plot code in the `doc/learning.qmd` file with the
 tar_read(fig_model_estimates)
 ```
 
-Run `r run_tar_make_text` to update the pipeline. Then commit the
-changes to the Git history.
+Run `targets::tar_make()` with {{< var keybind.targets_make >}} to
+update the pipeline. Then commit the changes to the Git history.
 
 ```{r purl-only-tar-make-fig-estimates}
 #| eval: false
@@ -644,14 +645,16 @@ figures), we'll use `tar_read()` to reference the image path.
 tar_read(fig_model_estimates)
 ```
 
-Run `r run_tar_vis_text`, then `r run_tar_make_text`. We now have the
-report rendered to an HTML file! If you open it up in a browser, we can
-see the figures added to it. In the next session we will get more into
-making the document output nicer looking and creating it as a website.
+Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}},
+then `targets::tar_make()` with {{< var keybind.targets_make >}}. We now
+have the report rendered to an HTML file! If you open it up in a
+browser, we can see the figures added to it. In the next session we will
+get more into making the document output nicer looking and creating it
+as a website.
 
 <!-- TODO: Check that the output is rendered to html. Don't forget the TODO -->
 
-:)
+😀
 
 ## Summary
 

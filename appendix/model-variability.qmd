@@ -345,8 +345,10 @@ Next, add the function to `_targets.R`.
     the file.
 2.  Use `df_model_variation` as the `name` and `calculate_variation()`
     as the `command` with `lipidomics` as argument.
-3.  Run `r run_tar_vis_text` to see what targets are outdated and then
-    run `r run_tar_make_text`.
+3.  Run `targets::tar_visnetwork()` using
+    {{< var keybind.targets_vis >}} to see what targets are outdated and
+    then run `targets::tar_make()` with
+    {{< var keybind.targets_make >}}.
 4.  Commit the changes to the Git history.
 
 Use this code as a scaffold:
@@ -470,8 +472,10 @@ list(
 )
 ```
 
-Run `r run_tar_vis_text` and then run `r run_tar_make_text`. Once
-everything has been built, commit everything to the Git history.
+Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
+and then run `targets::tar_make()` with
+{{< var keybind.targets_make >}}. Once everything has been built, commit
+everything to the Git history.
 
 ## Summary
 

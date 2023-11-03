@@ -881,15 +881,19 @@ list(
 )
 ```
 
-Now when we run `r run_tar_make_text`, the Quarto file also gets
-re-built. But when we use `targets::tar_visnetwork()`, we don't see the
-connections with plot and descriptive statistics. That's because we
-haven't used them in a way `{targets}` can recognize. For that, we need
-to use the function `targets::tar_read()`.
+Now when we run `targets::tar_make()` with
+{{< var keybind.targets_make >}}, the Quarto file also gets re-built.
+But when we use `targets::tar_visnetwork()` using
+{{< var keybind.targets_vis >}}, we don't see the connections with plot
+and descriptive statistics. That's because we haven't used them in a way
+`{targets}` can recognize. For that, we need to use the function
+`targets::tar_read()`.
 
 Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
 below the YAML header, and create a new header and code chunk and make
-use of the `targets::tar_read()`. Because the Quarto file is in anoth
+use of the `targets::tar_read()`.
+
+<!-- Because the Quarto file is in another folder, -->
 
 ````         
 ---
@@ -988,9 +992,10 @@ lipidomics %>%
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 ```
 
-Re-run `r run_tar_vis_text` to see that it now detects the connections
-between the pipeline targets. Now, run `r run_tar_make_text` again to
-see everything re-build! Last things are to re-style using
+Re-run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
+to see that it now detects the connections between the pipeline targets.
+Then, run `targets::tar_make()` with {{< var keybind.targets_make >}}
+again to see everything re-build! Last things are to re-style using
 {{< var keybind.styler >}}, then **commit** the changes to the Git
 history before moving on. Then push your changes up to GitHub.
 
