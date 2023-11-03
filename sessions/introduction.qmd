@@ -131,7 +131,7 @@ like:
 -   Automatically reformat Markdown text into a standard, more readable
     format.
 -   Whenever we complete a task, we *add and commit* those file changes
-    and save them into the Git history.
+    and save them into the Git history with {{< var keybind.git >}}.
     -   We use Git because it is the best way of keeping track of what
         was done to your files, when, and why. It keeps your work
         transparent and makes it easier to share your code by uploading
@@ -163,4 +163,3 @@ Before we start, let's fix up a few things:
     these fields are often needed by `{usethis}`. The `{prodigenr}`
     package should add them automatically, but doesn't (I need to fix
     it).
-

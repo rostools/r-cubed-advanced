@@ -309,7 +309,7 @@ Continue the workflow we've applied throughout the course:
 4.  Add the Roxygen documentation with {{< var keybind.roxgyen >}}.
 5.  Cut and paste the function over into the `R/functions.R` file.
 6.  Style using {{< var keybind.styler >}}.
-7.  Commit the changes to the Git history.
+7.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 Use this code as a guide for the function.
 
@@ -349,7 +349,7 @@ Next, add the function to `_targets.R`.
     {{< var keybind.targets_vis >}} to see what targets are outdated and
     then run `targets::tar_make()` with
     {{< var keybind.targets_make >}}.
-4.  Commit the changes to the Git history.
+4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 Use this code as a scaffold:
 
@@ -475,7 +475,7 @@ list(
 Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
 and then run `targets::tar_make()` with
 {{< var keybind.targets_make >}}. Once everything has been built, commit
-everything to the Git history.
+everything to the Git history with {{< var keybind.git >}}.
 
 ## Summary
 

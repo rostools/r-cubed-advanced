@@ -219,7 +219,7 @@ header.
 3.  Render the document with `Ctrl-Shift-K`. See what gets changed.
 4.  Replace `format: html` with `format: docx` and re-render the
     document. Switch back to `html`.
-5.  Commit the changes to the Git history.
+5.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ## Using Quarto to build a project website
 
@@ -361,7 +361,8 @@ use_git_ignore("_site")
 ```
 
 Now we can commit the changes to the `_quarto.yml`, the `.gitignore`
-file, and the `index.qmd` file to the Git history.
+file, and the `index.qmd` file to the Git history with
+{{< var keybind.git >}}.
 
 ```{r purl-only-add-quarto-website-building}
 #| eval: false
@@ -451,7 +452,8 @@ execute:
 Then when we re-render the website with `Ctrl-Shift-B`, there will be a
 new folder created called `_freeze/`. Inside this folder are
 instructions to Quarto on how to run the code chunks inside the `.qmd`
-file. Commit this folder to the Git history.
+file. Commit this folder to the Git history with
+{{< var keybind.git >}}.
 
 ```{r purl-only-freeze-executions}
 #| eval: false
@@ -529,9 +531,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 ```
 
-Let's commit this new file to the Git history and push the changes up to
-GitHub. While we wait for the GitHub Action to finish, complete the next
-exercise.
+Let's commit this new file to the Git history with
+{{< var keybind.git >}} and push the changes up to GitHub. While we wait
+for the GitHub Action to finish, complete the next exercise.
 
 ```{r purl-only-add-quarto-action}
 #| eval: false
@@ -629,7 +631,8 @@ to the GitHub repository.
     Check out the project's [website](LINK).
     ```
 
-6.  Commit the changes to the `README.md` to the Git history.
+6.  Commit the changes to the `README.md` to the Git history with
+    {{< var keybind.git >}}.
 
 ::: {.callout-tip appearance="default"}
 Sometimes you might make a change to files that aren't part of the
@@ -714,3 +717,4 @@ section of the website.
     website on GitHub.
 -   Add a license file (for instance, with `use_ccby_license()`) to
     allow others to re-use your work.
+

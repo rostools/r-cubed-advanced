@@ -194,8 +194,8 @@ packages your data analysis project needs. There are a few ways of
 
 Before continuing to the exercise, we need to make sure to add and
 comment all the files from the project into the Git history. Open the
-Git interface by either typing `Ctrl-Shift-M` or by going to the Git
-pane and clicking the "Commit" button.
+Git interface by either typing with {{< var keybind.git >}} or by going
+to the Git pane and clicking the "Commit" button.
 
 ## Exercise: Add packages from the data processing script
 
@@ -215,9 +215,9 @@ these tasks:
 2.  Use `?usethis::use_package` to review how to use this function.
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
-4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
-    Pane and click the "Commit" button). What has been changed? Commit
-    those changes to the Git history.
+4.  Once done, open the Git interface with {{< var keybind.git >}} (or
+    going to the Git Pane and clicking the "Commit" button). What has
+    been changed? Commit those changes to the Git history .
 
 ```{r solution-add-processing-packages}
 #| eval: false
@@ -419,7 +419,8 @@ classDef folderEnv fill:transparent,stroke-dasharray:5;
 class renv_env,global folderEnv
 ```
 
-**Before we continue, let's commit the new files to the Git history**.
+**Before we continue, let's commit the new files to the Git history**
+with {{< var keybind.git >}}.
 
 The general workflow for using `{renv}` while working on your project is
 described in more detail on the [Introduction to
@@ -508,7 +509,8 @@ finish working on a task. If that's the case, you can always do
 `renv::deactivate()` to stop using `{renv}` and `renv::activate()` to
 reactivate it.
 
-**Let's commit the changes made to the Git history**.
+**Let's commit the changes made to the Git history** with
+{{< var keybind.git >}}.
 
 ::: callout-note
 ## Reading task: \~5 minutes
@@ -619,7 +621,7 @@ git_ci("DESCRIPTION", "Add renv as a suggests dependency.")
 
 Open the Git interface and see that under `Suggests:` in the
 `DESCRIPTION` file is `renv`. Let's commit these changes, as well as the
-changes to `.Rprofile`.
+changes to `.Rprofile`, with {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -656,7 +658,8 @@ project to GitHub right now.
 
 Let's complete these tasks to connect to GitHub.
 
-1.  First, commit the latest changes to the Git history.
+1.  First, commit the latest changes to the Git history with
+    {{< var keybind.git >}}.
 
 2.  If you haven't yet, please create a
     [GitHub](https://github.com/join) account.
@@ -778,7 +781,8 @@ option in their Tools to format Markdown into a "canonical form". The
 reason for this option is because they added a "visual editor mode" to
 writing R Markdown files (which is great if you are more comfortable
 with apps like Word). Let's test out this option. First, let's make sure
-everything has been committed to the Git history.
+everything has been committed to the Git history with
+{{< var keybind.git >}}.
 
 ::: {.callout-warning appearance="default"}
 Use this option *only if* you have your project under Git version
@@ -889,9 +893,9 @@ editor_options:
 
 Then, start completing the `TODO` items. Save often and watch as the
 Markdown gets reformatted. After you are done, commit the changes you
-made to the Git history. Then delete both `TODO.md`, followed by
-committing these deletions in the Git history. Click the "Push" button
-to push the changes to GitHub.
+made to the Git history with {{< var keybind.git >}}. Then delete both
+`TODO.md`, followed by committing these deletions in the Git history.
+Click the "Push" button to push the changes to GitHub.
 
 ```{r purl-only-editor-options-to-readme}
 #| echo: false

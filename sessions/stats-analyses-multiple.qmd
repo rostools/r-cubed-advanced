@@ -320,7 +320,7 @@ point.
 5.  Add the Roxygen documentation using {{< var keybind.roxygen >}}.
 6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
 7.  Cut and paste the function over into the `R/functions.R` file.
-8.  Commit the changes you've made so far.
+8.  Commit the changes you've made so far with {{< var keybind.git >}}.
 
 ``` r
 ___ <- function(___, ___) {
@@ -392,7 +392,7 @@ using the below scaffold as a guide.
     `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}} to
     see if the new target gets detected. If it does, than run
     `targets::tar_make()` with {{< var keybind.targets_make >}}.
-4.  Commit the changes to the Git history.
+4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ``` r
 list(
@@ -588,7 +588,8 @@ tar_read(fig_model_estimates)
 ```
 
 Run `targets::tar_make()` with {{< var keybind.targets_make >}} to
-update the pipeline. Then commit the changes to the Git history.
+update the pipeline. Then commit the changes to the Git history with
+{{< var keybind.git >}}.
 
 ```{r purl-only-tar-make-fig-estimates}
 #| eval: false
@@ -668,3 +669,4 @@ as a website.
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
+

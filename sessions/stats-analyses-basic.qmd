@@ -399,9 +399,9 @@ use_package("recipes")
 use_package("workflows")
 ```
 
-Before continuing, let's **commit** the changes to the Git history.
-Next, in the `doc/learning.qmd` file, on the bottom of the document
-create a new header and code chunk:
+Before continuing, let's **commit** the changes to the Git history with
+{{< var keybind.git >}}. Next, in the `doc/learning.qmd` file, on the
+bottom of the document create a new header and code chunk:
 
 ````         
 ## Building the model
@@ -760,7 +760,7 @@ recipe_specs
 ```
 
 Style using {{< var keybind.styler >}}, then commit the changes made to
-the Git history.
+the Git history with {{< var keybind.git >}}.
 
 ## Fitting the model by combining the recipe, model definition, and data
 
@@ -973,8 +973,8 @@ Let's explain this output a bit, each column at a time:
     be using this value at all in presenting the results.
 :::
 
-Before ending, open the Git interface and commit the changes you made.
-Then push your changes up to GitHub.
+Before ending, open the Git interface and commit the changes you made
+with {{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ## Summary
 

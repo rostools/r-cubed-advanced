@@ -68,11 +68,11 @@ git_ci("DESCRIPTION", "Add lintr as a suggests dependency.")
 ```
 
 Right now we don't have much code to "lint", but as we work through the
-course, we will make use of `{lintr}` before committing to Git. So, how
-do we use `{lintr}`? It's actually pretty easy, since there are only a
-few functions that do the linting, even though there are dozens of
-customizations you can make to `{lintr}`. The basic is to lint a single
-file, don't run this though:
+course, we will make use of `{lintr}` before committing to Git with
+{{< var keybind.git >}}. So, how do we use `{lintr}`? It's actually
+pretty easy, since there are only a few functions that do the linting,
+even though there are dozens of customizations you can make to
+`{lintr}`. The basic is to lint a single file, don't run this though:
 
 ```{r lint-one-file}
 #| eval: false

@@ -239,7 +239,7 @@ git_ci(
 The most important file is the `_targets.R` file. The other two files
 are used for other situations (like running on a Linux server) that we
 won't cover in the course. Before we continue though, let's **commit
-these new files to the Git history**.
+these new files to the Git history** with {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -362,8 +362,8 @@ use_package("dplyr")
 ```
 
 Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
-Git history. Open up the `doc/learning.qmd` file and create a new header
-and code chunk at the bottom of the file.
+Git history with {{< var keybind.git >}}. Open up the `doc/learning.qmd`
+file and create a new header and code chunk at the bottom of the file.
 
 ````         
 
@@ -415,7 +415,8 @@ lipidomics %>%
 ```
 
 After that, style the file using {{< var keybind.styler >}} on the file.
-Than we will **commit** the changes to the Git history.
+Than we will **commit** the changes to the Git history with
+{{< var keybind.git >}}.
 
 ## Exercise: Convert summary statistics code into a function
 
@@ -447,7 +448,7 @@ these tasks:
     code by running `descriptive_stats(lipidomics)` in the Console. If
     it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
-    changes you made to them.
+    changes you made to them with {{< var keybind.git >}}.
 
 ::: {.callout-note appearance="default"}
 In the intermediate course, we highly suggested using `return()` at the
@@ -655,7 +656,8 @@ Or to see what pipeline targets are outdated:
 targets::tar_outdated()
 ```
 
-Before continuing, let's **commit the changes to the Git history**.
+Before continuing, let's **commit the changes to the Git history** with
+{{< var keybind.git >}}.
 
 ```{r purl-only-commit-packages-to-targets}
 #| eval: false
@@ -686,7 +688,8 @@ Let's make a change to our function and test out how the
 5.  Run `tar_make()` in the Console (or `Ctrl-Shift-P`, then "targets
     run", selecting the "background" option). Re-check for outdated
     targets and visualize the network again.
-6.  Open up the Git interface and commit the changes to the Git history.
+6.  Open up the Git interface and commit the changes to the Git history
+    with {{< var keybind.git >}}.
 
 ```{r solution-new-function-descriptive-stats}
 #| code-fold: true
@@ -768,7 +771,7 @@ tasks:
     code by running `plot_distributions(lipidomics)` in the Console. If
     it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
-    changes you made to them.
+    changes you made to them with {{< var keybind.git >}}.
 
 Use this scaffolding code to help guide you to write the code into a
 function.
@@ -820,7 +823,7 @@ Next, test that it works by running `targets::tar_visnetwork()` (or
 You should see that the new item is "outdated". Then run
 `targets::tar_make()` (`Ctrl-Shift-P`, then "targets run") to update the
 pipeline. If it all works, than **commit the changes to the Git
-history**.
+history** with {{< var keybind.git >}}.
 
 ```{r purl-only-plot-fns-in-targets}
 #| eval: false
@@ -997,7 +1000,8 @@ to see that it now detects the connections between the pipeline targets.
 Then, run `targets::tar_make()` with {{< var keybind.targets_make >}}
 again to see everything re-build! Last things are to re-style using
 {{< var keybind.styler >}}, then **commit** the changes to the Git
-history before moving on. Then push your changes up to GitHub.
+history before moving on with {{< var keybind.git >}}. Then push your
+changes up to GitHub.
 
 ## Fixing issues in the stored pipeline data
 
@@ -1058,3 +1062,4 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
+
