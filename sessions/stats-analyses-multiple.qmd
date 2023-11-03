@@ -163,9 +163,9 @@ Alright, we now a list of data frames where each data frame has only one
 of the metabolites. These bits of code represent the conceptual action
 of "splitting the data into a list by metabolites". Since we're
 following a function-oriented workflow, let's create a function for
-this. Convert it into a function, add the `r run_roxygen_comments`,
-style using {{< var keybind.styler >}}, move into the `R/functions.R`
-file, and then `source()` the file.
+this. Convert it into a function, add the Roxygen documentation using
+{{< var keybind.roxygen >}} style using {{< var keybind.styler >}}, move
+into the `R/functions.R` file, and then `source()` the file.
 
 ```{r new-function-split-by-metabolite}
 #' Convert the long form dataset into a list of wide form data frames.
@@ -195,8 +195,9 @@ models. We don't have this function yet, so we need to create it. Let's
 convert the modeling code we used in the exercise above into a function,
 replacing `lipidomics` with `data` and using
 `starts_with("metabolite_")` within the `create_recipe_spec()`. Add the
-`r run_roxygen_comments`, use {{< var keybind.styler >}} to style, move
-into the `R/functions.R` file, and then `source()` the file.
+Roxygen documentation using {{< var keybind.roxygen >}}, use
+{{< var keybind.styler >}} to style, move into the `R/functions.R` file,
+and then `source()` the file.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model
@@ -316,7 +317,7 @@ point.
 3.  Paste the code we created into the function, replacing `lipidomics`
     with `data` and `model_estimates` with `model_results`.
 4.  Add `dplyr::` and `stringr::` before their respective functions.
-5.  Add the `r run_roxygen_comments`.
+5.  Add the Roxygen documentation using {{< var keybind.roxygen >}}.
 6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
 7.  Cut and paste the function over into the `R/functions.R` file.
 8.  Commit the changes you've made so far.
@@ -531,9 +532,9 @@ because we'll need to convert this plot code into a function and add it
 as a target in the pipeline. Use the scaffold below as a guide.
 
 1.  Replace `model_estimates` with `results`.
-2.  Move the function into the `R/functions.R` file, add
-    `r run_roxygen_comments`, and use {{< var keybind.styler >}} to
-    style.
+2.  Move the function into the `R/functions.R` file, add the Roxygen
+    documentation using {{< var keybind.roxygen >}}, and use
+    {{< var keybind.styler >}} to style.
 
 ``` r
 plot_estimates <- function(results) {
