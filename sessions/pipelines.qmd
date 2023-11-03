@@ -169,10 +169,10 @@ would want to do before the primary statistical analysis:
 %%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}}}%%
 graph LR
     data[Data] --> fn_desc{{function}} 
-    fn_desc --> tab_desc[Table:<br>descriptive<br>statistics]
-    tab_desc --> paper[Paper]
+    fn_desc --> tab_desc[Output 1:<br>Descriptive<br>statistics<br>table]
+    tab_desc --> paper[Output 3:<br>Paper]
     data --> fn_plot_vars{{function}}
-    fn_plot_vars{{function}} --> plot_distrib[Plot:<br>Continuous<br>variables]
+    fn_plot_vars{{function}} --> plot_distrib[Output 2:<br>Continuous<br>variables<br>plot]
     plot_distrib --> paper
 
 linkStyle 0,1,2,3,4,5 stroke-width:1px;
@@ -716,17 +716,17 @@ descriptive_stats <- function(data) {
 ## Creating figure outputs
 
 Not only can we create data frames with targets (like above), but also
-figures. Let's write some code to create the plot for our item 2 that we
-initially decided at the start of this session. Since we're using
-`{ggplot2}` to write this code, let's add it to our `DESCRIPTION` file
-and to our `{renv}` project library.
+figures. Let's write some code to create the plot we listed as our
+"output 2" in @fig-pipeline-schematic. Since we're using `{ggplot2}` to
+write this code, let's add it to our `DESCRIPTION` file and to our
+`{renv}` project library.
 
 ```{r add-ggplot2-deps}
 #| purl: true
 use_package("ggplot2")
 ```
 
-Next, we'll write the code to create item 2: The distribution of each
+Next, we'll write the code to this plot of the distribution of each
 metabolite. We'll use `geom_histogram()`, nothing too fancy. And since
 the data is already in long format, we can easily use `facet_wrap()` to
 create a plot for each metabolite. We use `scales = "free"` because each
@@ -855,10 +855,10 @@ git_ci("_targets.R", "Update targets with plot item")
 
 ## Incorporating Quarto targets
 
-Last, but not least, we want to make our final item: The Quarto
-document. Adding a Quarto document as a target inside `_targets.R` is
-fairly straightforward. We need to install the helper package
-`{tarchetypes}` first:
+Last, but not least, we want to make the final output 3 from
+@fig-pipeline-schematic: The Quarto document. Adding a Quarto document
+as a target inside `_targets.R` is fairly straightforward. We need to
+install the helper package `{tarchetypes}` first:
 
 ```{r tarchetypes-deps}
 #| purl: true
