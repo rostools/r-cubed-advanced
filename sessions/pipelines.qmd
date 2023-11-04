@@ -508,13 +508,6 @@ list(
 )
 ```
 
-We haven't added `{readr}` as a dependency yet, so let's add it to the
-DESCRIPTION file.
-
-```{r}
-use_package("readr")
-```
-
 Let's run `{targets}` to see what happens! You can either use
 {{< var keybind.targets_make >}} or run this code in the Console:
 

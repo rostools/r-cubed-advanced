@@ -230,7 +230,7 @@ usethis::use_package("tidyr")
 usethis::use_package("snakecase")
 usethis::use_package("here")
 usethis::use_package("fs")
-usethis::use_package("usethis")
+usethis::use_package("readr")
 ```
 
 ::: {.callout-note collapse="true"}
