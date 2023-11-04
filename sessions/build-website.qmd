@@ -383,7 +383,7 @@ git_ci(c("_quarto.yml", "index.qmd"),
        "Add Quarto infrastructure to project.")
 ```
 
-## Exercise: Add collaboration setting to `_quarto.yml` file
+## Exercise: Add collaboration setting to `_quarto.yml` file and update targets
 
 > Time: \~5 minutes.
 
@@ -413,16 +413,45 @@ write_to_file(editor_options_lines, "_quarto.yml", append = TRUE)
 git_ci("_quarto.yml", "Add editor options to quarto.")
 ```
 
-<!-- TODO: Add section about using `tar_quarto()` for projects -->
+Next, update the `_targets.R` file by changing:
+
+-   the `name` argument to `quarto_website`, since we're building a site
+    now not just docs, and,
+-   the `path` argument to point to the main project folder `"."` (`.`
+    means "the same folder `_targets.R` is in)
+
+It should look like this now:
+
+```{r}
+#| eval: false
+tar_quarto(
+  name = quarto_website,
+  path = "."
+)
+```
+
+```{r purl-only-add-editor-options-to-quarto}
+#| eval: false
+#| echo: false
+#| purl: true
+# Add to `_targets.R` file.
+'
+tar_quarto(
+  name = quarto_website,
+  path = "."
+)
+'
+git_ci("_targets.R", "Add quarto project to targets.")
+```
 
 ## Automate rendering the website
 
-There is a way that we could create the website into the `_site/`
-folder, commit it to Git, and have GitHub host the website for us. But
-than we'd be saving a lot of files that could be updated quite often,
-which is annoying to keep track of. Instead, we can make use of GitHub
-Actions to build and publish our website for us, including rendering all
-the Rcode.
+There is a way that we could create the website and save it in the
+`_site/` folder, commit it to Git, and have GitHub host the website for
+us. But than we'd be saving a lot of files that would need to be updated
+quite often, which is annoying to keep track of. Instead, we can make
+use of GitHub Actions to build and publish our website for us, including
+rendering all the R code.
 
 ::: {.callout-tip appearance="default"}
 There is a way to have GitHub completely (re-)build the website from
