@@ -503,12 +503,12 @@ moving them over into the `R/functions.R` file.
 
 ```{r first-snakecase-fn}
 #| column: page-inset-right
-metabolite_values_to_snake_case <- function(data) {
+column_values_to_snake_case <- function(data) {
   data %>%
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
 }
 lipidomics %>%
-  metabolite_values_to_snake_case()
+  column_values_to_snake_case()
 ```
 
 This on its own should work. *However*, the column we want to change
