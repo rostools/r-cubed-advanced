@@ -430,7 +430,7 @@ tar_quarto(
 )
 ```
 
-```{r purl-only-add-editor-options-to-quarto}
+```{r purl-only-add-quarto-project-to-targets}
 #| eval: false
 #| echo: false
 #| purl: true

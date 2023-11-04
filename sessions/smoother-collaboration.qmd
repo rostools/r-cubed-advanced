@@ -210,7 +210,7 @@ these tasks:
     declared with `library()` and `::`. It can help to use the "Find in
     files" feature in RStudio to look for all places that have either
     `::` or `library`. Use either `Edit -> Find in Files ...`, or with
-    {{< var keybind.find_in_files >}} to open up the search popup.
+    {{< var keybind.find >}} to open up the search popup.
 2.  Use `?usethis::use_package` to review how to use this function.
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
@@ -965,4 +965,3 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-
