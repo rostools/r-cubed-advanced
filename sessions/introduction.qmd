@@ -142,8 +142,9 @@ like:
 
 ::: callout-tip
 If you finish exercises faster than others in the course, try your hand
-at working through the [Extra Exercises](appendix/extra-exercises.qmd)
-section.
+at working through the [Extra
+Exercises](../appendix/extra-exercises.qmd) section. It is still a
+work-in-progress, so it is a bit small right now.
 :::
 :::
 
