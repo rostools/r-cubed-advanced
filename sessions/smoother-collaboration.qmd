@@ -925,13 +925,15 @@ There is a function in r3, but r3 isn't installed in our project
 library. However, because r3 has a few GitHub packages as dependencies,
 we need to tell `{renv}` to authenticate us to GitHub so we can install
 as much as we want (GitHub only allows a few unauthenticated installed,
-as a security feature against hackers and cyber attacks). We need to
-create a variable called `GITHUB_TOKEN` by running this function from
-`{credentials}`.
+as a security feature against hackers and cyber attacks). Using
+`gitcreds::gitcreds_set()` with the GitHub token we created should be
+enough for `{renv}` to know what to do. If you encounter an error about
+a GitHub API limit, run this code again so you can authenticate yourself
+with your token.
 
-```{r set-github-pat}
+```{r gitcreds-set-token}
 #| eval: false
-credentials::set_github_pat(TRUE)
+gitcreds::gitcreds_set()
 ```
 
 Then we can install the r3 package into our project with
@@ -963,3 +965,4 @@ r3::open_feedback_survey_advanced()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+
