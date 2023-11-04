@@ -44,8 +44,8 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
-    purrr::prepend("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", before = 3) |>
-    purrr::prepend("source('../project-build-functions.R')", before = 3) |>
+    purrr::append("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", after = 2) |>
+    purrr::append("source('../project-build-functions.R')", after = 2) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop", overwrite = TRUE)
 }
