@@ -22,6 +22,7 @@ Imports:
     pak,
     parsnip,
     prodigenr,
+    purrr,
     quarto,
     r3admin (>= 0.0.1),
     recipes,
