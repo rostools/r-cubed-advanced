@@ -450,7 +450,7 @@ these tasks:
 8.  Save both files and then open the Git interface and commit the
     changes you made to them with {{< var keybind.git >}}.
 
-::: {.callout-note appearance="default"}
+::: {.callout-tip appearance="default"}
 In the intermediate course, we highly suggested using `return()` at the
 end of the function. Technically we don't need an explicit `return()`,
 since the output of the last code that R runs within the function will

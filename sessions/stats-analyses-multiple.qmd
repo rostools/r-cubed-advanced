@@ -77,7 +77,7 @@ as the
 (this is a short section).
 :::
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Reinforce the concept of functional programming by briefly going over

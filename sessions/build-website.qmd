@@ -316,7 +316,7 @@ knitr:
     echo: false
 ```
 
-::: callout-tip
+::: {.callout-tip appearance="default"}
 When building a website, Quarto will render *all* `.md`, `.Rmd`, and
 `.qmd` files in the project. To stop Quarto from rendering certain
 files, you can either prefix the file with `_` (e.g. `_learning.qmd`) or

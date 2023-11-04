@@ -681,7 +681,7 @@ recipe(lipidomics_wide) %>%
   update_role(class, new_role = "outcome")
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Describe this next paragraph by switching to this website and showing
