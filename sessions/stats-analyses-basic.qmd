@@ -579,13 +579,13 @@ We can use curly-curly (combined with `across()`) to apply
 
 ```{r second-snakecase-fn}
 #| column: page-inset-right
-column_values_to_snakecase <- function(data, cols) {
+column_values_to_snake_case <- function(data, cols) {
   data %>%
     dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
 }
 
 lipidomics %>%
-  column_values_to_snakecase(metabolite)
+  column_values_to_snake_case(metabolite)
 ```
 
 Move this new function over into the `R/functions.R` file, add Roxygen
@@ -602,7 +602,7 @@ file, and add the new function above the `pivot_wider()` code in the
 #'
 #' @return A data frame.
 #'
-column_values_to_snakecase <- function(data, cols) {
+column_values_to_snake_case <- function(data, cols) {
   data %>%
     dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
 }
@@ -621,7 +621,7 @@ it into a new function.
     this argument in case we want to merge the duplicate cholesterol
     variables with something other than the mean.
 3.  Use `data %>%` at the beginning, like we did with the
-    `column_values_to_snakecase()`. Inside the `pivot_wider()` code,
+    `column_values_to_snake_case()`. Inside the `pivot_wider()` code,
     replace `values_fn = mean` with `values_fn = values_fn`.
 4.  Use `tidyr::` before the `pivot_wider()` function.
 5.  Add the Roxygen documentation with {{< var keybind.roxygen >}}.
