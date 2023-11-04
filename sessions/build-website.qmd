@@ -421,10 +421,10 @@ There is a way that we could create the website into the `_site/`
 folder, commit it to Git, and have GitHub host the website for us. But
 than we'd be saving a lot of files that could be updated quite often,
 which is annoying to keep track of. Instead, we can make use of GitHub
-Actions to build and publish our website for us.
+Actions to build and publish our website for us, including rendering all
+the Rcode.
 
-<!-- TODO: Not sure about using freeze... will come back to this. -->
-
+::: {.callout-tip appearance="default"}
 There is a way to have GitHub completely (re-)build the website from
 scratch each time, including running any R code. However, our project
 doesn't have much R code and we have data that we don't keep in the
@@ -441,21 +441,8 @@ execute:
 Then when we re-render the website with {{< var keybind.build_site >}},
 there will be a new folder created called `_freeze/`. Inside this folder
 are instructions to Quarto on how to run the code chunks inside the
-`.qmd` file. Commit this folder to the Git history with
-{{< var keybind.git >}}.
-
-```{r purl-only-freeze-executions}
-#| eval: false
-#| echo: false
-#| purl: true
-"
-execute:
-  freeze: auto
-" |>
-  write_to_file("_quarto.yml")
-quarto::quarto_render()
-git_ci(c("_quarto.yml", "_freeze"), "Add freeze execution to project.")
-```
+`.qmd` file.
+:::
 
 To get GitHub Actions to build the website we need to do two things
 first. Run a command to set things up and then add a new Action workflow
