@@ -119,7 +119,7 @@ like:
     -   We restart R because it is the only certain way to ensure that
         the R workspace is completely clear. For reproducibility, we
         should always aim to work from a "clean plate".
--   Keeping code readable by frequently (automatically) checking the
+-   Keeping code readable by frequently (automatically) fixing the
     formatting/styling of our code.
 -   For each "output" in a paper (like a figure or table), write one or
     more functions to complete the output and include those functions as
