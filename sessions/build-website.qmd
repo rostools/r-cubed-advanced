@@ -50,31 +50,10 @@ More specific objectives are to:
 5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-## Exercise: What is a website?
-
-> Time: \~5 minutes.
-
-With your neighbour, discuss and come to an agreement about what
-*exactly is* a website? Could you explain it to an 80 year old? Or a 10
-year old? Or to the class? Don't look ahead!
-:stuck_out_tongue_winking_eye:
-
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Ask if anyone wants to share, though they don't need to if they don't
-feel comfortable with it.
-:::
-
 ## Websites, what they are and why researchers should create more
 
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Talk through this point, showing the websites and reinforcing that a
-website isn't anything special, it's just a different type of file then
-they typically use or create.
-:::
+::: callout-note
+## Reading task: \~3 minutes
 
 Websites are a bit of a mystery in many ways. You open a browser, go to
 Google, search for something, click a link, scroll through the website,
