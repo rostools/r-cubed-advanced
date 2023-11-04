@@ -439,14 +439,14 @@ these tasks:
     formatted correctly. You might need to manually force a styling if
     lines are too long.
 5.  With the *cursor* inside the function, add some roxygen
-    documentation with `Ctrl-Shift-P` followed by typing "roxygen
-    comment". Remove the lines that contain `@examples` and `@export`,
-    then fill in the other details (like the `@params` and `Title`). In
-    the `@return` section, write "A data.frame/tibble."
+    documentation with {{< var keybind.palette >}} followed by typing
+    "roxygen comment". Remove the lines that contain `@examples` and
+    `@export`, then fill in the other details (like the `@params` and
+    `Title`). In the `@return` section, write "A data.frame/tibble."
 6.  Cut and paste the function over into the `R/functions.R` file.
-7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
-    code by running `descriptive_stats(lipidomics)` in the Console. If
-    it works, do the last task.
+7.  Source the `R/functions.R` file with {{< var keybind.source >}}, and
+    then test the code by running `descriptive_stats(lipidomics)` in the
+    Console. If it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
     changes you made to them with {{< var keybind.git >}}.
 
@@ -515,9 +515,8 @@ DESCRIPTION file.
 use_package("readr")
 ```
 
-Let's run `{targets}` to see what happens! You can either use the
-Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
-code in the Console:
+Let's run `{targets}` to see what happens! You can either use
+{{< var keybind.targets_make >}} or run this code in the Console:
 
 ``` r
 targets::tar_make()
@@ -578,13 +577,8 @@ revise_by_line_num(
 git_ci("_targets.R", "Add new targets to run.")
 ```
 
-Now, let's try running `{targets}` again! You can either use the Command
-Palette (`Ctrl-Shift-P`, then type "run targets") or run this code in
-the Console:
-
-``` r
-targets::tar_make()
-```
+Now, let's try running `{targets}` again using
+{{< var keybind.targets_make >}}.
 
 It probably won't run though. That's because `{targets}` doesn't know
 about the packages that you need for the pipeline. To add it, we need to
@@ -629,11 +623,10 @@ revise_by_text(
 )
 ```
 
-Try running `{targets}` again with either `targets::tar_make()` or the
-Command Palette (`Ctrl-Shift-P`, then type "run targets"). It should run
-through! We also see that a new folder has been created called
-`_targets/`. Since we don't want to track this in Git, we should ignore
-it with:
+Try running `{targets}` again with either `targets::tar_make()` or
+{{< var keybind.targets_make >}}. It should run through! We also see
+that a new folder has been created called `_targets/`. Since we don't
+want to track this in Git, we should ignore it with:
 
 ```{r ignore-targets-folder}
 #| purl: true
@@ -681,14 +674,14 @@ Let's make a change to our function and test out how the
     after the second `sd`. Note, IQR should look like `iqr = IQR` since
     we want the output columns to have a lowercase for the column names.
 3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
-    using the Command Palette `Ctrl-Shift-P`, then "targets outdated" or
-    "targets visualize"). What does it show?
+    using the Command Palette {{< var keybind.palette >}}, then "targets
+    outdated" or "targets visual"). What does it show?
 4.  Style using {{< var keybind.styler >}}. You might need to force a
     reformat if the code is too long by highlighting the line and using
-    `Ctrl-Shift-P`, then "reformat".
-5.  Run `tar_make()` in the Console (or `Ctrl-Shift-P`, then "targets
-    run", selecting the "background" option). Re-check for outdated
-    targets and visualize the network again.
+    {{< var keybind.palette >}}, then "reformat".
+5.  Run `tar_make()` in the Console or with
+    {{< var keybind.targets_make >}}. Re-check for outdated targets and
+    visualize the network again.
 6.  Open up the Git interface and commit the changes to the Git history
     with {{< var keybind.git >}}.
 
@@ -753,8 +746,8 @@ convert it into a function. Just like you did with the
 `descriptive_stats()` function in the exercise above, complete these
 tasks:
 
-1.  Wrap the code with `function() {...}` and name the new function
-    `plot_distributions`.
+1.  Wrap the plot code inside `doc/lesson.qmd` with `function() {...}`
+    and name the new function `plot_distributions`.
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
 3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
@@ -763,14 +756,14 @@ tasks:
     correctly. You might need to manually force a styling if lines are
     too long.
 5.  With the *cursor* inside the function, add some roxygen
-    documentation with `Ctrl-Shift-P` followed by typing "roxygen
-    comment". Remove the lines that contain `@examples` and `@export`,
-    then fill in the other details (like the `@params` and `Title`). In
-    the `@return` section, write "A plot object."
+    documentation with {{< var keybind.roxygen >}}. Remove the lines
+    that contain `@examples` and `@export`, then fill in the other
+    details (like the `@params` and `Title`). In the `@return` section,
+    write "A plot object."
 6.  Cut and paste the function over into the `R/functions.R` file.
-7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
-    code by running `plot_distributions(lipidomics)` in the Console. If
-    it works, do the last task.
+7.  Source the `R/functions.R` file ({{< var keybind.source >}}) and
+    then test the code by running `plot_distributions(lipidomics)` in
+    the Console. If it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
     changes you made to them with {{< var keybind.git >}}.
 
@@ -819,12 +812,13 @@ list(
 )
 ```
 
-Next, test that it works by running `targets::tar_visnetwork()` (or
-`Ctrl-Shift-P`, then type "target visual") or `targets::tar_outdated()`.
-You should see that the new item is "outdated". Then run
-`targets::tar_make()` (`Ctrl-Shift-P`, then "targets run") to update the
-pipeline. If it all works, than **commit the changes to the Git
-history** with {{< var keybind.git >}}.
+Next, test that it works by running `targets::tar_visnetwork()` using
+{{< var keybind.targets_vis >}} or running `targets::tar_outdated()`
+with {{< var keybind.targets_outdated >}}. You should see that the new
+item is "outdated". Then run `targets::tar_make()` using
+{{< var keybind.targets_make >}} to update the pipeline. If it all
+works, than **commit the changes to the Git history** with
+{{< var keybind.git >}}.
 
 ```{r purl-only-plot-fns-in-targets}
 #| eval: false
@@ -1063,4 +1057,3 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
-

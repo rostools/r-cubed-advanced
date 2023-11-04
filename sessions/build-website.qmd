@@ -181,9 +181,9 @@ output: html_document
 As you can see, they aren't too different. But as you use it more
 though, it becomes obvious how powerful Quarto is.
 
-We can use the same keybinding shortcut as with R Markdown:
-`Ctrl-Shift-K`. You can also use the Command Palette (`Ctrl-Shift-P`)
-followed by typing "render".
+We can use the same keybinding shortcut as with R Markdown: with
+{{< var keybind.render >}}. You can also use the Command Palette with
+{{< var keybind.palette >}} followed by typing "render".
 
 One big upgrade from R Markdown is that Quarto has a strong focus on
 scholarly writing and formatting, for instance by adding authors and
@@ -216,7 +216,8 @@ header.
     `format:` metadata.
 2.  Include your `name` and `affiliations` (with only the `- name:` for
     institution).
-3.  Render the document with `Ctrl-Shift-K`. See what gets changed.
+3.  Render the document with {{< var keybind.render >}}. See what gets
+    changed.
 4.  Replace `format: html` with `format: docx` and re-render the
     document. Switch back to `html`.
 5.  Commit the changes to the Git history with {{< var keybind.git >}}.
@@ -343,9 +344,9 @@ project:
 :::
 
 Now let's build the website. You can either use the "Render" button on
-the top of use `Ctrl-Shift-B` for "Build". Let's do it now. The website
-should pop up in either the Viewer Pane or as a new window. If not, we
-can debug what's going on.
+the top or use {{< var keybind.build_site >}} for "Build". Let's do it
+now. The website should pop up in either the Viewer Pane or as a new
+window. If not, we can debug what's going on.
 
 The next step is to commit the changes we've made, but you'll also see
 that a new folder called `_site/` has been created. This folder contains
@@ -449,10 +450,10 @@ execute:
   freeze: auto
 ```
 
-Then when we re-render the website with `Ctrl-Shift-B`, there will be a
-new folder created called `_freeze/`. Inside this folder are
-instructions to Quarto on how to run the code chunks inside the `.qmd`
-file. Commit this folder to the Git history with
+Then when we re-render the website with {{< var keybind.build_site >}},
+there will be a new folder created called `_freeze/`. Inside this folder
+are instructions to Quarto on how to run the code chunks inside the
+`.qmd` file. Commit this folder to the Git history with
 {{< var keybind.git >}}.
 
 ```{r purl-only-freeze-executions}
@@ -476,8 +477,8 @@ To set our repository up for the Action, we need to run
 `quarto publish gh-pages` once in the **Terminal** (*not the R
 Console*). We open the Terminal either through the menu
 `Tools -> Terminal -> New Terminal` or with the Command Palette
-(`Ctrl-Shift-P`) along with typing the text "terminal". Or, we can make
-use of the R's `system()` function:
+({{< var keybind.palette >}}) along with typing the text "terminal". Or,
+we can make use of the R's `system()` function:
 
 ```{r quarto-publish-gh-pages}
 #| purl: true
@@ -604,8 +605,8 @@ will use that.
     ```
 
 3.  Check that it works by rendering the website again with
-    `Ctrl-Shift-B`. Scroll to the bottom of the webpage that pops up to
-    check that it has been added.
+    {{< var keybind.build_site >}}. Scroll to the bottom of the webpage
+    that pops up to check that it has been added.
 
 Next, let's add some discoverability items to the `README.md` file and
 to the GitHub repository.
@@ -717,4 +718,3 @@ section of the website.
     website on GitHub.
 -   Add a license file (for instance, with `use_ccby_license()`) to
     allow others to re-use your work.
-

@@ -207,11 +207,10 @@ using in the `data-raw/nmr-omics.R` script. Open that file and complete
 these tasks:
 
 1.  **Manually** look for package dependencies in the R script that are
-    declared with `library()` and `::`. It can help to use "Find /
-    Replace Text" feature in RStudio for all the `::` used in the
-    script. Use the Command Palette (`Ctrl-Shift-P`, then "find
-    replace") to quickly select this option, or
-    `Edit -> Find and replace` (`Ctrl-Shift-J`).
+    declared with `library()` and `::`. It can help to use the "Find in
+    files" feature in RStudio to look for all places that have either
+    `::` or `library`. Use either `Edit -> Find in Files ...`, or with
+    {{< var keybind.find_in_files >}} to open up the search popup.
 2.  Use `?usethis::use_package` to review how to use this function.
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
@@ -351,7 +350,7 @@ managed by `{renv}`. By using the argument `bare = TRUE` we are telling
 `{renv}` to not search for dependencies in the project, since we want to
 do that ourselves.
 
-When initilizing a `{renv}` instance using `bare = TRUE` we create a new
+When initilising a `{renv}` instance using `bare = TRUE` we create a new
 `.libPath()` location that does not contain any of the packages we
 previously defined as project dependencies. You can notice this if you
 attempt to type `usethis::`, you'll notice that nothing comes up.
@@ -602,7 +601,7 @@ write_to_file("if (interactive()) {suppressMessages(require(usethis))}",
 git_ci(".Rprofile", "Add usethis settings to profile.")
 ```
 
-Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
+Let's restart R with {{< var keybind.restart-r >}} before using
 `use_package()` to add `{renv}` as a workflow dependency.
 
 ```{r suggests-dep}
@@ -727,9 +726,10 @@ There are only a few functions in `{styler}` that we need to use. The
 first is to style a single file by using `styler::style_file()`.
 However, an easier function is the "style active file" RStudio addin.
 Usually we would only need to style the file that we are actually
-working on, We can do that through the Command Palette (`Ctrl-Shift-P`)
-and typing "style file", which should show the "Style active file"
-option. This is what we will do frequently throughout the course.
+working on, We can do that through the Command Palette
+({{< var keybind.palette >}}) and typing "style file", which should show
+the "Style active file" option. This is what we will do frequently
+throughout the course.
 
 Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
 {{< var keybind.styler >}} to style the file. There won't be any changes
@@ -747,9 +747,8 @@ styler::style_dir()
 ```
 
 The thing to note, though, is that `{styler}` isn't perfect, so you
-might sometimes have to manually fix run the reformatting
-(`Ctrl-Shift-A` or with the Command Palette `Ctrl-Shift-P` then
-"reformat").
+might sometimes have to manually fix run the reformatting (with the
+Command Palette {{< var keybind.palette >}} then "reformat").
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -830,8 +829,9 @@ git_ci("doc/learning.qmd", "Add editor options to qmd file.")
 
 Now, when you save your file, RStudio should automatically reformat the
 Markdown into a standardized format. If you want to switch to using the
-Visual Mode, use `Ctrl-Shift-F4` or the "Visual" button at the top of
-the Source Pane beside the bolding and italicizing buttons.
+Visual Mode, use {{< var keybind.visual_edit >}} or the "Visual" button
+at the top of the Source Pane beside the bolding and italicizing
+buttons.
 
 The instructors won't be using the Visual Mode during the course,
 however you are welcome to. We will be using the "canonical" markdown
@@ -959,7 +959,7 @@ r3::open_feedback_survey_advanced()
 -   Install the necessary dependencies with `renv::restore()` or
     `renv::install()`.
 -   Follow a style guide by using `{styler}`. Combine with the Command
-    Palette (`Ctrl-Shift-P`) to quickly run their functions on code you
-    are actively working on.
+    Palette ({{< var keybind.palette >}}) to quickly run their functions
+    on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.

@@ -89,10 +89,10 @@ lintr::lint_dir()
 
 This might be useful if you want to go over everything to check things.
 But, if you are working on a single file and want to do some linting of
-that, the better solution is to use the Command Palette (`Ctrl-Shift-P`)
-and type "lint". The first option is to lint the file you are working
-on. Let's open up the `data-raw/nmr-omics.R` script and try it out.
-There *should* be at least one note that says:
+that, the better solution is to use the Command Palette
+{{< var keybind.palette >}} and type "lint". The first option is to lint
+the file you are working on. Let's open up the `data-raw/nmr-omics.R`
+script and try it out. There *should* be at least one note that says:
 
 ``` markdown
 Lines should not be more than 80 characters.
@@ -116,5 +116,5 @@ warnings by adding a `# nolint` comment.
 ## Summary
 
 -   Follow a style guide by using `{lintr}`. Combine with the Command
-    Palette (`Ctrl-Shift-P`) to quickly run their functions on code you
-    are actively working on.
+    Palette with {{< var keybind.palette >}} to quickly run their
+    functions on code you are actively working on.
