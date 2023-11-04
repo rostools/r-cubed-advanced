@@ -885,7 +885,10 @@ But when we use `targets::tar_visnetwork()` using
 {{< var keybind.targets_vis >}}, we don't see the connections with plot
 and descriptive statistics. That's because we haven't used them in a way
 `{targets}` can recognize. For that, we need to use the function
-`targets::tar_read()`.
+`targets::tar_read()`. And because our Quarto file is located in the
+`doc/` folder, we also have to tell Quarto where the targets "store"
+(stored objects that `targets::tar_read()` looks for), which we do by
+using `targets::tar_config_set()`.
 
 Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
 below the YAML header, and create a new header and code chunk and make
@@ -899,6 +902,7 @@ use of the `targets::tar_read()`.
 ---
 
 ```{{r setup}}
+targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(targets)
 lipidomics <- tar_read(lipidomics)
