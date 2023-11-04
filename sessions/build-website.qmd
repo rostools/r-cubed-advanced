@@ -93,6 +93,15 @@ your work. Especially since if you are already learning about the
 workflow around using R, building functions, writing R Markdown (or
 Quarto), and using Git and GitHub, adding a website builder into this
 workflow is surprisingly easy.
+:::
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+Briefly go through this and reinforce that a website isn't anything
+special, it's only a different type of file then they typically use or
+create.
+:::
 
 ## What is Quarto and why use it?
 
