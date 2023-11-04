@@ -279,15 +279,17 @@ tidy_bootstrap_output <- function(bootstrap_results) {
 
 Then we can start from the beginning again, right from `lipidomics`, to
 `split_by_metabolite()`, to `map()`'ing with
-`generate_model_variation()`, and finally to `map_dfr()` with
-`tidy_bootstrap_output()`. Keep in mind, this will take a while to run.
+`generate_model_variation()`, and finally to `map()` and `list_rbind()`
+with `tidy_bootstrap_output()`. Keep in mind, this will take a while to
+run.
 
 ```{r chain-data-to-bootstrap-results}
 #| eval: false
 metabolites_with_bootstrap_results <- lipidomics %>%
   split_by_metabolite() %>%
   map(generate_model_variation) %>%
-  map_dfr(tidy_bootstrap_output)
+  map(tidy_bootstrap_output) %>% 
+  list_rbind()
 metabolites_with_bootstrap_results
 ```
 
@@ -335,7 +337,8 @@ calculate_variation <- function(data) {
   data %>%
     split_by_metabolite() %>%
     purrr::map(generate_model_variation) %>%
-    purrr::map_dfr(tidy_bootstrap_output)
+    purrr::map(tidy_bootstrap_output) %>% 
+    purrr::list_rbind()
 }
 ```
 

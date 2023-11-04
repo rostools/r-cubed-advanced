@@ -207,13 +207,14 @@ generate_model_results <- function(data) {
 }
 ```
 
-Then we add it to the end of the pipe, but using `map_dfr()` to convert
-to a data frame:
+Then we add it to the end of the pipe, but using `map()` and
+`list_rbind()` to convert to a data frame:
 
 ```{r chain-generate-model-results}
 lipidomics %>%
   split_by_metabolite() %>%
-  map_dfr(generate_model_results)
+  map(generate_model_results) %>% 
+  list_rbind()
 ```
 
 Since we are only interested in the model results for the metabolites,
@@ -223,7 +224,8 @@ and `str_detect()`.
 ```{r chain-filter-terms}
 model_estimates <- lipidomics %>%
   split_by_metabolite() %>%
-  map_dfr(generate_model_results) %>%
+  map(generate_model_results) %>%
+  list_rbind() %>% 
   filter(str_detect(term, "metabolite_"))
 model_estimates
 ```
@@ -365,7 +367,8 @@ calculate_estimates <- function(data) {
     column_values_to_snake_case(metabolite) %>%
     dplyr::group_split(metabolite) %>%
     purrr::map(metabolites_to_wider) %>%
-    purrr::map_dfr(generate_model_results) %>%
+    purrr::map(generate_model_results) %>%
+    purrr::list_rbind() %>% 
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
     add_original_metabolite_names(data)
 }
@@ -658,4 +661,3 @@ as a website.
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
-
