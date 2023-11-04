@@ -950,7 +950,7 @@ Now we can open the feedback survey:
 
 ```{r}
 #| eval: false
-r3::open_feedback_survey_advanced()
+r3::open_feedback_survey()
 ```
 
 ## Summary
