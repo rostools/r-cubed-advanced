@@ -140,7 +140,19 @@ like:
         to doing better science since it fits with the philosophy of
         doing science.
 
-::: callout-tip
+Many of these "project setup" tasks can take a while to set up, can
+often be very difficult and confusing. This is before you've even gotten
+to the analysis phase of your work. A good analogy for this first step
+is when skyscrapers are built. Watching construction on these projects
+makes it feel like it takes forever for them to finally start going up
+and adding floors. But once they start adding floors, it goes up so
+fast! That's because a lot of the main work is in building up the
+foundation of the building, so that it is strong and stable. This is the
+same with analysis projects, the first phase feels like nothing is
+"moving" but you are building the foundation to everything that comes
+after.
+
+::: {.callout-tip appearance="default"}
 If you finish exercises faster than others in the course, try your hand
 at working through the [Extra
 Exercises](../appendix/extra-exercises.qmd) section. It is still a
@@ -165,3 +177,4 @@ Before we start, let's fix up a few things:
     these fields are often needed by `{usethis}`. The `{prodigenr}`
     package should add them automatically, but doesn't (I need to fix
     it).
+
