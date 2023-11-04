@@ -64,7 +64,7 @@ LearnR3
 ├── doc/
 │   ├── README.md
 │   ├── learning.qmd
-│   └── learning.qmd
+│   └── report.Rmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
