@@ -616,13 +616,9 @@ Just like with the `mutate()`, take the `pivot_wider()` code and convert
 it into a new function.
 
 1.  Name the new function `metabolites_to_wider`.
-2.  Include two arguments in the new `function()`: `data` and
-    `values_fn`. Set the default for `values_fn` to be `mean`. We add
-    this argument in case we want to merge the duplicate cholesterol
-    variables with something other than the mean.
+2.  Include one argument in the new `function()`: `data`.
 3.  Use `data %>%` at the beginning, like we did with the
-    `column_values_to_snake_case()`. Inside the `pivot_wider()` code,
-    replace `values_fn = mean` with `values_fn = values_fn`.
+    `column_values_to_snake_case()`.
 4.  Use `tidyr::` before the `pivot_wider()` function.
 5.  Add the Roxygen documentation with {{< var keybind.roxygen >}}.
 6.  Move the function into the `R/functions.R` file.
@@ -636,16 +632,15 @@ it into a new function.
 #' Convert the metabolite long format into a wider one.
 #'
 #' @param data The lipidomics dataset.
-#' @param values_fn A function to summarize the multiple cholesterol values.
 #'
 #' @return A wide data frame.
 #'
-metabolites_to_wider <- function(data, values_fn = mean) {
+metabolites_to_wider <- function(data) {
   data %>%
     tidyr::pivot_wider(
       names_from = metabolite,
       values_from = value,
-      values_fn = values_fn,
+      values_fn = mean,
       names_prefix = "metabolite_"
     )
 }

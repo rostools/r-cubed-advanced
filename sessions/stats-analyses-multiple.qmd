@@ -10,10 +10,7 @@ library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 lipidomics_wide <- lipidomics %>%
   mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
-  pivot_wider(
-    names_from = metabolite, values_from = value, values_fn = mean,
-    names_prefix = "metabolite_"
-  )
+  metabolites_to_wider()
 # lipidomics %>% 
 #   calculate_estimates() %>% 
 #   readr::write_csv(here::here("data/model-estimates.csv"))
