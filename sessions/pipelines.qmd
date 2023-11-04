@@ -915,7 +915,7 @@ tar_read(df_stats_by_metabolite)
 ```
 
 ```{{r}}
-tar_read(fig_distribution_metabolites)
+tar_read(fig_metabolites_distribution)
 ```
 ````
 
@@ -936,7 +936,7 @@ basic_stats_md_text <- c("```{r setup}",
   "```",
   "",
   "```{r}",
-  "tar_read(fig_distribution_metabolites)",
+  "tar_read(fig_metabolites_distribution)",
   "```")
 print_file("doc/learning.qmd")
 revise_by_line_num(
