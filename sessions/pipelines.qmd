@@ -358,7 +358,6 @@ of the `DESCRIPTION` file.
 ```{r add-tidyverse-deps}
 #| purl: true
 use_package("tidyverse", "depends")
-use_package("dplyr")
 ```
 
 Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
