@@ -354,6 +354,8 @@ git_ci(
 )
 ```
 
+When prompted, choose to use the explicit declaration.
+
 The function `renv::init()` initializes the project to begin being
 managed by `{renv}`. By using the argument `bare = TRUE` we are telling
 `{renv}` to not search for dependencies in the project, since we want to
@@ -448,8 +450,10 @@ the project for any packages used and add them to the `renv.lock` file.
 
 However, in science, we want to be more explicit rather than implicit.
 The way `{renv}` explicitly adds to the `renv.lock` file is by only
-scanning the `DESCRIPTION` file. In order for `{renv}` to always do
-this, we need to set an option for it. This option needs to be added to
+scanning the `DESCRIPTION` file. While we allready selected to use
+explicit declaration when initilizing `{renv}`, this option is specific
+for our R instance. In order for `{renv}` to always work explicit, we
+need to set an project option for it. This option needs to be added to
 the project's `.Rprofile` file.
 
 We also want to use the `{pak}` package to install R packages instead of
