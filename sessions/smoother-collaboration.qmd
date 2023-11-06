@@ -274,6 +274,11 @@ library can be found by running this function:
 .libPaths()
 ```
 
+::: {.callout-note appearance="default"}
+The default libary paths are most likely different on your computer, and
+depends on the computer and R setup.
+:::
+
 Those file paths are where all R packages are installed to. If there is
 more than one path, R checks the first before continuing to the next.
 `{renv}` instead creates a file path for R packages to be installed
