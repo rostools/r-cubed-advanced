@@ -516,9 +516,11 @@ targets::tar_make()
 
 <!-- TODO: Check how this works, and update next section -->
 
-Because of the way `{targets}` works, we need to first create a pipeline
-target of *only* the path to the data file with the `format = "file"`,
-and then we can load it with `{readr}`.
+While this `{targets}` pipeline work, we would not be able to
+automatically rerun out pipeline if our underlying data changes. To
+track the actual data file we need to create a pipeline target of data
+file. We can acomplish this using the argument `format = "file"` inside
+`tar_target()` before loading the data using `{readr}`.
 
 ``` r
 list(
