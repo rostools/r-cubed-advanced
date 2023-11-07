@@ -678,6 +678,7 @@ metabolite. We use `scales = "free"` because each metabolite doesn't
 have the same range of values (some are small, others are quite large).
 
 ```{r histogram-metabolites}
+#| fig-cap: "Histograms showing the distribution of all metabolites in the lipidomics dataset."
 #| eval: true
 metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
@@ -940,8 +941,8 @@ git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
 lipidomics %>% 
   descriptive_stats() %>% 
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
-  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
-  knitr::kable(caption = "Descriptive statistics of the metabolites.")
+  select(Metabolite = metabolite, `Mean (SD)` = MeanSD) %>%
+  knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 
 Re-run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
@@ -1011,4 +1012,3 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
-
