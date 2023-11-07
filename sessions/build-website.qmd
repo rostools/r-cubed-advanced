@@ -481,8 +481,15 @@ To set our repository up for the Action, we need to run
 `quarto publish gh-pages` once in the **Terminal** (*not the R
 Console*). We open the Terminal either through the menu
 `Tools -> Terminal -> New Terminal` or with the Command Palette
-({{< var keybind.palette >}}) along with typing the text "terminal". Or,
-we can make use of the R's `system()` function:
+({{< var keybind.palette >}}) along with typing the text "terminal".
+
+```{bash}
+#| eval: false
+quarto publish gh-pages
+```
+
+Or, we can make use of the R's `system()` function by typing in the R
+Console:
 
 ```{r quarto-publish-gh-pages}
 #| purl: true
