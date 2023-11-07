@@ -121,3 +121,5 @@ Range from almost entirely alone to never alone.
 ::: notes
 Range from definitely no to definitely yes.
 :::
+
+## Alright, return to your seats! :chair: {.center}
