@@ -708,8 +708,9 @@ them below.
 ::: {.column width="45%"}
 **knitr-style chunk options**
 
-```{{r, echo=FALSE, warning=TRUE}}
-1:10
+```{r, warning=TRUE, message=TRUE}
+#| echo: fenced
+1:5
 ```
 :::
 
@@ -719,9 +720,11 @@ them below.
 ::: {.column width="45%"}
 **Quarto-style chunk options**
 
-```{{r}}
-#| echo: false
+```{r}
+#| echo: fenced
 #| warning: true
+#| message: true
+1:5
 ```
 :::
 :::
