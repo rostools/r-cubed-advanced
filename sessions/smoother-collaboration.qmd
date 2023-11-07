@@ -74,6 +74,9 @@ to go in and contribute your own code to theirs (and vice versa)?
 > Note: This first session is more conceptual and is heavier on the
 > reading and explanation, but is important for the next sessions.
 
+::: callout-note
+## Reading task: \~8 minutes
+
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
 software to use for your project. This starts out at the highest level:
@@ -113,9 +116,6 @@ which packages are used so that when others join and contribute to the
 project, they can as seamlessly as possible install or update the
 packages your data analysis project needs. There are a few ways of
 "tracking" package dependencies.
-
-::: callout-note
-## Reading task: \~5 minutes
 
 1.  The simplest, but most primitive way is to always make sure to use
     `library()` at the top of each R script for each package that the R
