@@ -159,8 +159,7 @@ Before we start, let's fix up a few things:
     which we aren't doing, and is sometimes created when using the
     functions in `{usethis}`.
 3.  Open up the `DESCRIPTION` file and add a line with
-    `Title: "Learning advanced R!"` as well as `Version: v1`. Both of
+    `Title: "Learning advanced R!"` as well as `Version: 0.0.1`. Both of
     these fields are often needed by `{usethis}`. The `{prodigenr}`
     package should add them automatically, but doesn't (I need to fix
     it).
-
