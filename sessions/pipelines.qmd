@@ -166,7 +166,7 @@ would want to do before the primary statistical analysis:
 %%| fig-cap: Very simple flow chart of steps in an analysis pipeline.
 %%| echo: false
 %%| eval: true
-%%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}}}%%
+%%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}}}%%
 graph LR
     data[Data] --> fn_desc{{function}} 
     fn_desc --> tab_desc[Output 1:<br>Descriptive<br>statistics<br>table]
