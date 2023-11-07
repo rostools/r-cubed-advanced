@@ -777,7 +777,8 @@ Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
 since the file is already tidy.
 
 ::: {.callout-note appearance="default"}
-You will probably be asked to install something, click "Yes".
+You will probably be asked to install a package called `{miniUI}`, click
+"Yes".
 :::
 
 If you wanted to run `{styler}` on all the files, we can use:
@@ -1006,3 +1007,4 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+
