@@ -646,8 +646,8 @@ Or to see what pipeline targets are outdated:
 targets::tar_outdated()
 ```
 
-Before continuing, let's commit the changes to the Git history with
-{{< var keybind.git >}}.
+Before continuing, let's commit the changes (including the files in the
+`_targets/` folder) to the Git history with {{< var keybind.git >}}.
 
 ```{r purl-only-commit-packages-to-targets}
 #| eval: false
