@@ -257,6 +257,13 @@ git_ci(
 
 ## Formal dependency management
 
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Briefly verbally go over this text (you don't need to show the website,
+you can remain in RStudio).
+:::
+
 While the approach of managing package dependencies through the
 `DESCRIPTION` file is quite powerful, it has the major disadvantage of
 not keeping track of the *version* of each of your packages. So instead
@@ -405,6 +412,15 @@ fs::dir_tree(regexp = "\\.Rprofile|renv", all = TRUE, recurse = 1)
     there are the `activate.R` script and `settings.dcf` file that both
     work to manage the dependencies, like installing, updating, and
     removing.
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Open up the website to this figure to explain how things are working in
+the background when using `{renv}`. After explaining the figure and
+concepts, you can switch back to RStudio to continue verbally going over
+the rest of the text, along with the code, in this section.
+:::
 
 ```{mermaid fig-renv-environment}
 %%| label: fig-renv-environment
@@ -564,6 +580,13 @@ the situation.
 :::
 
 ## Two types of dependencies
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Verbally explain the content of the next few paragraphs (don't need to
+show the website on the projector).
+:::
 
 When you work on a research project that involves data analysis, you
 likely use packages in two different ways:
