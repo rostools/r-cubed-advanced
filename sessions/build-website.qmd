@@ -50,31 +50,10 @@ More specific objectives are to:
 5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-## Exercise: What is a website?
-
-> Time: \~5 minutes.
-
-With your neighbour, discuss and come to an agreement about what
-*exactly is* a website? Could you explain it to an 80 year old? Or a 10
-year old? Or to the class? Don't look ahead!
-:stuck_out_tongue_winking_eye:
-
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Ask if anyone wants to share, though they don't need to if they don't
-feel comfortable with it.
-:::
-
 ## Websites, what they are and why researchers should create more
 
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Talk through this point, showing the websites and reinforcing that a
-website isn't anything special, it's just a different type of file then
-they typically use or create.
-:::
+::: callout-note
+## Reading task: \~3 minutes
 
 Websites are a bit of a mystery in many ways. You open a browser, go to
 Google, search for something, click a link, scroll through the website,
@@ -114,6 +93,15 @@ your work. Especially since if you are already learning about the
 workflow around using R, building functions, writing R Markdown (or
 Quarto), and using Git and GitHub, adding a website builder into this
 workflow is surprisingly easy.
+:::
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+Briefly go through this and reinforce that a website isn't anything
+special, it's only a different type of file then they typically use or
+create.
+:::
 
 ## What is Quarto and why use it?
 
@@ -181,9 +169,9 @@ output: html_document
 As you can see, they aren't too different. But as you use it more
 though, it becomes obvious how powerful Quarto is.
 
-We can use the same keybinding shortcut as with R Markdown:
-`Ctrl-Shift-K`. You can also use the Command Palette (`Ctrl-Shift-P`)
-followed by typing "render".
+We can use the same keybinding shortcut as with R Markdown: with
+{{< var keybind.render >}}. You can also use the Command Palette with
+{{< var keybind.palette >}} followed by typing "render".
 
 One big upgrade from R Markdown is that Quarto has a strong focus on
 scholarly writing and formatting, for instance by adding authors and
@@ -216,10 +204,11 @@ header.
     `format:` metadata.
 2.  Include your `name` and `affiliations` (with only the `- name:` for
     institution).
-3.  Render the document with `Ctrl-Shift-K`. See what gets changed.
+3.  Render the document with {{< var keybind.render >}}. See what gets
+    changed.
 4.  Replace `format: html` with `format: docx` and re-render the
     document. Switch back to `html`.
-5.  Commit the changes to the Git history.
+5.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ## Using Quarto to build a project website
 
@@ -327,7 +316,7 @@ knitr:
     echo: false
 ```
 
-::: callout-tip
+::: {.callout-tip appearance="default"}
 When building a website, Quarto will render *all* `.md`, `.Rmd`, and
 `.qmd` files in the project. To stop Quarto from rendering certain
 files, you can either prefix the file with `_` (e.g. `_learning.qmd`) or
@@ -343,9 +332,9 @@ project:
 :::
 
 Now let's build the website. You can either use the "Render" button on
-the top of use `Ctrl-Shift-B` for "Build". Let's do it now. The website
-should pop up in either the Viewer Pane or as a new window. If not, we
-can debug what's going on.
+the top or use {{< var keybind.build_site >}} for "Build". Let's do it
+now. The website should pop up in either the Viewer Pane or as a new
+window. If not, we can debug what's going on.
 
 The next step is to commit the changes we've made, but you'll also see
 that a new folder called `_site/` has been created. This folder contains
@@ -361,7 +350,8 @@ use_git_ignore("_site")
 ```
 
 Now we can commit the changes to the `_quarto.yml`, the `.gitignore`
-file, and the `index.qmd` file to the Git history.
+file, and the `index.qmd` file to the Git history with
+{{< var keybind.git >}}.
 
 ```{r purl-only-add-quarto-website-building}
 #| eval: false
@@ -393,7 +383,7 @@ git_ci(c("_quarto.yml", "index.qmd"),
        "Add Quarto infrastructure to project.")
 ```
 
-## Exercise: Add collaboration setting to `_quarto.yml` file
+## Exercise: Add collaboration setting to `_quarto.yml` file and update targets
 
 > Time: \~5 minutes.
 
@@ -423,18 +413,47 @@ write_to_file(editor_options_lines, "_quarto.yml", append = TRUE)
 git_ci("_quarto.yml", "Add editor options to quarto.")
 ```
 
-<!-- TODO: Add section about using `tar_quarto()` for projects -->
+Next, update the `_targets.R` file by changing:
+
+-   the `name` argument to `quarto_website`, since we're building a site
+    now not just docs, and,
+-   the `path` argument to point to the main project folder `"."` (`.`
+    means "the same folder `_targets.R` is in)
+
+It should look like this now:
+
+```{r}
+#| eval: false
+tar_quarto(
+  name = quarto_website,
+  path = "."
+)
+```
+
+```{r purl-only-add-quarto-project-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+# Add to `_targets.R` file.
+'
+tar_quarto(
+  name = quarto_website,
+  path = "."
+)
+'
+git_ci("_targets.R", "Add quarto project to targets.")
+```
 
 ## Automate rendering the website
 
-There is a way that we could create the website into the `_site/`
-folder, commit it to Git, and have GitHub host the website for us. But
-than we'd be saving a lot of files that could be updated quite often,
-which is annoying to keep track of. Instead, we can make use of GitHub
-Actions to build and publish our website for us.
+There is a way that we could create the website and save it in the
+`_site/` folder, commit it to Git, and have GitHub host the website for
+us. But than we'd be saving a lot of files that would need to be updated
+quite often, which is annoying to keep track of. Instead, we can make
+use of GitHub Actions to build and publish our website for us, including
+rendering all the R code.
 
-<!-- TODO: Not sure about using freeze... will come back to this. -->
-
+::: {.callout-tip appearance="default"}
 There is a way to have GitHub completely (re-)build the website from
 scratch each time, including running any R code. However, our project
 doesn't have much R code and we have data that we don't keep in the
@@ -448,23 +467,11 @@ execute:
   freeze: auto
 ```
 
-Then when we re-render the website with `Ctrl-Shift-B`, there will be a
-new folder created called `_freeze/`. Inside this folder are
-instructions to Quarto on how to run the code chunks inside the `.qmd`
-file. Commit this folder to the Git history.
-
-```{r purl-only-freeze-executions}
-#| eval: false
-#| echo: false
-#| purl: true
-"
-execute:
-  freeze: auto
-" |>
-  write_to_file("_quarto.yml")
-quarto::quarto_render()
-git_ci(c("_quarto.yml", "_freeze"), "Add freeze execution to project.")
-```
+Then when we re-render the website with {{< var keybind.build_site >}},
+there will be a new folder created called `_freeze/`. Inside this folder
+are instructions to Quarto on how to run the code chunks inside the
+`.qmd` file.
+:::
 
 To get GitHub Actions to build the website we need to do two things
 first. Run a command to set things up and then add a new Action workflow
@@ -474,8 +481,8 @@ To set our repository up for the Action, we need to run
 `quarto publish gh-pages` once in the **Terminal** (*not the R
 Console*). We open the Terminal either through the menu
 `Tools -> Terminal -> New Terminal` or with the Command Palette
-(`Ctrl-Shift-P`) along with typing the text "terminal". Or, we can make
-use of the R's `system()` function:
+({{< var keybind.palette >}}) along with typing the text "terminal". Or,
+we can make use of the R's `system()` function:
 
 ```{r quarto-publish-gh-pages}
 #| purl: true
@@ -529,9 +536,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 ```
 
-Let's commit this new file to the Git history and push the changes up to
-GitHub. While we wait for the GitHub Action to finish, complete the next
-exercise.
+Let's commit this new file to the Git history with
+{{< var keybind.git >}} and push the changes up to GitHub. While we wait
+for the GitHub Action to finish, complete the next exercise.
 
 ```{r purl-only-add-quarto-action}
 #| eval: false
@@ -602,8 +609,8 @@ will use that.
     ```
 
 3.  Check that it works by rendering the website again with
-    `Ctrl-Shift-B`. Scroll to the bottom of the webpage that pops up to
-    check that it has been added.
+    {{< var keybind.build_site >}}. Scroll to the bottom of the webpage
+    that pops up to check that it has been added.
 
 Next, let's add some discoverability items to the `README.md` file and
 to the GitHub repository.
@@ -629,7 +636,8 @@ to the GitHub repository.
     Check out the project's [website](LINK).
     ```
 
-6.  Commit the changes to the `README.md` to the Git history.
+6.  Commit the changes to the `README.md` to the Git history with
+    {{< var keybind.git >}}.
 
 ::: {.callout-tip appearance="default"}
 Sometimes you might make a change to files that aren't part of the

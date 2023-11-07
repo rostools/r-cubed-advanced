@@ -194,8 +194,8 @@ packages your data analysis project needs. There are a few ways of
 
 Before continuing to the exercise, we need to make sure to add and
 comment all the files from the project into the Git history. Open the
-Git interface by either typing `Ctrl-Shift-M` or by going to the Git
-pane and clicking the "Commit" button.
+Git interface by either typing with {{< var keybind.git >}} or by going
+to the Git pane and clicking the "Commit" button.
 
 ## Exercise: Add packages from the data processing script
 
@@ -207,17 +207,16 @@ using in the `data-raw/nmr-omics.R` script. Open that file and complete
 these tasks:
 
 1.  **Manually** look for package dependencies in the R script that are
-    declared with `library()` and `::`. It can help to use "Find /
-    Replace Text" feature in RStudio for all the `::` used in the
-    script. Use the Command Palette (`Ctrl-Shift-P`, then "find
-    replace") to quickly select this option, or
-    `Edit -> Find and replace` (`Ctrl-Shift-J`).
+    declared with `library()` and `::`. It can help to use the "Find in
+    files" feature in RStudio to look for all places that have either
+    `::` or `library`. Use either `Edit -> Find in Files ...`, or with
+    {{< var keybind.find >}} to open up the search popup.
 2.  Use `?usethis::use_package` to review how to use this function.
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
-4.  Once done, open the Git interface (`Ctrl-Shift-M` or go to the Git
-    Pane and click the "Commit" button). What has been changed? Commit
-    those changes to the Git history.
+4.  Once done, open the Git interface with {{< var keybind.git >}} (or
+    going to the Git Pane and clicking the "Commit" button). What has
+    been changed? Commit those changes to the Git history .
 
 ```{r solution-add-processing-packages}
 #| eval: false
@@ -231,7 +230,7 @@ usethis::use_package("tidyr")
 usethis::use_package("snakecase")
 usethis::use_package("here")
 usethis::use_package("fs")
-usethis::use_package("usethis")
+usethis::use_package("readr")
 ```
 
 ::: {.callout-note collapse="true"}
@@ -274,6 +273,11 @@ library can be found by running this function:
 ```{r libpaths}
 .libPaths()
 ```
+
+::: {.callout-note appearance="default"}
+The default libary paths are most likely different on your computer, and
+depends on the computer and R setup.
+:::
 
 Those file paths are where all R packages are installed to. If there is
 more than one path, R checks the first before continuing to the next.
@@ -320,6 +324,10 @@ package dependencies.
         packages depend on, are installed within your project,
         installation times can sometimes be a bit long.
 
+    -   When you restore a library from a `renv.lock` file that uses
+        old package versions, it can sometimes be difficult to
+        re-install them.
+
 ::: aside
 It's sometimes very annoying to debug these "virtual environments". But
 thankfully you can turn it off with `renv::deactivate()`! It still is
@@ -346,12 +354,14 @@ git_ci(
 )
 ```
 
+When prompted, choose to use the explicit declaration.
+
 The function `renv::init()` initializes the project to begin being
 managed by `{renv}`. By using the argument `bare = TRUE` we are telling
 `{renv}` to not search for dependencies in the project, since we want to
 do that ourselves.
 
-When initilizing a `{renv}` instance using `bare = TRUE` we create a new
+When initilising a `{renv}` instance using `bare = TRUE` we create a new
 `.libPath()` location that does not contain any of the packages we
 previously defined as project dependencies. You can notice this if you
 attempt to type `usethis::`, you'll notice that nothing comes up.
@@ -419,7 +429,8 @@ classDef folderEnv fill:transparent,stroke-dasharray:5;
 class renv_env,global folderEnv
 ```
 
-**Before we continue, let's commit the new files to the Git history**.
+**Before we continue, let's commit the new files to the Git history**
+with {{< var keybind.git >}}.
 
 The general workflow for using `{renv}` while working on your project is
 described in more detail on the [Introduction to
@@ -439,8 +450,10 @@ the project for any packages used and add them to the `renv.lock` file.
 
 However, in science, we want to be more explicit rather than implicit.
 The way `{renv}` explicitly adds to the `renv.lock` file is by only
-scanning the `DESCRIPTION` file. In order for `{renv}` to always do
-this, we need to set an option for it. This option needs to be added to
+scanning the `DESCRIPTION` file. While we have already selected to use
+explicit declaration when initilizing `{renv}`, this option is specific
+to our R instance. In order for `{renv}` to always work explicitly, we
+need to set a project option for it. This option needs to be added to
 the project's `.Rprofile` file.
 
 We also want to use the `{pak}` package to install R packages instead of
@@ -508,7 +521,8 @@ finish working on a task. If that's the case, you can always do
 `renv::deactivate()` to stop using `{renv}` and `renv::activate()` to
 reactivate it.
 
-**Let's commit the changes made to the Git history**.
+**Let's commit the changes made to the Git history** with
+{{< var keybind.git >}}.
 
 ::: callout-note
 ## Reading task: \~5 minutes
@@ -600,7 +614,7 @@ write_to_file("if (interactive()) {suppressMessages(require(usethis))}",
 git_ci(".Rprofile", "Add usethis settings to profile.")
 ```
 
-Let's restart R (`Ctrl-Shift-P` then type "restart r") before using
+Let's restart R with {{< var keybind.restart-r >}} before using
 `use_package()` to add `{renv}` as a workflow dependency.
 
 ```{r suggests-dep}
@@ -619,7 +633,7 @@ git_ci("DESCRIPTION", "Add renv as a suggests dependency.")
 
 Open the Git interface and see that under `Suggests:` in the
 `DESCRIPTION` file is `renv`. Let's commit these changes, as well as the
-changes to `.Rprofile`.
+changes to `.Rprofile`, with {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -656,7 +670,8 @@ project to GitHub right now.
 
 Let's complete these tasks to connect to GitHub.
 
-1.  First, commit the latest changes to the Git history.
+1.  First, commit the latest changes to the Git history with
+    {{< var keybind.git >}}.
 
 2.  If you haven't yet, please create a
     [GitHub](https://github.com/join) account.
@@ -724,9 +739,10 @@ There are only a few functions in `{styler}` that we need to use. The
 first is to style a single file by using `styler::style_file()`.
 However, an easier function is the "style active file" RStudio addin.
 Usually we would only need to style the file that we are actually
-working on, We can do that through the Command Palette (`Ctrl-Shift-P`)
-and typing "style file", which should show the "Style active file"
-option. This is what we will do frequently throughout the course.
+working on, We can do that through the Command Palette
+({{< var keybind.palette >}}) and typing "style file", which should show
+the "Style active file" option. This is what we will do frequently
+throughout the course.
 
 Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
 {{< var keybind.styler >}} to style the file. There won't be any changes
@@ -744,9 +760,8 @@ styler::style_dir()
 ```
 
 The thing to note, though, is that `{styler}` isn't perfect, so you
-might sometimes have to manually fix run the reformatting
-(`Ctrl-Shift-A` or with the Command Palette `Ctrl-Shift-P` then
-"reformat").
+might sometimes have to manually fix run the reformatting (with the
+Command Palette {{< var keybind.palette >}} then "reformat").
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -778,7 +793,8 @@ option in their Tools to format Markdown into a "canonical form". The
 reason for this option is because they added a "visual editor mode" to
 writing R Markdown files (which is great if you are more comfortable
 with apps like Word). Let's test out this option. First, let's make sure
-everything has been committed to the Git history.
+everything has been committed to the Git history with
+{{< var keybind.git >}}.
 
 ::: {.callout-warning appearance="default"}
 Use this option *only if* you have your project under Git version
@@ -826,8 +842,9 @@ git_ci("doc/learning.qmd", "Add editor options to qmd file.")
 
 Now, when you save your file, RStudio should automatically reformat the
 Markdown into a standardized format. If you want to switch to using the
-Visual Mode, use `Ctrl-Shift-F4` or the "Visual" button at the top of
-the Source Pane beside the bolding and italicizing buttons.
+Visual Mode, use {{< var keybind.visual_edit >}} or the "Visual" button
+at the top of the Source Pane beside the bolding and italicizing
+buttons.
 
 The instructors won't be using the Visual Mode during the course,
 however you are welcome to. We will be using the "canonical" markdown
@@ -889,9 +906,9 @@ editor_options:
 
 Then, start completing the `TODO` items. Save often and watch as the
 Markdown gets reformatted. After you are done, commit the changes you
-made to the Git history. Then delete both `TODO.md`, followed by
-committing these deletions in the Git history. Click the "Push" button
-to push the changes to GitHub.
+made to the Git history with {{< var keybind.git >}}. Then delete both
+`TODO.md`, followed by committing these deletions in the Git history.
+Click the "Push" button to push the changes to GitHub.
 
 ```{r purl-only-editor-options-to-readme}
 #| echo: false
@@ -921,13 +938,15 @@ There is a function in r3, but r3 isn't installed in our project
 library. However, because r3 has a few GitHub packages as dependencies,
 we need to tell `{renv}` to authenticate us to GitHub so we can install
 as much as we want (GitHub only allows a few unauthenticated installed,
-as a security feature against hackers and cyber attacks). We need to
-create a variable called `GITHUB_TOKEN` by running this function from
-`{credentials}`.
+as a security feature against hackers and cyber attacks). Using
+`gitcreds::gitcreds_set()` with the GitHub token we created should be
+enough for `{renv}` to know what to do. If you encounter an error about
+a GitHub API limit, run this code again so you can authenticate yourself
+with your token.
 
-```{r set-github-pat}
+```{r gitcreds-set-token}
 #| eval: false
-credentials::set_github_pat(TRUE)
+gitcreds::gitcreds_set()
 ```
 
 Then we can install the r3 package into our project with
@@ -944,7 +963,7 @@ Now we can open the feedback survey:
 
 ```{r}
 #| eval: false
-r3::open_feedback_survey_advanced()
+r3::open_feedback_survey()
 ```
 
 ## Summary
@@ -955,7 +974,8 @@ r3::open_feedback_survey_advanced()
 -   Install the necessary dependencies with `renv::restore()` or
     `renv::install()`.
 -   Follow a style guide by using `{styler}`. Combine with the Command
-    Palette (`Ctrl-Shift-P`) to quickly run their functions on code you
-    are actively working on.
+    Palette ({{< var keybind.palette >}}) to quickly run their functions
+    on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+

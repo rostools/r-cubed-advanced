@@ -64,7 +64,7 @@ LearnR3
 ├── doc/
 │   ├── README.md
 │   ├── learning.qmd
-│   └── learning.qmd
+│   └── report.Rmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
@@ -112,13 +112,14 @@ like:
         frequently `source()` from it as we prototype and test out code
         in the R Markdown file. It also creates a clear separation
         between "finalized" code and prototyping code.
--   Use a combination of restarting R (`Ctrl-Shift-F10` or
-    `Session -> Restart R`) and using `source()` (`Ctrl-Shift-S` while
-    in `R/functions.R`) to run the functions inside of `R/functions.R`.
+-   Use a combination of restarting R with {{< var keybind.restart-r >}}
+    (or `Session -> Restart R`) and using `source()`
+    ({{< var keybind.source >}} while in `R/functions.R`) to run the
+    functions inside of `R/functions.R`.
     -   We restart R because it is the only certain way to ensure that
         the R workspace is completely clear. For reproducibility, we
         should always aim to work from a "clean plate".
--   Keeping code readable by frequently (automatically) checking the
+-   Keeping code readable by frequently (automatically) fixing the
     formatting/styling of our code.
 -   For each "output" in a paper (like a figure or table), write one or
     more functions to complete the output and include those functions as
@@ -131,7 +132,7 @@ like:
 -   Automatically reformat Markdown text into a standard, more readable
     format.
 -   Whenever we complete a task, we *add and commit* those file changes
-    and save them into the Git history.
+    and save them into the Git history with {{< var keybind.git >}}.
     -   We use Git because it is the best way of keeping track of what
         was done to your files, when, and why. It keeps your work
         transparent and makes it easier to share your code by uploading
@@ -139,10 +140,23 @@ like:
         to doing better science since it fits with the philosophy of
         doing science.
 
-::: callout-tip
+Many of these "project setup" tasks can take a while to set up, can
+often be very difficult and confusing. This is before you've even gotten
+to the analysis phase of your work. A good analogy for this first step
+is when skyscrapers are built. Watching construction on these projects
+makes it feel like it takes forever for them to finally start going up
+and adding floors. But once they start adding floors, it goes up so
+fast! That's because a lot of the main work is in building up the
+foundation of the building, so that it is strong and stable. This is the
+same with analysis projects, the first phase feels like nothing is
+"moving" but you are building the foundation to everything that comes
+after.
+
+::: {.callout-tip appearance="default"}
 If you finish exercises faster than others in the course, try your hand
-at working through the [Extra Exercises](appendix/extra-exercises.qmd)
-section.
+at working through the [Extra
+Exercises](../appendix/extra-exercises.qmd) section. It is still a
+work-in-progress, so it is a bit small right now.
 :::
 :::
 

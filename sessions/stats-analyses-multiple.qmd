@@ -10,10 +10,7 @@ library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 lipidomics_wide <- lipidomics %>%
   mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
-  pivot_wider(
-    names_from = metabolite, values_from = value, values_fn = mean,
-    names_prefix = "metabolite_"
-  )
+  metabolites_to_wider()
 # lipidomics %>% 
 #   calculate_estimates() %>% 
 #   readr::write_csv(here::here("data/model-estimates.csv"))
@@ -61,45 +58,34 @@ Specific "anti"-objectives:
 
 -   Same as the "anti"-objectives of @sec-stats-analyses-basic.
 
-## Exercise: How would we use functional programming to run multiple models?
+## Apply logistic regression to each metabolite with functional programming
 
-> Time: \~20 minutes.
+::: callout-note
+## Reading task: \~10 minutes
 
 Functional programming underlies many core features of running
-statistical methods on data. This exercise is meant for you to review
-this concept and try to think of it in the context of statistical
-modeling.
-
--   For 10 minutes, go to the sections on [Function
-    Programming](https://r-cubed-intermediate.rostools.org/dry-functionals.html#functional-programming)
-    in the Intermediate R course as well as the
-    [split-apply-combine](https://r-cubed-intermediate.rostools.org/dry-functionals.html#split-apply-combine-technique-and-functionals)
-    and review the concepts.
-
--   For 8 minutes, discuss with your neighbour how we can use functional
-    programming to apply the statistical model to each metabolite. Try
-    to think how the code would look. You don't need to write real R
-    code, but if writing pseudocode helps, go right ahead! Also, don't
-    look ahead :wink:
-
--   For the remaining time, we will discuss our thoughts in the whole
-    group.
+statistical methods on data. Because it is such an important component
+of this session, you'll briefly review the concepts of functional
+programming by going to the [Function
+Programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#functional-programming)
+in the Intermediate R course (**only the reading task section**) as well
+as the
+[split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
+(this is a short section).
+:::
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
 
-After they've finished, either write pseudocode in RStudio or draw this
-out on a whiteboard if it is available. There will probably be several
-different approaches, many of which could also be implemented just fine.
-Ultimately we will replace `create_recipe_spec(metabolite_...)` with
-`create_recipe_spec(starts_with("metabolite_"))`.
+Reinforce the concept of functional programming by briefly going over
+the
+[figure](https://r-cubed-intermediate.rostools.org/sessions/functionals#fig-functionals)
+that visualizes functionals like `map()`.
 :::
 
-## Apply logistic regression to each metabolite
-
-You may have thought of many different ways to run the model on each
-metabolite based on the `lipidomics_wide` dataset. However, these types
-of "split-apply-combine" tasks are (usually) best done using data in the
+There are many ways that you can run a model on each metabolite based on
+the `lipidomics_wide` dataset. However, these types of
+"split-apply-combine" tasks are (usually) best done using data in the
 long form. So we'll start with the original `lipidomics` dataset. Create
 a header and code chunk at the end of the `doc/learning.qmd` file:
 
@@ -116,7 +102,7 @@ case:
 
 ```{r chain-col-to-snakecase}
 lipidomics %>%
-  column_values_to_snakecase(metabolite)
+  column_values_to_snake_case(metabolite)
 ```
 
 The next step is to split the data up. We could use `group_by()`, but in
@@ -144,7 +130,7 @@ output a lot of data frames as a list.
 
 ```{r chain-split-by-metabolite}
 lipidomics %>%
-  column_values_to_snakecase(metabolite) %>%
+  column_values_to_snake_case(metabolite) %>%
   group_split(metabolite)
 ```
 
@@ -154,7 +140,7 @@ person, so we'll use the functional `map()` to apply our custom function
 
 ```{r chain-map-to-wider}
 lipidomics %>%
-  column_values_to_snakecase(metabolite) %>%
+  column_values_to_snake_case(metabolite) %>%
   group_split(metabolite) %>%
   map(metabolites_to_wider)
 ```
@@ -163,9 +149,9 @@ Alright, we now a list of data frames where each data frame has only one
 of the metabolites. These bits of code represent the conceptual action
 of "splitting the data into a list by metabolites". Since we're
 following a function-oriented workflow, let's create a function for
-this. Convert it into a function, add the `r run_roxygen_comments`,
-style using {{< var keybind.styler >}}, move into the `R/functions.R`
-file, and then `source()` the file.
+this. Convert it into a function, add the Roxygen documentation using
+{{< var keybind.roxygen >}} style using {{< var keybind.styler >}}, move
+into the `R/functions.R` file, and then `source()` the file.
 
 ```{r new-function-split-by-metabolite}
 #' Convert the long form dataset into a list of wide form data frames.
@@ -176,7 +162,7 @@ file, and then `source()` the file.
 #'
 split_by_metabolite <- function(data) {
   data %>%
-    column_values_to_snakecase(metabolite) %>%
+    column_values_to_snake_case(metabolite) %>%
     dplyr::group_split(metabolite) %>%
     purrr::map(metabolites_to_wider)
 }
@@ -195,8 +181,9 @@ models. We don't have this function yet, so we need to create it. Let's
 convert the modeling code we used in the exercise above into a function,
 replacing `lipidomics` with `data` and using
 `starts_with("metabolite_")` within the `create_recipe_spec()`. Add the
-`r run_roxygen_comments`, use {{< var keybind.styler >}} to style, move
-into the `R/functions.R` file, and then `source()` the file.
+Roxygen documentation using {{< var keybind.roxygen >}}, use
+{{< var keybind.styler >}} to style, move into the `R/functions.R` file,
+and then `source()` the file.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model
@@ -217,13 +204,14 @@ generate_model_results <- function(data) {
 }
 ```
 
-Then we add it to the end of the pipe, but using `map_dfr()` to convert
-to a data frame:
+Then we add it to the end of the pipe, but using `map()` and
+`list_rbind()` to convert to a data frame:
 
 ```{r chain-generate-model-results}
 lipidomics %>%
   split_by_metabolite() %>%
-  map_dfr(generate_model_results)
+  map(generate_model_results) %>% 
+  list_rbind()
 ```
 
 Since we are only interested in the model results for the metabolites,
@@ -233,7 +221,8 @@ and `str_detect()`.
 ```{r chain-filter-terms}
 model_estimates <- lipidomics %>%
   split_by_metabolite() %>%
-  map_dfr(generate_model_results) %>%
+  map(generate_model_results) %>%
+  list_rbind() %>% 
   filter(str_detect(term, "metabolite_"))
 model_estimates
 ```
@@ -253,14 +242,14 @@ lipidomics %>%
   mutate(term = metabolite)
 ```
 
-Right after that we will use our custom `column_values_to_snakecase()`
+Right after that we will use our custom `column_values_to_snake_case()`
 function on the `term` column.
 
 ```{r dup-column-to-snakecase}
 lipidomics %>%
   select(metabolite) %>%
   mutate(term = metabolite) %>%
-  column_values_to_snakecase(term)
+  column_values_to_snake_case(term)
 ```
 
 We can see that we are missing the `metabolite_` text before each snake
@@ -270,7 +259,7 @@ case'd name, so we can add that with `mutate()` and `str_c()`:
 lipidomics %>%
   select(metabolite) %>%
   mutate(term = metabolite) %>%
-  column_values_to_snakecase(term) %>%
+  column_values_to_snake_case(term) %>%
   mutate(term = str_c("metabolite_", term))
 ```
 
@@ -280,7 +269,7 @@ There are 504 rows, but we only need the unique values of `term` and
 ```{r dup-column-distinct}
 lipidomics %>%
   mutate(term = metabolite) %>%
-  column_values_to_snakecase(term) %>%
+  column_values_to_snake_case(term) %>%
   mutate(term = str_c("metabolite_", term)) %>%
   distinct(term, metabolite)
 ```
@@ -290,7 +279,7 @@ The last step is to `right_join()` with the `model_estimates`:
 ```{r dup-column-full-join}
 lipidomics %>%
   mutate(term = metabolite) %>%
-  column_values_to_snakecase(term) %>%
+  column_values_to_snake_case(term) %>%
   mutate(term = str_c("metabolite_", term)) %>%
   distinct(term, metabolite) %>%
   right_join(model_estimates, by = "term")
@@ -316,10 +305,10 @@ point.
 3.  Paste the code we created into the function, replacing `lipidomics`
     with `data` and `model_estimates` with `model_results`.
 4.  Add `dplyr::` and `stringr::` before their respective functions.
-5.  Add the `r run_roxygen_comments`.
+5.  Add the Roxygen documentation using {{< var keybind.roxygen >}}.
 6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
 7.  Cut and paste the function over into the `R/functions.R` file.
-8.  Commit the changes you've made so far.
+8.  Commit the changes you've made so far with {{< var keybind.git >}}.
 
 ``` r
 ___ <- function(___, ___) {
@@ -341,7 +330,7 @@ ___ <- function(___, ___) {
 add_original_metabolite_names <- function(model_results, data) {
   data %>%
     dplyr::mutate(term = metabolite) %>%
-    column_values_to_snakecase(term) %>%
+    column_values_to_snake_case(term) %>%
     dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
     dplyr::distinct(term, metabolite) %>%
     dplyr::right_join(model_results, by = "term")
@@ -372,10 +361,11 @@ calculate_estimates <- function(data) {
 #'
 calculate_estimates <- function(data) {
   data %>%
-    column_values_to_snakecase(metabolite) %>%
+    column_values_to_snake_case(metabolite) %>%
     dplyr::group_split(metabolite) %>%
     purrr::map(metabolites_to_wider) %>%
-    purrr::map_dfr(generate_model_results) %>%
+    purrr::map(generate_model_results) %>%
+    purrr::list_rbind() %>% 
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
     add_original_metabolite_names(data)
 }
@@ -388,14 +378,15 @@ using the below scaffold as a guide.
 2.  Use the `calculate_estimates()` function in `command`, with
     `lipidomics` as the argument.
 3.  Use {{< var keybind.styler >}} to style and than run
-    `r run_tar_vis_text` to see if the new target gets detected. If it
-    does, than run `r run_tar_make_text`.
-4.  Commit the changes to the Git history.
+    `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}} to
+    see if the new target gets detected. If it does, than run
+    `targets::tar_make()` with {{< var keybind.targets_make >}}.
+4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ``` r
 list(
   ...,
-  list(
+  tar_target(
     name = ___,
     command = ___(___)
   )
@@ -531,9 +522,9 @@ because we'll need to convert this plot code into a function and add it
 as a target in the pipeline. Use the scaffold below as a guide.
 
 1.  Replace `model_estimates` with `results`.
-2.  Move the function into the `R/functions.R` file, add
-    `r run_roxygen_comments`, and use {{< var keybind.styler >}} to
-    style.
+2.  Move the function into the `R/functions.R` file, add the Roxygen
+    documentation using {{< var keybind.roxygen >}}, and use
+    {{< var keybind.styler >}} to style.
 
 ``` r
 plot_estimates <- function(results) {
@@ -585,8 +576,9 @@ And replace all the plot code in the `doc/learning.qmd` file with the
 tar_read(fig_model_estimates)
 ```
 
-Run `r run_tar_make_text` to update the pipeline. Then commit the
-changes to the Git history.
+Run `targets::tar_make()` with {{< var keybind.targets_make >}} to
+update the pipeline. Then commit the changes to the Git history with
+{{< var keybind.git >}}.
 
 ```{r purl-only-tar-make-fig-estimates}
 #| eval: false
@@ -643,14 +635,16 @@ figures), we'll use `tar_read()` to reference the image path.
 tar_read(fig_model_estimates)
 ```
 
-Run `r run_tar_vis_text`, then `r run_tar_make_text`. We now have the
-report rendered to an HTML file! If you open it up in a browser, we can
-see the figures added to it. In the next session we will get more into
-making the document output nicer looking and creating it as a website.
+Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}},
+then `targets::tar_make()` with {{< var keybind.targets_make >}}. We now
+have the report rendered to an HTML file! If you open it up in a
+browser, we can see the figures added to it. In the next session we will
+get more into making the document output nicer looking and creating it
+as a website.
 
 <!-- TODO: Check that the output is rendered to html. Don't forget the TODO -->
 
-:)
+😀
 
 ## Summary
 

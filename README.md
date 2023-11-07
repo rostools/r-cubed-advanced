@@ -63,7 +63,7 @@ encounter a "rate limit" when installing packages:
 
 ``` r
 # usethis::create_github_token()
-credentials::set_github_pat()
+gitcreds::gitcreds_set()
 ```
 
 For Linux users (and maybe Mac?), you will probably need to install

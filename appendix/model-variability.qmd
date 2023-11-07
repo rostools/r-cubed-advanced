@@ -279,15 +279,17 @@ tidy_bootstrap_output <- function(bootstrap_results) {
 
 Then we can start from the beginning again, right from `lipidomics`, to
 `split_by_metabolite()`, to `map()`'ing with
-`generate_model_variation()`, and finally to `map_dfr()` with
-`tidy_bootstrap_output()`. Keep in mind, this will take a while to run.
+`generate_model_variation()`, and finally to `map()` and `list_rbind()`
+with `tidy_bootstrap_output()`. Keep in mind, this will take a while to
+run.
 
 ```{r chain-data-to-bootstrap-results}
 #| eval: false
 metabolites_with_bootstrap_results <- lipidomics %>%
   split_by_metabolite() %>%
   map(generate_model_variation) %>%
-  map_dfr(tidy_bootstrap_output)
+  map(tidy_bootstrap_output) %>% 
+  list_rbind()
 metabolites_with_bootstrap_results
 ```
 
@@ -306,10 +308,10 @@ Continue the workflow we've applied throughout the course:
     guide).
 2.  Include one argument in the `function()` called `data`.
 3.  Replace `lipidomics` in the code with `data`.
-4.  Add the `r run_roxygen_comments`.
+4.  Add the Roxygen documentation with {{< var keybind.roxgyen >}}.
 5.  Cut and paste the function over into the `R/functions.R` file.
 6.  Style using {{< var keybind.styler >}}.
-7.  Commit the changes to the Git history.
+7.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 Use this code as a guide for the function.
 
@@ -335,7 +337,8 @@ calculate_variation <- function(data) {
   data %>%
     split_by_metabolite() %>%
     purrr::map(generate_model_variation) %>%
-    purrr::map_dfr(tidy_bootstrap_output)
+    purrr::map(tidy_bootstrap_output) %>% 
+    purrr::list_rbind()
 }
 ```
 
@@ -345,9 +348,11 @@ Next, add the function to `_targets.R`.
     the file.
 2.  Use `df_model_variation` as the `name` and `calculate_variation()`
     as the `command` with `lipidomics` as argument.
-3.  Run `r run_tar_vis_text` to see what targets are outdated and then
-    run `r run_tar_make_text`.
-4.  Commit the changes to the Git history.
+3.  Run `targets::tar_visnetwork()` using
+    {{< var keybind.targets_vis >}} to see what targets are outdated and
+    then run `targets::tar_make()` with
+    {{< var keybind.targets_make >}}.
+4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 Use this code as a scaffold:
 
@@ -439,7 +444,8 @@ Let's use our function workflow with this code:
 1.  Create the code as a function, add a `data` argument, and replace
     the input data object name with `data`.
 2.  Move the code into the `R/functions.R` file.
-3.  Add the `r run_roxygen_comments` and fill it in.
+3.  Add the Roxygen documentation using {{< var keybind.roxygen >}} and
+    fill it in.
 4.  Style the code using {{< var keybind.styler >}}.
 
 ```{r new-function-plot-variation}
@@ -469,8 +475,10 @@ list(
 )
 ```
 
-Run `r run_tar_vis_text` and then run `r run_tar_make_text`. Once
-everything has been built, commit everything to the Git history.
+Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
+and then run `targets::tar_make()` with
+{{< var keybind.targets_make >}}. Once everything has been built, commit
+everything to the Git history with {{< var keybind.git >}}.
 
 ## Summary
 

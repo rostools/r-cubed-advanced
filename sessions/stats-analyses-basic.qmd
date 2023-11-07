@@ -399,9 +399,9 @@ use_package("recipes")
 use_package("workflows")
 ```
 
-Before continuing, let's **commit** the changes to the Git history.
-Next, in the `doc/learning.qmd` file, on the bottom of the document
-create a new header and code chunk:
+Before continuing, let's **commit** the changes to the Git history with
+{{< var keybind.git >}}. Next, in the `doc/learning.qmd` file, on the
+bottom of the document create a new header and code chunk:
 
 ````         
 ## Building the model
@@ -503,12 +503,12 @@ moving them over into the `R/functions.R` file.
 
 ```{r first-snakecase-fn}
 #| column: page-inset-right
-metabolite_values_to_snake_case <- function(data) {
+column_values_to_snake_case <- function(data) {
   data %>%
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
 }
 lipidomics %>%
-  metabolite_values_to_snake_case()
+  column_values_to_snake_case()
 ```
 
 This on its own should work. *However*, the column we want to change
@@ -579,19 +579,20 @@ We can use curly-curly (combined with `across()`) to apply
 
 ```{r second-snakecase-fn}
 #| column: page-inset-right
-column_values_to_snakecase <- function(data, cols) {
+column_values_to_snake_case <- function(data, cols) {
   data %>%
     dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
 }
 
 lipidomics %>%
-  column_values_to_snakecase(metabolite)
+  column_values_to_snake_case(metabolite)
 ```
 
-Move this new function over into the `R/functions.R` file, add
-`r run_roxygen_comments`, style using {{< var keybind.styler >}},
-`source()` the modified `R/functions.R` file, and add the new function
-above the `pivot_wider()` code in the `doc/learning.qmd` file.
+Move this new function over into the `R/functions.R` file, add Roxygen
+documentation with {{< var keybind.roxygen >}}, style using
+{{< var keybind.styler >}}, `source()` the modified `R/functions.R`
+file, and add the new function above the `pivot_wider()` code in the
+`doc/learning.qmd` file.
 
 ```{r new-function-column-values-to-snakecase}
 #' Convert column value strings into snakecase.
@@ -601,7 +602,7 @@ above the `pivot_wider()` code in the `doc/learning.qmd` file.
 #'
 #' @return A data frame.
 #'
-column_values_to_snakecase <- function(data, cols) {
+column_values_to_snake_case <- function(data, cols) {
   data %>%
     dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
 }
@@ -615,15 +616,11 @@ Just like with the `mutate()`, take the `pivot_wider()` code and convert
 it into a new function.
 
 1.  Name the new function `metabolites_to_wider`.
-2.  Include two arguments in the new `function()`: `data` and
-    `values_fn`. Set the default for `values_fn` to be `mean`. We add
-    this argument in case we want to merge the duplicate cholesterol
-    variables with something other than the mean.
+2.  Include one argument in the new `function()`: `data`.
 3.  Use `data %>%` at the beginning, like we did with the
-    `column_values_to_snakecase()`. Inside the `pivot_wider()` code,
-    replace `values_fn = mean` with `values_fn = values_fn`.
+    `column_values_to_snake_case()`.
 4.  Use `tidyr::` before the `pivot_wider()` function.
-5.  Add `r run_roxygen_comments`.
+5.  Add the Roxygen documentation with {{< var keybind.roxygen >}}.
 6.  Move the function into the `R/functions.R` file.
 7.  Replace the code in the `doc/learning.qmd` file to make use of the
     new functions.
@@ -635,16 +632,15 @@ it into a new function.
 #' Convert the metabolite long format into a wider one.
 #'
 #' @param data The lipidomics dataset.
-#' @param values_fn A function to summarize the multiple cholesterol values.
 #'
 #' @return A wide data frame.
 #'
-metabolites_to_wider <- function(data, values_fn = mean) {
+metabolites_to_wider <- function(data) {
   data %>%
     tidyr::pivot_wider(
       names_from = metabolite,
       values_from = value,
-      values_fn = values_fn,
+      values_fn = mean,
       names_prefix = "metabolite_"
     )
 }
@@ -680,7 +676,7 @@ recipe(lipidomics_wide) %>%
   update_role(class, new_role = "outcome")
 ```
 
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.callout-note collapse="true"}
 ## Instructor note
 
 Describe this next paragraph by switching to this website and showing
@@ -759,7 +755,7 @@ recipe_specs
 ```
 
 Style using {{< var keybind.styler >}}, then commit the changes made to
-the Git history.
+the Git history with {{< var keybind.git >}}.
 
 ## Fitting the model by combining the recipe, model definition, and data
 
@@ -972,8 +968,8 @@ Let's explain this output a bit, each column at a time:
     be using this value at all in presenting the results.
 :::
 
-Before ending, open the Git interface and commit the changes you made.
-Then push your changes up to GitHub.
+Before ending, open the Git interface and commit the changes you made
+with {{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ## Summary
 

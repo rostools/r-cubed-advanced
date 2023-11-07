@@ -169,10 +169,10 @@ would want to do before the primary statistical analysis:
 %%{init:{'theme':'forest', 'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}}}%%
 graph LR
     data[Data] --> fn_desc{{function}} 
-    fn_desc --> tab_desc[Table:<br>descriptive<br>statistics]
-    tab_desc --> paper[Paper]
+    fn_desc --> tab_desc[Output 1:<br>Descriptive<br>statistics<br>table]
+    tab_desc --> paper[Output 3:<br>Paper]
     data --> fn_plot_vars{{function}}
-    fn_plot_vars{{function}} --> plot_distrib[Plot:<br>Continuous<br>variables]
+    fn_plot_vars{{function}} --> plot_distrib[Output 2:<br>Continuous<br>variables<br>plot]
     plot_distrib --> paper
 
 linkStyle 0,1,2,3,4,5 stroke-width:1px;
@@ -239,7 +239,7 @@ git_ci(
 The most important file is the `_targets.R` file. The other two files
 are used for other situations (like running on a Linux server) that we
 won't cover in the course. Before we continue though, let's **commit
-these new files to the Git history**.
+these new files to the Git history** with {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -358,12 +358,11 @@ of the `DESCRIPTION` file.
 ```{r add-tidyverse-deps}
 #| purl: true
 use_package("tidyverse", "depends")
-use_package("dplyr")
 ```
 
 Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
-Git history. Open up the `doc/learning.qmd` file and create a new header
-and code chunk at the bottom of the file.
+Git history with {{< var keybind.git >}}. Open up the `doc/learning.qmd`
+file and create a new header and code chunk at the bottom of the file.
 
 ````         
 
@@ -411,11 +410,12 @@ write out the code!
 lipidomics %>%
   group_by(metabolite) %>%
   summarise(across(value, list(mean = mean, sd = sd))) %>%
-  mutate(across(where(is.numeric), round, digits = 1))
+  mutate(across(where(is.numeric), ~round(.x, digits = 1)))
 ```
 
 After that, style the file using {{< var keybind.styler >}} on the file.
-Than we will **commit** the changes to the Git history.
+Than we will **commit** the changes to the Git history with
+{{< var keybind.git >}}.
 
 ## Exercise: Convert summary statistics code into a function
 
@@ -438,18 +438,18 @@ these tasks:
     formatted correctly. You might need to manually force a styling if
     lines are too long.
 5.  With the *cursor* inside the function, add some roxygen
-    documentation with `Ctrl-Shift-P` followed by typing "roxygen
-    comment". Remove the lines that contain `@examples` and `@export`,
-    then fill in the other details (like the `@params` and `Title`). In
-    the `@return` section, write "A data.frame/tibble."
+    documentation with {{< var keybind.palette >}} followed by typing
+    "roxygen comment". Remove the lines that contain `@examples` and
+    `@export`, then fill in the other details (like the `@params` and
+    `Title`). In the `@return` section, write "A data.frame/tibble."
 6.  Cut and paste the function over into the `R/functions.R` file.
-7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
-    code by running `descriptive_stats(lipidomics)` in the Console. If
-    it works, do the last task.
+7.  Source the `R/functions.R` file with {{< var keybind.source >}}, and
+    then test the code by running `descriptive_stats(lipidomics)` in the
+    Console. If it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
-    changes you made to them.
+    changes you made to them with {{< var keybind.git >}}.
 
-::: {.callout-note appearance="default"}
+::: {.callout-tip appearance="default"}
 In the intermediate course, we highly suggested using `return()` at the
 end of the function. Technically we don't need an explicit `return()`,
 since the output of the last code that R runs within the function will
@@ -479,7 +479,7 @@ descriptive_stats <- function(data) {
   data %>%
     dplyr::group_by(metabolite) %>%
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
-    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), round, digits = 1))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
 }
 ```
 
@@ -507,16 +507,8 @@ list(
 )
 ```
 
-We haven't added `{readr}` as a dependency yet, so let's add it to the
-DESCRIPTION file.
-
-```{r}
-use_package("readr")
-```
-
-Let's run `{targets}` to see what happens! You can either use the
-Command Palette (`Ctrl-Shift-P`, then type "run targets") or run this
-code in the Console:
+Let's run `{targets}` to see what happens! You can either use
+{{< var keybind.targets_make >}} or run this code in the Console:
 
 ``` r
 targets::tar_make()
@@ -524,9 +516,11 @@ targets::tar_make()
 
 <!-- TODO: Check how this works, and update next section -->
 
-Because of the way `{targets}` works, we need to first create a pipeline
-target of *only* the path to the data file with the `format = "file"`,
-and then we can load it with `{readr}`.
+While this `{targets}` pipeline works, we would not be able to
+automatically re-run our pipeline if our underlying data changes. To
+track the actual data file we need to create a pipeline target of the data
+file. We can accomplish this by using the argument `format = "file"` inside
+the `tar_target()` before loading the data using `{readr}`.
 
 ``` r
 list(
@@ -577,13 +571,8 @@ revise_by_line_num(
 git_ci("_targets.R", "Add new targets to run.")
 ```
 
-Now, let's try running `{targets}` again! You can either use the Command
-Palette (`Ctrl-Shift-P`, then type "run targets") or run this code in
-the Console:
-
-``` r
-targets::tar_make()
-```
+Now, let's try running `{targets}` again using
+{{< var keybind.targets_make >}}.
 
 It probably won't run though. That's because `{targets}` doesn't know
 about the packages that you need for the pipeline. To add it, we need to
@@ -594,26 +583,27 @@ script using code, since we already track the packages in the
 `DESCRIPTION` file. To access the dependencies, we can use this
 function:
 
-``` r
-desc::desc_get_deps()$package
+```{r}
+# The output shown below lists the dependencies 
+# for this course website.
+renv::dependencies()
 ```
 
-But this code also picks up the dependency on R itself. Usually the R
-dependency is listed as the first item. If it isn't, we will run:
+This function will find all uses of packages as dependencies in a
+project, so it can also list duplicate packages. To show only the unique
+packages used, we'll use `unique()` and `$Package` (the variable name),
+as well as stopping the function from outputting messages with
+`quiet = TRUE`:
 
 ```{r}
-#| eval: false
-#| purl: true
-use_tidy_description()
+unique(renv::dependencies(quiet = TRUE)$Package)
 ```
 
-This function fixes up the `DESCRIPTION` file, with R now being the
-first item. Using the same code as above from the `{desc}` package, we
-can remove R with`[-1]` and put it in the place of the `packages`
-argument in the `_targets.R` file:
+This code we can now place in the `packages` argument of
+`tar_option_set()` in the `_targets.R` file:
 
 ``` r
-packages = desc::desc_get_deps()$package[-1]
+packages = unique(renv::dependencies(quiet = TRUE)$Package)
 ```
 
 ```{r purl-only-add-packages-to-targets}
@@ -623,15 +613,14 @@ packages = desc::desc_get_deps()$package[-1]
 revise_by_text(
   path = "_targets.R",
   original = "packages = .*$",
-  replacement = "packages = desc::desc_get_deps()$package[-1],"
+  replacement = "packages = unique(renv::dependencies(quiet = TRUE)$Package),"
 )
 ```
 
-Try running `{targets}` again with either `targets::tar_make()` or the
-Command Palette (`Ctrl-Shift-P`, then type "run targets"). It should run
-through! We also see that a new folder has been created called
-`_targets/`. Since we don't want to track this in Git, we should ignore
-it with:
+Try running `{targets}` again with either `targets::tar_make()` or
+{{< var keybind.targets_make >}}. It should run through! We also see
+that a new folder has been created called `_targets/`. Since we don't
+want to track this in Git, we should ignore it with:
 
 ```{r ignore-targets-folder}
 #| purl: true
@@ -655,7 +644,8 @@ Or to see what pipeline targets are outdated:
 targets::tar_outdated()
 ```
 
-Before continuing, let's **commit the changes to the Git history**.
+Before continuing, let's **commit the changes to the Git history** with
+{{< var keybind.git >}}.
 
 ```{r purl-only-commit-packages-to-targets}
 #| eval: false
@@ -678,15 +668,16 @@ Let's make a change to our function and test out how the
     after the second `sd`. Note, IQR should look like `iqr = IQR` since
     we want the output columns to have a lowercase for the column names.
 3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
-    using the Command Palette `Ctrl-Shift-P`, then "targets outdated" or
-    "targets visualize"). What does it show?
+    using the Command Palette {{< var keybind.palette >}}, then "targets
+    outdated" or "targets visual"). What does it show?
 4.  Style using {{< var keybind.styler >}}. You might need to force a
     reformat if the code is too long by highlighting the line and using
-    `Ctrl-Shift-P`, then "reformat".
-5.  Run `tar_make()` in the Console (or `Ctrl-Shift-P`, then "targets
-    run", selecting the "background" option). Re-check for outdated
-    targets and visualize the network again.
-6.  Open up the Git interface and commit the changes to the Git history.
+    {{< var keybind.palette >}}, then "reformat".
+5.  Run `tar_make()` in the Console or with
+    {{< var keybind.targets_make >}}. Re-check for outdated targets and
+    visualize the network again.
+6.  Open up the Git interface and commit the changes to the Git history
+    with {{< var keybind.git >}}.
 
 ```{r solution-new-function-descriptive-stats}
 #| code-fold: true
@@ -706,29 +697,29 @@ descriptive_stats <- function(data) {
       median = median,
       iqr = IQR
     ))) %>%
-    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), round, digits = 1))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
 }
 ```
 
 ## Creating figure outputs
 
 Not only can we create data frames with targets (like above), but also
-figures. Let's write some code to create the plot for our item 2 that we
-initially decided at the start of this session. Since we're using
-`{ggplot2}` to write this code, let's add it to our `DESCRIPTION` file
-and to our `{renv}` project library.
+figures. Let's write some code to create the plot we listed as our
+"output 2" in @fig-pipeline-schematic. Since we're using `{ggplot2}` to
+write this code, let's add it to our `DESCRIPTION` file and to our
+`{renv}` project library.
 
 ```{r add-ggplot2-deps}
 #| purl: true
 use_package("ggplot2")
 ```
 
-Next, we'll write the code to create item 2: The distribution of each
-metabolite. We'll use `geom_histogram()`, nothing too fancy. And since
-the data is already in long format, we can easily use `facet_wrap()` to
-create a plot for each metabolite. We use `scales = "free"` because each
-metabolite doesn't have the same range of values (some are small, others
-are quite large).
+Next, we'll switch back to `doc/lesson.qmd` and write the code to this
+plot of the distribution of each metabolite. We'll use
+`geom_histogram()`, nothing too fancy. And since the data is already in
+long format, we can easily use `facet_wrap()` to create a plot for each
+metabolite. We use `scales = "free"` because each metabolite doesn't
+have the same range of values (some are small, others are quite large).
 
 ```{r histogram-metabolites}
 #| eval: true
@@ -749,8 +740,8 @@ convert it into a function. Just like you did with the
 `descriptive_stats()` function in the exercise above, complete these
 tasks:
 
-1.  Wrap the code with `function() {...}` and name the new function
-    `plot_distributions`.
+1.  Wrap the plot code inside `doc/lesson.qmd` with `function() {...}`
+    and name the new function `plot_distributions`.
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
 3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
@@ -759,16 +750,16 @@ tasks:
     correctly. You might need to manually force a styling if lines are
     too long.
 5.  With the *cursor* inside the function, add some roxygen
-    documentation with `Ctrl-Shift-P` followed by typing "roxygen
-    comment". Remove the lines that contain `@examples` and `@export`,
-    then fill in the other details (like the `@params` and `Title`). In
-    the `@return` section, write "A plot object."
+    documentation with {{< var keybind.roxygen >}}. Remove the lines
+    that contain `@examples` and `@export`, then fill in the other
+    details (like the `@params` and `Title`). In the `@return` section,
+    write "A plot object."
 6.  Cut and paste the function over into the `R/functions.R` file.
-7.  Source the `R/functions.R` file (`Ctrl-Shift-S`) and then test the
-    code by running `plot_distributions(lipidomics)` in the Console. If
-    it works, do the last task.
+7.  Source the `R/functions.R` file ({{< var keybind.source >}}) and
+    then test the code by running `plot_distributions(lipidomics)` in
+    the Console. If it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
-    changes you made to them.
+    changes you made to them with {{< var keybind.git >}}.
 
 Use this scaffolding code to help guide you to write the code into a
 function.
@@ -815,12 +806,13 @@ list(
 )
 ```
 
-Next, test that it works by running `targets::tar_visnetwork()` (or
-`Ctrl-Shift-P`, then type "target visual") or `targets::tar_outdated()`.
-You should see that the new item is "outdated". Then run
-`targets::tar_make()` (`Ctrl-Shift-P`, then "targets run") to update the
-pipeline. If it all works, than **commit the changes to the Git
-history**.
+Next, test that it works by running `targets::tar_visnetwork()` using
+{{< var keybind.targets_vis >}} or running `targets::tar_outdated()`
+with {{< var keybind.targets_outdated >}}. You should see that the new
+item is "outdated". Then run `targets::tar_make()` using
+{{< var keybind.targets_make >}} to update the pipeline. If it all
+works, than **commit the changes to the Git history** with
+{{< var keybind.git >}}.
 
 ```{r purl-only-plot-fns-in-targets}
 #| eval: false
@@ -852,10 +844,10 @@ git_ci("_targets.R", "Update targets with plot item")
 
 ## Incorporating Quarto targets
 
-Last, but not least, we want to make our final item: The Quarto
-document. Adding a Quarto document as a target inside `_targets.R` is
-fairly straightforward. We need to install the helper package
-`{tarchetypes}` first:
+Last, but not least, we want to make the final output 3 from
+@fig-pipeline-schematic: The Quarto document. Adding a Quarto document
+as a target inside `_targets.R` is fairly straightforward. We need to
+install the helper package `{tarchetypes}` first:
 
 ```{r tarchetypes-deps}
 #| purl: true
@@ -881,15 +873,22 @@ list(
 )
 ```
 
-Now when we run `r run_tar_make_text`, the Quarto file also gets
-re-built. But when we use `targets::tar_visnetwork()`, we don't see the
-connections with plot and descriptive statistics. That's because we
-haven't used them in a way `{targets}` can recognize. For that, we need
-to use the function `targets::tar_read()`.
+Now when we run `targets::tar_make()` with
+{{< var keybind.targets_make >}}, the Quarto file also gets re-built.
+But when we use `targets::tar_visnetwork()` using
+{{< var keybind.targets_vis >}}, we don't see the connections with plot
+and descriptive statistics. That's because we haven't used them in a way
+`{targets}` can recognize. For that, we need to use the function
+`targets::tar_read()`. And because our Quarto file is located in the
+`doc/` folder, we also have to tell Quarto where the targets "store"
+(stored objects that `targets::tar_read()` looks for), which we do by
+using `targets::tar_config_set()`.
 
 Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
 below the YAML header, and create a new header and code chunk and make
-use of the `targets::tar_read()`. Because the Quarto file is in anoth
+use of the `targets::tar_read()`.
+
+<!-- Because the Quarto file is in another folder, -->
 
 ````         
 ---
@@ -897,6 +896,7 @@ use of the `targets::tar_read()`. Because the Quarto file is in anoth
 ---
 
 ```{{r setup}}
+targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(targets)
 lipidomics <- tar_read(lipidomics)
@@ -909,7 +909,7 @@ tar_read(df_stats_by_metabolite)
 ```
 
 ```{{r}}
-tar_read(fig_distribution_metabolites)
+tar_read(fig_metabolites_distribution)
 ```
 ````
 
@@ -930,7 +930,7 @@ basic_stats_md_text <- c("```{r setup}",
   "```",
   "",
   "```{r}",
-  "tar_read(fig_distribution_metabolites)",
+  "tar_read(fig_metabolites_distribution)",
   "```")
 print_file("doc/learning.qmd")
 revise_by_line_num(
@@ -988,11 +988,13 @@ lipidomics %>%
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 ```
 
-Re-run `r run_tar_vis_text` to see that it now detects the connections
-between the pipeline targets. Now, run `r run_tar_make_text` again to
-see everything re-build! Last things are to re-style using
+Re-run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
+to see that it now detects the connections between the pipeline targets.
+Then, run `targets::tar_make()` with {{< var keybind.targets_make >}}
+again to see everything re-build! Last things are to re-style using
 {{< var keybind.styler >}}, then **commit** the changes to the Git
-history before moving on. Then push your changes up to GitHub.
+history before moving on with {{< var keybind.git >}}. Then push your
+changes up to GitHub.
 
 ## Fixing issues in the stored pipeline data
 

@@ -44,8 +44,8 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
-    purrr::prepend("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", before = 3) |>
-    purrr::prepend("source('../project-build-functions.R')", before = 3) |>
+    purrr::append("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", after = 2) |>
+    purrr::append("source('../project-build-functions.R')", after = 2) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop", overwrite = TRUE)
 }
@@ -59,7 +59,3 @@ extract_functions_from_qmd <- function() {
     unlist() |>
     readr::write_lines(here::here("R/project-functions.R"))
 }
-
-run_tar_make_text <- '`targets::tar_make()` (`Ctrl-Shift-P`, then type "targets run")' # nolint
-run_tar_vis_text <- '`targets::tar_visnetwork()` (`Ctrl-Shift-P`, then type "targets visual")' # nolint
-run_roxygen_comments <- 'Roxygen comments (have the cursor inside the function, type `Ctrl-Shift-P`, then type "roxygen")' # nolint
