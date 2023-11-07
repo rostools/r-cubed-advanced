@@ -648,61 +648,15 @@ Or to see what pipeline targets are outdated:
 targets::tar_outdated()
 ```
 
-Before continuing, let's **commit the changes to the Git history** with
+Before continuing, let's commit the changes to the Git history with
 {{< var keybind.git >}}.
 
 ```{r purl-only-commit-packages-to-targets}
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c(".gitignore", "_targets.R", "DESCRIPTION", "renv.lock"), 
-       "Tell targets about packages, ignore _targets/")
-```
-
-## Exercise: Update function to also calculate median and IQR
-
-> Time: \~8 minutes.
-
-Let's make a change to our function and test out how the
-`tar_outdated()` and `tar_visnetwork()` work.
-
-1.  Open up the `R/functions.R` file.
-2.  Add median and interquartile range (IQR) to the `summarise()`
-    function, by adding it to the end of `list(mean = mean, sd = sd)`,
-    after the second `sd`. Note, IQR should look like `iqr = IQR` since
-    we want the output columns to have a lowercase for the column names.
-3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
-    using the Command Palette {{< var keybind.palette >}}, then "targets
-    outdated" or "targets visual"). What does it show?
-4.  Style using {{< var keybind.styler >}}. You might need to force a
-    reformat if the code is too long by highlighting the line and using
-    {{< var keybind.palette >}}, then "reformat".
-5.  Run `tar_make()` in the Console or with
-    {{< var keybind.targets_make >}}. Re-check for outdated targets and
-    visualize the network again.
-6.  Open up the Git interface and commit the changes to the Git history
-    with {{< var keybind.git >}}.
-
-```{r solution-new-function-descriptive-stats}
-#| code-fold: true
-#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
-#' Calculate descriptive statistics of each metabolite.
-#'
-#' @param data Lipidomics dataset.
-#'
-#' @return A data.frame/tibble.
-#'
-descriptive_stats <- function(data) {
-  data %>%
-    dplyr::group_by(metabolite) %>%
-    dplyr::summarise(dplyr::across(value, list(
-      mean = mean,
-      sd = sd,
-      median = median,
-      iqr = IQR
-    ))) %>%
-    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
-}
+git_ci(c("_targets", "_targets.R", "DESCRIPTION", "renv.lock"), 
+       "Tell targets about packages, add _targets")
 ```
 
 ## Creating figure outputs
