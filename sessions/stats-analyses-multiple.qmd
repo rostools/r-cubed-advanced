@@ -584,17 +584,6 @@ list(
 )
 ```
 
-And replace all the plot code in the `doc/learning.qmd` file with the
-`tar_read()`:
-
-```{{r}}
-tar_read(fig_model_estimates)
-```
-
-Run `targets::tar_make()` with {{< var keybind.targets_make >}} to
-update the pipeline. Then commit the changes to the Git history with
-{{< var keybind.git >}}.
-
 ```{r purl-only-tar-make-fig-estimates}
 #| eval: false
 #| echo: false
@@ -633,9 +622,6 @@ revise_by_line_num(
   remove_original_lines = -30,
   insert_at_line = 31
 )
-
-targets::tar_visnetwork()
-targets::tar_make()
 git_ci("_targets", "Add plot estimates target")
 ```
 
@@ -655,11 +641,35 @@ then `targets::tar_make()` with {{< var keybind.targets_make >}}. We now
 have the report rendered to an HTML file! If you open it up in a
 browser, we can see the figures added to it. In the next session we will
 get more into making the document output nicer looking and creating it
-as a website.
+as a website. Before ending, commit the changes to the Git history with
+{{< var keybind.git >}}.
 
 <!-- TODO: Check that the output is rendered to html. Don't forget the TODO -->
 
-😀
+```{r purl-only-tar-read-in-quarto}
+#| eval: false
+#| echo: false
+#| purl: true
+plot_estimates_md_text <- c(
+  "",
+  "```{{r}}",
+  "tar_read(fig_model_estimates)",
+  "```",
+  ""
+)
+
+print_file("doc/learning.qmd")
+revise_by_line_num(
+  "doc/learning.qmd",
+  plot_estimates_md_text,
+  # Update numbers
+  remove_original_lines = -40,
+  insert_at_line = 39
+)
+git_ci("doc/learning.qmd", "Add code for model estimates to report.")
+targets::tar_visnetwork()
+targets::tar_make()
+```
 
 ## Summary
 
