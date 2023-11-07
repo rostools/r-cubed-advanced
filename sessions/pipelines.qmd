@@ -347,13 +347,13 @@ list(
 ```
 :::
 
-Let's start writing code to create the four items we listed above: some
-descriptive statistics, a plot of the continuous lipid variables, and a
-report (R Markdown). Since we'll use `{tidyverse}`, specifically
-`{dplyr}`, to calculate the summary statistics, we need to add it to our
-dependencies and install it in the project library. `{tidyverse}` is a
-special "meta"-package so we need to add it to the `"depends"` section
-of the `DESCRIPTION` file.
+Let's start writing code to create the three items we listed above in
+@fig-pipeline-schematic: some descriptive statistics, a plot of the
+continuous lipid variables, and a report (R Markdown). Since we'll use
+`{tidyverse}`, specifically `{dplyr}`, to calculate the summary
+statistics, we need to add it to our dependencies and install it in the
+project library. `{tidyverse}` is a special "meta"-package so we need to
+add it to the `"depends"` section of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| purl: true
