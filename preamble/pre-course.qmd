@@ -309,8 +309,8 @@ the code below into the script.
 #| echo: false
 #| purl: true
 readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R") |>
-  writeLines(here::here("data-raw/nmr-omics.R"))
-source(here::here("data-raw/nmr-omics.R"))
+  writeLines(usethis::proj_path("data-raw/nmr-omics.R"))
+source(usethis::proj_path("data-raw/nmr-omics.R"))
 ```
 
 Since this is an advanced course, you can run the lines one at a line

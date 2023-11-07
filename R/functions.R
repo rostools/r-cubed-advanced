@@ -41,11 +41,12 @@ extract_chunks <- function() {
   fs::dir_create("_ignore")
   r_files |>
     purrr::map(readr::read_lines) |>
+    purrr::map2(basename(r_files), ~ append(.x, glue::glue("# From {.y} -----"), after = 0)) |>
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
-    purrr::append("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", after = 2) |>
-    purrr::append("source('../project-build-functions.R')", after = 2) |>
+    append("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", after = 3) |>
+    append("source('../project-build-functions.R')", after = 3) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop", overwrite = TRUE)
 }
