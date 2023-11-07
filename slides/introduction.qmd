@@ -61,12 +61,6 @@ Ask who knows what reproducibility is and could explain it.
 :::
 :::
 
-## Disclaimer: This material is *brand* new {.center}
-
-### We *need* your feedback to improve it :grin:
-
-There will be lots of bumps along the way!
-
 ## Getting or asking for help :raising_hand_woman:
 
 ::: columns
