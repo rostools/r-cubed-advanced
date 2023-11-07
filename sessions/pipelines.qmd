@@ -361,8 +361,11 @@ use_package("tidyverse", "depends")
 ```
 
 Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
-Git history with {{< var keybind.git >}}. Open up the `doc/learning.qmd`
-file and create a new header and code chunk at the bottom of the file.
+Git history with {{< var keybind.git >}}.
+
+Now, let's start doing some data analysis so that we can add to our
+pipeline later on. First, open up the `doc/learning.qmd` file and create
+a new header and code chunk at the bottom of the file.
 
 ````         
 
