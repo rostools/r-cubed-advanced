@@ -1,7 +1,5 @@
 project:
-  type: book
-  output-dir: public
-  execute-dir: project
+  type: r3-theme
   pre-render:
     - mkdir -p _temp
     - bash _build-slides.sh
