@@ -449,8 +449,8 @@ classDef folderEnv fill:transparent,stroke-dasharray:5;
 class renv_env,global folderEnv
 ```
 
-**Before we continue, let's commit the new files to the Git history**
-with {{< var keybind.git >}}.
+Let's commit the new files to the Git history with
+{{< var keybind.git >}}.
 
 The general workflow for using `{renv}` while working on your project is
 described in more detail on the [Introduction to
@@ -541,7 +541,7 @@ finish working on a task. If that's the case, you can always do
 `renv::deactivate()` to stop using `{renv}` and `renv::activate()` to
 reactivate it.
 
-**Let's commit the changes made to the Git history** with
+Let's commit the changes made to the Git history with
 {{< var keybind.git >}}.
 
 ::: callout-note
