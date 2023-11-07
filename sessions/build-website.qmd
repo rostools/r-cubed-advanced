@@ -1,7 +1,5 @@
 # Publicizing your analyses with a website {#sec-build-website}
 
-{{< include ../includes/_wip.qmd >}}
-
 ```{r setup}
 #| include: false
 source(here::here("R/functions.R"))
