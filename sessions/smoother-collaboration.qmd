@@ -516,8 +516,9 @@ git_ci(c("renv.lock", "renv"), "Save lock file.")
 These three options make it so that whenever you add a package with
 `usethis::use_package()` or `pak::pak()`, `{renv}` will always run
 `renv::snapshot()` and the snapshot explicitly only look at the
-`DESCRIPTION` file. Let's restart the R session so that the `.Rprofile`
-changes get activated.
+`DESCRIPTION` file. Let's restart the R session with
+{{< var keybind.restart-r >}} so that the `.Rprofile` changes get
+activated.
 
 Now our `{renv}` workflow will largely be automated for us, as long as
 we do `usethis::use_package()`. If we ever ever return to a project or
