@@ -623,13 +623,11 @@ revise_by_text(
 
 Try running `{targets}` again with either `targets::tar_make()` or
 {{< var keybind.targets_make >}}. It should run through! We also see
-that a new folder has been created called `_targets/`. Since we don't
-want to track this in Git, we should ignore it with:
-
-```{r ignore-targets-folder}
-#| purl: true
-use_git_ignore("_targets")
-```
+that a new folder has been created called `_targets/`. Inside this
+folder it will keep all of the output from running the code. It comes
+with i's own `.gitignore` file so that you don't track all the files
+inside, since they aren't necessary. Only the `_targets/meta/meta` is
+needed to include in Git.
 
 We can visualize our individual pipeline targets that we track through
 `tar_target()` now too, which can be useful as you add more and more
