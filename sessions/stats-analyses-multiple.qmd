@@ -126,23 +126,44 @@ use_package("purrr")
 ```
 
 Then we run `group_split()` on the `metabolite` column, which will
-output a lot of data frames as a list.
+output a lot of data frames as a list. The website only shows the first
+three.
 
 ```{r chain-split-by-metabolite}
+#| eval: false
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
   group_split(metabolite)
 ```
 
+```{r output-only-chain-split-by-metabolite}
+#| echo: false 
+lipidomics %>%
+  column_values_to_snake_case(metabolite) %>%
+  group_split(metabolite) %>% 
+  head(3)
+```
+
 Remember that logistic regression models need each row to be a single
 person, so we'll use the functional `map()` to apply our custom function
-`metabolites_to_wider()` on each of the split list items:
+`metabolites_to_wider()` on each of the split list items (only showing
+the first three):
 
 ```{r chain-map-to-wider}
+#| eval: false 
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
   group_split(metabolite) %>%
   map(metabolites_to_wider)
+```
+
+```{r output-only-chain-map-to-wider}
+#| echo: false 
+lipidomics %>%
+  column_values_to_snake_case(metabolite) %>%
+  group_split(metabolite) %>%
+  map(metabolites_to_wider) %>% 
+  head(3)
 ```
 
 Alright, we now a list of data frames where each data frame has only one
@@ -151,7 +172,8 @@ of "splitting the data into a list by metabolites". Since we're
 following a function-oriented workflow, let's create a function for
 this. Convert it into a function, add the Roxygen documentation using
 {{< var keybind.roxygen >}} style using {{< var keybind.styler >}}, move
-into the `R/functions.R` file, and then `source()` the file.
+into the `R/functions.R` file, and then `source()` the file with
+{{< var keybind.source >}}.
 
 ```{r new-function-split-by-metabolite}
 #' Convert the long form dataset into a list of wide form data frames.
@@ -171,8 +193,16 @@ split_by_metabolite <- function(data) {
 In the `doc/learning.qmd`, use the new function in the code:
 
 ```{r split-by-metabolite}
+#| eval: false
 lipidomics %>%
   split_by_metabolite()
+```
+
+```{r output-only-split-by-metabolite}
+#| echo: false
+lipidomics %>%
+  split_by_metabolite() %>% 
+  head(3)
 ```
 
 Like we did with the `metabolite_to_wider()`, we need to pipe the output
@@ -183,7 +213,7 @@ replacing `lipidomics` with `data` and using
 `starts_with("metabolite_")` within the `create_recipe_spec()`. Add the
 Roxygen documentation using {{< var keybind.roxygen >}}, use
 {{< var keybind.styler >}} to style, move into the `R/functions.R` file,
-and then `source()` the file.
+and then `source()` the file with {{< var keybind.source >}}.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model

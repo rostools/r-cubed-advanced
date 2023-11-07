@@ -434,7 +434,7 @@ Let's consider our `lipidomics` dataset. In order for us to start our
 statistical analysis, we need the data to be structured in a certain way
 to be able to smoothly use it as input in our model. We have at least
 three easy observations on necessary transformations of the data, two of
-which ca be fixed with a single `{tidyr}` function, while the third one
+which can be fixed with a single `{tidyr}` function, while the third one
 can be fixed with `{recipes}`. Can you spot them?
 
 ```{r print-lipidomics-data}
@@ -590,9 +590,9 @@ lipidomics %>%
 
 Move this new function over into the `R/functions.R` file, add Roxygen
 documentation with {{< var keybind.roxygen >}}, style using
-{{< var keybind.styler >}}, `source()` the modified `R/functions.R`
-file, and add the new function above the `pivot_wider()` code in the
-`doc/learning.qmd` file.
+{{< var keybind.styler >}}, `source()` the modified `R/functions.R` file
+with {{< var keybind.source >}}, and add the new function above the
+`pivot_wider()` code in the `doc/learning.qmd` file.
 
 ```{r new-function-column-values-to-snakecase}
 #' Convert column value strings into snakecase.
