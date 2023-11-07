@@ -594,16 +594,16 @@ renv::dependencies()
 ```
 
 This function will find all uses of packages as dependencies in a
-project, so it can also list duplicate packages. To show only the unique
-packages used, we'll use `unique()` and `$Package` (the variable name),
-as well as stopping the function from outputting messages with
-`quiet = TRUE`:
+project. Since packages can be used multiple times, it can also list the
+packages more than once. To show only the unique packages used, we'll
+use `unique()` and `$Package` (the variable name), as well as stopping
+the function from outputting messages with `quiet = TRUE`:
 
 ```{r}
 unique(renv::dependencies(quiet = TRUE)$Package)
 ```
 
-This code we can now place in the `packages` argument of
+We can now put this code in the `packages` argument of
 `tar_option_set()` in the `_targets.R` file:
 
 ``` r
