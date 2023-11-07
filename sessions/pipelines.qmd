@@ -422,7 +422,7 @@ Than we will **commit** the changes to the Git history with
 
 ## Exercise: Convert summary statistics code into a function
 
-> Time: \~25 minutes.
+> Time: \~20 minutes.
 
 While inside the `doc/learning.qmd` file, use the "function-oriented"
 workflow, as taught in the [intermediate
