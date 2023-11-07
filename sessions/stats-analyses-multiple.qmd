@@ -557,7 +557,9 @@ plot_estimates <- function(results) {
 ```
 
 Then, after doing that, add the new function as a target in the
-pipeline, name the new `name` as `fig_model_estimates`.
+pipeline, name the new `name` as `fig_model_estimates`. Inside the
+`plot_estimates()` function, use the the model estimate target we
+created previously (`df_model_estimates`).
 
 ``` r
 list(
@@ -565,6 +567,19 @@ list(
   tar_target(
     name = ___,
     command = plot_estimates(___)
+  )
+)
+```
+
+```{r solution-target-plot-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+list(
+  # ...,
+  tar_target(
+    name = fig_model_estimates,
+    command = plot_estimates(df_model_estimates)
   )
 )
 ```
