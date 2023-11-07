@@ -339,7 +339,7 @@ package dependencies.
         package versions, it can sometimes be difficult to re-install
         them.
 
-::: aside
+::: margin-content
 It's sometimes very annoying to debug these "virtual environments". But
 thankfully you can turn it off with `renv::deactivate()`! It still is
 worth it to start considering and accounting for how your dependencies
