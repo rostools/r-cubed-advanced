@@ -516,11 +516,11 @@ targets::tar_make()
 
 <!-- TODO: Check how this works, and update next section -->
 
-While this `{targets}` pipeline work, we would not be able to
-automatically rerun out pipeline if our underlying data changes. To
-track the actual data file we need to create a pipeline target of data
-file. We can acomplish this using the argument `format = "file"` inside
-`tar_target()` before loading the data using `{readr}`.
+While this `{targets}` pipeline works, we would not be able to
+automatically re-run our pipeline if our underlying data changes. To
+track the actual data file we need to create a pipeline target of the data
+file. We can accomplish this by using the argument `format = "file"` inside
+the `tar_target()` before loading the data using `{readr}`.
 
 ``` r
 list(

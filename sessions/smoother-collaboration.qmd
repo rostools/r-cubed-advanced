@@ -324,8 +324,8 @@ package dependencies.
         packages depend on, are installed within your project,
         installation times can sometimes be a bit long.
 
-    -   When you restore a library from a renv.lock file that utilize
-        old package versions, it can sometimes be cumersome to
+    -   When you restore a library from a `renv.lock` file that uses
+        old package versions, it can sometimes be difficult to
         re-install them.
 
 ::: aside
@@ -450,10 +450,10 @@ the project for any packages used and add them to the `renv.lock` file.
 
 However, in science, we want to be more explicit rather than implicit.
 The way `{renv}` explicitly adds to the `renv.lock` file is by only
-scanning the `DESCRIPTION` file. While we allready selected to use
+scanning the `DESCRIPTION` file. While we have already selected to use
 explicit declaration when initilizing `{renv}`, this option is specific
-for our R instance. In order for `{renv}` to always work explicit, we
-need to set an project option for it. This option needs to be added to
+to our R instance. In order for `{renv}` to always work explicitly, we
+need to set a project option for it. This option needs to be added to
 the project's `.Rprofile` file.
 
 We also want to use the `{pak}` package to install R packages instead of
