@@ -328,9 +328,9 @@ package dependencies.
         packages depend on, are installed within your project,
         installation times can sometimes be a bit long.
 
-    -   When you restore a library from a `renv.lock` file that uses
-        old package versions, it can sometimes be difficult to
-        re-install them.
+    -   When you restore a library from a `renv.lock` file that uses old
+        package versions, it can sometimes be difficult to re-install
+        them.
 
 ::: aside
 It's sometimes very annoying to debug these "virtual environments". But
@@ -982,4 +982,3 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-
