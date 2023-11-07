@@ -274,6 +274,11 @@ library can be found by running this function:
 .libPaths()
 ```
 
+::: {.callout-note appearance="default"}
+The default libary paths are most likely different on your computer, and
+depends on the computer and R setup.
+:::
+
 Those file paths are where all R packages are installed to. If there is
 more than one path, R checks the first before continuing to the next.
 `{renv}` instead creates a file path for R packages to be installed
@@ -319,6 +324,10 @@ package dependencies.
         packages depend on, are installed within your project,
         installation times can sometimes be a bit long.
 
+    -   When you restore a library from a `renv.lock` file that uses
+        old package versions, it can sometimes be difficult to
+        re-install them.
+
 ::: aside
 It's sometimes very annoying to debug these "virtual environments". But
 thankfully you can turn it off with `renv::deactivate()`! It still is
@@ -344,6 +353,8 @@ git_ci(
   "Add renv machinery."
 )
 ```
+
+When prompted, choose to use the explicit declaration.
 
 The function `renv::init()` initializes the project to begin being
 managed by `{renv}`. By using the argument `bare = TRUE` we are telling
@@ -439,8 +450,10 @@ the project for any packages used and add them to the `renv.lock` file.
 
 However, in science, we want to be more explicit rather than implicit.
 The way `{renv}` explicitly adds to the `renv.lock` file is by only
-scanning the `DESCRIPTION` file. In order for `{renv}` to always do
-this, we need to set an option for it. This option needs to be added to
+scanning the `DESCRIPTION` file. While we have already selected to use
+explicit declaration when initilizing `{renv}`, this option is specific
+to our R instance. In order for `{renv}` to always work explicitly, we
+need to set a project option for it. This option needs to be added to
 the project's `.Rprofile` file.
 
 We also want to use the `{pak}` package to install R packages instead of
@@ -965,3 +978,4 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+

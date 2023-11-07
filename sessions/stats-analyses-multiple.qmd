@@ -386,7 +386,7 @@ using the below scaffold as a guide.
 ``` r
 list(
   ...,
-  list(
+  tar_target(
     name = ___,
     command = ___(___)
   )
