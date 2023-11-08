@@ -646,6 +646,12 @@ git_ci(".Rprofile", "Add usethis settings to profile.")
 Let's restart R with {{< var keybind.restart-r >}} before using
 `use_package()` to add `{renv}` as a workflow dependency.
 
+::: {.callout-warning appearance="default"}
+You might encounter an issue or error when restarting. To resolve this,
+you can use `renv::activate()` to fix it, and potentially followed by
+`renv::install()`.
+:::
+
 ```{r suggests-dep}
 #| eval: false
 #| purl: true
@@ -1008,3 +1014,4 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+
