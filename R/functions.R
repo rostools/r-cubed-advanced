@@ -45,6 +45,7 @@ extract_chunks <- function() {
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
+    append("pak::pak('rostools/r3')", after = 3) |>
     append("fs::file_copy('~/Desktop/project-functions.R', 'R/functions.R')", after = 3) |>
     append("source('../project-build-functions.R')", after = 3) |>
     readr::write_lines(combined_r_file)
