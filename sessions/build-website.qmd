@@ -391,7 +391,7 @@ to the whole project. Cut and paste that metadata from
 `doc/learning.qmd` into the bottom of `_quarto.yml`:
 
 ``` yml
-editor_options:
+editor:
   markdown:
     wrap: 72
     canonical: true
@@ -402,7 +402,7 @@ editor_options:
 #| echo: false
 #| purl: true
 editor_options_lines <- c(
-  "editor_options:",
+  "editor:",
   "  markdown:",
   "    wrap: 72",
   "    canonical: true"

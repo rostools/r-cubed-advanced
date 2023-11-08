@@ -46,7 +46,7 @@ bibliography:
   - includes/packages.bib
 csl: includes/vancouver.csl
 
-editor_options:
+editor:
   markdown:
     wrap: 72
     canonical: true

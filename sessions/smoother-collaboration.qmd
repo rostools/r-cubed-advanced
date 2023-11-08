@@ -848,7 +848,7 @@ For right now, we will do the file-level YAML settings. Open the
 last `---`, create a new line above it and paste this code in:
 
 ``` yaml
-editor_options:
+editor:
   markdown:
     wrap: 72
     canonical: true
@@ -859,7 +859,7 @@ editor_options:
 #| echo: false
 #| purl: true
 editor_options <-
-  "editor_options:
+  "editor:
   markdown:
     wrap: 72
     canonical: true"
@@ -926,7 +926,7 @@ the top:
 
 ``` markdown
 ---
-editor_options:
+editor:
   markdown:
     wrap: 72
     canonical: true
@@ -935,7 +935,7 @@ editor_options:
 
 Then, start completing the `TODO` items. Save often and watch as the
 Markdown gets reformatted. After you are done, commit the changes you
-made to the Git history with {{< var keybind.git >}}. Then delete both
+made to the Git history with {{< var keybind.git >}}. Then delete the
 `TODO.md`, followed by committing these deletions in the Git history.
 Click the "Push" button to push the changes to GitHub.
 
@@ -945,7 +945,7 @@ Click the "Push" button to push the changes to GitHub.
 #| purl: true
 editor_yaml <- "
 ---
-editor_options:
+editor:
   markdown:
     wrap: 72
     canonical: true
