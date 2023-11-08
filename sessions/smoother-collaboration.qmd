@@ -623,7 +623,8 @@ open the project `.Rprofile` with `usethis::edit_r_profile()`.
 usethis::edit_r_profile("project")
 ```
 
-Then copy and paste this code into the `.Rprofile`:
+Then copy and paste this code into the `.Rprofile`, **at the bottom of
+the `.Rprofile` after the `source("renv/activate.R")`**:
 
 ``` r
 if (interactive()) {
@@ -1007,4 +1008,3 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-
