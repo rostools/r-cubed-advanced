@@ -804,11 +804,13 @@ git_ci("_targets.R", "Update targets with plot item")
 Last, but not least, we want to make the final output 3 from
 @fig-pipeline-schematic: The Quarto document. Adding a Quarto document
 as a target inside `_targets.R` is fairly straightforward. We need to
-install the helper package `{tarchetypes}` first:
+install the helper package `{tarchetypes}` first, as well as the
+`{quarto}` R package (it helps connect with Quarto):
 
 ```{r tarchetypes-deps}
 #| purl: true
 use_package("tarchetypes")
+use_package("quarto")
 ```
 
 Then, inside `_targets.R`, uncomment the line where
