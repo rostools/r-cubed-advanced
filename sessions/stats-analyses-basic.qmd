@@ -757,7 +757,7 @@ recipe_specs
 Style using {{< var keybind.styler >}}, then commit the changes made to
 the Git history with {{< var keybind.git >}}.
 
-## Fitting the model by combining the recipe, model definition, and data
+## Fitting the model by combining the recipe, model definition, and data {#sec-fitting-model}
 
 We've now defined the model we want to use and created a transformation
 `{recipes}` specification. Now we can start putting them together and
