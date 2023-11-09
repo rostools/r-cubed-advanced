@@ -474,7 +474,7 @@ descriptive_stats <- function(___) {
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 #' Calculate descriptive statistics of each metabolite.
 #'
-#' @param data Lipidomics dataset.
+#' @param data The lipidomics dataset.
 #'
 #' @return A data.frame/tibble.
 #'
@@ -1015,4 +1015,3 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
-

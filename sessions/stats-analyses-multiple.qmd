@@ -353,7 +353,7 @@ ___ <- function(___, ___) {
 #' Add the original metabolite names (not as snakecase) to the model results.
 #'
 #' @param model_results The data frame with the model results.
-#' @param data The original lipidomics dataset.
+#' @param data The original, unprocessed lipidomics dataset.
 #'
 #' @return A data frame.
 #'
