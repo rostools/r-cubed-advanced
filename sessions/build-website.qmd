@@ -568,8 +568,10 @@ jobs:
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
       
-      - name: Install package dependencies
-        uses: r-lib/actions/setup-renv@v2
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
         
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -620,8 +622,10 @@ jobs:
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
       
-      - name: Install package dependencies
-        uses: r-lib/actions/setup-renv@v2
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
         
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
