@@ -164,6 +164,43 @@ output: html_document
 :::
 :::
 
+Another difference with Quarto compared to R Markdown is how code chunk
+options are set. While you can continue using `{knitr}` style code chunk
+options, it's best to start switching to using the Quarto style. Compare
+them below.
+
+::: columns
+::: {.column width="45%"}
+**knitr-style chunk options**
+
+```{r, warning=TRUE, message=TRUE}
+#| echo: fenced
+1:5
+```
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+**Quarto-style chunk options**
+
+```{r}
+#| echo: fenced
+#| warning: true
+#| message: true
+1:5
+```
+:::
+:::
+
+Why the change? They needed to develop an approach that worked with
+other languages as well, like Python. `{knitr}` is an R-specific
+package, so they needed a more language agnostic way of setting chunk
+options. A full list of the code chunk options is found in the [Cell
+Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
+section of the website.
+
 As you can see, they aren't too different. But as you use it more
 though, it becomes obvious how powerful Quarto is.
 
@@ -692,52 +729,6 @@ git_ci(c(".Rbuildignore", "DESCRIPTION",
          "LICENSE.md", "_quarto.yml"),
        "Add License file.")
 ```
-
-## Using Quarto-style code options
-
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Walk through this section with them. They will use this information in
-the next exercise.
-:::
-
-Another difference with Quarto compared to R Markdown is how code chunk
-options are set. While you can continue using `{knitr}` style code chunk
-options, it's best to start switching to using the Quarto style. Compare
-them below.
-
-::: columns
-::: {.column width="45%"}
-**knitr-style chunk options**
-
-```{r, warning=TRUE, message=TRUE}
-#| echo: fenced
-1:5
-```
-:::
-
-::: {.column width="10%"}
-:::
-
-::: {.column width="45%"}
-**Quarto-style chunk options**
-
-```{r}
-#| echo: fenced
-#| warning: true
-#| message: true
-1:5
-```
-:::
-:::
-
-Why the change? They needed to develop an approach that worked with
-other languages as well, like Python. `{knitr}` is an R-specific
-package, so they needed a more language agnostic way of setting chunk
-options. A full list of the code chunk options is found in the [Cell
-Reference](https://quarto.org/docs/reference/cells/cells-knitr.html)
-section of the website.
 
 ## Summary
 
