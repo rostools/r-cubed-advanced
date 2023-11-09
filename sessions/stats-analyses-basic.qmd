@@ -526,9 +526,9 @@ very easy to figure out. Here's a very simple example using `select()`,
 where one of your function's arguments is to select columns:
 
 ```{r test-nse, error=TRUE}
-test_nse <- function(data, column) {
+test_nse <- function(data, columns) {
   data %>%
-    dplyr::select(column)
+    dplyr::select(columns)
 }
 
 lipidomics %>%
