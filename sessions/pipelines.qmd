@@ -858,6 +858,7 @@ use of the `targets::tar_read()`.
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(targets)
+source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
 
@@ -1014,3 +1015,4 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
+
