@@ -488,7 +488,6 @@ quite often, which is annoying to keep track of. Instead, we can make
 use of GitHub Actions to build and publish our website for us, including
 rendering all the R code.
 
-::: {.callout-tip appearance="default"}
 There is a way to have GitHub completely (re-)build the website from
 scratch each time, including running any R code. However, our project
 doesn't have much R code and we have data that we don't keep in the
@@ -505,8 +504,21 @@ execute:
 Then when we re-render the website with {{< var keybind.build_site >}},
 there will be a new folder created called `_freeze/`. Inside this folder
 are instructions to Quarto on how to run the code chunks inside the
-`.qmd` file.
-:::
+`.qmd` file. Commit this folder to the Git history with
+{{< var keybind.git >}}.
+
+```{r purl-only-freeze-executions}
+#| eval: false
+#| echo: false
+#| purl: true
+"
+execute:
+  freeze: auto
+" |>
+  write_to_file("_quarto.yml")
+quarto::quarto_render()
+git_ci(c("_quarto.yml", "_freeze"), "Add freeze execution to project.")
+```
 
 To get GitHub Actions to build the website we need to do two things
 first. Run a command to set things up and then add a new Action workflow
@@ -565,14 +577,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
         
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v2
-      
-      - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          cache-version: 2
-        
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
@@ -618,14 +622,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v2
-      
-      - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          cache-version: 2
         
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
