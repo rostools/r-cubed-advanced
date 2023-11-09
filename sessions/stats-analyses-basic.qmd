@@ -579,9 +579,9 @@ We can use curly-curly (combined with `across()`) to apply
 
 ```{r second-snakecase-fn}
 #| column: page-inset-right
-column_values_to_snake_case <- function(data, cols) {
+column_values_to_snake_case <- function(data, columns) {
   data %>%
-    dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
+    dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
 }
 
 lipidomics %>%
@@ -598,13 +598,13 @@ with {{< var keybind.source >}}, and add the new function above the
 #' Convert column value strings into snakecase.
 #'
 #' @param data Data with string columns.
-#' @param cols The column to convert into snakecase.
+#' @param columns The column to convert into snakecase.
 #'
 #' @return A data frame.
 #'
-column_values_to_snake_case <- function(data, cols) {
+column_values_to_snake_case <- function(data, columns) {
   data %>%
-    dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
+    dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
 }
 ```
 
