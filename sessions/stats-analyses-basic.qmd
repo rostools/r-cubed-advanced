@@ -295,7 +295,7 @@ graphical theoretical model:
 
 ```{mermaid fig-model-research-question}
 %%| label: fig-model-research-question
-%%| fig-cap: Simple example of a theoretical model of plant growth.
+%%| fig-cap: Simple example of a theoretical model of T1D status.
 %%| echo: false
 %%| eval: true
 %%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
