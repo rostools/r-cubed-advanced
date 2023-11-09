@@ -595,10 +595,10 @@ with {{< var keybind.source >}}, and add the new function above the
 `pivot_wider()` code in the `doc/learning.qmd` file.
 
 ```{r new-function-column-values-to-snakecase}
-#' Convert column value strings into snakecase.
+#' Convert a column's character values to snakecase format.
 #'
-#' @param data Data with string columns.
-#' @param columns The column to convert into snakecase.
+#' @param data The lipidomics dataset.
+#' @param columns The column you want to convert into the snakecase format.
 #'
 #' @return A data frame.
 #'
