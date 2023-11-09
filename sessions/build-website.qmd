@@ -687,13 +687,14 @@ will use that.
 Next, let's add some discoverability items to the `README.md` file and
 to the GitHub repository.
 
-1.  Go to your project's GitHub page.
+1.  Go to your project's GitHub repository. A quick way of doing that is
+    using `browse_project()` from `{usethis}`.
 
 2.  Confirm that the Actions worked by going to the "Actions" tab. If
     there is a green check mark there, than continue to the next item.
     Otherwise, put up a "help sticky".
 
-3.  Open up your project's GitHub page and go to `Settings -> Pages`.
+3.  On your project's GitHub repository and go to `Settings -> Pages`.
     You should see a link to your new website. Copy that link.
 
 4.  Go to the "Code" tab, then click the gear icon on the right side, to
