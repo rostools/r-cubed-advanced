@@ -64,7 +64,7 @@ More specific objectives are to:
 
 ## Exercise: How do you re-run analyses when something changes?
 
-> Time: \~14 minutes.
+> Time: \~12 minutes.
 
 We've all been in situations where something in our analysis needs to
 change. Maybe we forgot to remove a certain condition (like unrealistic
@@ -77,9 +77,9 @@ all over again. So what is your **exact** workflow when you need to
 re-run code and update your results? Assume it's a change somewhere
 early in the data processing stage.
 
-1.  Take 2 min to think about the workflow you use. Try to think of the
-    *exact* steps you need to take, what *exactly* you do, and how long
-    that usually takes.
+1.  Take about 1 minute to think about the workflow you use. Try to
+    think of the *exact* steps you need to take, what *exactly* you do,
+    and how long that usually takes.
 2.  For 8 min, in your group share and discuss what you've thought. How
     do your experiences compare to each other?
 3.  For the remaining time, we'll briefly share with everyone about what

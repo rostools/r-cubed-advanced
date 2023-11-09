@@ -64,7 +64,7 @@ on a project, how do you coordinate things? Does one collaborator work
 on one section or analysis, so your files are separate? Do you ever have
 to go in and contribute your own code to theirs (and vice versa)?
 
-1.  Take 2 minutes to think on these questions.
+1.  Take about 1 minute to think on these questions.
 2.  For 6 minutes, discuss these questions with your neighbour, and talk
     about your own experiences.
 3.  For the remaining time, we will share briefly with everyone.
