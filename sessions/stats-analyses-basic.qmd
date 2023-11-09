@@ -672,7 +672,7 @@ some nice features that we will use later on.
 
 ```{r recipes-without-formula}
 recipe(lipidomics_wide) %>%
-  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome")
 ```
 
@@ -717,7 +717,7 @@ variables. We can add this to the end of the recipe:
 
 ```{r recipes-with-step-normalize}
 recipe(lipidomics_wide) %>%
-  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome") %>%
   step_normalize(starts_with("metabolite_"))
 ```
