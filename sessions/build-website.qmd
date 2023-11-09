@@ -664,9 +664,17 @@ will use that.
 
 2.  Add a simple license text to the bottom of each webpage by opening
     `_quarto.yml`, going to the `website:` section, and adding this to
-    the bottom of it:
+    the bottom of it, so it should look like this:
 
     ``` yml
+    website:
+      title: "Lipidomics analysis"
+      navbar:
+      left:
+        - href: index.qmd
+          text: Home
+        - href: doc/learning.qmd
+          text: "Report"
       page-footer:
         center:
           - text: "License: CC BY 4.0"
