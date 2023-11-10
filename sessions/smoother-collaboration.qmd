@@ -971,29 +971,32 @@ gert::git_commit("Don't need this file anymore.")
 
 We're at the end of the session and now need to fill in the survey.
 There is a function in r3, but r3 isn't installed in our project
-library. However, because r3 has a few GitHub packages as dependencies,
-we need to tell `{renv}` to authenticate us to GitHub so we can install
-as much as we want (GitHub only allows a few unauthenticated installed,
-as a security feature against hackers and cyber attacks). Using
-`gitcreds::gitcreds_set()` with the GitHub token we created should be
-enough for `{renv}` to know what to do. If you encounter an error about
-a GitHub API limit, run this code again so you can authenticate yourself
-with your token.
-
-```{r gitcreds-set-token}
-#| eval: false
-gitcreds::gitcreds_set()
-```
-
-Then we can install the r3 package into our project with
+library. So we'll need to install the r3 package into our project with
 `renv::install()`. Because the r3 package is on GitHub, we need to tell
 `{renv}` about its location by adding `github::` followed by the "user"
-(which is `rostools`) and than the repository (`r3`).
+(which is `rostools`) and then the repository (`r3`).
 
 ```{r install-r3}
 #| eval: false
 renv::install("github::rostools/r3")
 ```
+
+::: {.callout-note appearance="default"}
+You may encounter an issue that `{renv}` needs you to authenticate to
+GitHub again, because r3 is a package from GitHub that also depends on
+packages on GitHub. By authenticating with GitHub, we can install as
+much as we want (GitHub only allows a few unauthenticated installed, as
+a security feature against hackers and cyber attacks). Running
+`gitcreds::gitcreds_set()` and pasting the GitHub token we created
+should be enough for `{renv}` to know what to do. If you encounter an
+error about a GitHub API limit, run this code again so you can
+authenticate yourself with your token.
+
+```{r gitcreds-set-token}
+#| eval: false
+gitcreds::gitcreds_set()
+```
+:::
 
 Now we can open the feedback survey:
 
@@ -1014,4 +1017,3 @@ r3::open_feedback_survey()
     on code you are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-
