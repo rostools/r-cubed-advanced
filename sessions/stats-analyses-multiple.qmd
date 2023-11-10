@@ -394,9 +394,7 @@ calculate_estimates <- function(data) {
 #'
 calculate_estimates <- function(data) {
   data %>%
-    column_values_to_snake_case(metabolite) %>%
-    dplyr::group_split(metabolite) %>%
-    purrr::map(metabolites_to_wider) %>%
+    split_by_metabolite()  %>%
     purrr::map(generate_model_results) %>%
     purrr::list_rbind() %>% 
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
