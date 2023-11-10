@@ -208,12 +208,13 @@ lipidomics %>%
 Like we did with the `metabolite_to_wider()`, we need to pipe the output
 into another `map()` function that has a custom function running the
 models. We don't have this function yet, so we need to create it. Let's
-convert the modeling code we used in the exercise above into a function,
-replacing `lipidomics` with `data` and using
-`starts_with("metabolite_")` within the `create_recipe_spec()`. Add the
-Roxygen documentation using {{< var keybind.roxygen >}}, use
-{{< var keybind.styler >}} to style, move into the `R/functions.R` file,
-and then `source()` the file with {{< var keybind.source >}}.
+convert the modeling code we used in the code at the end of section
+@sec-fitting-model into a function, replacing `lipidomics` with `data`
+and using `starts_with("metabolite_")` within the
+`create_recipe_spec()`. Add the Roxygen documentation using
+{{< var keybind.roxygen >}}, use {{< var keybind.styler >}} to style,
+move into the `R/functions.R` file, and then `source()` the file with
+{{< var keybind.source >}}.
 
 ```{r new-function-generate-model-results}
 #' Generate the results of a model
@@ -294,7 +295,9 @@ lipidomics %>%
 ```
 
 There are 504 rows, but we only need the unique values of `term` and
-`metabolite`, which we can get with `distinct()`.
+`metabolite`, which we can get with `distinct()`. Because we will use
+`distinct()`, we don't need to use `select()` as well, since it keeps
+only the `metabolite` and `term` variables.
 
 ```{r dup-column-distinct}
 lipidomics %>%
@@ -353,7 +356,7 @@ ___ <- function(___, ___) {
 #' Add the original metabolite names (not as snakecase) to the model results.
 #'
 #' @param model_results The data frame with the model results.
-#' @param data The original lipidomics dataset.
+#' @param data The original, unprocessed lipidomics dataset.
 #'
 #' @return A data frame.
 #'
@@ -713,3 +716,4 @@ targets::tar_make()
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
+

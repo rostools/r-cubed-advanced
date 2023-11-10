@@ -309,18 +309,22 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: "Home"
       - href: doc/learning.qmd
         text: "Report"
 ```
 
 After we've set the settings for the `website:`, we need to tell Quarto
 what output files to create. We could do this for each individual file,
-but adding `format: html` to each YAML header. But we'd be duplicating a
-lot of options. Instead, we can put it in the `_quarto.yml` file and set
-the `format:` for all files in the project. There are many many options
-we can set here, but the biggest one is what `theme:` you want. There
-are several theme templates listed on the [Quarto HTML Theming
+by adding `format: html` to each YAML header. But we'd be duplicating a
+lot of options and it would be annoying to change all of them if you
+wanted something different. Instead, we can put it in the `_quarto.yml`
+file and set the `format:` for all files in the project. Like the
+`website:` and `project:` settings, `format:` is a "top-level" option
+(meaning it doesn't go under any other option in the file). There are
+many many options in `format:` we can set, but the biggest one is what
+`theme:` you want. There are several theme templates listed on the
+[Quarto HTML Theming
 page](https://quarto.org/docs/output-formats/html-themes.html). We'll
 use a simple one called `simplex`.
 
@@ -400,7 +404,7 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: "Home"
       - href: doc/learning.qmd
         text: "Report"
 format:
@@ -672,7 +676,7 @@ will use that.
       navbar:
       left:
         - href: index.qmd
-          text: Home
+          text: "Home"
         - href: doc/learning.qmd
           text: "Report"
       page-footer:

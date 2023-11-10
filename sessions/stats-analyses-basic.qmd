@@ -295,7 +295,7 @@ graphical theoretical model:
 
 ```{mermaid fig-model-research-question}
 %%| label: fig-model-research-question
-%%| fig-cap: Simple example of a theoretical model of T1D status.
+%%| fig-cap: A simple theoretical model of the research question about T1D status.
 %%| echo: false
 %%| eval: true
 %%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
@@ -526,9 +526,9 @@ very easy to figure out. Here's a very simple example using `select()`,
 where one of your function's arguments is to select columns:
 
 ```{r test-nse, error=TRUE}
-test_nse <- function(data, column) {
+test_nse <- function(data, columns) {
   data %>%
-    dplyr::select(column)
+    dplyr::select(columns)
 }
 
 lipidomics %>%
@@ -579,9 +579,9 @@ We can use curly-curly (combined with `across()`) to apply
 
 ```{r second-snakecase-fn}
 #| column: page-inset-right
-column_values_to_snake_case <- function(data, cols) {
+column_values_to_snake_case <- function(data, columns) {
   data %>%
-    dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
+    dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
 }
 
 lipidomics %>%
@@ -595,16 +595,16 @@ with {{< var keybind.source >}}, and add the new function above the
 `pivot_wider()` code in the `doc/learning.qmd` file.
 
 ```{r new-function-column-values-to-snakecase}
-#' Convert column value strings into snakecase.
+#' Convert a column's character values to snakecase format.
 #'
-#' @param data Data with string columns.
-#' @param cols The column to convert into snakecase.
+#' @param data The lipidomics dataset.
+#' @param columns The column you want to convert into the snakecase format.
 #'
 #' @return A data frame.
 #'
-column_values_to_snake_case <- function(data, cols) {
+column_values_to_snake_case <- function(data, columns) {
   data %>%
-    dplyr::mutate(dplyr::across({{ cols }}, snakecase::to_snake_case))
+    dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
 }
 ```
 
@@ -672,7 +672,7 @@ some nice features that we will use later on.
 
 ```{r recipes-without-formula}
 recipe(lipidomics_wide) %>%
-  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome")
 ```
 
@@ -717,7 +717,7 @@ variables. We can add this to the end of the recipe:
 
 ```{r recipes-with-step-normalize}
 recipe(lipidomics_wide) %>%
-  update_role(metabolite_lipid_ch_3_1, age, gender, new_role = "predictor") %>%
+  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome") %>%
   step_normalize(starts_with("metabolite_"))
 ```
@@ -757,7 +757,7 @@ recipe_specs
 Style using {{< var keybind.styler >}}, then commit the changes made to
 the Git history with {{< var keybind.git >}}.
 
-## Fitting the model by combining the recipe, model definition, and data
+## Fitting the model by combining the recipe, model definition, and data {#sec-fitting-model}
 
 We've now defined the model we want to use and created a transformation
 `{recipes}` specification. Now we can start putting them together and

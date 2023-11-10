@@ -474,7 +474,7 @@ descriptive_stats <- function(___) {
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 #' Calculate descriptive statistics of each metabolite.
 #'
-#' @param data Lipidomics dataset.
+#' @param data The lipidomics dataset.
 #'
 #' @return A data.frame/tibble.
 #'
@@ -804,11 +804,13 @@ git_ci("_targets.R", "Update targets with plot item")
 Last, but not least, we want to make the final output 3 from
 @fig-pipeline-schematic: The Quarto document. Adding a Quarto document
 as a target inside `_targets.R` is fairly straightforward. We need to
-install the helper package `{tarchetypes}` first:
+install the helper package `{tarchetypes}` first, as well as the
+`{quarto}` R package (it helps connect with Quarto):
 
 ```{r tarchetypes-deps}
 #| purl: true
 use_package("tarchetypes")
+use_package("quarto")
 ```
 
 Then, inside `_targets.R`, uncomment the line where
@@ -856,6 +858,7 @@ use of the `targets::tar_read()`.
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(targets)
+source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
 
