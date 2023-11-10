@@ -309,7 +309,7 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: "Home"
       - href: doc/learning.qmd
         text: "Report"
 ```
@@ -404,7 +404,7 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: "Home"
       - href: doc/learning.qmd
         text: "Report"
 format:
@@ -676,7 +676,7 @@ will use that.
       navbar:
       left:
         - href: index.qmd
-          text: Home
+          text: "Home"
         - href: doc/learning.qmd
           text: "Report"
       page-footer:
