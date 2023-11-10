@@ -428,8 +428,8 @@ git_ci(c("_quarto.yml", "index.qmd"),
 
 Like we did in @sec-smoother-collaboration with the `editor` setting we
 added in our Quarto file, let's make this setting global to the whole
-project. Cut and paste that metadata from `doc/learning.qmd` into the
-bottom of `_quarto.yml`:
+project. **Cut** and paste that metadata from `doc/learning.qmd` into
+the bottom of `_quarto.yml`:
 
 ``` yml
 editor:
