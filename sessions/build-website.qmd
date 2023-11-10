@@ -694,9 +694,14 @@ will use that.
           - text: "License: CC BY 4.0"
     ```
 
-3.  Check that it works by rendering the website again with
+3.  Check that it works by rendering the website locally again with
     {{< var keybind.build_site >}}. Scroll to the bottom of the webpage
     that pops up to check that it has been added.
+
+4.  If it shows up, commit the changes to the Git history with
+    {{< var keybind.git >}} and then push up to GitHub. Wait for the
+    GitHub Action to complete and you can now check that your website
+    online also has the changes.
 
 Next, let's add some discoverability items to the `README.md` file and
 to the GitHub repository.
@@ -766,3 +771,4 @@ git_ci(c(".Rbuildignore", "DESCRIPTION",
     website on GitHub.
 -   Add a license file (for instance, with `use_ccby_license()`) to
     allow others to re-use your work.
+
