@@ -340,6 +340,10 @@ format:
     theme: simplex
 ```
 
+Since we now have set the output format to HTML in the `_quarto.yml`
+file, let's remove the same setting from the `doc/learning.qmd` file, so
+that both `format:` and (if it exists) `execute:` is removed.
+
 While we have enough for Quarto to know how to build the website, let's
 add one more thing to the Quarto settings. For documents on an analysis,
 we usually want to show the output of code but not the code itself. In
@@ -762,3 +766,4 @@ git_ci(c(".Rbuildignore", "DESCRIPTION",
     website on GitHub.
 -   Add a license file (for instance, with `use_ccby_license()`) to
     allow others to re-use your work.
+
