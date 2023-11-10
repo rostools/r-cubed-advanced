@@ -295,7 +295,9 @@ lipidomics %>%
 ```
 
 There are 504 rows, but we only need the unique values of `term` and
-`metabolite`, which we can get with `distinct()`.
+`metabolite`, which we can get with `distinct()`. Because we will use
+`distinct()`, we don't need to use `select()` as well, since it keeps
+only the `metabolite` and `term` variables.
 
 ```{r dup-column-distinct}
 lipidomics %>%
@@ -714,3 +716,4 @@ targets::tar_make()
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
+
