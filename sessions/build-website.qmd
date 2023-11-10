@@ -483,6 +483,12 @@ tar_quarto(
 git_ci("_targets.R", "Add quarto project to targets.")
 ```
 
+Then, finish up by:
+
+1.  Running `targets::tar_make()` with {{< var keybind.targets_make >}}
+    to rebuild everything and test that the pipeline works.
+2.  Commit your changes to the Git history with {{< var keybind.git >}}.
+
 ## Automate rendering the website
 
 There is a way that we could create the website and save it in the
