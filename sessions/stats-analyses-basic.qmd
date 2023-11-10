@@ -295,7 +295,7 @@ graphical theoretical model:
 
 ```{mermaid fig-model-research-question}
 %%| label: fig-model-research-question
-%%| fig-cap: The theoretical model based on the research question.
+%%| fig-cap: A simple theoretical model of the research question about T1D status.
 %%| echo: false
 %%| eval: true
 %%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
