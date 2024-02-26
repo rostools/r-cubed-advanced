@@ -327,10 +327,14 @@ to add the original variable names. Then we can add our first
 
 > Time: \~25 minutes.
 
-Convert the code that calculates the model estimates as well as the code
-that adds the original metabolite names into functions. Start with the
-code for the metabolite names, using the scaffold below as a starting
-point.
+::: {.callout-warning appearance="default"}
+There are two parts to this exercise and two solution chunks.
+:::
+
+**Part 1**: Convert the code that calculates the model estimates as well
+as the code that adds the original metabolite names into functions.
+Start with the code for the metabolite names, using the scaffold below
+as a starting point.
 
 1.  Name the new function `add_original_metabolite_names`.
 2.  Within the `function()`, add two arguments, where the first is
@@ -370,8 +374,8 @@ add_original_metabolite_names <- function(model_results, data) {
 }
 ```
 
-Do the same thing with the code that creates the model results, using
-the scaffold below as a starting point.
+**Part 2**: Do the same thing with the code that creates the model
+results, using the scaffold below as a starting point.
 
 ``` r
 calculate_estimates <- function(data) {
@@ -714,4 +718,3 @@ targets::tar_make()
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
-
