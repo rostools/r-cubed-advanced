@@ -2,8 +2,9 @@ on:
   push:
      branches:
        - main
-
-name: build-deploy
+    paths-ignore:
+      - '.vscode/**'
+      - '.github/**'
 
 jobs:
   build-deploy:
