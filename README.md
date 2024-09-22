@@ -35,12 +35,12 @@ out in completing the exercises.
 
 The teaching material is found mainly in the project folders:
 
--   `preamble/`: Contains the syllabus and the schedule files.
--   `sessions/`: Contains the code-along teaching material, as well as
+- `preamble/`: Contains the syllabus and the schedule files.
+- `sessions/`: Contains the code-along teaching material, as well as
     associated links to the lecture slides.
--   `slides/`: Contains the slides, created as Revealjs HTML slides by
+- `slides/`: Contains the slides, created as Revealjs HTML slides by
     using Quarto.
--   `appendix/`: Contains the supplemental or secondary content.
+- `appendix/`: Contains the supplemental or secondary content.
 
 The website is generated from [Quarto](https://quarto.org), so follows
 the file and folder structure conventions from that package.
@@ -52,10 +52,8 @@ Packages used and depended on for this course are included in the
 root directory (where the `r-cubed-advanced.Rproj` file is located:
 
 ``` r
-# install.packages("renv")
-renv::install()
-# Or:
-renv::restore()
+# install.packages("pak")
+pak::pak()
 ```
 
 You might need to connect to GitHub via a personal access token if you
