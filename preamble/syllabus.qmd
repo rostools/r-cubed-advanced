@@ -45,11 +45,6 @@ Our specific **learning objectives** are to:
     that fit within the conceptual framework of automated pipelines and
     that can be used regardless of what statistical method is used.
 
-4.  Explain the benefits of why scientific findings (and the pipelines)
-    should be easily accessible and demonstrate these principles by
-    building a website in R to display results, using a reproducible and
-    automated pipeline.
-
 And we **will not** learn:
 
 -   Any details on or about specific statistical methods or models

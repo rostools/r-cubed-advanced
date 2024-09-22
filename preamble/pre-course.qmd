@@ -154,8 +154,8 @@ Checking Git config settings:
 survey questions**. *Note* that while GitHub is a natural connection to
 using Git, given the limited time available, we will only be going over
 aspects of GitHub that relate to storing your project Git repository and
-setting up the website. If you want to learn more about using GitHub,
-check out the
+working together. If you want to learn more about using GitHub, check
+out the
 [session](https://r-cubed-intro.rostools.org/sessions/version-control.html)
 on it in the introduction course.
 
@@ -232,8 +232,8 @@ without realizing it. That's because Quarto uses the same Markdown
 syntax as R Markdown. The only difference is that with Quarto, you can
 create more types of output documents (like books, websites, slides),
 you have more options for customization, and it's easier to do and learn
-than R Markdown. So, for this course, we will eventually use Quarto to
-make a website of the analysis that we will do over the course.
+than R Markdown. So, for this course, we will use Quarto to create a
+report that includes the analysis we will do over the course.
 
 Please do these two tasks:
 

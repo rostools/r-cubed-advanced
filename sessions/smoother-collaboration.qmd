@@ -700,8 +700,7 @@ you already have it. In that case, you can use
 > Time: \~25 minutes.
 
 Since we will eventually connect our project Git repository to GitHub to
-display a website as well as to practice the workflow, we'll connect our
-project to GitHub right now.
+practice the workflow, we'll connect our project to GitHub right now.
 
 Let's complete these tasks to connect to GitHub.
 
@@ -847,8 +846,8 @@ There are two ways of doing this:
     markdown" to "true".
 2.  Or setting [YAML
     options](/https://rstudio.github.io/visual-markdown-editing/markdown.html#writer-options)
-    in either the project-level `_quarto.yml` file (we will cover this
-    in @sec-build-website) or at the file-level in the YAML header.
+    in either the project-level `_quarto.yml` file or at the file-level
+    in the YAML header.
 
 For right now, we will do the file-level YAML settings. Open the
 `doc/learning.qmd` file and go to the top of the file. Right below the

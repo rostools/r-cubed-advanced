@@ -31,11 +31,11 @@ Our big picture aim is:
 > We want to create a data analysis project that:
 >
 > 1.  Makes it easier for direct contributions from collaborators and
->     others,
+>     others
 > 2.  Allows us to write processing and analysis steps (as code) in a
->     more explicit and ultimately reproducible way,
+>     more explicit and ultimately reproducible way
 > 3.  Incorporates general-purpose tools that simplify using (or
->     switching) statistical analysis methods, and
+>     switching) statistical analysis methods
 >
 > All of which will be exemplified through a simple analysis of a
 > lipidomics study.
@@ -125,8 +125,7 @@ like:
     track which steps need to be re-run and in which order for your data
     analysis.
 -   Write accompanying text (or full paper) for the analysis in Markdown
-    so we can easily and quickly build websites (or Word docs) of our
-    work, for rapid dissemination.
+    so we can easily and quickly regenerate reports for rapid dissemination.
 -   Automatically reformat Markdown text into a standard, more readable
     format.
 -   Whenever we complete a task, we *add and commit* those file changes

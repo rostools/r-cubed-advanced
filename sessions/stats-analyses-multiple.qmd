@@ -674,10 +674,8 @@ tar_read(fig_model_estimates)
 Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}},
 then `targets::tar_make()` with {{< var keybind.targets_make >}}. We now
 have the report rendered to an HTML file! If you open it up in a
-browser, we can see the figures added to it. In the next session we will
-get more into making the document output nicer looking and creating it
-as a website. Before ending, commit the changes to the Git history with
-{{< var keybind.git >}}.
+browser, we can see the figures added to it. Before ending, commit the
+changes to the Git history with {{< var keybind.git >}}.
 
 <!-- TODO: Check that the output is rendered to html. Don't forget the TODO -->
 
