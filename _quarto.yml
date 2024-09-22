@@ -27,7 +27,6 @@ book:
       - sessions/pipelines.qmd
       - sessions/stats-analyses-basic.qmd
       - sessions/stats-analyses-multiple.qmd
-      - sessions/build-website.qmd
   appendices:
     - appendix/social.qmd
     - appendix/resources.qmd
