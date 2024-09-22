@@ -1,10 +1,13 @@
+name: Build website
+
 on:
   push:
-     branches:
-       - main
-
-name: build-deploy
-
+    branches:
+      - main
+    paths-ignore:
+      - '.vscode/**'
+      - '.github/**'
+    
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -17,16 +20,11 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install system dependencies
-        run: sudo apt install libcurl4-openssl-dev libgmp3-dev libglpk40
-
-      - name: Install package dependencies
-        uses: r-lib/actions/setup-renv@v2
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          tinytex: false
 
       - name: Publish to Netlify (and render)
         uses: quarto-dev/quarto-actions/publish@v2
