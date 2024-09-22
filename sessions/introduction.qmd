@@ -36,8 +36,6 @@ Our big picture aim is:
 >     more explicit and ultimately reproducible way,
 > 3.  Incorporates general-purpose tools that simplify using (or
 >     switching) statistical analysis methods, and
-> 4.  Enables quick dissemination of results by creating a
->     project-specific website.
 >
 > All of which will be exemplified through a simple analysis of a
 > lipidomics study.
