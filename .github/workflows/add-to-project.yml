@@ -1,0 +1,26 @@
+name: Add to project board
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+      - transferred
+  pull_request: 
+    types:
+      - reopened
+      - opened
+
+permissions:
+  pull-requests: write
+
+jobs:
+  add-to-project:
+    name: Add to project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue or PR to upcoming course board
+        uses: actions/add-to-project@v1.0.2
+        with: 
+          project-url: https://github.com/orgs/${{ github.repository_owner }}/projects/12
+          github-token: ${{ secrets.ADD_TO_BOARD }}
