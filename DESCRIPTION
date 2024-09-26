@@ -26,7 +26,6 @@ Imports:
     quarto,
     r3admin (>= 0.0.1),
     recipes,
-    renv,
     rlang,
     snakecase,
     styler,
