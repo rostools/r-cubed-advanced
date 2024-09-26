@@ -133,8 +133,7 @@ script uses.
         go through each R script manually and install each package
         manually. You might have seen some scripts with code that looks
         like this at the top:
-
-        ````         
+     
         ``` r
         if (!require("packagename")) {
           install.packages("packagename")
@@ -148,7 +147,6 @@ script uses.
         probably a few times. Plus, sometimes you may need to
         restart the R session after installing a package in order
         for R to detect it properly.
-        ````
 
     -   It doesn't track the *versions* of the packages your project
         depends on, so if a package gets updated and it breaks
