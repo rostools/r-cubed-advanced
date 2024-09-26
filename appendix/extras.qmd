@@ -23,14 +23,7 @@ have to do.
 First, let's write some code to create the plots for our items 2 and 3
 that we initially decided at the start of this session. Since we're
 using `{ggplot2}` to write this code, let's add it to our `DESCRIPTION`
-file and to our `{renv}` project library.
-
-```{r purl-only-renv-install-ggplot2}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("ggplot2")
-```
+file.
 
 ```{r add-ggplot2-deps}
 #| purl: true
