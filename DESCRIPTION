@@ -10,6 +10,7 @@ Depends:
 Imports: 
     broom,
     cli,
+    commonmark,
     crayon,
     desc,
     downlit,
@@ -26,13 +27,13 @@ Imports:
     quarto,
     r3admin (>= 0.0.1),
     recipes,
-    renv,
     rlang,
     snakecase,
     styler,
     targets,
     tidyr,
-    workflows
+    workflows,
+    xml2
 Suggests: 
     gert,
     gitcreds,

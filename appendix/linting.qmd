@@ -36,9 +36,7 @@ occasionally contribute so don't know the workflow culture of your
 project. In this way, you might want to have automatic linting checks
 (or styling) that are independent of you having to run them yourself.
 
-The main package for doing that is the `{lintr}` package. We'll get a
-chance to try out using `{renv}` since we need to install it to use it
-in our project.
+The main package for doing that is the `{lintr}` package. 
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -46,13 +44,6 @@ in our project.
 Before continuing, ask the learners which type of dependency they think
 `{lintr}` is or should be.
 :::
-
-```{r purl-only-renv-install-lintr}
-#| eval: false
-#| echo: false
-#| purl: true
-renv::install("lintr")
-```
 
 ```{r add-lintr-as-dep}
 #| eval: false

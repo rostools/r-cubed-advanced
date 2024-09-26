@@ -20,6 +20,9 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install system dependencies
+        run: sudo apt install -y libglpk-dev libpoppler-cpp-dev
+
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
 
