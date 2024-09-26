@@ -175,7 +175,7 @@ packages your data analysis project needs. There are a few ways of
             creating R packages.
 
         -   Installing packages is as easy as opening the project and
-            running `remotes::install_deps()` in the Console, which will
+            running `pak::pak()` in the Console, which will
             install all the packages listed in the `DESCRIPTION` file.
 
         -   Adding packages that you need is as easy as writing
