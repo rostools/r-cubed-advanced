@@ -387,7 +387,7 @@ Since we will be using `{tidymodels}`, we need to install it, as well as
 explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
 Like `{tidyverse}`, we need to set `{tidymodels}` differently because it
 is a "meta-package". We might need to force installing it with
-`pak::pak("tidymodels")` so `{renv}` recognizes it.
+`pak::pak("tidymodels")`.
 
 ```{r tidymodels-to-deps}
 #| purl: true

@@ -61,7 +61,7 @@ and to build networks of support and collaboration.
 
 The specific software and technologies we will cover in this course are
 R, RStudio, Git, GitHub, and Quarto, while the specific R packages are
-`{renv}`, `{styler}`, `{targets}`, and several of the `{tidymodels}`
+`{styler}`, `{targets}`, and several of the `{tidymodels}`
 packages.
 
 ## Is this course for you?

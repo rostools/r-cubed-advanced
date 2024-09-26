@@ -198,9 +198,9 @@ workflow dependency. Because it is directly used to run analyses and
 process the data, it would be a build dependency.
 :::
 
-First, since we are using `{renv}`, we need to install `{targets}` in
-the project environment. And since `{targets}` is a build dependency, we
-add it to the `DESCRIPTION` file with:
+First, we need to install `{targets}` in the project environment. And
+since `{targets}` is a build dependency, we add it to the `DESCRIPTION`
+file with:
 
 ```{r add-targets-as-dep}
 #| purl: true
@@ -249,7 +249,7 @@ function-oriented workflows and how `{targets}` and the `tar_target()`
 works.
 :::
 
-::: callout-note
+:::: callout-note
 ## Reading task: \~8
 
 Next, open up the `_targets.R` and we'll take a look at what it
@@ -345,7 +345,7 @@ list(
   )
 )
 ```
-:::
+::::
 
 Let's start writing code to create the three items we listed above in
 @fig-pipeline-schematic: some descriptive statistics, a plot of the
@@ -360,8 +360,8 @@ add it to the `"depends"` section of the `DESCRIPTION` file.
 use_package("tidyverse", "depends")
 ```
 
-Commit the changes made to the `renv.lock` and `DESCRIPTION` file in the
-Git history with {{< var keybind.git >}}.
+Commit the changes made to the `DESCRIPTION` file in the Git history
+with {{< var keybind.git >}}.
 
 Now, let's start doing some data analysis so that we can add to our
 pipeline later on. First, open up the `doc/learning.qmd` file and create
@@ -580,34 +580,16 @@ Now, let's try running `{targets}` again using
 
 It probably won't run though. That's because `{targets}` doesn't know
 about the packages that you need for the pipeline. To add it, we need to
-go to the `tar_option_set()` section of the `_targets.R` file and
-replace the `packages = c("tibble")` with all the packages we use.
-Instead of typing each package out, we can paste them directly into the
-script using code, since we already track the packages in the
-`DESCRIPTION` file. To access the dependencies, we can use this
-function:
-
-```{r}
-# The output shown below lists the dependencies 
-# for this course website.
-renv::dependencies()
-```
-
-This function will find all uses of packages as dependencies in a
-project. Since packages can be used multiple times, it can also list the
-packages more than once. To show only the unique packages used, we'll
-use `unique()` and `$Package` (the variable name), as well as stopping
-the function from outputting messages with `quiet = TRUE`:
-
-```{r}
-unique(renv::dependencies(quiet = TRUE)$Package)
-```
+go to the `tar_option_set()` section of the `_targets.R` file and add to
+the `packages = c("tibble")` code with the packages we use that aren't
+explicitly called via `::` (e.g. `%>%`). For now, we only need to add
+`"dplyr"` to the `packages` argument.
 
 We can now put this code in the `packages` argument of
 `tar_option_set()` in the `_targets.R` file:
 
 ``` r
-packages = unique(renv::dependencies(quiet = TRUE)$Package)
+packages = c("tibble", "dplyr")
 ```
 
 ```{r purl-only-add-packages-to-targets}
@@ -617,7 +599,7 @@ packages = unique(renv::dependencies(quiet = TRUE)$Package)
 revise_by_text(
   path = "_targets.R",
   original = "packages = .*$",
-  replacement = "packages = unique(renv::dependencies(quiet = TRUE)$Package),"
+  replacement = "packages = c('tibble', 'dplyr')"
 )
 ```
 
@@ -653,7 +635,7 @@ Before continuing, let's commit the changes (including the files in the
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c("_targets", "_targets.R", "DESCRIPTION", "renv.lock"), 
+git_ci(c("_targets", "_targets.R", "DESCRIPTION"), 
        "Tell targets about packages, add _targets")
 ```
 
@@ -662,8 +644,7 @@ git_ci(c("_targets", "_targets.R", "DESCRIPTION", "renv.lock"),
 Not only can we create data frames with targets (like above), but also
 figures. Let's write some code to create the plot we listed as our
 "output 2" in @fig-pipeline-schematic. Since we're using `{ggplot2}` to
-write this code, let's add it to our `DESCRIPTION` file and to our
-`{renv}` project library.
+write this code, let's add it to our `DESCRIPTION` file.
 
 ```{r add-ggplot2-deps}
 #| purl: true
@@ -961,10 +942,10 @@ changes up to GitHub.
 ::: callout-note
 ## Reading task: \~10 minutes
 
-Like with `{renv}`, sometimes you need to start from the beginning and
-clean everything up because there's an issue that you can't seem to fix.
-In this case, `{targets}` has a few functions to help out. Here are four
-that you can use to delete stuff (also [described on the targets
+Sometimes you need to start from the beginning and clean everything up
+because there's an issue that you can't seem to fix. In this case,
+`{targets}` has a few functions to help out. Here are four that you can
+use to delete stuff (also [described on the targets
 book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-data-files)):
 
 `tar_invalidate()`
