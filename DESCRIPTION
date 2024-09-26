@@ -34,14 +34,10 @@ Imports:
     tidyr,
     workflows
 Suggests: 
-    devtools,
     gert,
     gitcreds,
-    RcppTOML,
-    remotes,
     rmarkdown,
     tarchetypes,
-    todor,
     usethis
 Encoding: UTF-8
 LazyData: true
