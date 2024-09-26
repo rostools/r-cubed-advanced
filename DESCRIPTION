@@ -10,6 +10,7 @@ Depends:
 Imports: 
     broom,
     cli,
+    commonmark,
     crayon,
     desc,
     downlit,
@@ -31,7 +32,8 @@ Imports:
     styler,
     targets,
     tidyr,
-    workflows
+    workflows,
+    xml2
 Suggests: 
     devtools,
     gert,
