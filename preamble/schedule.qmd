@@ -1,3 +1,9 @@
+---
+format:
+  html:
+    tbl-colwidths: [30, 70]
+---
+
 # Schedule {#sec-schedule}
 
 The course is structured as a series of participatory live-coding
@@ -10,39 +16,48 @@ and others may be longer. Instead, it is meant to be an approximate
 guide and overview.
 
 ::: panel-tabset
-```{r schedule-table}
-#| eval: true
-#| echo: false
-#| output: asis
-library(dplyr)
-add_link <- function(text, icon, link) {
-  colour <- "#138d75"
-  added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;<a href=\"", link, "\">", text, "</a>")
-  if (link == "") {
-    added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;", text)
-  }
-  return(htmltools::HTML(added_link))
-}
+## Day 1 {.unnumbered}
 
-schedule <- here::here("preamble/schedule.csv") %>%
-  readr::read_csv(col_types = "ccccc") %>%
-  mutate(across(everything(), ~ if_else(is.na(.x), "", .x))) %>%
-  mutate(
-    `Session topic` = list(`Session topic`, icon, link) %>%
-      purrr::pmap(~ add_link(..1, ..2, ..3)) %>%
-      unlist()
-  ) %>%
-  select(-icon, -link)
+| Time | Session topic |
+|:---|:---|
+| 9:30 | {{< fa mug-hot >}} Arrival; Coffee and snacks |
+| 10:00 | {{< fa person-chalkboard >}} [Introduction to the course](../sessions/introduction.qmd) |
+| 10:30 | {{< fa laptop-code >}} [Smoother project-based collaboration (with short break)](../sessions/smoother-collaboration.qmd) |
+| 12:20 | {{< fa comment-dots >}} [End of session survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
+| 12:30 | {{< fa utensils >}} Lunch |
+| 13:15 | {{< fa user-group >}} [Networking and social activity](../appendix/social.qmd#social-day-one) |
+| 13:35 | {{< fa laptop-code >}} [Continue previous session](../sessions/smoother-collaboration.qmd) |
+| 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
+| 15:15 | {{< fa laptop-code >}} [Continue previous session](../sessions/smoother-collaboration.qmd) |
+| 16:15 | {{< fa comment-dots >}} [End of session survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
 
-unique(schedule$Day) %>%
-  purrr::map_chr(\(day) {
-    knitr::knit_child(
-      input = here::here("preamble/_schedule-days.qmd"),
-      envir = environment(),
-      quiet = TRUE
-    )
-  }) %>%
-  cat(sep = "\n")
-```
+## Day 2 {.unnumbered}
+
+| Time | Session topic |
+|:---|:---|
+| 9:00 | {{< fa laptop-code >}} [Short review; Creating automatic analysis pipelines](../sessions/pipelines.qmd) |
+| 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
+| 10:45 | {{< fa laptop-code >}} [Continue previous session](../sessions/pipelines.qmd) |
+| 12:20 | {{< fa comment-dots >}} [End of session survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
+| 12:30 | {{< fa utensils >}} Lunch |
+| 13:15 | {{< fa user-group >}} [Networking and social activity](../appendix/social.qmd#social-day-two) |
+| 13:35 | {{< fa laptop-code >}} [A general approach to doing statistical analyses](../sessions/stats-analyses-basic.qmd) |
+| 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
+| 15:15 | {{< fa laptop-code >}} [Continue previous session](../sessions/stats-analyses-basic.qmd) |
+| 16:15 | {{< fa comment-dots >}} [End of session survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
+
+## Day 3 {.unnumbered}
+
+| Time | Session topic |
+|:---|:---|
+| 9:00 | {{< fa laptop-code >}} [Short review; Efficiently running many analyses at once](../sessions/stats-analyses-multiple.qmd) |
+| 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
+| 10:45 | {{< fa laptop-code >}} [Continue previous session](../sessions/stats-analyses-multiple.qmd) |
+| 12:20 | {{< fa comment-dots >}} [End of session survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
+| 12:30 | {{< fa utensils >}} Lunch |
+| 13:15 | {{< fa question-mark >}} TBD |
+| 14:45 | {{< fa mug-hot >}} Coffee break and snacks |
+| 15:00 | {{< fa question-mark >}} TBD |
+| 16:00 | {{< fa person-chalkboard >}} Closing remarks |
+| 16:15 | {{< fa comment-dots >}} [End of course survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
 :::
-
