@@ -511,7 +511,7 @@ list(
 ```
 
 Let's run `{targets}` to see what happens! You can either use
-{{< var keybind.targets_make >}} or run this code in the Console:
+{{< var keybind.targets-make >}} or run this code in the Console:
 
 ``` r
 targets::tar_make()
@@ -576,7 +576,7 @@ git_ci("_targets.R", "Add new targets to run.")
 ```
 
 Now, let's try running `{targets}` again using
-{{< var keybind.targets_make >}}.
+{{< var keybind.targets-make >}}.
 
 It probably won't run though. That's because `{targets}` doesn't know
 about the packages that you need for the pipeline. To add it, we need to
@@ -604,7 +604,7 @@ revise_by_text(
 ```
 
 Try running `{targets}` again with either `targets::tar_make()` or
-{{< var keybind.targets_make >}}. It should run through! We also see
+{{< var keybind.targets-make >}}. It should run through! We also see
 that a new folder has been created called `_targets/`. Inside this
 folder it will keep all of the output from running the code. It comes
 with i's own `.gitignore` file so that you don't track all the files
@@ -745,10 +745,10 @@ list(
 ```
 
 Next, test that it works by running `targets::tar_visnetwork()` using
-{{< var keybind.targets_vis >}} or running `targets::tar_outdated()`
-with {{< var keybind.targets_outdated >}}. You should see that the new
+{{< var keybind.targets-vis >}} or running `targets::tar_outdated()`
+with {{< var keybind.targets-outdated >}}. You should see that the new
 item is "outdated". Then run `targets::tar_make()` using
-{{< var keybind.targets_make >}} to update the pipeline. If it all
+{{< var keybind.targets-make >}} to update the pipeline. If it all
 works, than **commit the changes to the Git history** with
 {{< var keybind.git >}}.
 
@@ -814,9 +814,9 @@ list(
 ```
 
 Now when we run `targets::tar_make()` with
-{{< var keybind.targets_make >}}, the Quarto file also gets re-built.
+{{< var keybind.targets-make >}}, the Quarto file also gets re-built.
 But when we use `targets::tar_visnetwork()` using
-{{< var keybind.targets_vis >}}, we don't see the connections with plot
+{{< var keybind.targets-vis >}}, we don't see the connections with plot
 and descriptive statistics. That's because we haven't used them in a way
 `{targets}` can recognize. For that, we need to use the function
 `targets::tar_read()`. And because our Quarto file is located in the
@@ -929,9 +929,9 @@ lipidomics %>%
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 
-Re-run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}}
+Re-run `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
 to see that it now detects the connections between the pipeline targets.
-Then, run `targets::tar_make()` with {{< var keybind.targets_make >}}
+Then, run `targets::tar_make()` with {{< var keybind.targets-make >}}
 again to see everything re-build! Last things are to re-style using
 {{< var keybind.styler >}}, then **commit** the changes to the Git
 history before moving on with {{< var keybind.git >}}. Then push your

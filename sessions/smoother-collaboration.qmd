@@ -527,7 +527,7 @@ instructions in item 1 above to set the options.
 
 Now, when you save your file, RStudio should automatically reformat the
 Markdown into a standardized format. If you want to switch to using the
-Visual Mode, use {{< var keybind.visual_edit >}} or the "Visual" button
+Visual Mode, use {{< var keybind.visual-edit >}} or the "Visual" button
 at the top of the Source Pane beside the bolding and italicizing
 buttons.
 

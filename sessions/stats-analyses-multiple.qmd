@@ -413,9 +413,9 @@ using the below scaffold as a guide.
 2.  Use the `calculate_estimates()` function in `command`, with
     `lipidomics` as the argument.
 3.  Use {{< var keybind.styler >}} to style and than run
-    `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}} to
+    `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to
     see if the new target gets detected. If it does, than run
-    `targets::tar_make()` with {{< var keybind.targets_make >}}.
+    `targets::tar_make()` with {{< var keybind.targets-make >}}.
 4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ``` r
@@ -671,8 +671,8 @@ figures), we'll use `tar_read()` to reference the image path.
 tar_read(fig_model_estimates)
 ```
 
-Run `targets::tar_visnetwork()` using {{< var keybind.targets_vis >}},
-then `targets::tar_make()` with {{< var keybind.targets_make >}}. We now
+Run `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}},
+then `targets::tar_make()` with {{< var keybind.targets-make >}}. We now
 have the report rendered to an HTML file! If you open it up in a
 browser, we can see the figures added to it. Before ending, commit the
 changes to the Git history with {{< var keybind.git >}}.
