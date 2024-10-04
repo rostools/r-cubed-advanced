@@ -156,21 +156,3 @@ at working through the [Extra
 Exercises](../appendix/extra-exercises.qmd) section. It is still a
 work-in-progress, so it is a bit small right now.
 :::
-
-## Small fixes
-
-Before we start, let's fix up a few things:
-
-<!-- TODO: Move these over into the pre-course tasks (or delete them) after the course ends. -->
-
-1.  Delete the `doc/report.Rmd` file, since we will be working with the
-    Quarto `doc/learning.qmd` file instead.
-2.  Run `usethis::use_git_ignore(".Rbuildignore")` to stop tracking the
-    `.Rbuildignore` file. This file is related to building packages,
-    which we aren't doing, and is sometimes created when using the
-    functions in `{usethis}`.
-3.  Open up the `DESCRIPTION` file and add a line with
-    `Title: "Learning advanced R!"` as well as `Version: 0.0.1`. Both of
-    these fields are often needed by `{usethis}`. The `{prodigenr}`
-    package should add them automatically, but doesn't (I need to fix
-    it).
