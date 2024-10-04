@@ -582,18 +582,6 @@ Since this mode is on automatically in the `doc/learning.qmd` file, as
 we work through the sessions, we'll get lots of experience using it.
 We'll also eventually switch so that the whole project uses this mode.
 
-## Exercise: A few small changes to improve your workflow
-
-> Time: \~2 minutes.
-
-There are many options inside the Global Options in RStudio that can
-help you work better and faster. There are a few that will help a lot,
-especially in this course and with the workflows we are showing:
-
--   Go into `Tools -> Global Options -> Code -> Saving`.
-    -   Under the heading "General", tick on all of those check boxes.
-    -   Under the heading "Auto-save", tick on both those check boxes.
-
 ## Exercise: Update the README file, while using canonical markdown mode
 
 > Time: \~10 minutes.
