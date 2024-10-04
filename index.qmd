@@ -32,7 +32,7 @@ reproducible and transparent data analysis pipelines are still very much
 lacking for researchers. Partly due to this gap, how *exactly* an
 analysis is done to produce a given result is poorly, if at all,
 described in scientific studies. This could have major impact on the
-reproducibility an ultimately the reliablity of studies.
+reproducibility an ultimately the reliability of studies.
 
 This course is designed to address these issues in code-along sessions
 (instructor and learner coding together), reading activities, some
@@ -81,6 +81,9 @@ Aarhus](https://www.stenoaarhus.dk/) and [Aarhus
 University](https://au.dk) employs Luke Johnston, who is the lead
 instructor and curriculum developer.
 
-![Steno Diabetes Center Aarhus](images/logo-sdca.png){width="55px"}
+::: layout-ncol="2"
+![Steno Diabetes Center Aarhus](images/logo-sdca.png){width="120px"}
+
 ![Danish Diabetes and Endocrinology
-Academy](https://www.ddeacademy.dk/sites/all/themes/dda/DDEA_logo_outlined.svg){width="90px"}
+Academy](images/logo-ddea.svg){width="300px"}
+:::
