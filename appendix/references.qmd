@@ -4,6 +4,3 @@ nocite: |
 ---
 
 # References {.unnumbered}
-
-::: {#refs}
-:::

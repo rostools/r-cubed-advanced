@@ -40,10 +40,9 @@ book:
       - text: "Code of Conduct"
         href: "https://guides.rostools.org/conduct.html"
 
-bibliography:
-  - includes/references.bib
-  - includes/packages.bib
-csl: includes/vancouver.csl
+bibliography: 
+- "includes/references.bib"
+- "includes/packages.bib"
 
 editor:
   markdown:
