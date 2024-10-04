@@ -520,31 +520,10 @@ There are two ways of doing this:
     in either the project-level `_quarto.yml` file or at the file-level
     in the YAML header.
 
-For right now, we will do the file-level YAML settings. Open the
-`doc/learning.qmd` file and go to the top of the file. Right below the
-last `---`, create a new line above it and paste this code in:
-
-``` yaml
-editor:
-  markdown:
-    wrap: 72
-    canonical: true
-```
-
-```{r purl-only-editor-yaml-metadata}
-#| eval: false
-#| echo: false
-#| purl: true
-editor_options <-
-  "editor:
-  markdown:
-    wrap: 72
-    canonical: true"
-readLines("doc/learning.qmd") |>
-  append(editor_options, after = 1) |>
-  writeLines("doc/learning.qmd")
-git_ci("doc/learning.qmd", "Add editor options to qmd file.")
-```
+For right now, we will do the project option settings so that as long as
+we are using RStudio and in the R Project, it will automatically
+reformat the Markdown files as you write in them. Follow the
+instructions in item 1 above to set the options.
 
 Now, when you save your file, RStudio should automatically reformat the
 Markdown into a standardized format. If you want to switch to using the
@@ -574,53 +553,29 @@ automatically fixed by adding that empty space.
 ``` markdown
 ## This is poorly formatted
 
--  Definitely should have an empty space above this list.
--  This isn't a list, why not?
+-   Definitely should have an empty space above this list.
+-   This isn't a list, why not?
 ```
 
-Since this mode is on automatically in the `doc/learning.qmd` file, as
-we work through the sessions, we'll get lots of experience using it.
-We'll also eventually switch so that the whole project uses this mode.
+Since this mode is on automatically in this project, as we work in the
+`doc/learning.qmd` file through the sessions, we'll get lots of
+experience using it.
 
 ## Exercise: Update the README file, while using canonical markdown mode
 
 > Time: \~10 minutes.
 
-Open up the `README.md` file and copy and paste these YAML metadata to
-the top:
-
-``` markdown
----
-editor:
-  markdown:
-    wrap: 72
-    canonical: true
----
-```
-
-Then, start completing the `TODO` items. Save often and watch as the
-Markdown gets reformatted. After you are done, commit the changes you
-made to the Git history with {{< var keybind.git >}}. Then delete the
-`TODO.md`, followed by committing these deletions in the Git history.
-Click the "Push" button to push the changes to GitHub.
+Open up the `README.md` file and start completing the `TODO` items. Save
+often and watch as the Markdown gets reformatted. After you are done,
+commit the changes you made to the Git history with
+{{< var keybind.git >}}. Then delete the `TODO.md`, followed by
+committing these deletions in the Git history. Click the "Push" button
+to push the changes to GitHub.
 
 ```{r purl-only-editor-options-to-readme}
 #| echo: false
 #| eval: false
 #| purl: true
-editor_yaml <- "
----
-editor:
-  markdown:
-    wrap: 72
-    canonical: true
----
-"
-readLines("README.md") |>
-  append(editor_yaml, after = 1) |>
-  writeLines("README.md")
-gert::git_add("README.md")
-gert::git_commit("Add editor options to README file.")
 fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
