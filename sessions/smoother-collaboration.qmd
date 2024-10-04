@@ -133,20 +133,19 @@ script uses.
         go through each R script manually and install each package
         manually. You might have seen some scripts with code that looks
         like this at the top:
-     
+
         ``` r
         if (!require("packagename")) {
           install.packages("packagename")
         }
         ```
 
-        This code checks if a package exists, if not, it installs
-        it. But! This is not an optimal method to track packages
-        because `require()` won't load the package if it doesn't
-        find it. Which means you would have to re-run the script
-        probably a few times. Plus, sometimes you may need to
-        restart the R session after installing a package in order
-        for R to detect it properly.
+        This code checks if a package exists, if not, it installs it.
+        But! This is not an optimal method to track packages because
+        `require()` won't load the package if it doesn't find it. Which
+        means you would have to re-run the script probably a few times.
+        Plus, sometimes you may need to restart the R session after
+        installing a package in order for R to detect it properly.
 
     -   It doesn't track the *versions* of the packages your project
         depends on, so if a package gets updated and it breaks
@@ -350,8 +349,8 @@ git_ci("DESCRIPTION", "Add usethis as a suggests dependency.")
 ```
 
 Open the Git interface and see that under `Suggests:` in the
-`DESCRIPTION` file is `usethis`. Let's commit these changes, as well as
-the changes to `.Rprofile`, with {{< var keybind.git >}}.
+`DESCRIPTION` file is `usethis`. Let's commit these changes, with
+{{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -388,8 +387,9 @@ Let's complete these tasks to connect to GitHub.
     use_package("gitcreds", "suggests")
     ```
 
-4.  Read through and complete the tasks in the [Connect to GitHub
-    Guide](https://guides.rostools.org/connect-github).
+4.  Read through and complete the tasks in the [*linking your project to
+    GitHub* of the *Connect to GitHub*
+    Guide](https://guides.rostools.org/connect-github#linking-your-project-to-github).
 
 5.  Check your GitHub to make sure the project repository has been
     uploaded to it.
