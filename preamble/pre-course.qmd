@@ -37,22 +37,22 @@ about them are found as you work through this section.
     Git before, this task could take a while because of the reading.
 6.  Run a check with `r3::check_setup()` to see if everything works.
     You'll later need to paste this output into the survey.
-7.  Create an R Project in @sec-create-project, along with the folder
+7.  Connect your computer with GitHub in @sec-connect-github.
+8.  Create an R Project in @sec-create-project, along with the folder
     and file setup.
-8.  Create an Quarto file.
-9.  Write (well, mostly copy and paste) R code to download the data and
+9.  Create an Quarto file.
+10. Write (well, mostly copy and paste) R code to download the data and
     save it to your computer. This task will probably take up maybe
     30-60 minutes depending on your interest of exploring the data.
-10. Run a check using `r3::check_project_setup_advanced()` to see that
+11. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.
-11. Set up some quality of life options in RStudio in
-    1.  
-12. Read about the basic course details in @sec-course-details.
-13. Read the syllabus in @sec-syllabus.
-14. Read the [Code of
+12. Set some options in RStudio in @sec-quality-of-life.\
+13. Read about the basic course details in @sec-course-details.
+14. Read the syllabus in @sec-syllabus.
+15. Read the [Code of
     Conduct](https://guides.rostools.org/conduct.html).
-15. **Complete the pre-course
+16. **Complete the pre-course
     [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
     This survey is pretty quick, maybe \~10 minutes.
 
@@ -161,6 +161,15 @@ out the
 [session](https://r-cubed-intro.rostools.org/sessions/version-control.html)
 on it in the introduction course.
 
+## Connect with GitHub {#sec-connect-github}
+
+Because we'll be pushing and pulling to GitHub throughout the course, as
+well as using GitHub to collaborate with others in the project work, you
+need to setup your computer to connect with GitHub. Read through and
+complete the tasks in the section [*authenticating with GitHub* of the
+*Connect to GitHub*
+Guide](https://guides.rostools.org/connect-github#authenticating-with-github)
+
 ## Create an R Project {#sec-create-project}
 
 One of the basic steps to reproducibility and modern workflows in data
@@ -249,8 +258,8 @@ Please do these two tasks:
     `doc/` folder.
 
     ```{r add-rmarkdown-doc}
-    #| purl: true
-    r3::create_qmd_doc()
+#| purl: true
+r3::create_qmd_doc()
     ```
 
 ```{r purl-only-add-lesson-rmd}
@@ -365,8 +374,10 @@ usethis::use_git_ignore("data-raw/nmr-omics/")
 ```{r purl-only-processing-data}
 #| echo: false
 #| purl: true
-git_ci(c("data-raw/nmr-omics.R", "data/lipidomics.csv", ".gitignore", "DESCRIPTION"),
-       "Script to process omics data into lipidomics csv.")
+git_ci(
+  c("data-raw/nmr-omics.R", "data/lipidomics.csv", ".gitignore", "DESCRIPTION"),
+  "Script to process omics data into lipidomics csv."
+)
 ```
 
 ``` r
@@ -405,7 +416,7 @@ doesn't, start over by deleting everything in the `data-raw/` folder
 again. If your output looks a bit like the above, than copy and paste
 the output into the survey question at the end.
 
-## Set up some quality of life options {#sec-quality-of-life}
+## Set some quality of life options {#sec-quality-of-life}
 
 Some of the most common "issues" we encounter in the course when it
 comes to Git are caused by files not being saved so the changes can't be
