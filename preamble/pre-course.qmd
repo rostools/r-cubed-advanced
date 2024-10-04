@@ -46,11 +46,13 @@ about them are found as you work through this section.
 10. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.
-11. Read about the basic course details in @sec-course-details.
-12. Read the syllabus in @sec-syllabus.
-13. Read the [Code of
+11. Set up some quality of life options in RStudio in
+    1.  
+12. Read about the basic course details in @sec-course-details.
+13. Read the syllabus in @sec-syllabus.
+14. Read the [Code of
     Conduct](https://guides.rostools.org/conduct.html).
-14. **Complete the pre-course
+15. **Complete the pre-course
     [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
     This survey is pretty quick, maybe \~10 minutes.
 
@@ -402,6 +404,19 @@ doesn't, start over by deleting everything in the `data-raw/` folder
 *except* for the `data-raw/nmr-omics.R` script and re-running the script
 again. If your output looks a bit like the above, than copy and paste
 the output into the survey question at the end.
+
+## Set up some quality of life options {#sec-quality-of-life}
+
+Some of the most common "issues" we encounter in the course when it
+comes to Git are caused by files not being saved so the changes can't be
+seen by Git. To help with this, we suggest turning on some options in
+RStudio. While, there are many options inside the Global Options in
+RStudio that can help you work better and faster, the two we want you to
+to use will help you and us out during the course:
+
+-   Go into `Tools -> Global Options -> Code -> Saving`.
+    -   Under the heading "General", tick on all of those check boxes.
+    -   Under the heading "Auto-save", tick on both those check boxes.
 
 ## Course introduction {#sec-course-details}
 
