@@ -25,4 +25,9 @@
     "quarto"
   ],
   "cSpell.language": "en,en-GB",
+  "conventionalCommits.scopes": [
+    "preamble",
+    "sessions",
+    "appendix"
+  ],
 }

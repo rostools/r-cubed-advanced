@@ -21,7 +21,7 @@ Let's make a change to our function and test out how the
     reformat if the code is too long by highlighting the line and using
     {{< var keybind.palette >}}, then "reformat".
 5.  Run `tar_make()` in the Console or with
-    {{< var keybind.targets_make >}}. Re-check for outdated targets and
+    {{< var keybind.targets-make >}}. Re-check for outdated targets and
     visualize the network again.
 6.  Open up the Git interface and commit the changes to the Git history
     with {{< var keybind.git >}}.
