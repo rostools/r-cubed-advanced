@@ -133,8 +133,6 @@ graph LR
     Sunlight --> Growth
     Water --> Growth
     Sunlight --- Water
-
-linkStyle 0,1,2 stroke-width:1px;
 ```
 
 Great research questions are designed in a way to fit a theoretical
@@ -197,8 +195,6 @@ graph TD
     C --> D[Data transformation]
     D --> E[Scientific output]
     E --> A
-    
-linkStyle 0,1,2,3,4,5 stroke-width:1px;
 ```
 
 ::: {.callout-caution appearance="default"}
@@ -254,8 +250,6 @@ graph TB
     lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
     plot_est -- "tar_read()" --> qmd[Quarto]
-    
-linkStyle 0,1,2 stroke-width:1px;
 ```
 :::
 
@@ -302,8 +296,6 @@ graphical theoretical model:
 graph TB
     Metabolite --> T1D
     Age & Gender --> T1D & Metabolite
-
-linkStyle 0,1,2,3,4 stroke-width:1px;
 ```
 
 Or mathematically:

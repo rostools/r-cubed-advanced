@@ -174,8 +174,6 @@ graph LR
     data --> fn_plot_vars{{function}}
     fn_plot_vars{{function}} --> plot_distrib[Output 2:<br>Continuous<br>variables<br>plot]
     plot_distrib --> paper
-
-linkStyle 0,1,2,3,4,5 stroke-width:1px;
 ```
 
 Now that we conceptually have drawn out the sets of tasks to complete in
