@@ -113,7 +113,7 @@ If you *have not* used it, please do these tasks:
     from the introduction course. Specifically, type in the RStudio
     Console:
 
-    ``` r
+    ```{.r filename="Console"}
     # There will be a pop-up to type in your name (first and 
     # last), as well as your email
     r3::setup_git_config()
@@ -134,7 +134,7 @@ If you *have not* used it, please do these tasks:
 Regardless of whether you've done the steps above or not, *everyone*
 needs to run:
 
-``` r
+```{.r filename="Console"}
 r3::check_setup()
 ```
 
@@ -207,6 +207,7 @@ When the RStudio Project opens up again, run these commands in the R
 Console to finish the setup:
 
 ```{r more-project-setup}
+#| filename: Console
 #| purl: true
 # Add Git to the project
 prodigenr::setup_with_git()
@@ -258,6 +259,7 @@ Please do these two tasks:
     `doc/` folder.
 
     ```{r add-rmarkdown-doc}
+#| filename: Console
 #| purl: true
 r3::create_qmd_doc()
     ```
@@ -295,6 +297,7 @@ your `AdvancedR3` R Project, go to the Console pane in RStudio and type
 out:
 
 ```{r create-data-raw}
+#| filename: Console
 #| purl: true
 usethis::use_data_raw("nmr-omics")
 ```
@@ -313,7 +316,7 @@ The R script should have opened up for you, otherwise, go into the
 thing to do is delete all the code in the script. Than, copy and paste
 the code below into the script.
 
-```{r insert-data-raw-script, file=here::here('data-raw/nmr-omics.R')}
+```{r insert-data-raw-script, file=here::here('data-raw/nmr-omics.R'), filename="data-raw/nmr-omics.R"}
 ```
 
 ```{r purl-only-paste-processing-code}
@@ -367,6 +370,7 @@ ignore the files created in the `data-raw/nmr-omics/` folder. In the
 Console, type out the code below. You only need to do this once.
 
 ```{r ignore-xlsx-files}
+#| filename: Console
 #| purl: true
 usethis::use_git_ignore("data-raw/nmr-omics/")
 ```
@@ -380,7 +384,7 @@ git_ci(
 )
 ```
 
-``` r
+```{.r filename="Console"}
 r3::check_project_setup_advanced()
 ```
 

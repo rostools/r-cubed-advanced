@@ -366,6 +366,7 @@ find this "store" of outputs, and import the data using `tar_read()`. We
 also need to add `library(tidymodels)` to the `setup` code chunk. Copy
 and paste this code chunk below into the Quarto file.
 
+```` {.markdown filename="doc/learning.qmd"}
 ```{{r setup}}
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
@@ -374,6 +375,7 @@ library(tidymodels)
 source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
+````
 
 Since we will be using `{tidymodels}`, we need to install it, as well as
 explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
@@ -382,6 +384,7 @@ is a "meta-package". We might need to force installing it with
 `pak::pak("tidymodels")`.
 
 ```{r tidymodels-to-deps}
+#| filename: Console
 #| purl: true
 #| eval: false
 use_package("tidymodels", "depends")
@@ -395,7 +398,7 @@ Before continuing, let's **commit** the changes to the Git history with
 {{< var keybind.git >}}. Next, in the `doc/learning.qmd` file, on the
 bottom of the document create a new header and code chunk:
 
-````         
+````{.markdown filename="doc/learning.qmd"}
 ## Building the model
 
 ```{{r}}
@@ -406,6 +409,7 @@ bottom of the document create a new header and code chunk:
 In the new code chunk, we will set up the model specs:
 
 ```{r logistic-reg-specs}
+#| filename: "doc/learning.qmd"
 log_reg_specs <- logistic_reg() %>%
   set_engine("glm")
 log_reg_specs
@@ -431,6 +435,7 @@ can be fixed with `{recipes}`. Can you spot them?
 
 ```{r print-lipidomics-data}
 #| column: page-inset-right
+#| filename: Console
 lipidomics
 ```
 
@@ -449,6 +454,7 @@ that there seems to be a data input error, since there are three
 `Cholesterol` values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   count(code, metabolite) %>%
   filter(n > 1)
@@ -477,6 +483,7 @@ by setting the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics %>%
   mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
   pivot_wider(
@@ -495,6 +502,7 @@ moving them over into the `R/functions.R` file.
 
 ```{r first-snakecase-fn}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data) {
   data %>%
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
@@ -571,6 +579,7 @@ We can use curly-curly (combined with `across()`) to apply
 
 ```{r second-snakecase-fn}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data, columns) {
   data %>%
     dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
@@ -583,10 +592,10 @@ lipidomics %>%
 Move this new function over into the `R/functions.R` file, add Roxygen
 documentation with {{< var keybind.roxygen >}}, style using
 {{< var keybind.styler >}}, `source()` the modified `R/functions.R` file
-with {{< var keybind.source >}}, and add the new function above the
-`pivot_wider()` code in the `doc/learning.qmd` file.
+with {{< var keybind.source >}}
 
 ```{r new-function-column-values-to-snakecase}
+#| filename: "R/functions.R"
 #' Convert a column's character values to snakecase format.
 #'
 #' @param data The lipidomics dataset.
@@ -663,6 +672,7 @@ predictors, we can explicitly select which variables are which. This has
 some nice features that we will use later on.
 
 ```{r recipes-without-formula}
+#| filename: "doc/learning.qmd"
 recipe(lipidomics_wide) %>%
   update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome")
@@ -708,6 +718,7 @@ distribution. This means we can more easily compare values between
 variables. We can add this to the end of the recipe:
 
 ```{r recipes-with-step-normalize}
+#| filename: "doc/learning.qmd"
 recipe(lipidomics_wide) %>%
   update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
   update_role(class, new_role = "outcome") %>%
@@ -722,6 +733,7 @@ might use a different metabolite later. Note, when adding all the
 from the `{tidyselect}` package.
 
 ```{r new-function-create-recipe-spec}
+#| filename: "R/functions.R"
 #' A transformation recipe to pre-process the data.
 #'
 #' @param data The lipidomics dataset.
@@ -740,6 +752,7 @@ create_recipe_spec <- function(data, metabolite_variable) {
 And test it out:
 
 ```{r use-create-recipe-specs-fn}
+#| filename: "doc/learning.qmd"
 #| column: page-inset-right
 recipe_specs <- lipidomics_wide %>%
   create_recipe_spec(metabolite_cholesterol)
@@ -777,6 +790,7 @@ slightly different types). All model workflows need to start with
 
 ```{r use-workflow-for-model}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 workflow() %>%
   add_model(log_reg_specs) %>%
   add_recipe(recipe_specs)
@@ -788,6 +802,7 @@ workflow that we've used before, where the function should ultimately be
 inside the `R/functions.R` file.
 
 ```{r new-function-create-model-workflow}
+#| filename: "R/functions.R"
 #' Create a workflow object of the model and transformations.
 #'
 #' @param model_specs The model specs
@@ -809,6 +824,7 @@ creation from scratch:
 
 ```{r full-model-workflow-from-almost-scratch}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 model_workflow <- create_model_workflow(
   logistic_reg() %>%
     set_engine("glm"),
@@ -823,6 +839,7 @@ Now, we can do the final thing: Fitting the data to the model with
 
 ```{r fit-model-workflow-to-data}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 fitted_model <- model_workflow %>%
   fit(lipidomics_wide)
 fitted_model
@@ -836,6 +853,7 @@ the `extract_fit_parsnip()` function.
 
 ```{r extract-model-fit}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 fitted_model %>%
   extract_fit_parsnip()
 ```
@@ -848,6 +866,7 @@ dependencies:
 ```{r broom-to-deps}
 #| purl: true
 #| eval: false
+#| filename: Console
 use_package("broom")
 ```
 
@@ -861,6 +880,7 @@ coefficient. Here we choose `exponentiate = TRUE`:
 
 ```{r tidy-up-model-results}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 fitted_model %>%
   extract_fit_parsnip() %>%
   tidy(exponentiate = TRUE)
@@ -872,6 +892,7 @@ thing here: Make another function (and move it to `R/functions.R`)!
 :stuck_out_tongue:
 
 ```{r new-function-tidy-model-output}
+#| filename: "R/functions.R"
 #' Create a tidy output of the model results.
 #'
 #' @param workflow_fitted_model The model workflow object that has been fitted.
@@ -889,6 +910,7 @@ Replacing the code in the `doc/learning.qmd` file to use the function.
 
 ```{r use-tidy-model-output-fn}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 fitted_model %>%
   tidy_model_output()
 ```
@@ -897,6 +919,7 @@ If we revise the code so it is one pipe, it would look like:
 
 ```{r single-pipe-model-results}
 #| column: page-inset-right
+#| filename: "doc/learning.qmd"
 create_model_workflow(
   logistic_reg() %>%
     set_engine("glm"),

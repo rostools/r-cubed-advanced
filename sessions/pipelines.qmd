@@ -202,6 +202,7 @@ file with:
 
 ```{r add-targets-as-dep}
 #| purl: true
+#| filename: Console
 use_package("targets")
 ```
 
@@ -210,6 +211,7 @@ to start using it!
 
 ```{r use-targets}
 #| purl: true
+#| filename: Console
 targets::use_targets()
 ```
 
@@ -354,6 +356,7 @@ project library. `{tidyverse}` is a special "meta"-package so we need to
 add it to the `"depends"` section of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
+#| filename: Console
 #| purl: true
 use_package("tidyverse", "depends")
 ```
@@ -365,7 +368,7 @@ Now, let's start doing some data analysis so that we can add to our
 pipeline later on. First, open up the `doc/learning.qmd` file and create
 a new header and code chunk at the bottom of the file.
 
-````         
+````{.markdown filename="doc/learning.qmd"}
 
 ```{{r setup}}
 library(tidyverse)
@@ -407,6 +410,7 @@ column (`across(where(is.numeric))`) to `round()` to 1 digit. Let's
 write out the code!
 
 ```{r mean-sd-by-each-metabolite}
+#| filename: "doc/learning.qmd"
 #| eval: true
 lipidomics %>%
   group_by(metabolite) %>%
@@ -429,7 +433,14 @@ to take the code we wrote above and convert it into a function. Complete
 these tasks:
 
 1.  Wrap the code with `function() {...}` and name the new function
-    `descriptive_stats`.
+    `descriptive_stats`. Here is some scaffolding to help you get started:
+
+    ```{.r filename="doc/learning.qmd"}
+    descriptive_stats <- function(___) {
+      ___
+    }
+    ```
+
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
 3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
@@ -457,14 +468,6 @@ since the output of the last code that R runs within the function will
 be the output of the function. This is called an "implicit return" and
 we will be using this feature throughout the rest of this course.
 :::
-
-Here is some scaffolding to help you get started:
-
-``` r
-descriptive_stats <- function(___) {
-  ___
-}
-```
 
 ```{r solution-descriptive-stats}
 #| eval: true
@@ -495,7 +498,9 @@ target to load the lipidomic data. In the second, replace it with the
 what the target output is, we can add `df_` to remind us that it is a
 data frame. It should look like:
 
-``` r
+```{r}
+#| eval: false
+#| filename: "targets.R"
 list(
   tar_target(
     name = lipidomics,
@@ -511,7 +516,9 @@ list(
 Let's run `{targets}` to see what happens! You can either use
 {{< var keybind.targets-make >}} or run this code in the Console:
 
-``` r
+```{r}
+#| eval: false
+#| filename: "Console"
 targets::tar_make()
 ```
 
@@ -524,7 +531,9 @@ data file. We can accomplish this by using the argument
 `format = "file"` inside the `tar_target()` before loading the data
 using `{readr}`.
 
-``` r
+```{r}
+#| eval: false
+#| filename: "targets.R"
 list(
     tar_target(
         name = file,
@@ -586,7 +595,7 @@ explicitly called via `::` (e.g. `%>%`). For now, we only need to add
 We can now put this code in the `packages` argument of
 `tar_option_set()` in the `_targets.R` file:
 
-``` r
+```{.r filename="targets.R"}
 packages = c("tibble", "dplyr")
 ```
 
@@ -616,6 +625,7 @@ automatically):
 
 ```{r visualize-targets}
 #| purl: true
+#| filename: Console
 targets::tar_visnetwork()
 ```
 
@@ -623,6 +633,7 @@ Or to see what pipeline targets are outdated:
 
 ```{r outdated-targets}
 #| purl: true
+#| filename: Console
 targets::tar_outdated()
 ```
 
@@ -646,10 +657,11 @@ write this code, let's add it to our `DESCRIPTION` file.
 
 ```{r add-ggplot2-deps}
 #| purl: true
+#| filename: Console
 use_package("ggplot2")
 ```
 
-Next, we'll switch back to `doc/lesson.qmd` and write the code to this
+Next, we'll switch back to `doc/learning.qmd` and write the code to this
 plot of the distribution of each metabolite. We'll use
 `geom_histogram()`, nothing too fancy. And since the data is already in
 long format, we can easily use `facet_wrap()` to create a plot for each
@@ -659,6 +671,7 @@ have the same range of values (some are small, others are quite large).
 ```{r histogram-metabolites}
 #| fig-cap: "Histograms showing the distribution of all metabolites in the lipidomics dataset."
 #| eval: true
+#| filename: "doc/learning.qmd"
 metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
   facet_wrap(vars(metabolite), scales = "free")
@@ -676,8 +689,16 @@ convert it into a function. Just like you did with the
 `descriptive_stats()` function in the exercise above, complete these
 tasks:
 
-1.  Wrap the plot code inside `doc/lesson.qmd` with `function() {...}`
+1.  Wrap the plot code inside `doc/learning.qmd` with `function() {...}`
     and name the new function `plot_distributions`.
+    Use this scaffolding code to help guide you to write the code into a
+    function.
+
+    ```{.r filename="doc/learning.qmd"}
+    plot_distributions <- function(___) {
+      ___
+    }
+    ```
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
 3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
@@ -696,15 +717,6 @@ tasks:
     the Console. If it works, do the last task.
 8.  Save both files and then open the Git interface and commit the
     changes you made to them with {{< var keybind.git >}}.
-
-Use this scaffolding code to help guide you to write the code into a
-function.
-
-``` r
-plot_distributions <- function(___) {
-  ___
-}
-```
 
 ```{r solution-new-function-descriptive-plots}
 #| eval: false
@@ -732,7 +744,7 @@ this `tar_target()` item within the `list()` inside `_targets.R`. To
 make it easier to track things, add `fig_` to the start of the `name`
 given.
 
-``` r
+```{.r filename="targets.R"}
 list(
   ...,
   tar_target(
@@ -788,6 +800,7 @@ install the helper package `{tarchetypes}` first, as well as the
 
 ```{r tarchetypes-deps}
 #| purl: true
+#| filename: Console
 use_package("tarchetypes")
 use_package("quarto")
 ```
@@ -801,7 +814,7 @@ needs, and the file path to the Quarto file. Again, like the other
 using the `doc/learning.qmd` as a sandbox, we won't include it as a
 pipeline target. Instead we will use the `doc/learning.qmd` file:
 
-``` r
+```{.r filename="targets.R"}
 list(
   ...,
   tar_quarto(
@@ -828,7 +841,7 @@ use of the `targets::tar_read()`.
 
 <!-- Because the Quarto file is in another folder, -->
 
-````         
+````{.markdown filename="doc/learning.qmd"}
 ---
 # YAML header
 ---
@@ -892,6 +905,7 @@ string, you can use columns from a data frame, like `value_mean`. So we
 can use it to format the final table text to be `mean value (SD value)`:
 
 ```{r stats-to-table}
+#| filename: "doc/learning.qmd"
 targets::tar_read(df_stats_by_metabolite) %>% 
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
   select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%

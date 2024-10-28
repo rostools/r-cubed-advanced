@@ -249,6 +249,7 @@ these tasks:
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are really struggling or are out of time for the exercise."
 #| purl: true
+#| filename: Console
 usethis::use_package("stringr")
 usethis::use_package("readxl")
 usethis::use_package("dplyr")
@@ -319,6 +320,7 @@ and add some code into it.
 
 ```{r add-usethis-rprofile}
 #| eval: false
+#| filename: Console
 usethis::use_usethis()
 ```
 
@@ -335,6 +337,7 @@ Let's restart R with {{< var keybind.restart-r >}} before using
 `use_package()` to add `{usethis}` as a workflow dependency.
 
 ```{r suggests-dep}
+#| filename: Console
 #| eval: false
 #| purl: true
 use_package("usethis", "suggests")
@@ -429,6 +432,7 @@ it to the `DESCRIPTION` file.
 ```{r add-styler-dep}
 #| eval: false
 #| purl: true
+#| filename: Console
 use_package("styler", "suggests")
 ```
 
@@ -462,6 +466,7 @@ If you wanted to run `{styler}` on all the files, we can use:
 
 ```{r style-dir}
 #| eval: false
+#| filename: Console
 styler::style_dir()
 ```
 

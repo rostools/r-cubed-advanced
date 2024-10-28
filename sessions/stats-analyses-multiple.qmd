@@ -89,7 +89,7 @@ the `lipidomics_wide` dataset. However, these types of
 long form. So we'll start with the original `lipidomics` dataset. Create
 a header and code chunk at the end of the `doc/learning.qmd` file:
 
-````         
+````{.markdown filename="doc/learning.qmd"}
 ## Running multiple models
 
 ```{{r}}
@@ -101,6 +101,7 @@ The first thing we want to do is convert the metabolite names into snake
 case:
 
 ```{r chain-col-to-snakecase}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   column_values_to_snake_case(metabolite)
 ```
@@ -122,6 +123,7 @@ dependency:
 ```{r purrr-to-deps}
 #| purl: true
 #| eval: false
+#| filename: Console
 use_package("purrr")
 ```
 
@@ -131,6 +133,7 @@ three.
 
 ```{r chain-split-by-metabolite}
 #| eval: false
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
   group_split(metabolite)
@@ -151,6 +154,7 @@ the first three):
 
 ```{r chain-map-to-wider}
 #| eval: false 
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
   group_split(metabolite) %>%
@@ -176,6 +180,7 @@ into the `R/functions.R` file, and then `source()` the file with
 {{< var keybind.source >}}.
 
 ```{r new-function-split-by-metabolite}
+#| filename: "R/functions.R"
 #' Convert the long form dataset into a list of wide form data frames.
 #'
 #' @param data The lipidomics dataset.
@@ -193,6 +198,7 @@ split_by_metabolite <- function(data) {
 In the `doc/learning.qmd`, use the new function in the code:
 
 ```{r split-by-metabolite}
+#| filename: "doc/learning.qmd"
 #| eval: false
 lipidomics %>%
   split_by_metabolite()
@@ -217,6 +223,7 @@ move into the `R/functions.R` file, and then `source()` the file with
 {{< var keybind.source >}}.
 
 ```{r new-function-generate-model-results}
+#| filename: "R/functions.R"
 #' Generate the results of a model
 #'
 #' @param data The lipidomics dataset.
@@ -239,6 +246,7 @@ Then we add it to the end of the pipe, but using `map()` and
 `list_rbind()` to convert to a data frame:
 
 ```{r chain-generate-model-results}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   split_by_metabolite() %>%
   map(generate_model_results) %>% 
@@ -250,6 +258,7 @@ let's keep only the `term` rows that are metabolites using `filter()`
 and `str_detect()`.
 
 ```{r chain-filter-terms}
+#| filename: "doc/learning.qmd"
 model_estimates <- lipidomics %>%
   split_by_metabolite() %>%
   map(generate_model_results) %>%
@@ -268,6 +277,7 @@ create a duplicate column of `metabolite` called `term` (to match the
 `model_estimates`) using `mutate()`.
 
 ```{r duplicate-original-vars}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   select(metabolite) %>%
   mutate(term = metabolite)
@@ -277,6 +287,7 @@ Right after that we will use our custom `column_values_to_snake_case()`
 function on the `term` column.
 
 ```{r dup-column-to-snakecase}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   select(metabolite) %>%
   mutate(term = metabolite) %>%
@@ -287,6 +298,7 @@ We can see that we are missing the `metabolite_` text before each snake
 case'd name, so we can add that with `mutate()` and `str_c()`:
 
 ```{r dup-column-append-metabolite}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   select(metabolite) %>%
   mutate(term = metabolite) %>%
@@ -300,6 +312,7 @@ There are 504 rows, but we only need the unique values of `term` and
 only the `metabolite` and `term` variables.
 
 ```{r dup-column-distinct}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   mutate(term = metabolite) %>%
   column_values_to_snake_case(term) %>%
@@ -310,6 +323,7 @@ lipidomics %>%
 The last step is to `right_join()` with the `model_estimates`:
 
 ```{r dup-column-full-join}
+#| filename: "doc/learning.qmd"
 lipidomics %>%
   mutate(term = metabolite) %>%
   column_values_to_snake_case(term) %>%
@@ -470,7 +484,7 @@ inside the `## Results` section. We'll want to use
 `tar_read(df_model_estimates)` so that `{targets}` is aware that the R
 Markdown file is dependent on this target.
 
-````         
+````{.markdown filename="doc/learning.qmd"}
 ### Figure of model estimates
 
 ```{{r}}
@@ -522,6 +536,7 @@ dot-whisker plots, the "geom" we would use is called
     but adding `std.error` instead.
 
 ```{r plot-estimates-pointrange-only}
+#| filename: "doc/learning.qmd"
 plot_estimates <- model_estimates %>% 
   ggplot(aes(
     x = estimate, 
@@ -541,6 +556,7 @@ eventually need to troubleshoot this issue, but for now, let's restrict
 the x axis to be between 0 and 5.
 
 ```{r plot-estimates-coord-fixed}
+#| filename: "doc/learning.qmd"
 plot_estimates +
   coord_fixed(xlim = c(0, 5))
 ```
