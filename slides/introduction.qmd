@@ -1,5 +1,6 @@
 ---
 search: false
+format: r3-theme-revealjs
 ---
 
 # Welcome to the Advanced R^3^ course!

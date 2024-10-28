@@ -2,7 +2,7 @@ project:
   type: r3-theme
   pre-render:
     - mkdir -p _temp
-    - bash _build-slides.sh
+    - quarto render slides/*.qmd
   resources:
     - slides/*.html
 
