@@ -662,6 +662,14 @@ metabolites_to_wider <- function(data) {
 
 ## Using recipes to manage transformations
 
+<!-- TODO: convert this next few paragraphs to reading exercise? -->
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+Verbally talk through the next few paragraphs, no code-along yet.
+:::
+
 We've used `{dplyr}` and `{tidyr}` to start fixing some of the issues
 with the data. But we still have the third issue: How to make the
 results between metabolites comparable. That's where we use `{recipes}`.
@@ -673,7 +681,7 @@ we intend to use so it knows on what variables to apply the chosen
 transformations.
 
 For a few reasons that will be clearer later, we won't ultimately use
-the formula form of `recipe()`, but will show how it works. The
+the formula form of `recipe()`, but will show how it works:
 
 ```{r recipes-with-formula}
 recipe(class ~ metabolite_cholesterol + age + gender, data = lipidomics_wide)
