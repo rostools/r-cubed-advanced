@@ -10,6 +10,7 @@ execute:
 #| eval: true
 source(here::here("R/functions.R"))
 library(tidyverse)
+library(targets)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
@@ -214,7 +215,7 @@ targets::use_targets()
 
 This will add several files:
 
-```         
+```
 .
 ├── _targets.R
 ├── run.R
