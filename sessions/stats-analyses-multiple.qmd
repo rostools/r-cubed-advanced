@@ -339,6 +339,8 @@ to add the original variable names. Then we can add our first
 
 ## Exercise: Creating functions for model results and adding as a target in the pipeline
 
+<!-- TODO: convert this into two exercises -->
+
 > Time: \~25 minutes.
 
 ::: {.callout-warning appearance="default"}
@@ -412,7 +414,7 @@ calculate_estimates <- function(data) {
 #'
 calculate_estimates <- function(data) {
   data %>%
-    split_by_metabolite()  %>%
+    split_by_metabolite() %>%
     purrr::map(generate_model_results) %>%
     purrr::list_rbind() %>% 
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
@@ -446,14 +448,14 @@ list(
 #| eval: false
 #| echo: false
 #| purl: true
-update_target_calc_est <- '
+update_target_calc_est <- "
   ),
   list(
     name = df_model_estimates,
     command = calculate_estimates(lipidomics)
   )
 )
-'
+"
 # print_lines("_targets.R")
 revise_by_line_num(
   path = "_targets.R",
@@ -657,13 +659,13 @@ revise_by_line_num(
 )
 git_ci("doc/learning.qmd", "Add code for model estimates to report.")
 
-update_target_plot_est <- '),
+update_target_plot_est <- "),
 tar_target(
   name = fig_model_estimates,
   command = plot_estimates(df_model_estimates)
 )
 )
-'
+"
 # print_lines("_targets.R")
 styler::style_file("_targets.R")
 revise_by_line_num(

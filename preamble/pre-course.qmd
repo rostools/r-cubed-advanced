@@ -267,11 +267,11 @@ Please do these two tasks:
     function to create a new Quarto file called `learning.qmd` in the
     `doc/` folder.
 
-    ```{r add-rmarkdown-doc}
+```{r add-rmarkdown-doc}
 #| filename: Console
 #| purl: true
 r3::create_qmd_doc()
-    ```
+```
 
 ```{r purl-only-add-lesson-rmd}
 #| echo: false
