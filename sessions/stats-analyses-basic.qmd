@@ -605,6 +605,23 @@ column_values_to_snake_case <- function(data, columns) {
 }
 ```
 
+Now add the new function above the `pivot_wider()` code in the `doc/learning.qmd` file.
+
+```{r snakecase-function-before-pivot-wider}
+#| column: page-inset-right
+#| filename: "doc/learning.qmd"
+lipidomics_wide <- lipidomics %>%
+  column_values_to_snake_case(metabolite) %>%
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+  pivot_wider(
+    names_from = metabolite,
+    values_from = value,
+    values_fn = mean,
+    names_prefix = "metabolite_"
+  )
+lipidomics_wide
+```
+
 ## Exercise: Convert the pivot code into a function
 
 > Time: \~10 minutes.
