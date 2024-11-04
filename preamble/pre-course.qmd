@@ -3,6 +3,15 @@ execute:
   eval: false
 ---
 
+```{r force-downlit}
+#| eval: true
+#| include: false
+library(tidyverse)
+library(targets)
+library(downlit)
+library(pak)
+```
+
 # Pre-course tasks {#sec-pre-course}
 
 In order to participate in this course, you must complete the pre-course
