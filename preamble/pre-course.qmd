@@ -396,7 +396,7 @@ git_ci(
 r3::check_project_setup_advanced()
 ```
 
-``` text
+```
 Show folders and files of project:
 • Please copy and paste this output into the survey question:
 /home/luke/Desktop/AdvancedR3
