@@ -11,8 +11,8 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 lipidomics_wide <- lipidomics %>%
   mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
   metabolites_to_wider()
-# lipidomics %>% 
-#   calculate_estimates() %>% 
+# lipidomics %>%
+#   calculate_estimates() %>%
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
@@ -140,10 +140,10 @@ lipidomics %>%
 ```
 
 ```{r output-only-chain-split-by-metabolite}
-#| echo: false 
+#| echo: false
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
-  group_split(metabolite) %>% 
+  group_split(metabolite) %>%
   head(3)
 ```
 
@@ -153,7 +153,7 @@ person, so we'll use the functional `map()` to apply our custom function
 the first three):
 
 ```{r chain-map-to-wider}
-#| eval: false 
+#| eval: false
 #| filename: "doc/learning.qmd"
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
@@ -162,11 +162,11 @@ lipidomics %>%
 ```
 
 ```{r output-only-chain-map-to-wider}
-#| echo: false 
+#| echo: false
 lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
   group_split(metabolite) %>%
-  map(metabolites_to_wider) %>% 
+  map(metabolites_to_wider) %>%
   head(3)
 ```
 
@@ -207,7 +207,7 @@ lipidomics %>%
 ```{r output-only-split-by-metabolite}
 #| echo: false
 lipidomics %>%
-  split_by_metabolite() %>% 
+  split_by_metabolite() %>%
   head(3)
 ```
 
@@ -249,7 +249,7 @@ Then we add it to the end of the pipe, but using `map()` and
 #| filename: "doc/learning.qmd"
 lipidomics %>%
   split_by_metabolite() %>%
-  map(generate_model_results) %>% 
+  map(generate_model_results) %>%
   list_rbind()
 ```
 
@@ -262,7 +262,7 @@ and `str_detect()`.
 model_estimates <- lipidomics %>%
   split_by_metabolite() %>%
   map(generate_model_results) %>%
-  list_rbind() %>% 
+  list_rbind() %>%
   filter(str_detect(term, "metabolite_"))
 model_estimates
 ```
@@ -416,7 +416,7 @@ calculate_estimates <- function(data) {
   data %>%
     split_by_metabolite() %>%
     purrr::map(generate_model_results) %>%
-    purrr::list_rbind() %>% 
+    purrr::list_rbind() %>%
     dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
     add_original_metabolite_names(data)
 }
@@ -505,7 +505,7 @@ model_estimate_md_text <- c(
   "model_estimates <- tar_read(df_model_estimates)",
   "```"
 )
-  
+
 print_file("doc/learning.qmd")
 revise_by_line_num(
   "doc/learning.qmd",
@@ -539,9 +539,9 @@ dot-whisker plots, the "geom" we would use is called
 
 ```{r plot-estimates-pointrange-only}
 #| filename: "doc/learning.qmd"
-plot_estimates <- model_estimates %>% 
+plot_estimates <- model_estimates %>%
   ggplot(aes(
-    x = estimate, 
+    x = estimate,
     y = metabolite,
     xmin = estimate - std.error,
     xmax = estimate + std.error

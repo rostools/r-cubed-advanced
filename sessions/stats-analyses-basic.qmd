@@ -128,7 +128,6 @@ mathematical model from the data ("test it in the real world").
 %%| fig-cap: Simple example of a theoretical model of plant growth.
 %%| echo: false
 %%| eval: true
-%%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
 graph LR
     Sunlight --> Growth
     Water --> Growth
@@ -187,7 +186,6 @@ a logic and "workflow" to making these models!
 %%| fig-cap: Simple schematic of the workflow for conducting statistical analysis.
 %%| echo: false
 %%| eval: true
-%%{init:{'flowchart':{'nodeSpacing': 40, 'rankSpacing': 20}}}%%
 graph TD
     A[Research question] --> B((Statistical model))
     B --> A
@@ -245,7 +243,6 @@ Potential function names might be:
 %%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
 %%| echo: false
 %%| eval: true
-%%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing': 30}}}%%
 graph TB
     lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
@@ -292,7 +289,6 @@ graphical theoretical model:
 %%| fig-cap: A simple theoretical model of the research question about T1D status.
 %%| echo: false
 %%| eval: true
-%%{init:{'flowchart':{'nodeSpacing': 20, 'rankSpacing':30}, 'themeVariables': { 'edgeLabelBackground': 'transparent'}}}%%
 graph TB
     Metabolite --> T1D
     Age & Gender --> T1D & Metabolite
