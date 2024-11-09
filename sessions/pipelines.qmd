@@ -410,9 +410,9 @@ write out the code!
 ```{r mean-sd-by-each-metabolite}
 #| filename: "doc/learning.qmd"
 #| eval: true
-lipidomics %>%
-  group_by(metabolite) %>%
-  summarise(across(value, list(mean = mean, sd = sd))) %>%
+lipidomics |>
+  group_by(metabolite) |>
+  summarise(across(value, list(mean = mean, sd = sd))) |>
   mutate(across(where(is.numeric), ~round(.x, digits = 1)))
 ```
 
@@ -478,9 +478,9 @@ we will be using this feature throughout the rest of this course.
 #' @return A data.frame/tibble.
 #'
 descriptive_stats <- function(data) {
-  data %>%
-    dplyr::group_by(metabolite) %>%
-    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) %>%
+  data |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
 }
 ```
@@ -587,7 +587,7 @@ It probably won't run though. That's because `{targets}` doesn't know
 about the packages that you need for the pipeline. To add it, we need to
 go to the `tar_option_set()` section of the `_targets.R` file and add to
 the `packages = c("tibble")` code with the packages we use that aren't
-explicitly called via `::` (e.g. `%>%`). For now, we only need to add
+explicitly called via `::` (e.g. `|>`). For now, we only need to add
 `"dplyr"` to the `packages` argument.
 
 We can now put this code in the `packages` argument of
@@ -728,7 +728,7 @@ tasks:
 #' @return A ggplot2 graph.
 #'
 plot_distributions <- function(data) {
-  data %>% 
+  data |> 
     ggplot2::ggplot(ggplot2::aes(x = value)) +
     ggplot2::geom_histogram() +
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
@@ -904,9 +904,9 @@ can use it to format the final table text to be `mean value (SD value)`:
 
 ```{r stats-to-table}
 #| filename: "doc/learning.qmd"
-targets::tar_read(df_stats_by_metabolite) %>% 
-  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
-  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+targets::tar_read(df_stats_by_metabolite) |> 
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 ```
 
@@ -915,9 +915,9 @@ targets::tar_read(df_stats_by_metabolite) %>%
 #| echo: false
 #| purl: true
 pretty_basic_stats_code <- '
-targets::tar_read(df_stats_by_metabolite) %>% 
-  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
-  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+targets::tar_read(df_stats_by_metabolite) |> 
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 '
 revise_by_text(
@@ -932,10 +932,10 @@ git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
 ```{r execute-only-table-basic-stats}
 #| eval: true
 #| echo: false
-lipidomics %>% 
-  descriptive_stats() %>% 
-  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
-  select(Metabolite = metabolite, `Mean (SD)` = MeanSD) %>%
+lipidomics |> 
+  descriptive_stats() |> 
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+  select(Metabolite = metabolite, `Mean (SD)` = MeanSD) |>
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 

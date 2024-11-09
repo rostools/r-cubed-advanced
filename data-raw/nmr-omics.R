@@ -35,36 +35,36 @@ lipidomics_full <- read_xlsx(
 # - Subject level data
 
 # Keep only lipidomic values
-lipidomics_only <- lipidomics_full %>%
+lipidomics_only <- lipidomics_full |>
   # Want to remove columns 2, 3, and 4 since they are "limits"
   # (we don't need them for this course)
-  select(-2:-4) %>%
+  select(-2:-4) |>
   # Remove the subject data rows
-  slice(-1:-4) %>%
-  mutate(across(-V1, as.numeric)) %>%
+  slice(-1:-4) |>
+  mutate(across(-V1, as.numeric)) |>
   # Make it so the metabolite values are all in one column,
   # which will make it easier to join with the subject data later.
-  pivot_longer(-V1) %>%
+  pivot_longer(-V1) |>
   rename(metabolite = V1)
 
 # Keep only subject data
-subject_only <- lipidomics_full %>%
+subject_only <- lipidomics_full |>
   # Remove the first metabolic name and limit columns,
   # don't need for this
-  select(-1:-3) %>%
+  select(-1:-3) |>
   # Keep only the subject data raw
-  slice(1:4) %>%
-  pivot_longer(cols = -V4) %>%
-  pivot_wider(names_from = V4, values_from = value) %>%
+  slice(1:4) |>
+  pivot_longer(cols = -V4) |>
+  pivot_wider(names_from = V4, values_from = value) |>
   # There is a weird "​" before some of the numbers, so we have
   # extract just the number first before converting to numeric.
-  mutate(Age = as.numeric(stringr::str_extract(Age, "\\d+"))) %>%
+  mutate(Age = as.numeric(stringr::str_extract(Age, "\\d+"))) |>
   rename_with(snakecase::to_snake_case)
 
 lipidomics <- full_join(
   subject_only,
   lipidomics_only
-) %>%
+) |>
   # Don't need anymore
   select(-name)
 

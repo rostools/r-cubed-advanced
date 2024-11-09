@@ -8,11 +8,11 @@ source(here::here("R/project-functions.R"))
 library(tidyverse)
 library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
-lipidomics_wide <- lipidomics %>%
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+lipidomics_wide <- lipidomics |>
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
   metabolites_to_wider()
-# lipidomics %>%
-#   calculate_estimates() %>%
+# lipidomics |>
+#   calculate_estimates() |>
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
@@ -102,7 +102,7 @@ case:
 
 ```{r chain-col-to-snakecase}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
+lipidomics |>
   column_values_to_snake_case(metabolite)
 ```
 
@@ -134,16 +134,16 @@ three.
 ```{r chain-split-by-metabolite}
 #| eval: false
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  column_values_to_snake_case(metabolite) %>%
+lipidomics |>
+  column_values_to_snake_case(metabolite) |>
   group_split(metabolite)
 ```
 
 ```{r output-only-chain-split-by-metabolite}
 #| echo: false
-lipidomics %>%
-  column_values_to_snake_case(metabolite) %>%
-  group_split(metabolite) %>%
+lipidomics |>
+  column_values_to_snake_case(metabolite) |>
+  group_split(metabolite) |>
   head(3)
 ```
 
@@ -155,18 +155,18 @@ the first three):
 ```{r chain-map-to-wider}
 #| eval: false
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  column_values_to_snake_case(metabolite) %>%
-  group_split(metabolite) %>%
+lipidomics |>
+  column_values_to_snake_case(metabolite) |>
+  group_split(metabolite) |>
   map(metabolites_to_wider)
 ```
 
 ```{r output-only-chain-map-to-wider}
 #| echo: false
-lipidomics %>%
-  column_values_to_snake_case(metabolite) %>%
-  group_split(metabolite) %>%
-  map(metabolites_to_wider) %>%
+lipidomics |>
+  column_values_to_snake_case(metabolite) |>
+  group_split(metabolite) |>
+  map(metabolites_to_wider) |>
   head(3)
 ```
 
@@ -188,9 +188,9 @@ into the `R/functions.R` file, and then `source()` the file with
 #' @return A list of data frames.
 #'
 split_by_metabolite <- function(data) {
-  data %>%
-    column_values_to_snake_case(metabolite) %>%
-    dplyr::group_split(metabolite) %>%
+  data |>
+    column_values_to_snake_case(metabolite) |>
+    dplyr::group_split(metabolite) |>
     purrr::map(metabolites_to_wider)
 }
 ```
@@ -200,14 +200,14 @@ In the `doc/learning.qmd`, use the new function in the code:
 ```{r split-by-metabolite}
 #| filename: "doc/learning.qmd"
 #| eval: false
-lipidomics %>%
+lipidomics |>
   split_by_metabolite()
 ```
 
 ```{r output-only-split-by-metabolite}
 #| echo: false
-lipidomics %>%
-  split_by_metabolite() %>%
+lipidomics |>
+  split_by_metabolite() |>
   head(3)
 ```
 
@@ -232,12 +232,12 @@ move into the `R/functions.R` file, and then `source()` the file with
 #'
 generate_model_results <- function(data) {
   create_model_workflow(
-    parsnip::logistic_reg() %>%
+    parsnip::logistic_reg() |>
       parsnip::set_engine("glm"),
-    data %>%
+    data |>
       create_recipe_spec(tidyselect::starts_with("metabolite_"))
-  ) %>%
-    parsnip::fit(data) %>%
+  ) |>
+    parsnip::fit(data) |>
     tidy_model_output()
 }
 ```
@@ -247,9 +247,9 @@ Then we add it to the end of the pipe, but using `map()` and
 
 ```{r chain-generate-model-results}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  split_by_metabolite() %>%
-  map(generate_model_results) %>%
+lipidomics |>
+  split_by_metabolite() |>
+  map(generate_model_results) |>
   list_rbind()
 ```
 
@@ -259,10 +259,10 @@ and `str_detect()`.
 
 ```{r chain-filter-terms}
 #| filename: "doc/learning.qmd"
-model_estimates <- lipidomics %>%
-  split_by_metabolite() %>%
-  map(generate_model_results) %>%
-  list_rbind() %>%
+model_estimates <- lipidomics |>
+  split_by_metabolite() |>
+  map(generate_model_results) |>
+  list_rbind() |>
   filter(str_detect(term, "metabolite_"))
 model_estimates
 ```
@@ -278,8 +278,8 @@ create a duplicate column of `metabolite` called `term` (to match the
 
 ```{r duplicate-original-vars}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  select(metabolite) %>%
+lipidomics |>
+  select(metabolite) |>
   mutate(term = metabolite)
 ```
 
@@ -288,9 +288,9 @@ function on the `term` column.
 
 ```{r dup-column-to-snakecase}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  select(metabolite) %>%
-  mutate(term = metabolite) %>%
+lipidomics |>
+  select(metabolite) |>
+  mutate(term = metabolite) |>
   column_values_to_snake_case(term)
 ```
 
@@ -299,10 +299,10 @@ case'd name, so we can add that with `mutate()` and `str_c()`:
 
 ```{r dup-column-append-metabolite}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  select(metabolite) %>%
-  mutate(term = metabolite) %>%
-  column_values_to_snake_case(term) %>%
+lipidomics |>
+  select(metabolite) |>
+  mutate(term = metabolite) |>
+  column_values_to_snake_case(term) |>
   mutate(term = str_c("metabolite_", term))
 ```
 
@@ -313,10 +313,10 @@ only the `metabolite` and `term` variables.
 
 ```{r dup-column-distinct}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  mutate(term = metabolite) %>%
-  column_values_to_snake_case(term) %>%
-  mutate(term = str_c("metabolite_", term)) %>%
+lipidomics |>
+  mutate(term = metabolite) |>
+  column_values_to_snake_case(term) |>
+  mutate(term = str_c("metabolite_", term)) |>
   distinct(term, metabolite)
 ```
 
@@ -324,11 +324,11 @@ The last step is to `right_join()` with the `model_estimates`:
 
 ```{r dup-column-full-join}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  mutate(term = metabolite) %>%
-  column_values_to_snake_case(term) %>%
-  mutate(term = str_c("metabolite_", term)) %>%
-  distinct(term, metabolite) %>%
+lipidomics |>
+  mutate(term = metabolite) |>
+  column_values_to_snake_case(term) |>
+  mutate(term = str_c("metabolite_", term)) |>
+  distinct(term, metabolite) |>
   right_join(model_estimates, by = "term")
 ```
 
@@ -365,7 +365,7 @@ as a starting point.
 
 ``` r
 ___ <- function(___, ___) {
-  ___ %>%
+  ___ |>
 }
 ```
 
@@ -381,11 +381,11 @@ ___ <- function(___, ___) {
 #' @return A data frame.
 #'
 add_original_metabolite_names <- function(model_results, data) {
-  data %>%
-    dplyr::mutate(term = metabolite) %>%
-    column_values_to_snake_case(term) %>%
-    dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
-    dplyr::distinct(term, metabolite) %>%
+  data |>
+    dplyr::mutate(term = metabolite) |>
+    column_values_to_snake_case(term) |>
+    dplyr::mutate(term = stringr::str_c("metabolite_", term)) |>
+    dplyr::distinct(term, metabolite) |>
     dplyr::right_join(model_results, by = "term")
 }
 ```
@@ -395,9 +395,9 @@ results, using the scaffold below as a starting point.
 
 ``` r
 calculate_estimates <- function(data) {
-  ___ %>%
+  ___ |>
     # All the other code to create the results
-    ___ %>% 
+    ___ |> 
     add_original_metabolite_names(data) 
 }
 ```
@@ -413,11 +413,11 @@ calculate_estimates <- function(data) {
 #' @return A data frame.
 #'
 calculate_estimates <- function(data) {
-  data %>%
-    split_by_metabolite() %>%
-    purrr::map(generate_model_results) %>%
-    purrr::list_rbind() %>%
-    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
+  data |>
+    split_by_metabolite() |>
+    purrr::map(generate_model_results) |>
+    purrr::list_rbind() |>
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) |>
     add_original_metabolite_names(data)
 }
 ```
@@ -519,7 +519,7 @@ git_ci("doc/learning.qmd", "Add code for model estimates to report.")
 
 ```{r exec-only-model-estimates}
 #| include: false
-model_estimates <- here::here("data/model-estimates.csv") %>%
+model_estimates <- here::here("data/model-estimates.csv") |>
   readr::read_csv(show_col_types = FALSE)
 ```
 
@@ -539,7 +539,7 @@ dot-whisker plots, the "geom" we would use is called
 
 ```{r plot-estimates-pointrange-only}
 #| filename: "doc/learning.qmd"
-plot_estimates <- model_estimates %>%
+plot_estimates <- model_estimates |>
   ggplot(aes(
     x = estimate,
     y = metabolite,
@@ -581,7 +581,7 @@ as a target in the pipeline. Use the scaffold below as a guide.
 
 ``` r
 plot_estimates <- function(results) {
-  ___ %>% 
+  ___ |> 
     # Plot code here:
     ___
 }
@@ -598,7 +598,7 @@ plot_estimates <- function(results) {
 #' @return A ggplot2 figure.
 #'
 plot_estimates <- function(results) {
-  results %>%
+  results |>
     ggplot2::ggplot(ggplot2::aes(
       x = estimate, y = metabolite,
       xmin = estimate - std.error,
