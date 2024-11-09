@@ -11,12 +11,11 @@ contributes:
       fig-height: 5
       fig-align: center
       df-print: tibble
-      code-line-numbers: true
       code-link: true
       code-overflow: scroll
       from: markdown+emoji
       theme:
-        - zephyr
+        - yeti
         - custom-site.scss
 
     revealjs:
@@ -32,6 +31,7 @@ contributes:
   project:
     project:
       type: book
+      execute: project
 
     book:
       favicon: "favicon.ico"
@@ -43,6 +43,9 @@ contributes:
 
     callout-appearance: minimal
     reference-location: margin
+    citation-location: margin
     crossref:
       chapters: true
 
+    execute:
+      freeze: auto
