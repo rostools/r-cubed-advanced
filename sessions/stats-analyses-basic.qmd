@@ -406,7 +406,7 @@ In the new code chunk, we will set up the model specs:
 
 ```{r logistic-reg-specs}
 #| filename: "doc/learning.qmd"
-log_reg_specs <- logistic_reg() %>%
+log_reg_specs <- logistic_reg() |>
   set_engine("glm")
 log_reg_specs
 ```
@@ -451,8 +451,8 @@ that there seems to be a data input error, since there are three
 
 ```{r too-many-cholesterols}
 #| filename: "doc/learning.qmd"
-lipidomics %>%
-  count(code, metabolite) %>%
+lipidomics |>
+  count(code, metabolite) |>
   filter(n > 1)
 ```
 
@@ -480,8 +480,8 @@ by setting the `values_fn` with `mean`.
 ```{r lipidomic-to-wider}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-lipidomics_wide <- lipidomics %>%
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+lipidomics_wide <- lipidomics |>
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
   pivot_wider(
     names_from = metabolite,
     values_from = value,
@@ -500,10 +500,10 @@ moving them over into the `R/functions.R` file.
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data) {
-  data %>%
+  data |>
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
 }
-lipidomics %>%
+lipidomics |>
   column_values_to_snake_case()
 ```
 
@@ -523,11 +523,11 @@ where one of your function's arguments is to select columns:
 
 ```{r test-nse, error=TRUE}
 test_nse <- function(data, columns) {
-  data %>%
+  data |>
     dplyr::select(columns)
 }
 
-lipidomics %>%
+lipidomics |>
   test_nse(class)
 ```
 
@@ -551,14 +551,14 @@ approach is to wrap the argument with "curly-curly" (`{{}}`).
 
 ```{r test-nse-fixed}
 test_nse <- function(data, columns) {
-  data %>%
+  data |>
     dplyr::select({{ columns }})
 }
 
-lipidomics %>%
+lipidomics |>
   test_nse(class)
 
-lipidomics %>%
+lipidomics |>
   test_nse(c(class, age))
 ```
 :::
@@ -577,11 +577,11 @@ We can use curly-curly (combined with `across()`) to apply
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data, columns) {
-  data %>%
+  data |>
     dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
 }
 
-lipidomics %>%
+lipidomics |>
   column_values_to_snake_case(metabolite)
 ```
 
@@ -600,7 +600,7 @@ with {{< var keybind.source >}}
 #' @return A data frame.
 #'
 column_values_to_snake_case <- function(data, columns) {
-  data %>%
+  data |>
     dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
 }
 ```
@@ -610,9 +610,9 @@ Now add the new function above the `pivot_wider()` code in the `doc/learning.qmd
 ```{r snakecase-function-before-pivot-wider}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-lipidomics_wide <- lipidomics %>%
-  column_values_to_snake_case(metabolite) %>%
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
+lipidomics_wide <- lipidomics |>
+  column_values_to_snake_case(metabolite) |>
+  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
   pivot_wider(
     names_from = metabolite,
     values_from = value,
@@ -631,7 +631,7 @@ it into a new function.
 
 1.  Name the new function `metabolites_to_wider`.
 2.  Include one argument in the new `function()`: `data`.
-3.  Use `data %>%` at the beginning, like we did with the
+3.  Use `data |>` at the beginning, like we did with the
     `column_values_to_snake_case()`.
 4.  Use `tidyr::` before the `pivot_wider()` function.
 5.  Add the Roxygen documentation with {{< var keybind.roxygen >}}.
@@ -650,7 +650,7 @@ it into a new function.
 #' @return A wide data frame.
 #'
 metabolites_to_wider <- function(data) {
-  data %>%
+  data |>
     tidyr::pivot_wider(
       names_from = metabolite,
       values_from = value,
@@ -694,8 +694,8 @@ some nice features that we will use later on.
 
 ```{r recipes-without-formula}
 #| filename: "doc/learning.qmd"
-recipe(lipidomics_wide) %>%
-  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
+recipe(lipidomics_wide) |>
+  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") |>
   update_role(class, new_role = "outcome")
 ```
 
@@ -740,9 +740,9 @@ variables. We can add this to the end of the recipe:
 
 ```{r recipes-with-step-normalize}
 #| filename: "doc/learning.qmd"
-recipe(lipidomics_wide) %>%
-  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") %>%
-  update_role(class, new_role = "outcome") %>%
+recipe(lipidomics_wide) |>
+  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") |>
+  update_role(class, new_role = "outcome") |>
   step_normalize(starts_with("metabolite_"))
 ```
 
@@ -763,9 +763,9 @@ from the `{tidyselect}` package.
 #' @return
 #'
 create_recipe_spec <- function(data, metabolite_variable) {
-  recipes::recipe(data) %>%
-    recipes::update_role({{ metabolite_variable }}, age, gender, new_role = "predictor") %>%
-    recipes::update_role(class, new_role = "outcome") %>%
+  recipes::recipe(data) |>
+    recipes::update_role({{ metabolite_variable }}, age, gender, new_role = "predictor") |>
+    recipes::update_role(class, new_role = "outcome") |>
     recipes::step_normalize(tidyselect::starts_with("metabolite_"))
 }
 ```
@@ -775,7 +775,7 @@ And test it out:
 ```{r use-create-recipe-specs-fn}
 #| filename: "doc/learning.qmd"
 #| column: page-inset-right
-recipe_specs <- lipidomics_wide %>%
+recipe_specs <- lipidomics_wide |>
   create_recipe_spec(metabolite_cholesterol)
 recipe_specs
 ```
@@ -812,8 +812,8 @@ slightly different types). All model workflows need to start with
 ```{r use-workflow-for-model}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-workflow() %>%
-  add_model(log_reg_specs) %>%
+workflow() |>
+  add_model(log_reg_specs) |>
   add_recipe(recipe_specs)
 ```
 
@@ -832,8 +832,8 @@ inside the `R/functions.R` file.
 #' @return A workflow object
 #'
 create_model_workflow <- function(model_specs, recipe_specs) {
-  workflows::workflow() %>%
-    workflows::add_model(model_specs) %>%
+  workflows::workflow() |>
+    workflows::add_model(model_specs) |>
     workflows::add_recipe(recipe_specs)
 }
 ```
@@ -847,9 +847,9 @@ creation from scratch:
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
 model_workflow <- create_model_workflow(
-  logistic_reg() %>%
+  logistic_reg() |>
     set_engine("glm"),
-  lipidomics_wide %>%
+  lipidomics_wide |>
     create_recipe_spec(metabolite_cholesterol)
 )
 model_workflow
@@ -861,7 +861,7 @@ Now, we can do the final thing: Fitting the data to the model with
 ```{r fit-model-workflow-to-data}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-fitted_model <- model_workflow %>%
+fitted_model <- model_workflow |>
   fit(lipidomics_wide)
 fitted_model
 ```
@@ -875,7 +875,7 @@ the `extract_fit_parsnip()` function.
 ```{r extract-model-fit}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-fitted_model %>%
+fitted_model |>
   extract_fit_parsnip()
 ```
 
@@ -891,7 +891,7 @@ dependencies:
 use_package("broom")
 ```
 
-Then, we add the `tidy()` function to our model using the `%>%` pipe.
+Then, we add the `tidy()` function to our model using the `|>` pipe.
 Since we are using a logistic regression model, we need to consider how
 we want the estimates to be presented, probably depending on how we want
 to visualize our results. If we set `exponentiate = TRUE` in `tidy()`,
@@ -902,8 +902,8 @@ coefficient. Here we choose `exponentiate = TRUE`:
 ```{r tidy-up-model-results}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-fitted_model %>%
-  extract_fit_parsnip() %>%
+fitted_model |>
+  extract_fit_parsnip() |>
   tidy(exponentiate = TRUE)
 ```
 
@@ -921,8 +921,8 @@ thing here: Make another function (and move it to `R/functions.R`)!
 #' @return A data frame.
 #'
 tidy_model_output <- function(workflow_fitted_model) {
-  workflow_fitted_model %>%
-    workflows::extract_fit_parsnip() %>%
+  workflow_fitted_model |>
+    workflows::extract_fit_parsnip() |>
     broom::tidy(exponentiate = TRUE)
 }
 ```
@@ -932,7 +932,7 @@ Replacing the code in the `doc/learning.qmd` file to use the function.
 ```{r use-tidy-model-output-fn}
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
-fitted_model %>%
+fitted_model |>
   tidy_model_output()
 ```
 
@@ -942,12 +942,12 @@ If we revise the code so it is one pipe, it would look like:
 #| column: page-inset-right
 #| filename: "doc/learning.qmd"
 create_model_workflow(
-  logistic_reg() %>%
+  logistic_reg() |>
     set_engine("glm"),
-  lipidomics_wide %>%
+  lipidomics_wide |>
     create_recipe_spec(metabolite_cholesterol)
-) %>%
-  fit(lipidomics_wide) %>%
+) |>
+  fit(lipidomics_wide) |>
   tidy_model_output()
 ```
 

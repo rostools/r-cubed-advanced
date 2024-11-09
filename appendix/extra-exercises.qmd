@@ -36,14 +36,14 @@ Let's make a change to our function and test out how the
 #' @return A data.frame/tibble.
 #'
 descriptive_stats <- function(data) {
-  data %>%
-    dplyr::group_by(metabolite) %>%
+  data |>
+    dplyr::group_by(metabolite) |>
     dplyr::summarise(dplyr::across(value, list(
       mean = mean,
       sd = sd,
       median = median,
       iqr = IQR
-    ))) %>%
+    ))) |>
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
 }
 ```
@@ -79,6 +79,6 @@ for now, commit the changes to the Git history with
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-linear_reg_specs <- linear_reg() %>%
+linear_reg_specs <- linear_reg() |>
   set_engine("lm")
 ```

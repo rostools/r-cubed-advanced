@@ -80,7 +80,7 @@ Create another code chunk at the bottom of `doc/learning.qmd` to add
 this code:
 
 ```{r split-metabolite-for-bootstrap}
-lipidomics_list <- lipidomics %>%
+lipidomics_list <- lipidomics |>
   split_by_metabolite()
 ```
 
@@ -120,8 +120,8 @@ functions. We'll `arrange()` by `code` to show how we can have duplicate
 persons when resampling:
 
 ```{r show-split-contents-analysis}
-bootstraps(lipidomics_list[[1]], times = 10)$splits[[1]] %>%
-  analysis() %>%
+bootstraps(lipidomics_list[[1]], times = 10)$splits[[1]] |>
+  analysis() |>
   arrange(code)
 ```
 
@@ -136,9 +136,9 @@ metabolites.
 
 ```{r create-workflow-for-bootstrap}
 workflow_for_bootstrap <- create_model_workflow(
-  logistic_reg() %>%
+  logistic_reg() |>
     set_engine("glm"),
-  lipidomics_list[[1]] %>%
+  lipidomics_list[[1]] |>
     create_recipe_spec(starts_with("metabolite_"))
 )
 ```
@@ -192,11 +192,11 @@ workflow we've used throughout the course.
 #'
 generate_model_variation <- function(data) {
   create_model_workflow(
-    parsnip::logistic_reg() %>%
+    parsnip::logistic_reg() |>
       parsnip::set_engine("glm"),
-    data %>%
+    data |>
       create_recipe_spec(tidyselect::starts_with("metabolite_"))
-  ) %>%
+  ) |>
     tune::fit_resamples(
       resamples = rsample::bootstraps(data, times = 10),
       control = tune::control_resamples(
@@ -210,7 +210,7 @@ generate_model_variation <- function(data) {
 Re-writing the code to use the function, it becomes:
 
 ```{r use-generate-variation-function}
-bootstrapped_results <- lipidomics_list[[1]] %>%
+bootstrapped_results <- lipidomics_list[[1]] |>
   generate_model_variation()
 bootstrapped_results
 ```
@@ -225,8 +225,8 @@ each model fit to the resampled set. We'll ignore all but the
 regular tibble based on the column given.
 
 ```{r unnext-extracts}
-bootstrapped_results %>%
-  select(id, .extracts) %>%
+bootstrapped_results |>
+  select(id, .extracts) |>
   unnest(cols = .extracts)
 ```
 
@@ -235,9 +235,9 @@ new column `.extracts` where each row is called a `<tibble>`). So let's
 again `unnest()` this new `.extracts` column.
 
 ```{r unnest-unnest-bootstrap}
-bootstrapped_results %>%
-  select(id, .extracts) %>%
-  unnest(cols = .extracts) %>%
+bootstrapped_results |>
+  select(id, .extracts) |>
+  unnest(cols = .extracts) |>
   unnest(cols = .extracts)
 ```
 
@@ -248,11 +248,11 @@ only want the metabolite `estimate`, so we can use `filter()` and
 names with `add_original_metabolite_names()`.
 
 ```{r unnest-unnest-tidy-bootstrap-results}
-bootstrapped_results %>%
-  select(id, .extracts) %>%
-  unnest(cols = .extracts) %>%
-  unnest(cols = .extracts) %>%
-  filter(str_detect(term, "metabolite_")) %>%
+bootstrapped_results |>
+  select(id, .extracts) |>
+  unnest(cols = .extracts) |>
+  unnest(cols = .extracts) |>
+  filter(str_detect(term, "metabolite_")) |>
   add_original_metabolite_names(lipidomics)
 ```
 
@@ -266,13 +266,13 @@ Using the same workflow as before, let's convert this into a function:
 #' @return A data frame.
 #'
 tidy_bootstrap_output <- function(bootstrap_results) {
-  bootstrap_results %>%
-    dplyr::select(id, .extracts) %>%
+  bootstrap_results |>
+    dplyr::select(id, .extracts) |>
     # Need to unnest twice since first `.extracts` is a nest of another two
     # columns of `.extracts` and `.config`.
-    tidyr::unnest(cols = .extracts) %>%
-    tidyr::unnest(cols = .extracts) %>%
-    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
+    tidyr::unnest(cols = .extracts) |>
+    tidyr::unnest(cols = .extracts) |>
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) |>
     add_original_metabolite_names(lipidomics)
 }
 ```
@@ -285,10 +285,10 @@ run.
 
 ```{r chain-data-to-bootstrap-results}
 #| eval: false
-metabolites_with_bootstrap_results <- lipidomics %>%
-  split_by_metabolite() %>%
-  map(generate_model_variation) %>%
-  map(tidy_bootstrap_output) %>% 
+metabolites_with_bootstrap_results <- lipidomics |>
+  split_by_metabolite() |>
+  map(generate_model_variation) |>
+  map(tidy_bootstrap_output) |> 
   list_rbind()
 metabolites_with_bootstrap_results
 ```
@@ -317,7 +317,7 @@ Use this code as a guide for the function.
 
 ``` r
 calculate_variation <- function(___) {
-  ___ %>% 
+  ___ |> 
     # Code from above.
     ___
 }
@@ -334,10 +334,10 @@ calculate_variation <- function(___) {
 #' @return A data frame (or file path)
 #'
 calculate_variation <- function(data) {
-  data %>%
-    split_by_metabolite() %>%
-    purrr::map(generate_model_variation) %>%
-    purrr::map(tidy_bootstrap_output) %>% 
+  data |>
+    split_by_metabolite() |>
+    purrr::map(generate_model_variation) |>
+    purrr::map(tidy_bootstrap_output) |> 
     purrr::list_rbind()
 }
 ```
@@ -425,7 +425,7 @@ will use `scales = "free"` because the range of values for `estimate`
 are different for each `metabolite`.
 
 ```{r plot-variation}
-metabolites_with_bootstrap_results %>%
+metabolites_with_bootstrap_results |>
   ggplot(aes(x = estimate)) +
   geom_dotplot() +
   facet_wrap(vars(metabolite), scales = "free")
@@ -456,7 +456,7 @@ Let's use our function workflow with this code:
 #' @return A ggplot2 image.
 #'
 plot_variation <- function(model_results) {
-  model_results %>%
+  model_results |>
     ggplot2::ggplot(ggplot2::aes(x = estimate)) +
     ggplot2::geom_dotplot() +
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")

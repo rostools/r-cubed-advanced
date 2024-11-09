@@ -39,8 +39,8 @@ side by side, rather than stacked.
 
 ```{r bar-plot-gender-class}
 #| eval: true
-gender_by_class_plot <- lipidomics %>%
-  distinct(code, gender, class) %>%
+gender_by_class_plot <- lipidomics |>
+  distinct(code, gender, class) |>
   ggplot(aes(x = class, fill = gender)) +
   geom_bar(position = "dodge")
 gender_by_class_plot
