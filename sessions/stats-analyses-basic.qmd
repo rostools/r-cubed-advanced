@@ -29,7 +29,7 @@ vastly simplify the analysis. This session will be covering a general
 framework for running statistical analyses, regardless of the exact
 statistical method.
 
-## Learning objectives
+## Learning objectives {#sec-stats-analyses-basic-learning-objectives}
 
 The overall objective for this session is to:
 

@@ -61,8 +61,12 @@ and to build networks of support and collaboration.
 
 The specific software and technologies we will cover in this course are
 R, RStudio, Git, GitHub, and Quarto, while the specific R packages are
-`{styler}`, `{targets}`, and several of the `{tidymodels}`
-packages.
+`{styler}`, `{targets}`, and several of the `{tidymodels}` packages.
+
+One goal of the course is to teach about open science, and true to our
+mission, we practice what we preach. The course material is publicly
+accessible (all on this website) and [openly
+licensed](/index.qmd#licensing) so you can use and re-use it for free!
 
 ## Is this course for you?
 

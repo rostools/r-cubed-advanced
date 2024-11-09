@@ -26,7 +26,7 @@ consider for workflows and processes to effectively collaborate with
 others. This session is about making use of more automated ways of
 structuring data analysis projects to ease collaboration.
 
-## Learning objectives
+## Learning objectives {#sec-smoother-collaboration-learning-objectives}
 
 The overall objective for this session is to:
 
