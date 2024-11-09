@@ -143,7 +143,7 @@ If you *have not* used it, please do these tasks:
 Regardless of whether you've done the steps above or not, *everyone*
 needs to run:
 
-```{.r filename="Console"}
+``` {.r filename="Console"}
 r3::check_setup()
 ```
 
@@ -151,9 +151,9 @@ The output you'll get for success will look something like this:
 
 ```         
 Checking R version:
-✔ Your R is at the latest version of 4.3.1!
+✔ Your R is at the latest version of 4.4.1!
 Checking RStudio version:
-✔ Your RStudio is at the latest version of 2023.6.0.421!
+✔ Your RStudio is at the latest version of 2024.9.0.375!
 Checking Git config settings:
 ✔ Your Git configuration is all setup!
   Git now knows that:
