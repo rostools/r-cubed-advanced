@@ -9,3 +9,4 @@ public
 _freeze
 /.quarto/
 .Rbuildignore
+slides/*.html
