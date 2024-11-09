@@ -38,7 +38,7 @@ and outputs, and use a system that tracks those inputs and outputs, you
 can make things a lot easier for yourself and others. This session is
 about applying tools that make and manage these pipelines.
 
-## Learning objectives
+## Learning objectives {#sec-pipelines-learning-objectives}
 
 The overall objective for this session is to:
 

@@ -56,12 +56,13 @@ about them are found as you work through this section.
 11. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.
-12. Set some options in RStudio in @sec-quality-of-life.\
+12. Set some options in RStudio in @sec-quality-of-life.
 13. Read about the basic course details in @sec-course-details.
 14. Read the syllabus in @sec-syllabus.
 15. Read the [Code of
     Conduct](https://guides.rostools.org/conduct.html).
-16. **Complete the pre-course
+16. Pre-read some content in @sec-pre-reading.
+17. **Complete the pre-course
     [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
     This survey is pretty quick, maybe \~10 minutes.
 
@@ -122,7 +123,7 @@ If you *have not* used it, please do these tasks:
     from the introduction course. Specifically, type in the RStudio
     Console:
 
-    ```{.r filename="Console"}
+    ``` {.r filename="Console"}
     # There will be a pop-up to type in your name (first and 
     # last), as well as your email
     r3::setup_git_config()
@@ -359,8 +360,8 @@ AdvancedR3
     └── nmr-omics.R
 ```
 
-And when using `readr::read_csv()`, the created dataset in `data/lipidomics.csv`
-should look like: 
+And when using `readr::read_csv()`, the created dataset in
+`data/lipidomics.csv` should look like:
 
 ```{r show-created-data}
 #| eval: true
@@ -392,11 +393,11 @@ git_ci(
 )
 ```
 
-```{.r filename="Console"}
+``` {.r filename="Console"}
 r3::check_project_setup_advanced()
 ```
 
-```
+```         
 Show folders and files of project:
 • Please copy and paste this output into the survey question:
 /home/luke/Desktop/AdvancedR3
@@ -450,19 +451,30 @@ what our basic assumptions are about who you are and what you know. The
 final pre-course task is to complete a survey that asks if you've read
 it and if it matches you.
 
-One goal of the course is to teach about open science, and true to our
-mission, we practice what we preach. The course material is publicly
-accessible (all on this website) and [openly
-licensed](/index.qmd#licensing) so you can use and re-use it for free!
-The material and table of contents on the side is listed in the order
-that we will cover in the course.
-
 We have a [Code of Conduct](https://guides.rostools.org/conduct.html).
 If you haven't read it, **read it now**. The survey at the end will ask
 about Conduct. We want to make sure this course is a supportive and safe
 environment for learning, so this Code of Conduct is important.
 
-You're almost done. Please fill out the [**pre-course
+## Brief pre-reading {#sec-pre-reading}
+
+An important component of learning is repeated exposure to a concept or
+skill. So, while we will tell you this information during the course,
+and in many cases you will also read it *during* the course, we want to
+introduce some repetition here by reading the sections list below. This
+will not only mentally prepare you for the content of the course, but
+will also give you a bigger overview of what you will be learning and
+doing. So, please read:
+
+1.  @sec-big-picture
+2.  @sec-smoother-collaboration-learning-objectives
+3.  @sec-pipelines-learning-objectives
+4.  @sec-stats-analyses-basic-learning-objectives
+5.  @sec-stats-analyses-multiple-learning-objectives
+
+## Fill in survey {#sec-survey}
+
+You're almost done! :tada: Please fill out the [**pre-course
 survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)
 to finish this assignment.
 

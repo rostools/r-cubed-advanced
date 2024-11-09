@@ -17,7 +17,7 @@ The slides contain speaking notes that you can view by pressing 'S' on
 the keyboard.
 :::
 
-## The Big Picture
+## The Big Picture {#sec-big-picture}
 
 ::: callout-note
 ## Reading task: \~10 minutes

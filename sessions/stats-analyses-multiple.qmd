@@ -40,7 +40,7 @@ complex actions and run large numbers of statistical analyses. This
 session will be about using functional programming in the context of
 statistical analysis.
 
-## Learning objectives
+## Learning objectives {#sec-stats-analyses-multiple-learning-objectives}
 
 The overall objective for this session is to:
 
