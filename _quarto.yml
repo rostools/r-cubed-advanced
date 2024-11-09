@@ -55,5 +55,10 @@ format:
       - "includes/contribute.html"
       - "includes/site-counter.html"
 
+knitr:
+  opts_chunk: 
+    R.options:
+      width: 72
+
 execute:
-  freeze: auto
+  warning: false
