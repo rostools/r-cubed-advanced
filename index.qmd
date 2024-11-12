@@ -83,9 +83,9 @@ Aarhus](https://www.stenoaarhus.dk/) and [Aarhus
 University](https://au.dk) employs Luke Johnston, who is the lead
 instructor and curriculum developer.
 
-::: layout-ncol="2"
-![Steno Diabetes Center Aarhus](images/logo-sdca.png){width="120px"}
+::: {layout-ncol=2}
+![](images/logo-sdca.png){width="120px" alt="Logo for Steno Diabetes Center Aarhus"}
 
-![Danish Diabetes and Endocrinology
-Academy](images/logo-ddea.svg){width="300px"}
+![](images/logo-ddea.svg){width="300px" alt="Logo for Danish Diabetes and Endocrinology Academy"}
 :::
+
