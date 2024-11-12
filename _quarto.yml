@@ -9,6 +9,8 @@ project:
 book:
   title: "Advanced Reproducible Research in R"
   subtitle: "An advanced workshop on creating collaborative and automated analysis pipelines"
+  cover-image: "images/cover.svg"
+  cover-image-alt: "Three people working together to brainstorm, design, and develop a project."
   author:
     - "Luke W. Johnston"
   site-url: "https://r-cubed-advanced.rostools.org"

@@ -74,6 +74,8 @@ attribution to this source.
 
 ## Acknowledgements
 
+Illustration cover is by [Storyset](https://storyset.com/work).
+
 The [Danish Diabetes and Endocrinology Academy](https://www.ddeacademy.dk/)
 hosts, organizes, and sponsors this course. A huge thanks to them for
 their involvement and support! [Steno Diabetes Center
