@@ -54,7 +54,6 @@ editor:
 format:
   r3-theme-html:
     include-before-body:
-      - "includes/contribute.html"
       - "includes/site-counter.html"
 
 knitr:
