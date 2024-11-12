@@ -53,3 +53,8 @@ contributes:
 
     execute:
       freeze: auto
+
+    knitr:
+      opts_chunk: 
+        R.options:
+          width: 72
