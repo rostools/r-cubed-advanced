@@ -13,6 +13,7 @@ book:
   cover-image-alt: "Three people working together to brainstorm, design, and develop a project."
   author:
     - "Luke W. Johnston"
+    - "Anders Askeland"
   site-url: "https://r-cubed-advanced.rostools.org"
   repo-url: "https://github.com/rostools/r-cubed-advanced"
   chapters:
