@@ -49,10 +49,10 @@ about them are found as you work through this section.
 7.  Connect your computer with GitHub in @sec-connect-github.
 8.  Create an R Project in @sec-create-project, along with the folder
     and file setup.
-9.  Create an Quarto file.
+9.  Create a Quarto file.
 10. Write (well, mostly copy and paste) R code to download the data and
     save it to your computer. This task will probably take up maybe
-    30-60 minutes depending on your interest of exploring the data.
+    30-60 minutes depending on your interest in exploring the data.
 11. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.
@@ -393,6 +393,9 @@ git_ci(
 )
 ```
 
+Next, run this command to check that everything is setup correctly. You
+will need to paste this output into the survey at the end.
+
 ``` {.r filename="Console"}
 r3::check_project_setup_advanced()
 ```
@@ -466,11 +469,12 @@ will not only mentally prepare you for the content of the course, but
 will also give you a bigger overview of what you will be learning and
 doing. So, please read:
 
-1.  @sec-big-picture
-2.  @sec-smoother-collaboration-learning-objectives
-3.  @sec-pipelines-learning-objectives
-4.  @sec-stats-analyses-basic-learning-objectives
-5.  @sec-stats-analyses-multiple-learning-objectives
+1.  The "big picture" in @sec-big-picture.
+2.  Each sessions learning objectives:
+    -   @sec-smoother-collaboration-learning-objectives.
+    -   @sec-pipelines-learning-objectives.
+    -   @sec-stats-analyses-basic-learning-objectives.
+    -   @sec-stats-analyses-multiple-learning-objectives.
 
 ## Fill in survey {#sec-survey}
 
