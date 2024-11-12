@@ -74,7 +74,7 @@ attribution to this source.
 
 ## Acknowledgements
 
-The [Danish Diabetes Academy](https://www.danishdiabetesacademy.dk/)
+The [Danish Diabetes and Endocrinology Academy](https://www.ddeacademy.dk/)
 hosts, organizes, and sponsors this course. A huge thanks to them for
 their involvement and support! [Steno Diabetes Center
 Aarhus](https://www.stenoaarhus.dk/) and [Aarhus
