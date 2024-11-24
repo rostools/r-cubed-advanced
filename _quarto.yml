@@ -30,6 +30,7 @@ book:
       - sessions/pipelines.qmd
       - sessions/stats-analyses-basic.qmd
       - sessions/stats-analyses-multiple.qmd
+      - sessions/project-work.qmd
   appendices:
     - appendix/social.qmd
     - appendix/resources.qmd
