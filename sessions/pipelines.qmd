@@ -215,7 +215,7 @@ targets::use_targets()
 
 This will add several files:
 
-```
+```         
 .
 ├── _targets.R
 ├── run.R
@@ -366,7 +366,7 @@ Now, let's start doing some data analysis so that we can add to our
 pipeline later on. First, open up the `doc/learning.qmd` file and create
 a new header and code chunk at the bottom of the file.
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 
 ```{{r setup}}
 library(tidyverse)
@@ -431,9 +431,10 @@ to take the code we wrote above and convert it into a function. Complete
 these tasks:
 
 1.  Wrap the code with `function() {...}` and name the new function
-    `descriptive_stats`. Here is some scaffolding to help you get started:
+    `descriptive_stats`. Here is some scaffolding to help you get
+    started:
 
-    ```{.r filename="doc/learning.qmd"}
+    ``` {.r filename="doc/learning.qmd"}
     descriptive_stats <- function(___) {
       ___
     }
@@ -441,21 +442,27 @@ these tasks:
 
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
+
 3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
     your function (except for `where()`, which comes from the
     `{tidyselect}` package).
+
 4.  Style the code using {{< var keybind.styler >}} to make sure it is
     formatted correctly. You might need to manually force a styling if
     lines are too long.
+
 5.  With the *cursor* inside the function, add some roxygen
     documentation with {{< var keybind.palette >}} followed by typing
     "roxygen comment". Remove the lines that contain `@examples` and
     `@export`, then fill in the other details (like the `@params` and
     `Title`). In the `@return` section, write "A data.frame/tibble."
+
 6.  Cut and paste the function over into the `R/functions.R` file.
+
 7.  Source the `R/functions.R` file with {{< var keybind.source >}}, and
     then test the code by running `descriptive_stats(lipidomics)` in the
     Console. If it works, do the last task.
+
 8.  Save both files and then open the Git interface and commit the
     changes you made to them with {{< var keybind.git >}}.
 
@@ -593,7 +600,7 @@ explicitly called via `::` (e.g. `|>`). For now, we only need to add
 We can now put this code in the `packages` argument of
 `tar_option_set()` in the `_targets.R` file:
 
-```{.r filename="targets.R"}
+``` {.r filename="targets.R"}
 packages = c("tibble", "dplyr")
 ```
 
@@ -688,31 +695,37 @@ convert it into a function. Just like you did with the
 tasks:
 
 1.  Wrap the plot code inside `doc/learning.qmd` with `function() {...}`
-    and name the new function `plot_distributions`.
-    Use this scaffolding code to help guide you to write the code into a
-    function.
+    and name the new function `plot_distributions`. Use this scaffolding
+    code to help guide you to write the code into a function.
 
-    ```{.r filename="doc/learning.qmd"}
+    ``` {.r filename="doc/learning.qmd"}
     plot_distributions <- function(___) {
       ___
     }
     ```
+
 2.  Replace `lipidomics` with `data` and put `data` as an argument
     inside the brackets of `function()`.
+
 3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
     inside your function.
+
 4.  Style using {{< var keybind.styler >}} to make sure it is formatted
     correctly. You might need to manually force a styling if lines are
     too long.
+
 5.  With the *cursor* inside the function, add some roxygen
     documentation with {{< var keybind.roxygen >}}. Remove the lines
     that contain `@examples` and `@export`, then fill in the other
     details (like the `@params` and `Title`). In the `@return` section,
     write "A plot object."
+
 6.  Cut and paste the function over into the `R/functions.R` file.
+
 7.  Source the `R/functions.R` file ({{< var keybind.source >}}) and
     then test the code by running `plot_distributions(lipidomics)` in
     the Console. If it works, do the last task.
+
 8.  Save both files and then open the Git interface and commit the
     changes you made to them with {{< var keybind.git >}}.
 
@@ -742,7 +755,7 @@ this `tar_target()` item within the `list()` inside `_targets.R`. To
 make it easier to track things, add `fig_` to the start of the `name`
 given.
 
-```{.r filename="targets.R"}
+``` {.r filename="targets.R"}
 list(
   ...,
   tar_target(
@@ -812,7 +825,7 @@ needs, and the file path to the Quarto file. Again, like the other
 using the `doc/learning.qmd` as a sandbox, we won't include it as a
 pipeline target. Instead we will use the `doc/learning.qmd` file:
 
-```{.r filename="targets.R"}
+``` {.r filename="targets.R"}
 list(
   ...,
   tar_quarto(
@@ -828,10 +841,13 @@ But when we use `targets::tar_visnetwork()` using
 {{< var keybind.targets-vis >}}, we don't see the connections with plot
 and descriptive statistics. That's because we haven't used them in a way
 `{targets}` can recognize. For that, we need to use the function
-`targets::tar_read()`. And because our Quarto file is located in the
-`doc/` folder, we also have to tell Quarto where the targets "store"
-(stored objects that `targets::tar_read()` looks for), which we do by
-using `targets::tar_config_set()`.
+`targets::tar_read()`. But because our Quarto file is located in the
+`doc/` folder and since `{targets}` by default looks in the current
+folder for the targets "store" (stored objects that
+`targets::tar_read()` looks for) that is kept in the `_targets/` folder,
+when we render the Quarto file it won't find the store. So we have to
+tell `{targets}` where it is located by using
+`targets::tar_config_set()`.
 
 Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
 below the YAML header, and create a new header and code chunk and make
@@ -839,7 +855,7 @@ use of the `targets::tar_read()`.
 
 <!-- Because the Quarto file is in another folder, -->
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 ---
 # YAML header
 ---
@@ -893,8 +909,25 @@ revise_by_line_num(
 git_ci("doc/learning.qmd", "Add code for basic stats to report.")
 ```
 
-With `targets::tar_read()`, we can access all the stored target items
-using syntax like we would with `{dplyr}`, without quotes. For the
+When we use `targets::tar_config_set(store = ...)`, it will create a new
+file in the `doc/` folder called `_targets.yaml` that contains details
+for telling `{targets}` where to find the store. Since the path listed
+in this new file is an absolute path, it will only ever work on your own
+computer. So, it improve reproducibility, it's good practice to not put
+it into the Git history and instead put it in the `.gitignore` file. So
+let's add it to ignore file by using:
+
+```{r}
+#| filename: Console
+use_git_ignore("doc/_targets.yaml") 
+```
+
+Before continuing, let's commit these changes to the Git history with
+{{< var keybind.git >}}.
+
+Now, going back to the `doc/learning.qmd` file, by using
+`targets::tar_read()`, we can access all the stored target items using
+syntax like we would with `{dplyr}`, without quotes. For the
 `df_stats_by_metabolite`, we can do some minor wrangling with `mutate()`
 and `glue::glue()`, and than pipe it to `knitr::kable()` to create a
 table in the output document. The `{glue}` package is really handy for
