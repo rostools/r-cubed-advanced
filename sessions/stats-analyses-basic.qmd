@@ -98,7 +98,7 @@ analyses.
 
 <!-- TODO: Create a revealjs presentation on this? -->
 
-::: callout-note
+:::: callout-note
 ## Reading task: \~15 minutes
 
 Almost all fields of research, and definitely more heavily-quantitative
@@ -248,7 +248,7 @@ graph TB
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
     plot_est -- "tar_read()" --> qmd[Quarto]
 ```
-:::
+::::
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -334,10 +334,10 @@ way that makes a clear separation in the components of the model
 building workflow that was described above, through the use of specific
 packages for each component.
 
-| Package       | Description                                                                                       |
-|---------------|---------------------------------------------------------------------------------------------------|
-| `{parsnip}`   | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`).                 |
-| `{recipes}`   | Model-specific data transformations, such as removing missing values, or standardizing the data.  |
+| Package | Description |
+|---------------|---------------------------------------------------------|
+| `{parsnip}` | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
+| `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
 
 : Core packages within `{tidymodels}`.
@@ -394,7 +394,7 @@ Before continuing, let's **commit** the changes to the Git history with
 {{< var keybind.git >}}. Next, in the `doc/learning.qmd` file, on the
 bottom of the document create a new header and code chunk:
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 ## Building the model
 
 ```{{r}}
@@ -605,7 +605,8 @@ column_values_to_snake_case <- function(data, columns) {
 }
 ```
 
-Now add the new function above the `pivot_wider()` code in the `doc/learning.qmd` file.
+Now add the new function above the `pivot_wider()` code in the
+`doc/learning.qmd` file.
 
 ```{r snakecase-function-before-pivot-wider}
 #| column: page-inset-right
@@ -907,10 +908,24 @@ fitted_model |>
   tidy(exponentiate = TRUE)
 ```
 
-We now have a data frame of our model results! Like we did with the
-`workflows()` code that we converted into a function, we do the same
-thing here: Make another function (and move it to `R/functions.R`)!
-:stuck_out_tongue:
+We now have a data frame of our model results!
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+Reinforce **not** to worry about interpreting the results, that is not
+the aim of this course.
+:::
+
+::: callout-important
+Another reminder, we **are not** interpreting this results. For this
+course, they are **not** important and can distract from the main
+purpose.
+:::
+
+Like we did with the `workflows()` code that we converted into a
+function, we do the same thing here: Make another function (and move it
+to `R/functions.R`)! :stuck_out_tongue:
 
 ```{r new-function-tidy-model-output}
 #| filename: "R/functions.R"
