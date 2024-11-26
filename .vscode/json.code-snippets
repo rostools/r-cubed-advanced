@@ -21,6 +21,14 @@
     ],
     "description": "Insert TODO formatting"
   },
+  "R package name syntax": {
+    "scope": "quarto,markdown",
+    "prefix": "pkg",
+    "body": [
+      "`{${0:Package}}`"
+    ],
+    "description": "The syntax used to display and link R packages to their websites."
+  },
   "Insert reading task": {
     "scope": "quarto,markdown",
     "prefix": "reading",
@@ -32,7 +40,7 @@
       ":::",
     ],
     "description": "Insert reading task section."
-  }
+  },
   "Insert instructor note": {
     "scope": "quarto,markdown",
     "prefix": "instructor_note",
