@@ -320,7 +320,7 @@ and add some code into it.
 usethis::use_usethis()
 ```
 
-Then copy and paste this code into the `.Rprofile`, \*\*at the bottom of
+Then copy and paste this code into the `.Rprofile`, at the bottom of
 your `.Rprofile`.
 
 ``` r
