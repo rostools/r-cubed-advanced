@@ -517,7 +517,7 @@ There are two ways of doing this:
     the default 72 width value) and "Write canonical visual mode
     markdown" to "true".
 2.  Or setting [YAML
-    options](/https://rstudio.github.io/visual-markdown-editing/markdown.html#writer-options)
+    options](https://rstudio.github.io/visual-markdown-editing/markdown.html#writer-options)
     in either the project-level `_quarto.yml` file or at the file-level
     in the YAML header.
 
