@@ -237,10 +237,7 @@ these tasks:
 2.  Use `?usethis::use_package` to review how to use this function.
 3.  In the Console, run `usethis::use_package()` for each package you
     find in `data-raw/nmr-omics.R` (from 1. above).
-4.  Since we are also using the `{usethis}` package to manage these
-    things, run `usethis::use_package("usethis")` to also add it as a
-    package dependency.
-5.  Once done, open the Git interface with {{< var keybind.git >}} (or
+4.  Once done, open the Git interface with {{< var keybind.git >}} (or
     going to the Git Pane and clicking the "Commit" button). What has
     been changed? Commit those changes to the Git history .
 
@@ -258,7 +255,6 @@ usethis::use_package("snakecase")
 usethis::use_package("here")
 usethis::use_package("fs")
 usethis::use_package("readr")
-usethis::use_package("usethis")
 ```
 
 ::: {.callout-note collapse="true"}
