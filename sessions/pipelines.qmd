@@ -213,31 +213,16 @@ to start using it!
 targets::use_targets()
 ```
 
-This will add several files:
+This will write a `_targets.R` script file that we can use to define our
+analysis pipeline. Before we do that though, let's **commit the file to
+the Git history** with {{< var keybind.git >}}.
 
-```         
-.
-├── _targets.R
-├── run.R
-└── run.sh
-```
-
-```{r purl-only-use-targets-files}
-#| eval: false
-#| echo: false
-#| purl: true
-# Admin: Use to list out files created to paste into book.
-fs::dir_tree(regexp = "run.*|_targets.*")
-git_ci(
-  c("run.R", "run.sh", "_targets.R"),
-  "Start using targets"
-)
-```
-
-The most important file is the `_targets.R` file. The other two files
-are used for other situations (like running on a Linux server) that we
-won't cover in the course. Before we continue though, let's **commit
-these new files to the Git history** with {{< var keybind.git >}}.
+::: callout-note
+If you are using an older version of the `{targets}` package, you might
+also find that running`targets::use_targets()` also have created a
+`run.R` and `run.sh` file. The files are used for other situations (like
+running on a Linux server) that we won’t cover in the course.
+:::
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
