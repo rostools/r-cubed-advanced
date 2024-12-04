@@ -44,6 +44,8 @@ most tangible things are the folders and files on our computers. The
 folder and file structures below show where we start and where we end,
 so you can hopefully get a better understanding of how things will look.
 
+::: panel-tabset
+### Initial project structure
 
 Right now, your initial project structure should look like this:
 
@@ -72,9 +74,15 @@ LearnR3
 └── TODO.md
 ```
 
-<!-- At the end of this course, it should look something like: -->
+### Final project structure
+
+At the end of this course, it should look something like:
 
 <!-- TODO: Paste from final output of running code in -->
+
+```         
+```
+:::
 
 Why do we structure it this way?
 
