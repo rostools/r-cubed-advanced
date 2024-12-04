@@ -170,10 +170,14 @@ on it in the introduction course.
 
 Because we'll be pushing and pulling to GitHub throughout the course, as
 well as using GitHub to collaborate with others in the project work, you
-need to setup your computer to connect with GitHub. Read through and
-complete the tasks in the section [*authenticating with GitHub* of the
-*Connect to GitHub*
-Guide](https://guides.rostools.org/connect-github#authenticating-with-github)
+need to setup your computer to connect with GitHub. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| results: asis
+cat(r3admin::read_common("github-authenticate.md"), sep = "\n")
+```
 
 ## Create an R Project {#sec-create-project}
 
