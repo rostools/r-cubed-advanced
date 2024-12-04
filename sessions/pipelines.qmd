@@ -335,8 +335,9 @@ Let's start writing code to create the three items we listed above in
 continuous lipid variables, and a report (Quarto). Since we'll use
 `{tidyverse}`, specifically `{dplyr}`, to calculate the summary
 statistics, we need to add it to our dependencies and install it in the
-project library. `{tidyverse}` is a special "meta"-package so we need to
-add it to the `"depends"` section of the `DESCRIPTION` file.
+project library. Because `{tidyverse}` is a "meta"-package (special type
+of package that makes it easy to install and load other packages) we
+need to add it to the `"depends"` section of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| filename: Console
