@@ -19,7 +19,7 @@ the keyboard.
 
 ## The Big Picture {#sec-big-picture}
 
-::: callout-note
+::::: callout-note
 ## Reading task: \~10 minutes
 
 This section provides a bigger-picture view of what we will be doing,
@@ -155,9 +155,12 @@ it is strong and stable. This is the same with analysis projects, the
 first phase feels like nothing is "moving" but you are building the
 foundation to everything that comes after.
 
+{{< include ../includes/_sticky_up.qmd >}}
+
 ::: {.callout-tip appearance="default"}
 If you finish exercises faster than others in the course, try your hand
 at working through the [Extra
 Exercises](../appendix/extra-exercises.qmd) section. It is still a
 work-in-progress, so there are only a few exercises available right now.
 :::
+:::::

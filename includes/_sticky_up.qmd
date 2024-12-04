@@ -1,0 +1,4 @@
+::: {.callout-tip appearance="default"}
+When you're reading to continue, place the sticky/paper hat on your
+computer to indicate this to the instructor :womans_hat: :tophat:
+:::
