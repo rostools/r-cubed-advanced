@@ -20,7 +20,7 @@ the keyboard.
 ## The Big Picture {#sec-big-picture}
 
 ::::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 This section provides a bigger-picture view of what we will be doing,
 why we want to do it, how we will go about doing it, and what it will
