@@ -584,34 +584,6 @@ git_ci("_targets.R", "Add new targets to run.")
 ```
 
 Now, let's try running `{targets}` again using
-{{< var keybind.targets-make >}}.
-
-It probably won't run though. That's because `{targets}` doesn't know
-about the packages that you need for the pipeline. To add it, we need to
-go to the `tar_option_set()` section of the `_targets.R` file and add to
-the `packages = c("tibble")` code with the packages we use that aren't
-explicitly called via `::` (e.g. `|>`). For now, we only need to add
-`"dplyr"` to the `packages` argument.
-
-We can now put this code in the `packages` argument of
-`tar_option_set()` in the `_targets.R` file:
-
-``` {.r filename="targets.R"}
-packages = c("tibble", "dplyr")
-```
-
-```{r purl-only-add-packages-to-targets}
-#| eval: false
-#| echo: false
-#| purl: true
-revise_by_text(
-  path = "_targets.R",
-  original = "packages = .*$",
-  replacement = "packages = c('tibble', 'dplyr')"
-)
-```
-
-Try running `{targets}` again with either `targets::tar_make()` or
 {{< var keybind.targets-make >}}. It should run through! We also see
 that a new folder has been created called `_targets/`. Inside this
 folder it will keep all of the output from running the code. It comes
