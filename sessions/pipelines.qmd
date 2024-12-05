@@ -422,7 +422,7 @@ Than we will **commit** the changes to the Git history with
 
 While inside the `doc/learning.qmd` file, use the "function-oriented"
 workflow, as taught in the [intermediate
-course](https://r-cubed-intermediate.rostools.org/dry-functions.html#the-basics-of-a-function),
+course](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function. Complete
 these tasks:
 
