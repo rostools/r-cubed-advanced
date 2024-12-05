@@ -29,6 +29,30 @@
     ],
     "description": "The syntax used to display and link R packages to their websites."
   },
+  "Insert code exercise": {
+    "scope": "quarto,markdown",
+    "prefix": "exercise",
+    "body": [
+      "## :technologist: Exercise: ~${0:Title}",
+      "",
+      "**Time: ~${1:Minutes}**",
+      "",
+      "${2:Text}",
+    ],
+    "description": "Insert a hands-on coding exercise section."
+  },
+  "Insert discussion exercise": {
+    "scope": "quarto,markdown",
+    "prefix": "discussion",
+    "body": [
+      "## :speech_balloon: Discussion activity: ~${0:Title}",
+      "",
+      "**Time: ~${1:Minutes}**",
+      "",
+      "${2:Text}",
+    ],
+    "description": "Insert a discussion activity section."
+  },
   "Insert reading task": {
     "scope": "quarto,markdown",
     "prefix": "reading",
@@ -46,7 +70,7 @@
     "prefix": "instructor_note",
     "body": [
       "::: {.callout-note collapse=\"true\"}",
-      "## Instructor note",
+      "## :teacher: Instructor note",
       "",
       "${0:Text body}",
       ":::",
