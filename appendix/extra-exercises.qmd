@@ -2,7 +2,7 @@
 
 ## Creating automatic analysis pipelines
 
-### Exercise: Update function to also calculate median and IQR
+### :technologist: Exercise: Update function to also calculate median and IQR
 
 > Time: \~8 minutes.
 
@@ -44,13 +44,13 @@ descriptive_stats <- function(data) {
       median = median,
       iqr = IQR
     ))) |>
-    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
 }
 ```
 
 ## A general approach to doing statistical analyses
 
-### Exercise: How would you define a linear regression with parsnip?
+### :technologist: Exercise: How would you define a linear regression with parsnip?
 
 > Time: \~10 minutes.
 

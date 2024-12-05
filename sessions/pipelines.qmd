@@ -63,7 +63,7 @@ More specific objectives are to:
 4.  Continue applying the concepts and functions used from the previous
     session.
 
-## Exercise: How do you re-run analyses when something changes?
+##  :speech_balloon: Discussion activity: How do you re-run analyses when something changes?
 
 > Time: \~12 minutes.
 
@@ -420,7 +420,7 @@ After that, style the file using {{< var keybind.styler >}} on the file.
 Than we will **commit** the changes to the Git history with
 {{< var keybind.git >}}.
 
-## Exercise: Convert summary statistics code into a function
+## :technologist: Exercise: Convert summary statistics code into a function
 
 > Time: \~20 minutes.
 
@@ -685,7 +685,7 @@ metabolite_distribution_plot
 
 We now have the basic code to convert over into functions.
 
-## Exercise: Convert the plot code to a function
+## :technologist: Exercise: Convert the plot code to a function
 
 > Time: \~10 minutes.
 

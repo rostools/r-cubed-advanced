@@ -298,7 +298,7 @@ metabolites_with_bootstrap_results
 metabolites_with_bootstrap_results
 ```
 
-## Exercise: Convert to function and add as a target in the pipeline
+## :technologist: Exercise: Convert to function and add as a target in the pipeline
 
 > Time: \~15 minutes.
 
