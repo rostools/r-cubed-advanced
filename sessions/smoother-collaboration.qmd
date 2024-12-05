@@ -515,8 +515,8 @@ typing "style file", which should show the "Style active file" option.
 This is what we will do frequently throughout the course.
 
 Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
-{{< var keybind.styler >}} to style the file. Notice that there isn't
-any changes since the file is already tidy.
+{{< var keybind.styler >}} to style the file. Notice that no changes
+were made since the file is already tidy.
 
 ::: {.callout-note appearance="default"}
 You will probably be asked to install a package called `{miniUI}`, click
@@ -666,3 +666,4 @@ for smoother collaboration (and nicer-looking code and documents):
     are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+
