@@ -164,3 +164,14 @@ Exercises](../appendix/extra-exercises.qmd) section. It is still a
 work-in-progress, so there are only a few exercises available right now.
 :::
 :::::
+
+## Small fixes
+
+<!-- TODO: This isn't needed after a while -->
+
+We need to add a `Title:` field to the `DESCRIPTION` file in order for other
+sections of the course to work properly. Run this bit of code:
+
+```{.r filename="Console"}
+desc::desc_set("Title", "AdvancedR3")
+```
