@@ -89,7 +89,7 @@ the `lipidomics_wide` dataset. However, these types of
 long form. So we'll start with the original `lipidomics` dataset. Create
 a header and code chunk at the end of the `doc/learning.qmd` file:
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 ## Running multiple models
 
 ```{{r}}
@@ -267,8 +267,8 @@ model_estimates <- lipidomics |>
 model_estimates
 ```
 
-Wow! We're basically at our first `{targets}` output! Before continuing, do an
-exercise to convert the code into a function.
+Wow! We're basically at our first `{targets}` output! Before continuing,
+do an exercise to convert the code into a function.
 
 ## :technologist: Exercise: Create a function to calculate the model estimates
 
@@ -288,9 +288,10 @@ calculate_estimates <- function(data) {
 
 1.  Name the new function `calculate_estimates`.
 2.  Within the `function()`, add one argument called `data`.
-3.  Paste the code we created from above into the function, replacing `lipidomics`
-    with `data`.
-4.  Add `dplyr::`, `purrr::`, and `stringr::` before their respective functions.
+3.  Paste the code we created from above into the function, replacing
+    `lipidomics` with `data`.
+4.  Add `dplyr::`, `purrr::`, and `stringr::` before their respective
+    functions.
 5.  Add the Roxygen documentation using {{< var keybind.roxygen >}}.
 6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
 7.  Cut and paste the function over into the `R/functions.R` file.
@@ -317,15 +318,15 @@ calculate_estimates <- function(data) {
 
 ## Improve the readability of the model output
 
-We now have a function that calculates the model estimates, but it 
+We now have a function that calculates the model estimates, but it
 outputs the variable names in snake case. While this is a good practice
 for programming, it is not the most aesthetic for reporting. Let's add
-back the original variable names, rather than the snake case version. Since the
-original variable still exists in our `lipidomics` dataset, we can join it to
-the `model_estimates` object with `right_join()`, along with a few other minor
-changes. First, we'll `select()` only the `metabolite` and then create a
-duplicate column of `metabolite` called `term` (to match the `model_estimates`)
-using `mutate()`.
+back the original variable names, rather than the snake case version.
+Since the original variable still exists in our `lipidomics` dataset, we
+can join it to the `model_estimates` object with `right_join()`, along
+with a few other minor changes. First, we'll `select()` only the
+`metabolite` and then create a duplicate column of `metabolite` called
+`term` (to match the `model_estimates`) using `mutate()`.
 
 ```{r duplicate-original-vars}
 #| filename: "doc/learning.qmd"
@@ -384,18 +385,19 @@ lipidomics |>
   right_join(model_estimates, by = "term")
 ```
 
-Awesome :smile: Now let's bring this code into the `calculate_estimates()` 
-function we created.  Then afterwards we can add our first `{targets}` output!
+Awesome :smile: Now let's bring this code into the
+`calculate_estimates()` function we created. Then afterwards we can add
+our first `{targets}` output!
 
 ## :technologist: Exercise: Incorporate additional code into an existing function
 
 > Time: \~12 minutes.
 
 Taking the code above, we'll insert it into the `calculate_estimates()`
-function so it has a nicer looking and more readable output. While in the
-`R/functions.R`, go to the `calculate_estimates()` function.  Use this scaffold
-to help with the tasks below for adding more code to the `calculate_estimates()`
-function:
+function so it has a nicer looking and more readable output. While in
+the `R/functions.R`, go to the `calculate_estimates()` function. Use
+this scaffold to help with the tasks below for adding more code to the
+`calculate_estimates()` function:
 
 ``` r
 calculate_estimates <- function(data) {
@@ -415,13 +417,13 @@ calculate_estimates <- function(data) {
 ```
 
 1.  Assign the output of the first chunk of code that creates the model
-    estimates and name the new variable `model_estimates`. 
-2.  Paste the code we created into the function, so that the `data` 
+    estimates and name the new variable `model_estimates`.
+2.  Paste the code we created into the function, so that the `data`
     variable pipes into it.
 3.  Add `model_estimates` to the `right_join()` function.
 4.  Add `dplyr::` and `stringr::` before their respective functions.
 5.  Use {{< var keybind.styler >}} to style the file to fix up the code.
-7.  Commit the changes you've made so far with {{< var keybind.git >}}.
+6.  Commit the changes you've made so far with {{< var keybind.git >}}.
 
 ```{r solution-add-new-code-to-calculate-estimates}
 #| eval: false
@@ -451,10 +453,11 @@ calculate_estimates <- function(data) {
 
 ## :technologist: Exercise: Add a target for the model results
 
-> Time: ~8 minutes
+> Time: \~8 minutes
 
-Taking the function code from above, you'll next add the model results output to
-end of the `_targets.R` file, using the below scaffold as a guide.
+Taking the function code from above, you'll next add the model results
+output to end of the `_targets.R` file, using the below scaffold as a
+guide.
 
 ``` r
 list(
@@ -475,7 +478,7 @@ list(
     `targets::tar_make()` with {{< var keybind.targets-make >}}.
 4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
-```{r solution-target-plot-estimates}
+```{r solution-target-model-estimates}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
@@ -530,7 +533,7 @@ inside the `## Results` section. We'll want to use
 `tar_read(df_model_estimates)` so that `{targets}` is aware that the R
 Markdown file is dependent on this target.
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 ### Figure of model estimates
 
 ```{{r}}

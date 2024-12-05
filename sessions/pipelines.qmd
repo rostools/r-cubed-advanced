@@ -376,7 +376,7 @@ git_ci("DESCRIPTION", "Add tidyverse and targets to deps")
 c(
   "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
   "source(here::here('R/functions.R'))",
-  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"  
+  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"
 ) |>
   paste0(collapse = "\n") |>
   write_to_file("doc/learning.qmd")
@@ -410,7 +410,7 @@ Let's write out the code!
 lipidomics |>
   group_by(metabolite) |>
   summarise(across(value, list(mean = mean, sd = sd))) |>
-  mutate(across(where(is.numeric), ~round(.x, digits = 1)))
+  mutate(across(where(is.numeric), ~ round(.x, digits = 1)))
 ```
 
 After that, style the file using {{< var keybind.styler >}} on the file.
@@ -485,7 +485,7 @@ descriptive_stats <- function(data) {
   data |>
     dplyr::group_by(metabolite) |>
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
-    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
 }
 ```
 
@@ -537,19 +537,19 @@ Lets do that now.
 #| eval: false
 #| filename: "targets.R"
 list(
-    tar_target(
-        name = file,
-        command = "data/lipidomics.csv",
-        format = "file"
-    ),
-    tar_target(
-        name = lipidomics,
-        command = readr::read_csv(file, show_col_types = FALSE)
-    ),
-    tar_target(
-        name = df_stats_by_metabolite,
-        command = descriptive_stats(lipidomics)
-    )
+  tar_target(
+    name = file,
+    command = "data/lipidomics.csv",
+    format = "file"
+  ),
+  tar_target(
+    name = lipidomics,
+    command = readr::read_csv(file, show_col_types = FALSE)
+  ),
+  tar_target(
+    name = df_stats_by_metabolite,
+    command = descriptive_stats(lipidomics)
+  )
 )
 ```
 
@@ -618,8 +618,10 @@ Before continuing, let's commit the changes (including the files in the
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c("_targets", "_targets.R", "DESCRIPTION"), 
-       "Tell targets about packages, add _targets")
+git_ci(
+  c("_targets", "_targets.R", "DESCRIPTION"),
+  "Tell targets about packages, add _targets"
+)
 ```
 
 ## Creating figure outputs
@@ -710,7 +712,7 @@ tasks:
 #' @return A ggplot2 graph.
 #'
 plot_distributions <- function(data) {
-  data |> 
+  data |>
     ggplot2::ggplot(ggplot2::aes(x = value)) +
     ggplot2::geom_histogram() +
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
@@ -746,13 +748,13 @@ works, than **commit the changes to the Git history** with
 #| eval: false
 #| echo: false
 #| purl: true
-update_targets_plots <- '
+update_targets_plots <- "
 ),
 tar_target(
   name = fig_metabolite_distribution,
   command = plot_distributions(lipidomics)
 )
-'
+"
 # print_lines("_targets.R")
 # -20 to remove the previous `)`
 revise_by_line_num(
@@ -851,7 +853,8 @@ tar_read(fig_metabolites_distribution)
 #| eval: false
 #| echo: false
 #| purl: true
-basic_stats_md_text <- c("```{r setup}",
+basic_stats_md_text <- c(
+  "```{r setup}",
   "library(tidyverse)",
   "library(targets)",
   "lipidomics <- tar_read(lipidomics)",
@@ -865,7 +868,8 @@ basic_stats_md_text <- c("```{r setup}",
   "",
   "```{r}",
   "tar_read(fig_metabolites_distribution)",
-  "```")
+  "```"
+)
 print_file("doc/learning.qmd")
 revise_by_line_num(
   "doc/learning.qmd",
@@ -887,7 +891,7 @@ let's add it to ignore file by using:
 
 ```{r}
 #| filename: Console
-use_git_ignore("doc/_targets.yaml") 
+use_git_ignore("doc/_targets.yaml")
 ```
 
 Before continuing, let's commit these changes to the Git history with
@@ -905,7 +909,7 @@ can use it to format the final table text to be `mean value (SD value)`:
 
 ```{r stats-to-table}
 #| filename: "doc/learning.qmd"
-targets::tar_read(df_stats_by_metabolite) |> 
+targets::tar_read(df_stats_by_metabolite) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
@@ -916,7 +920,7 @@ targets::tar_read(df_stats_by_metabolite) |>
 #| echo: false
 #| purl: true
 pretty_basic_stats_code <- '
-targets::tar_read(df_stats_by_metabolite) |> 
+targets::tar_read(df_stats_by_metabolite) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
@@ -933,8 +937,8 @@ git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
 ```{r execute-only-table-basic-stats}
 #| eval: true
 #| echo: false
-lipidomics |> 
-  descriptive_stats() |> 
+lipidomics |>
+  descriptive_stats() |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean (SD)` = MeanSD) |>
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")

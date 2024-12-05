@@ -302,7 +302,7 @@ metabolites_with_bootstrap_results
 
 > Time: \~8 minutes.
 
-Continue the workflow we've applied throughout the course, convert the 
+Continue the workflow we've applied throughout the course, convert the
 code to calculate the variation of the model estimates into a function.
 Use this code as a guide for the function.
 
@@ -314,8 +314,8 @@ calculate_variation <- function(___) {
 }
 ```
 
-1.  Move the code we made right before this exercise into a function structure
-    (use the scaffold below as a guide).
+1.  Move the code we made right before this exercise into a function
+    structure (use the scaffold below as a guide).
 2.  Include one argument in the `function()` called `data`.
 3.  Replace `lipidomics` in the code with `data`.
 4.  Add the Roxygen documentation with {{< var keybind.roxgyen >}}.
@@ -346,8 +346,8 @@ calculate_variation <- function(data) {
 
 > Time: \~8 minutes.
 
-Continuing from the previous exercise, add the `calculate_variation()` function
-to `_targets.R`. Use this code as a scaffold:
+Continuing from the previous exercise, add the `calculate_variation()`
+function to `_targets.R`. Use this code as a scaffold:
 
 ``` r
 list(
