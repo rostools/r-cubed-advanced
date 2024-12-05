@@ -217,9 +217,10 @@ This will write a `_targets.R` script file that we can use to define our
 analysis pipeline. Before we do that though, let's **commit the file to
 the Git history** with {{< var keybind.git >}}.
 
+
 ::: callout-note
 If you are using an older version of the `{targets}` package, you might
-also find that running`targets::use_targets()` also have created a
+also find that running `targets::use_targets()` also have created a
 `run.R` and `run.sh` file. The files are used for other situations (like
 running on a Linux server) that we won’t cover in the course.
 :::
@@ -384,7 +385,7 @@ git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 
 We want to calculate the mean and SD for each metabolite and then, to
 make it more readable, to round the numbers to one digit. To do this,
-will utilize the Split-apply-combine methodology and the `across()`
+will utilize the split-apply-combine methodology and the `across()`
 function, we covered in the
 [functionals](https://r-cubed-intermediate.rostools.org/sessions/functionals)
 session of the intermediate course.
@@ -396,7 +397,7 @@ Briefly, we will:
 2.  Use `summarise()` to calculate the `mean()` and `sd()` for each
     metabolite.
 
-3.  Round the calculated mean and sd to 1 digit using `round()`.
+3.  Round the calculated mean and standard deviation (`sd`) to 1 digit using `round()`.
 
 While doing this, we will also utilize the `across()` functional, making
 it easy to apply the same transformation on multiple columns.
