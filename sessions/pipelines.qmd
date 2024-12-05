@@ -789,9 +789,8 @@ Then, inside `_targets.R`, uncomment the line where
 build the Quarto file is `tar_quarto()` (or `tar_render()` for R
 Markdown files), which needs two things: The `name`, like `tar_target()`
 needs, and the file path to the Quarto file. Again, like the other
-`tar_target()` items, add it to the end of the `list()`. Since we're
-using the `doc/learning.qmd` as a sandbox, we won't include it as a
-pipeline target. Instead we will use the `doc/learning.qmd` file:
+`tar_target()` items, add it to the end of the `list()`. Lets add
+`doc/learning.qmd` as a pipeline step:
 
 ``` {.r filename="targets.R"}
 list(
@@ -1007,3 +1006,4 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
+
