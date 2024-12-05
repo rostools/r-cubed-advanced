@@ -61,7 +61,7 @@ Specific "anti"-objectives:
 ## Apply logistic regression to each metabolite with functional programming
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component

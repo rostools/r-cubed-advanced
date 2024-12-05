@@ -85,7 +85,7 @@ lipidomics_list <- lipidomics |>
 ```
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 > *You don't need to run the code in this reading section*.
 

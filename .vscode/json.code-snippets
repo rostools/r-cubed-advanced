@@ -34,7 +34,7 @@
     "prefix": "reading",
     "body": [
       "::: callout-note",
-      "## Reading task: ~${0:Minutes}",
+      "## :book: Reading task: ~${0:Minutes}",
       "",
       "${1:Text body}",
       ":::",
