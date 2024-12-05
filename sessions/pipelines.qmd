@@ -528,8 +528,9 @@ targets::tar_make()
 While this `{targets}` pipeline works, it is currently not able to
 invalidate the pipeline if our underlying data changes. To track the
 actual data file we need to create a seperate pipeline target, where we
-define our actual file using the argument `format = "file"`. Lets do
-that now.
+define our actual file using the argument `format = "file"`. We can then
+change our previous target to point to the newly defined file target.
+Lets do that now.
 
 ```{r}
 #| eval: false
