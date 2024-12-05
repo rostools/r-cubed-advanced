@@ -407,7 +407,7 @@ list(
 ## Visualizing the variability of results
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Take your time explaining why we might use a figure like this, and what
 you're trying to show. Since there isn't much code involved, there is
