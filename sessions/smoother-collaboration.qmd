@@ -74,7 +74,7 @@ to go in and contribute your own code to theirs (and vice versa)?
 > reading and explanation, but is important for the next sessions.
 
 ::: callout-note
-## Reading task: \~8 minutes
+## :book: Reading task: \~8 minutes
 
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
@@ -158,7 +158,7 @@ script uses.
 <!-- TODO: As a reading activity or explained by the instructor? -->
 
 :::: callout-note
-## Reading task: \~3 minutes
+## :book: Reading task: \~3 minutes
 
 The most common form, at least based on R packages and projects found on
 GitHub, of more formal dependency management makes use of the
@@ -396,7 +396,7 @@ Let's complete these tasks to connect to GitHub.
 ## Automatically adhere to a style guide
 
 ::: callout-note
-## Reading task: \~5 minutes
+## :book: Reading task: \~5 minutes
 
 We've covered how to adhere to a style guide in both the introductory as
 well as the intermediate course, because it is such a useful and

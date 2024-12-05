@@ -97,7 +97,7 @@ goal might change as the analysis progresses.
 :::
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
@@ -248,7 +248,7 @@ works.
 :::
 
 :::: callout-note
-## Reading task: \~8
+## :book: Reading task: \~8
 
 Next, open up the `_targets.R` and we'll take a look at what it
 contains.
@@ -983,7 +983,7 @@ changes up to GitHub.
 ## Fixing issues in the stored pipeline data
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Sometimes you need to start from the beginning and clean everything up
 because there's an issue that you can't seem to fix. In this case,

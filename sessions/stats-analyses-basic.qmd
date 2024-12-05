@@ -99,7 +99,7 @@ analyses.
 <!-- TODO: Create a revealjs presentation on this? -->
 
 :::: callout-note
-## Reading task: \~15 minutes
+## :book: Reading task: \~15 minutes
 
 Almost all fields of research, and definitely more heavily-quantitative
 and scientific fields like biomedicine and health, have math and
@@ -278,7 +278,7 @@ approaches.
 :::
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Now that we've talked about the workflow around making models and have
 already written out some research questions, let's make a basic,
@@ -514,7 +514,7 @@ something called "curly-curly" (it looks like `{{}}` when used) and
 "non-standard evaluation" (NSE).
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 When you write your own functions that make use of functions in the
 `{tidyverse}`, you may eventually encounter an error that might not be
@@ -977,7 +977,7 @@ only.
 :::
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Let's explain this output a bit, each column at a time:
 
