@@ -49,7 +49,7 @@ More specific objectives are to:
 5.  Use `{styler}` and RStudio's canonical markdown mode to
     programmatically check and apply style guides to your project files.
 
-## Exercise: How do you *exactly* collaborate or contribute? To your own or others' projects.
+## :speech_balloon: Discussion activity: How do you *exactly* collaborate or contribute? To your own or others' projects.
 
 > Time: \~10 minutes.
 
@@ -220,7 +220,7 @@ comment all the files from the project into the Git history. Open the
 Git interface by either typing with {{< var keybind.git >}} or by going
 to the Git pane and clicking the "Commit" button.
 
-## Exercise: Add packages from the data processing script
+## :technologist: Exercise: Add packages from the data processing script
 
 > Time: \~10 minutes.
 
@@ -258,7 +258,7 @@ usethis::use_package("readr")
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Make sure that everyone has added the right packages, since it can be
 easy to miss some of the packages referenced using `::`.
@@ -278,7 +278,7 @@ git_ci(
 ## Two types of dependencies
 
 ::: {.callout-note appearance="minimal" collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Verbally explain the content of the next few paragraphs (don't need to
 show the website on the projector).
@@ -352,7 +352,7 @@ Open the Git interface and see that under `Suggests:` in the
 {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 For the information block below, mention it to the learners but you
 don't need to go over it. Especially mention the second part of the tip.
@@ -364,7 +364,7 @@ collaborating on a project, you can run `pak::pak()` and it should
 install all types of dependencies, both workflow and build.
 :::
 
-## Exercise: Connect your project to GitHub
+## :technologist: Exercise: Connect your project to GitHub
 
 > Time: \~25 minutes.
 
@@ -471,7 +471,7 @@ might sometimes have to manually fix run the reformatting (with the
 Command Palette {{< var keybind.palette >}} then "reformat").
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Mention the callout block below, but don't go into it at all.
 :::
@@ -562,7 +562,7 @@ Since this mode is on automatically in this project, as we work in the
 `doc/learning.qmd` file through the sessions, we'll get lots of
 experience using it.
 
-## Exercise: Update the README file, while using canonical markdown mode
+## :technologist: Exercise: Update the README file, while using canonical markdown mode
 
 > Time: \~10 minutes.
 

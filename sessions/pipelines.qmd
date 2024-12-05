@@ -15,7 +15,7 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Before beginning, get them to recall what they remember of the previous
 session, either with something like Mentimeter or verbally. Preferably
@@ -63,7 +63,7 @@ More specific objectives are to:
 4.  Continue applying the concepts and functions used from the previous
     session.
 
-## Exercise: How do you re-run analyses when something changes?
+##  :speech_balloon: Discussion activity: How do you re-run analyses when something changes?
 
 > Time: \~12 minutes.
 
@@ -89,7 +89,7 @@ early in the data processing stage.
 ## What is a data analysis "pipeline"?
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 After they finish reading this section, briefly walk through it. In
 particular, emphasize what we want to make at the end, even though that
@@ -187,7 +187,7 @@ With this package, you specify outputs you want to create and
 depends on which other one and which ones need to be updated.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Ask participants, which do they think it is: a build dependency or a
 workflow dependency. Because it is directly used to run analyses and
@@ -240,7 +240,7 @@ won't cover in the course. Before we continue though, let's **commit
 these new files to the Git history** with {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Let them read it before going over it again to reinforce
 function-oriented workflows and how `{targets}` and the `tar_target()`
@@ -420,7 +420,7 @@ After that, style the file using {{< var keybind.styler >}} on the file.
 Than we will **commit** the changes to the Git history with
 {{< var keybind.git >}}.
 
-## Exercise: Convert summary statistics code into a function
+## :technologist: Exercise: Convert summary statistics code into a function
 
 > Time: \~20 minutes.
 
@@ -685,7 +685,7 @@ metabolite_distribution_plot
 
 We now have the basic code to convert over into functions.
 
-## Exercise: Convert the plot code to a function
+## :technologist: Exercise: Convert the plot code to a function
 
 > Time: \~10 minutes.
 
