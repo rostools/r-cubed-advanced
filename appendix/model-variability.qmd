@@ -288,7 +288,7 @@ run.
 metabolites_with_bootstrap_results <- lipidomics |>
   split_by_metabolite() |>
   map(generate_model_variation) |>
-  map(tidy_bootstrap_output) |> 
+  map(tidy_bootstrap_output) |>
   list_rbind()
 metabolites_with_bootstrap_results
 ```
@@ -298,21 +298,12 @@ metabolites_with_bootstrap_results
 metabolites_with_bootstrap_results
 ```
 
-## :technologist: Exercise: Convert to function and add as a target in the pipeline
+## :technologist: Exercise: Convert variation calculation into a function
 
-> Time: \~15 minutes.
+> Time: \~8 minutes.
 
-Continue the workflow we've applied throughout the course:
-
-1.  Move the code into a function structure (use the scaffold below as a
-    guide).
-2.  Include one argument in the `function()` called `data`.
-3.  Replace `lipidomics` in the code with `data`.
-4.  Add the Roxygen documentation with {{< var keybind.roxgyen >}}.
-5.  Cut and paste the function over into the `R/functions.R` file.
-6.  Style using {{< var keybind.styler >}}.
-7.  Commit the changes to the Git history with {{< var keybind.git >}}.
-
+Continue the workflow we've applied throughout the course, convert the 
+code to calculate the variation of the model estimates into a function.
 Use this code as a guide for the function.
 
 ``` r
@@ -322,6 +313,15 @@ calculate_variation <- function(___) {
     ___
 }
 ```
+
+1.  Move the code we made right before this exercise into a function structure
+    (use the scaffold below as a guide).
+2.  Include one argument in the `function()` called `data`.
+3.  Replace `lipidomics` in the code with `data`.
+4.  Add the Roxygen documentation with {{< var keybind.roxgyen >}}.
+5.  Cut and paste the function over into the `R/functions.R` file.
+6.  Style using {{< var keybind.styler >}}.
+7.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ```{r solution-new-function-calculate-variation}
 #| eval: false
@@ -337,24 +337,17 @@ calculate_variation <- function(data) {
   data |>
     split_by_metabolite() |>
     purrr::map(generate_model_variation) |>
-    purrr::map(tidy_bootstrap_output) |> 
+    purrr::map(tidy_bootstrap_output) |>
     purrr::list_rbind()
 }
 ```
 
-Next, add the function to `_targets.R`.
+## :technologist: Exercise: Add the new function as a target in the pipeline
 
-1.  Create another `tar_target()` item in the `list()` at the bottom of
-    the file.
-2.  Use `df_model_variation` as the `name` and `calculate_variation()`
-    as the `command` with `lipidomics` as argument.
-3.  Run `targets::tar_visnetwork()` using
-    {{< var keybind.targets-vis >}} to see what targets are outdated and
-    then run `targets::tar_make()` with
-    {{< var keybind.targets-make >}}.
-4.  Commit the changes to the Git history with {{< var keybind.git >}}.
+> Time: \~8 minutes.
 
-Use this code as a scaffold:
+Continuing from the previous exercise, add the `calculate_variation()` function
+to `_targets.R`. Use this code as a scaffold:
 
 ``` r
 list(
@@ -366,30 +359,15 @@ list(
 )
 ```
 
-```{r purl-only-variation-to-targets}
-#| eval: false
-#| echo: false
-#| purl: true
-variation_targets_code <- '
-  ),
-  tar_target(
-    name = df_model_variation,
-    command = calculate_variation(lipidomics)
-  )
-)
-'
-# print_lines("_targets.R")
-revise_by_line_num(
-  path = "_targets.R",
-  insert_text = variation_targets_code,
-  # Modify these numbers.
-  remove_original_lines = -30,
-  insert_at_line = 31
-)
-targets::tar_visnetwork()
-targets::tar_make()
-git_ci("_targets.R", "Update targets with model variation")
-```
+1.  Create another `tar_target()` item in the `list()` at the bottom of
+    the file.
+2.  Use `df_model_variation` as the `name` and `calculate_variation()`
+    as the `command` with `lipidomics` as argument.
+3.  Run `targets::tar_visnetwork()` using
+    {{< var keybind.targets-vis >}} to see what targets are outdated and
+    then run `targets::tar_make()` with
+    {{< var keybind.targets-make >}}.
+4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
 ```{r solution-calculate-variation-to-pipeline}
 #| eval: false
@@ -402,6 +380,31 @@ list(
     command = calculate_variation(lipidomics)
   )
 )
+```
+
+```{r purl-only-variation-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+variation_targets_code <- "
+  ),
+  tar_target(
+    name = df_model_variation,
+    command = calculate_variation(lipidomics)
+  )
+)
+"
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = variation_targets_code,
+  # Modify these numbers.
+  remove_original_lines = -30,
+  insert_at_line = 31
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Update targets with model variation")
 ```
 
 ## Visualizing the variability of results
