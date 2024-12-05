@@ -17,7 +17,7 @@ lipidomics_wide <- lipidomics |>
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Before beginning, get them to recall what they remember of the previous
 session, either with something like Mentimeter or verbally. Preferably
@@ -75,7 +75,7 @@ as the
 :::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Reinforce the concept of functional programming by briefly going over
 the

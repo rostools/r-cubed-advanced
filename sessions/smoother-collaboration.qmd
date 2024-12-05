@@ -258,7 +258,7 @@ usethis::use_package("readr")
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Make sure that everyone has added the right packages, since it can be
 easy to miss some of the packages referenced using `::`.
@@ -278,7 +278,7 @@ git_ci(
 ## Two types of dependencies
 
 ::: {.callout-note appearance="minimal" collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Verbally explain the content of the next few paragraphs (don't need to
 show the website on the projector).
@@ -352,7 +352,7 @@ Open the Git interface and see that under `Suggests:` in the
 {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 For the information block below, mention it to the learners but you
 don't need to go over it. Especially mention the second part of the tip.
@@ -471,7 +471,7 @@ might sometimes have to manually fix run the reformatting (with the
 Command Palette {{< var keybind.palette >}} then "reformat").
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Mention the callout block below, but don't go into it at all.
 :::

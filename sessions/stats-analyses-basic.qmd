@@ -88,7 +88,7 @@ compared to other areas?
 ## Theory and "workflow" on statistical modeling
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Let them read it over than go over it briefly, focusing on what a model
 is, that we should create research questions while thinking in the
@@ -251,7 +251,7 @@ graph TB
 ::::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 A few things to repeat and reinforce:
 
@@ -269,7 +269,7 @@ and their flow that we can translate into the `{targets}` pipeline.
 ## Defining the model
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Let them read it first and then briefly verbally walk through this
 section, describing the theoretical model both graphically and
@@ -436,7 +436,7 @@ lipidomics
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Ask them if they can spot these differences. Give them a few minutes to
 think and respond.
@@ -564,7 +564,7 @@ lipidomics |>
 :::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 You don't need to go over what they read, you can continue with making
 the function below. Unless learners have some questions.
@@ -666,7 +666,7 @@ metabolites_to_wider <- function(data) {
 <!-- TODO: convert this next few paragraphs to reading exercise? -->
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Verbally talk through the next few paragraphs, no code-along yet.
 :::
@@ -701,7 +701,7 @@ recipe(lipidomics_wide) |>
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Describe this next paragraph by switching to this website and showing
 the list of some of the steps available in the code chunk below.
@@ -911,7 +911,7 @@ fitted_model |>
 We now have a data frame of our model results!
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Reinforce **not** to worry about interpreting the results, that is not
 the aim of this course.
@@ -969,7 +969,7 @@ create_model_workflow(
 Let's briefly cover what these columns and values mean.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 If you want, you can go over these details briefly or in more detail,
 depending on how comfortable you are. Or you can get them to read it
