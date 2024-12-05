@@ -383,15 +383,25 @@ git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 ```
 
 We want to calculate the mean and SD for each metabolite and then, to
-make it more readable, to round the numbers to one digit. We covered
-this in the
-[functionals](https://r-cubed-intermediate.rostools.org/dry-functionals.html#summarizing-long-data-like-the-rr-dataset)
-session of the intermediate course, so we will apply these same
-principles and code here. To do that, we need to use `group_by()` on the
-`metabolites`, use `across()` inside `summarise()` so we can give it the
-`mean()` and `sd()` functions, followed by `mutate()`ing each numeric
-column (`across(where(is.numeric))`) to `round()` to 1 digit. Let's
-write out the code!
+make it more readable, to round the numbers to one digit. To do this,
+will utilize the Split-apply-combine methodology and the `across()`
+function, we covered in the
+[functionals](https://r-cubed-intermediate.rostools.org/sessions/functionals)
+session of the intermediate course.
+
+Briefly, we will:
+
+1.  Use `group_by()` to split the dataset based on the `metabolites`.
+
+2.  Use `summarise()` to calculate the `mean()` and `sd()` for each
+    metabolite.
+
+3.  Round the calculated mean and sd to 1 digit using `round()`.
+
+While doing this, we will also utilize the `across()` functional, making
+it easy to apply the same transformation on multiple columns.
+
+Let's write out the code!
 
 ```{r mean-sd-by-each-metabolite}
 #| filename: "doc/learning.qmd"
