@@ -17,7 +17,7 @@ lipidomics_wide <- lipidomics |>
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Before beginning, get them to recall what they remember of the previous
 session, either with something like Mentimeter or verbally. Preferably
@@ -61,7 +61,7 @@ Specific "anti"-objectives:
 ## Apply logistic regression to each metabolite with functional programming
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component
@@ -75,7 +75,7 @@ as the
 :::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Reinforce the concept of functional programming by briefly going over
 the
@@ -337,7 +337,7 @@ right, making a function of both the model creation code and this code
 to add the original variable names. Then we can add our first
 `{targets}` output!
 
-## Exercise: Creating functions for model results and adding as a target in the pipeline
+## :technologist: Exercise: Creating functions for model results and adding as a target in the pipeline
 
 <!-- TODO: convert this into two exercises -->
 
@@ -566,7 +566,7 @@ plot_estimates +
 There are so many things we could start investigating based on these
 results in order to fix them up. But for now, this will do.
 
-## Exercise: Add plot function as a target in the pipeline
+## :technologist: Exercise: Add plot function as a target in the pipeline
 
 > Time: \~15 minutes.
 

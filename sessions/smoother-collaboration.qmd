@@ -50,7 +50,7 @@ This session’s **overall learning outcome** is to:
 4.  Use `{styler}` and RStudio's canonical markdown mode to
     programmatically check and apply style guides to your project files.
 
-## Exercise: How do you collaborate or contribute to your own or others' projects?
+## :speech_balloon: Discussion activity: How do you *exactly* collaborate or contribute to your own or others' projects?
 
 > Time: \~10 minutes.
 
@@ -180,7 +180,7 @@ section.
 <!-- TODO: As a reading activity or explained by the instructor? -->
 
 :::: callout-note
-## Reading task: \~3 minutes
+## :book: Reading task: \~3 minutes
 
 The most common form of a more *formal* way of managing dependencies -
 at least based on R packages and projects found on GitHub - makes use of
@@ -249,7 +249,7 @@ to the Git history. Open the Git interface by either typing with
 "Commit" button. Then, write a commit message and click the "Commit"
 button in this window.
 
-## Exercise: Add packages from the data processing script to your project {#sec-data-processing-dependency-exercise}
+## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
 
 > Time: \~10 minutes.
 
@@ -287,7 +287,7 @@ usethis::use_package("readr")
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Make sure that everyone has added the right packages, since it can be
 easy to miss some of the packages referenced using `::`.
@@ -307,7 +307,7 @@ git_ci(
 ## Two types of dependencies: Build and workflow
 
 ::: {.callout-note appearance="minimal" collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Verbally explain the content of the next few paragraphs (don't need to
 show the website on the projector).
@@ -408,7 +408,7 @@ Open the Git interface and see that under `Suggests:` in the
 {{< var keybind.git >}}.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 For the information block below, mention it to the learners but you
 don't need to go over it. Especially mention the second part of the tip.
@@ -420,7 +420,7 @@ collaborating on a project, you can run `pak::pak()` to installs all
 types of dependencies, both workflow and build. Neat!
 :::
 
-## Exercise: Connect your project to GitHub
+## :technologist: Exercise: Connect your project to GitHub
 
 > Time: \~25 minutes.
 
@@ -459,7 +459,7 @@ Let's complete these tasks to connect to GitHub.
 ## Automatically adhere to a style guide
 
 ::: callout-note
-## Reading task: \~5 minutes
+## :book: Reading task: \~5 minutes
 
 We've covered how to adhere to a style guide in both the introductory as
 well as the intermediate course, because it is such a useful and
@@ -536,7 +536,7 @@ might sometimes have to manually run the reformatting (with the Command
 Palette {{< var keybind.palette >}} then "style active file").
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Mention the callout block below, but don't go into it at all.
 :::
@@ -631,7 +631,7 @@ Since this mode is on automatically now, as we work in the
 `doc/learning.qmd` file through the sessions, we'll get lots of
 experience using it.
 
-## Exercise: Update the README file while using the canonical Markdown mode
+## :technologist: Exercise: Update the README file while using canonical Markdown mode
 
 > Time: \~10 minutes.
 

@@ -11,7 +11,7 @@
 </div>
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 The slides contain speaking notes that you can view by pressing 'S' on
 the keyboard.
@@ -20,7 +20,7 @@ the keyboard.
 ## The Big Picture {#sec-big-picture}
 
 ::::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 This section provides a bigger-picture view of what we will be doing,
 why we want to do it, how we will go about doing it, and what it will
@@ -39,7 +39,7 @@ lipidomics dataset during the course.
 
 <!-- TODO: Pipeline, workflow image? -->
 
-Where will we start end where will be end, in a more “tangible” way? The
+Where will we start and where will we end, in a more "tangible" way? The
 most tangible things are the folders and files on our computers. The
 folder and file structures below show where we start and where we end,
 so you can hopefully get a better understanding of how things will look.
@@ -110,7 +110,7 @@ course, which will be to:
     -   We also test the code in `learning.qmd` because, *from a
         teaching and learning perspective*, it's easier to integrate
         text and comments with the code during the code-alongs in
-        markdown files.
+        Markdown files.
     -   We keep functions in a separate `functions.R` file because we
         will frequently `source()` from it as we prototype and test out
         code in the `learning.qmd` file. This also creates a clear
@@ -119,7 +119,7 @@ course, which will be to:
     (or `Session -> Restart R`) and using `source()`
     ({{< var keybind.source >}} while in `R/functions.R`) to run the
     functions inside of `R/functions.R`.
-    -   We restart R because it to ensure that the R workspace is
+    -   We restart R to ensure that the R workspace is
         completely clear. For reproducibility, we should always aim to
         work from a "clean plate".
 -   Keep code readable by having the formatting/styling of our code
@@ -135,7 +135,7 @@ course, which will be to:
     format.
 -   Whenever we complete a task, we *add and commit* those file changes
     to save them in the Git history with {{< var keybind.git >}}.
-    -   We use Git to keep track of what changes was made to the files,
+    -   We use Git to keep track of what changes were made to the files,
         when, and why. This keeps our work transparent and makes it
         easier to share the code by uploading it to GitHub. Version
         control aligns with the philosophy of reproducible science and
