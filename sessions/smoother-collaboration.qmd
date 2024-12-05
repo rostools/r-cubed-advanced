@@ -173,6 +173,8 @@ not a very efficient way to track dependencies either.
 What's the alternative, then? One alternative is a more *formal* way of
 managing your dependencies, which is what we'll cover in the next
 section.
+
+{{< include ../includes/_sticky_up.qmd >}}
 :::
 
 ## Formal dependency management
@@ -240,6 +242,8 @@ projects, it's not strictly necessary.
 As we work on the project during the course and realize we need to use a
 specific package, we will continue using `usethis::use_package()` to
 install it and add it to the `DESCRIPTION` file.
+
+{{< include ../includes/_sticky_up.qmd >}}
 ::::
 
 Before moving on to the exercise, be sure to add and commit all the
@@ -504,6 +508,8 @@ use_package("styler", "suggests")
 #| purl: true
 git_ci("DESCRIPTION", "Add styler as a suggests dependency.")
 ```
+
+{{< include ../includes/_sticky_up.qmd >}}
 :::
 
 There are only a few functions in `{styler}` that we need to use. The
@@ -666,4 +672,3 @@ for smoother collaboration (and nicer-looking code and documents):
     are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
-
