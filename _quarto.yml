@@ -33,8 +33,6 @@ book:
       - sessions/project-work.qmd
   appendices:
     - appendix/social.qmd
-    - appendix/resources.qmd
-    - appendix/extra-exercises.qmd
     - LICENSE.md
     - appendix/references.qmd
   page-footer:
