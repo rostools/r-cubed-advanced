@@ -493,8 +493,11 @@ To ensure consistent styling without needing to run checks manually,
 *automatic* linting/styling can be a great solution. That's where the
 `{styler}` package comes in!
 
-Since we will use it for the project as a workflow dependency, let's add
-it to the `DESCRIPTION` file:
+{{< include ../includes/_sticky_up.qmd >}}
+:::
+
+Since we will use `{styler}` for the project as a workflow dependency, let's 
+add it to the `DESCRIPTION` file:
 
 ```{r add-styler-dep}
 #| eval: false
@@ -510,10 +513,7 @@ use_package("styler", "suggests")
 git_ci("DESCRIPTION", "Add styler as a suggests dependency.")
 ```
 
-{{< include ../includes/_sticky_up.qmd >}}
-:::
-
-There are only a few functions in `{styler}` that we need to use. The
+There are only a few functions in `{styler}` that we can to use. The
 first is used to style a single file with R code in it using
 `styler::style_file()`. However, an easier way to style the file we're
 currently working on is the "style active file" RStudio addin. We use
