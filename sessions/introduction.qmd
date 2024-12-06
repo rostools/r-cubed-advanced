@@ -119,9 +119,9 @@ course, which will be to:
     (or `Session -> Restart R`) and using `source()`
     ({{< var keybind.source >}} while in `R/functions.R`) to run the
     functions inside of `R/functions.R`.
-    -   We restart R to ensure that the R workspace is
-        completely clear. For reproducibility, we should always aim to
-        work from a "clean plate".
+    -   We restart R to ensure that the R workspace is completely clear.
+        For reproducibility, we should always aim to work from a "clean
+        plate".
 -   Keep code readable by having the formatting/styling of our code
     fixed automatically.
 -   For each "output" (like a figure or a table) in a paper, write one
@@ -157,11 +157,25 @@ foundation to everything that comes after.
 
 {{< include ../includes/_sticky_up.qmd >}}
 
-::: {.callout-tip appearance="default"}
-If you finish exercises faster than others in the course, try your hand
-at working through the [Extra
-Exercises](../appendix/extra-exercises.qmd) section. It is still a
-work-in-progress, so there are only a few exercises available right now.
+::: {.callout-important appearance="default"}
+During the course, we will be writing and coding mostly in the
+`doc/learning.qmd` file. We will also be **regularly** deleting the
+content within the file to keep things clean and easier for you, but
+importantly for the instructors. If or when you encounter an error or
+problem and there is a lot of the code kept in the file, often the
+problem is due to the left over code rather than an actual problem with
+the code you are writing. So when the helpers or instructors come to
+help, it makes it easier for us to help you when there is less code to
+look through and debug.
+
+But, we know you may want to keep some notes as you work in the course.
+So we suggest you create a new file called `notes.qmd` or something
+similar in the `doc/` folder and either:
+
+-   Write notes in the `doc/learning.qmd` file and then copy them over
+    to your `notes.qmd` file when we tell you to delete everything, or
+-   Write notes directly in your `doc/notes.qmd` file and keep it open 
+    while you work in the `doc/learning.qmd` file.
 :::
 :::::
 
@@ -169,9 +183,9 @@ work-in-progress, so there are only a few exercises available right now.
 
 <!-- TODO: This isn't needed after a while -->
 
-We need to add a `Title:` field to the `DESCRIPTION` file in order for other
-sections of the course to work properly. Run this bit of code:
+We need to add a `Title:` field to the `DESCRIPTION` file in order for
+other sections of the course to work properly. Run this bit of code:
 
-```{.r filename="Console"}
+``` {.r filename="Console"}
 desc::desc_set("Title", "AdvancedR3")
 ```
