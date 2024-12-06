@@ -489,6 +489,7 @@ descriptive_stats <- function(data) {
 }
 ```
 
+
 ## Adding a step in the pipeline
 
 Now that we've created a function to calculate some basic statistics, we
@@ -718,6 +719,53 @@ plot_distributions <- function(data) {
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
 }
 ```
+
+::: {.callout-note appearance="minimal" collapse="true" icon="false"}
+## :technologist: Extra exercise:  Test out how `tar_outdated()` and `tar_visnetwork()` work
+
+> Time: \~10 minutes.
+
+Let's make a change to our function and test out how the
+`tar_outdated()` and `tar_visnetwork()` work.
+
+1.  Open up the `R/functions.R` file and go to the `descriptive_stats()` 
+    function.
+2.  Add median and interquartile range (IQR) to the `summarise()`
+    function, by adding it to the end of `list(mean = mean, sd = sd)`,
+    after the second `sd`. Note, IQR should look like `iqr = IQR` since
+    we want the output columns to have a lowercase for the column names.
+3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
+    using the Command Palette {{< var keybind.palette >}}, then "targets
+    outdated" or "targets visual"). What does it show?
+4.  Style using {{< var keybind.styler >}}.
+5.  Run `tar_make()` in the Console or with
+    {{< var keybind.targets-make >}}. Re-check for outdated targets and
+    visualize the network again.
+6.  Open up the Git interface and commit the changes to the Git history
+    with {{< var keybind.git >}}.
+
+```{r solution-new-function-descriptive-stats}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(dplyr::across(value, list(
+      mean = mean,
+      sd = sd,
+      median = median,
+      iqr = IQR
+    ))) |>
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
+}
+```
+:::
 
 ## Adding the plot function as pipeline targets
 
