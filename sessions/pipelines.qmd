@@ -83,7 +83,7 @@ early in the data processing stage.
     and how long that usually takes.
 2.  For 8 min, in your group, share and discuss what you've thought. How
     do your experiences compare to each other?
-3.  For the remaining time, we'll briefly share with everyone about what
+3.  For the remaining time, we'll briefly share with everyone what
     they've thought and discussed.
 
 ## What is a data analysis "pipeline"?
