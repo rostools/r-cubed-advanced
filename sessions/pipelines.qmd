@@ -397,8 +397,8 @@ git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 ```
 
 We want to calculate the mean and SD for each metabolite and then, to
-make it more readable, to round the numbers to one digit. We covered
-this in the
+make it more readable, round the numbers to one digit. We covered this
+in the
 [functionals](https://r-cubed-intermediate.rostools.org/dry-functionals.html#summarizing-long-data-like-the-rr-dataset)
 session of the intermediate course, so we will apply these same
 principles and code here. To do that, we need to use `group_by()` on the
