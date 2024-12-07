@@ -516,7 +516,8 @@ something called "curly-curly" (it looks like `{{}}` when used) and
 When you write your own functions that make use of functions in the
 `{tidyverse}`, you may eventually encounter an error that might not be
 very easy to figure out. Here's a very simple example using `select()`,
-where one of your function's arguments is to select columns:
+where one of your function's arguments is to select columns (just read, 
+don't write any code):
 
 ```{r test-nse, error=TRUE}
 test_nse <- function(data, columns) {
