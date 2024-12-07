@@ -51,9 +51,9 @@ More specific objectives are to:
 
 1.  Describe the computational meaning of a pipeline and how pipelines
     are often done in research. Explain why a well-designed pipeline can
-    streamline your collaboration, reduce time spent doing an analysis,
-    make your analysis steps explicit and easier to work on, and
-    ultimately contribute to more fully reproducible research.
+    streamline your collaboration, reduce the time spent doing an
+    analysis, make your analysis steps explicit and easier to work on,
+    and ultimately contribute to more fully reproducible research.
 2.  Explain the difference between a "function-oriented" workflow vs a
     "script-oriented" workflow and why the function-based approach has
     multiple advantages from a time- and effort-efficiency point of
