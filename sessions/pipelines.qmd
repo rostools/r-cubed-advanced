@@ -49,8 +49,8 @@ The overall objective for this session is to:
 
 More specific objectives are to:
 
-1.  Describe the computational meaning of pipeline and how pipelines are
-    often done in research. Explain why a well-designed pipeline can
+1.  Describe the computational meaning of a pipeline and how pipelines
+    are often done in research. Explain why a well-designed pipeline can
     streamline your collaboration, reduce time spent doing an analysis,
     make your analysis steps explicit and easier to work on, and
     ultimately contribute to more fully reproducible research.
@@ -247,7 +247,7 @@ function-oriented workflows and how `{targets}` and the `tar_target()`
 works.
 :::
 
-:::: callout-note
+::: callout-note
 ## Reading task: \~8
 
 Next, open up the `_targets.R` and we'll take a look at what it
@@ -343,7 +343,7 @@ list(
   )
 )
 ```
-::::
+:::
 
 Let's start writing code to create the three items we listed above in
 @fig-pipeline-schematic: some descriptive statistics, a plot of the
