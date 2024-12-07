@@ -55,7 +55,7 @@ More specific objectives are to:
     make analysis steps explicit and easier to work on, and ultimately
     contribute to more fully reproducible research.
 2.  Explain the difference between a "function-oriented" workflow vs a
-    "script-oriented" workflow and why the function-based approach has
+    "script-oriented" workflow, and why the function-based approach has
     multiple advantages from a time- and effort-efficiency point of
     view.
 3.  Use the functions within `{targets}` to apply the concepts of
