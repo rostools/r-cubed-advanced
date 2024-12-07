@@ -430,7 +430,6 @@ which can be fixed with a single `{tidyr}` function, while the third one
 can be fixed with `{recipes}`. Can you spot them?
 
 ```{r print-lipidomics-data}
-#| column: page-inset-right
 #| filename: Console
 lipidomics
 ```
@@ -478,7 +477,6 @@ will merge the values by calculating a mean before pivoting. We do this
 by setting the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
   mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
@@ -497,7 +495,6 @@ snakecase" and "pivot to wider" code into their own functions, before
 moving them over into the `R/functions.R` file.
 
 ```{r first-snakecase-fn}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data) {
   data |>
@@ -574,7 +571,6 @@ We can use curly-curly (combined with `across()`) to apply
 `snakecase::to_snake_case()` to columns of our choice.
 
 ```{r second-snakecase-fn}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data, columns) {
   data |>
@@ -609,7 +605,6 @@ Now add the new function above the `pivot_wider()` code in the
 `doc/learning.qmd` file.
 
 ```{r snakecase-function-before-pivot-wider}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
   column_values_to_snake_case(metabolite) |>
@@ -775,7 +770,6 @@ And test it out:
 
 ```{r use-create-recipe-specs-fn}
 #| filename: "doc/learning.qmd"
-#| column: page-inset-right
 recipe_specs <- lipidomics_wide |>
   create_recipe_spec(metabolite_cholesterol)
 recipe_specs
@@ -811,7 +805,6 @@ slightly different types). All model workflows need to start with
 `add_recipe()`. Can you guess what they do?
 
 ```{r use-workflow-for-model}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 workflow() |>
   add_model(log_reg_specs) |>
@@ -845,7 +838,6 @@ Instead of using the previously created objects, let's start the model
 creation from scratch:
 
 ```{r full-model-workflow-from-almost-scratch}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 model_workflow <- create_model_workflow(
   logistic_reg() |>
@@ -860,7 +852,6 @@ Now, we can do the final thing: Fitting the data to the model with
 `fit()`! :raised_hands:
 
 ```{r fit-model-workflow-to-data}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model <- model_workflow |>
   fit(lipidomics_wide)
@@ -874,7 +865,6 @@ has a function to extract the information we want. In this case, it is
 the `extract_fit_parsnip()` function.
 
 ```{r extract-model-fit}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model |>
   extract_fit_parsnip()
@@ -901,7 +891,6 @@ the output estimates will be odds ratios, if we set
 coefficient. Here we choose `exponentiate = TRUE`:
 
 ```{r tidy-up-model-results}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model |>
   extract_fit_parsnip() |>
@@ -945,7 +934,6 @@ tidy_model_output <- function(workflow_fitted_model) {
 Replacing the code in the `doc/learning.qmd` file to use the function.
 
 ```{r use-tidy-model-output-fn}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model |>
   tidy_model_output()
@@ -954,7 +942,6 @@ fitted_model |>
 If we revise the code so it is one pipe, it would look like:
 
 ```{r single-pipe-model-results}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 create_model_workflow(
   logistic_reg() |>
@@ -1046,3 +1033,5 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
+
+{{< include /includes/_code-appendix.qmd >}}
