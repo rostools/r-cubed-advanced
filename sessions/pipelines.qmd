@@ -101,16 +101,16 @@ goal might change as the analysis progresses.
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
-steps can be manual, human involved or can be completely automated by a
-robot or computer. For instance, in car factories, the pipeline from the
-input raw materials to the output vehicle are extremely well described
-and implemented. Or like during the pandemic, the pipeline for testing
-(at least in Denmark and several other countries) was highly structured
-and clear for the workers doing the testing and the people having the
-test done: A person goes in, scans their ID card, has the test done,
-worker inputs the results, results get sent immediately to the health
-agency as well as to the person based on their ID contact information
-(or via a secure app).
+steps can be manual, human involved or completely automated by a robot
+or computer. For instance, in car factories, the pipeline from the input
+raw materials to the output vehicle are extremely well described and
+implemented. Or like during the pandemic, the pipeline for testing (at
+least in Denmark and several other countries) was highly structured and
+clear for the workers doing the testing and the people having the test
+done: A person goes in, scans their ID card, has the test done, worker
+inputs the results, results get sent immediately to the health agency as
+well as to the person based on their ID contact information (or via a
+secure app).
 
 However, in research, especially around data collection and analysis, we
 often hear or read about "pipelines". But looking closer, these aren't
