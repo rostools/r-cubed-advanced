@@ -142,14 +142,14 @@ as researchers are not trained in writing code, nor do we have a strong
 culture and incentive structure around learning, sharing, reviewing, and
 improving code. Nor are we often allowed to get (or use) funds to hire
 people who *are* trained and skilled in programmatic thinking and
-programming. Otherwise courses like this wouldn't need to exist :shrug:
+programming. Otherwise, courses like this wouldn't need to exist :shrug:
 
-So how would a data analysis pipeline look? Before we get to that
+So, how would a data analysis pipeline look? Before we get to that,
 though, we have to separate two things: exploratory data analysis and
 final paper data analysis. In exploratory data analysis, there will
 likely be a lot of manual, interactive steps involved that may or may
 not need to be explicitly stated and included in the analysis plan and
-pipeline. But for the final paper and what results would be included, we
+pipeline. But for the final paper and the results to be included, we
 generally have some basic first ideas. Let's list a few items that we
 would want to do before the primary statistical analysis:
 
