@@ -16,17 +16,7 @@ lipidomics_wide <- lipidomics |>
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-Before beginning, get them to recall what they remember of the previous
-session, either with something like Mentimeter or verbally. Preferably
-something like Mentimeter because it allows everyone to participate, not
-just the ones who are more comfortable being vocal to the whole group.
-
-Depending on what they write, might need to briefly go over the previous
-session.
-:::
+{{< include /includes/_review-note.qmd >}}
 
 Rarely do we run only one single statistical model to answer one single
 question, especially in our data-overflowing environments. An initial

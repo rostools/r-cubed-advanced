@@ -14,14 +14,7 @@ library(targets)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-Before beginning, get them to recall what they remember of the previous
-session, either with something like Mentimeter or verbally. Preferably
-something like Mentimeter because it allows everyone to participate, not
-just the ones who are more comfortable being vocal to the whole group.
-:::
+{{< include /includes/_review-note.qmd >}}
 
 Depending on how much time you've spent working on data analyses, you
 have probably experienced (many) times where you are working on a
