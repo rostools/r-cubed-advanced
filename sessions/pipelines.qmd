@@ -72,8 +72,8 @@ change. Maybe we forgot to remove a certain condition (like unrealistic
 BMI). Or maybe our supervisor suggests something we hadn't considered in
 the analysis. Or maybe during peer review of our manuscript, a reviewer
 makes a suggestion that would improve the understanding of the paper.
-Whatever the situation, we inevitably need to re-run our analysis. And
-depending on what the change was, we might need to run the full analysis
+Whatever the situation, we inevitably need to re-run our analysis.
+Depending on what the change was, we might need to run the full analysis
 all over again. So what is your **exact** workflow when you need to
 re-run code and update your results? Assume it's a change somewhere
 early in the data processing stage.
