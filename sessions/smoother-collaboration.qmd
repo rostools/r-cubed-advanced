@@ -33,8 +33,7 @@ analysis projects and facilitate smoother collaboration.
 This session’s **overall learning outcome** is to:
 
 1.  Identify actions to streamline collaboration on a data analysis
-    project and create projects that apply many of these actions using
-    R.  
+    project and create projects with R that apply many of these actions.
 
 **Specific objectives** are to:
 
