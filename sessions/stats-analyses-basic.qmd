@@ -897,8 +897,8 @@ Since we are using a logistic regression model, we need to consider how
 we want the estimates to be presented, probably depending on how we want
 to visualize our results. If we set `exponentiate = TRUE` in `tidy()`,
 the output estimates will be odds ratios, if we set
-`exponentiate = FALSE`, we will get the log odds ratios or the beta
-coefficient. Here we choose `exponentiate = TRUE`:
+`exponentiate = FALSE`, we will get the log odds ratios. Here we choose
+`exponentiate = TRUE`:
 
 ```{r tidy-up-model-results}
 #| column: page-inset-right
@@ -1046,3 +1046,4 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
+
