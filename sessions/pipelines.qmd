@@ -119,7 +119,7 @@ well described, often requiring a fair amount of manual human attention
 and intervention. Particularly within computational environments, a
 pipeline is when there is minimal to *no* human intervention from raw
 input to finished output. Why aren't these data "pipelines" in research
-actual pipelines? Because:
+actual pipelines? This is because:
 
 1.  Anything with data ultimately must be on the computer,
 2.  Anything automatically done on the computer must be done with code,
