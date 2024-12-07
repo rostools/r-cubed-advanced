@@ -466,16 +466,16 @@ metabolites, we should ideally have all the metabolites with a similar
 range and distribution of values.
 
 Let's fix the first two issues first. While we probably only need to use
-`pivot_wider()`, we should probably first tidy up the metabolite names
-first so they make better column names. We do that by combining
-`mutate()` with `snakecase::to_snake_case()`. In the `doc/learning.qmd`
-file, we rename the metabolite names before using `pivot_wider()`. Since
-we want an easy way of identifying columns that are metabolites, we will
-add a `"metabolite_"` prefix using the argument `names_prefix`. To
-actually fix the multiple cholesterol issue, we should look more into
-the data documentation or contact the authors. But for this course, we
-will merge the values by calculating a mean before pivoting. We do this
-by setting the `values_fn` with `mean`.
+`pivot_wider()`, we should tidy up the metabolite names first so they
+make better column names. We do that by combining `mutate()` with
+`snakecase::to_snake_case()`. In the `doc/learning.qmd` file, we rename
+the metabolite names before using `pivot_wider()`. Since we want an easy
+way of identifying columns that are metabolites, we will add a
+`"metabolite_"` prefix using the argument `names_prefix`. To actually
+fix the multiple cholesterol issue, we should look more into the data
+documentation or contact the authors. But for this course, we will merge
+the values by calculating a mean before pivoting. We do this by setting
+the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
 #| column: page-inset-right
