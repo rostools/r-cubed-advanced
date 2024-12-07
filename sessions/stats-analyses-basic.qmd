@@ -13,7 +13,7 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 Running statistical analyses is a relatively methodical and well-defined
 process, even if there is often a lot of trial and error involved.
 Sometimes it may feel overwhelming and complicated, which it definitely
-can be, but it doesn't have to be. By taking a structured approach to
+can be, but it doesn't have to. By taking a structured approach to
 running statistical analyses, you can make it easier on yourself and
 feel more in control.
 
@@ -335,7 +335,7 @@ building workflow that was described above, through the use of specific
 packages for each component.
 
 | Package | Description |
-|---------------|---------------------------------------------------------|
+|----|----|
 | `{parsnip}` | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
 | `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
