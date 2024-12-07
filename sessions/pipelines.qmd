@@ -247,7 +247,7 @@ function-oriented workflows and how `{targets}` and the `tar_target()`
 works.
 :::
 
-::: callout-note
+:::: callout-note
 ## Reading task: \~8
 
 Next, open up the `_targets.R` and we'll take a look at what it
@@ -343,7 +343,7 @@ list(
   )
 )
 ```
-:::
+::::
 
 Let's start writing code to create the three items we listed above in
 @fig-pipeline-schematic: some descriptive statistics, a plot of the
@@ -884,7 +884,7 @@ tar_read(df_stats_by_metabolite)
 ```
 
 ```{{r}}
-tar_read(fig_metabolites_distribution)
+tar_read(fig_metabolite_distribution)
 ```
 ````
 
