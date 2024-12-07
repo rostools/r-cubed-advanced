@@ -235,7 +235,7 @@ contains.
 ::: {.callout-note collapse="true"}
 ## Click this to see the file contents
 
-```{r show-use-targets-file-contents}
+```{r}
 #| eval: true
 #| echo: false
 #| code-fold: true
@@ -494,7 +494,7 @@ target to load the lipidomic data. In the second, replace it with the
 what the target output is, we can add `df_` to remind us that it is a
 data frame. It should look like:
 
-```{r}
+```{r targets-basic-stats}
 #| eval: false
 #| filename: "targets.R"
 list(
@@ -512,7 +512,7 @@ list(
 Let's run `{targets}` to see what happens! You can either use
 {{< var keybind.targets-make >}} or run this code in the Console:
 
-```{r}
+```{r targets-make}
 #| eval: false
 #| filename: "Console"
 targets::tar_make()
@@ -527,7 +527,7 @@ define our actual file using the argument `format = "file"`. We can then
 change our previous target to point to the newly defined file target.
 Lets do that now.
 
-```{r}
+```{r targets-basic-stats-by-metabolite}
 #| eval: false
 #| filename: "targets.R"
 list(
@@ -930,7 +930,7 @@ computer. So, it improve reproducibility, it's good practice to not put
 it into the Git history and instead put it in the `.gitignore` file. So
 let's add it to ignore file by using:
 
-```{r}
+```{r git-ignore-targets-yaml}
 #| filename: Console
 use_git_ignore("doc/_targets.yaml")
 ```
@@ -975,7 +975,7 @@ styler::style_file("doc/learning.qmd")
 git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
 ```
 
-```{r execute-only-table-basic-stats}
+```{r}
 #| eval: true
 #| echo: false
 lipidomics |>
@@ -1053,3 +1053,4 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
 
+{{< include /includes/_code-appendix.qmd >}}

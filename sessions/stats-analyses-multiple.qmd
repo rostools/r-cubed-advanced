@@ -129,7 +129,7 @@ lipidomics |>
   group_split(metabolite)
 ```
 
-```{r output-only-chain-split-by-metabolite}
+```{r}
 #| echo: false
 lipidomics |>
   column_values_to_snake_case(metabolite) |>
@@ -151,7 +151,7 @@ lipidomics |>
   map(metabolites_to_wider)
 ```
 
-```{r output-only-chain-map-to-wider}
+```{r}
 #| echo: false
 lipidomics |>
   column_values_to_snake_case(metabolite) |>
@@ -194,7 +194,7 @@ lipidomics |>
   split_by_metabolite()
 ```
 
-```{r output-only-split-by-metabolite}
+```{r}
 #| echo: false
 lipidomics |>
   split_by_metabolite() |>
@@ -554,7 +554,7 @@ revise_by_line_num(
 git_ci("doc/learning.qmd", "Add code for model estimates to report.")
 ```
 
-```{r exec-only-model-estimates}
+```{r}
 #| include: false
 model_estimates <- here::here("data/model-estimates.csv") |>
   readr::read_csv(show_col_types = FALSE)
@@ -771,3 +771,5 @@ targets::tar_make()
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
+
+{{< include /includes/_code-appendix.qmd >}}

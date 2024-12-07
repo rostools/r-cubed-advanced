@@ -429,7 +429,7 @@ three easy observations on necessary transformations of the data, two of
 which can be fixed with a single `{tidyr}` function, while the third one
 can be fixed with `{recipes}`. Can you spot them?
 
-```{r print-lipidomics-data}
+```{r}
 #| filename: Console
 lipidomics
 ```
@@ -519,7 +519,7 @@ very easy to figure out. Here's a very simple example using `select()`,
 where one of your function's arguments is to select columns (just read, 
 don't write any code):
 
-```{r test-nse, error=TRUE}
+```{r, error=TRUE}
 test_nse <- function(data, columns) {
   data |>
     dplyr::select(columns)
@@ -547,7 +547,7 @@ website](https://dplyr.tidyverse.org/articles/programming.html#warm-up),
 which lists some options to handle NSE while programming. The easiest
 approach is to wrap the argument with "curly-curly" (`{{}}`).
 
-```{r test-nse-fixed}
+```{r}
 test_nse <- function(data, columns) {
   data |>
     dplyr::select({{ columns }})
@@ -710,7 +710,7 @@ research question. So take your time thinking through which
 transformations you actually need for your analysis, rather than quickly
 using one or more of them.
 
-```{r list-step-transforms}
+```{r}
 #| eval: false
 recipes::step_log()
 recipes::step_scale()

@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-```{r force-downlit}
+```{r setup}
 #| eval: true
 #| include: false
 library(tidyverse)
@@ -325,7 +325,7 @@ The R script should have opened up for you, otherwise, go into the
 thing to do is delete all the code in the script. Than, copy and paste
 the code below into the script.
 
-```{r insert-data-raw-script, file=here::here('data-raw/nmr-omics.R'), filename="data-raw/nmr-omics.R"}
+```{r, file=here::here('data-raw/nmr-omics.R'), filename="data-raw/nmr-omics.R"}
 ```
 
 ```{r purl-only-paste-processing-code}
@@ -343,7 +343,7 @@ the end, though, the only important thing is to run all the code and get
 the `lipidomics` dataset to be saved as `data/lipidomics.csv`. The
 created files should look like this:
 
-```{r file-tree-data-folders}
+```{r}
 #| echo: false
 fs::dir_tree(regexp = "data(-raw)?")
 ```
@@ -362,7 +362,7 @@ AdvancedR3
 And when using `readr::read_csv()`, the created dataset in
 `data/lipidomics.csv` should look like:
 
-```{r show-created-data}
+```{r}
 #| eval: true
 readr::read_csv(here::here("data/lipidomics.csv"))
 ```
@@ -482,3 +482,5 @@ survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et
 to finish this assignment.
 
 See you at the course!
+
+{{< include /includes/_code-appendix.qmd >}}

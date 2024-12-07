@@ -669,3 +669,5 @@ for smoother collaboration (and nicer-looking code and documents):
     are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
+
+{{< include /includes/_code-appendix.qmd >}}
