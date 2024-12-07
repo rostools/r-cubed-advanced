@@ -446,7 +446,7 @@ The first observation isn't always an issue and depends heavily on the
 model type you use. Since we are using logistic regression, the model
 assumes that each row is an individual person. But our data is in the
 long format, so each person has multiple rows. The second observation is
-that there seems to be a data input error, since there are two
+that there seems to be a data input error, since there are multiple
 `Cholesterol` values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
