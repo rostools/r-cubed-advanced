@@ -17,74 +17,73 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
-Before beginning, get them to recall what they remember of the previous
-session, either with something like Mentimeter or verbally. Preferably
-something like Mentimeter because it allows everyone to participate, not
-just the ones who are more comfortable being vocal to the whole group.
+Before beginning, encourage learners to recall what they remember from
+the previous session, either with something like Mentimeter or verbally.
+Preferably with something like Mentimeter because it allows everyone to
+participate, not just the ones who are more comfortable being vocal to
+the whole group.
 :::
 
-Depending on how much time you've spent working on data analyses, you
-have probably experienced (many) times where you are working on a
-project and forget what code needs to be run first, what order other
-code needs to run in, and what pieces of code need to be re-run in order
-to update other results. Things get confusing quickly, even for fairly
-simple projects. This probably happens most often when you return to a
-project after a month or two and completely forget the state of the
-project and analysis.
+When doing analyses on data, you have probably experienced (many)
+times where you forget the order in which other code should run or which
+parts need to be rerun to update results. Things can get confusing
+quickly, even in relatively simple projects. This becomes even more
+challenging when you return to a project after a month or two and have
+forgotten the state of the analysis and the project as a whole.
 
-This is where formal data analysis pipeline tools come in and play a
-role. By setting up your analysis into distinct steps, with clear inputs
-and outputs, and use a system that tracks those inputs and outputs, you
-can make things a lot easier for yourself and others. This session is
-about applying tools that make and manage these pipelines.
+That's where formal data analysis pipeline tools come in. By organising
+your analysis into distinct steps, with clear inputs and outputs, and
+adding these steps to a pipeline that tracks them, you can make
+things a lot easier for yourself and others. This session focuses on
+using tools that create and manage these pipelines effectively.
 
 ## Learning objectives {#sec-pipelines-learning-objectives}
 
-The overall objective for this session is to:
+This session’s **overall learning outcome** is to:
 
-1.  Identify and apply an approach to create an analysis pipeline that
-    makes your analysis steps, from raw data to finished manuscript,
-    explicitly defined so that updating it by either you or
-    collaborators is as easy as running a single function.
+1.  Apply an approach to build an analysis pipeline that clearly defines
+    each step of your analysis---from raw data to finished manuscript---
+    so that updates by you and your collaborators are as simple as
+    running a single function.
 
-More specific objectives are to:
+More **specific objectives** are to:
 
-1.  Describe the computational meaning of pipeline and how pipelines are
-    often done in research. Explain why a well-designed pipeline can
-    streamline your collaboration, reduce time spent doing an analysis,
-    make your analysis steps explicit and easier to work on, and
-    ultimately contribute to more fully reproducible research.
-2.  Explain the difference between a "function-oriented" workflow vs a
-    "script-oriented" workflow and why the function-based approach has
+1.  Describe the computational meaning of *pipeline* and how pipelines
+    are often used in research. Explain why a well-designed pipeline can
+    streamline collaboration, reduce time spent on an analysis, make the
+    analysis steps explicit and easier to work with, and ultimately
+    contribute to more fully reproducible research.
+2.  Explain the difference between a "function-oriented" workflow and a
+    "script-oriented" workflow, and why the function-based approach has
     multiple advantages from a time- and effort-efficiency point of
     view.
 3.  Use the functions within `{targets}` to apply the concepts of
     building pipelines in your analysis project.
-4.  Continue applying the concepts and functions used from the previous
-    session.
+4.  Continue applying the concepts and functions introduced in the
+    previous session
 
-##  :speech_balloon: Discussion activity: How do you re-run analyses when something changes?
+## :speech_balloon: Discussion activity: How do you rerun analyses when something changes?
 
 > Time: \~12 minutes.
 
 We've all been in situations where something in our analysis needs to
-change. Maybe we forgot to remove a certain condition (like unrealistic
-BMI). Or maybe our supervisor suggests something we hadn't considered in
-the analysis. Or maybe during peer review of our manuscript, a reviewer
+change: Maybe we forgot to remove a certain condition (like unrealistic
+BMI), maybe our supervisor suggests something we hadn't considered in
+our analysis, or maybe during peer review of our manuscript, a reviewer
 makes a suggestion that would improve the understanding of the paper.
-Whatever the situation, we inevitably need to re-run our analysis. And
-depending on what the change was, we might need to run the full analysis
-all over again. So what is your **exact** workflow when you need to
-re-run code and update your results? Assume it's a change somewhere
-early in the data processing stage.
+
+Whatever the situation, we inevitably need to rerun parts of or the full
+analysis all over again. So what is your **exact** workflow when you
+need to rerun code and update your results? Assume it's a change
+somewhere early in the data processing stage.
 
 1.  Take about 1 minute to think about the workflow you use. Try to
     think of the *exact* steps you need to take, what *exactly* you do,
     and how long that usually takes.
-2.  For 8 min, in your group share and discuss what you've thought. How
-    do your experiences compare to each other?
-3.  For the remaining time, we'll briefly share with everyone about what
-    they've thought and discussed.
+2.  For 8 minutes, share and discuss your thoughts in your group. How do
+    your experiences compare to each other?
+3.  For the remaining time, we'll briefly share with everyone what has
+    been thought and discussed.
 
 ## What is a data analysis "pipeline"?
 
@@ -101,7 +100,7 @@ goal might change as the analysis progresses.
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
-steps can be manual, human involved or can be completely automated by a
+steps can be manual, human involved, or can be completely automated by a
 robot or computer. For instance, in car factories, the pipeline from the
 input raw materials to the output vehicle are extremely well described
 and implemented. Or like during the pandemic, the pipeline for testing
@@ -114,12 +113,16 @@ agency as well as to the person based on their ID contact information
 
 However, in research, especially around data collection and analysis, we
 often hear or read about "pipelines". But looking closer, these aren't
-actual pipelines because the individual steps are not very clear and not
-well described, often requiring a fair amount of manual human attention
-and intervention. Particularly within computational environments, a
-pipeline is when there is minimal to *no* human intervention from raw
-input to finished output. Why aren't these data "pipelines" in research
-actual pipelines? Because:
+actual pipelines, because the individual steps are not very clear and
+not well described, and they often require a fair amount of manual
+human attention and intervention. Particularly within computational
+environments, a pipeline should be a set of data processing steps
+connected in a series with a specific order; the output of one step is
+the input to the next. This means that there actually should be minimal
+to *no* human intervention from raw input to finished output.
+
+Why aren't these computational data pipelines found in most of the "pipelines" described in research?
+Because:
 
 1.  Anything with data ultimately must be on the computer,
 2.  Anything automatically done on the computer must be done with code,
@@ -131,27 +134,28 @@ actual pipelines? Because:
 6.  And, research is largely non-reproducible [@Trisovic2022;
     @Seibold2021; @Laurinavichyute2021].
 
-A data analysis pipeline would by definition be a reproducible,
-readable, and code-based data analysis. We researchers as a group have a
-long way to go before we can start realistically implementing data
-analysis pipelines.
+A data analysis pipeline would by definition be a readable and
+reproducible data analysis. Unfortunately, we researchers as a group
+don't make use of the tools to implement actual data analysis pipelines.
 
 This isn't to diminish the work of researchers, but a basic observation
 on the systemic, social, and structural environment surrounding us. We
-as researchers are not trained in writing code, nor do we have a strong
-culture and incentive structure around learning, sharing, reviewing, and
-improving code. Nor are we often allowed to get (or use) funds to hire
-people who *are* trained and skilled in programmatic thinking and
-programming. Otherwise courses like this wouldn't need to exist :shrug:
+as researchers are not necessarily trained in writing code, nor do we
+have a strong culture and incentive structure around learning, sharing,
+reviewing, and improving code. We are also very rarely allowed to get
+(or use) funds to hire people who *are* trained and skilled in
+programmatic thinking and coding. Otherwise courses like this wouldn't
+need to exist :woman_shrugging:
 
-So how would a data analysis pipeline look? Before we get to that
-though, we have to separate two things: exploratory data analysis and
-final paper data analysis. In exploratory data analysis, there will
-likely be a lot of manual, interactive steps involved that may or may
-not need to be explicitly stated and included in the analysis plan and
-pipeline. But for the final paper and what results would be included, we
-generally have some basic first ideas. Let's list a few items that we
-would want to do before the primary statistical analysis:
+Before we get to what an actual data analysis pipeline looks like in
+practice, we have to separate two things: *exploratory data analysis*
+and *final paper data analysis*. In exploratory data analysis, there
+will likely be a lot of manual, interactive steps involved that may or
+may not need to be explicitly stated and included in the analysis plan
+and pipeline. But for the final paper and the included results, we
+generally have some basic first ideas of what we'll need. Let's list a
+few items that we would want to do before the primary statistical
+analysis:
 
 1.  A table of some basic descriptive statistics of the study
     population, such as mean, standard deviation, or counts of basic
@@ -162,7 +166,7 @@ would want to do before the primary statistical analysis:
 
 ```{mermaid fig-pipeline-schematic}
 %%| label: fig-pipeline-schematic
-%%| fig-cap: Very simple flow chart of steps in an analysis pipeline.
+%%| fig-cap: Simplified flow chart of some of the initial steps in a data analysis pipeline.
 %%| echo: false
 %%| eval: true
 graph LR
@@ -174,17 +178,20 @@ graph LR
     plot_distrib --> paper
 ```
 
-Now that we conceptually have drawn out the sets of tasks to complete in
-our pipeline, we can start using R to build it.
+Now that we have conceptually drawn out some initial tasks in our
+pipeline, we can start using R to build it.
+
+{{< include ../includes/_sticky_up.qmd >}}
 :::
 
-## Using targets to manage the pipeline
+## Using targets to manage a pipeline
 
-There are a few packages to help build pipelines in R, but the most
+There are a few packages that help build pipelines in R, but the most
 commonly used, well-designed, and maintained one is called `{targets}`.
-With this package, you specify outputs you want to create and
-`{targets}` will track them for you. So it will know which output
-depends on which other one and which ones need to be updated.
+This package allows you to explicitly specify the outputs you want to
+create. `{targets}` will then track them for you and know which output
+depends on which as well as which ones need to be updated when you make
+changes to your pipeline.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -194,8 +201,8 @@ workflow dependency. Because it is directly used to run analyses and
 process the data, it would be a build dependency.
 :::
 
-First, we need to install `{targets}` in the project environment. And
-since `{targets}` is a build dependency, we add it to the `DESCRIPTION`
+First, we need to install and add `{targets}` to our dependencies. Since
+`{targets}` is a build dependency, we'll add it to the `DESCRIPTION`
 file with:
 
 ```{r add-targets-as-dep}
@@ -213,16 +220,15 @@ to start using it!
 targets::use_targets()
 ```
 
-This will write a `_targets.R` script file that we can use to define our
-analysis pipeline. Before we do that though, let's **commit the file to
-the Git history** with {{< var keybind.git >}}.
-
+This command will write a `_targets.R` script file that we'll use to
+define our analysis pipeline. Before we do that though, let's **commit
+the file to the Git history** with {{< var keybind.git >}}.
 
 ::: callout-note
 If you are using an older version of the `{targets}` package, you might
 also find that running `targets::use_targets()` also have created a
 `run.R` and `run.sh` file. The files are used for other situations (like
-running on a Linux server) that we won’t cover in the course.
+running on a Linux server) that we won’t cover in this course.
 :::
 
 ::: {.callout-note collapse="true"}
@@ -236,8 +242,8 @@ works.
 :::: callout-note
 ## :book: Reading task: \~8
 
-Next, open up the `_targets.R` and we'll take a look at what it
-contains.
+For this reading task, we'll take a look at what the `_targets.R`
+contains. So, start by opening it on your computer.
 
 ::: {.callout-note collapse="true"}
 ## Click this to see the file contents
@@ -252,10 +258,11 @@ fs::path_package("targets", "pipelines", "use_targets.R") |>
 ```
 :::
 
-Next, notice `tar_target()` function used at the end of the script.
-There are two main arguments for it `name` and `command`. The way that
-`{targets}` works is similar to how you'd write R code to assign the
-output of a function to an object.
+Mostly, the`_targets.R` script contains comments and a basic set up to
+get you started. But, notice the `tar_target()` function used at the end of
+the script. There are two main arguments for it: `name` and `command`.
+The way that `{targets}` works is similar to how you'd assign the output
+of a function to an object, so:
 
 ``` r
 object_name <- function_in_command(input_arguments)
@@ -273,8 +280,8 @@ tar_target(
 What this means is that `{targets}` follows a ["function-oriented"
 workflow](https://books.ropensci.org/targets/functions.html#problems-with-script-based-workflows),
 not a "script-based" workflow. What's the difference? In a
-script-oriented workflow, each R file is run in a specific order, so you
-might end up with an R file that has code like:
+script-oriented workflow, each R file/script is run in a specific order.
+As a result, you might end up with an R file that has code like:
 
 ``` r
 source("R/1-process-data.R")
@@ -294,16 +301,19 @@ simple_plot <- create_plot(processed_data)
 model_results <- run_linear_reg(processed_data)
 ```
 
-With this workflow, each function takes an input dataset and contains
-all the code to create the results into one output, like a figure in a
-paper. If you've taken the [intermediate R
-course](https://r-cubed-intermediate.rostools.org/), you'll notice that
-this function-oriented workflow is the workflow we covered. There are so
-many advantages to this type of workflow and is the reason many powerful
-R packages are designed around making use of this type workflow.
+With the function-oriented workflow, each function takes an input and
+contains all the code to create one result as its output. This could be,
+for instance, a figure in a paper.
 
-If we take these same code and convert it into the `{targets}` format,
-the end of `_targets.R` file would like this:
+If you've taken the [intermediate R
+course](https://r-cubed-intermediate.rostools.org/), you'll notice that
+this function-oriented workflow is the workflow we covered in that
+course. There are so many advantages to this type of workflow which is
+why many powerful R packages are designed around making use of this
+workflow.
+
+If we take these same code as above and convert it into the `{targets}`
+format, the end of `_targets.R` file would like this:
 
 ``` r
 list(
@@ -329,16 +339,26 @@ list(
   )
 )
 ```
+
+So, each `tar_target` is a step in the pipeline. The `command` is the
+function call, while the `name` is the name of the output of the
+function call.
+
+{{< include ../includes/_sticky_up.qmd >}}
 ::::
 
 Let's start writing code to create the three items we listed above in
-@fig-pipeline-schematic: some descriptive statistics, a plot of the
-continuous lipid variables, and a report (Quarto). Since we'll use
-`{tidyverse}`, specifically `{dplyr}`, to calculate the summary
-statistics, we need to add it to our dependencies and install it in the
-project library. Because `{tidyverse}` is a "meta"-package (special type
-of package that makes it easy to install and load other packages) we
-need to add it to the `"depends"` section of the `DESCRIPTION` file.
+@fig-pipeline-schematic:
+
+1.  Some basic descriptive statistics
+2.  A plot of the continuous lipid variables
+3.  A report (Quarto document).
+
+Since we'll use `{tidyverse}`, specifically `{dplyr}`, to calculate the
+summary statistics, we need to add it to our dependencies. Because
+`{tidyverse}` is a "meta"-package (special type of package that makes it
+easy to install and load other packages), we need to add it to the
+`"depends"` section of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| filename: Console
@@ -349,9 +369,9 @@ use_package("tidyverse", "depends")
 Commit the changes made to the `DESCRIPTION` file in the Git history
 with {{< var keybind.git >}}.
 
-Now, let's start doing some data analysis so that we can add to our
-pipeline later on. First, open up the `doc/learning.qmd` file and create
-a new header and code chunk at the bottom of the file.
+Now, let's start creating the code for our outputs, so that we can add
+it to our pipeline later. First, open up the `doc/learning.qmd` file and
+create a new header and code chunk at the bottom of the file.
 
 ```` {.markdown filename="doc/learning.qmd"}
 
@@ -383,21 +403,22 @@ c(
 git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 ```
 
-We want to calculate the mean and SD for each metabolite and then, to
-make it more readable, to round the numbers to one digit. To do this,
-will utilize the split-apply-combine methodology and the `across()`
-function, we covered in the
+For our first output, we want to calculate the mean and SD for each
+metabolite and then, to make it more readable, we want to round the
+numbers to one digit. To do this, will utilize the split-apply-combine
+methodology and the `across()` function, we covered in the
 [functionals](https://r-cubed-intermediate.rostools.org/sessions/functionals)
 session of the intermediate course.
 
-Briefly, we will:
+We will:
 
 1.  Use `group_by()` to split the dataset based on the `metabolites`.
 
 2.  Use `summarise()` to calculate the `mean()` and `sd()` for each
     metabolite.
 
-3.  Round the calculated mean and standard deviation (`sd`) to 1 digit using `round()`.
+3.  Round the calculated mean and standard deviation (`sd`) to 1 digit
+    using `round()`.
 
 While doing this, we will also utilize the `across()` functional, making
 it easy to apply the same transformation on multiple columns.
@@ -407,29 +428,30 @@ Let's write out the code!
 ```{r mean-sd-by-each-metabolite}
 #| filename: "doc/learning.qmd"
 #| eval: true
+# In the {r basic-stats} chunk
 lipidomics |>
   group_by(metabolite) |>
   summarise(across(value, list(mean = mean, sd = sd))) |>
   mutate(across(where(is.numeric), ~ round(.x, digits = 1)))
 ```
 
-After that, style the file using {{< var keybind.styler >}} on the file.
-Than we will **commit** the changes to the Git history with
-{{< var keybind.git >}}.
+After that, style the file using {{< var keybind.styler >}}. Then,
+commit the changes to the Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Convert summary statistics code into a function
 
 > Time: \~20 minutes.
 
-While inside the `doc/learning.qmd` file, use the "function-oriented"
-workflow, as taught in the [intermediate
+In the `doc/learning.qmd` file, use the "function-oriented" workflow, as
+taught in the [intermediate
 course](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
-to take the code we wrote above and convert it into a function. Complete
-these tasks:
+to take the code we wrote above and convert it into a function.
 
-1.  Wrap the code with `function() {...}` and name the new function
-    `descriptive_stats`. Here is some scaffolding to help you get
-    started:
+Complete these tasks:
+
+1.  Convert the code into a function by wrapping it with
+    `function() {...}` and name the new function `descriptive_stats`.
+    Here is some scaffolding to help you get started:
 
     ``` {.r filename="doc/learning.qmd"}
     descriptive_stats <- function(___) {
@@ -437,12 +459,14 @@ these tasks:
     }
     ```
 
-2.  Replace `lipidomics` with `data` and put `data` as an argument
-    inside the brackets of `function()`.
+2.  Replace `lipidomics` in the code we wrote before with `data` and put
+    `data` as an argument inside the brackets of `function()`.
 
-3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
-    your function (except for `where()`, which comes from the
-    `{tidyselect}` package).
+3.  At the start of each function we use inside our `descriptive_stats`
+    function, add the name of the package like so: `packagename::`.
+    E.g., add `dplyr::` before `group_by()` because it's from
+    the`{dplyr}` package. Remember that you can look up which package a
+    function comes from by writing `?functionname` in the Console.
 
 4.  Style the code using {{< var keybind.styler >}} to make sure it is
     formatted correctly. You might need to manually force a styling if
@@ -460,14 +484,15 @@ these tasks:
     then test the code by running `descriptive_stats(lipidomics)` in the
     Console. If it works, do the last task.
 
-8.  Save both files and then open the Git interface and commit the
-    changes you made to them with {{< var keybind.git >}}.
+8.  Save both files (`learning.qmd` and `functions.R`). Then open the
+    Git interface and commit the changes you made to them with
+    {{< var keybind.git >}}.
 
-::: {.callout-tip appearance="default"}
+::: {.callout-tip appearance="default" title="Tip: Implicit returns"}
 In the intermediate course, we suggested using `return()` at the end of
-the function. Technically we don't need an explicit `return()`, since
+the function. Technically, we don't need an explicit `return()`, since
 the output of the last code that R runs within the function will be the
-output of the function. This is called an "implicit return" and we will
+output of the function. This is called an *implicit return* and we will
 be using this feature throughout the rest of this course.
 :::
 
@@ -992,7 +1017,7 @@ lipidomics |>
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 
-Re-run `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
+Rerun `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
 to see that it now detects the connections between the pipeline targets.
 Then, run `targets::tar_make()` with {{< var keybind.targets-make >}}
 again to see everything re-build! Last things are to re-style using
@@ -1043,13 +1068,15 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 
 :   The most destructive, and probably more commonly used, function.
     This will delete the entire `_targets/` folder for those times when
-    you want to start over and re-run the entire pipeline again.
+    you want to start over and rerun the entire pipeline again.
+
+{{< include ../includes/_sticky_up.qmd >}}
 :::
 
 ## Summary
 
 -   Use a function-oriented workflow together with `{targets}` to build
-    your data analysis pipeline and track your "pipeline targets".
+    your data analysis pipeline and track your pipeline "targets".
 -   List individual "pipeline targets" using `tar_target()` within the
     `_targets.R` file.
 -   Visualize target items in your pipeline with
@@ -1059,4 +1086,3 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
-
