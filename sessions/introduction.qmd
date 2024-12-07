@@ -44,8 +44,9 @@ most tangible things are the folders and files on our computers. The
 folder and file structures below show where we start and where we end,
 so you can hopefully get a better understanding of how things will look.
 
-::: panel-tabset
-### Initial project structure
+::: columns
+::: {.column width="45%"}
+### Initial project structure {.unnumbered}
 
 Right now, your initial project structure should look like this:
 
@@ -73,15 +74,45 @@ LearnR3
 ├── README.md
 └── TODO.md
 ```
+:::
 
-### Final project structure
+::: {.column width="45%"}
+### Final project structure {.unnumbered}
 
 At the end of this course, it should look something like:
 
-<!-- TODO: Paste from final output of running code in -->
-
 ```         
+LearnR3
+├── _targets/
+│   ├── meta/
+│   │   └── meta
+│   ├── objects/
+│   ├── user/
+│   └── workspaces/
+├── data/
+│   ├── lipidomics.csv
+│   └── README.md
+├── data-raw/
+│   ├── README.md
+│   ├── nmr-omics/
+│   │  ├── lipidomics.xlsx
+│   │  └── README.txt
+│   └── nmr-omics.R
+├── doc/
+│   ├── _targets.yaml
+│   ├── README.md
+│   ├── learning.html
+│   └── learning.Rmd
+├── R/
+│   ├── functions.R
+│   └── README.md
+├── .gitignore
+├── _targets.R
+├── DESCRIPTION
+├── LearnR3.Rproj
+└── README.md
 ```
+:::
 :::
 
 Why do we structure it this way?
