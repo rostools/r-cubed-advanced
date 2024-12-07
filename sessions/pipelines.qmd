@@ -24,7 +24,7 @@ participate, not just the ones who are more comfortable being vocal to
 the whole group.
 :::
 
-When working on a data analyses, you have probably experienced (many)
+When doing analyses on data, you have probably experienced (many)
 times where you forget the order in which other code should run or which
 parts need to be rerun to update results. Things can get confusing
 quickly, even in relatively simple projects. This becomes even more
@@ -33,7 +33,7 @@ forgotten the state of the analysis and the project as a whole.
 
 That's where formal data analysis pipeline tools come in. By organising
 your analysis into distinct steps, with clear inputs and outputs, and
-adding these steps to a pipeline that tracks those them, you can make
+adding these steps to a pipeline that tracks them, you can make
 things a lot easier for yourself and others. This session focuses on
 using tools that create and manage these pipelines effectively.
 
@@ -114,17 +114,17 @@ agency as well as to the person based on their ID contact information
 However, in research, especially around data collection and analysis, we
 often hear or read about "pipelines". But looking closer, these aren't
 actual pipelines, because the individual steps are not very clear and
-not well described, and they often requiring a fair amount of manual
+not well described, and they often require a fair amount of manual
 human attention and intervention. Particularly within computational
 environments, a pipeline should be a set of data processing steps
 connected in a series with a specific order; the output of one step is
 the input to the next. This means that there actually should be minimal
 to *no* human intervention from raw input to finished output.
 
-Why aren't these data "pipelines" in most research actual pipelines?
+Why aren't these computational data pipelines found in most of the "pipelines" described in research?
 Because:
 
-1.  Anything with data ultimately must be on the computer
+1.  Anything with data ultimately must be on the computer,
 2.  Anything automatically done on the computer must be done with code,
 3.  Not all researchers write code,
 4.  Researchers who do write code rarely publish and share it,
@@ -144,7 +144,7 @@ as researchers are not necessarily trained in writing code, nor do we
 have a strong culture and incentive structure around learning, sharing,
 reviewing, and improving code. We are also very rarely allowed to get
 (or use) funds to hire people who *are* trained and skilled in
-programmatic thinking and coding Otherwise courses like this wouldn't
+programmatic thinking and coding. Otherwise courses like this wouldn't
 need to exist :woman_shrugging:
 
 Before we get to what an actual data analysis pipeline looks like in
@@ -259,7 +259,7 @@ fs::path_package("targets", "pipelines", "use_targets.R") |>
 :::
 
 Mostly, the`_targets.R` script contains comments and a basic set up to
-get you started. But, notice `tar_target()` function used at the end of
+get you started. But, notice the `tar_target()` function used at the end of
 the script. There are two main arguments for it: `name` and `command`.
 The way that `{targets}` works is similar to how you'd assign the output
 of a function to an object, so:
@@ -309,7 +309,7 @@ If you've taken the [intermediate R
 course](https://r-cubed-intermediate.rostools.org/), you'll notice that
 this function-oriented workflow is the workflow we covered in that
 course. There are so many advantages to this type of workflow which is
-why many powerful R packages are designed around making use of this type
+why many powerful R packages are designed around making use of this
 workflow.
 
 If we take these same code as above and convert it into the `{targets}`
@@ -436,7 +436,7 @@ lipidomics |>
 ```
 
 After that, style the file using {{< var keybind.styler >}}. Then,
-commir the changes to the Git history with {{< var keybind.git >}}.
+commit the changes to the Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Convert summary statistics code into a function
 
@@ -464,8 +464,8 @@ Complete these tasks:
 
 3.  At the start of each function we use inside our `descriptive_stats`
     function, add the name of the package like so: `packagename::`.
-    E.g., add `dplyr::` before `group_by()` because it's from from
-    the`{dplyr}`package. Remember that you can look up which package a
+    E.g., add `dplyr::` before `group_by()` because it's from
+    the`{dplyr}` package. Remember that you can look up which package a
     function comes from, by writing `?functionname` in the Console.
 
 4.  Style the code using {{< var keybind.styler >}} to make sure it is
@@ -969,7 +969,7 @@ lipidomics |>
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 
-rerun `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
+Rerun `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
 to see that it now detects the connections between the pipeline targets.
 Then, run `targets::tar_make()` with {{< var keybind.targets-make >}}
 again to see everything re-build! Last things are to re-style using
