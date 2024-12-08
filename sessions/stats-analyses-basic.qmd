@@ -10,24 +10,24 @@ library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
-Running statistical analyses is a relatively methodical and well-defined
-process, even if there is often a lot of trial and error involved.
-Sometimes it may feel overwhelming and complicated, which it definitely
-can be, but it doesn't have to. By taking a structured approach to
-running statistical analyses, you can make it easier on yourself and
-feel more in control.
+When working with data in research it is almost impossible to avoid
+needing to do some form of statistical analysis. Running statistical
+analyses is usually methodical and well-defined, though it often
+involves trial and error. As it involves several steps: choosing the
+right analysis to do for your data, ensuring that your data is
+transformed in the right way to do your chosen statistical analysis, and
+lastly, extracting the results of your statistical analysis so you can
+present them. Sometimes it may feel overwhelming and complicated, which
+it definitely can be, but it doesn’t have to be. By taking a structured
+approach, you can make the process easier and feel more in control.
 
-In R, statistical methods are often created and developed by researchers
-with little to no training in software development and who often use
-them differently. This has some advantages, like having the cutting edge
-statistical methods available to us, but has a major disadvantage of
-often having to learn a completely different way of running a
-statistical analysis, even if it is fairly similar to ones you've used
-before. So having a framework for running statistical analyses,
-regardless of who created them, can provide that needed structure and
-vastly simplify the analysis. This session will be covering a general
-framework for running statistical analyses, regardless of the exact
-statistical method.
+In R, statistical methods are often developed by researchers with little
+software training, which can make learning new methods challenging.
+However, having a framework for running analyses can simplify the
+process.
+
+For this session, we are going to put a pause on targets and learn how
+we can generally set up and run statistical models.
 
 ## Learning objectives {#sec-stats-analyses-basic-learning-objectives}
 
@@ -335,7 +335,7 @@ building workflow that was described above, through the use of specific
 packages for each component.
 
 | Package | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | `{parsnip}` | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
 | `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
