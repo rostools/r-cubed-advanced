@@ -176,17 +176,6 @@ or mathematically:
 
 $$growth = sunlight + water$$
 
-Great research questions are designed in a way to fit a theoretical
-model on measurable parameters, so we can ultimately quantify the
-uncertainty in our observations (the data) and in the model. And the
-basic simplified math of a statistical model looks mostly the same:
-
-$$y = intercept + x + error $$
-
-So if we use the example of plant growth, it would look like:
-
-$$Growth = Sunlight + Water$$
-
 This expression is known as our theoretical model. However, not all
 theoretical models can be tested against the real world. We need to
 structure the theoretical model so that we can measure the parameters
