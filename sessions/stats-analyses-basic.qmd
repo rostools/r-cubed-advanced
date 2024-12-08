@@ -90,7 +90,7 @@ compared to other areas?
 3.  Finally, over the next 2 minutes, we will share all together what a
     model is in the context of data analysis.
 
-## Theory and "workflow" on statistical modeling
+## A brief introduction to statistical modelling and workflow
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -103,30 +103,63 @@ analyses.
 
 <!-- TODO: Create a revealjs presentation on this? -->
 
-:::: callout-note
+:::::::: callout-note
 ## Reading task: \~15 minutes
 
-Almost all fields of research, and definitely more heavily-quantitative
-and scientific fields like biomedicine and health, have math and
-statistics at the core of taking data to draw inferences or general
-observations about the world.
+A statistical model is a simple way to describe the real world using
+mathematics. In research, we often aim to understand the relationships
+between multiple variables. For example, if we change the predictor
+(independent variable) ( x ), how does that affect the outcome
+(dependent variable) ( y )?
 
-Any time we collect data and need to interpret what it means, we need
-statistics. And anytime we want to make inferences about the world from
-the data, we need to use statistics to determine the likelihood, or
-rather the uncertainty, in those inferences. Statistics is meant to
-quantify uncertainty.
+Some simple examples are:
 
-How do we quantify uncertainty? By first creating a "theoretical model"
-that expresses mathematically our research question. For instance, we
-have a theoretical model that outdoor plants grow (non-linearly) with
-water and sunlight, but that more sunlight likely means less water (less
-rain). While *any* research question could be translated into a
-theoretical model, not all theoretical models can be *tested* against
-the real world. And that's where the second part comes in: Our
-theoretical model needs to be structured in a way that allows us to
-measure the items ("parameters") in our model, so that we can build a
-mathematical model from the data ("test it in the real world").
+-   "How does this new cancer treatment affect survival rates?"
+
+-   "How does this new user interface affect user watch time?"
+
+or more complex:
+
+-   "How does sunlight and water affect plant growth?"
+
+-   "What is the relationship between a metabolite and T1D compared to
+    controls, adjusting for age and gender?"
+
+These relationships can involve single or multiple predictors (such as
+sunlight and water, or metabolite, gender, and age). The outcomes can be
+either continuous (such as plant growth) or categorical (such as whether
+a person has T1D or not).
+
+The relationship between predictors and the outcome is known as a
+regression. If there is a relationship between ( x ) and ( y ), the
+corresponding mathematical object is a function:
+
+::: callout-note
+$$y = f(x) $$
+:::
+
+Since no relationship is perfect, we add some random error (error) to
+describe the difference between the function and the actual measured
+variables:
+
+::: callout-note
+$$y = f(x) + error $$
+:::
+
+The simplest form of regression is linear regression, where the formula
+is a linear combination:
+
+:::: callout-note
+::: callout-note
+$$y = intercept + x + e$$
+:::
+::::
+
+Here, the intercept is the value of ( y ) when ( x ) is zero.
+
+For example, we might expect a relationship between plant growth, water,
+and sunlight. We could model plant growth as depending on water and
+sunlight. Graphically, we can illustrate this model as:
 
 ```{mermaid fig-model-plant-growth}
 %%| label: fig-model-plant-growth
@@ -139,6 +172,10 @@ graph LR
     Sunlight --- Water
 ```
 
+or mathematically:
+
+$$growth = sunlight + water$$
+
 Great research questions are designed in a way to fit a theoretical
 model on measurable parameters, so we can ultimately quantify the
 uncertainty in our observations (the data) and in the model. And the
@@ -150,41 +187,32 @@ So if we use the example of plant growth, it would look like:
 
 $$Growth = Sunlight + Water$$
 
-It's a bit more complicated than this, but this is enough to describe it
-for this course. Throughout the rest of the session, we use specific
-terms to describe each item in this formula. "Outcome" (also called
-"dependent variable") refers to the $y$, "predictor" (or "independent
-variable") refers to the $x$. The error and intercept are calculated for
-us when we fit the model to the data. The intercept is when x is equal
-to zero (the "y-intercept" on a plot). The error is the difference
-between what the model estimates and the real value. It plays a role in
-quantifying the model's uncertainty.
+This expression is known as our theoretical model. However, not all
+theoretical models can be tested against the real world. We need to
+structure the theoretical model so that we can measure the parameters
+involved. In this case, we need to measure plant growth (e.g., weight in
+grams), the amount of water given per day (in liters), and the number of
+sunlight hours per day.
 
-Considering the mathematical nature of statistical models, there is also
-a logic and "workflow" to making these models!
+This also means that when formulating a research question, there is an
+order, or workflow, to follow:
 
-1.  Write a research question, designed in a way that might look like
-    the diagram above. Usually this step needs to be revisited, revising
-    the question after trying to construct the theoretical model, that
-    describes the measurable (and unmeasurable) parameters in the model,
-    and vice versa.
-2.  Based on the model and the type of measured parameters used
-    (continuous or binary), select the best mathematical model "type".
-    Nearly all models in statistics start from the base of a linear
-    regression (e.g. ANOVA is a special form of regression, t-test is a
-    simpler version of ANOVA), so the model "type" will probably be a
-    form of regression.
-3.  Measure your parameters (in the plant growth example, that might be
-    the amount of water given in liters per day, amount of plant growth
-    in weight, and amount of sunlight in hrs per day). Usually, this
-    measured data need to be processed in a special way to fit the
-    specifics of the model, research question, and practices of the
-    field.
-4.  Fit the data to the theoretical model in order to estimate the
-    values ("coefficients") of the model parameters as well as the
-    uncertainty in those values.
-5.  Extract the values and their uncertainty from the model and present
-    them in relation to your research questions.
+### Workflow for Statistical Models
+
+1.  **Write a research question** that fits a theoretical model with
+    measurable parameters.
+
+2.  **Select the best model type** based on the parameters (e.g., linear
+    regression, logistic regression, ANOVA, or t-test).
+
+3.  **Measure your parameters** (e.g., water in liters per day, plant
+    growth in weight, sunlight in hours per day).
+
+4.  **Fit the data to the model** to estimate the values (coefficients)
+    of the model, such as the intercept, slope, and uncertainty (error).
+
+5.  **Extract and present the values** in relation to your research
+    questions.
 
 ```{mermaid fig-model-building-workflow}
 %%| label: fig-model-building-workflow
@@ -253,7 +281,7 @@ graph TB
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
     plot_est -- "tar_read()" --> qmd[Quarto]
 ```
-::::
+::::::::
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -271,7 +299,7 @@ Also repeat the question to ask, the outputs, as well as the functions
 and their flow that we can translate into the `{targets}` pipeline.
 :::
 
-## Defining the model
+## Defining a model for our lipidomics data
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -285,9 +313,16 @@ approaches.
 ::: callout-note
 ## Reading task: \~10 minutes
 
-Now that we've talked about the workflow around making models and have
-already written out some research questions, let's make a basic,
-graphical theoretical model:
+Going back to our own lipidomics dataset, we need to do the first step:
+Creating the question. While we don’t have much data, there are a
+surprising number of questions we could ask. But we will keep it very
+simple, very basic, and very exploratory.
+
+1.  What is the estimated relationship of each metabolite with T1D
+    compared to the controls, adjusting for the influence of age and
+    gender?
+
+A graphical representation of this theoretical model could be:
 
 ```{mermaid fig-model-research-question}
 %%| label: fig-model-research-question
@@ -321,27 +356,29 @@ Since T1D is binary (either you have it or you don't), the most likely
 choice is logistic regression, which requires a binary outcome variable.
 So we have the theoretical model and the type of model to use - how do
 we express this as code in R? There are many ways of doing the same
-thing in R, but some are a bit easier than others. One such approach,
-that is quite generic and fits with the ideals of the `{tidyverse}`, is
-a similar universe of packages called the `{tidymodels}`.
+thing in R, but some are a bit easier than others.
 
-Why do we teach `{tidymodels}`? Because they are built by software
-developers, employed by Posit (who also employs the people who build the
-`{tidyverse}` and RStudio), and they have a strong reputation for
-writing good documentation. Plus, the `{tidymodels}` set of packages
-also make creating and using models quite generic, so by teaching you
-these sets of tools, you can relatively easily change the model type, or
-how you process the data, or other specifications without having to
-learn a whole new package or set of tools.
+One approach that is quite generic and fits with the ideals of the
+`{tidyverse}`, is a similar universe of packages called the
+`{tidymodels}`. We teach `{tidymodels}`because they are created by
+experienced software developers at Posit, the same company behind the
+`{tidyverse}` and RStudio. They are known for excellent documentation.
+`{tidymodels}` make it easy to create and use models in a flexible way,
+allowing you to switch model types or data processing methods without
+needing to learn new tools. This makes your work more efficient and
+adaptable.
 
-The reason `{tidymodels}` can do that is because they designed it in a
-way that makes a clear separation in the components of the model
-building workflow that was described above, through the use of specific
-packages for each component.
+`{tidymodels}` are designed to clearly separate the different parts of
+the model-building process. Each component of the workflow has its own
+specific package, making it easier to manage and understand. This
+modular approach allows you to change one part of the process, like the
+model type or data processing method, without having to learn a
+completely new set of tools. This design makes `{tidymodels}` both
+flexible and user-friendly.
 
 | Package | Description |
 |------------------------------------|------------------------------------|
-| `{parsnip}` | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
+| `{parsnip}` | Define the model, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
 | `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
 
@@ -1052,4 +1089,3 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
-
