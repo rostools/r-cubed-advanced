@@ -26,8 +26,8 @@ software training, which can make learning new methods challenging.
 However, having a framework for running analyses can simplify the
 process.
 
-For this session, we are going to put a pause on targets and learn how
-we can generally set up and run statistical models.
+For this session, we are going to learn how we can generally set up and
+run statistical models, so that we can use it within targets.
 
 ## Learning objectives {#sec-stats-analyses-basic-learning-objectives}
 
