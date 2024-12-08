@@ -38,17 +38,15 @@ The overall objective for this session is to:
 
 More specific objectives are to:
 
-1.  Describe the general "workflow" and steps involved in stating the
-    research question, constructing a model to help answer the question,
-    preparing the data to match the requirements of the model, fitting
-    it to the data, and finally extracting the results from the fitted
-    model.
+1.  Describe the general "workflow": State the research question,
+    construct a model, prepare the data, fit the model, and extract the
+    results.
 2.  Categorize the model definition step as a distinct, theory-driven
     step, separate from the data, and use `{parsnip}` functions to help
     with defining your model.
-3.  Identify various data transformation techniques and evaluate which
-    are good options given the data. Use functions in the `{recipes}`
-    package to apply these transformations to your data.
+3.  Identify data transformation techniques and evaluate which are good
+    options given the data. Use functions in the `{recipes}` package to
+    apply these transformations to your data.
 4.  Use the `{broom}` package to extract the model results to later
     present them in graphical format (with `{ggplot2}`).
 5.  Continue applying the concepts and functions used from the previous
@@ -56,13 +54,20 @@ More specific objectives are to:
 
 Specific "anti"-objectives:
 
--   Will **not** know how to choose and apply the appropriate
-    statistical model or test, nor understand any statistical theory,
-    nor interpret the statistical results correctly, nor determine the
-    relevant data transformations for the statistical approach. What we
-    show, we show *only as demonstration purposes only*, they could be
-    entirely wrong in how to do them correctly if an expert were to
-    review them.
+We will *not* learn:
+
+-   How to choose and apply the appropriate statistical model or tests.
+
+-   Statistical theory.
+
+-   How to determine relevant data transformations for statistical
+    tests.
+
+-   How to interpret the statistical results.
+
+This means that what we show is *for demonstration purposes only*, they
+could be entirely wrong in how to do them correctly if an expert were to
+review them.
 
 ::: {.callout-warning appearance="default"}
 We will be making *a lot* of function throughout this session and the
@@ -1047,3 +1052,4 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
+
