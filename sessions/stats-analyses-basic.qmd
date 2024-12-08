@@ -246,21 +246,13 @@ here. We're only doing this modeling to highlight how to use the R
 packages.
 :::
 
-Going back to our own `lipidomics` dataset, we need to do the first
-step: Creating the question. While we don't have much data, there are a
-surprising number of questions we could ask. But we will keep it very
-simple, very basic, and very exploratory.
-
-1.  What is the estimated relationship of each metabolite with T1D
-    compared to the controls, adjusting for the influence of age and
-    gender?
-
-Next, because we are working within a "reproducible analysis" framework
-specifically with the use of `{targets}`, let's convert this question
-into outputs to include as pipeline targets, along with a basic idea for
-the final functions that will make up these targets and their inputs and
-outputs. These targets will probably be quite different by the end, but
-it's a good start to think about what it should look like in the end.
+Furthermore, because we are working within a "reproducible analysis"
+framework specifically with the use of `{targets}`, we will also convert
+questions regarding our lipidomics data into outputs to include as
+pipeline targets, along with a basic idea for the final functions that
+will make up these targets and their inputs and outputs. These targets
+will probably be quite different by the end, but it's a good start to
+think about what it should look like in the end.
 
 -   All results for estimated relationships (in case we want to use it
     for other output)
