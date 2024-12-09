@@ -10,39 +10,39 @@ knitr::write_bib(
 ```
 
 Reproducibility and open scientific practices are increasingly in demand
-and needed by scientists and researchers in our modern research
-environments. More frequently, our work include a high level
-collaboration on scientific projects, and consequently many new
-challenges arise that we as researchers do not have the training for nor
-knowledge on how to resolve. Challenges include:
+and needed by scientists and researchers in modern research
+environments. More frequently, our work, as researchers, includes a high
+level of collaboration on scientific projects. Consequently, many new
+challenges arise that we lack the training or knowledge to resolve.
+
+These challenges include:
 
 -   Establishing common coding styles and standards to make it easier to
-    read or review each others code;
-
--   Documenting the software dependencies of a project in order to
-    synchronize computing environments among the collaborators and
-    potentially servers;
-
+    read or review each other’s code;
+-   Documenting the software dependencies of a project to synchronize
+    computing environments among collaborators and potentially with
+    servers;
 -   Documenting (and automating) the steps taken to process, analyze,
-    and present the data and findings in a way that allows collaborators
-    to re-generate the most recent results.
+    and present data and findings in a way that allows collaborators to
+    regenerate the most recent results.
 
 Training and awareness of the skills and knowledge necessary to create
-reproducible and transparent data analysis pipelines are still very much
-lacking for researchers. Partly due to this gap, how *exactly* an
-analysis is done to produce a given result is poorly, if at all,
-described in scientific studies. This could have major impact on the
-reproducibility an ultimately the reliability of studies.
+reproducible and transparent data analysis pipelines are still
+significantly lacking among researchers. Partly due to this gap, how
+*exactly* an analysis is done (including data processing and
+wrangling) to produce a given result are often poorly, if at all,
+described in scientific studies. This can have a major impact on the
+reproducibility and, ultimately, the reliability of studies.
 
-This course is designed to address these issues in code-along sessions
-(instructor and learner coding together), reading activities, some
+This course is designed to address these issues through code-along
+sessions (instructor and learners coding together), reading activities,
 discussion activities, and exercises using a real-world dataset. This
-website contains all of the material for the course, from reading
-material to exercises to images. It is structured as a book, with
-"chapters" as lessons, given in order of appearance. We make heavy use
-of the website throughout the course where code-along sessions follow
-the material on the website nearly exactly (with slight modifications
-for time or more detailed explanations).
+website contains all the course materials, from reading content to
+exercises. It is structured like a book, with "chapters" serving as
+lessons presented in order of appearance. We make extensive use of the
+website throughout the course, with code-along sessions closely
+following the website material (with slight modifications for time
+constraints or more detailed explanations).
 
 The course material was created using [Quarto](https://quarto.org/) to
 write the lessons and create the book format,

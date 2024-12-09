@@ -1,19 +1,20 @@
 ---
 format:
-  html:
+  r3-theme-html:
     tbl-colwidths: [30, 70]
 ---
 
 # Schedule {#sec-schedule}
 
 The course is structured as a series of participatory live-coding
-sessions (instructor and learner coding together) interspersed with
-hands-on exercises, all with using a real-world, open dataset. There are
-few lectures, only given at the start and end of the workshop. The
-general schedule outline is shown in the below table. This is **not a
-fixed schedule** of the timings of each session --- some may be shorter
-and others may be longer. Instead, it is meant to be an approximate
-guide and overview.
+sessions (instructor and learners coding together) interspersed with
+hands-on exercises using a real-world, open dataset. There are few
+lectures, only given at the start and end of the workshop.
+
+The general schedule outline is shown in the below table. This is **not
+a fixed schedule** of the timings of each session --- some may be
+shorter and others may be longer. Instead, it is meant to be an
+approximate guide and overview.
 
 ::: panel-tabset
 ## Day 1 {.unnumbered}

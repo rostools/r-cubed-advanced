@@ -14,82 +14,73 @@ library(targets)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
-::: {.callout-note collapse="true"}
-## Instructor note
+{{< include /includes/_review-note.qmd >}}
 
-Before beginning, get them to recall what they remember of the previous
-session, either with something like Mentimeter or verbally. Preferably
-something like Mentimeter because it allows everyone to participate, not
-just the ones who are more comfortable being vocal to the whole group.
-:::
+When doing analyses on data, you have probably experienced (many)
+times where you forget the order in which other code should run or which
+parts need to be rerun to update results. Things can get confusing
+quickly, even in relatively simple projects. This becomes even more
+challenging when you return to a project after a month or two and have
+forgotten the state of the analysis and the project as a whole.
 
-Depending on how much time you've spent working on data analyses, you
-have probably experienced (many) times where you are working on a
-project and forget what code needs to be run first, what order other
-code needs to run in, and what pieces of code need to be re-run in order
-to update other results. Things get confusing quickly, even for fairly
-simple projects. This probably happens most often when you return to a
-project after a month or two and completely forget the state of the
-project and analysis.
-
-This is where formal data analysis pipeline tools come in and play a
-role. By setting up your analysis into distinct steps, with clear inputs
-and outputs, and use a system that tracks those inputs and outputs, you
-can make things a lot easier for yourself and others. This session is
-about applying tools that make and manage these pipelines.
+That's where formal data analysis pipeline tools come in. By organising
+your analysis into distinct steps, with clear inputs and outputs, and
+adding these steps to a pipeline that tracks them, you can make
+things a lot easier for yourself and others. This session focuses on
+using tools that create and manage these pipelines effectively.
 
 ## Learning objectives {#sec-pipelines-learning-objectives}
 
-The overall objective for this session is to:
+This session’s **overall learning outcome** is to:
 
-1.  Identify and apply an approach to create an analysis pipeline that
-    makes your analysis steps, from raw data to finished manuscript,
-    explicitly defined so that updating it by either you or
-    collaborators is as easy as running a single function.
+1.  Apply an approach to build an analysis pipeline that clearly defines
+    each step of your analysis---from raw data to finished manuscript---
+    so that updates by you and your collaborators are as simple as
+    running a single function.
 
-More specific objectives are to:
+More **specific objectives** are to:
 
-1.  Describe the computational meaning of a pipeline and how pipelines
-    are often done in research. Explain why a well-designed pipeline can
-    streamline your collaboration, reduce the time spent on analysis,
-    make analysis steps explicit and easier to work on, and ultimately
+1.  Describe the computational meaning of *pipeline* and how pipelines
+    are often used in research. Explain why a well-designed pipeline can
+    streamline collaboration, reduce time spent on an analysis, make the
+    analysis steps explicit and easier to work with, and ultimately
     contribute to more fully reproducible research.
-2.  Explain the difference between a "function-oriented" workflow vs a
+2.  Explain the difference between a "function-oriented" workflow and a
     "script-oriented" workflow, and why the function-based approach has
     multiple advantages from a time- and effort-efficiency point of
     view.
 3.  Use the functions within `{targets}` to apply the concepts of
     building pipelines in your analysis project.
-4.  Continue applying the concepts and functions used from the previous
-    session.
+4.  Continue applying the concepts and functions introduced in the
+    previous session
 
-## Exercise: How do you re-run analyses when something changes?
+## :speech_balloon: Discussion activity: How do you rerun analyses when something changes?
 
 > Time: \~12 minutes.
 
 We've all been in situations where something in our analysis needs to
-change. Maybe we forgot to remove a certain condition (like unrealistic
-BMI). Or maybe our supervisor suggests something we hadn't considered in
-the analysis. Or maybe during peer review of our manuscript, a reviewer
+change: Maybe we forgot to remove a certain condition (like unrealistic
+BMI), maybe our supervisor suggests something we hadn't considered in
+our analysis, or maybe during peer review of our manuscript, a reviewer
 makes a suggestion that would improve the understanding of the paper.
-Whatever the situation, we inevitably need to re-run our analysis.
-Depending on what the change was, we might need to run the full analysis
-all over again. So, what is your **exact** workflow when you need to
-re-run code and update your results? Assume it's a change somewhere
-early in the data processing stage.
+
+Whatever the situation, we inevitably need to rerun parts of or the full
+analysis. So what is your **exact** workflow when you
+need to rerun code and update your results? Assume it's a change
+somewhere early in the data processing stage.
 
 1.  Take about 1 minute to think about the workflow you use. Try to
     think of the *exact* steps you need to take, what *exactly* you do,
     and how long that usually takes.
-2.  For 8 min, in your group, share and discuss what you've thought. How
-    do your experiences compare to each other?
+2.  For 8 minutes, share and discuss your thoughts in your group. How do
+    your experiences compare to each other?
 3.  For the remaining time, we'll briefly share with everyone what
     they've thought and discussed.
 
 ## What is a data analysis "pipeline"?
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 After they finish reading this section, briefly walk through it. In
 particular, emphasize what we want to make at the end, even though that
@@ -97,11 +88,11 @@ goal might change as the analysis progresses.
 :::
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
-steps can be manual, human involved or completely automated by a robot
+steps can be manual, human involved, or completely automated by a robot
 or computer. For instance, in car factories, the pipeline from the input
 raw materials to the output vehicle is extremely well described and
 implemented. Similarly, during the pandemic, the pipeline for testing
@@ -114,12 +105,16 @@ information (or via a secure app).
 
 However, in research, especially around data collection and analysis, we
 often hear or read about "pipelines". But looking closer, these aren't
-actual pipelines because the individual steps are not very clear and not
-well described, often requiring a fair amount of manual human attention
-and intervention. Particularly within computational environments, a
-pipeline is when there is minimal to *no* human intervention from raw
-input to finished output. Why aren't these data "pipelines" in research
-actual pipelines? This is because:
+actual pipelines because the individual steps are not very clear and
+not well described, and they often require a fair amount of manual
+human attention and intervention. Particularly within computational
+environments, a pipeline should be a set of data processing steps
+connected in a series with a specific order; the output of one step is
+the input to the next. This means that there actually should be minimal
+to *no* human intervention from raw input to finished output.
+
+Why aren't these computational data pipelines found in most of the "pipelines" described in research?
+Because:
 
 1.  Anything with data ultimately must be on the computer,
 2.  Anything automatically done on the computer must be done with code,
@@ -131,27 +126,28 @@ actual pipelines? This is because:
 6.  And, research is largely non-reproducible [@Trisovic2022;
     @Seibold2021; @Laurinavichyute2021].
 
-A data analysis pipeline would, by definition, be a reproducible,
-readable, and code-based data analysis. We researchers, as a group, have
-a long way to go before we can start realistically implementing data
-analysis pipelines.
+A data analysis pipeline would, by definition, be a readable and
+reproducible data analysis. Unfortunately, we researchers, as a group,
+don't make use of the tools to implement actual data analysis pipelines.
 
-This isn't to diminish the work of researchers, but a basic observation
+This isn't to diminish the work of researchers, but is rather a basic observation
 on the systemic, social, and structural environment surrounding us. We
-as researchers are not trained in writing code, nor do we have a strong
-culture and incentive structure around learning, sharing, reviewing, and
-improving code. Nor are we often allowed to get (or use) funds to hire
-people who *are* trained and skilled in programmatic thinking and
-programming. Otherwise, courses like this wouldn't need to exist :shrug:
+as researchers are not necessarily trained in writing code, nor do we
+have a strong culture and incentive structure around learning, sharing,
+reviewing, and improving code. We are also very rarely allowed to get
+(or use) funds to hire people who *are* trained and skilled in
+programmatic thinking and coding. Otherwise courses like this wouldn't
+need to exist :woman_shrugging:
 
-So, how would a data analysis pipeline look? Before we get to that,
-though, we have to separate two things: exploratory data analysis and
-final paper data analysis. In exploratory data analysis, there will
-likely be a lot of manual, interactive steps involved that may or may
-not need to be explicitly stated and included in the analysis plan and
-pipeline. But for the final paper and the results to be included, we
-generally have some basic first ideas. Let's list a few items that we
-would want to do before the primary statistical analysis:
+Before we get to what an actual data analysis pipeline looks like in
+practice, we have to separate two things: *exploratory data analysis*
+and *final paper data analysis*. In exploratory data analysis, there
+will likely be a lot of manual, interactive steps involved that may or
+may not need to be explicitly stated and included in the analysis plan
+and pipeline. But for the final paper and the included results, we
+generally have some basic first ideas of what we'll need. Let's list a
+few items that we would want to do before the primary statistical
+analysis:
 
 1.  A table of some basic descriptive statistics of the study
     population, such as mean, standard deviation, or counts of basic
@@ -162,7 +158,7 @@ would want to do before the primary statistical analysis:
 
 ```{mermaid fig-pipeline-schematic}
 %%| label: fig-pipeline-schematic
-%%| fig-cap: Very simple flow chart of steps in an analysis pipeline.
+%%| fig-cap: Simplified flow chart of some of the initial steps in a data analysis pipeline.
 %%| echo: false
 %%| eval: true
 graph LR
@@ -174,28 +170,31 @@ graph LR
     plot_distrib --> paper
 ```
 
-Now that we conceptually have drawn out the sets of tasks to complete in
-our pipeline, we can start using R to build it.
+Now that we have conceptually drawn out some initial tasks in our
+pipeline, we can start using R to build it.
+
+{{< include ../includes/_sticky_up.qmd >}}
 :::
 
-## Using targets to manage the pipeline
+## Using targets to manage a pipeline
 
-There are a few packages to help build pipelines in R, but the most
+There are a few packages that help build pipelines in R, but the most
 commonly used, well-designed, and maintained one is called `{targets}`.
-With this package, you specify outputs you want to create and
-`{targets}` will track them for you. So it will know which output
-depends on which other one and which ones need to be updated.
+This package allows you to explicitly specify the outputs you want to
+create. `{targets}` will then track them for you and know which output
+depends on which as well as which ones need to be updated when you make
+changes to your pipeline.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Ask participants, which do they think it is: a build dependency or a
 workflow dependency. Because it is directly used to run analyses and
 process the data, it would be a build dependency.
 :::
 
-First, we need to install `{targets}` in the project environment. And
-since `{targets}` is a build dependency, we add it to the `DESCRIPTION`
+First, we need to install and add `{targets}` to our dependencies. Since
+`{targets}` is a build dependency, we'll add it to the `DESCRIPTION`
 file with:
 
 ```{r add-targets-as-dep}
@@ -213,34 +212,19 @@ to start using it!
 targets::use_targets()
 ```
 
-This will add several files:
+This command will write a `_targets.R` script file that we'll use to
+define our analysis pipeline. Before we do that though, let's **commit
+the file to the Git history** with {{< var keybind.git >}}.
 
-```         
-.
-├── _targets.R
-├── run.R
-└── run.sh
-```
-
-```{r purl-only-use-targets-files}
-#| eval: false
-#| echo: false
-#| purl: true
-# Admin: Use to list out files created to paste into book.
-fs::dir_tree(regexp = "run.*|_targets.*")
-git_ci(
-  c("run.R", "run.sh", "_targets.R"),
-  "Start using targets"
-)
-```
-
-The most important file is the `_targets.R` file. The other two files
-are used for other situations (like running on a Linux server) that we
-won't cover in the course. Before we continue though, let's **commit
-these new files to the Git history** with {{< var keybind.git >}}.
+::: callout-note
+If you are using an older version of the `{targets}` package, you might
+also find that running `targets::use_targets()` also have created a
+`run.R` and `run.sh` file. The files are used for other situations (like
+running on a Linux server) that we won’t cover in this course.
+:::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Let them read it before going over it again to reinforce
 function-oriented workflows and how `{targets}` and the `tar_target()`
@@ -248,15 +232,15 @@ works.
 :::
 
 :::: callout-note
-## Reading task: \~8
+## :book: Reading task: \~8
 
-Next, open up the `_targets.R` and we'll take a look at what it
-contains.
+For this reading task, we'll take a look at what the `_targets.R`
+contains. So, start by opening it on your computer.
 
 ::: {.callout-note collapse="true"}
 ## Click this to see the file contents
 
-```{r show-use-targets-file-contents}
+```{r}
 #| eval: true
 #| echo: false
 #| code-fold: true
@@ -266,10 +250,11 @@ fs::path_package("targets", "pipelines", "use_targets.R") |>
 ```
 :::
 
-Next, notice `tar_target()` function used at the end of the script.
-There are two main arguments for it `name` and `command`. The way that
-`{targets}` works is similar to how you'd write R code to assign the
-output of a function to an object.
+Mostly, the`_targets.R` script contains comments and a basic set up to
+get you started. But, notice the `tar_target()` function used at the end of
+the script. There are two main arguments for it: `name` and `command`.
+The way that `{targets}` works is similar to how you'd assign the output
+of a function to an object, so:
 
 ``` r
 object_name <- function_in_command(input_arguments)
@@ -287,8 +272,8 @@ tar_target(
 What this means is that `{targets}` follows a ["function-oriented"
 workflow](https://books.ropensci.org/targets/functions.html#problems-with-script-based-workflows),
 not a "script-based" workflow. What's the difference? In a
-script-oriented workflow, each R file is run in a specific order, so you
-might end up with an R file that has code like:
+script-oriented workflow, each R file/script is run in a specific order.
+As a result, you might end up with an R file that has code like:
 
 ``` r
 source("R/1-process-data.R")
@@ -308,16 +293,19 @@ simple_plot <- create_plot(processed_data)
 model_results <- run_linear_reg(processed_data)
 ```
 
-With this workflow, each function takes an input dataset and contains
-all the code to create the results into one output, like a figure in a
-paper. If you've taken the [intermediate R
-course](https://r-cubed-intermediate.rostools.org/), you'll notice that
-this function-oriented workflow is the workflow we covered. There are so
-many advantages to this type of workflow and is the reason many powerful
-R packages are designed around making use of this type workflow.
+With the function-oriented workflow, each function takes an input and
+contains all the code to create one result as its output. This could be,
+for instance, a figure in a paper.
 
-If we take these same code and convert it into the `{targets}` format,
-the end of `_targets.R` file would like this:
+If you've taken the [intermediate R
+course](https://r-cubed-intermediate.rostools.org/), you'll notice that
+this function-oriented workflow is the workflow we covered in that
+course. There are so many advantages to this type of workflow which is
+why many powerful R packages are designed around making use of this
+workflow.
+
+If we take these same code as above and convert it into the `{targets}`
+format, the end of `_targets.R` file would like this:
 
 ``` r
 list(
@@ -343,15 +331,26 @@ list(
   )
 )
 ```
+
+So, each `tar_target` is a step in the pipeline. The `command` is the
+function call, while the `name` is the name of the output of the
+function call.
+
+{{< include ../includes/_sticky_up.qmd >}}
 ::::
 
 Let's start writing code to create the three items we listed above in
-@fig-pipeline-schematic: some descriptive statistics, a plot of the
-continuous lipid variables, and a report (R Markdown). Since we'll use
-`{tidyverse}`, specifically `{dplyr}`, to calculate the summary
-statistics, we need to add it to our dependencies and install it in the
-project library. `{tidyverse}` is a special "meta"-package so we need to
-add it to the `"depends"` section of the `DESCRIPTION` file.
+@fig-pipeline-schematic:
+
+1.  Some basic descriptive statistics
+2.  A plot of the continuous lipid variables
+3.  A report (Quarto document).
+
+Since we'll use `{tidyverse}`, specifically `{dplyr}`, to calculate the
+summary statistics, we need to add it to our dependencies. Because
+`{tidyverse}` is a "meta"-package (special type of package that makes it
+easy to install and load other packages), we need to add it to the
+`"depends"` section of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| filename: Console
@@ -362,9 +361,9 @@ use_package("tidyverse", "depends")
 Commit the changes made to the `DESCRIPTION` file in the Git history
 with {{< var keybind.git >}}.
 
-Now, let's start doing some data analysis so that we can add to our
-pipeline later on. First, open up the `doc/learning.qmd` file and create
-a new header and code chunk at the bottom of the file.
+Now, let's start creating the code for our outputs, so that we can add
+it to our pipeline later. First, open up the `doc/learning.qmd` file and
+create a new header and code chunk at the bottom of the file.
 
 ```` {.markdown filename="doc/learning.qmd"}
 
@@ -389,59 +388,60 @@ git_ci("DESCRIPTION", "Add tidyverse and targets to deps")
 c(
   "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
   "source(here::here('R/functions.R'))",
-  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"  
+  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"
 ) |>
   paste0(collapse = "\n") |>
   write_to_file("doc/learning.qmd")
 git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 ```
 
-We want to calculate the mean and SD for each metabolite and then, to
-make it more readable, round the numbers to one digit. To do this, we
-will utilize the split-apply-combine methodology and the across()
-function, we covered in the
-[functionals](https://r-cubed-intermediate.rostools.org/dry-functionals.html#summarizing-long-data-like-the-rr-dataset)
+For our first output, we want to calculate the mean and SD for each
+metabolite and then, to make it more readable, we want to round the
+numbers to one digit. To do this, we will use the split-apply-combine
+methodology and the `across()` function, which we covered in the
+[functionals](https://r-cubed-intermediate.rostools.org/sessions/functionals)
 session of the intermediate course.
 
 Briefly, we will:
 
 1.  Use `group_by()` to split the dataset based on the metabolites.
-2.  Use `summarise()` to calculate the `mean()` and `sd()` for each
+2.  Use `summarise()` to calculate the `mean()` and standard deviation (`sd()`) for each
     metabolite.
-3.  Round the calculated mean and standard deviation (sd) to 1 digit
+3.  Round the calculated mean and standard deviation to 1 digit
     using `round()`.
 
-While doing this, we will also utilize the `across()` functional, making
+While doing these steps, we will use the `across()` functional, making
 it easy to apply the same transformation on multiple columns.
 
-write out the code!
+Let's write out the code!
 
 ```{r mean-sd-by-each-metabolite}
 #| filename: "doc/learning.qmd"
 #| eval: true
+# In the {r basic-stats} chunk
 lipidomics |>
   group_by(metabolite) |>
   summarise(across(value, list(mean = mean, sd = sd))) |>
-  mutate(across(where(is.numeric), ~round(.x, digits = 1)))
+  mutate(across(where(is.numeric), ~ round(.x, digits = 1)))
 ```
 
-After that, style the file using {{< var keybind.styler >}} on the file.
-Than we will **commit** the changes to the Git history with
-{{< var keybind.git >}}.
+After that, style the file using {{< var keybind.styler >}}. Then,
+commit the changes to the Git history with {{< var keybind.git >}}.
 
-## Exercise: Convert summary statistics code into a function
+## :technologist: Exercise: Convert summary statistics code into a function
 
 > Time: \~20 minutes.
 
-While inside the `doc/learning.qmd` file, use the "function-oriented"
-workflow, as taught in the [intermediate
-course](https://r-cubed-intermediate.rostools.org/dry-functions.html#the-basics-of-a-function),
-to take the code we wrote above and convert it into a function. Complete
-these tasks:
+In the `doc/learning.qmd` file, use the "function-oriented" workflow, as
+taught in the [intermediate
+course](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
+to take the code we wrote above and convert it into a function.
 
-1.  Wrap the code with `function() {...}` and name the new function
-    `descriptive_stats`. Here is some scaffolding to help you get
-    started:
+Complete these tasks:
+
+1.  Convert the code into a function by wrapping it with
+    `function() {...}` and name the new function `descriptive_stats`.
+    Here is some scaffolding to help you get started:
 
     ``` {.r filename="doc/learning.qmd"}
     descriptive_stats <- function(___) {
@@ -449,12 +449,14 @@ these tasks:
     }
     ```
 
-2.  Replace `lipidomics` with `data` and put `data` as an argument
-    inside the brackets of `function()`.
+2.  Replace `lipidomics` in the code we wrote before with `data` and put
+    `data` as an argument inside the brackets of `function()`.
 
-3.  Add `dplyr::` to the start of each `{dplyr}` function used inside
-    your function (except for `where()`, which comes from the
-    `{tidyselect}` package).
+3.  At the start of each function we use inside our `descriptive_stats`
+    function, add the name of the package like so: `packagename::`.
+    E.g., add `dplyr::` before `group_by()` because it's from
+    the`{dplyr}` package. Remember that you can look up which package a
+    function comes from by writing `?functionname` in the Console.
 
 4.  Style the code using {{< var keybind.styler >}} to make sure it is
     formatted correctly. You might need to manually force a styling if
@@ -472,15 +474,16 @@ these tasks:
     then test the code by running `descriptive_stats(lipidomics)` in the
     Console. If it works, do the last task.
 
-8.  Save both files and then open the Git interface and commit the
-    changes you made to them with {{< var keybind.git >}}.
+8.  Save both files (`learning.qmd` and `functions.R`). Then open the
+    Git interface and commit the changes you made to them with
+    {{< var keybind.git >}}.
 
-::: {.callout-tip appearance="default"}
-In the intermediate course, we highly suggested using `return()` at the
-end of the function. Technically we don't need an explicit `return()`,
-since the output of the last code that R runs within the function will
-be the output of the function. This is called an "implicit return" and
-we will be using this feature throughout the rest of this course.
+::: {.callout-tip appearance="default" title="Tip: Implicit returns"}
+In the intermediate course, we suggested using `return()` at the end of
+the function. Technically, we don't need an explicit `return()`, since
+the output of the last code that R runs within the function will be the
+output of the function. This is called an *implicit return* and we will
+be using this feature throughout the rest of this course.
 :::
 
 ```{r solution-descriptive-stats}
@@ -497,9 +500,10 @@ descriptive_stats <- function(data) {
   data |>
     dplyr::group_by(metabolite) |>
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
-    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(.x, digits = 1)))
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
 }
 ```
+
 
 ## Adding a step in the pipeline
 
@@ -512,7 +516,7 @@ target to load the lipidomic data. In the second, replace it with the
 what the target output is, we can add `df_` to remind us that it is a
 data frame. It should look like:
 
-```{r}
+```{r targets-basic-stats}
 #| eval: false
 #| filename: "targets.R"
 list(
@@ -530,7 +534,7 @@ list(
 Let's run `{targets}` to see what happens! You can either use
 {{< var keybind.targets-make >}} or run this code in the Console:
 
-```{r}
+```{r targets-make}
 #| eval: false
 #| filename: "Console"
 targets::tar_make()
@@ -538,30 +542,30 @@ targets::tar_make()
 
 <!-- TODO: Check how this works, and update next section -->
 
-While this `{targets}` pipeline works, we would not be able to
-automatically re-run our pipeline if our underlying data changes. To
-track the actual data file we need to create a pipeline target of the
-data file. We can accomplish this by using the argument
-`format = "file"` inside the `tar_target()` before loading the data
-using `{readr}`.
+While this `{targets}` pipeline works, it is currently not able to
+invalidate the pipeline if our underlying data changes. To track the
+actual data file we need to create a seperate pipeline target, where we
+define our actual file using the argument `format = "file"`. We can then
+change our previous target to point to the newly defined file target.
+Lets do that now.
 
-```{r}
+```{r targets-basic-stats-by-metabolite}
 #| eval: false
 #| filename: "targets.R"
 list(
-    tar_target(
-        name = file,
-        command = "data/lipidomics.csv",
-        format = "file"
-    ),
-    tar_target(
-        name = lipidomics,
-        command = readr::read_csv(file, show_col_types = FALSE)
-    ),
-    tar_target(
-        name = df_stats_by_metabolite,
-        command = descriptive_stats(lipidomics)
-    )
+  tar_target(
+    name = file,
+    command = "data/lipidomics.csv",
+    format = "file"
+  ),
+  tar_target(
+    name = lipidomics,
+    command = readr::read_csv(file, show_col_types = FALSE)
+  ),
+  tar_target(
+    name = df_stats_by_metabolite,
+    command = descriptive_stats(lipidomics)
+  )
 )
 ```
 
@@ -597,34 +601,6 @@ git_ci("_targets.R", "Add new targets to run.")
 ```
 
 Now, let's try running `{targets}` again using
-{{< var keybind.targets-make >}}.
-
-It probably won't run though. That's because `{targets}` doesn't know
-about the packages that you need for the pipeline. To add it, we need to
-go to the `tar_option_set()` section of the `_targets.R` file and add to
-the `packages = c("tibble")` code with the packages we use that aren't
-explicitly called via `::` (e.g. `|>`). For now, we only need to add
-`"dplyr"` to the `packages` argument.
-
-We can now put this code in the `packages` argument of
-`tar_option_set()` in the `_targets.R` file:
-
-``` {.r filename="targets.R"}
-packages = c("tibble", "dplyr")
-```
-
-```{r purl-only-add-packages-to-targets}
-#| eval: false
-#| echo: false
-#| purl: true
-revise_by_text(
-  path = "_targets.R",
-  original = "packages = .*$",
-  replacement = "packages = c('tibble', 'dplyr')"
-)
-```
-
-Try running `{targets}` again with either `targets::tar_make()` or
 {{< var keybind.targets-make >}}. It should run through! We also see
 that a new folder has been created called `_targets/`. Inside this
 folder it will keep all of the output from running the code. It comes
@@ -658,8 +634,10 @@ Before continuing, let's commit the changes (including the files in the
 #| eval: false
 #| echo: false
 #| purl: true
-git_ci(c("_targets", "_targets.R", "DESCRIPTION"), 
-       "Tell targets about packages, add _targets")
+git_ci(
+  c("_targets", "_targets.R", "DESCRIPTION"),
+  "Tell targets about packages, add _targets"
+)
 ```
 
 ## Creating figure outputs
@@ -694,7 +672,7 @@ metabolite_distribution_plot
 
 We now have the basic code to convert over into functions.
 
-## Exercise: Convert the plot code to a function
+## :technologist: Exercise: Convert the plot code to a function
 
 > Time: \~10 minutes.
 
@@ -750,12 +728,59 @@ tasks:
 #' @return A ggplot2 graph.
 #'
 plot_distributions <- function(data) {
-  data |> 
+  data |>
     ggplot2::ggplot(ggplot2::aes(x = value)) +
     ggplot2::geom_histogram() +
     ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
 }
 ```
+
+::: {.callout-note appearance="minimal" collapse="true" icon="false"}
+## :technologist: Extra exercise:  Test out how `tar_outdated()` and `tar_visnetwork()` work
+
+> Time: \~10 minutes.
+
+Let's make a change to our function and test out how the
+`tar_outdated()` and `tar_visnetwork()` work.
+
+1.  Open up the `R/functions.R` file and go to the `descriptive_stats()` 
+    function.
+2.  Add median and interquartile range (IQR) to the `summarise()`
+    function, by adding it to the end of `list(mean = mean, sd = sd)`,
+    after the second `sd`. Note, IQR should look like `iqr = IQR` since
+    we want the output columns to have a lowercase for the column names.
+3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
+    using the Command Palette {{< var keybind.palette >}}, then "targets
+    outdated" or "targets visual"). What does it show?
+4.  Style using {{< var keybind.styler >}}.
+5.  Run `tar_make()` in the Console or with
+    {{< var keybind.targets-make >}}. Re-check for outdated targets and
+    visualize the network again.
+6.  Open up the Git interface and commit the changes to the Git history
+    with {{< var keybind.git >}}.
+
+```{r solution-new-function-descriptive-stats}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(dplyr::across(value, list(
+      mean = mean,
+      sd = sd,
+      median = median,
+      iqr = IQR
+    ))) |>
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
+}
+```
+:::
 
 ## Adding the plot function as pipeline targets
 
@@ -786,13 +811,13 @@ works, than **commit the changes to the Git history** with
 #| eval: false
 #| echo: false
 #| purl: true
-update_targets_plots <- '
+update_targets_plots <- "
 ),
 tar_target(
   name = fig_metabolite_distribution,
   command = plot_distributions(lipidomics)
 )
-'
+"
 # print_lines("_targets.R")
 # -20 to remove the previous `)`
 revise_by_line_num(
@@ -830,9 +855,8 @@ Then, inside `_targets.R`, uncomment the line where
 build the Quarto file is `tar_quarto()` (or `tar_render()` for R
 Markdown files), which needs two things: The `name`, like `tar_target()`
 needs, and the file path to the Quarto file. Again, like the other
-`tar_target()` items, add it to the end of the `list()`. Since we're
-using the `doc/learning.qmd` as a sandbox, we won't include it as a
-pipeline target. Instead we will use the `doc/learning.qmd` file:
+`tar_target()` items, add it to the end of the `list()`. Lets add
+`doc/learning.qmd` as a pipeline step:
 
 ``` {.r filename="targets.R"}
 list(
@@ -892,7 +916,8 @@ tar_read(fig_metabolite_distribution)
 #| eval: false
 #| echo: false
 #| purl: true
-basic_stats_md_text <- c("```{r setup}",
+basic_stats_md_text <- c(
+  "```{r setup}",
   "library(tidyverse)",
   "library(targets)",
   "lipidomics <- tar_read(lipidomics)",
@@ -906,7 +931,8 @@ basic_stats_md_text <- c("```{r setup}",
   "",
   "```{r}",
   "tar_read(fig_metabolites_distribution)",
-  "```")
+  "```"
+)
 print_file("doc/learning.qmd")
 revise_by_line_num(
   "doc/learning.qmd",
@@ -926,9 +952,9 @@ computer. So, it improve reproducibility, it's good practice to not put
 it into the Git history and instead put it in the `.gitignore` file. So
 let's add it to ignore file by using:
 
-```{r}
+```{r git-ignore-targets-yaml}
 #| filename: Console
-use_git_ignore("doc/_targets.yaml") 
+use_git_ignore("doc/_targets.yaml")
 ```
 
 Before continuing, let's commit these changes to the Git history with
@@ -946,7 +972,7 @@ can use it to format the final table text to be `mean value (SD value)`:
 
 ```{r stats-to-table}
 #| filename: "doc/learning.qmd"
-targets::tar_read(df_stats_by_metabolite) |> 
+targets::tar_read(df_stats_by_metabolite) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
@@ -957,7 +983,7 @@ targets::tar_read(df_stats_by_metabolite) |>
 #| echo: false
 #| purl: true
 pretty_basic_stats_code <- '
-targets::tar_read(df_stats_by_metabolite) |> 
+targets::tar_read(df_stats_by_metabolite) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
@@ -971,17 +997,17 @@ styler::style_file("doc/learning.qmd")
 git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
 ```
 
-```{r execute-only-table-basic-stats}
+```{r}
 #| eval: true
 #| echo: false
-lipidomics |> 
-  descriptive_stats() |> 
+lipidomics |>
+  descriptive_stats() |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean (SD)` = MeanSD) |>
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 
-Re-run `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
+Rerun `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
 to see that it now detects the connections between the pipeline targets.
 Then, run `targets::tar_make()` with {{< var keybind.targets-make >}}
 again to see everything re-build! Last things are to re-style using
@@ -992,7 +1018,7 @@ changes up to GitHub.
 ## Fixing issues in the stored pipeline data
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Sometimes you need to start from the beginning and clean everything up
 because there's an issue that you can't seem to fix. In this case,
@@ -1032,13 +1058,15 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 
 :   The most destructive, and probably more commonly used, function.
     This will delete the entire `_targets/` folder for those times when
-    you want to start over and re-run the entire pipeline again.
+    you want to start over and rerun the entire pipeline again.
+
+{{< include ../includes/_sticky_up.qmd >}}
 :::
 
 ## Summary
 
 -   Use a function-oriented workflow together with `{targets}` to build
-    your data analysis pipeline and track your "pipeline targets".
+    your data analysis pipeline and track your pipeline "targets".
 -   List individual "pipeline targets" using `tar_target()` within the
     `_targets.R` file.
 -   Visualize target items in your pipeline with
@@ -1048,3 +1076,5 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 -   Delete stored pipeline output with `tar_delete()`.
+
+{{< include /includes/_code-appendix.qmd >}}

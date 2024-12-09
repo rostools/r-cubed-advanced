@@ -6,7 +6,7 @@ format: r3-theme-revealjs
 # Welcome to the Advanced R^3^ course!
 
 -   :heavy_check_mark: Go to your assigned table
--   :heavy_check_mark: Introduce yourselves to your table-mates
+-   :heavy_check_mark: Introduce yourselves to your table mates
 -   :heavy_check_mark: Open your `AdvancedR3.Rproj` RStudio project
 -   :heavy_check_mark: Just in case, do
     `r3::install_packages_advanced()`
@@ -37,7 +37,7 @@ Ask who knows what reproducibility is and could explain it.
 
 ## Setup and layout {.smaller}
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Course is mix of:
     -   "Code-alongs" (we type and explain, you type along)
@@ -57,15 +57,16 @@ Ask who knows what reproducibility is and could explain it.
     -   Several networking activities (usually after lunch)
 -   *Warning*: You will be making a lot of functions!
 :::
-:::
+:::::
 
 ## Getting or asking for help :raising_hand_woman:
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
--   Put the sticky on your laptop to get help
+-   Put the sticky (a.k.a. tiny paper hat :womans_hat:) on your laptop
+    to get help
 -   There are lots of helpers
--   Team members, help out too
+-   Table mates, help out too
 :::
 
 ::: {.column width="50%"}
@@ -73,12 +74,12 @@ Ask who knows what reproducibility is and could explain it.
 -   This is a supportive and safe environment
 -   Remember our **Code of Conduct**
 :::
-:::
+:::::
 
 . . .
 
 > *Warning*: Those using OneDrive/Dropbox probably will encounter
-> issues, move project to Desktop?
+> issues. Move project to Desktop?
 
 ## Practice using stickies: Did you complete the checklist from the beginning? {.center}
 

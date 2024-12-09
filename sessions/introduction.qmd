@@ -11,7 +11,7 @@
 </div>
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 The slides contain speaking notes that you can view by pressing 'S' on
 the keyboard.
@@ -19,34 +19,36 @@ the keyboard.
 
 ## The Big Picture {#sec-big-picture}
 
-::: callout-note
-## Reading task: \~10 minutes
+::::: callout-note
+## :book: Reading task: \~10 minutes
 
-This section provides a bigger picture view of what we will be doing,
-why we want to do it, how we will be going about doing it, and what it
-will look like in the end.
+This section provides a bigger-picture view of what we will be doing,
+why we want to do it, how we will go about doing it, and what it will
+look like in the end.
 
-Our big picture aim is:
+Our big picture aim is to create a data analysis project that:
 
-> We want to create a data analysis project that:
->
-> 1.  Makes it easier for direct contributions from collaborators and
->     others
-> 2.  Allows us to write processing and analysis steps (as code) in a
->     more explicit and ultimately reproducible way
-> 3.  Incorporates general-purpose tools that simplify using (or
->     switching) statistical analysis methods
->
-> All of which will be exemplified through a simple analysis of a
-> lipidomics study.
+1.  Makes it easier for collaborators and others to contribute directly
+2.  Explicitly includes the processing and analysis steps (as code), so
+    they are reproducible
+3.  Incorporates general-purpose tools that simplify the use or
+    switching of statistical analysis methods
+
+All of this will be exemplified through a simple analysis of a
+lipidomics dataset during the course.
 
 <!-- TODO: Pipeline, workflow image? -->
 
-How will it look like in the end, in a more "tangible" way? The most
-tangible thing are the folders and files on our computers. The folder
-and file structures below show where we start and where we end, so you
-can hopefully get a better understanding of how things look. Right now,
-everyone's initial project structure should look like:
+Where will we start and where will we end, in a more "tangible" way? The
+most tangible things are the folders and files on our computers. The
+folder and file structures below show where we start and where we end,
+so you can hopefully get a better understanding of how things will look.
+
+::: columns
+::: {.column width="45%"}
+### Initial project structure {.unnumbered}
+
+Right now, your initial project structure should look like this:
 
 ```         
 LearnR3
@@ -72,10 +74,46 @@ LearnR3
 ├── README.md
 └── TODO.md
 ```
+:::
 
-<!-- At the end of this course, it should look something like: -->
+::: {.column width="45%"}
+### Final project structure {.unnumbered}
 
-<!-- TODO: Paste from final output of running code in -->
+At the end of this course, it should look something like:
+
+```         
+LearnR3
+├── _targets/
+│   ├── meta/
+│   │   └── meta
+│   ├── objects/
+│   ├── user/
+│   └── workspaces/
+├── data/
+│   ├── lipidomics.csv
+│   └── README.md
+├── data-raw/
+│   ├── README.md
+│   ├── nmr-omics/
+│   │  ├── lipidomics.xlsx
+│   │  └── README.txt
+│   └── nmr-omics.R
+├── doc/
+│   ├── _targets.yaml
+│   ├── README.md
+│   ├── learning.html
+│   └── learning.Rmd
+├── R/
+│   ├── functions.R
+│   └── README.md
+├── .gitignore
+├── _targets.R
+├── DESCRIPTION
+├── LearnR3.Rproj
+└── README.md
+```
+:::
+:::
 
 Why do we structure it this way?
 
@@ -88,71 +126,108 @@ Why do we structure it this way?
     `data-raw/` folder, R scripts/functions in the `R/` folder, and
     documents like R Markdown / Quarto files in `doc/`.
 
-This also supports our workflow and processes, which will be something
-like:
+This structure also supports our workflow and processes throughout the
+course, which will be to:
 
--   Install packages in a project-specific environment to track package
-    dependencies.
--   Follow "function-oriented" workflows, where we use R Markdown /
+-   Track package dependencies in the `DESCRIPTION` file.
+-   Follow a "function-oriented" workflow, where we use R Markdown /
     Quarto (`doc/learning.qmd`) to write and test out code, convert it
     into a function, test it, and then move it into `R/functions.R`.
-    -   Developing functions in the R Markdown document makes it a bit
-        easier to quickly test code out and make sure it works before
-        moving the code over into a more formal location and structure.
-        Think of using the R Markdown file as a sandbox to test out and
-        play with code, without fear of messing things up.
-    -   We also test code out in the R Markdown *from a teaching and
-        learning perspective* because it's easier to show and weave in
-        text and comments with code as we do the code-alongs. It also
-        forces you to practice working within R Markdown documents,
-        which are key components to a reproducible workflow in R.
-    -   We keep the functions in a separate file because we will
-        frequently `source()` from it as we prototype and test out code
-        in the R Markdown file. It also creates a clear separation
-        between "finalized" code and prototyping code.
+    -   We develop functions in the `learning.qmd` file to make it a bit
+        easier to quickly test the code and make sure it works before
+        moving it over into a more formal location and structure. Think
+        of this file as a sandbox to test out and play with code,
+        without fear of messing things up.
+    -   We also test the code in `learning.qmd` because, *from a
+        teaching and learning perspective*, it's easier to integrate
+        text and comments with the code during the code-alongs in
+        Markdown files.
+    -   We keep functions in a separate `functions.R` file because we
+        will frequently `source()` from it as we prototype and test out
+        code in the `learning.qmd` file. This also creates a clear
+        separation between "finalized" code and prototype code.
 -   Use a combination of restarting R with {{< var keybind.restart-r >}}
     (or `Session -> Restart R`) and using `source()`
     ({{< var keybind.source >}} while in `R/functions.R`) to run the
     functions inside of `R/functions.R`.
-    -   We restart R because it is the only certain way to ensure that
-        the R workspace is completely clear. For reproducibility, we
-        should always aim to work from a "clean plate".
--   Keeping code readable by frequently (automatically) fixing the
-    formatting/styling of our code.
--   For each "output" in a paper (like a figure or table), write one or
-    more functions to complete the output and include those functions as
-    "targets" or steps in a pipeline. Use this explicit pipeline to
-    track which steps need to be re-run and in which order for your data
-    analysis.
--   Write accompanying text (or full paper) for the analysis in Markdown
-    so we can easily and quickly regenerate reports for rapid dissemination.
+    -   We restart R to ensure that the R workspace is completely clear.
+        For reproducibility, we should always aim to work from a "clean
+        plate".
+-   Keep code readable by having the formatting/styling of our code
+    fixed automatically.
+-   For each "output" (like a figure or a table) in a paper, write one
+    or more functions to generate it and include each function as steps
+    or "targets" in a pipeline. Use the pipeline to track and order the
+    steps in the data analysis.
+-   Write accompanying text (which outside this course could be a full
+    paper) for the analysis in Markdown so we can easily and quickly
+    regenerate reports for rapid dissemination.
 -   Automatically reformat Markdown text into a standard, more readable
     format.
 -   Whenever we complete a task, we *add and commit* those file changes
-    and save them into the Git history with {{< var keybind.git >}}.
-    -   We use Git because it is the best way of keeping track of what
-        was done to your files, when, and why. It keeps your work
-        transparent and makes it easier to share your code by uploading
-        to GitHub. Using version control should be a standard practice
-        to doing better science since it fits with the philosophy of
-        doing science.
+    to save them in the Git history with {{< var keybind.git >}}.
+    -   We use Git to keep track of what changes were made to the files,
+        when, and why. This keeps our work transparent and makes it
+        easier to share the code by uploading it to GitHub. Version
+        control aligns with the philosophy of reproducible science and
+        should be a standard practice (it usually isn't, which is why we
+        practice it here).
 
-Many of these "project setup" tasks can take a while to set up, can
-often be very difficult and confusing. This is before you've even gotten
-to the analysis phase of your work. A good analogy for this first step
-is when skyscrapers are built. Watching construction on these projects
-makes it feel like it takes forever for them to finally start going up
-and adding floors. But once they start adding floors, it goes up so
-fast! That's because a lot of the main work is in building up the
-foundation of the building, so that it is strong and stable. This is the
-same with analysis projects, the first phase feels like nothing is
-"moving" but you are building the foundation to everything that comes
-after.
+Many of these "project setup" tasks can be time-consuming, difficult and
+confusing - and this is before you've even gotten to the analysis phase
+of your work.
+
+A good analogy for these first steps is when skyscrapers are built:
+Watching construction on these projects makes it feel like it takes
+forever for them to finally start going up and adding floors. But once
+they start adding floors, it goes up so fast! That's because a lot of
+the main work is in building up the foundation of the building, so that
+it is strong and stable. This is the same with analysis projects, the
+first phase feels like nothing is "moving" but you are building the
+foundation to everything that comes after.
+
+{{< include /includes/_faq-text.qmd >}}
+
+{{< include /includes/_discord-text.qmd >}}
+
+::: {.callout-important appearance="default"}
+During the course, we will be writing and coding mostly in the
+`doc/learning.qmd` file. We will also be **regularly** deleting the
+content within the file to keep things clean and easier for you, but
+importantly for the instructors. If or when you encounter an error or
+problem and there is a lot of the code kept in the file, often the
+problem is due to the left over code rather than an actual problem with
+the code you are writing. So when the helpers or instructors come to
+help, it makes it easier for us to help you when there is less code to
+look through and debug.
+
+But, we know you may want to keep some notes as you work in the course.
+So we suggest you create a new file called `notes.qmd` or something
+similar in the `doc/` folder and either:
+
+-   Write notes in the `doc/learning.qmd` file and then copy them over
+    to your `notes.qmd` file when we tell you to delete everything, or
+-   Write notes directly in your `doc/notes.qmd` file and keep it open 
+    while you work in the `doc/learning.qmd` file.
 :::
 
-::: {.callout-tip appearance="default"}
-If you finish exercises faster than others in the course, try your hand
-at working through the [Extra
-Exercises](../appendix/extra-exercises.qmd) section. It is still a
-work-in-progress, so it is a bit small right now.
-:::
+{{< include ../includes/_sticky_up.qmd >}}
+
+:::::
+
+## Small fixes
+
+<!-- TODO: This isn't needed after a while -->
+
+We need to add a `Title:` field to the `DESCRIPTION` file in order for
+other sections of the course to work properly. Run this bit of code:
+
+``` {.r filename="Console"}
+desc::desc_set("Title", "AdvancedR3")
+```
+
+Then delete the `doc/report.Rmd` file:
+
+``` {.r filename="Console"}
+fs::file_delete("doc/report.Rmd")
+```
