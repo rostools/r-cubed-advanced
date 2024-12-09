@@ -65,7 +65,7 @@ our analysis, or maybe during peer review of our manuscript, a reviewer
 makes a suggestion that would improve the understanding of the paper.
 
 Whatever the situation, we inevitably need to rerun parts of or the full
-analysis all over again. So what is your **exact** workflow when you
+analysis. So what is your **exact** workflow when you
 need to rerun code and update your results? Assume it's a change
 somewhere early in the data processing stage.
 
@@ -74,8 +74,8 @@ somewhere early in the data processing stage.
     and how long that usually takes.
 2.  For 8 minutes, share and discuss your thoughts in your group. How do
     your experiences compare to each other?
-3.  For the remaining time, we'll briefly share with everyone what has
-    been thought and discussed.
+3.  For the remaining time, we'll briefly share with everyone what
+    they've thought and discussed.
 
 ## What is a data analysis "pipeline"?
 
@@ -92,20 +92,20 @@ goal might change as the analysis progresses.
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
-steps can be manual, human involved, or can be completely automated by a
-robot or computer. For instance, in car factories, the pipeline from the
-input raw materials to the output vehicle are extremely well described
-and implemented. Or like during the pandemic, the pipeline for testing
+steps can be manual, human involved, or completely automated by a robot
+or computer. For instance, in car factories, the pipeline from the input
+raw materials to the output vehicle is extremely well described and
+implemented. Similarly, during the pandemic, the pipeline for testing
 (at least in Denmark and several other countries) was highly structured
-and clear for the workers doing the testing and the people having the
-test done: A person goes in, scans their ID card, has the test done,
-worker inputs the results, results get sent immediately to the health
-agency as well as to the person based on their ID contact information
-(or via a secure app).
+and clear for both the workers doing the testing and the people having
+the test done: A person goes in, scans their ID card, has the test done,
+the worker inputs the results, and the results are sent immediately to
+the health agency as well as to the person based on their ID contact
+information (or via a secure app).
 
 However, in research, especially around data collection and analysis, we
 often hear or read about "pipelines". But looking closer, these aren't
-actual pipelines, because the individual steps are not very clear and
+actual pipelines because the individual steps are not very clear and
 not well described, and they often require a fair amount of manual
 human attention and intervention. Particularly within computational
 environments, a pipeline should be a set of data processing steps
@@ -126,11 +126,11 @@ Because:
 6.  And, research is largely non-reproducible [@Trisovic2022;
     @Seibold2021; @Laurinavichyute2021].
 
-A data analysis pipeline would by definition be a readable and
-reproducible data analysis. Unfortunately, we researchers as a group
+A data analysis pipeline would, by definition, be a readable and
+reproducible data analysis. Unfortunately, we researchers, as a group,
 don't make use of the tools to implement actual data analysis pipelines.
 
-This isn't to diminish the work of researchers, but a basic observation
+This isn't to diminish the work of researchers, but is rather a basic observation
 on the systemic, social, and structural environment surrounding us. We
 as researchers are not necessarily trained in writing code, nor do we
 have a strong culture and incentive structure around learning, sharing,
@@ -397,22 +397,20 @@ git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 
 For our first output, we want to calculate the mean and SD for each
 metabolite and then, to make it more readable, we want to round the
-numbers to one digit. To do this, will utilize the split-apply-combine
-methodology and the `across()` function, we covered in the
+numbers to one digit. To do this, we will use the split-apply-combine
+methodology and the `across()` function, which we covered in the
 [functionals](https://r-cubed-intermediate.rostools.org/sessions/functionals)
 session of the intermediate course.
 
-We will:
+Briefly, we will:
 
-1.  Use `group_by()` to split the dataset based on the `metabolites`.
-
-2.  Use `summarise()` to calculate the `mean()` and `sd()` for each
+1.  Use `group_by()` to split the dataset based on the metabolites.
+2.  Use `summarise()` to calculate the `mean()` and standard deviation (`sd()`) for each
     metabolite.
-
-3.  Round the calculated mean and standard deviation (`sd`) to 1 digit
+3.  Round the calculated mean and standard deviation to 1 digit
     using `round()`.
 
-While doing this, we will also utilize the `across()` functional, making
+While doing these steps, we will use the `across()` functional, making
 it easy to apply the same transformation on multiple columns.
 
 Let's write out the code!
@@ -910,7 +908,7 @@ tar_read(df_stats_by_metabolite)
 ```
 
 ```{{r}}
-tar_read(fig_metabolites_distribution)
+tar_read(fig_metabolite_distribution)
 ```
 ````
 

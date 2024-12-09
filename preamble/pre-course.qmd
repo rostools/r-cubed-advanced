@@ -336,7 +336,7 @@ readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data
 source(usethis::proj_path("data-raw/nmr-omics.R"))
 ```
 
-Since this is an advanced course, you can run the lines one at a line
+Since this is an advanced course, you can run the lines one at a time
 and see what they do on your own (or `source()` them all at once). The
 comments provided give guidance on what the code is doing and why. In
 the end, though, the only important thing is to run all the code and get
@@ -473,7 +473,8 @@ doing. So, please read:
     -   Collaboration: @sec-smoother-collaboration-learning-objectives.
     -   Pipelines: @sec-pipelines-learning-objectives.
     -   Analysis basics: @sec-stats-analyses-basic-learning-objectives.
-    -   Multiple analyses: @sec-stats-analyses-multiple-learning-objectives.
+    -   Multiple analyses:
+        @sec-stats-analyses-multiple-learning-objectives.
 
 ## Fill in survey {#sec-survey}
 
