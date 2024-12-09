@@ -32,12 +32,12 @@ statistical analysis.
 
 ## Learning objectives {#sec-stats-analyses-multiple-learning-objectives}
 
-The overall objective for this session is to:
+This session’s **overall learning outcome** is to:
 
 1.  Describe the basic framework underlying most statistical analyses
     and use R to generate statistical results using this framework.
 
-More specific objectives are to:
+**Specific objectives** are to:
 
 1.  Recall principles of functional programming and apply them to
     running statistical analyses by using the `{purrr}` package.

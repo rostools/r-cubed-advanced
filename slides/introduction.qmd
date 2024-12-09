@@ -1,6 +1,8 @@
 ---
 search: false
 format: r3-theme-revealjs
+bibliography: "../includes/references.bib"
+csl: "../_extensions/rostools/r3-theme/vancouver.csl"
 ---
 
 # Welcome to the Advanced R^3^ course!
@@ -31,6 +33,89 @@ Relate to UK Biobank project: <https://github.com/steno-aarhus/ukbAid>
 Ask who knows what reproducibility is and could explain it.
 :::
 
+## Very low reproducibility in most of science [@Samuel2024] {.smaller}
+
+::: {layout-ncol="2"}
+```{r}
+#| echo: false
+#| fig-height: 6
+library(tidyverse)
+theme_set(
+  theme_minimal() + 
+    theme(
+      plot.background = element_rect(fill = "#E9E9E9"),
+      axis.title = element_blank(),
+      axis.text.y = element_text(size = 16),
+      axis.text.x = element_blank(),
+      axis.ticks = element_blank(),
+      axis.line = element_blank()
+    )
+)
+
+search <- tribble(
+  ~item, ~description, ~value, ~order,
+  "Articles", "Found among all articles", 3467, 1,
+  "GitHub\nrepos", "Those with a GitHub link and at least one notebook", 2660, 2
+) |> 
+  mutate(
+    item = fct_rev(fct_reorder(item, order))
+  )
+
+ggplot(search, aes(y = item, x = value, label = value)) +
+  geom_col(fill = "#203C6E") +
+  geom_text(nudge_x = 200, size = 5)
+```
+
+```{r}
+#| echo: false
+#| fig-height: 6
+repro_results <- tribble(
+  ~item, ~description, ~value, ~order,
+  "Total notebooks", "Total notebook files found in all the repositories", 27271, 1,
+  "Notebook repo\nwas valid", "File names were correct, dependency information was available, no local modules were needed.", 15817, 2,
+  "Could install\ndependencies", "Could install dependencies without errors.", 10388, 3,
+  "Finished executing\nwithout errors", "Could run without any errors.", 1203, 4,
+  "Same results\nas paper", "When the results of the paper matched what the execution results output.", 879, 5
+) |> 
+  mutate(
+    percent = str_c(value, "\n(", round(value / max(value) * 100), "%)"),
+    item = fct_rev(fct_reorder(item, order))
+  )
+
+ggplot(repro_results, aes(y = item, x = value, label = percent)) +
+  geom_col(fill = "#203C6E") +
+  geom_text(nudge_x = 1700, size = 5)
+```
+:::
+
+From searching PubMed Central for all articles with search term: "(ipynb
+OR jupyter OR ipython) AND github"
+
+## Researchers don't know how to collaborate effectively {.smaller}
+
+. . .
+
+-   We don't get training in it, nor do we practice it
+
+. . .
+
+-   Example of group who work on improving their collaboration
+    [@Turoman2022]
+
+    -   More work upfront, less work later
+    -   Decide on tools and practices that are best for the group
+
+## Reading *others'* code is a necessary way to improve and learn as a more experienced coder
+
+-   If you don't collaborate others *directly* on their code, you aren't
+    reading others' code
+
+-   If you aren't doing code reviews, you aren't reading others' code
+
+-   If you aren't reading others' code, you aren't improving
+
+-   
+
 ## Goal of course: Create and nurture a culture of openness through training {.center}
 
 # Course details
@@ -42,6 +127,7 @@ Ask who knows what reproducibility is and could explain it.
 -   Course is mix of:
     -   "Code-alongs" (we type and explain, you type along)
     -   Hands-on coding, discussing, and reading exercises
+    -   A group project at the end
 -   All material is online (and [openly
     licensed](https://r-cubed-advanced.rostools.org/LICENSE.html))
 -   [Resources
@@ -76,12 +162,7 @@ Ask who knows what reproducibility is and could explain it.
 :::
 :::::
 
-. . .
-
-> *Warning*: Those using OneDrive/Dropbox probably will encounter
-> issues. Move project to Desktop?
-
-## Practice using stickies: Did you complete the checklist from the beginning? {.center}
+## Practice using stickies/paper hats: Did you complete the checklist from the beginning? {.center}
 
 # Activities
 
@@ -107,6 +188,12 @@ Only have those who indicated they did have training (from previous
 question).
 :::
 
+## :walking_woman::walking_man: If code for a paper was audited, how confident are you that the results could be reproduced *exactly*? {.center}
+
+::: notes
+Range from not confident to very confident.
+:::
+
 ## :walking_woman::walking_man: How many of you work mostly on your own in your project(s)? {.center}
 
 ::: notes
@@ -114,6 +201,10 @@ Range from almost entirely alone to never alone.
 :::
 
 ## :walking_woman::walking_man: How easy is it to collaborate with others on your project(s)? {.center}
+
+::: notes
+Range from not easy to very easy.
+:::
 
 ## :walking_woman::walking_man: How many of you want to work more closely or collaboratively with others? {.center}
 
