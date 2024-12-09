@@ -31,12 +31,12 @@ run statistical models, so that we can use it within `{targets}`.
 
 ## Learning objectives {#sec-stats-analyses-basic-learning-objectives}
 
-The overall objective for this session is to:
+This session’s **overall learning outcome** is to:
 
 1.  Describe the basic framework underlying most statistical analyses
     and use R to generate statistical results using this framework.
 
-More specific objectives are to:
+**Specific objectives** are to:
 
 1.  Describe the general "workflow": State the research question,
     construct a model, prepare the data, fit the model, and extract the
@@ -52,7 +52,7 @@ More specific objectives are to:
 5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-Specific "anti"-objectives that we will *not* learn:
+Specific "anti"-objectives on things that we will *not* learn:
 
 -   How to choose and apply the appropriate statistical model or tests.
 -   Statistical theory.
