@@ -13,7 +13,7 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 Running statistical analyses is a relatively methodical and well-defined
 process, even if there is often a lot of trial and error involved.
 Sometimes it may feel overwhelming and complicated, which it definitely
-can be, but it doesn't have to be. By taking a structured approach to
+can be, but it doesn't have to. By taking a structured approach to
 running statistical analyses, you can make it easier on yourself and
 feel more in control.
 
@@ -335,7 +335,7 @@ building workflow that was described above, through the use of specific
 packages for each component.
 
 | Package | Description |
-|---------------|---------------------------------------------------------|
+|------------------------------------|------------------------------------|
 | `{parsnip}` | Model definition, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
 | `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
@@ -356,11 +356,12 @@ commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 :::
 
 Let's switch to working in the `doc/learning.qmd` file to create those
-logistic regression models. Since we've already created some items in
-the `{targets}` pipeline, we'll need to tell the Quarto file where to
-find this "store" of outputs, and import the data using `tar_read()`. We
-also need to add `library(tidymodels)` to the `setup` code chunk. Copy
-and paste this code chunk below into the Quarto file.
+logistic regression models. Since we've already created some items, such
+as the lipidomics data, in the `{targets}` pipeline, we'll need to tell
+the Quarto file where to find this "store" of items, and import the data
+using `tar_read()`. We also need to add `library(tidymodels)` to the
+`setup` code chunk. Copy and paste this code chunk below into the Quarto
+file.
 
 ```` {.markdown filename="doc/learning.qmd"}
 ```{{r setup}}
@@ -445,7 +446,7 @@ The first observation isn't always an issue and depends heavily on the
 model type you use. Since we are using logistic regression, the model
 assumes that each row is an individual person. But our data is in the
 long format, so each person has multiple rows. The second observation is
-that there seems to be a data input error, since there are three
+that there seems to be a data input error, since there are multiple
 `Cholesterol` values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
@@ -465,16 +466,16 @@ metabolites, we should ideally have all the metabolites with a similar
 range and distribution of values.
 
 Let's fix the first two issues first. While we probably only need to use
-`pivot_wider()`, we should probably first tidy up the metabolite names
-first so they make better column names. We do that by combining
-`mutate()` with `snakecase::to_snake_case()`. In the `doc/learning.qmd`
-file, we rename the metabolite names before using `pivot_wider()`. Since
-we want an easy way of identifying columns that are metabolites, we will
-add a `"metabolite_"` prefix using the argument `names_prefix`. To
-actually fix the multiple cholesterol issue, we should look more into
-the data documentation or contact the authors. But for this course, we
-will merge the values by calculating a mean before pivoting. We do this
-by setting the `values_fn` with `mean`.
+`pivot_wider()`, we should tidy up the metabolite names first so they
+make better column names. We do that by combining `mutate()` with
+`snakecase::to_snake_case()`. In the `doc/learning.qmd` file, we rename
+the metabolite names before using `pivot_wider()`. Since we want an easy
+way of identifying columns that are metabolites, we will add a
+`"metabolite_"` prefix using the argument `names_prefix`. To actually
+fix the multiple cholesterol issue, we should look more into the data
+documentation or contact the authors. But for this course, we will merge
+the values by calculating a mean before pivoting. We do this by setting
+the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
 #| filename: "doc/learning.qmd"
@@ -889,7 +890,7 @@ we want the estimates to be presented, probably depending on how we want
 to visualize our results. If we set `exponentiate = TRUE` in `tidy()`,
 the output estimates will be odds ratios, if we set
 `exponentiate = FALSE`, we will get the log odds ratios or the beta
-coefficient. Here we choose `exponentiate = TRUE`:
+coefficient. Here we choose `exponentiate`
 
 ```{r tidy-up-model-results}
 #| filename: "doc/learning.qmd"
