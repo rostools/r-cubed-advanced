@@ -27,7 +27,7 @@ Relate to UK Biobank project: <https://github.com/steno-aarhus/ukbAid>
 
 ## But also from larger trends in research and society {.center}
 
-### Like reproducibility
+### Like reproducibility and more team science
 
 ::: notes
 Ask who knows what reproducibility is and could explain it.
@@ -41,11 +41,11 @@ Ask who knows what reproducibility is and could explain it.
 #| fig-height: 6
 library(tidyverse)
 theme_set(
-  theme_minimal() + 
+  theme_minimal() +
     theme(
       plot.background = element_rect(fill = "#E9E9E9"),
       axis.title = element_blank(),
-      axis.text.y = element_text(size = 16),
+      axis.text.y = element_text(size = 20),
       axis.text.x = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank()
@@ -56,14 +56,14 @@ search <- tribble(
   ~item, ~description, ~value, ~order,
   "Articles", "Found among all articles", 3467, 1,
   "GitHub\nrepos", "Those with a GitHub link and at least one notebook", 2660, 2
-) |> 
+) |>
   mutate(
     item = fct_rev(fct_reorder(item, order))
   )
 
 ggplot(search, aes(y = item, x = value, label = value)) +
   geom_col(fill = "#203C6E") +
-  geom_text(nudge_x = 200, size = 5)
+  geom_text(nudge_x = 200, size = 6)
 ```
 
 ```{r}
@@ -76,7 +76,7 @@ repro_results <- tribble(
   "Could install\ndependencies", "Could install dependencies without errors.", 10388, 3,
   "Finished executing\nwithout errors", "Could run without any errors.", 1203, 4,
   "Same results\nas paper", "When the results of the paper matched what the execution results output.", 879, 5
-) |> 
+) |>
   mutate(
     percent = str_c(value, "\n(", round(value / max(value) * 100), "%)"),
     item = fct_rev(fct_reorder(item, order))
@@ -84,37 +84,64 @@ repro_results <- tribble(
 
 ggplot(repro_results, aes(y = item, x = value, label = percent)) +
   geom_col(fill = "#203C6E") +
-  geom_text(nudge_x = 1700, size = 5)
+  geom_text(nudge_x = 1700, size = 6)
 ```
 :::
 
 From searching PubMed Central for all articles with search term: "(ipynb
 OR jupyter OR ipython) AND github"
 
-## Researchers don't know how to collaborate effectively {.smaller}
+## Researchers don't know how to collaborate effectively {.center}
+
+We don't get training in it, nor do we get much practice in it
+
+::: notes
+You do your PhD alone, you get grants as a postdoc for yourself, etc.
+:::
+
+## Academia doesn't encourage building and improving effective collaboration {.center}
+
+::: notes
+Getting grants means getting publications, getting publications means
+being involved in lots of project, being involved in lots of projects
+means contributing mainly through comments or feedback or meetings
+(since you only have so much time in a day), getting funding means you
+need to get yourself as last author on as many papers as possible to
+continue getting funding, etc.
+
+It's a vicious cycle.
+:::
+
+## Little published work on how to effectively collaborate {.center}
+
+An example [@Turoman2022]: Research group tries to work on improving
+their collaboration
+
+-   More work upfront, less work later
+-   Decide on tools and practices that are best for the group
+-   Use "data partners" to co-work/co-code together
+
+::: notes
+I'm collaborating with some colleagues on a scoping review for open
+collaboration, and there is very little research in this area, or even
+"guides" or "examples", at least not found in literature databases.
+:::
+
+## One direct way to collaborate is working on shared code for a project {.center}
+
+Because by collaborating, you will also read others' code.
+
+## Reading *others'* code is necessary to improve as an experienced coder {.smaller}
+
+-   You aren't reading others' code if:
+
+    -   you don't collaborate with others *directly* on their code
+    -   you aren't doing code reviews with colleagues
+    -   researcher's don't share their code
 
 . . .
 
--   We don't get training in it, nor do we practice it
-
-. . .
-
--   Example of group who work on improving their collaboration
-    [@Turoman2022]
-
-    -   More work upfront, less work later
-    -   Decide on tools and practices that are best for the group
-
-## Reading *others'* code is a necessary way to improve and learn as a more experienced coder
-
--   If you don't collaborate others *directly* on their code, you aren't
-    reading others' code
-
--   If you aren't doing code reviews, you aren't reading others' code
-
--   If you aren't reading others' code, you aren't improving
-
--   
+-   If *we all* aren't reading others' code, *we all* aren't improving
 
 ## Goal of course: Create and nurture a culture of openness through training {.center}
 
