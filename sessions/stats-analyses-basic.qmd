@@ -434,9 +434,9 @@ other aspects of data processing.
 Let's consider our `lipidomics` dataset. In order for us to start our
 statistical analysis, we need the data to be structured in a certain way
 to be able to smoothly use it as input in our model. We have at least
-three easy observations on necessary transformations of the data, two of
-which can be fixed with a single `{tidyr}` function, while the third one
-can be fixed with `{recipes}`. Can you spot them?
+three necessary transformations, two of which can be done using a single
+`{tidyr}` function, while the third one can be fixed with `{recipes}`.
+Can you spot them?
 
 ```{r}
 #| filename: Console
