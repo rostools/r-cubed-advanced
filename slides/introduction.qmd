@@ -156,9 +156,6 @@ Because by collaborating, you will also read others' code.
     -   A group project at the end
 -   All material is online (and [openly
     licensed](https://r-cubed-advanced.rostools.org/LICENSE.html))
--   [Resources
-    Appendix](https://r-cubed-advanced.rostools.org/resources.html)
-    -   Material for further learning
 :::
 
 ::: {.column width="50%"}
@@ -175,8 +172,8 @@ Because by collaborating, you will also read others' code.
 
 ::::: columns
 ::: {.column width="50%"}
--   Put the sticky (a.k.a. tiny paper hat :womans_hat:) on your laptop
-    to get help
+-   Put the sticky (a.k.a. tiny paper hat :tophat:) on your laptop to
+    get help
 -   There are lots of helpers
 -   Table mates, help out too
 :::
