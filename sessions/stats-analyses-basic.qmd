@@ -499,11 +499,12 @@ lipidomics_wide
 
 Since we're using a function-oriented workflow and since we will be
 using this code again later on, let's convert both the "metabolite to
-snakecase" and "pivot to wider" code into their own functions, before
-moving them over into the `R/functions.R` file.
+snakecase" and "pivot to wider" code into their own functions. Lets
+start writing the function in the `doc/learning.qmd` (we will later move
+them over into the `R/functions.R` file).
 
 ```{r first-snakecase-fn}
-#| filename: "R/functions.R"
+#| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data) {
   data |>
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
@@ -1044,3 +1045,4 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
     standard error for the variables in the model.
 
 {{< include /includes/_code-appendix.qmd >}}
+
