@@ -44,9 +44,9 @@ This session’s **overall learning outcome** is to:
 2.  Categorize the model definition step as a distinct, theory-driven
     step, separate from the data, and use `{parsnip}` functions to help
     with defining your model.
-3.  Identify some data transformation techniques and evaluate which are good
-    options given the data. Use functions in the `{recipes}` package to
-    apply these transformations to your data.
+3.  Identify some data transformation techniques and evaluate which are
+    good options given the data. Use functions in the `{recipes}`
+    package to apply these transformations to your data.
 4.  Use the `{broom}` package to extract the model results to later
     present them in graphical format (with `{ggplot2}`).
 5.  Continue applying the concepts and functions used from the previous
@@ -60,9 +60,9 @@ Specific "anti"-objectives on things that we will *not* learn:
     tests.
 -   How to interpret the statistical results.
 
-This means that what we show is *for demonstration purposes only*, they
-could be entirely wrong in how to do them correctly if an expert were to
-review them.
+This means that what we show is *for demonstration purposes only*. Our
+implementation and choice of model and analyses could be wrong if an
+expert were to review them.
 
 ::: {.callout-warning appearance="default"}
 We will be making *a lot* of function throughout this session and the
@@ -101,9 +101,9 @@ analyses.
 :::: callout-note
 ## :book: Reading task: \~15 minutes
 
-Research, especially quantitative research, is about making inferences 
-about the world by quantifying uncertainty from some data.
-And we quantify uncertainty by using statistics and statistical models.
+Research, especially quantitative research, is about making inferences
+about the world by quantifying uncertainty from some data. And we
+quantify uncertainty by using statistics and statistical models.
 
 A statistical model is a simple way to describe the real world using
 mathematics. In research, we often aim to understand the relationships
@@ -119,8 +119,8 @@ Some simple examples are:
 or more complex:
 
 -   "How does sunlight and water affect plant growth?"
--   "What is the relationship between a metabolite and type 1 diabetes compared to
-    controls, adjusting for age and gender?"
+-   "What is the relationship between a metabolite and type 1 diabetes
+    compared to controls, adjusting for age and gender?"
 
 These relationships can involve single or multiple predictors (such as
 sunlight and water, or metabolite, gender, and age). The outcomes can be
@@ -323,8 +323,8 @@ $$class = metabolite\_cholesterol + age + gender$$
 Now that we have a theoretical model, we need to choose our model type.
 Since T1D is binary (either you have it or you don't), the most likely
 choice is logistic regression, which requires a binary outcome variable.
-So we have the theoretical model and the type of model to use, now how do
-we express this as code in R? There are many ways of doing the same
+So we have the theoretical model and the type of model to use, now how
+do we express this as code in R? There are many ways of doing the same
 thing in R, but some are a bit easier than others.
 
 One approach that is quite generic and fits with the ideals of the
@@ -346,7 +346,7 @@ completely new set of tools. This design makes `{tidymodels}` both
 flexible and user-friendly.
 
 | Package | Description |
-|------------------------------------|------------------------------------|
+|----|----|
 | `{parsnip}` | Define the model, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
 | `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
@@ -367,12 +367,9 @@ commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 :::
 
 Let's switch to working in the `doc/learning.qmd` file to create those
-logistic regression models. Since we've already created some items, such
-as the lipidomics data, in the `{targets}` pipeline, we'll need to tell
-the Quarto file where to find this "store" of items, and import the data
-using `tar_read()`. We also need to add `library(tidymodels)` to the
-`setup` code chunk. Copy and paste this code chunk below into the Quarto
-file.
+logistic regression models. First, we need to add `library(tidymodels)`
+to the `setup` code chunk. Copy and paste this code chunk below into the
+Quarto file.
 
 ```` {.markdown filename="doc/learning.qmd"}
 ```{{r setup}}
@@ -437,9 +434,9 @@ other aspects of data processing.
 Let's consider our `lipidomics` dataset. In order for us to start our
 statistical analysis, we need the data to be structured in a certain way
 to be able to smoothly use it as input in our model. We have at least
-three easy observations on necessary transformations of the data, two of
-which can be fixed with a single `{tidyr}` function, while the third one
-can be fixed with `{recipes}`. Can you spot them?
+three necessary transformations, two of which can be done using a single
+`{tidyr}` function, while the third one can be fixed with `{recipes}`.
+Can you spot them?
 
 ```{r}
 #| filename: Console
@@ -449,16 +446,16 @@ lipidomics
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
-Ask them if they can spot these differences. Give them a few minutes to
-think and respond.
+Ask them if they can spot the structural data issues. Give them a few
+minutes to think and respond.
 :::
 
-The first observation isn't always an issue and depends heavily on the
-model type you use. Since we are using logistic regression, the model
-assumes that each row is an individual person. But our data is in the
-long format, so each person has multiple rows. The second observation is
-that there seems to be a data input error, since there are multiple
-`Cholesterol` values, while all other metabolites only have one:
+The first issue, which isn't always an issue, depends heavily on the model
+type you use. Since we are using logistic regression, the model assumes
+that each row is an individual person. But our data is in the long
+format, so each person has multiple rows. The second issue is that there
+seems to be a data entry error, since there are multiple `Cholesterol`
+values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
 #| filename: "doc/learning.qmd"
@@ -476,17 +473,16 @@ T1D. In order to best interpret the results and compare across
 metabolites, we should ideally have all the metabolites with a similar
 range and distribution of values.
 
-Let's fix the first two issues first. While we probably only need to use
-`pivot_wider()`, we should tidy up the metabolite names first so they
-make better column names. We do that by combining `mutate()` with
-`snakecase::to_snake_case()`. In the `doc/learning.qmd` file, we rename
-the metabolite names before using `pivot_wider()`. Since we want an easy
-way of identifying columns that are metabolites, we will add a
-`"metabolite_"` prefix using the argument `names_prefix`. To actually
-fix the multiple cholesterol issue, we should look more into the data
-documentation or contact the authors. But for this course, we will merge
-the values by calculating a mean before pivoting. We do this by setting
-the `values_fn` with `mean`.
+Let's fix the first two issues first, and at the same time tidy up the
+names of each metabolite so they make better column names. In the
+`doc/learning.qmd`, we can tidy up the metabolite names using `mutate()`
+with `snakecase::to_snake_case()`. Secondly, to make our dataset wider,
+we use `pivot_wider()`. Since we also want an easy way of identifying
+columns that are metabolites, we will add a `"metabolite_"` prefix using
+the argument `names_prefix`. To actually fix the multiple cholesterol
+issue, we should look more into the data documentation or contact the
+authors. But for this course, we will merge the values by calculating a
+mean before pivoting. We do this by setting the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
 #| filename: "doc/learning.qmd"
@@ -503,8 +499,9 @@ lipidomics_wide
 
 Since we're using a function-oriented workflow and since we will be
 using this code again later on, let's convert both the "metabolite to
-snakecase" and "pivot to wider" code into their own functions, before
-moving them over into the `R/functions.R` file.
+snakecase" and "pivot to wider" code into their own functions. Lets
+start writing the function in the `doc/learning.qmd` (we will later move
+them over into the `R/functions.R` file).
 
 ```{r first-snakecase-fn}
 #| filename: "doc/learning.qmd"
@@ -528,7 +525,7 @@ something called "curly-curly" (it looks like `{{}}` when used) and
 When you write your own functions that make use of functions in the
 `{tidyverse}`, you may eventually encounter an error that might not be
 very easy to figure out. Here's a very simple example using `select()`,
-where one of your function's arguments is to select columns (just read, 
+where one of your function's arguments is to select columns (just read,
 don't write any code):
 
 ```{r, error=TRUE}
@@ -614,14 +611,13 @@ column_values_to_snake_case <- function(data, columns) {
 }
 ```
 
-Now add the new function above the `pivot_wider()` code in the
-`doc/learning.qmd` file.
+Now, replace the`mutate()` call with our new function (above the
+`pivot_wider()` code) in the `doc/learning.qmd` file.
 
 ```{r snakecase-function-before-pivot-wider}
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
   column_values_to_snake_case(metabolite) |>
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
   pivot_wider(
     names_from = metabolite,
     values_from = value,
