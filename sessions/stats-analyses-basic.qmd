@@ -503,7 +503,7 @@ snakecase" and "pivot to wider" code into their own functions, before
 moving them over into the `R/functions.R` file.
 
 ```{r first-snakecase-fn}
-#| filename: "doc/learning.qmd"
+#| filename: "R/functions.R"
 column_values_to_snake_case <- function(data) {
   data |>
     dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
