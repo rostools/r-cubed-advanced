@@ -398,7 +398,7 @@ git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
 
 We want to calculate the mean and SD for each metabolite and then, to
 make it more readable, round the numbers to one digit. To do this, we
-will utilize the split-apply-combine methodology and the across()
+will utilize the split-apply-combine methodology and the `across()`
 function, we covered in the
 [functionals](https://r-cubed-intermediate.rostools.org/dry-functionals.html#summarizing-long-data-like-the-rr-dataset)
 session of the intermediate course.

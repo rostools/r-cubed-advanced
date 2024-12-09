@@ -1046,4 +1046,4 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
     steps with `add_recipe()`, and the data with `fit()`.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
-    standard error for the variables in the mel.
+    standard error for the variables in the model.
