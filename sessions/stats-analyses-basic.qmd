@@ -611,14 +611,13 @@ column_values_to_snake_case <- function(data, columns) {
 }
 ```
 
-Now add the new function above the `pivot_wider()` code in the
-`doc/learning.qmd` file.
+Now, replace the`mutate()` call with our new function (above the
+`pivot_wider()` code) in the `doc/learning.qmd` file.
 
 ```{r snakecase-function-before-pivot-wider}
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
   column_values_to_snake_case(metabolite) |>
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
   pivot_wider(
     names_from = metabolite,
     values_from = value,
@@ -1045,4 +1044,3 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
     standard error for the variables in the model.
 
 {{< include /includes/_code-appendix.qmd >}}
-
