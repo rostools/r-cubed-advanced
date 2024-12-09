@@ -450,7 +450,7 @@ Ask them if they can spot the structural data issues. Give them a few
 minutes to think and respond.
 :::
 
-The first issue, isn't always an issue and depends heavily on the model
+The first issue, which isn't always an issue, depends heavily on the model
 type you use. Since we are using logistic regression, the model assumes
 that each row is an individual person. But our data is in the long
 format, so each person has multiple rows. The second issue is that there
