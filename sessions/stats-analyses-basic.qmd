@@ -446,16 +446,16 @@ lipidomics
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
-Ask them if they can spot the required transformations. Give them a few
+Ask them if they can spot the structural data issues. Give them a few
 minutes to think and respond.
 :::
 
-The first observation isn't always an issue and depends heavily on the
-model type you use. Since we are using logistic regression, the model
-assumes that each row is an individual person. But our data is in the
-long format, so each person has multiple rows. The second observation is
-that there seems to be a data input error, since there are multiple
-`Cholesterol` values, while all other metabolites only have one:
+The first issue, isn't always an issue and depends heavily on the model
+type you use. Since we are using logistic regression, the model assumes
+that each row is an individual person. But our data is in the long
+format, so each person has multiple rows. The second issue is that there
+seems to be a data entry error, since there are multiple `Cholesterol`
+values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
 #| filename: "doc/learning.qmd"
@@ -473,17 +473,16 @@ T1D. In order to best interpret the results and compare across
 metabolites, we should ideally have all the metabolites with a similar
 range and distribution of values.
 
-Let's fix the first two issues first. While we probably only need to use
-`pivot_wider()`, we should tidy up the metabolite names first so they
-make better column names. We do that by combining `mutate()` with
-`snakecase::to_snake_case()`. In the `doc/learning.qmd` file, we rename
-the metabolite names before using `pivot_wider()`. Since we want an easy
-way of identifying columns that are metabolites, we will add a
-`"metabolite_"` prefix using the argument `names_prefix`. To actually
-fix the multiple cholesterol issue, we should look more into the data
-documentation or contact the authors. But for this course, we will merge
-the values by calculating a mean before pivoting. We do this by setting
-the `values_fn` with `mean`.
+Let's fix the first two issues first, and at the same time tidy up the
+names of each metabolite so they make better column names. In the
+`doc/learning.qmd`, we can tidy up the metabolite names using `mutate()`
+with `snakecase::to_snake_case()`. Secondly, to make our dataset wider,
+we use `pivot_wider()`. Since we also want an easy way of identifying
+columns that are metabolites, we will add a `"metabolite_"` prefix using
+the argument `names_prefix`. To actually fix the multiple cholesterol
+issue, we should look more into the data documentation or contact the
+authors. But for this course, we will merge the values by calculating a
+mean before pivoting. We do this by setting the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
 #| filename: "doc/learning.qmd"
