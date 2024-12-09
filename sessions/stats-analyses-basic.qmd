@@ -446,8 +446,8 @@ lipidomics
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
-Ask them if they can spot these differences. Give them a few minutes to
-think and respond.
+Ask them if they can spot the required transformations. Give them a few
+minutes to think and respond.
 :::
 
 The first observation isn't always an issue and depends heavily on the
