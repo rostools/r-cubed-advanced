@@ -358,7 +358,7 @@ completely new set of tools. This design makes `{tidymodels}` both
 flexible and user-friendly.
 
 | Package | Description |
-|------------------------------------|------------------------------------|
+|----|----|
 | `{parsnip}` | Define the model, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
 | `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
 | `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
