@@ -61,7 +61,7 @@ Specific "anti"-objectives on things that we will *not* learn:
 -   How to interpret the statistical results.
 
 This means that what we show is *for demonstration purposes only*. Our
-implementation and chooice of model and analyses could be wrong if an
+implementation and choice of model and analyses could be wrong if an
 expert were to review them.
 
 ::: {.callout-warning appearance="default"}
