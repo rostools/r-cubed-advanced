@@ -44,7 +44,7 @@ More specific objectives are to:
 2.  Categorize the model definition step as a distinct, theory-driven
     step, separate from the data, and use `{parsnip}` functions to help
     with defining your model.
-3.  Identify data transformation techniques and evaluate which are good
+3.  Identify some data transformation techniques and evaluate which are good
     options given the data. Use functions in the `{recipes}` package to
     apply these transformations to your data.
 4.  Use the `{broom}` package to extract the model results to later
@@ -52,17 +52,12 @@ More specific objectives are to:
 5.  Continue applying the concepts and functions used from the previous
     sessions.
 
-Specific "anti"-objectives:
-
-We will *not* learn:
+Specific "anti"-objectives that we will *not* learn:
 
 -   How to choose and apply the appropriate statistical model or tests.
-
 -   Statistical theory.
-
 -   How to determine relevant data transformations for statistical
     tests.
-
 -   How to interpret the statistical results.
 
 This means that what we show is *for demonstration purposes only*, they
@@ -103,59 +98,53 @@ analyses.
 
 <!-- TODO: Create a revealjs presentation on this? -->
 
-:::::::: callout-note
+:::: callout-note
 ## Reading task: \~15 minutes
+
+Research, especially quantitative research, is about making inferences 
+about the world by quantifying uncertainty from some data.
+And we quantify uncertainty by using statistics and statistical models.
 
 A statistical model is a simple way to describe the real world using
 mathematics. In research, we often aim to understand the relationships
 between multiple variables. For example, if we change the predictor
-(independent variable) ( x ), how does that affect the outcome
-(dependent variable) ( y )?
+(independent variable or $x$), how does that affect the outcome
+(dependent variable or $y$)?
 
 Some simple examples are:
 
 -   "How does this new cancer treatment affect survival rates?"
-
 -   "How does this new user interface affect user watch time?"
 
 or more complex:
 
 -   "How does sunlight and water affect plant growth?"
-
--   "What is the relationship between a metabolite and T1D compared to
+-   "What is the relationship between a metabolite and type 1 diabetes compared to
     controls, adjusting for age and gender?"
 
 These relationships can involve single or multiple predictors (such as
 sunlight and water, or metabolite, gender, and age). The outcomes can be
 either continuous (such as plant growth) or categorical (such as whether
-a person has T1D or not).
+a person has type 1 diabetes or not).
 
 The relationship between predictors and the outcome is known as a
-regression. If there is a relationship between ( x ) and ( y ), the
-corresponding mathematical object is a function:
+regression. If there is a relationship between ($x$) and ($y$), the
+corresponding mathematical object is a function, $f()$:
 
-::: callout-note
-$$y = f(x) $$
-:::
+$$y = f(x)$$
 
 Since no relationship is perfect, we add some random error (error) to
 describe the difference between the function and the actual measured
 variables:
 
-::: callout-note
-$$y = f(x) + error $$
-:::
+$$y = f(x) + error$$
 
 The simplest form of regression is linear regression, where the formula
 is a linear combination:
 
-:::: callout-note
-::: callout-note
-$$y = intercept + x + e$$
-:::
-::::
+$$y = intercept + x + error$$
 
-Here, the intercept is the value of ( y ) when ( x ) is zero.
+Here, the $intercept$ is the value of $y$ when $x$ is zero.
 
 For example, we might expect a relationship between plant growth, water,
 and sunlight. We could model plant growth as depending on water and
@@ -178,15 +167,13 @@ $$growth = sunlight + water$$
 
 This expression is known as our theoretical model. However, not all
 theoretical models can be tested against the real world. We need to
-structure the theoretical model so that we can measure the parameters
+structure the theoretical model so that we can measure the parameters---the variables like growth, sunlight, and water in the model above---
 involved. In this case, we need to measure plant growth (e.g., weight in
 grams), the amount of water given per day (in liters), and the number of
 sunlight hours per day.
 
 This also means that when formulating a research question, there is an
 order, or workflow, to follow:
-
-### Workflow for Statistical Models
 
 1.  **Write a research question** that fits a theoretical model with
     measurable parameters.
@@ -262,7 +249,7 @@ graph TB
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
     plot_est -- "tar_read()" --> qmd[Quarto]
 ```
-::::::::
+::::
 
 ::: {.callout-note collapse="true"}
 ## Instructor note
@@ -335,7 +322,7 @@ $$class = metabolite\_cholesterol + age + gender$$
 Now that we have a theoretical model, we need to choose our model type.
 Since T1D is binary (either you have it or you don't), the most likely
 choice is logistic regression, which requires a binary outcome variable.
-So we have the theoretical model and the type of model to use - how do
+So we have the theoretical model and the type of model to use, now how do
 we express this as code in R? There are many ways of doing the same
 thing in R, but some are a bit easier than others.
 
@@ -344,12 +331,12 @@ One approach that is quite generic and fits with the ideals of the
 `{tidymodels}`. We teach `{tidymodels}`because they are created by
 experienced software developers at Posit, the same company behind the
 `{tidyverse}` and RStudio. They are known for excellent documentation.
-`{tidymodels}` make it easy to create and use models in a flexible way,
+`{tidymodels}` makes it easy to create and use models in a flexible way,
 allowing you to switch model types or data processing methods without
 needing to learn new tools. This makes your work more efficient and
 adaptable.
 
-`{tidymodels}` are designed to clearly separate the different parts of
+`{tidymodels}` is designed to clearly separate the different parts of
 the model-building process. Each component of the workflow has its own
 specific package, making it easier to manage and understand. This
 modular approach allows you to change one part of the process, like the
