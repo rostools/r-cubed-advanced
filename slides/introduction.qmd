@@ -117,7 +117,6 @@ It's a vicious cycle.
 An example [@Turoman2022]: Research group tries to work on improving
 their collaboration
 
--   More work upfront, less work later
 -   Decide on tools and practices that are best for the group
 -   Use "data partners" to co-work/co-code together
 
