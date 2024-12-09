@@ -164,7 +164,7 @@ if (!require("packagename")) {
 This code checks whether a package exists (i.e., is installed), and if
 not, it installs it. But! This is not an optimal method to track
 packages because `require()` won't load the package if it doesn't find
-it. As a result, you will have to re-run the script a few times if you
+it. As a result, you will have to rerun the script a few times if you
 don't have that package installed; first, to install the package, then
 to load it. Plus, sometimes you may need to restart the R session after
 installing a package in order for R to detect it properly. So, this is

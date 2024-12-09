@@ -427,7 +427,7 @@ Show folders and files of project:
 
 The output should look something a bit like the above text. If it
 doesn't, start over by deleting everything in the `data-raw/` folder
-*except* for the `data-raw/nmr-omics.R` script and re-running the script
+*except* for the `data-raw/nmr-omics.R` script and rerunning the script
 again. If your output looks a bit like the above, than copy and paste
 the output into the survey question at the end.
 
