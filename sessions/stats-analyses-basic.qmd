@@ -367,12 +367,9 @@ commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 :::
 
 Let's switch to working in the `doc/learning.qmd` file to create those
-logistic regression models. Since we've already created some items, such
-as the lipidomics data, in the `{targets}` pipeline, we'll need to tell
-the Quarto file where to find this "store" of items, and import the data
-using `tar_read()`. We also need to add `library(tidymodels)` to the
-`setup` code chunk. Copy and paste this code chunk below into the Quarto
-file.
+logistic regression models. First, we need to add `library(tidymodels)`
+to the `setup` code chunk. Copy and paste this code chunk below into the
+Quarto file.
 
 ```` {.markdown filename="doc/learning.qmd"}
 ```{{r setup}}
