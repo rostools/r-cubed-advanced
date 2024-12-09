@@ -308,6 +308,8 @@ git_ci(
 )
 ```
 
+{{< include /includes/_sticky-up.qmd >}}
+
 ## Two types of dependencies: Build and workflow
 
 ::: {.callout-note appearance="minimal" collapse="true"}
@@ -459,6 +461,8 @@ Let's complete these tasks to connect to GitHub.
 
 5.  Check your GitHub to make sure the project repository has been
     uploaded to it.
+
+{{< include /includes/_sticky-up.qmd >}}
 
 ## Automatically adhere to a style guide
 
@@ -653,6 +657,8 @@ Git history. Click the "Push" button to push the changes to GitHub.
 fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
+
+{{< include /includes/_sticky-up.qmd >}}
 
 ## Summary
 

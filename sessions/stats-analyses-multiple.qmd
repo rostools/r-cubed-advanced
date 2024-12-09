@@ -306,6 +306,8 @@ calculate_estimates <- function(data) {
 }
 ```
 
+{{< include /includes/_sticky-up.qmd >}}
+
 ## Improve the readability of the model output
 
 We now have a function that calculates the model estimates, but it
@@ -441,6 +443,8 @@ calculate_estimates <- function(data) {
 }
 ```
 
+{{< include /includes/_sticky-up.qmd >}}
+
 ## :technologist: Exercise: Add a target for the model results
 
 > Time: \~8 minutes
@@ -505,6 +509,8 @@ targets::tar_visnetwork()
 targets::tar_make()
 git_ci("_targets.R", "Update targets with model results")
 ```
+
+{{< include /includes/_sticky-up.qmd >}}
 
 ## Visualizing the model estimates
 
@@ -714,6 +720,8 @@ revise_by_line_num(
 )
 git_ci("_targets", "Add plot estimates target")
 ```
+
+{{< include /includes/_sticky-up.qmd >}}
 
 ## Combine all the output into the Quarto file
 

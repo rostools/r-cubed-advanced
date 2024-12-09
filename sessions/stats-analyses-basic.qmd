@@ -665,6 +665,8 @@ metabolites_to_wider <- function(data) {
 }
 ```
 
+{{< include /includes/_sticky-up.qmd >}}
+
 ## Using recipes to manage transformations
 
 <!-- TODO: convert this next few paragraphs to reading exercise? -->

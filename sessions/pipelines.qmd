@@ -504,6 +504,7 @@ descriptive_stats <- function(data) {
 }
 ```
 
+{{< include /includes/_sticky-up.qmd >}}
 
 ## Adding a step in the pipeline
 
@@ -781,6 +782,8 @@ descriptive_stats <- function(data) {
 }
 ```
 :::
+
+{{< include /includes/_sticky-up.qmd >}}
 
 ## Adding the plot function as pipeline targets
 
