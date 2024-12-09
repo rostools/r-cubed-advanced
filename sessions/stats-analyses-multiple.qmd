@@ -16,17 +16,7 @@ lipidomics_wide <- lipidomics |>
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
-::: {.callout-note collapse="true"}
-## Instructor note
-
-Before beginning, get them to recall what they remember of the previous
-session, either with something like Mentimeter or verbally. Preferably
-something like Mentimeter because it allows everyone to participate, not
-just the ones who are more comfortable being vocal to the whole group.
-
-Depending on what they write, might need to briefly go over the previous
-session.
-:::
+{{< include /includes/_review-note.qmd >}}
 
 Rarely do we run only one single statistical model to answer one single
 question, especially in our data-overflowing environments. An initial
@@ -61,7 +51,7 @@ Specific "anti"-objectives:
 ## Apply logistic regression to each metabolite with functional programming
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component
@@ -75,7 +65,7 @@ as the
 :::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Reinforce the concept of functional programming by briefly going over
 the
@@ -89,7 +79,7 @@ the `lipidomics_wide` dataset. However, these types of
 long form. So we'll start with the original `lipidomics` dataset. Create
 a header and code chunk at the end of the `doc/learning.qmd` file:
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 ## Running multiple models
 
 ```{{r}}
@@ -139,7 +129,7 @@ lipidomics |>
   group_split(metabolite)
 ```
 
-```{r output-only-chain-split-by-metabolite}
+```{r}
 #| echo: false
 lipidomics |>
   column_values_to_snake_case(metabolite) |>
@@ -161,7 +151,7 @@ lipidomics |>
   map(metabolites_to_wider)
 ```
 
-```{r output-only-chain-map-to-wider}
+```{r}
 #| echo: false
 lipidomics |>
   column_values_to_snake_case(metabolite) |>
@@ -204,7 +194,7 @@ lipidomics |>
   split_by_metabolite()
 ```
 
-```{r output-only-split-by-metabolite}
+```{r}
 #| echo: false
 lipidomics |>
   split_by_metabolite() |>
@@ -268,13 +258,65 @@ model_estimates
 ```
 
 Wow! We're basically at our first `{targets}` output! Before continuing,
-there is one aesthetic thing we can add: The original variable names,
-rather than the snake case version. Since the original variable still
-exists in our `lipidomics` dataset, we can join it to the
-`model_estimates` object with `right_join()`, along with a few other
-minor changes. First, we'll `select()` only the `metabolite` and then
-create a duplicate column of `metabolite` called `term` (to match the
-`model_estimates`) using `mutate()`.
+do an exercise to convert the code into a function.
+
+## :technologist: Exercise: Create a function to calculate the model estimates
+
+> Time: \~10 minutes.
+
+Convert the code into a function that calculates the model estimates.
+Use this scaffold to help complete the tasks below for the
+`calculate_estimates()` function:
+
+``` r
+calculate_estimates <- function(data) {
+  ___ |>
+    # Code from right before the exercise that creates the results
+    ___
+}
+```
+
+1.  Name the new function `calculate_estimates`.
+2.  Within the `function()`, add one argument called `data`.
+3.  Paste the code we created from above into the function, replacing
+    `lipidomics` with `data`.
+4.  Add `dplyr::`, `purrr::`, and `stringr::` before their respective
+    functions.
+5.  Add the Roxygen documentation using {{< var keybind.roxygen >}}.
+6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
+7.  Cut and paste the function over into the `R/functions.R` file.
+8.  Commit the changes you've made so far with {{< var keybind.git >}}.
+
+```{r solution-new-function-calculate-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Calculate the estimates for the model for each metabolite.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A data frame.
+#'
+calculate_estimates <- function(data) {
+  data |>
+    split_by_metabolite() |>
+    purrr::map(generate_model_results) |>
+    purrr::list_rbind() |>
+    dplyr::filter(stringr::str_detect(term, "metabolite_"))
+}
+```
+
+## Improve the readability of the model output
+
+We now have a function that calculates the model estimates, but it
+outputs the variable names in snake case. While this is a good practice
+for programming, it is not the most aesthetic for reporting. Let's add
+back the original variable names, rather than the snake case version.
+Since the original variable still exists in our `lipidomics` dataset, we
+can join it to the `model_estimates` object with `right_join()`, along
+with a few other minor changes. First, we'll `select()` only the
+`metabolite` and then create a duplicate column of `metabolite` called
+`term` (to match the `model_estimates`) using `mutate()`.
 
 ```{r duplicate-original-vars}
 #| filename: "doc/learning.qmd"
@@ -284,7 +326,8 @@ lipidomics |>
 ```
 
 Right after that we will use our custom `column_values_to_snake_case()`
-function on the `term` column.
+function on the `term` column so it matches the `term` variable in the
+model estimates data frame.
 
 ```{r dup-column-to-snakecase}
 #| filename: "doc/learning.qmd"
@@ -332,77 +375,47 @@ lipidomics |>
   right_join(model_estimates, by = "term")
 ```
 
-Awesome :smile: Now can you guess what we are going to do next? That's
-right, making a function of both the model creation code and this code
-to add the original variable names. Then we can add our first
-`{targets}` output!
+Awesome :smile: Now let's bring this code into the
+`calculate_estimates()` function we created. Then afterwards we can add
+our first `{targets}` output!
 
-## Exercise: Creating functions for model results and adding as a target in the pipeline
+## :technologist: Exercise: Incorporate additional code into an existing function
 
-<!-- TODO: convert this into two exercises -->
+> Time: \~12 minutes.
 
-> Time: \~25 minutes.
-
-::: {.callout-warning appearance="default"}
-There are two parts to this exercise and two solution chunks.
-:::
-
-**Part 1**: Convert the code that calculates the model estimates as well
-as the code that adds the original metabolite names into functions.
-Start with the code for the metabolite names, using the scaffold below
-as a starting point.
-
-1.  Name the new function `add_original_metabolite_names`.
-2.  Within the `function()`, add two arguments, where the first is
-    called `model_results` and the second is called `data`.
-3.  Paste the code we created into the function, replacing `lipidomics`
-    with `data` and `model_estimates` with `model_results`.
-4.  Add `dplyr::` and `stringr::` before their respective functions.
-5.  Add the Roxygen documentation using {{< var keybind.roxygen >}}.
-6.  Use {{< var keybind.styler >}} to style the file to fix up the code.
-7.  Cut and paste the function over into the `R/functions.R` file.
-8.  Commit the changes you've made so far with {{< var keybind.git >}}.
-
-``` r
-___ <- function(___, ___) {
-  ___ |>
-}
-```
-
-```{r solution-new-function-add-original-metabolite-names}
-#| eval: false
-#| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-#' Add the original metabolite names (not as snakecase) to the model results.
-#'
-#' @param model_results The data frame with the model results.
-#' @param data The original, unprocessed lipidomics dataset.
-#'
-#' @return A data frame.
-#'
-add_original_metabolite_names <- function(model_results, data) {
-  data |>
-    dplyr::mutate(term = metabolite) |>
-    column_values_to_snake_case(term) |>
-    dplyr::mutate(term = stringr::str_c("metabolite_", term)) |>
-    dplyr::distinct(term, metabolite) |>
-    dplyr::right_join(model_results, by = "term")
-}
-```
-
-**Part 2**: Do the same thing with the code that creates the model
-results, using the scaffold below as a starting point.
+Taking the code above, we'll insert it into the `calculate_estimates()`
+function so it has a nicer looking and more readable output. While in
+the `R/functions.R`, go to the `calculate_estimates()` function. Use
+this scaffold to help with the tasks below for adding more code to the
+`calculate_estimates()` function:
 
 ``` r
 calculate_estimates <- function(data) {
-  ___ |>
-    # All the other code to create the results
-    ___ |> 
-    add_original_metabolite_names(data) 
+  # 1. Assign the output to a object.
+  ___  <- data |>
+    split_by_metabolite() |>
+    purrr::map(generate_model_results) |>
+    purrr::list_rbind() |>
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) 
+  
+  data |> 
+    # 2. Add the code we created above.
+    ___ |>
+    # 3. Include the object from the first step here. 
+    right_join(___, by = "term")
 }
 ```
 
-```{r solution-new-function-calculate-estimates}
+1.  Assign the output of the first chunk of code that creates the model
+    estimates and name the new variable `model_estimates`.
+2.  Paste the code we created into the function, so that the `data`
+    variable pipes into it.
+3.  Add `model_estimates` to the `right_join()` function.
+4.  Add `dplyr::` and `stringr::` before their respective functions.
+5.  Use {{< var keybind.styler >}} to style the file to fix up the code.
+6.  Commit the changes you've made so far with {{< var keybind.git >}}.
+
+```{r solution-add-new-code-to-calculate-estimates}
 #| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
@@ -413,17 +426,38 @@ calculate_estimates <- function(data) {
 #' @return A data frame.
 #'
 calculate_estimates <- function(data) {
-  data |>
+  model_estimates <- data |>
     split_by_metabolite() |>
     purrr::map(generate_model_results) |>
     purrr::list_rbind() |>
-    dplyr::filter(stringr::str_detect(term, "metabolite_")) |>
-    add_original_metabolite_names(data)
+    dplyr::filter(stringr::str_detect(term, "metabolite_"))
+
+  data |>
+    dplyr::mutate(term = metabolite) |>
+    column_values_to_snake_case(term) |>
+    dplyr::mutate(term = stringr::str_c("metabolite_", term)) |>
+    dplyr::distinct(term, metabolite) |>
+    dplyr::right_join(model_estimates, by = "term")
 }
 ```
 
-Lastly, add the model results output to end of the `_targets.R` file,
-using the below scaffold as a guide.
+## :technologist: Exercise: Add a target for the model results
+
+> Time: \~8 minutes
+
+Taking the function code from above, you'll next add the model results
+output to end of the `_targets.R` file, using the below scaffold as a
+guide.
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = ___,
+    command = ___(___)
+  )
+)
+```
 
 1.  Use `df_model_estimates` for the `name`.
 2.  Use the `calculate_estimates()` function in `command`, with
@@ -434,12 +468,15 @@ using the below scaffold as a guide.
     `targets::tar_make()` with {{< var keybind.targets-make >}}.
 4.  Commit the changes to the Git history with {{< var keybind.git >}}.
 
-``` r
+```{r solution-target-model-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 list(
-  ...,
+  # ...,
   tar_target(
-    name = ___,
-    command = ___(___)
+    name = df_model_estimates,
+    command = calculate_estimates(lipidomics)
   )
 )
 ```
@@ -486,7 +523,7 @@ inside the `## Results` section. We'll want to use
 `tar_read(df_model_estimates)` so that `{targets}` is aware that the R
 Markdown file is dependent on this target.
 
-````{.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="doc/learning.qmd"}
 ### Figure of model estimates
 
 ```{{r}}
@@ -517,7 +554,7 @@ revise_by_line_num(
 git_ci("doc/learning.qmd", "Add code for model estimates to report.")
 ```
 
-```{r exec-only-model-estimates}
+```{r}
 #| include: false
 model_estimates <- here::here("data/model-estimates.csv") |>
   readr::read_csv(show_col_types = FALSE)
@@ -566,18 +603,13 @@ plot_estimates +
 There are so many things we could start investigating based on these
 results in order to fix them up. But for now, this will do.
 
-## Exercise: Add plot function as a target in the pipeline
+## :technologist: Exercise: Add plot function as a target in the pipeline
 
 > Time: \~15 minutes.
 
 Hopefully you've gotten comfortable with the function-oriented workflow,
 because we'll need to convert this plot code into a function and add it
 as a target in the pipeline. Use the scaffold below as a guide.
-
-1.  Replace `model_estimates` with `results`.
-2.  Move the function into the `R/functions.R` file, add the Roxygen
-    documentation using {{< var keybind.roxygen >}}, and use
-    {{< var keybind.styler >}} to style.
 
 ``` r
 plot_estimates <- function(results) {
@@ -586,6 +618,11 @@ plot_estimates <- function(results) {
     ___
 }
 ```
+
+1.  Replace `model_estimates` with `results`.
+2.  Move the function into the `R/functions.R` file, add the Roxygen
+    documentation using {{< var keybind.roxygen >}}, and use
+    {{< var keybind.styler >}} to style.
 
 ```{r solution-new-function-plot-estimates}
 #| eval: false
@@ -734,3 +771,5 @@ targets::tar_make()
     than fewer, bigger ones.
 -   Use dot-whisker plots like `geom_pointrange()` to visualize the
     estimates and their standard error.
+
+{{< include /includes/_code-appendix.qmd >}}

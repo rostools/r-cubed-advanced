@@ -10,3 +10,4 @@ _freeze
 /.quarto/
 .Rbuildignore
 slides/*.html
+_ignore

@@ -69,7 +69,7 @@ We will be making *a lot* of function throughout this session and the
 next. This is just a fair warning!
 :::
 
-## Exercise: What does a "model" mean?
+## :speech_balloon: Discussion activity: What does a "model" mean?
 
 > Time: \~6 minutes.
 
@@ -88,7 +88,7 @@ compared to other areas?
 ## Theory and "workflow" on statistical modeling
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Let them read it over than go over it briefly, focusing on what a model
 is, that we should create research questions while thinking in the
@@ -99,7 +99,7 @@ analyses.
 <!-- TODO: Create a revealjs presentation on this? -->
 
 :::: callout-note
-## Reading task: \~15 minutes
+## :book: Reading task: \~15 minutes
 
 Almost all fields of research, and definitely more heavily-quantitative
 and scientific fields like biomedicine and health, have math and
@@ -251,7 +251,7 @@ graph TB
 ::::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 A few things to repeat and reinforce:
 
@@ -269,7 +269,7 @@ and their flow that we can translate into the `{targets}` pipeline.
 ## Defining the model
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Let them read it first and then briefly verbally walk through this
 section, describing the theoretical model both graphically and
@@ -278,7 +278,7 @@ approaches.
 :::
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Now that we've talked about the workflow around making models and have
 already written out some research questions, let's make a basic,
@@ -430,14 +430,13 @@ three easy observations on necessary transformations of the data, two of
 which can be fixed with a single `{tidyr}` function, while the third one
 can be fixed with `{recipes}`. Can you spot them?
 
-```{r print-lipidomics-data}
-#| column: page-inset-right
+```{r}
 #| filename: Console
 lipidomics
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Ask them if they can spot these differences. Give them a few minutes to
 think and respond.
@@ -479,7 +478,6 @@ the values by calculating a mean before pivoting. We do this by setting
 the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
   mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
@@ -498,7 +496,6 @@ snakecase" and "pivot to wider" code into their own functions, before
 moving them over into the `R/functions.R` file.
 
 ```{r first-snakecase-fn}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data) {
   data |>
@@ -515,14 +512,15 @@ something called "curly-curly" (it looks like `{{}}` when used) and
 "non-standard evaluation" (NSE).
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 When you write your own functions that make use of functions in the
 `{tidyverse}`, you may eventually encounter an error that might not be
 very easy to figure out. Here's a very simple example using `select()`,
-where one of your function's arguments is to select columns:
+where one of your function's arguments is to select columns (just read, 
+don't write any code):
 
-```{r test-nse, error=TRUE}
+```{r, error=TRUE}
 test_nse <- function(data, columns) {
   data |>
     dplyr::select(columns)
@@ -550,7 +548,7 @@ website](https://dplyr.tidyverse.org/articles/programming.html#warm-up),
 which lists some options to handle NSE while programming. The easiest
 approach is to wrap the argument with "curly-curly" (`{{}}`).
 
-```{r test-nse-fixed}
+```{r}
 test_nse <- function(data, columns) {
   data |>
     dplyr::select({{ columns }})
@@ -565,7 +563,7 @@ lipidomics |>
 :::
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 You don't need to go over what they read, you can continue with making
 the function below. Unless learners have some questions.
@@ -575,7 +573,6 @@ We can use curly-curly (combined with `across()`) to apply
 `snakecase::to_snake_case()` to columns of our choice.
 
 ```{r second-snakecase-fn}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 column_values_to_snake_case <- function(data, columns) {
   data |>
@@ -610,7 +607,6 @@ Now add the new function above the `pivot_wider()` code in the
 `doc/learning.qmd` file.
 
 ```{r snakecase-function-before-pivot-wider}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
   column_values_to_snake_case(metabolite) |>
@@ -624,7 +620,7 @@ lipidomics_wide <- lipidomics |>
 lipidomics_wide
 ```
 
-## Exercise: Convert the pivot code into a function
+## :technologist: Exercise: Convert the pivot code into a function
 
 > Time: \~10 minutes.
 
@@ -667,7 +663,7 @@ metabolites_to_wider <- function(data) {
 <!-- TODO: convert this next few paragraphs to reading exercise? -->
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Verbally talk through the next few paragraphs, no code-along yet.
 :::
@@ -702,7 +698,7 @@ recipe(lipidomics_wide) |>
 ```
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Describe this next paragraph by switching to this website and showing
 the list of some of the steps available in the code chunk below.
@@ -715,7 +711,7 @@ research question. So take your time thinking through which
 transformations you actually need for your analysis, rather than quickly
 using one or more of them.
 
-```{r list-step-transforms}
+```{r}
 #| eval: false
 recipes::step_log()
 recipes::step_scale()
@@ -776,7 +772,6 @@ And test it out:
 
 ```{r use-create-recipe-specs-fn}
 #| filename: "doc/learning.qmd"
-#| column: page-inset-right
 recipe_specs <- lipidomics_wide |>
   create_recipe_spec(metabolite_cholesterol)
 recipe_specs
@@ -812,7 +807,6 @@ slightly different types). All model workflows need to start with
 `add_recipe()`. Can you guess what they do?
 
 ```{r use-workflow-for-model}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 workflow() |>
   add_model(log_reg_specs) |>
@@ -846,7 +840,6 @@ Instead of using the previously created objects, let's start the model
 creation from scratch:
 
 ```{r full-model-workflow-from-almost-scratch}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 model_workflow <- create_model_workflow(
   logistic_reg() |>
@@ -861,7 +854,6 @@ Now, we can do the final thing: Fitting the data to the model with
 `fit()`! :raised_hands:
 
 ```{r fit-model-workflow-to-data}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model <- model_workflow |>
   fit(lipidomics_wide)
@@ -875,7 +867,6 @@ has a function to extract the information we want. In this case, it is
 the `extract_fit_parsnip()` function.
 
 ```{r extract-model-fit}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model |>
   extract_fit_parsnip()
@@ -902,7 +893,6 @@ the output estimates will be odds ratios, if we set
 coefficient. Here we choose `exponentiate`
 
 ```{r tidy-up-model-results}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model |>
   extract_fit_parsnip() |>
@@ -912,7 +902,7 @@ fitted_model |>
 We now have a data frame of our model results!
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 Reinforce **not** to worry about interpreting the results, that is not
 the aim of this course.
@@ -946,7 +936,6 @@ tidy_model_output <- function(workflow_fitted_model) {
 Replacing the code in the `doc/learning.qmd` file to use the function.
 
 ```{r use-tidy-model-output-fn}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 fitted_model |>
   tidy_model_output()
@@ -955,7 +944,6 @@ fitted_model |>
 If we revise the code so it is one pipe, it would look like:
 
 ```{r single-pipe-model-results}
-#| column: page-inset-right
 #| filename: "doc/learning.qmd"
 create_model_workflow(
   logistic_reg() |>
@@ -970,7 +958,7 @@ create_model_workflow(
 Let's briefly cover what these columns and values mean.
 
 ::: {.callout-note collapse="true"}
-## Instructor note
+## :teacher: Instructor note
 
 If you want, you can go over these details briefly or in more detail,
 depending on how comfortable you are. Or you can get them to read it
@@ -978,7 +966,7 @@ only.
 :::
 
 ::: callout-note
-## Reading task: \~10 minutes
+## :book: Reading task: \~10 minutes
 
 Let's explain this output a bit, each column at a time:
 
@@ -1047,3 +1035,5 @@ with {{< var keybind.git >}}. Then push your changes up to GitHub.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
+
+{{< include /includes/_code-appendix.qmd >}}
