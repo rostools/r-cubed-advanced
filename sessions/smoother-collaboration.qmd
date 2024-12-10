@@ -449,7 +449,7 @@ Let's complete these tasks to connect to GitHub.
 3.  Add the `{gitcreds}` package as a workflow dependency. You'll need
     it for the next item
 
-    ``` r
+    ``` {.r filename="Console"}
     use_package("gitcreds", "suggests")
     ```
 
