@@ -551,7 +551,8 @@ You might be used to using 4 spaces for tabs instead of 2. The
 you want to change that, you can add the following code to the project's
 `.Rprofile`:
 
-```{r styler-options-4-spaces}
+```{r}
+#| eval: false
 options(
   styler.addins_style_transformer = "styler::tidyverse_style(indent_by = 4)"
 )
