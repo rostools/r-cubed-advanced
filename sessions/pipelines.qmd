@@ -601,9 +601,10 @@ revise_by_line_num(
 git_ci("_targets.R", "Add new targets to run.")
 ```
 
-Now, let's try running `{targets}` again using
-{{< var keybind.targets-make >}}. It should run through! We also see
-that a new folder has been created called `_targets/`. Inside this
+Since we finished writing some code, let's style the file using
+{{< var keybind.styler >}}. Now, let's try running `{targets}` again
+using {{< var keybind.targets-make >}}. It should run through! We also
+see that a new folder has been created called `_targets/`. Inside this
 folder it will keep all of the output from running the code. It comes
 with i's own `.gitignore` file so that you don't track all the files
 inside, since they aren't necessary. Only the `_targets/meta/meta` is
@@ -802,7 +803,8 @@ list(
 )
 ```
 
-Next, test that it works by running `targets::tar_visnetwork()` using
+First, style the file using {{< var keybind.styler >}}. Next, test that
+it works by running `targets::tar_visnetwork()` using
 {{< var keybind.targets-vis >}} or running `targets::tar_outdated()`
 with {{< var keybind.targets-outdated >}}. You should see that the new
 item is "outdated". Then run `targets::tar_make()` using
@@ -871,12 +873,12 @@ list(
 )
 ```
 
-Now when we run `targets::tar_make()` with
-{{< var keybind.targets-make >}}, the Quarto file also gets re-built.
-But when we use `targets::tar_visnetwork()` using
-{{< var keybind.targets-vis >}}, we don't see the connections with plot
-and descriptive statistics. That's because we haven't used them in a way
-`{targets}` can recognize. For that, we need to use the function
+Then, style the file using {{< var keybind.styler >}}. Now when we run
+`targets::tar_make()` with {{< var keybind.targets-make >}}, the Quarto
+file also gets re-built. But when we use `targets::tar_visnetwork()`
+using {{< var keybind.targets-vis >}}, we don't see the connections with
+plot and descriptive statistics. That's because we haven't used them in
+a way `{targets}` can recognize. For that, we need to use the function
 `targets::tar_read()`. But because our Quarto file is located in the
 `doc/` folder and since `{targets}` by default looks in the current
 folder for the targets "store" (stored objects that
