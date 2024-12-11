@@ -287,9 +287,8 @@ Creating the question. While we don’t have much data, there are a
 surprising number of questions we could ask. But we will keep it very
 simple, very basic, and very exploratory.
 
-1.  What is the estimated relationship of each metabolite with T1D
-    compared to the controls, adjusting for the influence of age and
-    gender?
+1.  What is the estimated relationship of each metabolite with type 1 diabetes
+    (T1D) compared to the controls, adjusting for the influence of age and gender?
 
 A graphical representation of this theoretical model could be:
 
