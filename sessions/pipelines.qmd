@@ -959,7 +959,7 @@ let's add it to ignore file by using:
 
 ```{r git-ignore-targets-yaml}
 #| filename: Console
-use_git_ignore("doc/_targets.yaml")
+use_git_ignore("_targets.yaml")
 ```
 
 Before continuing, let's commit these changes to the Git history with
