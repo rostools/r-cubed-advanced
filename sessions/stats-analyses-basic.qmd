@@ -328,7 +328,7 @@ thing in R, but some are a bit easier than others.
 
 One approach that is quite generic and fits with the ideals of the
 `{tidyverse}`, is a similar universe of packages called the
-`{tidymodels}`. We teach `{tidymodels}`because they are created by
+`{tidymodels}`. We teach `{tidymodels}` because they are created by
 experienced software developers at Posit, the same company behind the
 `{tidyverse}` and RStudio. They are known for excellent documentation.
 `{tidymodels}` makes it easy to create and use models in a flexible way,
