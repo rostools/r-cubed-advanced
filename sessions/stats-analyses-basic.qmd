@@ -706,6 +706,8 @@ some nice features that we will use later on.
 
 ```{r recipes-without-formula}
 #| filename: "doc/learning.qmd"
+#| warning: true
+#| message: true
 recipe(lipidomics_wide) |>
   update_role(metabolite_cholesterol, age, gender, new_role = "predictor") |>
   update_role(class, new_role = "outcome")
@@ -752,6 +754,8 @@ variables. We can add this to the end of the recipe:
 
 ```{r recipes-with-step-normalize}
 #| filename: "doc/learning.qmd"
+#| warning: true
+#| message: true
 recipe(lipidomics_wide) |>
   update_role(metabolite_cholesterol, age, gender, new_role = "predictor") |>
   update_role(class, new_role = "outcome") |>
@@ -786,6 +790,8 @@ And test it out:
 
 ```{r use-create-recipe-specs-fn}
 #| filename: "doc/learning.qmd"
+#| warning: true
+#| message: true
 recipe_specs <- lipidomics_wide |>
   create_recipe_spec(metabolite_cholesterol)
 recipe_specs
