@@ -282,7 +282,7 @@ approaches.
 ::: callout-note
 ## :book: Reading task: \~10 minutes
 
-Going back to our own lipidomics dataset, we need to do the first step:
+Going back to our own lipidomics dataset, we need to do the first step:
 Creating the question. While we don’t have much data, there are a
 surprising number of questions we could ask. But we will keep it very
 simple, very basic, and very exploratory.
@@ -364,6 +364,8 @@ out the
 for code you might use depending on the model you want. The most
 commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 `multinom_reg()`.
+
+{{< include /includes/_sticky-up.qmd >}}
 :::
 
 Let's switch to working in the `doc/learning.qmd` file to create those
