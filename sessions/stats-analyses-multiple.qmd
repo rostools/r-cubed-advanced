@@ -6,6 +6,8 @@ source(here::here("R/functions.R"))
 extract_functions_from_qmd()
 source(here::here("R/project-functions.R"))
 library(tidyverse)
+# To trigger downlit
+library(purrr)
 library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 lipidomics_wide <- lipidomics |>
@@ -367,7 +369,7 @@ lipidomics |>
   distinct(term, metabolite)
 ```
 
-The last step is to `right_join()` with the `model_estimates`:
+The last step is to `right_join()` to the estimates made from the `calculate_estimates()`:
 
 ```{r dup-column-full-join}
 #| filename: "doc/learning.qmd"
@@ -376,7 +378,7 @@ lipidomics |>
   column_values_to_snake_case(term) |>
   mutate(term = str_c("metabolite_", term)) |>
   distinct(term, metabolite) |>
-  right_join(model_estimates, by = "term")
+  right_join(calculate_estimates(lipidomics), by = "term")
 ```
 
 Awesome :smile: Now let's bring this code into the
