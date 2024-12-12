@@ -63,7 +63,7 @@ as the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
 (this is a short section).
 
-{{< include /includes/_sticky-notes.qmd >}}
+{{< include /includes/_sticky-up.qmd >}}
 :::
 
 ::: {.callout-note collapse="true"}
