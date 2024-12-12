@@ -116,17 +116,17 @@ Your specific tasks are:
 ### Dataset and analysis suggestions
 
 -   **Onset of Labor** dataset:
-    -   In this dataset, there are few response variables (`y`) and
+    -   In this dataset, there are few outcome variables (`y`) and
         *many* predictor variables (`x`).
     -   We suggest that each person on a team of two select one of the
-        two response (`y`) variables for the model, which are `EGA`
+        two outcome (`y`) variables for the model, which are `EGA`
         (estimated gestational age) or `DOS` (days of labor onset).
     -   Since there are many predictor variables (`x`), we suggest each
         person select *more than* three of the other variables, which
-        include any variable *except* the above response variables as
+        include any variable *except* the above outcome variables as
         well as `ID`, `SampleID`, and `Timepoint`.
 -   **Bearded Dragon** dataset:
-    -   We suggest each person select *one* response (`y`) variable for
+    -   We suggest each person select *one* outcome (`y`) variable for
         the models, choosing either `grade` (for degree of hepatic fat
         accumulation), `HU` (Hounsfield unit, positive values mean more
         dense liver), `fat.perc` (percent of fat in liver), or
@@ -139,7 +139,7 @@ Your specific tasks are:
         `snakecase::to_snake_case()` when processing them in the
         `data-raw/` script to make them easier to work with.
 -   **General analysis tips**:
-    -   Stick to simple model formulas by using only one response and
+    -   Stick to simple model formulas by using only one outcome and
         one predictor, e.g. `y ~ x` in the model.
     -   We *strongly* suggest you do not include more than one predictor
         in any individual model formula, as it will make the analysis
