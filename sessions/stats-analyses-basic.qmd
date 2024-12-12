@@ -616,7 +616,7 @@ column_values_to_snake_case <- function(data, columns) {
 }
 ```
 
-Now, replace the`mutate()` call with our new function (above the
+Now, replace the `mutate()` call with our new function (above the
 `pivot_wider()` code) in the `doc/learning.qmd` file.
 
 ```{r snakecase-function-before-pivot-wider}
