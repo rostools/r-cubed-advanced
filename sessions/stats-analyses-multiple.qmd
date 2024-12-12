@@ -62,6 +62,8 @@ in the Intermediate R course (**only the reading task section**) as well
 as the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
 (this is a short section).
+
+{{< include /includes/_sticky-notes.qmd >}}
 :::
 
 ::: {.callout-note collapse="true"}
