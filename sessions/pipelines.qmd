@@ -1,5 +1,5 @@
 ---
-execute: 
+execute:
   eval: false
 ---
 
@@ -162,7 +162,7 @@ analysis:
 %%| echo: false
 %%| eval: true
 graph LR
-    data[Data] --> fn_desc{{function}} 
+    data[Data] --> fn_desc{{function}}
     fn_desc --> tab_desc[Output 1:<br>Descriptive<br>statistics<br>table]
     tab_desc --> paper[Output 3:<br>Paper]
     data --> fn_plot_vars{{function}}
@@ -545,7 +545,7 @@ targets::tar_make()
 
 While this `{targets}` pipeline works, it is currently not able to
 invalidate the pipeline if our underlying data changes. To track the
-actual data file we need to create a seperate pipeline target, where we
+actual data file we need to create a separate pipeline target, where we
 define our actual file using the argument `format = "file"`. We can then
 change our previous target to point to the newly defined file target.
 Lets do that now.
@@ -867,7 +867,7 @@ needs, and the file path to the Quarto file. Again, like the other
 list(
   ...,
   tar_quarto(
-    name = quarto_doc, 
+    name = quarto_doc,
     path = "doc/learning.qmd"
   )
 )

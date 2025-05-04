@@ -402,12 +402,12 @@ calculate_estimates <- function(data) {
     split_by_metabolite() |>
     purrr::map(generate_model_results) |>
     purrr::list_rbind() |>
-    dplyr::filter(stringr::str_detect(term, "metabolite_")) 
-  
-  data |> 
+    dplyr::filter(stringr::str_detect(term, "metabolite_"))
+
+  data |>
     # 2. Add the code we created above.
     ___ |>
-    # 3. Include the object from the first step here. 
+    # 3. Include the object from the first step here.
     right_join(___, by = "term")
 }
 ```
@@ -623,7 +623,7 @@ as a target in the pipeline. Use the scaffold below as a guide.
 
 ``` r
 plot_estimates <- function(results) {
-  ___ |> 
+  ___ |>
     # Plot code here:
     ___
 }

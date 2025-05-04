@@ -1026,7 +1026,7 @@ Let's explain this output a bit, each column at a time:
     interpretation of the p-value is even more difficult than the
     `estimate` and again, we won't cover this in this course. We won't
     be using this value at all in presenting the results.
-  
+
 {{< include /includes/_sticky-up.qmd >}}
 :::
 
