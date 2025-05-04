@@ -88,4 +88,3 @@ instructor and curriculum developer.
 
 ![](images/logo-ddea.svg){width="300px" alt="Logo for Danish Diabetes and Endocrinology Academy"}
 :::
-
