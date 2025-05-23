@@ -42,7 +42,7 @@ book:
       - text: "Code of Conduct"
         href: "https://guides.rostools.org/conduct.html"
 
-bibliography: 
+bibliography:
 - "includes/references.bib"
 - "includes/packages.bib"
 

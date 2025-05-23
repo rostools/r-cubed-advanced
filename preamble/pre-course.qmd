@@ -121,7 +121,7 @@ If you **have not used Git or GitHub**, please do these tasks:
 1.  Type in the RStudio Console and follow the instructions:
 
     ``` {.r filename="Console"}
-    # There will be a pop-up to type in your name (first and 
+    # There will be a pop-up to type in your name (first and
     # last), as well as your email
     r3::setup_git_config()
     ```
@@ -145,7 +145,7 @@ r3::check_setup()
 
 The output you'll get for success will look something like this:
 
-```         
+```
 Checking R version:
 ✔ Your R is at the latest version of 4.4.1!
 Checking RStudio version:
@@ -170,7 +170,7 @@ on it in the introduction course.
 
 Because we'll be pushing and pulling to GitHub throughout the course, as
 well as using GitHub to collaborate with others in the project work, you
-need to setup your computer to connect with GitHub. 
+need to setup your computer to connect with GitHub.
 
 ```{r}
 #| echo: false
@@ -399,7 +399,7 @@ will need to paste this output into the survey at the end.
 r3::check_project_setup_advanced()
 ```
 
-```         
+```
 Show folders and files of project:
 • Please copy and paste this output into the survey question:
 /home/luke/Desktop/AdvancedR3

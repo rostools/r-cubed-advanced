@@ -50,7 +50,7 @@ so you can hopefully get a better understanding of how things will look.
 
 Right now, your initial project structure should look like this:
 
-```         
+```
 LearnR3
 ├── data/
 │   ├── lipidomics.csv
@@ -81,7 +81,7 @@ LearnR3
 
 At the end of this course, it should look something like:
 
-```         
+```
 LearnR3
 ├── _targets/
 │   ├── meta/
@@ -207,7 +207,7 @@ similar in the `doc/` folder and either:
 
 -   Write notes in the `doc/learning.qmd` file and then copy them over
     to your `notes.qmd` file when we tell you to delete everything, or
--   Write notes directly in your `doc/notes.qmd` file and keep it open 
+-   Write notes directly in your `doc/notes.qmd` file and keep it open
     while you work in the `doc/learning.qmd` file.
 :::
 

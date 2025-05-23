@@ -68,7 +68,7 @@ For Linux users (and maybe Mac?), you will probably need to install
 extra dependencies:
 
 ``` bash
-sudo apt install libglpk-dev libpoppler-cpp-dev 
+sudo apt install libglpk-dev libpoppler-cpp-dev
 ```
 
 ## Contributing

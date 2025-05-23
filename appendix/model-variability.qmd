@@ -308,7 +308,7 @@ Use this code as a guide for the function.
 
 ``` r
 calculate_variation <- function(___) {
-  ___ |> 
+  ___ |>
     # Code from above.
     ___
 }
