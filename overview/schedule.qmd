@@ -6,7 +6,7 @@ format:
 
 # Schedule {#sec-schedule}
 
-The course is structured as a series of participatory live-coding
+The workshop is structured as a series of participatory live-coding
 sessions (instructor and learners coding together) interspersed with
 hands-on exercises using a real-world, open dataset. There are few
 lectures, only given at the start and end of the workshop.
@@ -22,7 +22,7 @@ approximate guide and overview.
 | Time | Session topic |
 |:---|:---|
 | 9:30 | {{< fa mug-hot >}} Arrival; Coffee and snacks |
-| 10:00 | {{< fa person-chalkboard >}} [Introduction to the course](/sessions/introduction.qmd) |
+| 10:00 | {{< fa person-chalkboard >}} [Introduction to the workshop](/sessions/introduction.qmd) |
 | 10:30 | {{< fa laptop-code >}} [Smoother project-based collaboration (with short break)](/sessions/smoother-collaboration.qmd) |
 | 12:20 | {{< fa comment-dots >}} [End of session survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
 | 12:30 | {{< fa utensils >}} Lunch |
@@ -60,5 +60,5 @@ approximate guide and overview.
 | 14:45 | {{< fa mug-hot >}} Coffee break and snacks |
 | 15:00 | {{< fa people-group >}} [Continue team project work](/sessions/project-work.qmd) |
 | 16:00 | {{< fa person-chalkboard >}} Closing remarks |
-| 16:15 | {{< fa comment-dots >}} [End of course survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
+| 16:15 | {{< fa comment-dots >}} [End of workshop survey](https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link) |
 :::

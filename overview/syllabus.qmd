@@ -21,11 +21,11 @@ reliability and reproducibility of scientific results, especially
 considering that the measures taken to address these barriers are often
 not explicitly shared in classical science output (like a publication).
 
-With this course, we aim to begin addressing this gap. By using a highly
+With this workshop, we aim to begin addressing this gap. By using a highly
 practical, hands-on approach that revolves around code-along sessions
 (instructor and learner coding together), reading activities, and
 hands-on exercises, our overarching **learning outcome** is that at the
-end of the course, participants will be able to:
+end of the workshop, participants will be able to:
 
 > Describe what an open, collaborator-friendly, and nearly-automated
 > reproducible data analysis pipeline and workflow looks like, and then
@@ -51,35 +51,35 @@ And we **will not** learn:
     (these are already covered by most university curriculum). We cover
     how to run statistical methods, but not which statistical methods to
     use for your data or project.
--   Making figures or plots (data visualization could be a whole course
+-   Making figures or plots (data visualization could be a whole workshop
     on its own).
 
 Because learning and coding is ultimately not *just* a solo activity,
-during this course we also aim to provide opportunities to chat with
+during this workshop we also aim to provide opportunities to chat with
 fellow participants, learn about their work and how they do analyses,
 and to build networks of support and collaboration.
 
-The specific software and technologies we will cover in this course are
+The specific software and technologies we will cover in this workshop are
 R, RStudio, Git, GitHub, and Quarto, while the specific R packages are
 `{styler}`, `{targets}`, and several of the `{tidymodels}` packages.
 
-One goal of the course is to teach about open science, and true to our
-mission, we practice what we preach. The course material is publicly
+One goal of the workshop is to teach about open science, and true to our
+mission, we practice what we preach. The workshop material is publicly
 accessible (all on this website) and [openly
 licensed](/index.qmd#licensing) so you can use and re-use it for free!
 
-## Is this course for you?
+## Is this workshop for you?
 
-This course is designed in a specific way and is ideal for you if:
+This workshop is designed in a specific way and is ideal for you if:
 
 -   You are a researcher, preferably working in the biomedical field
     (ranging from experimental to epidemiological). Specifically, this
-    course targets those working on topics in diabetes and metabolism.
+    workshop targets those working on topics in diabetes and metabolism.
 -   You currently do quantitative data analysis.
 -   You preferably:
     -   have taken the [intermediate Reproducible Research in R
-        course](https://r-cubed-intermediate.rostools.org/), as this
-        course is a natural extension to that one;
+        workshop](https://r-cubed-intermediate.rostools.org/), as this
+        workshop is a natural extension to that one;
     -   know a *moderate* or more amount of R (or computing in general);
     -   know how to use R and are fairly familiar with the
         `{tidyverse}`, `{rmarkdown}`, [RStudio](https://rstudio.com/),
@@ -88,14 +88,14 @@ This course is designed in a specific way and is ideal for you if:
 Considering that this is a natural extension of the
 [introductory](https://r-cubed-intro.rostools.org/) and
 [intermediate](https://r-cubed-intermediate.rostools.org/) r-cubed
-courses, this course builds on the knowledge and skills learned during
-those courses, including Git, RStudio R Projects, functions, functional
+workshops, this workshop builds on the knowledge and skills learned during
+those workshops, including Git, RStudio R Projects, functions, functional
 programming, and Quarto / R Markdown. If you *do not* have familiarity
 with these tools, you will need to go over the material from the
-introductory and intermediate courses beforehand (more details about
-pre-course tasks will be sent out a couple of weeks before the course).
+introductory and intermediate workshops beforehand (more details about
+pre-workshop tasks will be sent out a couple of weeks before the workshop).
 
-While having these assumptions help to focus the content of the course,
+While having these assumptions help to focus the content of the workshop,
 if you have an interest in learning R but don't fit any of the above
-assumptions, **you are still welcome to attend the course**! We welcome
-everyone, that is until the course capacity is reached.
+assumptions, **you are still welcome to attend the workshop**! We welcome
+everyone, that is until the workshop capacity is reached.

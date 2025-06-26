@@ -12,15 +12,15 @@ library(downlit)
 library(pak)
 ```
 
-# Pre-course tasks {#sec-pre-course}
+# Pre-workshop tasks {#sec-pre-workshop}
 
-In order to participate in this course, you must complete the pre-course
+In order to participate in this workshop, you must complete the pre-workshop
 tasks in this section as well as **completing the
 [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**
 at the end. These tasks are designed to make it easier for everyone to
-start the course with everything ready to go. For some of the tasks, you
+start the workshop with everything ready to go. For some of the tasks, you
 might not understand why you need to do them, but you will likely
-understand why once the course begins.
+understand why once the workshop begins.
 
 Depending on your skills and knowledge, these tasks could take between
 **5-7 hrs to finish**, so we suggest planning a full day to complete
@@ -33,8 +33,8 @@ early* to make sure everything is properly installed and set up.
 Here's a quick overview of the tasks you need to do. Specific details
 about them are found as you work through this section.
 
-1.  Read the learning objectives in @sec-pre-course-learning-objectives
-    for the pre-course tasks.
+1.  Read the learning objectives in @sec-pre-workshop-learning-objectives
+    for the pre-workshop tasks.
 2.  Read about how to read this website in @sec-reading-website.
 3.  Install the necessary programs and the right versions of those
     programs in @sec-install-programs. For some people, depending on
@@ -42,7 +42,7 @@ about them are found as you work through this section.
     because you have to contact your IT to install these packages.
 4.  Install the necessary R packages in @sec-install-r-packages.
 5.  Correctly set up Git on your computer in @sec-setup-git, if you
-    haven't done this already from previous courses. If you haven't used
+    haven't done this already from previous workshops. If you haven't used
     Git before, this task could take a while because of the reading.
 6.  Run a check with `r3::check_setup()` to see if everything works.
     You'll later need to paste this output into the survey.
@@ -57,21 +57,21 @@ about them are found as you work through this section.
     everything is as expected. You'll later need to paste this output
     into the survey.
 12. Set some options in RStudio in @sec-quality-of-life.
-13. Read about the basic course details in @sec-course-details.
+13. Read about the basic workshop details in @sec-workshop-details.
 14. Read the syllabus in @sec-syllabus.
 15. Read the [Code of
     Conduct](https://guides.rostools.org/conduct.html).
 16. Pre-read some content in @sec-pre-reading.
-17. **Complete the pre-course
+17. **Complete the pre-workshop
     [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
     This survey is pretty quick, maybe \~10 minutes.
 
 Check each section for exact details on completing these tasks.
 
-## Learning objective {#sec-pre-course-learning-objectives}
+## Learning objective {#sec-pre-workshop-learning-objectives}
 
-In general, these pre-course tasks are meant to help prepare you for the
-course and make sure everything is setup properly so the first session
+In general, these pre-workshop tasks are meant to help prepare you for the
+workshop and make sure everything is setup properly so the first session
 runs smoothly. However, some of these tasks are meant for learning as
 well as for general setup, so we have defined the following learning
 objectives for this page:
@@ -79,10 +79,10 @@ objectives for this page:
 1.  Learn about and then apply some basic reproducible workflows and
     setups for the initial processing of raw data. For those who have
     already participated in the [intermediate R
-    course](https://r-cubed-intermediate.rostools.org/), the objective
+    workshop](https://r-cubed-intermediate.rostools.org/), the objective
     is to review what you previously learned.
 
-## Reading the course website {#sec-reading-website}
+## Reading the workshop website {#sec-reading-website}
 
 ```{r}
 #| echo: false
@@ -111,10 +111,10 @@ cat(r3admin::read_template_pkg_install("advanced"))
 
 ## Setting up Git {#sec-setup-git}
 
-Since Git has already been covered in the previous courses, we won't
-cover *learning it* during this course. However, since version control
+Since Git has already been covered in the previous workshops, we won't
+cover *learning it* during this workshop. However, since version control
 is a fundamental component of any modern data analysis workflow and
-*should be used*, we **will be using it throughout the course**. If you
+*should be used*, we **will be using it throughout the workshop**. If you
 have used or currently use Git and GitHub, you can skip these two tasks.
 If you **have not used Git or GitHub**, please do these tasks:
 
@@ -128,12 +128,12 @@ If you **have not used Git or GitHub**, please do these tasks:
 
 2.  **Please ONLY read** through the [Version Control
     lesson](https://r-cubed-intro.rostools.org/sessions/version-control.html)
-    of the introduction course, **but DO NOT DO any coding tasks or exercises**.
+    of the introduction workshop, **but DO NOT DO any coding tasks or exercises**.
     You are welcome to do them if it will
-    help you learn or understand it better, but it is **NOT** required. For most of the course, we
+    help you learn or understand it better, but it is **NOT** required. For most of the workshop, we
     will be using Git as shown in the [Using Git in
     RStudio](https://r-cubed-intro.rostools.org/sessions/version-control.html#using-git-in-rstudio)
-    section. During the course, we will connect our projects to GitHub,
+    section. During the workshop, we will connect our projects to GitHub,
     which is described below.
 
 Regardless of whether you've done the steps above or not, *everyone*
@@ -164,11 +164,11 @@ aspects of GitHub that relate to storing your project Git repository and
 working together. If you want to learn more about using GitHub, check
 out the
 [session](https://r-cubed-intro.rostools.org/sessions/version-control.html)
-on it in the introduction course.
+on it in the introduction workshop.
 
 ## Connect with GitHub {#sec-connect-github}
 
-Because we'll be pushing and pulling to GitHub throughout the course, as
+Because we'll be pushing and pulling to GitHub throughout the workshop, as
 well as using GitHub to collaborate with others in the project work, you
 need to setup your computer to connect with GitHub.
 
@@ -185,7 +185,7 @@ One of the basic steps to reproducibility and modern workflows in data
 analysis is to keep everything contained in a single location. In
 RStudio, this is done with R Projects. Please read all of [this
 section](https://r-cubed-intro.rostools.org/sessions/project-management.html#what-is-a-project-and-why-use-it)
-from the introduction course to learn about R Projects and how they help
+from the introduction workshop to learn about R Projects and how they help
 keep things self-contained. *You don't need to do any of the exercises
 or activities*.
 
@@ -244,7 +244,7 @@ work.
 We teach and use R Markdown/Quarto because it is one of the very first
 steps to being reproducible and because it is a very powerful tool to
 doing data analysis. You may have heard of or used R Markdown since
-we've used it in both the introduction and intermediate courses.
+we've used it in both the introduction and intermediate workshops.
 However, you might not have heard of or used Quarto.
 
 Quarto is a next generation version of R Markdown and chances are, if
@@ -253,14 +253,14 @@ without realizing it. That's because Quarto uses the same Markdown
 syntax as R Markdown. The only difference is that with Quarto, you can
 create more types of output documents (like books, websites, slides),
 you have more options for customization, and it's easier to do and learn
-than R Markdown. So, for this course, we will use Quarto to create a
-report that includes the analysis we will do over the course.
+than R Markdown. So, for this workshop, we will use Quarto to create a
+report that includes the analysis we will do over the workshop.
 
 Please do these two tasks:
 
 1.  Please read over the [R Markdown/Quarto
     section](https://r-cubed-intro.rostools.org/sessions/reproducible-documents.html)
-    of the introduction course. If you use R Markdown or Quarto already,
+    of the introduction workshop. If you use R Markdown or Quarto already,
     you can skip this step.
 
 2.  In the R Console while inside the `AdvancedR3` project, run the
@@ -279,24 +279,24 @@ r3::create_qmd_doc()
 git_ci("doc/learning.qmd", "Add draft lesson qmd file.")
 ```
 
-## Download the course data {#sec-download-data}
+## Download the workshop data {#sec-download-data}
 
 We're going to use a real world dataset to demonstrate the concepts in
-this course. We're going to use an openly licensed dataset with
+this workshop. We're going to use an openly licensed dataset with
 metabolomics data [@Herance2022].
 
-Similar to the intermediate course, we will follow the principle of
+Similar to the intermediate workshop, we will follow the principle of
 building a reproducible pipeline, from raw data to the report on the
 analysis. We'll also follow the principle of keeping the raw data *raw*
 and use code to tidy it up. The ultimate goal is to have a record of how
 we *exactly* went from raw data to results in the paper. Unlike the
-intermediate course where you had to write through each step of the
-script and what you needed to do, in this course you only need to copy
+intermediate workshop where you had to write through each step of the
+script and what you needed to do, in this workshop you only need to copy
 and paste the code that will download and minimally process the dataset
 into an initially workable state. If you want to learn more about how to
 take a raw data set and process it into a format that is more suitable
 for analysis, check out the [intermediate
-course](https://r-cubed-intermediate.rostools.org/).
+workshop](https://r-cubed-intermediate.rostools.org/).
 
 Inside the `data-raw/` folder, we are going to write R code that
 downloads a dataset, processes it into a more tidy format, and save it
@@ -336,7 +336,7 @@ readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data
 source(usethis::proj_path("data-raw/nmr-omics.R"))
 ```
 
-Since this is an advanced course, you can run the lines one at a time
+Since this is an advanced workshop, you can run the lines one at a time
 and see what they do on your own (or `source()` them all at once). The
 comments provided give guidance on what the code is doing and why. In
 the end, though, the only important thing is to run all the code and get
@@ -433,38 +433,38 @@ the output into the survey question at the end.
 
 ## Set some quality of life options {#sec-quality-of-life}
 
-Some of the most common "issues" we encounter in the course when it
+Some of the most common "issues" we encounter in the workshop when it
 comes to Git are caused by files not being saved so the changes can't be
 seen by Git. To help with this, we suggest turning on some options in
 RStudio. While, there are many options inside the Global Options in
 RStudio that can help you work better and faster, the two we want you to
-to use will help you and us out during the course:
+to use will help you and us out during the workshop:
 
 -   Go into `Tools -> Global Options -> Code -> Saving`.
     -   Under the heading "General", tick on all of those check boxes.
     -   Under the heading "Auto-save", tick on both those check boxes.
 
-## Course introduction {#sec-course-details}
+## Course introduction {#sec-workshop-details}
 
-Most of the course description is found in the syllabus (@sec-syllabus).
+Most of the workshop description is found in the syllabus (@sec-syllabus).
 If you haven't read it, **please read it now**. Read over what the
-course will cover, what we expect you to learn at the end of it, and
+workshop will cover, what we expect you to learn at the end of it, and
 what our basic assumptions are about who you are and what you know. The
-final pre-course task is to complete a survey that asks if you've read
+final pre-workshop task is to complete a survey that asks if you've read
 it and if it matches you.
 
 We have a [Code of Conduct](https://guides.rostools.org/conduct.html).
 If you haven't read it, **read it now**. The survey at the end will ask
-about Conduct. We want to make sure this course is a supportive and safe
+about Conduct. We want to make sure this workshop is a supportive and safe
 environment for learning, so this Code of Conduct is important.
 
 ## Brief pre-reading {#sec-pre-reading}
 
 An important component of learning is repeated exposure to a concept or
-skill. So, while we will tell you this information during the course,
-and in many cases you will also read it *during* the course, we want to
+skill. So, while we will tell you this information during the workshop,
+and in many cases you will also read it *during* the workshop, we want to
 introduce some repetition here by reading the sections list below. This
-will not only mentally prepare you for the content of the course, but
+will not only mentally prepare you for the content of the workshop, but
 will also give you a bigger overview of what you will be learning and
 doing. So, please read:
 
@@ -478,10 +478,10 @@ doing. So, please read:
 
 ## Fill in survey {#sec-survey}
 
-You're almost done! :tada: Please fill out the [**pre-course
+You're almost done! :tada: Please fill out the [**pre-workshop
 survey**](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)
 to finish this assignment.
 
-See you at the course!
+See you at the workshop!
 
 {{< include /includes/_code-appendix.qmd >}}
