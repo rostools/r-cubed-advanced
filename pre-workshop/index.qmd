@@ -444,7 +444,7 @@ to use will help you and us out during the workshop:
     -   Under the heading "General", tick on all of those check boxes.
     -   Under the heading "Auto-save", tick on both those check boxes.
 
-## Course introduction {#sec-workshop-details}
+## Workshop introduction {#sec-workshop-details}
 
 Most of the workshop description is found in the syllabus (@sec-syllabus).
 If you haven't read it, **please read it now**. Read over what the

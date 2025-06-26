@@ -484,7 +484,7 @@ we use `pivot_wider()`. Since we also want an easy way of identifying
 columns that are metabolites, we will add a `"metabolite_"` prefix using
 the argument `names_prefix`. To actually fix the multiple cholesterol
 issue, we should look more into the data documentation or contact the
-authors. But for this course, we will merge the values by calculating a
+authors. But for this workshop, we will merge the values by calculating a
 mean before pivoting. We do this by setting the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
@@ -746,7 +746,7 @@ if you have some missing values, there's also the
 :::
 
 There are many transformations we could use for the `lipidomics`
-dataset, but we will use `step_normalize()` for this course. This
+dataset, but we will use `step_normalize()` for this workshop. This
 function is useful because it makes each variable centered to zero and a
 value of 1 unit is translated to 1 standard deviation of the original
 distribution. This means we can more easily compare values between
@@ -925,12 +925,12 @@ We now have a data frame of our model results!
 ## :teacher: Instructor note
 
 Reinforce **not** to worry about interpreting the results, that is not
-the aim of this course.
+the aim of this workshop.
 :::
 
 ::: callout-important
 Another reminder, we **are not** interpreting this results. For this
-course, they are **not** important and can distract from the main
+workshop, they are **not** important and can distract from the main
 purpose.
 :::
 
@@ -1006,7 +1006,7 @@ Let's explain this output a bit, each column at a time:
     beta coefficient - the constant value you multiply the value of the
     term with. Interpreting each of these values can be quite tricky and
     can take a surprising amount of time to conceptually break down, so
-    we won't do that here, since this isn't a statistics course. The
+    we won't do that here, since this isn't a statistics workshop. The
     only thing you need to understand here is that the `estimate` is the
     value that tells us the *magnitude* of association between the term
     and `class`. This value, along with the `std.error` are the most
@@ -1024,7 +1024,7 @@ Let's explain this output a bit, each column at a time:
     and think nothing else of. While there is a lot of attention to this
     single value, we tend to give it more attention than warranted. The
     interpretation of the p-value is even more difficult than the
-    `estimate` and again, we won't cover this in this course. We won't
+    `estimate` and again, we won't cover this in this workshop. We won't
     be using this value at all in presenting the results.
 
 {{< include /includes/_sticky-up.qmd >}}

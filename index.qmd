@@ -34,27 +34,27 @@ wrangling) to produce a given result are often poorly, if at all,
 described in scientific studies. This can have a major impact on the
 reproducibility and, ultimately, the reliability of studies.
 
-This course is designed to address these issues through code-along
+This workshop is designed to address these issues through code-along
 sessions (instructor and learners coding together), reading activities,
 discussion activities, and exercises using a real-world dataset. This
-website contains all the course materials, from reading content to
+website contains all the workshop materials, from reading content to
 exercises. It is structured like a book, with "chapters" serving as
 lessons presented in order of appearance. We make extensive use of the
-website throughout the course, with code-along sessions closely
+website throughout the workshop, with code-along sessions closely
 following the website material (with slight modifications for time
 constraints or more detailed explanations).
 
-The course material was created using [Quarto](https://quarto.org/) to
+The workshop material was created using [Quarto](https://quarto.org/) to
 write the lessons and create the book format,
 [GitHub](https://github.com/) to host the [Git](https://git-scm.com/)
 repository of the material, and [GitHub
 Actions](https://github.com/features/actions) with
 [Netlify](https://www.netlify.com/) to create and host the website. The
-original source material for this course is found on the
+original source material for this workshop is found on the
 [`r-cubed-advanced`](https://github.com/rostools/r-cubed-advanced)
 GitHub repository.
 
-Want to contribute to this course? Check out the
+Want to contribute to this workshop? Check out the
 [README](https://github.com/rostools/r-cubed-advanced/blob/main/README.md)
 file as well as the
 [CONTRIBUTING](https://github.com/rostools/r-cubed-advanced/blob/main/CONTRIBUTING.md)
@@ -67,7 +67,7 @@ comments and give feedback for the material.
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img src="https://i.creativecommons.org/l/by/4.0/80x15.png" alt="Creative Commons License" style="border-width:0"/></a>
 
-The course is licensed under the [Creative Commons Attribution 4.0
+The workshop is licensed under the [Creative Commons Attribution 4.0
 International License](https://creativecommons.org/licenses/by/4.0/) so
 the material can be used, re-used, and modified, as long as there is
 attribution to this source.
@@ -77,7 +77,7 @@ attribution to this source.
 Illustration cover is by [Storyset](https://storyset.com/work).
 
 The [Danish Diabetes and Endocrinology Academy](https://www.ddeacademy.dk/)
-hosts, organizes, and sponsors this course. A huge thanks to them for
+hosts, organizes, and sponsors this workshop. A huge thanks to them for
 their involvement and support! [Steno Diabetes Center
 Aarhus](https://www.stenoaarhus.dk/) and [Aarhus
 University](https://au.dk) employs Luke Johnston, who is the lead

@@ -5,7 +5,7 @@ bibliography: "../includes/references.bib"
 csl: "../_extensions/rostools/r3-theme/vancouver.csl"
 ---
 
-# Welcome to the Advanced R^3^ course!
+# Welcome to the Advanced R^3^ workshop!
 
 -   :heavy_check_mark: Go to your assigned table
 -   :heavy_check_mark: Introduce yourselves to your table mates
@@ -17,7 +17,7 @@ csl: "../_extensions/rostools/r3-theme/vancouver.csl"
 Introduce yourself and instructors.
 :::
 
-# Motivation for this course
+# Motivation for this workshop
 
 ## Largely from desire for more effective and actual collaboration {.center}
 
@@ -142,15 +142,15 @@ Because by collaborating, you will also read others' code.
 
 -   If *we all* aren't reading others' code, *we all* aren't improving
 
-## Goal of course: Create and nurture a culture of openness through training {.center}
+## Goal of workshop: Create and nurture a culture of openness through training {.center}
 
-# Course details
+# Workshop details
 
 ## Setup and layout {.smaller}
 
 ::::: columns
 ::: {.column width="50%"}
--   Course is mix of:
+-   Workshop is mix of:
     -   "Code-alongs" (we type and explain, you type along)
     -   Hands-on coding, discussing, and reading exercises
     -   A group project at the end
@@ -200,11 +200,11 @@ Along the wall, arrange to one side is "novice/basic" and other side is
 
 ::: notes
 Staying where you are, raise your hand if you would answer yes to this
-question. If it was part of a statistics course, it doesn't really
+question. If it was part of a statistics workshop, it doesn't really
 count.
 :::
 
-## :walking_woman::walking_man: Have you attended at least one of these courses before? {.center}
+## :walking_woman::walking_man: Have you attended at least one of these workshops before? {.center}
 
 ::: notes
 Only have those who indicated they did have training (from previous

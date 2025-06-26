@@ -13,7 +13,7 @@ So far, can only be:
 We will be using specific R packages for the workshop, so you will need
 to install them. A detailed walkthrough for installing the necessary
 packages is available on the [pre-workshop tasks for installing
-packages](https://r-cubed-intro.rostools.org/preamble/pre-course.html#installing-r-packages)
+packages](https://r-cubed-intro.rostools.org/preamble/pre-workshop.html#installing-r-packages)
 section of the introduction workshop, however, you only need to install
 the r3 helper package in order to install all the necessary packages by
 running these commands in the R Console:

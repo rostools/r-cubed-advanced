@@ -181,7 +181,7 @@ bootstrapped_results
 You'll see that it gives another nested tibble, but with more columns
 included. Before we start selecting the results that we want, let's
 convert the code above into a function, using the function-oriented
-workflow we've used throughout the course.
+workflow we've used throughout the workshop.
 
 ```{r new-function-generate-model-variation}
 #' Generate the model variation results using bootstrap on a single metabolite.
@@ -302,7 +302,7 @@ metabolites_with_bootstrap_results
 
 > Time: \~8 minutes.
 
-Continue the workflow we've applied throughout the course, convert the
+Continue the workflow we've applied throughout the workshop, convert the
 code to calculate the variation of the model estimates into a function.
 Use this code as a guide for the function.
 

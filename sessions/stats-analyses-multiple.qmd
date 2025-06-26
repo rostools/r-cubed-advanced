@@ -60,7 +60,7 @@ statistical methods on data. Because it is such an important component
 of this session, you'll briefly review the concepts of functional
 programming by going to the [Function
 Programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#functional-programming)
-in the Intermediate R course (**only the reading task section**) as well
+in the Intermediate R workshop (**only the reading task section**) as well
 as the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
 (this is a short section).
@@ -525,7 +525,7 @@ meta-analysis. Often the "whisker" part is the measure of uncertainty
 like the confidence interval, and the "dot" is the estimate. For the
 confidence interval, we haven't calculated them at this point because
 the typical approach doesn't exactly work for our data (tested before
-the course). For this plot though, we will use the standard error of the
+the workshop). For this plot though, we will use the standard error of the
 estimate.
 
 Inside the `doc/learning.qmd`, let's create a new header and code chunk

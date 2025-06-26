@@ -86,7 +86,7 @@ One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
 software to use for your project. This starts out at the highest level:
 Are you using R or some other software for the analysis? Since this is
-an R course, we're assuming the software will be R! 😜
+an R workshop, we're assuming the software will be R! 😜
 
 The next consideration is determining which packages your project will
 depend on to produce the results. When working collaboratively with
@@ -94,12 +94,12 @@ others (or even with your future self), you'll need a clear way to track
 the project's package dependencies, and, ideally, have a simple and
 efficient method to install or update them.
 
-Part of the approach covered in this course requires that you follow a
+Part of the approach covered in this workshop requires that you follow a
 ["project-oriented"
 workflow](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)
 when working on, well, a project. In order to know how to track your
 project's package dependencies, you need to first know, what a "project"
-is and how do we work around it. Since the introduction course's first
+is and how do we work around it. Since the introduction workshop's first
 session on the [Management of R
 Projects](https://r-cubed-intro.rostools.org/sessions/project-management.html),
 we've consistently taught and used this workflow-style. In fact, it is
@@ -111,7 +111,7 @@ which will make it easier to track package dependencies of our project.
 the common approach of using `setwd()`. [Artwork by
 \@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/e684ee45-98fc-469e-997c-e2d68b0096cd_rw_1920.png?h=d754f634e6fc1e292430124fbe44dad7){fig-alt="The R Project text is made of metal, and the `{here}` package wears a helmet, appearing secure and robust and ready to go skateboarding. Meanwhile `setwd()` is made of glass, covered in casts and band-aids, looking much more fragile."}
 
-Let's start with the `AdvancedR3` project, created in @sec-pre-course,
+Let's start with the `AdvancedR3` project, created in @sec-pre-workshop,
 that includes the `lipidomics` dataset. We have code in the
 `data-raw/nmr-omics.R` file already that uses some packages. Let's
 assume that your project will be more complex than this and that you
@@ -185,8 +185,8 @@ The most common form of a more *formal* way of managing dependencies---
 at least based on R packages and projects found on GitHub---makes use of
 the `DESCRIPTION` file and the `usethis::use_package()`. We covered this
 style of dependency in the [intermediate
-course](https://r-cubed-intermediate.rostools.org/dry-functions.html#continuing-the-workflow).
-We will also use this approach during this course, but we'll expand on
+workshop](https://r-cubed-intermediate.rostools.org/dry-functions.html#continuing-the-workflow).
+We will also use this approach during this workshop, but we'll expand on
 it a lot more. We use and recommend it for managing dependencies because
 many tools and workflows rely on it, making it well-integrated with R
 projects.
@@ -228,7 +228,7 @@ tracking dependencies:
 ::: {.callout-tip appearance="default"}
 There is an even more formal and structured way of tracking dependencies
 using the [renv](https://rstudio.github.io/renv/index.html) package,
-that we covered in previous versions of this course. It is a great
+that we covered in previous versions of this workshop. It is a great
 package to use, especially if you are working on a project with several
 others or a project that requires tracking of not just the packages but
 their specific versions. We don't teach it anymore because it is quite
@@ -236,7 +236,7 @@ complex and difficult to understand. Moreover, for the majority of
 projects, it's not strictly necessary.
 :::
 
-As we work on the project during the course and realize we need to use a
+As we work on the project during the workshop and realize we need to use a
 specific package, we will continue using `usethis::use_package()` to
 install it and add it to the `DESCRIPTION` file.
 
@@ -349,7 +349,7 @@ depending on what type of dependency it is. For build dependencies, we
 use the function we've already used before:
 `usethis::use_package("packagename")`. For workflow dependencies, it's
 the same function with a small twist. Our first workflow dependency is
-`{usethis}`, which we will use many times throughout the course.
+`{usethis}`, which we will use many times throughout the workshop.
 
 But before we get into adding `{usethis}` to the `DESCRIPTION` file,
 let's tweak our personal (also called the global) `.Rprofile` to make
@@ -468,9 +468,9 @@ Let's complete these tasks to connect to GitHub.
 ## :book: Reading task: \~5 minutes
 
 We've covered how to adhere to a style guide in both the introductory as
-well as the intermediate course, because it is such a useful and
+well as the intermediate workshop, because it is such a useful and
 powerful tool to easily write more readable code. We'll expand on it in
-this course because it fits precisely with the theme of collaboration.
+this workshop because it fits precisely with the theme of collaboration.
 That's because, when you're working on your own and don't need to worry
 about anyone seeing your code, there's a natural temptation to write
 your code like you might write notes to yourself: scribbled and scrawled
@@ -520,7 +520,7 @@ first is used to style a single file with R code in it using
 currently working on is the "style active file" RStudio addin. We use
 that through the Command Palette ({{< var keybind.palette >}}) and
 typing "style file", which should show the "Style active file" option.
-This is what we will do frequently throughout the course.
+This is what we will do frequently throughout the workshop.
 
 Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
 {{< var keybind.styler >}} to style the file. Notice that no changes
@@ -606,7 +606,7 @@ Visual Mode, use {{< var keybind.visual-edit >}} or the "Visual" button
 at the top of the Source Pane beside the bolding and italicizing
 buttons.
 
-The instructors won't be using the Visual Mode during the course,
+The instructors won't be using the Visual Mode during the workshop,
 however, you are welcome to do so. We will be using the "canonical"
 Markdown mode in the "source" (default) mode though.
 

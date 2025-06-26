@@ -37,7 +37,7 @@ lipidomics_full <- read_xlsx(
 # Keep only lipidomic values
 lipidomics_only <- lipidomics_full |>
   # Want to remove columns 2, 3, and 4 since they are "limits"
-  # (we don't need them for this course)
+  # (we don't need them for this workshop)
   select(-2:-4) |>
   # Remove the subject data rows
   slice(-1:-4) |>

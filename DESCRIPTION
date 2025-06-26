@@ -1,6 +1,6 @@
 Package: RCubedAdvanced
 Type: Website
-Title: "Advanced Course for Reproducible Research in R"
+Title: "Advanced Workshop for Reproducible Research in R"
 Version: 2024.12.10
 URL: https://github.com/rostools/r-cubed-advanced
 Depends:

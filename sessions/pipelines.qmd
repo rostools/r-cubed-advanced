@@ -136,7 +136,7 @@ surrounding us. We as researchers are not necessarily trained in writing
 code, nor do we have a strong culture and incentive structure around
 learning, sharing, reviewing, and improving code. We are also very
 rarely allowed to get (or use) funds to hire people who *are* trained
-and skilled in programmatic thinking and coding. Otherwise courses like
+and skilled in programmatic thinking and coding. Otherwise workshops like
 this wouldn't need to exist :woman_shrugging:
 
 Before we get to what an actual data analysis pipeline looks like in
@@ -220,7 +220,7 @@ the file to the Git history** with {{< var keybind.git >}}.
 If you are using an older version of the `{targets}` package, you might
 also find that running `targets::use_targets()` also have created a
 `run.R` and `run.sh` file. The files are used for other situations (like
-running on a Linux server) that we won’t cover in this course.
+running on a Linux server) that we won’t cover in this workshop.
 :::
 
 ::: {.callout-note collapse="true"}
@@ -298,9 +298,9 @@ contains all the code to create one result as its output. This could be,
 for instance, a figure in a paper.
 
 If you've taken the [intermediate R
-course](https://r-cubed-intermediate.rostools.org/), you'll notice that
+workshop](https://r-cubed-intermediate.rostools.org/), you'll notice that
 this function-oriented workflow is the workflow we covered in that
-course. There are so many advantages to this type of workflow which is
+workshop. There are so many advantages to this type of workflow which is
 why many powerful R packages are designed around making use of this
 workflow.
 
@@ -400,7 +400,7 @@ metabolite and then, to make it more readable, we want to round the
 numbers to one digit. To do this, we will use the split-apply-combine
 methodology and the `across()` function, which we covered in the
 [functionals](https://r-cubed-intermediate.rostools.org/sessions/functionals)
-session of the intermediate course.
+session of the intermediate workshop.
 
 Briefly, we will:
 
@@ -434,7 +434,7 @@ commit the changes to the Git history with {{< var keybind.git >}}.
 
 In the `doc/learning.qmd` file, use the "function-oriented" workflow, as
 taught in the [intermediate
-course](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
+workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function.
 
 Complete these tasks:
@@ -479,11 +479,11 @@ Complete these tasks:
     {{< var keybind.git >}}.
 
 ::: {.callout-tip appearance="default" title="Tip: Implicit returns"}
-In the intermediate course, we suggested using `return()` at the end of
+In the intermediate workshop, we suggested using `return()` at the end of
 the function. Technically, we don't need an explicit `return()`, since
 the output of the last code that R runs within the function will be the
 output of the function. This is called an *implicit return* and we will
-be using this feature throughout the rest of this course.
+be using this feature throughout the rest of this workshop.
 :::
 
 ```{r solution-descriptive-stats}

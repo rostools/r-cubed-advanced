@@ -11,13 +11,13 @@ library(downlit)
 ```
 
 To maximize how much you learn and how much you will retain, you as a
-team will take what you learned in the course and apply it to create a
+team will take what you learned in the workshop and apply it to create a
 reproducible project. For this project, as a team you will do a simple
 data analysis using `{tidymodels}` on a dataset (see below), use Git and
 GitHub to collaborate together, write an HTML document as a report, and
 create a `{targets}` pipeline to demonstrate the reproducibility of the
 analysis. You will work on this project during the last session of the
-course.
+workshop.
 
 ::: callout-note
 We may decide, depending on time, that in the last \~20 minutes of the
@@ -43,7 +43,7 @@ Your specific tasks are:
 
 1.  Get together with your team. We will already have created a
     repository for you to use, which we will show how to find during the
-    course. Clone your team repository to your computer using
+    workshop. Clone your team repository to your computer using
     `usethis::create_from_github()`. You will likely also need to
     authenticate with GitHub by using `gitcreds::gitcreds_set()`.
 2.  **Choose a dataset**: As a team, decide on and select one of the
@@ -96,7 +96,7 @@ Your specific tasks are:
     variables up equally between team members so that you each can do
     your own analysis of the data. See the tips below for some more
     details.
-10. Using the workflow we've covered in this course, collaboratively
+10. Using the workflow we've covered in this workshop, collaboratively
     create a reproducible analysis pipeline by:
     -   Using the `{targets}` package to create a pipeline going from
         reading the data to generating the HTML file.
@@ -143,7 +143,7 @@ Your specific tasks are:
         one predictor, e.g. `y ~ x` in the model.
     -   We *strongly* suggest you do not include more than one predictor
         in any individual model formula, as it will make the analysis
-        and coding more complicated than is necessary for this course.
+        and coding more complicated than is necessary for this workshop.
     -   Run at least 3 simple models *per person on the team* with
         different predictors using the `{tidymodels}` functions.
 :::
@@ -183,7 +183,7 @@ What we expect you to do for the group project:
 -   Have a reproducible analysis pipeline with `{targets}`.
 -   Work collaboratively as a group and share responsibilities and
     tasks.
--   Use as much of what we covered in the course to practice what you
+-   Use as much of what we covered in the workshop to practice what you
     learned.
 
 What we don't expect:
@@ -196,4 +196,4 @@ What we don't expect:
     understandable!
 
 Essentially, the team project is a way to reinforce what you learned
-during the course, but in a more relaxed and collaborative setting.
+during the workshop, but in a more relaxed and collaborative setting.

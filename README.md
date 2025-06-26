@@ -7,27 +7,27 @@
 
 Reproducibility and open scientific practices are increasingly being
 requested or required of scientists and researchers, but training on
-these practices has not kept pace. This course intends to help bridge
+these practices has not kept pace. This workshop intends to help bridge
 that gap and covers the fundamentals and workflow of data analysis in R.
 
 This repository contains the lesson, lecture, and assignment material
-for the course, including the website source files and other associated
-course administration files.
+for the workshop, including the website source files and other associated
+workshop administration files.
 
-For more detail on the course, check out the
+For more detail on the workshop, check out the
 [syllabus](https://r-cubed-advanced.rostools.org/preamble/syllabus.html).
 
 ## Instructional Design
 
-The lectures and lessons in this course are designed to be presented
+The lectures and lessons in this workshop are designed to be presented
 primarily with a participatory live-coding approach. This involves an
 instructor typing and running code in
 [RStudio](https://www.rstudio.com/) in front of the class, while the
 class follows along using their own computers. Challenges are
 interspersed in the lesson material, allowing participants to
 collaboratively work on smaller coding problems for a few minutes. All
-lesson materials are provided ahead of time on the course website for
-participants to refer to during lectures. Throughout the course,
+lesson materials are provided ahead of time on the workshop website for
+participants to refer to during lectures. Throughout the workshop,
 participants are in small groups and are encouraged to help each other
 out in completing the exercises.
 
@@ -47,7 +47,7 @@ the file and folder structure conventions from that package.
 
 ## Installing necessary packages
 
-Packages used and depended on for this course are included in the
+Packages used and depended on for this workshop are included in the
 `DESCRIPTION` file. To install the packages, run this function in the
 root directory (where the `r-cubed-advanced.Rproj` file is located:
 
@@ -73,7 +73,7 @@ sudo apt install libglpk-dev libpoppler-cpp-dev
 
 ## Contributing
 
-If you are interested in contributing to the course material, please
+If you are interested in contributing to the workshop material, please
 refer to the [contributing guidelines](CONTRIBUTING.md). Please note
 that the project is released with a [Contributor Code of
 Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree

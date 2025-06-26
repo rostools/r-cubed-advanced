@@ -1,4 +1,4 @@
-# Introduction to course {#sec-introduction}
+# Introduction to workshop {#sec-introduction}
 
 > [**Introduction slides**](../slides/introduction.html)
 
@@ -35,7 +35,7 @@ Our big picture aim is to create a data analysis project that:
     switching of statistical analysis methods
 
 All of this will be exemplified through a simple analysis of a
-lipidomics dataset during the course.
+lipidomics dataset during the workshop.
 
 <!-- TODO: Pipeline, workflow image? -->
 
@@ -79,7 +79,7 @@ LearnR3
 ::: {.column width="45%"}
 ### Final project structure {.unnumbered}
 
-At the end of this course, it should look something like:
+At the end of this workshop, it should look something like:
 
 ```
 LearnR3
@@ -127,7 +127,7 @@ Why do we structure it this way?
     documents like R Markdown / Quarto files in `doc/`.
 
 This structure also supports our workflow and processes throughout the
-course, which will be to:
+workshop, which will be to:
 
 -   Track package dependencies in the `DESCRIPTION` file.
 -   Follow a "function-oriented" workflow, where we use R Markdown /
@@ -159,7 +159,7 @@ course, which will be to:
     or more functions to generate it and include each function as steps
     or "targets" in a pipeline. Use the pipeline to track and order the
     steps in the data analysis.
--   Write accompanying text (which outside this course could be a full
+-   Write accompanying text (which outside this workshop could be a full
     paper) for the analysis in Markdown so we can easily and quickly
     regenerate reports for rapid dissemination.
 -   Automatically reformat Markdown text into a standard, more readable
@@ -191,7 +191,7 @@ foundation to everything that comes after.
 {{< include /includes/_discord-text.qmd >}}
 
 ::: {.callout-important appearance="default"}
-During the course, we will be writing and coding mostly in the
+During the workshop, we will be writing and coding mostly in the
 `doc/learning.qmd` file. We will also be **regularly** deleting the
 content within the file to keep things clean and easier for you, but
 importantly for the instructors. If or when you encounter an error or
@@ -201,7 +201,7 @@ the code you are writing. So when the helpers or instructors come to
 help, it makes it easier for us to help you when there is less code to
 look through and debug.
 
-But, we know you may want to keep some notes as you work in the course.
+But, we know you may want to keep some notes as you work in the workshop.
 So we suggest you create a new file called `notes.qmd` or something
 similar in the `doc/` folder and either:
 
@@ -220,7 +220,7 @@ similar in the `doc/` folder and either:
 <!-- TODO: This isn't needed after a while -->
 
 We need to add a `Title:` field to the `DESCRIPTION` file in order for
-other sections of the course to work properly. Run this bit of code:
+other sections of the workshop to work properly. Run this bit of code:
 
 ``` {.r filename="Console"}
 desc::desc_set("Title", "AdvancedR3")
