@@ -18,11 +18,13 @@ book:
   repo-url: "https://github.com/rostools/r-cubed-advanced"
   chapters:
     - index.qmd
-    - part: "Preamble"
+    - part: "Overview"
       chapters:
-      - preamble/syllabus.qmd
-      - preamble/schedule.qmd
-      - preamble/pre-course.qmd
+      - overview/syllabus.qmd
+      - overview/schedule.qmd
+    - part: "Pre-workshop"
+      chapters:
+      - pre-workshop/index.qmd
     - part: "Sessions"
       chapters:
       - sessions/introduction.qmd
