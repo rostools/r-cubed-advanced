@@ -25,7 +25,7 @@ Imports:
     prodigenr,
     purrr,
     quarto,
-    r3admin (>= 0.0.1),
+    samwise (>= 0.0.1),
     recipes,
     rlang,
     snakecase,
@@ -43,5 +43,5 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 Remotes:
-    rostools/r3admin
+    rostools/samwise
 License: CC BY 4.0
