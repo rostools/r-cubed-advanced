@@ -84,30 +84,12 @@ objectives for this page:
 
 ## Reading the workshop website {#sec-reading-website}
 
-```{r}
-#| echo: false
-#| eval: true
-#| results: asis
-cat(r3admin::read_common("reading-website.md"), sep = "\n")
-```
 
 ## Installing the latest programs {#sec-install-programs}
 
-```{r}
-#| echo: false
-#| eval: true
-#| results: asis
-cat(r3admin::read_common("installing-programs.md"), sep = "\n")
-```
 
 ## Installing the R packages {#sec-install-r-packages}
 
-```{r}
-#| echo: false
-#| eval: true
-#| results: asis
-cat(r3admin::read_template_pkg_install("advanced"))
-```
 
 ## Setting up Git {#sec-setup-git}
 
@@ -171,13 +153,6 @@ on it in the introduction workshop.
 Because we'll be pushing and pulling to GitHub throughout the workshop, as
 well as using GitHub to collaborate with others in the project work, you
 need to setup your computer to connect with GitHub.
-
-```{r}
-#| echo: false
-#| eval: true
-#| results: asis
-cat(r3admin::read_common("github-authenticate.md"), sep = "\n")
-```
 
 ## Create an R Project {#sec-create-project}
 
@@ -331,7 +306,9 @@ the code below into the script.
 ```{r purl-only-paste-processing-code}
 #| echo: false
 #| purl: true
-readLines("https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R") |>
+readLines(
+  "https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R"
+) |>
   writeLines(usethis::proj_path("data-raw/nmr-omics.R"))
 source(usethis::proj_path("data-raw/nmr-omics.R"))
 ```
@@ -484,4 +461,4 @@ to finish this assignment.
 
 See you at the workshop!
 
-{{< include /includes/_code-appendix.qmd >}}
+{{< include /_extensions/rostools/r3-theme/includes/code-appendix-r.qmd >}}
