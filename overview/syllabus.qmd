@@ -1,6 +1,8 @@
 # Workshop syllabus {#sec-syllabus}
 
-```{r force-downlit, include=FALSE}
+```{r}
+#| include: false
+# To force downlit to work.
 library(downlit)
 ```
 
@@ -9,27 +11,29 @@ and needed by scientists and researchers in modern research
 environments. Our work often require or involve a high level of hands-on
 collaboration on scientific projects throughout all stages of the
 research lifecycle. We are faced with obstacles that we have no training
-for nor knowledge on how to address. Obstacles, that can be as simple as
-not having a shared way of writing code or managing files, can impede
-effective collaboration. Or they can be complex, like documenting
+for nor knowledge on how to address. Obstacles that can be as simple as
+not having a shared way of writing code or managing files and that can
+impede effective collaboration. Or they can be complex, like documenting
 software dependencies or steps in an analysis pipeline in a way that
 makes it easy to resolve issues and get the most recent set of results
-after collaborators have worked on a project. Aside from the impact on
-collaboration, these barriers can even affect projects with just one
-primary researcher. Ultimately, this can have consequences on the
-reliability and reproducibility of scientific results, especially
-considering that the measures taken to address these barriers are often
-not explicitly shared in classical science output (like a publication).
+after collaborators have worked on a project.
 
-With this workshop, we aim to begin addressing this gap. By using a highly
-practical, hands-on approach that revolves around code-along sessions
-(instructor and learner coding together), reading activities, and
-hands-on exercises, our overarching **learning outcome** is that at the
-end of the workshop, participants will be able to:
+Aside from the impact on collaboration, these barriers can even affect
+projects with just one primary researcher. Ultimately, this can have
+consequences on the reliability and reproducibility of scientific
+results, especially considering that the measures taken to address these
+barriers are often not explicitly shared in traditional scientific
+outputs (like publications).
 
-> Describe what an open, collaborator-friendly, and nearly-automated
-> reproducible data analysis pipeline and workflow looks like, and then
-> create a project that follows these concepts by using R.
+With this workshop, we aim to begin addressing this gap. By using a
+highly practical, hands-on approach that revolves around code-along
+sessions (instructor and learner coding together), reading activities,
+and hands-on exercises, our overarching **learning outcome** is that at
+the end of the workshop, participants will be able to:
+
+1.  Describe what an open, collaboration-friendly, and nearly-automated
+    reproducible data analysis pipeline and workflow looks like, and
+    then create a project that follows these practices using R.
 
 Our specific **learning objectives** are to:
 
@@ -51,17 +55,20 @@ And we **will not** learn:
     (these are already covered by most university curriculum). We cover
     how to run statistical methods, but not which statistical methods to
     use for your data or project.
--   Making figures or plots (data visualization could be a whole workshop
-    on its own).
+-   Making figures or plots (data visualization could be a whole
+    workshop on its own).
 
 Because learning and coding is ultimately not *just* a solo activity,
 during this workshop we also aim to provide opportunities to chat with
 fellow participants, learn about their work and how they do analyses,
 and to build networks of support and collaboration.
 
-The specific software and technologies we will cover in this workshop are
-R, RStudio, Git, GitHub, and Quarto, while the specific R packages are
-`{styler}`, `{targets}`, and several of the `{tidymodels}` packages.
+The specific software and technologies we will cover in this workshop
+are [R](https://www.r-project.org/), [RStudio](https://rstudio.com/),
+[Quarto](https://quarto.org), [Git](https://git-scm.com/), and
+[GitHub](https://github.com/), while the specific R packages are
+`{styler}`, `{targets}`, and more advanced functionality from the
+`{tidyverse}` packages.
 
 One goal of the workshop is to teach about open science, and true to our
 mission, we practice what we preach. The workshop material is publicly
@@ -82,20 +89,22 @@ This workshop is designed in a specific way and is ideal for you if:
         workshop is a natural extension to that one;
     -   know a *moderate* or more amount of R (or computing in general);
     -   know how to use R and are fairly familiar with the
-        `{tidyverse}`, `{rmarkdown}`, [RStudio](https://rstudio.com/),
-        [Git](https://git-scm.com/), and [GitHub](https://github.com/).
+        `{tidyverse}`, [Quarto](https://quarto.org),
+        [RStudio](https://rstudio.com/), [Git](https://git-scm.com/),
+        and [GitHub](https://github.com/).
 
 Considering that this is a natural extension of the
 [introductory](https://r-cubed-intro.rostools.org/) and
 [intermediate](https://r-cubed-intermediate.rostools.org/) r-cubed
-workshops, this workshop builds on the knowledge and skills learned during
-those workshops, including Git, RStudio R Projects, functions, functional
-programming, and Quarto / R Markdown. If you *do not* have familiarity
-with these tools, you will need to go over the material from the
-introductory and intermediate workshops beforehand (more details about
-pre-workshop tasks will be sent out a couple of weeks before the workshop).
+workshops, this workshop builds on the knowledge and skills learned
+during those workshops, including Git, RStudio R Projects, functions,
+functional programming, and Quarto / R Markdown. If you *do not* have
+familiarity with these tools, you will need to go over the material from
+the introductory and intermediate workshops beforehand (more details
+about pre-workshop tasks will be sent out a couple of weeks before the
+workshop).
 
-While having these assumptions help to focus the content of the workshop,
-if you have an interest in learning R but don't fit any of the above
-assumptions, **you are still welcome to attend the workshop**! We welcome
-everyone, that is until the workshop capacity is reached.
+While having these assumptions help to focus the content of the
+workshop, if you have an interest in learning R but don't fit any of the
+above assumptions, **you are still welcome to attend the workshop**! We
+welcome everyone, that is until the workshop capacity is reached.
