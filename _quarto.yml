@@ -1,62 +1,74 @@
 project:
-  type: r3-theme
+  type: rostools-theme
   pre-render:
-    - mkdir -p _temp
     - quarto render slides/*.qmd
   resources:
     - slides/*.html
 
 book:
   title: "Advanced Reproducible Research in R"
-  subtitle: "An advanced workshop on creating collaborative and automated analysis pipelines"
+  subtitle: "A workshop on creating collaborative and automated analysis pipelines"
   cover-image: "images/cover.svg"
   cover-image-alt: "Three people working together to brainstorm, design, and develop a project."
   author:
-    - "Luke W. Johnston"
-    - "Anders Askeland"
-  site-url: "https://r-cubed-advanced.rostools.org"
-  repo-url: "https://github.com/rostools/r-cubed-advanced"
+    - name: Luke William Johnston
+      affiliation: "Steno Diabetes Center Aarhus"
+      orcid: "0000-0003-4169-2616"
+    - name: Anders Askeland
+
+  date: last-modified
+  repo-url: https://github.com/rostools/r-cubed-advanced
+  site-url: https://r-cubed-advanced.rostools.org/
   chapters:
     - index.qmd
     - part: "Overview"
       chapters:
-      - overview/syllabus.qmd
-      - overview/schedule.qmd
+        - overview/syllabus.qmd
+        - overview/is-this-for-you.qmd
+        - overview/schedule.qmd
+        - overview/learning-design.qmd
     - part: "Pre-workshop"
       chapters:
-      - pre-workshop/index.qmd
+        - pre-workshop/overview.qmd
+        - pre-workshop/installing-programs-r.qmd
+        - pre-workshop/installing-r-packages.qmd
+        - pre-workshop/code-of-conduct.qmd
+        - pre-workshop/survey.qmd
     - part: "Sessions"
       chapters:
-      - sessions/introduction.qmd
-      - sessions/smoother-collaboration.qmd
-      - sessions/pipelines.qmd
-      - sessions/stats-analyses-basic.qmd
-      - sessions/stats-analyses-multiple.qmd
-      - sessions/project-work.qmd
+        - sessions/introduction.qmd
+        - sessions/smoother-collaboration.qmd
+        - sessions/pipelines.qmd
+        - sessions/stats-analyses-basic.qmd
+        - sessions/stats-analyses-multiple.qmd
+        - sessions/project-work.qmd
+        - sessions/conclusion.qmd
   appendices:
-    - appendix/social.qmd
-    - LICENSE.md
+    - appendix/for-teachers.qmd
     - appendix/references.qmd
+    - CHANGELOG.md
+    - CONTRIBUTING.md
+    - LICENSE.md
   page-footer:
     center:
       - text: "License: CC BY 4.0 {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}}"
-        href: LICENSE.html
+        href: LICENSE.md
       - text: "Code of Conduct"
-        href: "https://guides.rostools.org/conduct.html"
+        href: "pre-workshop/code-of-conduct.qmd"
 
 bibliography:
 - "includes/references.bib"
 - "includes/packages.bib"
+
+format:
+  rostools-theme-html:
+    include-before-body:
+      - "includes/site-counter.html"
 
 editor:
   markdown:
     wrap: 72
     canonical: true
 
-format:
-  r3-theme-html:
-    include-before-body:
-      - "includes/site-counter.html"
-
-execute:
-  warning: false
+metadata-files:
+  - _metadata.yml
