@@ -1,0 +1,21 @@
+gh:
+  org: "rostools"
+  repo: "r-cubed-advanced"
+
+titles:
+  full: "Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines"
+
+urls:
+  home: "https://r-cubed-advanced.rostools.org/"
+
+workshop_level: "advanced"
+
+surveys:
+  pre-workshop: "https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link"
+  feedback: "https://docs.google.com/forms/d/e/1FAIpQLScTbsxHSLrQxn38KS7kCklurFrccN8g3kVdm6WTSxEiIBypWg/viewform?usp=sf_link"
+
+# Use `samwise::get_allowed_r_versions()` and `samwise::get_allowed_rstudio_versions()`
+# to get a list of the allowed R and RStudio versions.
+versions:
+  r: "4.4.2"
+  rstudio: "v2024.09.1+394"
