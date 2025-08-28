@@ -1,0 +1,36 @@
+{
+  "creators": [
+    {
+      "name": "Johnston, Luke",
+      "affiliation": "Steno Diabetes Center Aarhus",
+      "orcid": "0000-0003-4169-2616"
+    },
+    {
+      "name": "Askeland, Anders",
+      "orcid": "0000-0002-2996-129X"
+    }
+  ],
+  "title": "Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines",
+  "description": "This contains the material for a 3-day advanced R workshop that is designed to address train researchers on better collaborative practices when working together on a data analysis project and to build those projects in a fully reproducible way with the use of automated pipelines. See the website for details: https://r-cubed-advanced.rostools.org/",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/rostools/r-cubed-advanced",
+      "relation": "isSupplementTo",
+      "resource_type": "other"
+    }
+  ],
+  "keywords": [
+    "quarto website",
+    "open educational resource",
+    "R",
+    "data analysis",
+    "pipelines",
+    "collaboration",
+    "training material",
+    "workshop material"
+  ],
+  "license": "cc-by-4.0",
+  "upload_type": "lesson",
+  "language": "eng"
+}
