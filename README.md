@@ -1,9 +1,26 @@
+
+
 # Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines
 
-[![License: CC BY
-4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+<!-- TODO: DOI here -->
+
+[![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-teal.json?raw=true.svg)](https://github.com/copier-org/copier)
+[![GitHub
+License](https://img.shields.io/github/license/rostools/r-cubed-advanced.svg)](https://github.com/rostools/r-cubed-advanced/blob/main/LICENSE.md)
+[![GitHub
+Release](https://img.shields.io/github/v/release/rostools/r-cubed-advanced.svg)](https://github.com/rostools/r-cubed-advanced/releases/latest)
+[![Build
+website](https://github.com/rostools/r-cubed-advanced/actions/workflows/build-website.yml/badge.svg)](https://github.com/rostools/r-cubed-advanced/actions/workflows/build-website.yml)
+[![pre-commit.ci
+status](https://results.pre-commit.ci/badge/github/rostools/r-cubed-advanced/main.svg)](https://results.pre-commit.ci/latest/github/rostools/r-cubed-advanced/main)
+[![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 ## Description
+
+<!-- TODO: Very brief intro, motivation, and overview of workshop. -->
 
 Reproducibility and open scientific practices are increasingly being
 requested or required of scientists and researchers, but training on
@@ -11,70 +28,118 @@ these practices has not kept pace. This workshop intends to help bridge
 that gap and covers the fundamentals and workflow of data analysis in R.
 
 This repository contains the lesson, lecture, and assignment material
-for the workshop, including the website source files and other associated
-workshop administration files.
+for the workshop, including the website source files and other
+associated workshop administration files. For more detail on the
+workshop, check out the [welcome
+page](https://r-cubed-advanced.rostools.org/).
 
-For more detail on the workshop, check out the
-[syllabus](https://r-cubed-advanced.rostools.org/preamble/syllabus.html).
+> [!TIP]
+>
+> This workshop repository was generated from the
+> [`template-workshop`](https://github.com/rostools/template-workshop)
+> rostools template.
 
 ## Instructional Design
 
 The lectures and lessons in this workshop are designed to be presented
 primarily with a participatory live-coding approach. This involves an
-instructor typing and running code in
-[RStudio](https://www.rstudio.com/) in front of the class, while the
-class follows along using their own computers. Challenges are
-interspersed in the lesson material, allowing participants to
-collaboratively work on smaller coding problems for a few minutes. All
-lesson materials are provided ahead of time on the workshop website for
-participants to refer to during lectures. Throughout the workshop,
-participants are in small groups and are encouraged to help each other
-out in completing the exercises.
+teacher typing and running code in
+[RStudio](https://posit.co/download/rstudio-desktop/) in front of the
+class, while the class follows along using their own computers.
+Challenges are interspersed in the lesson material, allowing
+participants to collaboratively work on smaller coding problems for a
+few minutes. All lesson materials are provided ahead of time on the
+workshop website for participants to refer to during lectures.
+Throughout the workshop, participants are in small groups and are
+encouraged to help each other out in completing the exercises.
 
 ## Lesson content
 
-The teaching material is found mainly in the project folders:
+The teaching material is found mainly in these locations:
 
-- `preamble/`: Contains the syllabus and the schedule files.
-- `sessions/`: Contains the code-along teaching material, as well as
-    associated links to the lecture slides.
-- `slides/`: Contains the slides, created as Revealjs HTML slides by
-    using Quarto.
-- `appendix/`: Contains the supplemental or secondary content.
+- `index.Rmd`: Contains the overview of the workshop.
+- `overview/` folder: Contains the files that give an overview to the
+  course, such as the syllabus and schedule.
+- `pre-workshop/` folder: Contains the files necessary for use before
+  the workshop, for instance the pre-workshop tasks.
+- `sessions/` folder: Contains the files used during the workshop
+  (e.g. code-along material).
+- `appendix/` folder: Contains the files used to support the workshop,
+  such as pre-workshop tasks, code of conduct, resources, and
+  instructions for teachers.
+- `slides/`: The lecture slides are rendered into HTML slides from
+  Markdown.
 
-The website is generated from [Quarto](https://quarto.org), so follows
-the file and folder structure conventions from that package.
+The website is generated from [Quarto](https://quarto.org/), so it
+follows the file and folder structure conventions from that package.
 
-## Installing necessary packages
+## Support and infrastructure files
 
-Packages used and depended on for this workshop are included in the
-`DESCRIPTION` file. To install the packages, run this function in the
-root directory (where the `r-cubed-advanced.Rproj` file is located:
-
-``` r
-# install.packages("pak")
-pak::pak()
-```
-
-You might need to connect to GitHub via a personal access token if you
-encounter a "rate limit" when installing packages:
-
-``` r
-# usethis::create_github_token()
-gitcreds::gitcreds_set()
-```
-
-For Linux users (and maybe Mac?), you will probably need to install
-extra dependencies:
-
-``` bash
-sudo apt install libglpk-dev libpoppler-cpp-dev
-```
+- `.copier-answers.yml`: Contains the answers you gave when copying the
+  project from the template. **You should not modify this file
+  directly.**
+- `.cz.toml`:
+  [Commitizen](https://commitizen-tools.github.io/commitizen/)
+  configuration file for managing versions and changelogs.
+- `.pre-commit-config.yaml`: [Pre-commit](https://pre-commit.com/)
+  configuration file for managing and running checks before each commit.
+- `.typos.toml`: [typos](https://github.com/crate-ci/typos) spell
+  checker configuration file.
+- `.zenodo.json`: Structured citation metadata for your project when
+  archived on [Zenodo](https://zenodo.org/). This is used to add the
+  metadata to Zenodo when a GitHub release has been uploaded to Zenodo.
+- `justfile`: [`just`](https://just.systems/man/en/) configuration file
+  for scripting project tasks.
+- `.editorconfig`: Editor configuration file for
+  [EditorConfig](https://editorconfig.org/) to maintain consistent
+  coding styles across different editors and IDEs.
+- `CHANGELOG.md`: Changelog file for tracking changes in the project.
+- `CONTRIBUTING.md`: Guidelines for contributing to the project.
+- `.github/`: Contains GitHub-specific files, such as issue and pull
+  request templates, workflows,
+  [dependabot](https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide)
+  configuration, pull request templates, and a
+  [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+  file.
 
 ## Contributing
 
 If you are interested in contributing to the workshop material, please
-refer to the [contributing guidelines](CONTRIBUTING.md). Please note
-that the project is released with a [Contributor Code of
-Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree
-to abide by its terms.
+refer to the [contributing guidelines](CONTRIBUTING.md). For guidelines
+on how to be a helper or teacher, check out the [For
+teachers](https://r-cubed.rostools.org/for-teachers.html) page.
+
+Please note that the project is released with a [Contributor Code of
+Conduct](CODE_OF_CONDUCT.md). By contributing to or being involved in
+this project, you agree to abide by its terms.
+
+### Contributors
+
+These are the people who have contributed by submitting changes through
+pull requests :tada:
+
+[@lwjohnst86](https://github.com/lwjohnst86),
+[@AndersAskeland](https://github.com/AndersAskeland),
+[@signekb](https://github.com/signekb),
+[@nestanyol](https://github.com/nestanyol),
+[@Mortendall](https://github.com/Mortendall)
+
+## Licensing
+
+This project is licensed under the [CC-BY-4.0 License](LICENSE.md).
+
+## Re-use
+
+The workshop is largely designed to be taught in the order given, as
+each session builds off of the previous ones. The easiest way to use
+this material is to use it as-is, making use of the tips and
+instructions found throughout this page. The only thing you might want
+to make as your own would be the slides, however, they are also good
+enough to use on their own too.
+
+To help with general admin tasks of running the workshop, there is the
+[samwise](https://github.com/rostools/samwise) R package.
+
+## Changelog
+
+For a list of changes, see our [changelog](CHANGELOG.md) page.
