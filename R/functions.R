@@ -20,7 +20,8 @@ extract_chunks <- function() {
 
   r_files <- fs::path_temp(fs::path_file(qmd_files))
   r_files <- fs::path_ext_set(r_files, ".R")
-  purrr::walk2(qmd_files,
+  purrr::walk2(
+    qmd_files,
     r_files,
     knitr::purl,
     documentation = 0L,
@@ -40,12 +41,18 @@ extract_chunks <- function() {
   fs::dir_create("_ignore")
   r_files |>
     purrr::map(readr::read_lines) |>
-    purrr::map2(basename(r_files), ~ append(.x, glue::glue("# From {.y} -----"), after = 0)) |>
+    purrr::map2(
+      basename(r_files),
+      ~ append(.x, glue::glue("# From {.y} -----"), after = 0)
+    ) |>
     purrr::flatten_chr() |>
     purrr::discard(~ .x == "") |>
     stringr::str_remove("^## ") |>
     append("pak::pak('rostools/r3')", after = 3) |>
-    append("fs::file_copy('~/Desktop/project-functions.R', 'R/all-functions.R')", after = 3) |>
+    append(
+      "fs::file_copy('~/Desktop/project-functions.R', 'R/all-functions.R')",
+      after = 3
+    ) |>
     append("source('../project-build-functions.R')", after = 3) |>
     readr::write_lines(combined_r_file)
   fs::file_copy(combined_r_file, "~/Desktop", overwrite = TRUE)
@@ -70,7 +77,9 @@ extract_code_block_with_label_string <- function(md_file, string_match) {
   # and within those code blocks, only keep those
   # where the attribute "info" (@ means attribute) has
   # the `pattern` in it.
-  label_pattern <- glue::glue(".//d1:code_block[contains(@info, '{string_match}')]")
+  label_pattern <- glue::glue(
+    ".//d1:code_block[contains(@info, '{string_match}')]"
+  )
   md_as_xml |>
     xml2::xml_find_all(
       label_pattern,
@@ -83,7 +92,8 @@ extract_code_block_with_label_string <- function(md_file, string_match) {
 extract_functions_from_qmd <- function() {
   here::here() |>
     fs::dir_ls(recurse = TRUE, glob = "*.qmd") |>
-    purrr::map(extract_code_block_with_label_string,
+    purrr::map(
+      extract_code_block_with_label_string,
       string_match = "new-function"
     ) |>
     purrr::compact() |>

@@ -14,10 +14,7 @@ revise_by_text <- function(path, original, replacement) {
 }
 
 revise_by_line_num <-
-  function(path,
-           insert_text,
-           remove_original_lines,
-           insert_at_line) {
+  function(path, insert_text, remove_original_lines, insert_at_line) {
     old_text <- readr::read_lines(here::here(path))
 
     if (!missing(remove_original_lines)) {
