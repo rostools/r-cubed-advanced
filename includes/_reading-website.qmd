@@ -1,6 +1,6 @@
 We try to be consistent with the way to present certain information in
-this website. Specifically, there are a few "syntax" type formatting of
-the text to know about:
+this website. Specifically, we follow some conventions that you should
+be aware of:
 
 -   Folder names always end with `/`, for example `data/` means the data
     folder.
