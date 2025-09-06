@@ -58,8 +58,7 @@ build-readme:
 
 # Generate a Quarto include file with the contributors
 build-contributors:
-  sh ./tools/get-contributors.sh rostools/r-cubed-advanced
-
+  sh ./tools/get-contributors.sh rostools/r-cubed-advanced > includes/_contributors.qmd
 # Style all R code
 style:
   # Need to install air first
