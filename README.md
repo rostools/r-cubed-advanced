@@ -20,8 +20,6 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 ## Description
 
-<!-- TODO: Very brief intro, motivation, and overview of workshop. -->
-
 Reproducibility and open scientific practices are increasingly being
 requested or required of scientists and researchers, but training on
 these practices has not kept pace. This workshop intends to help bridge
@@ -29,9 +27,9 @@ that gap and covers the fundamentals and workflow of data analysis in R.
 
 This repository contains the lesson, lecture, and assignment material
 for the workshop, including the website source files and other
-associated workshop administration files. For more detail on the
-workshop, check out the [welcome
-page](https://r-cubed-advanced.rostools.org/).
+associated workshop administration and development files. For more
+detail on the workshop, check out the [welcome
+page](https://r-cubed-advanced.rostools.org).
 
 > [!TIP]
 >
@@ -46,12 +44,12 @@ primarily with a participatory live-coding approach. This involves an
 teacher typing and running code in
 [RStudio](https://posit.co/download/rstudio-desktop/) in front of the
 class, while the class follows along using their own computers.
-Challenges are interspersed in the lesson material, allowing
-participants to collaboratively work on smaller coding problems for a
-few minutes. All lesson materials are provided ahead of time on the
-workshop website for participants to refer to during lectures.
-Throughout the workshop, participants are in small groups and are
-encouraged to help each other out in completing the exercises.
+Exercises are interspersed in the lesson material, allowing participants
+to collaboratively work on smaller coding problems for a few minutes.
+All lesson materials are provided ahead of time on the workshop website
+for participants to refer to during lectures. Throughout the workshop,
+participants are in small groups and are encouraged to help each other
+out in completing the exercises.
 
 ## Lesson content
 
@@ -60,17 +58,17 @@ The teaching material is found mainly in these locations:
 - `index.Rmd`: Contains the overview of the workshop.
 - `overview/` folder: Contains the files that give an overview to the
   course, such as the syllabus and schedule.
-- `pre-workshop/` folder: Contains the files necessary for use before
-  the workshop, for instance the pre-workshop tasks.
-- `sessions/` folder: Contains the files used during the workshop
-  (e.g. code-along material).
-- `appendix/` folder: Contains the files used to support the workshop,
-  such as pre-workshop tasks, code of conduct, resources, and
-  instructions for teachers.
-- `slides/`: The lecture slides are rendered into HTML slides from
-  Markdown.
+- `pre-workshop/`: Contains the files needed before the workshop, like
+  the pre-workshop tasks.
+- `sessions/`: Contains the files used during the workshop (e.g.
+  code-along material).
+- `appendix/`: Contains the files used to support the workshop, such as
+  code of conduct, changelog, contributing guides, and instructions for
+  teachers.
+- `slides/`: Contains the lecture slides that are rendered into HTML
+  slides from Markdown.
 
-The website is generated from [Quarto](https://quarto.org/), so it
+The website is generated with [Quarto](https://quarto.org/), so it
 follows the file and folder structure conventions from that package.
 
 ## Support and infrastructure files
