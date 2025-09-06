@@ -1,18 +1,13 @@
 # Survey {#sec-survey}
 
-We have a [Code of Conduct](/pre-workshop/code-of-conduct.qmd).
-If you haven't read it, **read it now**. The survey involves a question
-about Conduct. We want to make sure this workshop is a supportive and safe
-environment for learning, so this Code of Conduct is quite important.
+Please complete go through the sections under "Overview" (starting at
+@sec-syllabus) and the "Pre-workshop tasks" (starting at
+@sec-pre-workshop-tasks) before filling in this survey.
 
-If you haven't read the sections under "Workshop overview" and
-"Pre-workshop tasks", **please read them now**.
+To finish the pre-workshop tasks, you need to complete the survey at the
+link below. Then you're ready for the workshop! :tada:
 
-You're almost done. Please fill out the pre-workshop survey to finish
-this section:
-
-[Pre-workshop survey
-:tada:]({{< meta surveys.pre-workshop >}}){.btn
+[Pre-workshop survey :tada:]({{< meta surveys.pre-workshop >}}){.btn
 .btn-primary role="button"}
 
 See you at the workshop! :wave:
