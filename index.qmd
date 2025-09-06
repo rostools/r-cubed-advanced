@@ -92,7 +92,7 @@ to get started.
 
 ### Contributors
 
-{{< include _contributors.qmd >}}
+{{< include /includes/_contributors.qmd >}}
 
 ## How the website is made
 
