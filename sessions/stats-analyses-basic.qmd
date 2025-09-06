@@ -151,7 +151,6 @@ and sunlight. We could model plant growth as depending on water and
 sunlight. Graphically, we can illustrate this model as:
 
 ```{mermaid fig-model-plant-growth}
-%%| label: fig-model-plant-growth
 %%| fig-cap: Simple example of a theoretical model of plant growth.
 %%| echo: false
 %%| eval: true
@@ -192,7 +191,6 @@ order, or workflow, to follow:
     questions.
 
 ```{mermaid fig-model-building-workflow}
-%%| label: fig-model-building-workflow
 %%| fig-cap: Simple schematic of the workflow for conducting statistical analysis.
 %%| echo: false
 %%| eval: true
@@ -241,7 +239,6 @@ Potential function names might be:
 -   `plot_estimates()`
 
 ```{mermaid fig-model-possible-targets}
-%%| label: fig-model-possible-targets
 %%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
 %%| echo: false
 %%| eval: true
@@ -295,7 +292,6 @@ simple, very basic, and very exploratory.
 A graphical representation of this theoretical model could be:
 
 ```{mermaid fig-model-research-question}
-%%| label: fig-model-research-question
 %%| fig-cap: A simple theoretical model of the research question about T1D status.
 %%| echo: false
 %%| eval: true

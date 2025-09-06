@@ -157,7 +157,6 @@ analysis:
 3.  The paper with the results included.
 
 ```{mermaid fig-pipeline-schematic}
-%%| label: fig-pipeline-schematic
 %%| fig-cap: Simplified flow chart of some of the initial steps in a data analysis pipeline.
 %%| echo: false
 %%| eval: true
