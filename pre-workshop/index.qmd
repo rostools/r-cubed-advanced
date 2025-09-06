@@ -1,66 +1,61 @@
 # Pre-workshop tasks {#sec-pre-workshop}
 
-In order to participate in this workshop, you must complete the pre-workshop
-tasks in this section as well as **completing the
-[survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**
-at the end. These tasks are designed to make it easier for everyone to
-start the workshop with everything ready to go. For some of the tasks, you
-might not understand why you need to do them, but you will likely
-understand why once the workshop begins.
+In order to participate in this workshop, you must complete the
+pre-workshop tasks in this section as well as **completing the
+[survey](survey.qmd)** at the end. These tasks are designed to make it
+easier for everyone to start the workshop with everything ready to go.
+For some of the tasks, you might not understand why you need to do them,
+but you will likely understand why once the workshop begins.
 
+::: callout-important
 Depending on your skills and knowledge, these tasks could take between
 **5-7 hrs to finish**, so we suggest planning a full day to complete
 them. Depending on your institution and how they handle installing
 software on work computers, you also might have to contact IT *very
 early* to make sure everything is properly installed and set up.
+:::
 
 ## List of tasks
 
 Here's a quick overview of the tasks you need to do. Specific details
 about them are found as you work through this section.
 
-1.  Read the learning objectives in @sec-pre-workshop-learning-objectives
-    for the pre-workshop tasks.
-2.  Read about how to read this website in @sec-reading-website.
+1.  Do some pre-reading to get a better idea of the workshop content
+    (@sec-pre-reading).
+2.  Read through the [Code of Conduct](code-of-conduct.qmd) (in
+    @sec-code-of-conduct).
 3.  Install the necessary programs and the right versions of those
     programs in @sec-install-programs. For some people, depending on
     their institution, this task can take the **longest amount of time**
     because you have to contact your IT to install these packages.
 4.  Install the necessary R packages in @sec-install-r-packages.
 5.  Correctly set up Git on your computer in @sec-setup-git, if you
-    haven't done this already from previous workshops. If you haven't used
-    Git before, this task could take a while because of the reading.
+    haven't done this already from previous workshops. If you haven't
+    used Git before, this task could take a while because of the
+    reading.
 6.  Run a check with `r3::check_setup()` to see if everything works.
     You'll later need to paste this output into the survey.
 7.  Connect your computer with GitHub in @sec-connect-github.
 8.  Create an R Project in @sec-create-project, along with the folder
-    and file setup.
-9.  Create a Quarto file.
-10. Write (well, mostly copy and paste) R code to download the data and
+    and file setup and creating a Quarto file.
+9.  Write (well, mostly copy and paste) R code to download the data and
     save it to your computer. This task will probably take up maybe
     30-60 minutes depending on your interest in exploring the data.
-11. Run a check using `r3::check_project_setup_advanced()` to see that
+10. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.
-12. Set some options in RStudio in @sec-quality-of-life.
-13. Read about the basic workshop details in @sec-workshop-details.
-14. Read the syllabus in @sec-syllabus.
-15. Read the [Code of
-    Conduct](https://guides.rostools.org/conduct.html).
-16. Pre-read some content in @sec-pre-reading.
-17. **Complete the pre-workshop
-    [survey](https://docs.google.com/forms/d/e/1FAIpQLSfzTLrLFyQHj79YGaCQDN5fUZ_9et1qdmtDGiq6gNPGzFSCyQ/viewform?usp=sf_link)**.
+11. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**.
     This survey is pretty quick, maybe \~10 minutes.
 
 Check each section for exact details on completing these tasks.
 
 ## Learning objective {#sec-pre-workshop-learning-objectives}
 
-In general, these pre-workshop tasks are meant to help prepare you for the
-workshop and make sure everything is setup properly so the first session
-runs smoothly. However, some of these tasks are meant for learning as
-well as for general setup, so we have defined the following learning
-objectives for this page:
+In general, these pre-workshop tasks are meant to help prepare you for
+the workshop and make sure everything is setup properly so the first
+session runs smoothly. However, some of these tasks are meant for
+learning as well as for general setup, so we have defined the following
+learning objectives for this page:
 
 1.  Learn about and then apply some basic reproducible workflows and
     setups for the initial processing of raw data. For those who have
@@ -71,3 +66,8 @@ objectives for this page:
 ## Reading the workshop website {#sec-reading-website}
 
 {{< include /includes/_reading-website.qmd >}}
+
+::: callout-tip
+You will be taken through the pre-workshop tasks in order by clicking
+the arrow at the bottom of each page :arrow_right:
+:::
