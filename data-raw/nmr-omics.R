@@ -47,7 +47,9 @@ lipidomics_only <- lipidomics_full |>
   # Make it so the metabolite values are all in one column,
   # which will make it easier to join with the subject data later.
   pivot_longer(-V1) |>
-  rename(metabolite = V1)
+  rename(metabolite = V1) |>
+  # Fix spelling of 'internal'
+  mutate(metabolite = str_replace(metabolite, "internal", "internal"))
 
 # Keep only subject data
 subject_only <- lipidomics_full |>
