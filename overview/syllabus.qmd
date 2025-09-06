@@ -67,44 +67,4 @@ The specific software and technologies we will cover in this workshop
 are [R](https://www.r-project.org/), [RStudio](https://rstudio.com/),
 [Quarto](https://quarto.org), [Git](https://git-scm.com/), and
 [GitHub](https://github.com/), while the specific R packages are
-`{styler}`, `{targets}`, and more advanced functionality from the
-`{tidyverse}` packages.
-
-One goal of the workshop is to teach about open science, and true to our
-mission, we practice what we preach. The workshop material is publicly
-accessible (all on this website) and [openly
-licensed](/index.qmd#licensing) so you can use and re-use it for free!
-
-## Is this workshop for you?
-
-This workshop is designed in a specific way and is ideal for you if:
-
--   You are a researcher, preferably working in the biomedical field
-    (ranging from experimental to epidemiological). Specifically, this
-    workshop targets those working on topics in diabetes and metabolism.
--   You currently do quantitative data analysis.
--   You preferably:
-    -   have taken the [intermediate Reproducible Research in R
-        workshop](https://r-cubed-intermediate.rostools.org/), as this
-        workshop is a natural extension to that one;
-    -   know a *moderate* or more amount of R (or computing in general);
-    -   know how to use R and are fairly familiar with the
-        `{tidyverse}`, [Quarto](https://quarto.org),
-        [RStudio](https://rstudio.com/), [Git](https://git-scm.com/),
-        and [GitHub](https://github.com/).
-
-Considering that this is a natural extension of the
-[introductory](https://r-cubed-intro.rostools.org/) and
-[intermediate](https://r-cubed-intermediate.rostools.org/) r-cubed
-workshops, this workshop builds on the knowledge and skills learned
-during those workshops, including Git, RStudio R Projects, functions,
-functional programming, and Quarto / R Markdown. If you *do not* have
-familiarity with these tools, you will need to go over the material from
-the introductory and intermediate workshops beforehand (more details
-about pre-workshop tasks will be sent out a couple of weeks before the
-workshop).
-
-While having these assumptions help to focus the content of the
-workshop, if you have an interest in learning R but don't fit any of the
-above assumptions, **you are still welcome to attend the workshop**! We
-welcome everyone, that is until the workshop capacity is reached.
+`{styler}`, `{targets}`, as well as more advanced uses of `{purrr}`.
