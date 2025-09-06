@@ -10,6 +10,42 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.2.0 (2025-09-06)
+
+### Feat
+
+- **pre-workshop**: :sparkles: put workshop Code of Conduct into repo from guides
+
+### Fix
+
+- **sessions**: :pencil2: don't need explicit `label`, it's duplicate in chunk label
+- **overview**: :pencil2: `analyses` for link, not `analysis`
+- :bug: should be spelled `internal`, not `interntal`
+- :pencil2: use `rostools-theme` extension name, not `r3`
+- :pencil2: correct link to `_contributors.yml`
+- :pencil2: replace to normal single quote
+- **sessions**: :bug: use `rostools-theme` for revealjs slides
+- **pre-workshop**: :bug: wrong link to pre-workshop tasks
+
+### Refactor
+
+- **pre-workshop**: :recycle: don't eval the pre-workshop docs
+- **overview**: :pencil2: simplify learning design, from template
+- **pre-workshop**: :pencil2: simplify code of conduct, from template
+- :pencil2: minor fixes after update from template
+- **overview**: :recycle: list sessions in syllabus
+- **pre-workshop**: :truck: rename file to `overview.qmd` in tasks
+- **pre-workshop**: :recycle: edits and corrections to tasks in overview
+- **pre-workshop**: :fire: don't need R code chunks in pre-workshop overview
+- **pre-workshop**: :recycle: revise last task, mostly reformatting
+- **pre-workshop**: :truck: split out 'pre-reading' tasks into own page
+- **pre-workshop**: :truck: split out 'download data' tasks into own page
+- **pre-workshop**: :truck: split 'create project' into own page
+- **pre-workshop**: :truck: split "setup git" into own page
+- **pre-workshop**: :truck: split installing programs into own files
+- **overview**: :recycle: split 'is this for you' into own file
+- **overview**: :recycle: replace survey link with shortcode to link
+
 ## 1.1.0 (2025-08-28)
 
 ### Feat
