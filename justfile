@@ -10,8 +10,11 @@ run-all: install-dependencies _checks style _builds
 
 # List all TODOs in the repository.
 list-todos:
-  # Ignore vscode?
-  grep -R TODO . --exclude-dir=.vscode
+  grep -R TODO . \
+    --exclude-dir=.vscode \
+    --exclude-dir=_book \
+    --exclude-dir=.quarto \
+    --exclude=justfile
 
 # Install or update the pre-commit hooks
 install-precommit:
