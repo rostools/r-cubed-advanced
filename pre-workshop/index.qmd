@@ -1,17 +1,3 @@
----
-execute:
-  eval: false
----
-
-```{r setup}
-#| eval: true
-#| include: false
-library(tidyverse)
-library(targets)
-library(downlit)
-library(pak)
-```
-
 # Pre-workshop tasks {#sec-pre-workshop}
 
 In order to participate in this workshop, you must complete the pre-workshop
