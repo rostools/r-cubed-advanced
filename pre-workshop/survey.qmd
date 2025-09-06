@@ -2,7 +2,7 @@
 
 Please complete go through the sections under "Overview" (starting at
 @sec-syllabus) and the "Pre-workshop tasks" (starting at
-@sec-pre-workshop-tasks) before filling in this survey.
+@sec-pre-workshop) before filling in this survey.
 
 To finish the pre-workshop tasks, you need to complete the survey at the
 link below. Then you're ready for the workshop! :tada:
