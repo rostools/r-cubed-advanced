@@ -35,9 +35,9 @@ in order:
     collaboration](/sessions/smoother-collaboration.qmd)
 -   [Creating automatic analysis pipelines](/sessions/pipelines.qmd)
 -   [A general approach to doing statistical
-    analyses](/sessions/stats-analysis-basic.qmd)
+    analyses](/sessions/stats-analyses-basic.qmd)
 -   [Efficiently running many analyses at
-    once](/sessions/stats-analysis-multiple.qmd)
+    once](/sessions/stats-analyses-multiple.qmd)
 -   [Concluding remarks](/sessions/conclusion.qmd)
 
 ## Learning outcome and objectives
@@ -54,7 +54,7 @@ the workshop to enable you to do the following:
 ::: content-hidden
 [**TODO: Session title**](/sessions/session.qmd)
 
-{{< include /includes/objectives/_smoother-collaboration.qmd >}}
+{{ include /includes/objectives/_smoother-collaboration.qmd }}
 
 Tangibly, during the workshop you will:
 
