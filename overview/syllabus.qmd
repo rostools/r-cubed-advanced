@@ -1,4 +1,4 @@
-# Workshop syllabus {#sec-syllabus}
+# Syllabus {#sec-syllabus}
 
 ```{r}
 #| include: false
@@ -23,19 +23,43 @@ projects with just one primary researcher. Ultimately, this can have
 consequences on the reliability and reproducibility of scientific
 results, especially considering that the measures taken to address these
 barriers are often not explicitly shared in traditional scientific
-outputs (like publications).
+outputs (like publications). With this workshop, we aim to begin
+addressing this gap.
 
-With this workshop, we aim to begin addressing this gap. By using a
-highly practical, hands-on approach that revolves around code-along
-sessions (instructor and learner coding together), reading activities,
-and hands-on exercises, our overarching **learning outcome** is that at
-the end of the workshop, participants will be able to:
+This workshop lasts 3 days and is split into the following sessions,
+listed in the [schedule](/overview/schedule.qmd), which will be covered
+in order:
+
+-   [Introduction to the workshop](/sessions/introduction.qmd)
+-   [Smoother project-based
+    collaboration](/sessions/smoother-collaboration.qmd)
+-   [Creating automatic analysis pipelines](/sessions/pipelines.qmd)
+-   [A general approach to doing statistical
+    analyses](/sessions/stats-analysis-basic.qmd)
+-   [Efficiently running many analyses at
+    once](/sessions/stats-analysis-multiple.qmd)
+-   [Concluding remarks](/sessions/conclusion.qmd)
+
+## Learning outcome and objectives
+
+The overall aim of this workshop is to enable you to:
 
 1.  Describe what an open, collaboration-friendly, and nearly-automated
     reproducible data analysis pipeline and workflow looks like, and
     then create a project that follows these practices using R.
 
-Our specific **learning objectives** are to:
+Broken down into specific objectives for each session, we've designed
+the workshop to enable you to do the following:
+
+::: content-hidden
+[**TODO: Session title**](/sessions/session.qmd)
+
+{{< include /includes/objectives/_smoother-collaboration.qmd >}}
+
+Tangibly, during the workshop you will:
+
+-   TODO: List concrete tasks and steps
+:::
 
 1.  Identify potential actions to streamline collaboration on a data
     analysis project and create projects that apply many of these
