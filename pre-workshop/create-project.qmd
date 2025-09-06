@@ -1,3 +1,14 @@
+---
+execute:
+  eval: false
+---
+
+```{r setup}
+#| eval: true
+#| include: false
+library(downlit)
+```
+
 # Create an R Project {#sec-create-project}
 
 One of the basic steps to reproducibility and modern workflows in data

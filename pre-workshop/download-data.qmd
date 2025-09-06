@@ -1,3 +1,15 @@
+---
+execute:
+  eval: false
+---
+
+```{r setup}
+#| eval: true
+#| include: false
+library(tidyverse)
+library(downlit)
+```
+
 # Download the workshop data {#sec-download-data}
 
 We're going to use a real world dataset to demonstrate the concepts in
