@@ -2,8 +2,7 @@
 
 # Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines
 
-<!-- TODO: DOI here -->
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17067883.svg)](https://doi.org/10.5281/zenodo.17067883)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-teal.json?raw=true.svg)](https://github.com/copier-org/copier)
 [![GitHub
 License](https://img.shields.io/github/license/rostools/r-cubed-advanced.svg)](https://github.com/rostools/r-cubed-advanced/blob/main/LICENSE.md)
@@ -141,3 +140,26 @@ To help with general admin tasks of running the workshop, there is the
 ## Changelog
 
 For a list of changes, see our [changelog](CHANGELOG.md) page.
+
+## How to cite the material
+
+Please cite the material as:
+
+> Johnston, L. and Askeland, A. (2025) “Reproducible Research in R: An
+> advanced workshop on creating collaborative and automated analysis
+> pipelines”. Zenodo, 6 September. doi:10.5281/zenodo.17067885.
+
+Or as BibTeX:
+
+``` bibtex
+@misc{johnston_2025_17067885,
+    author = {Johnston, Luke and Askeland, Anders},
+    title = {Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines },
+    month = sep,
+    year = 2025,
+    publisher = {Zenodo},
+    version = {1.2.0},
+    doi = {10.5281/zenodo.17067885},
+    url = {https://doi.org/10.5281/zenodo.17067885},
+}
+```

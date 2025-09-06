@@ -125,14 +125,25 @@ To help with general admin tasks of running the workshop, there is the
 
 For a list of changes, see our [changelog](CHANGELOG.md) page.
 
-::: content-hidden
-### How to cite the material
+## How to cite the material
 
 Please cite the material as:
 
-> TODO: Update when the workshop is published.
+> Johnston, L. and Askeland, A. (2025) "Reproducible Research in R: An advanced
+workshop on creating collaborative and automated analysis pipelines". Zenodo, 6
+September. doi:10.5281/zenodo.17067885.
 
 Or as BibTeX:
 
-TODO: Update when the workshop is published.
-:::
+```bibtex
+@misc{johnston_2025_17067885,
+    author = {Johnston, Luke and Askeland, Anders},
+    title = {Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines },
+    month = sep,
+    year = 2025,
+    publisher = {Zenodo},
+    version = {1.2.0},
+    doi = {10.5281/zenodo.17067885},
+    url = {https://doi.org/10.5281/zenodo.17067885},
+}
+```
