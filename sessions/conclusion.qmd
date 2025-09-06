@@ -1,0 +1,18 @@
+# What next
+
+> [**Slides**](/slides/conclusion.qmd)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/conclusion.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on
+the keyboard.
+:::
