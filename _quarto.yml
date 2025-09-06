@@ -17,7 +17,7 @@ book:
     - name: Anders Askeland
   date: last-modified
   repo-url: https://github.com/rostools/r-cubed-advanced
-  site-url: https://r-cubed-advanced.rostools.org/
+  site-url: https://r-cubed-advanced.rostools.org
   chapters:
     - index.qmd
     - part: "Overview"

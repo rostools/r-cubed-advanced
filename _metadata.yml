@@ -6,7 +6,7 @@ titles:
   full: "Reproducible Research in R: An advanced workshop on creating collaborative and automated analysis pipelines"
 
 urls:
-  home: "https://r-cubed-advanced.rostools.org/"
+  home: "https://r-cubed-advanced.rostools.org"
 
 workshop_level: "advanced"
 
