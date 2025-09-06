@@ -16,8 +16,8 @@
   "related_identifiers": [
     {
       "identifier": "https://github.com/rostools/r-cubed-advanced",
-      "relation": "isSupplementTo",
-      "resource_type": "other"
+      "relation": "isIdenticalTo",
+      "resource_type": "lesson"
     }
   ],
   "keywords": [
