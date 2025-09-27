@@ -196,7 +196,7 @@ the file to the Git history** with {{< var keybind.git >}}.
 If you are using an older version of the `{targets}` package, you might
 also find that running `targets::use_targets()` also have created a
 `run.R` and `run.sh` file. The files are used for other situations (like
-running on a Linux server) that we won’t cover in this workshop.
+running on a Linux server) that we won't cover in this workshop.
 :::
 
 ::: {.callout-note collapse="true"}

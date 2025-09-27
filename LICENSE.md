@@ -35,7 +35,7 @@ exhaustive, and do not form part of our licenses.
 -   **Considerations for the public:** By using one of our public
     licenses, a licensor grants the public permission to use the
     licensed material under specified terms and conditions. If the
-    licensor’s permission is not necessary for any reason–for example,
+    licensor's permission is not necessary for any reason–for example,
     because of any applicable exception or limitation to copyright–then
     that use is not regulated by the license. Our licenses grant only
     permissions under copyright and certain other rights that a licensor

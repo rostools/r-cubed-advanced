@@ -20,7 +20,7 @@ challenges arise that we lack the training or knowledge to resolve.
 These challenges include:
 
 -   Establishing common coding styles and standards to make it easier to
-    read or review each other’s code;
+    read or review each other's code;
 -   Documenting the software dependencies of a project to synchronize
     computing environments among collaborators and potentially with
     servers;

@@ -18,7 +18,7 @@ right analysis to do for your data, ensuring that your data is
 transformed in the right way to do your chosen statistical analysis, and
 lastly, extracting the results of your statistical analysis so you can
 present them. Sometimes it may feel overwhelming and complicated, which
-it definitely can be, but it doesn’t have to be. By taking a structured
+it definitely can be, but it doesn't have to be. By taking a structured
 approach, you can make the process easier and feel more in control.
 
 In R, statistical methods are often developed by researchers with little
@@ -251,7 +251,7 @@ approaches.
 ## :book: Reading task: \~10 minutes
 
 Going back to our own lipidomics dataset, we need to do the first step:
-Creating the question. While we don’t have much data, there are a
+Creating the question. While we don't have much data, there are a
 surprising number of questions we could ask. But we will keep it very
 simple, very basic, and very exploratory.
 
