@@ -1,0 +1,32 @@
+This session's **overall learning outcome** is to:
+
+1.  Describe the basic framework underlying most statistical analyses
+    and use R to generate statistical results using this framework.
+
+**Specific objectives** are to:
+
+1.  Describe the general "workflow": State the research question,
+    construct a model, prepare the data, fit the model, and extract the
+    results.
+2.  Categorize the model definition step as a distinct, theory-driven
+    step, separate from the data, and use `{parsnip}` functions to help
+    with defining your model.
+3.  Identify some data transformation techniques and evaluate which are
+    good options given the data. Use functions in the `{recipes}`
+    package to apply these transformations to your data.
+4.  Use the `{broom}` package to extract the model results to later
+    present them in graphical format (with `{ggplot2}`).
+5.  Continue applying the concepts and functions used from the previous
+    sessions.
+
+Specific "anti"-objectives on things that we will *not* learn:
+
+-   How to choose and apply the appropriate statistical model or tests.
+-   Statistical theory.
+-   How to determine relevant data transformations for statistical
+    tests.
+-   How to interpret the statistical results.
+
+This means that what we show is *for demonstration purposes only*. Our
+implementation and choice of model and analyses could be wrong if an
+expert were to review them.

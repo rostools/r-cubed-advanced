@@ -1,0 +1,22 @@
+This session's **overall learning outcome** is to:
+
+1.  Apply an approach to build an analysis pipeline that clearly defines
+    each step of your analysis---from raw data to finished manuscript---
+    so that updates by you and your collaborators are as simple as
+    running a single function.
+
+More **specific objectives** are to:
+
+1.  Describe the computational meaning of *pipeline* and how pipelines
+    are often used in research. Explain why a well-designed pipeline can
+    streamline collaboration, reduce time spent on an analysis, make the
+    analysis steps explicit and easier to work with, and ultimately
+    contribute to more fully reproducible research.
+2.  Explain the difference between a "function-oriented" workflow and a
+    "script-oriented" workflow, and why the function-based approach has
+    multiple advantages from a time- and effort-efficiency point of
+    view.
+3.  Use the functions within `{targets}` to apply the concepts of
+    building pipelines in your analysis project.
+4.  Continue applying the concepts and functions introduced in the
+    previous session

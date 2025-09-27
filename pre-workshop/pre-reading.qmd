@@ -16,9 +16,3 @@ will also give you a bigger overview of what you will be learning and
 doing. So, please read:
 
 1.  The "big picture" in @sec-big-picture.
-2.  Each sessions learning objectives:
-    -   Collaboration: @sec-smoother-collaboration-learning-objectives.
-    -   Pipelines: @sec-pipelines-learning-objectives.
-    -   Analysis basics: @sec-stats-analyses-basic-learning-objectives.
-    -   Multiple analyses:
-        @sec-stats-analyses-multiple-learning-objectives.

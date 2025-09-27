@@ -51,27 +51,31 @@ The overall aim of this workshop is to enable you to:
 Broken down into specific objectives for each session, we've designed
 the workshop to enable you to do the following:
 
-::: content-hidden
-[**TODO: Session title**](/sessions/session.qmd)
+[**Smoother project-based collaboration**](/sessions/smoother-collaboration.qmd)
 
-{{ include /includes/objectives/_smoother-collaboration.qmd }}
+{{< include /includes/objectives/_smoother-collaboration.qmd >}}
+
+[**Creating automatic analysis pipelines**](/sessions/pipelines.qmd)
+
+{{< include /includes/objectives/_pipelines.qmd >}}
+
+[**A general approach to doing statistical analyses**](/sessions/stats-analyses-basic.qmd)
+
+{{< include /includes/objectives/_stats-analyses-basic.qmd >}}
+
+[**Efficiently running many analyses at once**](/sessions/stats-analyses-multiple.qmd)
+
+{{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
+
+::: content-hidden
+3.  Apply functional programming concepts to run statistical analyses
+    that fit within the conceptual framework of automated pipelines and
+    that can be used regardless of what statistical method is used.
 
 Tangibly, during the workshop you will:
 
 -   TODO: List concrete tasks and steps
 :::
-
-1.  Identify potential actions to streamline collaboration on a data
-    analysis project and create projects that apply many of these
-    actions using R.
-
-2.  Describe and define the distinct steps involved in a pipeline that
-    goes from raw data to final results, and to use R to build this
-    pipeline in an automated and explicit way.
-
-3.  Apply functional programming concepts to run statistical analyses
-    that fit within the conceptual framework of automated pipelines and
-    that can be used regardless of what statistical method is used.
 
 And we **will not** learn:
 
