@@ -1,12 +1,13 @@
 @_default:
   just --list --unsorted
 
-@_checks: check-spelling check-commits
-@_builds: build-contributors build-readme build-website
-@_updates: update-from-template update-quarto-theme
+format: format-precommit
+check: check-spelling check-commits
+build: build-contributors build-readme build-website
+update: update-from-template update-quarto-theme
 
 # Run all recipes
-run-all: install-dependencies _checks style _builds
+run-all: install-dependencies check style build
 
 # List all TODOs in the repository.
 list-todos:
@@ -18,12 +19,9 @@ list-todos:
 
 # Install or update the pre-commit hooks
 install-precommit:
-  # Install pre-commit hooks
   uvx pre-commit install
-  # Run pre-commit hooks on all files
-  uvx pre-commit run --all-files
-  # Update versions of pre-commit hooks
   uvx pre-commit autoupdate
+
 
 # Install package dependencies
 install-dependencies:
@@ -51,6 +49,10 @@ check-commits:
   else
     echo "On 'main' or current branch doesn't have any commits."
   fi
+
+# Run pre-commit hooks on all files
+format-precommit:
+  uvx pre-commit run --all-files
 
 # Build Quarto website
 build-website:
