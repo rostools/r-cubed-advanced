@@ -31,7 +31,7 @@ listed in the [schedule](/overview/schedule.qmd), which will be covered
 in order:
 
 -   [Introduction to the workshop](/sessions/introduction.qmd)
--   [Smoother project-based
+-   [Dependency management for smoother
     collaboration](/sessions/dependencies.qmd)
 -   [Creating automatic analysis pipelines](/sessions/pipelines.qmd)
 -   [A general approach to doing statistical
@@ -51,7 +51,7 @@ The overall aim of this workshop is to enable you to:
 Broken down into specific objectives for each session, we've designed
 the workshop to enable you to do the following:
 
-[**Smoother project-based collaboration**](/sessions/dependencies.qmd)
+[**Dependency management for smoother collaboration**](/sessions/dependencies.qmd)
 
 {{< include /includes/objectives/_dependencies.qmd >}}
 

@@ -1,4 +1,4 @@
-# Smoother project-based collaboration {#sec-dependencies}
+# Dependency management for smoother collaboration {#sec-dependencies}
 
 ```{r setup}
 #| include: false
@@ -7,14 +7,13 @@ source(here::here("R/functions.R"))
 
 Many of you probably work mostly on your own, but as you move through
 your career (whether in academia or industry), you will need to---and
-perhaps want to---*directly collaborate*[^dependencies-1] much
-more with others.
+perhaps want to---*directly collaborate*[^dependencies-1] much more with
+others.
 
-[^dependencies-1]: Here, "directly collaborate" means
-    contributing to a shared project directly (like editing the same
-    files), rather than discussion- or planning-based collaborations
-    (and definitely not the "emailing-files-around" type of
-    collaboration).
+[^dependencies-1]: Here, "directly collaborate" means contributing to a
+    shared project directly (like editing the same files), rather than
+    discussion- or planning-based collaborations (and definitely not the
+    "emailing-files-around" type of collaboration).
 
 Even though different types of collaboration (e.g. meetings,
 brainstorming, real-time co-writing) form the basis for almost all
@@ -219,8 +218,8 @@ complex and difficult to understand. Moreover, for the majority of
 projects, it's not strictly necessary.
 :::
 
-As we work on the project during the workshop and realize we need to use a
-specific package, we will continue using `usethis::use_package()` to
+As we work on the project during the workshop and realize we need to use
+a specific package, we will continue using `usethis::use_package()` to
 install it and add it to the `DESCRIPTION` file.
 
 {{< text_snippet sticky_up >}}
@@ -569,15 +568,12 @@ gert::git_commit("Don't need this file anymore.")
 ## Summary
 
 In this chapter, we have covered how to do the following in a project
-for smoother collaboration (and nicer-looking code and documents):
+for smoother collaboration with formal dependency management:
 
 -   Track your project package dependencies with the `DESCRIPTION` file
     and `{usethis}`.
 -   Install the dependencies necessary for your project with
     `pak::pak()`.
--   Follow a style guide by using `{styler}`. Combine with the Command
-    Palette ({{< var keybind.palette >}}) to quickly style the code you
-    are actively working on.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
 
