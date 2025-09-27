@@ -394,6 +394,26 @@ Open the Git interface and see that under `Suggests:` in the
 `DESCRIPTION` file is `usethis`. Let's commit these changes, with
 {{< var keybind.git >}}.
 
+You've used `{styler}` during the pre-workshop tasks and we'll use it
+more throughout the workshop. Which dependency do you think this is?
+It's a **workflow** dependency, as we will mostly likely only use it in
+the Console or Command Palette. Let's add it to the project
+`DESCRIPTION` as a workflow dependency:
+
+```{r add-styler-dep}
+#| eval: false
+#| purl: true
+#| filename: Console
+use_package("styler", "suggests")
+```
+
+```{r purl-only-update-desc-with-styler}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci("DESCRIPTION", "Add styler as a suggests dependency.")
+```
+
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
@@ -406,6 +426,9 @@ When you come back to a project after a few months or if you start
 collaborating on a project, you can run `pak::pak()` to install all
 types of dependencies, both workflow and build. Neat! :tada:
 :::
+
+Before we move on, let's make sure everything has been committed to the
+Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Connect your project to GitHub
 
@@ -444,106 +467,6 @@ Let's complete these tasks to connect to GitHub.
     uploaded to it.
 
 {{< text_snippet sticky_up >}}
-
-## Automatically adhere to a style guide
-
-::: callout-note
-## :book: Reading task: \~5 minutes
-
-We've covered how to adhere to a style guide in both the introductory as
-well as the intermediate workshop, because it is such a useful and
-powerful tool to easily write more readable code. We'll expand on it in
-this workshop because it fits precisely with the theme of collaboration.
-That's because, when you're working on your own and don't need to worry
-about anyone seeing your code, there's a natural temptation to write
-your code like you might write notes to yourself: scribbled and scrawled
-down quickly.
-
-But when working with others, how it looks can greatly impact how
-quickly and easily others are able to read and interpret your code.
-Multiply all the collaborators on a project with this natural temptation
-for quick (and potentially sloppy) coding, you can imagine how easy it
-is for code to massively "drift" towards being poorly formatted,
-especially when deadlines are approaching.
-
-That's when "linters" or "stylers" (types of static code analysis tools)
-become very useful. They scan your code for common mistakes or syntax
-issues, either listing them for you to fix or automatically fixing them
-for you. Linters are especially useful when collaborating with someone
-who is less experienced with coding or who contribute occasionally to
-assist in the code being consistently formatted across the project.
-
-To ensure consistent styling without needing to run checks manually,
-*automatic* linting/styling can be a great solution. That's where the
-`{styler}` package comes in!
-
-{{< text_snippet sticky_up >}}
-:::
-
-Since we will use `{styler}` for the project as a workflow dependency,
-let's add it to the `DESCRIPTION` file:
-
-```{r add-styler-dep}
-#| eval: false
-#| purl: true
-#| filename: Console
-use_package("styler", "suggests")
-```
-
-```{r purl-only-update-desc-with-styler}
-#| eval: false
-#| echo: false
-#| purl: true
-git_ci("DESCRIPTION", "Add styler as a suggests dependency.")
-```
-
-There are only a few functions in `{styler}` that we can to use. The
-first is used to style a single file with R code in it using
-`styler::style_file()`. However, an easier way to style the file we're
-currently working on is the "style active file" RStudio addin. We use
-that through the Command Palette ({{< var keybind.palette >}}) and
-typing "style file", which should show the "Style active file" option.
-This is what we will do frequently throughout the workshop.
-
-Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
-{{< var keybind.styler >}} to style the file. Notice that no changes
-were made since the file is already tidy.
-
-::: {.callout-note appearance="default"}
-You will probably be asked to install a package called `{miniUI}`, click
-"Yes".
-:::
-
-If you wanted to run `{styler}` on all the files, we can use:
-
-```{r style-dir}
-#| eval: false
-#| filename: Console
-styler::style_dir()
-```
-
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-Mention the callout block below, but don't go into it at all.
-:::
-
-::: {.callout-tip appearance="default"}
-You might be used to using 4 spaces for tabs instead of 2. The
-`{tidyverse}` style uses 2, so that's default option in `{styler}`. If
-you want to change that, you can add the following code to the project's
-`.Rprofile`:
-
-```{r}
-#| eval: false
-options(
-  styler.addins_style_transformer = "styler::tidyverse_style(indent_by = 4)"
-)
-```
-:::
-
-Before we move on, let's make sure everything has been committed to the
-Git history with {{< var keybind.git >}}.
 
 ## Styling Markdown files
 
