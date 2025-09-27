@@ -14,8 +14,6 @@ library(targets)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
-{{< include /includes/_review-note.qmd >}}
-
 When doing analyses on data, you have probably experienced (many) times
 where you forget the order in which other code should run or which parts
 need to be rerun to update results. Things can get confusing quickly,

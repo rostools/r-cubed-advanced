@@ -18,8 +18,6 @@ lipidomics_wide <- lipidomics |>
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
-{{< include /includes/_review-note.qmd >}}
-
 Rarely do we run only one single statistical model to answer one single
 question, especially in our data-overflowing environments. An initial
 instinct when faced with this task might be to copy-and-paste, then
