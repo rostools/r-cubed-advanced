@@ -31,31 +31,6 @@ analysis projects and facilitate smoother collaboration.
 
 {{< include /includes/objectives/_dependencies.qmd >}}
 
-## :speech_balloon: Discussion activity: How do you *exactly* collaborate or contribute to your own or others' projects?
-
-> Time: \~10 minutes.
-
-Reflect on when you work on a project (for your thesis or a manuscript),
-how **exactly** do you and your collaborators contribute to the project:
-
--   Is it mostly verbal contributions?
--   Do you use a shared folder that the files are on?
--   How do you keep track of who's changed what?
--   Do you mostly work on your own with contributions being mostly
-    verbal or written feedback (like in a meeting or through an email)?
--   If you collaborate directly on a project, how do you coordinate
-    things? Does one collaborator work on one section or analysis, so
-    your files are separate?
--   Do you ever have to go in and contribute your own code to theirs
-    (and vice versa)?
-
-Consider these questions as we do the following steps.
-
-1.  Take about 1 minute to reflect on these questions.
-2.  For 6 minutes, discuss these questions with your neighbour, and talk
-    about your own experiences.
-3.  For the remaining time, we will briefly share with everyone.
-
 ## Project-level package dependency management
 
 > Note: This first session is more conceptual and is heavier on the
