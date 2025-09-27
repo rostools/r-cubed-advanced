@@ -211,7 +211,7 @@ similar in the `doc/` folder and either:
     while you work in the `doc/learning.qmd` file.
 :::
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 :::::
 

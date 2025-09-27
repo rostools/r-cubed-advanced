@@ -170,7 +170,7 @@ graph LR
 Now that we have conceptually drawn out some initial tasks in our
 pipeline, we can start using R to build it.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 ## Using targets to manage a pipeline
@@ -333,7 +333,7 @@ So, each `tar_target` is a step in the pipeline. The `command` is the
 function call, while the `name` is the name of the output of the
 function call.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 ::::
 
 Let's start writing code to create the three items we listed above in
@@ -501,7 +501,7 @@ descriptive_stats <- function(data) {
 }
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Adding a step in the pipeline
 
@@ -781,7 +781,7 @@ descriptive_stats <- function(data) {
 ```
 :::
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Adding the plot function as pipeline targets
 
@@ -1062,7 +1062,7 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     This will delete the entire `_targets/` folder for those times when
     you want to start over and rerun the entire pipeline again.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 ## Summary
