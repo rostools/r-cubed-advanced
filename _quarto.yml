@@ -40,7 +40,7 @@ book:
     - part: "Sessions"
       chapters:
         - sessions/introduction.qmd
-        - sessions/smoother-collaboration.qmd
+        - sessions/dependencies.qmd
         - sessions/pipelines.qmd
         - sessions/stats-analyses-basic.qmd
         - sessions/stats-analyses-multiple.qmd

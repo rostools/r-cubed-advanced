@@ -1,4 +1,4 @@
-# Smoother project-based collaboration {#sec-smoother-collaboration}
+# Smoother project-based collaboration {#sec-dependencies}
 
 ```{r setup}
 #| include: false
@@ -7,10 +7,10 @@ source(here::here("R/functions.R"))
 
 Many of you probably work mostly on your own, but as you move through
 your career (whether in academia or industry), you will need to---and
-perhaps want to---*directly collaborate*[^smoother-collaboration-1] much
+perhaps want to---*directly collaborate*[^dependencies-1] much
 more with others.
 
-[^smoother-collaboration-1]: Here, "directly collaborate" means
+[^dependencies-1]: Here, "directly collaborate" means
     contributing to a shared project directly (like editing the same
     files), rather than discussion- or planning-based collaborations
     (and definitely not the "emailing-files-around" type of
@@ -30,7 +30,7 @@ analysis projects and facilitate smoother collaboration.
 
 ## Learning objectives
 
-{{< include /includes/objectives/_smoother-collaboration.qmd >}}
+{{< include /includes/objectives/_dependencies.qmd >}}
 
 ## :speech_balloon: Discussion activity: How do you *exactly* collaborate or contribute to your own or others' projects?
 

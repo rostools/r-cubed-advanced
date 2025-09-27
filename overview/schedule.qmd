@@ -22,13 +22,13 @@ guide and overview.
 |:---|:---|
 | 9:30 | {{< fa mug-hot >}} Arrival; Coffee and snacks |
 | 10:00 | {{< fa person-chalkboard >}} [Introduction to the workshop](/sessions/introduction.qmd) |
-| 10:30 | {{< fa laptop-code >}} [Smoother project-based collaboration (with short break)](/sessions/smoother-collaboration.qmd) |
+| 10:30 | {{< fa laptop-code >}} [Smoother project-based collaboration (with short break)](/sessions/dependencies.qmd) |
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-one) |
-| 13:35 | {{< fa laptop-code >}} [Continue previous session](/sessions/smoother-collaboration.qmd) |
+| 13:35 | {{< fa laptop-code >}} [Continue previous session](/sessions/dependencies.qmd) |
 | 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/smoother-collaboration.qmd) |
+| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/dependencies.qmd) |
 | 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 
 ## Day 2 {.unnumbered}

@@ -118,10 +118,10 @@ LearnR3
 Why do we structure it this way?
 
 -   To follow "project-oriented" workflows (covered in
-    @sec-smoother-collaboration).
+    @sec-dependencies).
 -   To follow some standard conventions in R, like having a
     `DESCRIPTION` file (which is important for
-    @sec-smoother-collaboration).
+    @sec-dependencies).
 -   To keep types of files separate, like raw data raw and in the
     `data-raw/` folder, R scripts/functions in the `R/` folder, and
     documents like R Markdown / Quarto files in `doc/`.

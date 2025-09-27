@@ -12,7 +12,7 @@ extract_chunks <- function() {
 
   qmd_files <- fs::path_abs(c(
     "preamble/pre-course.qmd",
-    "sessions/smoother-collaboration.qmd",
+    "sessions/dependencies.qmd",
     "sessions/pipelines.qmd",
     "sessions/stats-analyses-basic.qmd",
     "sessions/stats-analyses-multiple.qmd"
