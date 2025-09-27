@@ -1,4 +1,4 @@
-# Creative Commons Attribution 4.0 International
+# Creative Commons Attribution 4.0 International {.unnumbered}
 
 Creative Commons Corporation (“Creative Commons”) is not a law firm and
 does not provide legal services or legal advice. Distribution of

@@ -1,4 +1,4 @@
-# Contributing
+# Contributing {.unnumbered}
 
 Check out the [Contributing Guide](https://guides.rostools.org/contributing) for
 more details on how to contribute. For guidelines on how to be a helper or

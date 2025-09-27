@@ -1,4 +1,4 @@
-# Changelog
+# Changelog {.unnumbered}
 
 Since we follow [Conventional
 Commits](https://decisions.seedcase-project.org/why-conventional-commits),
