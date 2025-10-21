@@ -17,10 +17,9 @@ The slides contain speaking notes that you can view by pressing 'S' on
 the keyboard.
 :::
 
-## The Big Picture {#sec-big-picture}
+## :book: Reading task: The big picture {#sec-big-picture}
 
-::::: callout-note
-## :book: Reading task: \~10 minutes
+**Time: \~10 minutes.**
 
 This section provides a bigger-picture view of what we will be doing,
 why we want to do it, how we will go about doing it, and what it will
@@ -44,7 +43,7 @@ most tangible things are the folders and files on our computers. The
 folder and file structures below show where we start and where we end,
 so you can hopefully get a better understanding of how things will look.
 
-::: columns
+::::: columns
 ::: {.column width="45%"}
 ### Initial project structure {.unnumbered}
 
@@ -113,7 +112,7 @@ LearnR3
 └── README.md
 ```
 :::
-:::
+:::::
 
 Why do we structure it this way?
 
@@ -199,9 +198,9 @@ the code you are writing. So when the helpers or instructors come to
 help, it makes it easier for us to help you when there is less code to
 look through and debug.
 
-But, we know you may want to keep some notes as you work in the workshop.
-So we suggest you create a new file called `notes.qmd` or something
-similar in the `doc/` folder and either:
+But, we know you may want to keep some notes as you work in the
+workshop. So we suggest you create a new file called `notes.qmd` or
+something similar in the `doc/` folder and either:
 
 -   Write notes in the `doc/learning.qmd` file and then copy them over
     to your `notes.qmd` file when we tell you to delete everything, or

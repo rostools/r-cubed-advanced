@@ -74,13 +74,12 @@ Consider these questions as we do the following steps.
     about your own experiences.
 3.  For the remaining time, we will briefly share with everyone.
 
-## Project-level package dependency management
+## :book: Reading task: Project-level package dependency management
+
+**Time: ~8 minutes.**
 
 > Note: This first session is more conceptual and is heavier on the
 > reading and explanation, but is important for the next sessions.
-
-::: callout-note
-## :book: Reading task: \~8 minutes
 
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
@@ -172,14 +171,13 @@ managing your dependencies, which is what we'll cover in the next
 section.
 
 {{< text_snippet sticky_up >}}
-:::
 
-## Formal dependency management
+## :book: Reading task: Formal dependency management
+
+**Time: ~3 minutes.**
+
 
 <!-- TODO: As a reading activity or explained by the instructor? -->
-
-:::: callout-note
-## :book: Reading task: \~3 minutes
 
 The most common form of a more *formal* way of managing dependencies---
 at least based on R packages and projects found on GitHub---makes use of
@@ -241,18 +239,17 @@ specific package, we will continue using `usethis::use_package()` to
 install it and add it to the `DESCRIPTION` file.
 
 {{< text_snippet sticky_up >}}
-::::
 
-Before moving on to the exercise, be sure to add and commit all the
+## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
+
+> Time: \~10 minutes.
+
+Before continuing with the exercise, be sure to add and commit all the
 files in the `AdvancedR3` project to save the current state of the files
 to the Git history. Open the Git interface by either typing with
 {{< var keybind.git >}} or by going to the Git pane and clicking the
 "Commit" button. Then, write a commit message and click the "Commit"
 button in this window.
-
-## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
-
-> Time: \~10 minutes.
 
 Let's update the `DESCRIPTION` file with the packages we depend on in
 the `data-raw/nmr-omics.R` script. Open `nmr-omics.R` file and complete
@@ -462,10 +459,10 @@ Let's complete these tasks to connect to GitHub.
 
 {{< text_snippet sticky_up >}}
 
-## Automatically adhere to a style guide
+## :book: Reading task: Automatically adhere to a style guide
 
-::: callout-note
-## :book: Reading task: \~5 minutes
+**Time: ~5 minutes.**
+
 
 We've covered how to adhere to a style guide in both the introductory as
 well as the intermediate workshop, because it is such a useful and
@@ -495,7 +492,8 @@ To ensure consistent styling without needing to run checks manually,
 `{styler}` package comes in!
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Adding styler as a workflow dependency
 
 Since we will use `{styler}` for the project as a workflow dependency,
 let's add it to the `DESCRIPTION` file:

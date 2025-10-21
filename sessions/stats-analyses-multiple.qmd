@@ -50,10 +50,9 @@ Specific "anti"-objectives:
 
 -   Same as the "anti"-objectives of @sec-stats-analyses-basic.
 
-## Apply logistic regression to each metabolite with functional programming
+## :book: Reading task: Apply logistic regression to each metabolite with functional programming
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+**Time: ~10 minutes.**
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component
@@ -66,7 +65,8 @@ as the
 (this is a short section).
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Using functional programming to run multiple models
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note

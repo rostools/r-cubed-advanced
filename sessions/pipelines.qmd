@@ -77,7 +77,9 @@ data processing stage.
 3.  For the remaining time, we'll briefly share with everyone what
     they've thought and discussed.
 
-## What is a data analysis "pipeline"?
+## :book: Reading task: What is a data analysis "pipeline"?
+
+**Time: ~10 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -86,9 +88,6 @@ After they finish reading this section, briefly walk through it. In
 particular, emphasize what we want to make at the end, even though that
 goal might change as the analysis progresses.
 :::
-
-::: callout-note
-## :book: Reading task: \~10 minutes
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
@@ -221,6 +220,12 @@ also find that running `targets::use_targets()` also have created a
 running on a Linux server) that we won’t cover in this workshop.
 :::
 
+## :book: Reading task: Inside of the `_targets.R` file
+
+**Time: ~8 minutes.**
+
+
+
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
@@ -228,9 +233,6 @@ Let them read it before going over it again to reinforce
 function-oriented workflows and how `{targets}` and the `tar_target()`
 works.
 :::
-
-:::: callout-note
-## :book: Reading task: \~8
 
 For this reading task, we'll take a look at what the `_targets.R`
 contains. So, start by opening it on your computer.
@@ -336,6 +338,7 @@ function call.
 
 {{< text_snippet sticky_up >}}
 
+## Building up our first target
 
 Let's start writing code to create the three items we listed above in
 @fig-pipeline-schematic:
@@ -1018,10 +1021,9 @@ again to see everything re-build! Last things are to re-style using
 history before moving on with {{< var keybind.git >}}. Then push your
 changes up to GitHub.
 
-## Fixing issues in the stored pipeline data
+## :book: Reading task: Fixing issues in the stored pipeline data
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+**Time: ~10 minutes.**
 
 Sometimes you need to start from the beginning and clean everything up
 because there's an issue that you can't seem to fix. In this case,
@@ -1064,7 +1066,6 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     you want to start over and rerun the entire pipeline again.
 
 {{< text_snippet sticky_up >}}
-:::
 
 ## Summary
 

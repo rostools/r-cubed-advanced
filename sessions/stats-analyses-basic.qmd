@@ -85,7 +85,9 @@ compared to other areas?
 3.  Finally, over the next 2 minutes, we will share all together what a
     model is in the context of data analysis.
 
-## A brief introduction to statistical modelling and workflow
+## :book: Reading task: A brief introduction to statistical modelling and workflow
+
+**Time: ~15 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -97,9 +99,6 @@ analyses.
 :::
 
 <!-- TODO: Create a revealjs presentation on this? -->
-
-:::: callout-note
-## :book: Reading task: \~15 minutes
 
 Research, especially quantitative research, is about making inferences
 about the world by quantifying uncertainty from some data. And we
@@ -249,7 +248,6 @@ graph TB
 ```
 
 {{< text_snippet sticky_up >}}
-::::
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -267,7 +265,9 @@ Also repeat the question to ask, the outputs, as well as the functions
 and their flow that we can translate into the `{targets}` pipeline.
 :::
 
-## Defining a model for our lipidomics data
+## :book: Reading task: Defining a model for our lipidomics data
+
+**Time: ~10 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -277,9 +277,6 @@ section, describing the theoretical model both graphically and
 mathematically. Go through why we use `{tidymodels}` rather than other
 approaches.
 :::
-
-::: callout-note
-## :book: Reading task: \~10 minutes
 
 Going back to our own lipidomics dataset, we need to do the first step:
 Creating the question. While we don’t have much data, there are a
@@ -363,7 +360,8 @@ commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 `multinom_reg()`.
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Creating the model engine
 
 Let's switch to working in the `doc/learning.qmd` file to create those
 logistic regression models. First, we need to add `library(tidymodels)`
@@ -518,8 +516,9 @@ later. So, to make this function a bit more generic, we can use
 something called "curly-curly" (it looks like `{{}}` when used) and
 "non-standard evaluation" (NSE).
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+## :book: Reading task: Non-standard evaluation and curly-curly
+
+**Time: ~10 minutes.**
 
 When you write your own functions that make use of functions in the
 `{tidyverse}`, you may eventually encounter an error that might not be
@@ -569,7 +568,8 @@ lipidomics |>
 ```
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Using curly-curly when using tidyverse functions in our own functions
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -972,6 +972,8 @@ create_model_workflow(
 ```
 
 Let's briefly cover what these columns and values mean.
+But first, open the Git interface and commit the changes you made
+with {{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -981,8 +983,9 @@ depending on how comfortable you are. Or you can get them to read it
 only.
 :::
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+## :book: Reading task: Understanding the model output
+
+**Time: ~10 minutes.**
 
 Let's explain this output a bit, each column at a time:
 
@@ -1024,10 +1027,6 @@ Let's explain this output a bit, each column at a time:
     be using this value at all in presenting the results.
 
 {{< text_snippet sticky_up >}}
-:::
-
-Before ending, open the Git interface and commit the changes you made
-with {{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ## Summary
 
