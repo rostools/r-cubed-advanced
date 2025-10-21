@@ -52,7 +52,7 @@ next. This is just a fair warning!
 
 ## :speech_balloon: Discussion activity: What does a "model" mean?
 
-> Time: \~6 minutes.
+**Time: ~6 minutes.**
 
 In science and especially statistics, we talk a lot about "models". But
 what does model actually mean? What different types of definitions can

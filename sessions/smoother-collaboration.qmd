@@ -34,7 +34,7 @@ analysis projects and facilitate smoother collaboration.
 
 ## :speech_balloon: Discussion activity: How do you *exactly* collaborate or contribute to your own or others' projects?
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Reflect on when you work on a project (for your thesis or a manuscript),
 how **exactly** do you and your collaborators contribute to the project:
