@@ -186,9 +186,7 @@ it is strong and stable. This is the same with analysis projects, the
 first phase feels like nothing is "moving" but you are building the
 foundation to everything that comes after.
 
-{{< include /includes/_faq-text.qmd >}}
-
-{{< include /includes/_discord-text.qmd >}}
+{{< text_snippet faq_text >}}
 
 ::: {.callout-important appearance="default"}
 During the workshop, we will be writing and coding mostly in the
@@ -211,9 +209,7 @@ similar in the `doc/` folder and either:
     while you work in the `doc/learning.qmd` file.
 :::
 
-{{< include /includes/_sticky-up.qmd >}}
-
-:::::
+{{< text_snippet sticky_up >}}
 
 ## Small fixes
 

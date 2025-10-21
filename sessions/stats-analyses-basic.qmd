@@ -248,7 +248,7 @@ graph TB
     plot_est -- "tar_read()" --> qmd[Quarto]
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 ::::
 
 ::: {.callout-note collapse="true"}
@@ -362,7 +362,7 @@ for code you might use depending on the model you want. The most
 commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 `multinom_reg()`.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 Let's switch to working in the `doc/learning.qmd` file to create those
@@ -568,7 +568,7 @@ lipidomics |>
   test_nse(c(class, age))
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 ::: {.callout-note collapse="true"}
@@ -666,7 +666,7 @@ metabolites_to_wider <- function(data) {
 }
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Using recipes to manage transformations
 
@@ -1023,7 +1023,7 @@ Let's explain this output a bit, each column at a time:
     `estimate` and again, we won't cover this in this workshop. We won't
     be using this value at all in presenting the results.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 Before ending, open the Git interface and commit the changes you made

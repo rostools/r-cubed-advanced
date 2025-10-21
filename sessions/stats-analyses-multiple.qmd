@@ -18,7 +18,7 @@ lipidomics_wide <- lipidomics |>
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
-{{< include /includes/_review-note.qmd >}}
+{{< text_snippet review_note >}}
 
 Rarely do we run only one single statistical model to answer one single
 question, especially in our data-overflowing environments. An initial
@@ -65,7 +65,7 @@ as the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
 (this is a short section).
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 ::: {.callout-note collapse="true"}
@@ -310,7 +310,7 @@ calculate_estimates <- function(data) {
 }
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Improve the readability of the model output
 
@@ -447,7 +447,7 @@ calculate_estimates <- function(data) {
 }
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## :technologist: Exercise: Add a target for the model results
 
@@ -514,7 +514,7 @@ targets::tar_make()
 git_ci("_targets.R", "Update targets with model results")
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Visualizing the model estimates
 
@@ -725,7 +725,7 @@ revise_by_line_num(
 git_ci("_targets", "Add plot estimates target")
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Combine all the output into the Quarto file
 

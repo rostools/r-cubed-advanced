@@ -171,7 +171,7 @@ What's the alternative, then? One alternative is a more *formal* way of
 managing your dependencies, which is what we'll cover in the next
 section.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 ## Formal dependency management
@@ -240,7 +240,7 @@ As we work on the project during the workshop and realize we need to use a
 specific package, we will continue using `usethis::use_package()` to
 install it and add it to the `DESCRIPTION` file.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 ::::
 
 Before moving on to the exercise, be sure to add and commit all the
@@ -305,7 +305,7 @@ git_ci(
 )
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Two types of dependencies: Build and workflow
 
@@ -460,7 +460,7 @@ Let's complete these tasks to connect to GitHub.
 5.  Check your GitHub to make sure the project repository has been
     uploaded to it.
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Automatically adhere to a style guide
 
@@ -494,7 +494,7 @@ To ensure consistent styling without needing to run checks manually,
 *automatic* linting/styling can be a great solution. That's where the
 `{styler}` package comes in!
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 :::
 
 Since we will use `{styler}` for the project as a workflow dependency,
@@ -658,7 +658,7 @@ fs::file_delete("TODO.md")
 gert::git_commit("Don't need this file anymore.")
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Summary
 

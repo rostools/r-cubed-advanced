@@ -342,7 +342,7 @@ calculate_variation <- function(data) {
 }
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## :technologist: Exercise: Add the new function as a target in the pipeline
 
@@ -409,7 +409,7 @@ targets::tar_make()
 git_ci("_targets.R", "Update targets with model variation")
 ```
 
-{{< include /includes/_sticky-up.qmd >}}
+{{< text_snippet sticky_up >}}
 
 ## Visualizing the variability of results
 
