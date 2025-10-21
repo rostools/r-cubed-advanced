@@ -209,20 +209,3 @@ something similar in the `doc/` folder and either:
 :::
 
 {{< text_snippet sticky_up >}}
-
-## Small fixes
-
-<!-- TODO: This isn't needed after a while -->
-
-We need to add a `Title:` field to the `DESCRIPTION` file in order for
-other sections of the workshop to work properly. Run this bit of code:
-
-``` {.r filename="Console"}
-desc::desc_set("Title", "AdvancedR3")
-```
-
-Then delete the `doc/report.Rmd` file:
-
-``` {.r filename="Console"}
-fs::file_delete("doc/report.Rmd")
-```
