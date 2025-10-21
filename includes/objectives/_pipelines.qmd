@@ -1,0 +1,14 @@
+1.  Describe the computational meaning of *pipeline* and how pipelines
+    are often used in research.
+2.  Explain why a well-designed pipeline can streamline collaboration,
+    reduce time spent on an analysis, make the analysis steps explicit
+    and easier to work with, and ultimately contribute to more fully
+    reproducible research.
+3.  Explain the difference between a "function-oriented" workflow and a
+    "script-oriented" workflow, and why the function-based approach has
+    multiple advantages from a time- and effort-efficiency point of
+    view.
+4.  Build an analysis pipeline using `{targets}` that clearly defines
+    each step of your analysis---from raw data to finished manuscript---
+    that makes updates by you and your collaborators are as simple as
+    running a single function.

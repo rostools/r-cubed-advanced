@@ -29,28 +29,9 @@ process.
 For this session, we are going to learn how we can generally set up and
 run statistical models, so that we can use it within `{targets}`.
 
-## Learning objectives {#sec-stats-analyses-basic-learning-objectives}
+## Learning objectives
 
-This session’s **overall learning outcome** is to:
-
-1.  Describe the basic framework underlying most statistical analyses
-    and use R to generate statistical results using this framework.
-
-**Specific objectives** are to:
-
-1.  Describe the general "workflow": State the research question,
-    construct a model, prepare the data, fit the model, and extract the
-    results.
-2.  Categorize the model definition step as a distinct, theory-driven
-    step, separate from the data, and use `{parsnip}` functions to help
-    with defining your model.
-3.  Identify some data transformation techniques and evaluate which are
-    good options given the data. Use functions in the `{recipes}`
-    package to apply these transformations to your data.
-4.  Use the `{broom}` package to extract the model results to later
-    present them in graphical format (with `{ggplot2}`).
-5.  Continue applying the concepts and functions used from the previous
-    sessions.
+{{< include /includes/objectives/_stats-analyses-basic.qmd >}}
 
 Specific "anti"-objectives on things that we will *not* learn:
 

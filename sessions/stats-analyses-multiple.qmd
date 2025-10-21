@@ -32,23 +32,9 @@ complex actions and run large numbers of statistical analyses. This
 session will be about using functional programming in the context of
 statistical analysis.
 
-## Learning objectives {#sec-stats-analyses-multiple-learning-objectives}
+## Learning objectives
 
-This session’s **overall learning outcome** is to:
-
-1.  Describe the basic framework underlying most statistical analyses
-    and use R to generate statistical results using this framework.
-
-**Specific objectives** are to:
-
-1.  Recall principles of functional programming and apply them to
-    running statistical analyses by using the `{purrr}` package.
-2.  Continue applying the concepts and functions used from the previous
-    sessions.
-
-Specific "anti"-objectives:
-
--   Same as the "anti"-objectives of @sec-stats-analyses-basic.
+{{< include objectives/_stats-analyses-multiple.qmd >}}
 
 ## :book: Reading task: Apply logistic regression to each metabolite with functional programming
 

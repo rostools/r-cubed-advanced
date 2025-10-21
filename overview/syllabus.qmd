@@ -51,27 +51,24 @@ The overall aim of this workshop is to enable you to:
 Broken down into specific objectives for each session, we've designed
 the workshop to enable you to do the following:
 
-::: content-hidden
-[**TODO: Session title**](/sessions/session.qmd)
+[**Smoother project-based
+collaboration**](/sessions/smoother-collaboration.qmd):
 
-{{ include /includes/objectives/_smoother-collaboration.qmd }}
+{{ include /includes/objectives/\_smoother-collaboration.qmd }}
 
-Tangibly, during the workshop you will:
+[**Creating automatic analysis pipelines**](/sessions/pipelines.qmd):
 
--   TODO: List concrete tasks and steps
-:::
+{{ include /includes/objectives/\_pipelines.qmd }}
 
-1.  Identify potential actions to streamline collaboration on a data
-    analysis project and create projects that apply many of these
-    actions using R.
+[**A general approach to doing statistical
+analyses**](/sessions/stats-analyses-basic.qmd):
 
-2.  Describe and define the distinct steps involved in a pipeline that
-    goes from raw data to final results, and to use R to build this
-    pipeline in an automated and explicit way.
+{{ include /includes/objectives/\_stats-analyses-basic.qmd }}
 
-3.  Apply functional programming concepts to run statistical analyses
-    that fit within the conceptual framework of automated pipelines and
-    that can be used regardless of what statistical method is used.
+[**Efficiently running many analyses at
+once**](/sessions/stats-analyses-multiple.qmd):
+
+{{ include /includes/objectives/\_stats-analyses-multiple.qmd }}
 
 And we **will not** learn:
 
@@ -79,8 +76,19 @@ And we **will not** learn:
     (these are already covered by most university curriculum). We cover
     how to run statistical methods, but not which statistical methods to
     use for your data or project.
--   Making figures or plots (data visualization could be a whole
-    workshop on its own).
+
+Tangibly, during the workshop you will:
+
+-   Style your code using `{styler}` to improve readability and
+    consistency.
+-   Track package dependencies in the `DESCRIPTION` file as either
+    workflow or build dependencies.
+-   Build automated pipelines with `{targets}`.
+-   Structure your analysis into steps as functions that piece together
+    into a cohesive series of steps.
+-   Run multiple statistical analyses efficiently using `{purrr}`.
+-   Manage and collaborate on your projects using Git and GitHub.
+-   Write reproducible reports using Quarto.
 
 Because learning and coding is ultimately not *just* a solo activity,
 during this workshop we also aim to provide opportunities to chat with
