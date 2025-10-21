@@ -252,7 +252,7 @@ do an exercise to convert the code into a function.
 
 ## :technologist: Exercise: Create a function to calculate the model estimates
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Convert the code into a function that calculates the model estimates.
 Use this scaffold to help complete the tasks below for the
@@ -373,7 +373,7 @@ our first `{targets}` output!
 
 ## :technologist: Exercise: Incorporate additional code into an existing function
 
-> Time: \~12 minutes.
+**Time: ~12 minutes.**
 
 Taking the code above, we'll insert it into the `calculate_estimates()`
 function so it has a nicer looking and more readable output. While in
@@ -437,7 +437,7 @@ calculate_estimates <- function(data) {
 
 ## :technologist: Exercise: Add a target for the model results
 
-> Time: \~8 minutes
+**Time: ~8 minutes.**
 
 Taking the function code from above, you'll next add the model results
 output to end of the `_targets.R` file, using the below scaffold as a
@@ -601,7 +601,7 @@ results in order to fix them up. But for now, this will do.
 
 ## :technologist: Exercise: Add plot function as a target in the pipeline
 
-> Time: \~15 minutes.
+**Time: ~15 minutes.**
 
 Hopefully you've gotten comfortable with the function-oriented workflow,
 because we'll need to convert this plot code into a function and add it

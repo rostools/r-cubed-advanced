@@ -611,7 +611,7 @@ lipidomics_wide
 
 ## :technologist: Exercise: Convert the pivot code into a function
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Just like with the `mutate()`, take the `pivot_wider()` code and convert
 it into a new function.

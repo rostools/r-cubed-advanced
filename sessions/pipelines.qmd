@@ -410,7 +410,7 @@ commit the changes to the Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Convert summary statistics code into a function
 
-> Time: \~20 minutes.
+**Time: ~20 minutes.**
 
 In the `doc/learning.qmd` file, use the "function-oriented" workflow, as
 taught in the [intermediate
@@ -656,7 +656,7 @@ We now have the basic code to convert over into functions.
 
 ## :technologist: Exercise: Convert the plot code to a function
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 For now, we will only take the code to make the distribution plot and
 convert it into a function. Just like you did with the
@@ -720,7 +720,7 @@ plot_distributions <- function(data) {
 ::: {.callout-note appearance="minimal" collapse="true" icon="false"}
 ## :technologist: Extra exercise: Test out how `tar_outdated()` and `tar_visnetwork()` work
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Let's make a change to our function and test out how the
 `tar_outdated()` and `tar_visnetwork()` work.

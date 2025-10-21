@@ -225,7 +225,7 @@ install it and add it to the `DESCRIPTION` file.
 
 ## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Before continuing with the exercise, be sure to add and commit all the
 files in the `AdvancedR3` project to save the current state of the files
@@ -406,7 +406,7 @@ types of dependencies, both workflow and build. Neat! :tada:
 
 ## :technologist: Exercise: Connect your project to GitHub
 
-> Time: \~25 minutes.
+**Time: ~25 minutes.**
 
 Since we will eventually connect our project Git repository to GitHub to
 practice working with GitHub, we'll connect our project to GitHub right
@@ -619,7 +619,7 @@ experience using it.
 
 ## :technologist: Exercise: Update the README file while using canonical Markdown mode
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Open up the `README.md` file and do all the `TODO` items found inside
 the file as well as inside the `TODO.md` file. Save often and watch as
