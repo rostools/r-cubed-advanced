@@ -29,9 +29,21 @@ process.
 For this session, we are going to learn how we can generally set up and
 run statistical models, so that we can use it within `{targets}`.
 
-## Learning objectives {#sec-stats-analyses-basic-learning-objectives}
+## Learning objectives
 
 {{< include /includes/objectives/_stats-analyses-basic.qmd >}}
+
+Specific "anti"-objectives on things that we will *not* learn:
+
+-   How to choose and apply the appropriate statistical model or tests.
+-   Statistical theory.
+-   How to determine relevant data transformations for statistical
+    tests.
+-   How to interpret the statistical results.
+
+This means that what we show is *for demonstration purposes only*. Our
+implementation and choice of model and analyses could be wrong if an
+expert were to review them.
 
 ::: {.callout-warning appearance="default"}
 We will be making *a lot* of function throughout this session and the
@@ -40,7 +52,7 @@ next. This is just a fair warning!
 
 ## :speech_balloon: Discussion activity: What does a "model" mean?
 
-> Time: \~6 minutes.
+**Time: ~6 minutes.**
 
 In science and especially statistics, we talk a lot about "models". But
 what does model actually mean? What different types of definitions can
@@ -54,7 +66,9 @@ compared to other areas?
 3.  Finally, over the next 2 minutes, we will share all together what a
     model is in the context of data analysis.
 
-## A brief introduction to statistical modelling and workflow
+## :book: Reading task: A brief introduction to statistical modelling and workflow
+
+**Time: ~15 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -66,9 +80,6 @@ analyses.
 :::
 
 <!-- TODO: Create a revealjs presentation on this? -->
-
-:::: callout-note
-## :book: Reading task: \~15 minutes
 
 Research, especially quantitative research, is about making inferences
 about the world by quantifying uncertainty from some data. And we
@@ -218,7 +229,6 @@ graph TB
 ```
 
 {{< text_snippet sticky_up >}}
-::::
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -236,7 +246,9 @@ Also repeat the question to ask, the outputs, as well as the functions
 and their flow that we can translate into the `{targets}` pipeline.
 :::
 
-## Defining a model for our lipidomics data
+## :book: Reading task: Defining a model for our lipidomics data
+
+**Time: ~10 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -246,9 +258,6 @@ section, describing the theoretical model both graphically and
 mathematically. Go through why we use `{tidymodels}` rather than other
 approaches.
 :::
-
-::: callout-note
-## :book: Reading task: \~10 minutes
 
 Going back to our own lipidomics dataset, we need to do the first step:
 Creating the question. While we don't have much data, there are a
@@ -332,7 +341,8 @@ commonly used model types would be `linear_reg()`, `logistic_reg()`, and
 `multinom_reg()`.
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Creating the model engine
 
 Let's switch to working in the `doc/learning.qmd` file to create those
 logistic regression models. First, we need to add `library(tidymodels)`
@@ -487,8 +497,9 @@ later. So, to make this function a bit more generic, we can use
 something called "curly-curly" (it looks like `{{}}` when used) and
 "non-standard evaluation" (NSE).
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+## :book: Reading task: Non-standard evaluation and curly-curly
+
+**Time: ~10 minutes.**
 
 When you write your own functions that make use of functions in the
 `{tidyverse}`, you may eventually encounter an error that might not be
@@ -538,7 +549,8 @@ lipidomics |>
 ```
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Using curly-curly when using tidyverse functions in our own functions
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -599,7 +611,7 @@ lipidomics_wide
 
 ## :technologist: Exercise: Convert the pivot code into a function
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Just like with the `mutate()`, take the `pivot_wider()` code and convert
 it into a new function.
@@ -941,6 +953,8 @@ create_model_workflow(
 ```
 
 Let's briefly cover what these columns and values mean.
+But first, open the Git interface and commit the changes you made
+with {{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -950,8 +964,9 @@ depending on how comfortable you are. Or you can get them to read it
 only.
 :::
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+## :book: Reading task: Understanding the model output
+
+**Time: ~10 minutes.**
 
 Let's explain this output a bit, each column at a time:
 
@@ -993,10 +1008,6 @@ Let's explain this output a bit, each column at a time:
     be using this value at all in presenting the results.
 
 {{< text_snippet sticky_up >}}
-:::
-
-Before ending, open the Git interface and commit the changes you made
-with {{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ## Summary
 

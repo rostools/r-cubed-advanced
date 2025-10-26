@@ -67,24 +67,25 @@ the workshop to enable you to do the following:
 
 {{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
 
-::: content-hidden
-3.  Apply functional programming concepts to run statistical analyses
-    that fit within the conceptual framework of automated pipelines and
-    that can be used regardless of what statistical method is used.
-
-Tangibly, during the workshop you will:
-
--   TODO: List concrete tasks and steps
-:::
-
 And we **will not** learn:
 
 -   Any details on or about specific statistical methods or models
     (these are already covered by most university curriculum). We cover
     how to run statistical methods, but not which statistical methods to
     use for your data or project.
--   Making figures or plots (data visualization could be a whole
-    workshop on its own).
+
+Tangibly, during the workshop you will:
+
+-   Style your code using `{styler}` to improve readability and
+    consistency.
+-   Track package dependencies in the `DESCRIPTION` file as either
+    workflow or build dependencies.
+-   Build automated pipelines with `{targets}`.
+-   Structure your analysis into steps as functions that piece together
+    into a cohesive series of steps.
+-   Run multiple statistical analyses efficiently using `{purrr}`.
+-   Manage and collaborate on your projects using Git and GitHub.
+-   Write reproducible reports using Quarto.
 
 Because learning and coding is ultimately not *just* a solo activity,
 during this workshop we also aim to provide opportunities to chat with

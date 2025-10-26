@@ -31,13 +31,12 @@ analysis projects and facilitate smoother collaboration.
 
 {{< include /includes/objectives/_dependencies.qmd >}}
 
-## Project-level package dependency management
+## :book: Reading task: Project-level package dependency management
+
+**Time: ~8 minutes.**
 
 > Note: This first session is more conceptual and is heavier on the
 > reading and explanation, but is important for the next sessions.
-
-::: callout-note
-## :book: Reading task: \~8 minutes
 
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
@@ -129,14 +128,13 @@ managing your dependencies, which is what we'll cover in the next
 section.
 
 {{< text_snippet sticky_up >}}
-:::
 
-## Formal dependency management
+## :book: Reading task: Formal dependency management
+
+**Time: ~3 minutes.**
+
 
 <!-- TODO: As a reading activity or explained by the instructor? -->
-
-:::: callout-note
-## :book: Reading task: \~3 minutes
 
 The most common form of a more *formal* way of managing dependencies---
 at least based on R packages and projects found on GitHub---makes use of
@@ -198,18 +196,17 @@ a specific package, we will continue using `usethis::use_package()` to
 install it and add it to the `DESCRIPTION` file.
 
 {{< text_snippet sticky_up >}}
-::::
 
-Before moving on to the exercise, be sure to add and commit all the
+## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
+
+**Time: ~10 minutes.**
+
+Before continuing with the exercise, be sure to add and commit all the
 files in the `AdvancedR3` project to save the current state of the files
 to the Git history. Open the Git interface by either typing with
 {{< var keybind.git >}} or by going to the Git pane and clicking the
 "Commit" button. Then, write a commit message and click the "Commit"
 button in this window.
-
-## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
-
-> Time: \~10 minutes.
 
 Let's update the `DESCRIPTION` file with the packages we depend on in
 the `data-raw/nmr-omics.R` script. Open `nmr-omics.R` file and complete
@@ -406,7 +403,7 @@ Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Connect your project to GitHub
 
-> Time: \~25 minutes.
+**Time: ~25 minutes.**
 
 Since we will eventually connect our project Git repository to GitHub to
 practice working with GitHub, we'll connect our project to GitHub right
@@ -518,7 +515,7 @@ experience using it.
 
 ## :technologist: Exercise: Update the README file while using canonical Markdown mode
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Open up the `README.md` file and do all the `TODO` items found inside
 the file as well as inside the `TODO.md` file. Save often and watch as

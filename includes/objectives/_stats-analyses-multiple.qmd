@@ -1,15 +1,2 @@
-This session's **overall learning outcome** is to:
-
-1.  Describe the basic framework underlying most statistical analyses
-    and use R to generate statistical results using this framework.
-
-**Specific objectives** are to:
-
 1.  Recall principles of functional programming and apply them to
     running statistical analyses by using the `{purrr}` package.
-2.  Continue applying the concepts and functions used from the previous
-    sessions.
-
-Specific "anti"-objectives:
-
--   Same as the "anti"-objectives as the previous session.

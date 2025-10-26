@@ -18,6 +18,8 @@ lipidomics_wide <- lipidomics |>
 #   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
+{{< text_snippet review_note >}}
+
 Rarely do we run only one single statistical model to answer one single
 question, especially in our data-overflowing environments. An initial
 instinct when faced with this task might be to copy-and-paste, then
@@ -30,14 +32,13 @@ complex actions and run large numbers of statistical analyses. This
 session will be about using functional programming in the context of
 statistical analysis.
 
-## Learning objectives {#sec-stats-analyses-multiple-learning-objectives}
+## Learning objectives
 
 {{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
 
-## Apply logistic regression to each metabolite with functional programming
+## :book: Reading task: Apply logistic regression to each metabolite with functional programming
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+**Time: ~10 minutes.**
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component
@@ -50,7 +51,8 @@ as the
 (this is a short section).
 
 {{< text_snippet sticky_up >}}
-:::
+
+## Using functional programming to run multiple models
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -250,7 +252,7 @@ do an exercise to convert the code into a function.
 
 ## :technologist: Exercise: Create a function to calculate the model estimates
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Convert the code into a function that calculates the model estimates.
 Use this scaffold to help complete the tasks below for the
@@ -371,7 +373,7 @@ our first `{targets}` output!
 
 ## :technologist: Exercise: Incorporate additional code into an existing function
 
-> Time: \~12 minutes.
+**Time: ~12 minutes.**
 
 Taking the code above, we'll insert it into the `calculate_estimates()`
 function so it has a nicer looking and more readable output. While in
@@ -435,7 +437,7 @@ calculate_estimates <- function(data) {
 
 ## :technologist: Exercise: Add a target for the model results
 
-> Time: \~8 minutes
+**Time: ~8 minutes.**
 
 Taking the function code from above, you'll next add the model results
 output to end of the `_targets.R` file, using the below scaffold as a
@@ -599,7 +601,7 @@ results in order to fix them up. But for now, this will do.
 
 ## :technologist: Exercise: Add plot function as a target in the pipeline
 
-> Time: \~15 minutes.
+**Time: ~15 minutes.**
 
 Hopefully you've gotten comfortable with the function-oriented workflow,
 because we'll need to convert this plot code into a function and add it

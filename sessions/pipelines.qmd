@@ -14,6 +14,8 @@ library(targets)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
+{{< text_snippet review_note >}}
+
 When doing analyses on data, you have probably experienced (many) times
 where you forget the order in which other code should run or which parts
 need to be rerun to update results. Things can get confusing quickly,
@@ -33,7 +35,7 @@ that create and manage these pipelines effectively.
 
 ## :speech_balloon: Discussion activity: How do you rerun analyses when something changes?
 
-> Time: \~12 minutes.
+**Time: ~12 minutes.**
 
 We've all been in situations where something in our analysis needs to
 change: Maybe we forgot to remove a certain condition (like unrealistic
@@ -54,7 +56,9 @@ data processing stage.
 3.  For the remaining time, we'll briefly share with everyone what
     they've thought and discussed.
 
-## What is a data analysis "pipeline"?
+## :book: Reading task: What is a data analysis "pipeline"?
+
+**Time: ~10 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -63,9 +67,6 @@ After they finish reading this section, briefly walk through it. In
 particular, emphasize what we want to make at the end, even though that
 goal might change as the analysis progresses.
 :::
-
-::: callout-note
-## :book: Reading task: \~10 minutes
 
 A pipeline can be any process where the steps between a start and an end
 point are very clear, explicit, and concrete. These highly distinct
@@ -150,7 +151,6 @@ Now that we have conceptually drawn out some initial tasks in our
 pipeline, we can start using R to build it.
 
 {{< text_snippet sticky_up >}}
-:::
 
 ## Using targets to manage a pipeline
 
@@ -199,6 +199,12 @@ also find that running `targets::use_targets()` also have created a
 running on a Linux server) that we won't cover in this workshop.
 :::
 
+## :book: Reading task: Inside of the `_targets.R` file
+
+**Time: ~8 minutes.**
+
+
+
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
@@ -206,9 +212,6 @@ Let them read it before going over it again to reinforce
 function-oriented workflows and how `{targets}` and the `tar_target()`
 works.
 :::
-
-:::: callout-note
-## :book: Reading task: \~8
 
 For this reading task, we'll take a look at what the `_targets.R`
 contains. So, start by opening it on your computer.
@@ -313,7 +316,8 @@ function call, while the `name` is the name of the output of the
 function call.
 
 {{< text_snippet sticky_up >}}
-::::
+
+## Building up our first target
 
 Let's start writing code to create the three items we listed above in
 @fig-pipeline-schematic:
@@ -406,7 +410,7 @@ commit the changes to the Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Convert summary statistics code into a function
 
-> Time: \~20 minutes.
+**Time: ~20 minutes.**
 
 In the `doc/learning.qmd` file, use the "function-oriented" workflow, as
 taught in the [intermediate
@@ -652,7 +656,7 @@ We now have the basic code to convert over into functions.
 
 ## :technologist: Exercise: Convert the plot code to a function
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 For now, we will only take the code to make the distribution plot and
 convert it into a function. Just like you did with the
@@ -716,7 +720,7 @@ plot_distributions <- function(data) {
 ::: {.callout-note appearance="minimal" collapse="true" icon="false"}
 ## :technologist: Extra exercise: Test out how `tar_outdated()` and `tar_visnetwork()` work
 
-> Time: \~10 minutes.
+**Time: ~10 minutes.**
 
 Let's make a change to our function and test out how the
 `tar_outdated()` and `tar_visnetwork()` work.
@@ -996,10 +1000,9 @@ again to see everything re-build! Last things are to re-style using
 history before moving on with {{< var keybind.git >}}. Then push your
 changes up to GitHub.
 
-## Fixing issues in the stored pipeline data
+## :book: Reading task: Fixing issues in the stored pipeline data
 
-::: callout-note
-## :book: Reading task: \~10 minutes
+**Time: ~10 minutes.**
 
 Sometimes you need to start from the beginning and clean everything up
 because there's an issue that you can't seem to fix. In this case,
@@ -1042,7 +1045,6 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     you want to start over and rerun the entire pipeline again.
 
 {{< text_snippet sticky_up >}}
-:::
 
 ## Summary
 

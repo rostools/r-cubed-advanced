@@ -10,6 +10,17 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.2.1 (2025-10-26)
+
+### Refactor
+
+- **sessions**: :art: match exercise section's format with other workshops
+- **sessions**: :art: match discussion activities format from other workshops
+- **sessions**: :fire: no longer need start of workshop tasks
+- **sessions**: :truck: move learning objectives into includes files
+- **sessions**: :recycle: convert reading sections into standalone sections
+- **sessions**: :recycle: revise to using Quarto snippets rather than includes
+
 ## 1.2.0 (2025-09-06)
 
 ### Feat
