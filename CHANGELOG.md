@@ -10,6 +10,25 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.2.2 (2025-10-26)
+
+### Fix
+
+- :pencil2: use correct single quote character
+- **sessions**: :pencil2: correct text snippet, needs `_`, not `-`
+
+### Refactor
+
+- **sessions**: :truck: move collaboration discussion to the introduction
+- **sessions**: :recycle: rename session to "Dependency management"
+- :truck: move styler text into pre-workshop tasks
+- **sessions**: :truck: rename to `dependencies` rather than `smoother-collaboration`
+- **sessions**: :truck: moved objectives into includes file, use in syllabus
+- **sessions**: :recycle: use the sticky-up text snippet, not the includes
+- **sessions**: :fire: morning review will be structured, rather than recommended
+- **appendix**: :fire: teachers note about group assignment isn't needed
+- **appendix**: :fire: don't need this appendix about model variability
+
 ## 1.2.1 (2025-10-26)
 
 ### Refactor
