@@ -29,6 +29,8 @@ process.
 For this session, we are going to learn how we can generally set up and
 run statistical models, so that we can use it within `{targets}`.
 
+
+
 ## Learning objectives
 
 {{< include /includes/objectives/_stats-analyses-basic.qmd >}}
@@ -49,6 +51,30 @@ expert were to review them.
 We will be making *a lot* of function throughout this session and the
 next. This is just a fair warning!
 :::
+
+## Taking a step back and thinking about the design
+
+With functional programming, it's best to design code in a way that
+breaks down the process into smaller pieces. Each piece should take a single
+input and return a single output, so that we can eventually chain them together
+into a single pipeline. When we've made a pipeline that can output results for
+one thing, it's fairly easy to extend that to do multiple things at once too.
+
+So this session is about running a basic statistical analysis for one
+single research question, as a statistical model. The next session will be
+taking what we've done here and applying it to run many at once.
+
+```{mermaid}
+flowchart TB
+    q[Question] -->|?| result[Result]
+```
+
+```{mermaid}
+flowchart TB
+    q[Question] -->|?| model[Model]
+    model -->|?| result[Result]
+```
+
 
 ## :speech_balloon: Discussion activity: What does a "model" mean?
 
@@ -153,12 +179,12 @@ grams), the amount of water given per day (in liters), and the number of
 sunlight hours per day.
 
 This also means that when formulating a research question, there is an
-order, or workflow, to follow:
+order to follow:
 
 1.  **Write a research question** that fits a theoretical model with
     measurable parameters.
 
-2.  **Select the best model type** based on the parameters (e.g., linear
+2.  **Select the best model type** based on the model parameters (e.g., linear
     regression, logistic regression, ANOVA, or t-test).
 
 3.  **Measure your parameters** (e.g., water in liters per day, plant
@@ -200,6 +226,14 @@ field, and how we would actually interpret the findings. We have
 here. We're only doing this modeling to highlight how to use the R
 packages.
 :::
+
+```{mermaid}
+```{mermaid}
+flowchart TB
+    q[Question] -->|?| model[Model]
+    model & data[Data] -->|?| result[Result]
+```
+```
 
 Furthermore, because we are working within a "reproducible analysis"
 framework specifically with the use of `{targets}`, we will also convert
@@ -302,83 +336,16 @@ So we have the theoretical model and the type of model to use, now how
 do we express this as code in R? There are many ways of doing the same
 thing in R, but some are a bit easier than others.
 
-One approach that is quite generic and fits with the ideals of the
-`{tidyverse}`, is a similar universe of packages called the
-`{tidymodels}`. We teach `{tidymodels}` because they are created by
-experienced software developers at Posit, the same company behind the
-`{tidyverse}` and RStudio. They are known for excellent documentation.
-`{tidymodels}` makes it easy to create and use models in a flexible way,
-allowing you to switch model types or data processing methods without
-needing to learn new tools. This makes your work more efficient and
-adaptable.
+## Creating the list of model formulas
 
-`{tidymodels}` is designed to clearly separate the different parts of
-the model-building process. Each component of the workflow has its own
-specific package, making it easier to manage and understand. This
-modular approach allows you to change one part of the process, like the
-model type or data processing method, without having to learn a
-completely new set of tools. This design makes `{tidymodels}` both
-flexible and user-friendly.
-
-| Package | Description |
-|----|----|
-| `{parsnip}` | Define the model, such as type (e.g. `linear_reg()`) and "engine" (e.g. `glm()`). |
-| `{recipes}` | Model-specific data transformations, such as removing missing values, or standardizing the data. |
-| `{workflows}` | Combining model definition, data, and transformations to calculate the estimates and uncertainty. |
-
-: Core packages within `{tidymodels}`.
-
-We'll start with the `{parsnip}` package. Functions in this package are
-used to set the details of the model you want to use. Specifically,
-[functions](https://parsnip.tidymodels.org/reference/index.html#models)
-to indicate the model *"type"* (e.g. linear regression) and the
-`set_engines()` function to determine the "engine" to run the type
-(which R-based algorithm to use, like `glm()` compared to `lm()`). Check
-out the
-[Examples](https://parsnip.tidymodels.org/articles/Examples.html) page
-for code you might use depending on the model you want. The most
-commonly used model types would be `linear_reg()`, `logistic_reg()`, and
-`multinom_reg()`.
-
-{{< text_snippet sticky_up >}}
-
-## Creating the model engine
+```{mermaid}
+flowchart TB
+    qs[Questions] --> models[Models]
+    models & data[Data] -->|?| rs[Results]
+```
 
 Let's switch to working in the `doc/learning.qmd` file to create those
-logistic regression models. First, we need to add `library(tidymodels)`
-to the `setup` code chunk. Copy and paste this code chunk below into the
-Quarto file.
-
-```` {.markdown filename="doc/learning.qmd"}
-```{{r setup}}
-targets::tar_config_set(store = here::here("_targets"))
-library(tidyverse)
-library(targets)
-library(tidymodels)
-source(here::here("R/functions.R"))
-lipidomics <- tar_read(lipidomics)
-```
-````
-
-Since we will be using `{tidymodels}`, we need to install it, as well as
-explicitly add the `{parsnip}`, `{recipes}`, and `{workflows}` packages.
-Like `{tidyverse}`, we need to set `{tidymodels}` differently because it
-is a "meta-package". We might need to force installing it with
-`pak::pak("tidymodels")`.
-
-```{r tidymodels-to-deps}
-#| filename: Console
-#| purl: true
-#| eval: false
-use_package("tidymodels", "depends")
-# pak::pak("tidymodels")
-use_package("parsnip")
-use_package("recipes")
-use_package("workflows")
-```
-
-Before continuing, let's **commit** the changes to the Git history with
-{{< var keybind.git >}}. Next, in the `doc/learning.qmd` file, on the
+logistic regression models. In the `doc/learning.qmd` file, on the
 bottom of the document create a new header and code chunk:
 
 ```` {.markdown filename="doc/learning.qmd"}
@@ -389,14 +356,8 @@ bottom of the document create a new header and code chunk:
 ```
 ````
 
-In the new code chunk, we will set up the model specs:
+In the new code chunk, we will set up the model formula:
 
-```{r logistic-reg-specs}
-#| filename: "doc/learning.qmd"
-log_reg_specs <- logistic_reg() |>
-  set_engine("glm")
-log_reg_specs
-```
 
 Running this on it's own doesn't show much, as you can see. But we've
 now set the model we want to use.
@@ -465,30 +426,14 @@ mean before pivoting. We do this by setting the `values_fn` with `mean`.
 ```{r lipidomic-to-wider}
 #| filename: "doc/learning.qmd"
 lipidomics_wide <- lipidomics |>
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
+  mutate(predictor = snakecase::to_snake_case(metabolite)) |>
   pivot_wider(
-    names_from = metabolite,
+    names_from = predictor,
     values_from = value,
     values_fn = mean,
     names_prefix = "metabolite_"
   )
 lipidomics_wide
-```
-
-Since we're using a function-oriented workflow and since we will be
-using this code again later on, let's convert both the "metabolite to
-snakecase" and "pivot to wider" code into their own functions. Lets
-start writing the function in the `doc/learning.qmd` (we will later move
-them over into the `R/functions.R` file).
-
-```{r first-snakecase-fn}
-#| filename: "doc/learning.qmd"
-column_values_to_snake_case <- function(data) {
-  data |>
-    dplyr::mutate(metabolite = snakecase::to_snake_case(metabolite))
-}
-lipidomics |>
-  column_values_to_snake_case()
 ```
 
 This on its own should work. *However*, the column we want to change
@@ -559,99 +504,7 @@ You don't need to go over what they read, you can continue with making
 the function below. Unless learners have some questions.
 :::
 
-We can use curly-curly (combined with `across()`) to apply
-`snakecase::to_snake_case()` to columns of our choice.
-
-```{r second-snakecase-fn}
-#| filename: "doc/learning.qmd"
-column_values_to_snake_case <- function(data, columns) {
-  data |>
-    dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
-}
-
-lipidomics |>
-  column_values_to_snake_case(metabolite)
-```
-
-Move this new function over into the `R/functions.R` file, add Roxygen
-documentation with {{< var keybind.roxygen >}}, style using
-{{< var keybind.styler >}}, `source()` the modified `R/functions.R` file
-with {{< var keybind.source >}}
-
-```{r new-function-column-values-to-snakecase}
-#| filename: "R/functions.R"
-#' Convert a column's character values to snakecase format.
-#'
-#' @param data The lipidomics dataset.
-#' @param columns The column you want to convert into the snakecase format.
-#'
-#' @return A data frame.
-#'
-column_values_to_snake_case <- function(data, columns) {
-  data |>
-    dplyr::mutate(dplyr::across({{ columns }}, snakecase::to_snake_case))
-}
-```
-
-Now, replace the `mutate()` call with our new function (above the
-`pivot_wider()` code) in the `doc/learning.qmd` file.
-
-```{r snakecase-function-before-pivot-wider}
-#| filename: "doc/learning.qmd"
-lipidomics_wide <- lipidomics |>
-  column_values_to_snake_case(metabolite) |>
-  pivot_wider(
-    names_from = metabolite,
-    values_from = value,
-    values_fn = mean,
-    names_prefix = "metabolite_"
-  )
-lipidomics_wide
-```
-
-## :technologist: Exercise: Convert the pivot code into a function
-
-**Time: ~10 minutes.**
-
-Just like with the `mutate()`, take the `pivot_wider()` code and convert
-it into a new function.
-
-1.  Name the new function `metabolites_to_wider`.
-2.  Include one argument in the new `function()`: `data`.
-3.  Use `data |>` at the beginning, like we did with the
-    `column_values_to_snake_case()`.
-4.  Use `tidyr::` before the `pivot_wider()` function.
-5.  Add the Roxygen documentation with {{< var keybind.roxygen >}}.
-6.  Move the function into the `R/functions.R` file.
-7.  Replace the code in the `doc/learning.qmd` file to make use of the
-    new functions.
-
-```{r solution-new-function-metabolite-to-wider}
-#| eval: true
-#| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-#' Convert the metabolite long format into a wider one.
-#'
-#' @param data The lipidomics dataset.
-#'
-#' @return A wide data frame.
-#'
-metabolites_to_wider <- function(data) {
-  data |>
-    tidyr::pivot_wider(
-      names_from = metabolite,
-      values_from = value,
-      values_fn = mean,
-      names_prefix = "metabolite_"
-    )
-}
-```
-
-{{< text_snippet sticky_up >}}
-
-## Using recipes to manage transformations
-
-<!-- TODO: convert this next few paragraphs to reading exercise? -->
+## Pre-processing before modeling
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -661,213 +514,24 @@ Verbally talk through the next few paragraphs, no code-along yet.
 
 We've used `{dplyr}` and `{tidyr}` to start fixing some of the issues
 with the data. But we still have the third issue: How to make the
-results between metabolites comparable. That's where we use `{recipes}`.
-
-The first function is `recipe()` and it takes two forms: with or without
-a formula. Remember the model formula we mentioned previously? Well,
-here is where we can use it to tell `{recipes}` about the model formula
-we intend to use so it knows on what variables to apply the chosen
-transformations.
-
-For a few reasons that will be clearer later, we won't ultimately use
-the formula form of `recipe()`, but will show how it works:
-
-```{r recipes-with-formula}
-recipe(class ~ metabolite_cholesterol + age + gender, data = lipidomics_wide)
-```
-
-The alternative approach is to set "roles" using `update_roles()`.
-Instead of using a formula and letting `recipe()` infer the outcome and
-predictors, we can explicitly select which variables are which. This has
-some nice features that we will use later on.
-
-```{r recipes-without-formula}
-#| filename: "doc/learning.qmd"
-#| warning: true
-#| message: true
-recipe(lipidomics_wide) |>
-  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") |>
-  update_role(class, new_role = "outcome")
-```
-
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-Describe this next paragraph by switching to this website and showing
-the list of some of the steps available in the code chunk below.
-:::
-
-The next "step" is to select a transformation function. There are many
-`step_*` functions (some shown below) that are available in `{recipes}`
-and which one you decide to use depends heavily on your data and your
-research question. So take your time thinking through which
-transformations you actually need for your analysis, rather than quickly
-using one or more of them.
-
-```{r}
-#| eval: false
-recipes::step_log()
-recipes::step_scale()
-recipes::step_normalize()
-recipes::step_center()
-recipes::step_sqrt()
-```
-
-::: {.callout-tip appearance="default"}
-There are so many useful transformation functions available. For
-instance, if you often have to impute data, there are functions for
-that. You can check them out in the Console by typing
-`recipes::step_impute_` then hit the Tab key to see a list of them. Or,
-if you have some missing values, there's also the
-`recipes::step_naomit()`.
-:::
+results between metabolites comparable.
 
 There are many transformations we could use for the `lipidomics`
-dataset, but we will use `step_normalize()` for this workshop. This
+dataset, but we will use normalization for this workshop. This
 function is useful because it makes each variable centered to zero and a
 value of 1 unit is translated to 1 standard deviation of the original
 distribution. This means we can more easily compare values between
-variables. We can add this to the end of the recipe:
+variables.
 
-```{r recipes-with-step-normalize}
-#| filename: "doc/learning.qmd"
-#| warning: true
-#| message: true
-recipe(lipidomics_wide) |>
-  update_role(metabolite_cholesterol, age, gender, new_role = "predictor") |>
-  update_role(class, new_role = "outcome") |>
-  step_normalize(starts_with("metabolite_"))
-```
-
-Next thing to do is convert this into a function, using the same
-workflow we've been using (which means this needs to be in the
-`R/functions.R` script). We'll also use the curly-curly again, since we
-might use a different metabolite later. Note, when adding all the
-`packagename::` to each function, the `starts_with()` function comes
-from the `{tidyselect}` package.
-
-```{r new-function-create-recipe-spec}
-#| filename: "R/functions.R"
-#' A transformation recipe to pre-process the data.
-#'
-#' @param data The lipidomics dataset.
-#' @param metabolite_variable The column of the metabolite variable.
-#'
-#' @return
-#'
-create_recipe_spec <- function(data, metabolite_variable) {
-  recipes::recipe(data) |>
-    recipes::update_role({{ metabolite_variable }}, age, gender, new_role = "predictor") |>
-    recipes::update_role(class, new_role = "outcome") |>
-    recipes::step_normalize(tidyselect::starts_with("metabolite_"))
-}
-```
-
-And test it out:
-
-```{r use-create-recipe-specs-fn}
-#| filename: "doc/learning.qmd"
-#| warning: true
-#| message: true
-recipe_specs <- lipidomics_wide |>
-  create_recipe_spec(metabolite_cholesterol)
-recipe_specs
-```
 
 Style using {{< var keybind.styler >}}, then commit the changes made to
 the Git history with {{< var keybind.git >}}.
 
-## Fitting the model by combining the recipe, model definition, and data {#sec-fitting-model}
+## Fitting the model to the data {#sec-fitting-model}
 
-We've now defined the model we want to use and created a transformation
-`{recipes}` specification. Now we can start putting them together and
-finally fit them to the data. This is done with the `{workflows}`
-package.
-
-Why use this package, rather than simply run the statistical analysis
-and process the data as normal? When running multiple models (like we
-will do in the next section) that may require different data structures,
-the data transformation steps have to happen *right before* the data is
-fit to the model and need to be done on exactly the data used by the
-model. So if we have one data frame that we run multiple models on, but
-the transformation happens to the whole data frame, we could end up with
-issues due to how the transformations were applied. The `{workflows}`
-package keeps track of those things for us, so we can focus on the
-higher level thinking rather than on the small details of running the
-models.
-
-The `{workflows}` package has a few main functions for combining the
-recipe with the model specs, as well as several for updating an existing
-workflow (which might be useful if you need to run many models of
-slightly different types). All model workflows need to start with
-`workflow()`, followed by two main functions: `add_model()` and
-`add_recipe()`. Can you guess what they do?
-
-```{r use-workflow-for-model}
-#| filename: "doc/learning.qmd"
-workflow() |>
-  add_model(log_reg_specs) |>
-  add_recipe(recipe_specs)
-```
-
-While this code is already pretty concise, let's convert it into a
-function to make it simplified. We'll use the same function-oriented
-workflow that we've used before, where the function should ultimately be
-inside the `R/functions.R` file.
-
-```{r new-function-create-model-workflow}
-#| filename: "R/functions.R"
-#' Create a workflow object of the model and transformations.
-#'
-#' @param model_specs The model specs
-#' @param recipe_specs The recipe specs
-#'
-#' @return A workflow object
-#'
-create_model_workflow <- function(model_specs, recipe_specs) {
-  workflows::workflow() |>
-    workflows::add_model(model_specs) |>
-    workflows::add_recipe(recipe_specs)
-}
-```
-
-<!-- TODO: image showing pieces at play that we need to eventually fit into targets/questions -->
-
-Instead of using the previously created objects, let's start the model
-creation from scratch:
-
-```{r full-model-workflow-from-almost-scratch}
-#| filename: "doc/learning.qmd"
-model_workflow <- create_model_workflow(
-  logistic_reg() |>
-    set_engine("glm"),
-  lipidomics_wide |>
-    create_recipe_spec(metabolite_cholesterol)
-)
-model_workflow
-```
-
-Now, we can do the final thing: Fitting the data to the model with
-`fit()`! :raised_hands:
-
-```{r fit-model-workflow-to-data}
-#| filename: "doc/learning.qmd"
-fitted_model <- model_workflow |>
-  fit(lipidomics_wide)
-fitted_model
-```
-
-This gives us a lot of information, but what we are mostly interested in
-is the model estimates themselves. While this `fitted_model` object
-contains a lot additional information inside, `{workflows}` thankfully
-has a function to extract the information we want. In this case, it is
-the `extract_fit_parsnip()` function.
-
-```{r extract-model-fit}
-#| filename: "doc/learning.qmd"
-fitted_model |>
-  extract_fit_parsnip()
-```
+We've now defined the model we want to use and transformed the data.
+Now we can start putting them together and
+finally fit them to the data.
 
 To get this information in a tidier format, we use another function:
 `tidy()`. This function comes from the `{broom}` package, which is part
@@ -892,7 +556,6 @@ the output estimates will be odds ratios, if we set
 ```{r tidy-up-model-results}
 #| filename: "doc/learning.qmd"
 fitted_model |>
-  extract_fit_parsnip() |>
   tidy(exponentiate = TRUE)
 ```
 
@@ -910,47 +573,6 @@ Another reminder, we **are not** interpreting this results. For this
 workshop, they are **not** important and can distract from the main
 purpose.
 :::
-
-Like we did with the `workflows()` code that we converted into a
-function, we do the same thing here: Make another function (and move it
-to `R/functions.R`)! :stuck_out_tongue:
-
-```{r new-function-tidy-model-output}
-#| filename: "R/functions.R"
-#' Create a tidy output of the model results.
-#'
-#' @param workflow_fitted_model The model workflow object that has been fitted.
-#'
-#' @return A data frame.
-#'
-tidy_model_output <- function(workflow_fitted_model) {
-  workflow_fitted_model |>
-    workflows::extract_fit_parsnip() |>
-    broom::tidy(exponentiate = TRUE)
-}
-```
-
-Replacing the code in the `doc/learning.qmd` file to use the function.
-
-```{r use-tidy-model-output-fn}
-#| filename: "doc/learning.qmd"
-fitted_model |>
-  tidy_model_output()
-```
-
-If we revise the code so it is one pipe, it would look like:
-
-```{r single-pipe-model-results}
-#| filename: "doc/learning.qmd"
-create_model_workflow(
-  logistic_reg() |>
-    set_engine("glm"),
-  lipidomics_wide |>
-    create_recipe_spec(metabolite_cholesterol)
-) |>
-  fit(lipidomics_wide) |>
-  tidy_model_output()
-```
 
 Let's briefly cover what these columns and values mean.
 But first, open the Git interface and commit the changes you made
@@ -1019,17 +641,6 @@ Let's explain this output a bit, each column at a time:
     surprisingly structured in the workflow and steps taken. Use this
     structure to help guide you in completing tasks related to running
     analyses.
--   Use `{parsnip}` functions to define the model you want to use, like
-    `logistic_reg()` for logistic regression, and set the computational
-    "engine" with `set_engine()`.
--   Use `{recipes}` functions to set up the data transformation steps
-    necessary to effectively run the statistical analysis, like adding
-    variable "roles" (outcome vs predictor) using `update_roles()` and
-    adding transformation steps using any of the dozen different `step_`
-    functions.
--   Use `{workflows}` functions to develop an analysis `workflow()` that
-    combines the defined model with `add_model()`, the transformation
-    steps with `add_recipe()`, and the data with `fit()`.
 -   Use `{broom}` to `tidy()` the model output, extracted using
     `extract_fit_parsnip()` to get a data frame of the estimates and
     standard error for the variables in the model.
