@@ -10,6 +10,18 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.2.3 (2025-10-31)
+
+### Fix
+
+- **pre-workshop**: :bug: trigger downlit auto-linking
+
+### Refactor
+
+- **pre-workshop**: :pencil2: small edits of pre-workshop tasks
+- **pre-workshop**: :recycle: prodigenr already setups up Git and blank slate
+- **pre-workshop**: :recycle: heavily simplify and shorten the code of conduct
+
 ## 1.2.2 (2025-10-26)
 
 ### Fix
