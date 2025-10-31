@@ -1,5 +1,11 @@
 # Setting up Git {#sec-setup-git}
 
+```{r}
+#| include: false
+# To trigger auto-linking
+library(downlit)
+```
+
 Since Git has already been covered in the previous workshops, we won't
 cover *learning it* during this workshop. However, since version control
 is a fundamental component of any modern data analysis workflow and

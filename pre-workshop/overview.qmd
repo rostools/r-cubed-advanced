@@ -1,4 +1,8 @@
-# Pre-workshop tasks {#sec-pre-workshop}
+```{r}
+#| include: false
+# To force auto-linking.
+library(downlit)
+```
 
 In order to participate in this workshop, you must complete the
 pre-workshop tasks in this section as well as **completing the
