@@ -31,3 +31,5 @@ site
 slides/*.html
 _freeze
 *_files
+
+**/*.quarto_ipynb
