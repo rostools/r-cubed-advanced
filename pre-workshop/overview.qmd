@@ -1,3 +1,5 @@
+# Tasks overview {#sec-pre-workshop}
+
 ```{r}
 #| include: false
 # To force auto-linking.
@@ -8,8 +10,9 @@ In order to participate in this workshop, you must complete the
 pre-workshop tasks in this section as well as **completing the
 [survey](survey.qmd)** at the end. These tasks are designed to make it
 easier for everyone to start the workshop with everything ready to go.
-For some of the tasks, you might not understand why you need to do them,
-but you will likely understand why once the workshop begins.
+For some of the tasks, you might not understand why you need to do them
+right now, but as you participate in the workshop you will likely better
+understand why.
 
 ::: callout-important
 Depending on your skills and knowledge, these tasks could take between
@@ -32,7 +35,7 @@ about them are found as you work through this section.
     programs in @sec-install-programs. For some people, depending on
     their institution, this task can take the **longest amount of time**
     because you have to contact your IT to install these packages.
-4.  Install the necessary R packages in @sec-install-r-packages.
+4.  Install the necessary R packages in @sec-installing-r-packages.
 5.  Correctly set up Git on your computer in @sec-setup-git, if you
     haven't done this already from previous workshops. If you haven't
     used Git before, this task could take a while because of the
