@@ -10,6 +10,23 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.3.0 (2025-11-02)
+
+### Feat
+
+- **pre-workshop**: :memo: expand on comments in download data R script
+
+### Fix
+
+- **sessions**: :pencil2: replace `doc/` with `docs/`, from prodigenr change
+
+### Refactor
+
+- **pre-workshop**: :pencil2: proofreading edits of pre-workshop tasks
+- **pre-workshop**: :recycle: greatly simplify Code of Conduct
+- **sessions**: :pencil2: fix learning objectives of dependencies session
+- :pencil2: clarify role of Luke in landing page Acknowledgements
+
 ## 1.2.3 (2025-10-31)
 
 ### Fix
