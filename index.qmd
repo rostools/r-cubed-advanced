@@ -114,8 +114,9 @@ The [Danish Diabetes and Endocrinology
 Academy](https://www.ddeacademy.dk/) hosts, organizes, and sponsors this
 workshop. A huge thanks to them for their involvement and support!
 [Steno Diabetes Center Aarhus](https://www.stenoaarhus.dk/) and [Aarhus
-University](https://au.dk) employs Luke Johnston, who is the lead
-instructor and curriculum developer.
+University](https://au.dk) employs Luke Johnston, who is the developer
+of this open educational resource and is (usually) the lead instructor
+when running this workshop.
 
 ::: {layout-ncol="3"}
 ![](images/logo-sdca.png){width="100px"
