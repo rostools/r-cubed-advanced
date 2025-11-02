@@ -12,4 +12,5 @@ extend-exclude = [
 
 [default.extend-words]
 # Don't correct the misspelling of `interntal` in CHANGELOG
+# and the raw data script.
 interntal = "interntal"
