@@ -46,8 +46,9 @@ about them are found as you work through this section.
 8.  Create an R Project in @sec-create-project, along with the folder
     and file setup and creating a Quarto file.
 9.  Write (well, mostly copy and paste) R code to download the data and
-    save it to your computer. This task will probably take up maybe
-    30-60 minutes depending on your interest in exploring the data.
+    save it to your computer in @sec-download-data. This task will
+    probably take up maybe 30-60 minutes depending on your interest in
+    exploring the data.
 10. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.

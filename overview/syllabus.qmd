@@ -11,20 +11,25 @@ and needed by scientists and researchers in modern research
 environments. Our work often require or involve a high level of hands-on
 collaboration on scientific projects throughout all stages of the
 research lifecycle. We are faced with obstacles that we have no training
-for nor knowledge on how to address. Obstacles that can be as simple as
-not having a shared way of writing code or managing files and that can
-impede effective collaboration. Or they can be complex, like documenting
-software dependencies or steps in an analysis pipeline in a way that
-makes it easy to resolve issues and get the most recent set of results
-after collaborators have worked on a project.
+for nor knowledge on how to address. Obstacles that are as simple as not
+having a shared way of writing code or managing files can impede
+effective collaboration. Or the obstacles can be complex, like
+documenting software dependencies or steps in an analysis pipeline in a
+way that makes it easy to resolve issues and get the most recent set of
+results after collaborators have worked on a project.
 
-Aside from the impact on collaboration, these barriers can even affect
-projects with just one primary researcher. Ultimately, this can have
-consequences on the reliability and reproducibility of scientific
-results, especially considering that the measures taken to address these
-barriers are often not explicitly shared in traditional scientific
-outputs (like publications). With this workshop, we aim to begin
-addressing this gap.
+Aside from the impact on collaboration, these obstacles can even affect
+research projects with just one primary researcher. Compounding this
+issue is that researchers' main incentivised output, publications,
+doesn't easily allow for other forms of output that could help address
+or resolve these obstacles. For example, a research group's workflow or
+procedures is valuable information that other groups could use and learn
+from, but this "publishing" this type of information isn't rewarded so
+it is rarely done. Likewise, the code used in analyses is rarely shared,
+even though it would improve the reproducibility of the research results
+and also allow others to learn from it. Ultimately, all of this leads to
+less reliability and reproducibility of scientific results. With this
+workshop, we aim to begin addressing this gap.
 
 This workshop lasts 3 days and is split into the following sessions,
 listed in the [schedule](/overview/schedule.qmd), which will be covered
@@ -48,10 +53,11 @@ The overall aim of this workshop is to enable you to:
     reproducible data analysis pipeline and workflow looks like, and
     then create a project that follows these practices using R.
 
-Broken down into specific objectives for each session, we've designed
-the workshop to enable you to do the following:
+Broken down into specific objectives, we've designed
+the workshop to enable you to do the following in each session:
 
-[**Dependency management for smoother collaboration**](/sessions/dependencies.qmd)
+[**Dependency management for smoother
+collaboration**](/sessions/dependencies.qmd)
 
 {{< include /includes/objectives/_dependencies.qmd >}}
 
@@ -59,11 +65,13 @@ the workshop to enable you to do the following:
 
 {{< include /includes/objectives/_pipelines.qmd >}}
 
-[**A general approach to doing statistical analyses**](/sessions/stats-analyses-basic.qmd)
+[**A general approach to doing statistical
+analyses**](/sessions/stats-analyses-basic.qmd)
 
 {{< include /includes/objectives/_stats-analyses-basic.qmd >}}
 
-[**Efficiently running many analyses at once**](/sessions/stats-analyses-multiple.qmd)
+[**Efficiently running many analyses at
+once**](/sessions/stats-analyses-multiple.qmd)
 
 {{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
 

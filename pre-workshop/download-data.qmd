@@ -17,16 +17,19 @@ this workshop. We're going to use an openly licensed dataset with
 metabolomics data [@Herance2022].
 
 Similar to the intermediate workshop, we will follow the principle of
-building a reproducible pipeline, from raw data to the report on the
+building a reproducible pipeline, from raw data to the report with the
 analysis. We'll also follow the principle of keeping the raw data *raw*
 and use code to tidy it up. The ultimate goal is to have a record of how
-we *exactly* went from raw data to results in the paper. Unlike the
-intermediate workshop where you had to write through each step of the
-script and what you needed to do, in this workshop you only need to copy
-and paste the code that will download and minimally process the dataset
-into an initially workable state. If you want to learn more about how to
-take a raw data set and process it into a format that is more suitable
-for analysis, check out the [intermediate
+we *exactly* went from raw data to results in the paper. In the
+pre-workshop tasks of the intermediate workshop, we had you write each
+line of code to download and clean the data as part of the learning
+process. However, in this workshop we only need you to copy and paste
+the code that will download and minimally process the dataset into an
+initially workable state. That's because we assume at this point that
+you understand enough R to know how to do basic downloading and
+processing of data. If you want to learn more about how to take a raw
+data set and process it into a format that is more suitable for
+analysis, check out the [intermediate
 workshop](https://r-cubed-intermediate.rostools.org/).
 
 Inside the `data-raw/` folder, we are going to write R code that
@@ -53,8 +56,11 @@ lipidomics dataset.
 
 The R script should have opened up for you, otherwise, go into the
 `data-raw/` folder and open up the new `nmr-omics.R` script. The first
-thing to do is delete all the code in the script. Than, copy and paste
-the code below into the script.
+thing to do is **delete all the code in the script**. Than, copy and
+paste the code below into the script. Since this is an advanced
+workshop, you can run the lines one at a time and see what they do on
+your own (or `source()` them all at once). The comments provided give
+guidance on what the code is doing and why.
 
 ```{r, file=here::here('data-raw/nmr-omics.R'), filename="data-raw/nmr-omics.R"}
 ```
@@ -69,12 +75,9 @@ readLines(
 source(usethis::proj_path("data-raw/nmr-omics.R"))
 ```
 
-Since this is an advanced workshop, you can run the lines one at a time
-and see what they do on your own (or `source()` them all at once). The
-comments provided give guidance on what the code is doing and why. In
-the end, though, the only important thing is to run all the code and get
-the `lipidomics` dataset to be saved as `data/lipidomics.csv`. The
-created files should look like this:
+After running this code (either line-by-line or via `source()`), you
+should now have the `lipidomics` dataset saved in the
+`data/lipidomics.csv` file. The created files should look like this:
 
 ```{r}
 #| echo: false
@@ -92,8 +95,8 @@ AdvancedR3
     └── nmr-omics.R
 ```
 
-And when using `readr::read_csv()`, the created dataset in
-`data/lipidomics.csv` should look like:
+The created dataset in `data/lipidomics.csv` should look like when
+loading it using `readr::read_csv()`,
 
 ```{r}
 #| eval: true
@@ -102,7 +105,7 @@ readr::read_csv(here::here("data/lipidomics.csv"))
 
 Take a look through the downloaded `data-raw/nmr-omics/README.txt` and
 `data-raw/nmr-omics/lipidomics.xlsx` files, as well as the created
-`data/lipidomics.csv` to begin better understanding the dataset.
+`data/lipidomics.csv` to begin understanding the dataset.
 
 We are using Git to track changes made to files in our project. The
 original metabolomics dataset is stored on Zenodo, so we don't actually
@@ -137,43 +140,43 @@ Show folders and files of project:
 • Please copy and paste this output into the survey question:
 /home/luke/Desktop/AdvancedR3
 ├── AdvancedR3.Rproj
+├── .gitignore
 ├── DESCRIPTION
-├── R
+├── R/
 │   ├── README.md
 │   └── functions.R
 ├── README.md
 ├── TODO.md
-├── data
+├── data/
 │   ├── README.md
 │   └── lipidomics.csv
-├── data-raw
+├── data-raw/
 │   ├── README.md
 │   ├── nmr-omics
 │   │   ├── README.txt
 │   │   └── lipidomics.xlsx
 │   └── nmr-omics.R
-└── doc
+└── docs/
     ├── README.md
-    ├── learning.qmd
-    └── report.Rmd
+    └── learning.qmd
 ```
 
 The output should look something a bit like the above text. If it
 doesn't, start over by deleting everything in the `data-raw/` folder
-*except* for the `data-raw/nmr-omics.R` script and rerunning the script
+*except* for the `data-raw/nmr-omics.R` script and re-running the script
 again. If your output looks a bit like the above, than copy and paste
 the output into the survey question at the end.
 
 ## Automatically adhere to a style guide
 
-We've covered how to adhere to a style guide in both the introductory and
-intermediate workshop, because it is such a useful and
-powerful tool to easily write more readable code. We'll expand on it in
-this workshop because it fits precisely with the theme of collaboration.
-That's because, when you're working on your own and don't need to worry
-about anyone seeing your code, there's a natural temptation to write
-your code like you might write notes to yourself: scribbled and scrawled
-down quickly.
+We've covered how to adhere to a style guide in both the introductory
+and intermediate workshop, because it is such a useful and powerful tool
+to easily write more readable code. We'll expand on it in this workshop
+because it fits precisely with the theme of collaboration. That's
+because, when you're working on your own and don't need to worry about
+anyone seeing your code, there's a natural temptation to write your code
+like you might write notes to yourself: scribbled and scrawled down
+quickly.
 
 But when working with others, how it looks can greatly impact how
 quickly and easily others are able to read and interpret your code.
@@ -185,9 +188,10 @@ especially when deadlines are approaching.
 That's when "linters" or "stylers" (types of static code analysis tools)
 become very useful. They scan your code for common mistakes or syntax
 issues, either listing them for you to fix or automatically fixing them
-for you. Linters are especially useful when collaborating with someone
-who is less experienced with coding or who contribute occasionally to
-assist in the code being consistently formatted across the project.
+for you. Linters are especially useful in ensuring the code is
+consistently formatted across the project when collaborating with
+someone who is less experienced with coding or who contributes
+occasionally.
 
 To ensure consistent styling without needing to run checks manually,
 *automatic* linting/styling can be a great solution. That's where the
@@ -210,7 +214,7 @@ You will probably be asked to install a package called `{miniUI}`, click
 "Yes".
 :::
 
-If you wanted to run `{styler}` on all the files, we can use:
+If you wanted to run `{styler}` on all the files, you can use:
 
 ```{r style-dir}
 #| eval: false

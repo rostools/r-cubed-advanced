@@ -42,9 +42,9 @@ The output you'll get for success will look something like this:
 
 ```
 Checking R version:
-✔ Your R is at the latest version of 4.4.1!
+✔ Your R is at the latest version of {{< meta versions.r >}}
 Checking RStudio version:
-✔ Your RStudio is at the latest version of 2024.9.0.375!
+✔ Your RStudio is at the latest version of {{< meta versions.rstudio >}}
 Checking Git config settings:
 ✔ Your Git configuration is all setup!
   Git now knows that:
@@ -109,9 +109,9 @@ create passwords for all your accounts, like banking or social media.
 Instead of having to remember multiple passwords used across multiple
 accounts, or the very insecure approach of one or two passwords for all
 your accounts, you instead need to remember only one very secure
-password that contains all your other very secure passwords. Google
-"password manager" and your operating system (Windows, MacOS) to find
-possible ones to install or use.
+password that contains all your other very secure passwords. You can
+google for "password manager" and your operating system (Windows, MacOS)
+to find possible ones to install or use.
 
 Want a recommendation? [Bitwarden](https://bitwarden.com/) is a very
 good password manager that is easy to use and the free version has
