@@ -487,7 +487,7 @@ The instructors won't be using the Visual Mode during the workshop,
 however, you are welcome to do so. We will be using the "canonical"
 Markdown mode in the "source" (default) mode though.
 
-Let's test it out. While in the `doc/learning.qmd` file, go to the
+Let's test it out. While in the `docs/learning.qmd` file, go to the
 bottom of the file and type out:
 
 ``` markdown
@@ -510,7 +510,7 @@ It gets automatically fixed by adding that empty space.
 ```
 
 Since this mode is on automatically now, as we work in the
-`doc/learning.qmd` file through the sessions, we'll get lots of
+`docs/learning.qmd` file through the sessions, we'll get lots of
 experience using it.
 
 ## :technologist: Exercise: Update the README file while using canonical Markdown mode
