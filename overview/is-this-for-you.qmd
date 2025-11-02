@@ -1,5 +1,11 @@
 # Is this for you? {#sec-is-this-for-you}
 
+```{r}
+#| include: false
+# To force downlit to work.
+library(downlit)
+```
+
 To help manage expectations and develop the material for this workshop,
 we make a few assumptions about *who you are* as a participant in the
 workshop.
