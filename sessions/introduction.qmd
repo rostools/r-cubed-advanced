@@ -177,24 +177,15 @@ after.
 {{< text_snippet faq_text >}}
 
 ::: {.callout-important appearance="default"}
-During the workshop, we will be writing and coding mostly in the
-`docs/learning.qmd` file. We will also be **regularly** deleting the
-content within the file to keep things clean and easier for you, but
-importantly for the instructors. If or when you encounter an error or
-problem and there is a lot of the code kept in the file, often the
-problem is due to the left over code rather than an actual problem with
-the code you are writing. So when the helpers or instructors come to
-help, it makes it easier for us to help you when there is less code to
-look through and debug.
-
-But, we know you may want to keep some notes as you work in the
-workshop. So we suggest you create a new file called `notes.qmd` or
-something similar in the `docs/` folder and either:
-
--   Write notes in the `docs/learning.qmd` file and then copy them over
-    to your `notes.qmd` file when we tell you to delete everything, or
--   Write notes directly in your `docs/notes.qmd` file and keep it open
-    while you work in the `docs/learning.qmd` file.
+During the workshop, we will be writing and coding almost entirely in the
+`docs/learning.qmd` file. You can also use this document to write notes
+to yourself. However, to make it easier for us to help you and for you
+to get less issues as more and more content is added, if a code chunk
+in the Quarto file causes an error when you render it, add the code
+chunk option `#| eval: false` so that the R code doesn't get evaluated
+and you don't get any errors. We will remind you about this option
+throughout the workshop, as well as if you have any issues and we come
+over to help you.
 :::
 
 {{< text_snippet sticky_up >}}
