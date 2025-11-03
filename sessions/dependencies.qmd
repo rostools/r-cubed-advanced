@@ -13,7 +13,7 @@ perhaps want to---*directly collaborate* much more with others.
 Here, "directly collaborate" means contributing to a shared project
 directly (like editing the same files), rather than discussion- or
 planning-based collaborations (and definitely not the
-    "emailing-files-around" type of collaboration).
+"emailing-files-around" type of collaboration).
 :::
 
 Even though different types of collaboration (e.g. meetings,
@@ -34,7 +34,7 @@ analysis projects and facilitate smoother collaboration.
 
 ## :book: Reading task: Project-level package dependency management
 
-**Time: ~8 minutes.**
+**Time: \~8 minutes.**
 
 > Note: This first session is more conceptual and is heavier on the
 > reading and explanation, but is important for the next sessions.
@@ -132,8 +132,7 @@ section.
 
 ## :book: Reading task: Formal dependency management
 
-**Time: ~3 minutes.**
-
+**Time: \~3 minutes.**
 
 <!-- TODO: As a reading activity or explained by the instructor? -->
 
@@ -200,7 +199,7 @@ install it and add it to the `DESCRIPTION` file.
 
 ## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Before continuing with the exercise, be sure to add and commit all the
 files in the `AdvancedR3` project to save the current state of the files
@@ -404,7 +403,7 @@ Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Connect your project to GitHub
 
-**Time: ~25 minutes.**
+**Time: \~25 minutes.**
 
 Since we will eventually connect our project Git repository to GitHub to
 practice working with GitHub, we'll connect our project to GitHub right
@@ -516,7 +515,7 @@ experience using it.
 
 ## :technologist: Exercise: Update the README file while using canonical Markdown mode
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Open up the `README.md` file and do all the `TODO` items found inside
 the file as well as inside the `TODO.md` file. Save often and watch as

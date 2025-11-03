@@ -38,15 +38,15 @@ statistical analysis.
 
 ## :book: Reading task: Apply logistic regression to each metabolite with functional programming
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component
 of this session, you'll briefly review the concepts of functional
 programming by going to the [Function
 Programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#functional-programming)
-in the Intermediate R workshop (**only the reading task section**) as well
-as the
+in the Intermediate R workshop (**only the reading task section**) as
+well as the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
 (this is a short section).
 
@@ -95,7 +95,7 @@ first add `{purrr}` as a dependency:
 There is probably a more computationally efficient way of coding this
 instead of making a list, but as the saying goes ["premature
 optimization is the root of all
-    evil"](https://stackify.com/premature-optimization-evil/). For our
+evil"](https://stackify.com/premature-optimization-evil/). For our
 purposes, this is a very good approach, but for very large datasets and
 hundreds of potential models to run, this method would need to be
 optimized some more.
@@ -253,7 +253,7 @@ do an exercise to convert the code into a function.
 
 ## :technologist: Exercise: Create a function to calculate the model estimates
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Convert the code into a function that calculates the model estimates.
 Use this scaffold to help complete the tasks below for the
@@ -356,7 +356,8 @@ lipidomics |>
   distinct(term, metabolite)
 ```
 
-The last step is to `right_join()` to the estimates made from the `calculate_estimates()`:
+The last step is to `right_join()` to the estimates made from the
+`calculate_estimates()`:
 
 ```{r dup-column-full-join}
 #| filename: "docs/learning.qmd"
@@ -374,7 +375,7 @@ our first `{targets}` output!
 
 ## :technologist: Exercise: Incorporate additional code into an existing function
 
-**Time: ~12 minutes.**
+**Time: \~12 minutes.**
 
 Taking the code above, we'll insert it into the `calculate_estimates()`
 function so it has a nicer looking and more readable output. While in
@@ -438,7 +439,7 @@ calculate_estimates <- function(data) {
 
 ## :technologist: Exercise: Add a target for the model results
 
-**Time: ~8 minutes.**
+**Time: \~8 minutes.**
 
 Taking the function code from above, you'll next add the model results
 output to end of the `_targets.R` file, using the below scaffold as a
@@ -512,8 +513,8 @@ meta-analysis. Often the "whisker" part is the measure of uncertainty
 like the confidence interval, and the "dot" is the estimate. For the
 confidence interval, we haven't calculated them at this point because
 the typical approach doesn't exactly work for our data (tested before
-the workshop). For this plot though, we will use the standard error of the
-estimate.
+the workshop). For this plot though, we will use the standard error of
+the estimate.
 
 Inside the `docs/learning.qmd`, let's create a new header and code chunk
 inside the `## Results` section. We'll want to use
@@ -602,7 +603,7 @@ results in order to fix them up. But for now, this will do.
 
 ## :technologist: Exercise: Add plot function as a target in the pipeline
 
-**Time: ~15 minutes.**
+**Time: \~15 minutes.**
 
 Hopefully you've gotten comfortable with the function-oriented workflow,
 because we'll need to convert this plot code into a function and add it
@@ -717,8 +718,8 @@ git_ci("_targets", "Add plot estimates target")
 ## Combine all the output into the Quarto file
 
 Now its' time to add the model results and plots to the
-`docs/learning.qmd` file. Open it up and create another code chunk at the
-bottom of the file. Like we did with the other outputs (like the
+`docs/learning.qmd` file. Open it up and create another code chunk at
+the bottom of the file. Like we did with the other outputs (like the
 figures), we'll use `tar_read()` to reference the image path.
 
 ```{{r}}
