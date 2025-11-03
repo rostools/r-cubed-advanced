@@ -7,13 +7,14 @@ source(here::here("R/functions.R"))
 
 Many of you probably work mostly on your own, but as you move through
 your career (whether in academia or industry), you will need to---and
-perhaps want to---*directly collaborate*[^dependencies-1] much more with
-others.
+perhaps want to---*directly collaborate* much more with others.
 
-[^dependencies-1]: Here, "directly collaborate" means contributing to a
-    shared project directly (like editing the same files), rather than
-    discussion- or planning-based collaborations (and definitely not the
+::: callout-tip
+Here, "directly collaborate" means contributing to a shared project
+directly (like editing the same files), rather than discussion- or
+planning-based collaborations (and definitely not the
     "emailing-files-around" type of collaboration).
+:::
 
 Even though different types of collaboration (e.g. meetings,
 brainstorming, real-time co-writing) form the basis for almost all

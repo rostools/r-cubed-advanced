@@ -88,17 +88,18 @@ lipidomics |>
 
 The next step is to split the data up. We could use `group_by()`, but in
 order to make the most use of `{purrr}` functions like `map()`, we will
-use `group_split()` to convert the data frame into a set of
-lists[^stats-analyses-multiple-1]. Let's first add `{purrr}` as a
-dependency:
+use `group_split()` to convert the data frame into a set of lists. Let's
+first add `{purrr}` as a dependency:
 
-[^stats-analyses-multiple-1]: There is probably a more computationally
-    efficient way of coding this instead of making a list, but as the
-    saying goes ["premature optimization is the root of all
+::: callout-note
+There is probably a more computationally efficient way of coding this
+instead of making a list, but as the saying goes ["premature
+optimization is the root of all
     evil"](https://stackify.com/premature-optimization-evil/). For our
-    purposes, this is a very good approach, but for very large datasets
-    and hundreds of potential models to run, this method would need to
-    be optimized some more.
+purposes, this is a very good approach, but for very large datasets and
+hundreds of potential models to run, this method would need to be
+optimized some more.
+:::
 
 ```{r purrr-to-deps}
 #| purl: true
