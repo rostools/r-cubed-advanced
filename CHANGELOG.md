@@ -10,6 +10,14 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.3.1 (2025-11-04)
+
+### Refactor
+
+- **sessions**: :pencil2: proofreading review of dependency management
+- **sessions**: :recycle: note to use `eval: false` so they can take notes in the `qmd`
+- **sessions**: :pencil2: proofreading edits to the intro session
+
 ## 1.3.0 (2025-11-02)
 
 ### Feat
