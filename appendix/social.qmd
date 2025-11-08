@@ -2,25 +2,29 @@
 
 ## Day 1 {#social-day-1 .unnumbered}
 
-After lunch, get in your group and go for a walk outside (if it's nice
-out). Share and discuss with your group these questions:
+After lunch, for **15 minutes** get in your group and go for a walk
+outside (if it's nice out). Share and discuss with your group these
+questions:
 
--   Why are you here and what do you want to learn besides R?
--   How do you currently collaborate with others and are you happy with
-    it? Share a memorable positive or negative experience you have had
-    related to collaboration. Why was it positive or negative? It
-    doesn't have to be about coding in R or data analysis, it can be
-    collaboration in general.
+-   Are you happy with the way you currently collaborate with others?
+    Does it feel smooth, fun, and efficient? Is there any tension,
+    anxiety, or friction? Share some positive or negative experiences
+    you have had related to collaboration. It doesn't have to be about
+    coding in R or data analysis, it can be collaboration in general.
 
 ## Day 2 {#social-day-2 .unnumbered}
 
-After lunch, get in your group and talk about these questions and
-topics. You can walk outside, find a table, or do whatever.
+After lunch, for **15 minutes** get in your group and talk about these
+questions and topics. You can walk outside, find a table and sit down,
+or do whatever.
 
--   What would you spend your work time on if you had learned efficient
-    and effective coding skills earlier in your career and were in a
-    research culture that encouraged sharing and supporting these
-    skills?
--   If instead of working, you could take those extra hours saved from
-    being efficient for personal activities, what would you spend your
-    time on?
+-   Imagine if you had learned efficient and effective coding skills and
+    programmatic thinking earlier in your career and were in a research
+    culture that encouraged sharing and supporting these skills and
+    knowledge. Imagine that also meant you were able to produce better
+    research papers more easily and more quickly, so you felt your
+    research output was more impactful and acceptable (meaning, you have
+    less pressure to publish). Imagine this gave you more time to focus
+    on other things, like diving deeper into a particular problem or
+    research question. How would you spend your work time? What would
+    you focus more?
