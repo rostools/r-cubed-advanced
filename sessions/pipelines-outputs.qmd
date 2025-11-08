@@ -1,0 +1,667 @@
+# Using pipelines to build research output {#sec-pipelines-outputs}
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+library(tidyverse)
+library(targets)
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+```
+
+{{< text_snippet review_note >}}
+
+
+## Learning objectives
+
+{{< include /includes/objectives/_pipelines.qmd >}}
+
+## Building our first product: A table of basic descriptive statistics
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Visually walk through this section, showing the products we want,
+highlighting the diagram and why we make these diagrams, and emphasizing
+the function-oriented workflow. Part of a function-oriented workflow is
+making these diagrams that explicitly show the steps (the functions)
+that transform one object to another.
+:::
+
+If you recall from @fig-pipeline-schematic, we had three items (also called products) we
+wanted to create from our lipidomics data:
+
+1.  A table of basic descriptive statistics. We'll call this
+    `table_basic_stats`.
+2.  A plot of the continuous lipid variables. We'll call this
+    `plot_distributions`.
+3.  A report (Quarto document). We'll call this `report`.
+
+If we convert this into the graph format, so that each block in the
+graph represents each product as an R object, it would look like in
+@fig-object-outputs. Why do we make a diagram for this process? Because
+it helps to design the steps before we actually start writing code. And
+using diagrams (even pen and paper) is an extremely powerful way of
+helping you focus on what needs to get done, what products you want, and
+how you get there.
+
+```{mermaid}
+%%| label: fig-object-outputs
+%%| fig-cap: The flow of R objects that we've named to represent each product and the data input to make them.
+flowchart TB
+    lipidomics --> table_basic_stats
+    table_basic_stats --> report
+    lipidomics --> plot_distributions
+    plot_distributions --> report
+```
+
+But these are only the objects. We also need the actions (the functions)
+to convert one object to another. So let's add them to the diagram in
+@fig-functions-outputs, for now, only focusing on the functions that
+will make the first two products. Between those products and the report,
+for now we'll put a question mark since we don't yet know what functions
+or actions we will use to get those objects into the report.
+
+```{mermaid}
+%%| label: fig-functions-outputs
+%%| fig-cap: The actions (as functions) that convert the first two output objects from the data.
+flowchart TB
+    lipidomics -->|"create_table_basic_stats()"| table_basic_stats
+    table_basic_stats -->|?| report
+    lipidomics -->|"create_plot_distributions()"| plot_distributions
+    plot_distributions -->|?| report
+```
+
+Let's go in order of the outputs we want to create, the first of which
+is the table of basic descriptive statistics (`table_basic_stats`). For
+this, the "end goal" function we want to have is called
+`create_table_basic_stats()`, which will take the `lipidomics` data as
+input and return the `table_basic_stats` as output.
+
+We'll use `{tidyverse}`, specifically `{dplyr}`, to calculate the
+descriptive statistics from the `lipidomics` data. So we need to add it
+to our dependencies. Because `{tidyverse}` is a "meta"-package (special
+type of package that makes it easy to install and load other packages),
+we need to add it to the `"depends"` section of the `DESCRIPTION` file.
+
+```{r add-tidyverse-deps}
+#| filename: Console
+#| purl: true
+use_package("tidyverse", "depends")
+```
+
+::: callout-note
+If you try to run this code without using `"depends"`, you'll get an
+error that explains why you can't do that.
+:::
+
+Commit the changes made to the `DESCRIPTION` file in the Git history
+with {{< var keybind.git >}}.
+
+Now, let's start creating the code for our outputs, so that we can add
+it to our pipeline later. First, open up the `docs/learning.qmd` file
+and create a new header and code chunk at the bottom of the file.
+
+```` {.markdown filename="docs/learning.qmd"}
+
+```{{r setup}}
+library(tidyverse)
+source(here::here("R/functions.R"))
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+```
+
+## Basic statistics
+
+```{{r}}
+
+```
+````
+
+```{r purl-only-markdown-basic-stats}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci("DESCRIPTION", "Add tidyverse and targets to deps")
+c(
+  "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
+  "source(here::here('R/functions.R'))",
+  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"
+) |>
+  paste0(collapse = "\n") |>
+  write_to_file("docs/learning.qmd")
+git_ci("docs/learning.qmd", "Add section on basic stats to qmd")
+```
+
+For our first output, there's a lot of things we could do for
+descriptive statistics. However, a common first table is to show some
+means and standard deviations (SD) for our variables. In our case, we
+could calculate the mean and SD for each metabolite. To make it more
+readable, we could also round the numbers to one digit. To do this, we
+will use the split-apply-combine methodology and the `across()`
+function, which we covered in the
+[split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
+session of the intermediate workshop.
+
+If we represent this visually, where each block is an R data frame, it
+would like:
+
+```{mermaid}
+flowchart TB
+    lipidomics --> by_metabolite --> mean_sd --> rounded_output
+```
+
+To
+
+Briefly, we will:
+
+1.  Use `group_by()` to split the dataset based on the metabolites.
+2.  Use `summarise()` to calculate the `mean()` and standard deviation
+    (`sd()`) for each metabolite.
+3.  Round the calculated mean and standard deviation to 1 digit using
+    `round()`.
+
+While doing these steps, we will use the `across()` functional, making
+it easy to apply the same transformation on multiple columns. An
+advantage of using `across()` is that you don't need to directly use the
+column names, which makes the code a bit more robust to changes in the
+data.
+
+Let's write out the code in the code chunk we just created:
+
+```{r mean-sd-by-each-metabolite}
+#| filename: "docs/learning.qmd"
+lipidomics |>
+  group_by(metabolite) |>
+  summarise(across(value, list(mean = mean, sd = sd))) |>
+  mutate(across(where(is.numeric), ~ round(.x, digits = 1)))
+```
+
+After that, style the file using {{< var keybind.styler >}}. Then,
+commit the changes to the Git history with {{< var keybind.git >}}.
+
+We've made this code, but now we want to actually follow a
+"function-oriented" approach so that we can make use of it in our
+`{targets}` pipeline. Time to try it on your own!
+
+## :technologist: Exercise: Convert descriptive statistics code into a function
+
+**Time: \~20 minutes.**
+
+In the `docs/learning.qmd` file, use the "function-oriented" workflow,
+as taught in the [intermediate
+workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
+to take the code we wrote above and convert it into a function.
+
+Complete these tasks:
+
+1.  Convert the code into a function by wrapping it with
+    `function() {...}` and name the new function `descriptive_stats`.
+    Here is some scaffolding to help you get started:
+
+    ``` {.r filename="docs/learning.qmd"}
+    descriptive_stats <- function(___) {
+      ___
+    }
+    ```
+
+2.  Replace `lipidomics` in the code we wrote before with `data` and put
+    `data` as an argument inside the brackets of `function()`.
+
+3.  At the start of each function we use inside our `descriptive_stats`
+    function, add the name of the package like so: `packagename::`.
+    E.g., add `dplyr::` before `group_by()` because it's from
+    the`{dplyr}` package. Remember that you can look up which package a
+    function comes from by writing `?functionname` in the Console.
+
+4.  Style the code using {{< var keybind.styler >}} to make sure it is
+    formatted correctly. You might need to manually force a styling if
+    lines are too long.
+
+5.  With the *cursor* inside the function, add some roxygen
+    documentation with {{< var keybind.palette >}} followed by typing
+    "roxygen comment". Remove the lines that contain `@examples` and
+    `@export`, then fill in the other details (like the `@params` and
+    `Title`). In the `@return` section, write "A data.frame/tibble."
+
+6.  Cut and paste the function over into the `R/functions.R` file.
+
+7.  Source the `R/functions.R` file with {{< var keybind.source >}}, and
+    then test the code by running `descriptive_stats(lipidomics)` in the
+    Console. If it works, do the last task.
+
+8.  Save both files (`learning.qmd` and `functions.R`). Then open the
+    Git interface and commit the changes you made to them with
+    {{< var keybind.git >}}.
+
+::: {.callout-tip appearance="default" title="Tip: Implicit returns"}
+In the intermediate workshop, we suggested using `return()` at the end
+of the function. Technically, we don't need an explicit `return()`,
+since the output of the last code that R runs within the function will
+be the output of the function. This is called an *implicit return* and
+we will be using this feature throughout the rest of this workshop.
+:::
+
+```{r solution-descriptive-stats}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
+}
+```
+
+{{< text_snippet sticky_up >}}
+
+## Adding a step in the pipeline
+
+Now that we've created a function to calculate some basic statistics, we
+can now add it as a step in the `{targets}` pipeline. Open up the
+`_targets.R` file and go to the end of the file, where the `list()` and
+`tar_target()` code are found. In the first `tar_target()`, replace the
+target to load the lipidomic data. In the second, replace it with the
+`descriptive_stats()` function. If we want to make it easier to remember
+what the target output is, we can add `df_` to remind us that it is a
+data frame. It should look like:
+
+```{r targets-basic-stats}
+#| eval: false
+#| filename: "targets.R"
+list(
+  ...,
+  tar_target(
+    name = df_stats_by_metabolite,
+    command = descriptive_stats(lipidomics)
+  )
+)
+```
+
+## Creating figure outputs
+
+Not only can we create data frames with targets (like above), but also
+figures. Let's write some code to create the plot we listed as our
+"output 2" in @fig-pipeline-schematic. Since we're using `{ggplot2}` to
+write this code, let's add it to our `DESCRIPTION` file.
+
+```{r add-ggplot2-deps}
+#| purl: true
+#| filename: Console
+use_package("ggplot2")
+```
+
+Next, we'll switch back to `docs/learning.qmd` and write the code to
+this plot of the distribution of each metabolite. We'll use
+`geom_histogram()`, nothing too fancy. And since the data is already in
+long format, we can easily use `facet_wrap()` to create a plot for each
+metabolite. We use `scales = "free"` because each metabolite doesn't
+have the same range of values (some are small, others are quite large).
+
+```{r histogram-metabolites}
+#| fig-cap: "Histograms showing the distribution of all metabolites in the lipidomics dataset."
+#| filename: "docs/learning.qmd"
+metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
+  geom_histogram() +
+  facet_wrap(vars(metabolite), scales = "free")
+metabolite_distribution_plot
+```
+
+We now have the basic code to convert over into functions.
+
+## :technologist: Exercise: Convert the plot code to a function
+
+**Time: \~10 minutes.**
+
+For now, we will only take the code to make the distribution plot and
+convert it into a function. Just like you did with the
+`descriptive_stats()` function in the exercise above, complete these
+tasks:
+
+1.  Wrap the plot code inside `docs/learning.qmd` with
+    `function() {...}` and name the new function `plot_distributions`.
+    Use this scaffolding code to help guide you to write the code into a
+    function.
+
+    ``` {.r filename="docs/learning.qmd"}
+    plot_distributions <- function(___) {
+      ___
+    }
+    ```
+
+2.  Replace `lipidomics` with `data` and put `data` as an argument
+    inside the brackets of `function()`.
+
+3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
+    inside your function.
+
+4.  Style using {{< var keybind.styler >}} to make sure it is formatted
+    correctly. You might need to manually force a styling if lines are
+    too long.
+
+5.  With the *cursor* inside the function, add some roxygen
+    documentation with {{< var keybind.roxygen >}}. Remove the lines
+    that contain `@examples` and `@export`, then fill in the other
+    details (like the `@params` and `Title`). In the `@return` section,
+    write "A plot object."
+
+6.  Cut and paste the function over into the `R/functions.R` file.
+
+7.  Source the `R/functions.R` file ({{< var keybind.source >}}) and
+    then test the code by running `plot_distributions(lipidomics)` in
+    the Console. If it works, do the last task.
+
+8.  Save both files and then open the Git interface and commit the
+    changes you made to them with {{< var keybind.git >}}.
+
+```{r solution-new-function-descriptive-plots}
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+## This should be in the R/functions.R file.
+#' Plot for basic distribution of metabolite data.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A ggplot2 graph.
+#'
+plot_distributions <- function(data) {
+  data |>
+    ggplot2::ggplot(ggplot2::aes(x = value)) +
+    ggplot2::geom_histogram() +
+    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free")
+}
+```
+
+::: {.callout-note appearance="minimal" collapse="true" icon="false"}
+## :technologist: Extra exercise: Test out how `tar_outdated()` and `tar_visnetwork()` work
+
+**Time: \~10 minutes.**
+
+Let's make a change to our function and test out how the
+`tar_outdated()` and `tar_visnetwork()` work.
+
+1.  Open up the `R/functions.R` file and go to the `descriptive_stats()`
+    function.
+2.  Add median and interquartile range (IQR) to the `summarise()`
+    function, by adding it to the end of `list(mean = mean, sd = sd)`,
+    after the second `sd`. Note, IQR should look like `iqr = IQR` since
+    we want the output columns to have a lowercase for the column names.
+3.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
+    using the Command Palette {{< var keybind.palette >}}, then "targets
+    outdated" or "targets visual"). What does it show?
+4.  Style using {{< var keybind.styler >}}.
+5.  Run `tar_make()` in the Console or with
+    {{< var keybind.targets-make >}}. Re-check for outdated targets and
+    visualize the network again.
+6.  Open up the Git interface and commit the changes to the Git history
+    with {{< var keybind.git >}}.
+
+```{r solution-new-function-descriptive-stats}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data Lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+descriptive_stats <- function(data) {
+  data |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(dplyr::across(value, list(
+      mean = mean,
+      sd = sd,
+      median = median,
+      iqr = IQR
+    ))) |>
+    dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
+}
+```
+:::
+
+{{< text_snippet sticky_up >}}
+
+## Adding the plot function as pipeline targets
+
+Now, let's add the plot function to the `_targets.R` file. Let's write
+this `tar_target()` item within the `list()` inside `_targets.R`. To
+make it easier to track things, add `fig_` to the start of the `name`
+given.
+
+``` {.r filename="targets.R"}
+list(
+  ...,
+  tar_target(
+    name = fig_metabolite_distribution,
+    command = plot_distributions(lipidomics)
+  )
+)
+```
+
+First, style the file using {{< var keybind.styler >}}. Next, test that
+it works by running `targets::tar_visnetwork()` using
+{{< var keybind.targets-vis >}} or running `targets::tar_outdated()`
+with {{< var keybind.targets-outdated >}}. You should see that the new
+item is "outdated". Then run `targets::tar_make()` using
+{{< var keybind.targets-make >}} to update the pipeline. If it all
+works, than **commit the changes to the Git history** with
+{{< var keybind.git >}}.
+
+```{r purl-only-plot-fns-in-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+update_targets_plots <- "
+),
+tar_target(
+  name = fig_metabolite_distribution,
+  command = plot_distributions(lipidomics)
+)
+"
+# print_lines("_targets.R")
+# -20 to remove the previous `)`
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = update_targets_plots,
+  remove_original_lines = -42:-43,
+  insert_at_line = 41
+)
+
+styler::style_dir()
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("DESCRIPTION", "Add ggplot2 to deps")
+git_ci("R/functions.R", "Add output switch function, to use for targets")
+git_ci("_targets.R", "Update targets with plot item")
+```
+
+## Incorporating Quarto targets
+
+Last, but not least, we want to make the final output 3 from
+@fig-pipeline-schematic: The Quarto document. Adding a Quarto document
+as a target inside `_targets.R` is fairly straightforward. We need to
+install the helper package `{tarchetypes}` first, as well as the
+`{quarto}` R package (it helps connect with Quarto):
+
+```{r tarchetypes-deps}
+#| purl: true
+#| filename: Console
+use_package("tarchetypes")
+use_package("quarto")
+```
+
+Then, inside `_targets.R`, uncomment the line where
+`library(tarchetypes)` is commented out. The function we need to use to
+build the Quarto file is `tar_quarto()` (or `tar_render()` for R
+Markdown files), which needs two things: The `name`, like `tar_target()`
+needs, and the file path to the Quarto file. Again, like the other
+`tar_target()` items, add it to the end of the `list()`. Lets add
+`docs/learning.qmd` as a pipeline step:
+
+``` {.r filename="targets.R"}
+list(
+  ...,
+  tar_quarto(
+    name = quarto_doc,
+    path = "docs/learning.qmd"
+  )
+)
+```
+
+Then, style the file using {{< var keybind.styler >}}. Now when we run
+`targets::tar_make()` with {{< var keybind.targets-make >}}, the Quarto
+file also gets re-built. But when we use `targets::tar_visnetwork()`
+using {{< var keybind.targets-vis >}}, we don't see the connections with
+plot and descriptive statistics. That's because we haven't used them in
+a way `{targets}` can recognize.
+
+But because our Quarto file is located in the `docs/` folder and
+
+when we render the Quarto file it won't find the store. So we have to
+tell `{targets}` where it is located by using
+`targets::tar_config_set()`.
+
+Let's open up the `docs/learning.qmd` file, add a `setup` code chunk
+below the YAML header, and create a new header and code chunk and make
+use of the `targets::tar_read()`.
+
+<!-- Because the Quarto file is in another folder, -->
+
+```` {.markdown filename="docs/learning.qmd"}
+---
+# YAML header
+---
+
+```{{r setup}}
+targets::tar_config_set(store = "../_targets")
+library(tidyverse)
+library(targets)
+source(here::here("R/functions.R"))
+lipidomics <- tar_read(lipidomics)
+```
+
+## Results
+
+```{{r}}
+tar_read(df_stats_by_metabolite)
+```
+
+```{{r}}
+tar_read(fig_metabolite_distribution)
+```
+````
+
+```{r purl-only-basic-stats-markdown-text}
+#| eval: false
+#| echo: false
+#| purl: true
+basic_stats_md_text <- c(
+  "```{r setup}",
+  "library(tidyverse)",
+  "library(targets)",
+  "lipidomics <- tar_read(lipidomics)",
+  "```",
+  "",
+  "## Results",
+  "",
+  "```{r}",
+  "tar_read(df_stats_by_metabolite)",
+  "```",
+  "",
+  "```{r}",
+  "tar_read(fig_metabolites_distribution)",
+  "```"
+)
+print_file("docs/learning.qmd")
+revise_by_line_num(
+  "docs/learning.qmd",
+  basic_stats_md_text,
+  # Update numbers
+  remove_original_lines = -30,
+  insert_at_line = 29
+)
+git_ci("docs/learning.qmd", "Add code for basic stats to report.")
+```
+
+When we use `targets::tar_config_set(store = ...)`, it will create a new
+file in the `docs/` folder called `_targets.yaml` that contains details
+for telling `{targets}` where to find the store. Since the path listed
+in this new file is an absolute path, it will only ever work on your own
+computer. So, it improve reproducibility, it's good practice to not put
+it into the Git history and instead put it in the `.gitignore` file. So
+let's add it to ignore file by using:
+
+```{r git-ignore-targets-yaml}
+#| filename: Console
+use_git_ignore("_targets.yaml")
+```
+
+Before continuing, let's commit these changes to the Git history with
+{{< var keybind.git >}}.
+
+Now, going back to the `docs/learning.qmd` file,
+
+For the `df_stats_by_metabolite`, we can do some minor wrangling with
+`mutate()` and `glue::glue()`, and than pipe it to `knitr::kable()` to
+create a table in the output document. The `{glue}` package is really
+handy for formatting text based on columns. If you use `{}` inside a
+quoted string, you can use columns from a data frame, like `value_mean`.
+So we can use it to format the final table text to be
+`mean value (SD value)`:
+
+```{r stats-to-table}
+#| filename: "docs/learning.qmd"
+targets::tar_read(df_stats_by_metabolite) |>
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
+  knitr::kable(caption = "Descriptive statistics of the metabolites.")
+```
+
+```{r purl-only-stats-to-table}
+#| eval: false
+#| echo: false
+#| purl: true
+pretty_basic_stats_code <- '
+targets::tar_read(df_stats_by_metabolite) |>
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
+  knitr::kable(caption = "Descriptive statistics of the metabolites.")
+'
+revise_by_text(
+  path = "docs/learning.qmd",
+  original = "tar_read\\(df_stats_by_metabolite\\)",
+  replacement = pretty_basic_stats_code
+)
+styler::style_file("docs/learning.qmd")
+git_ci("docs/learning.qmd", "Basic stats as a pretty table.")
+```
+
+```{r}
+#| echo: false
+lipidomics |>
+  descriptive_stats() |>
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+  select(Metabolite = metabolite, `Mean (SD)` = MeanSD) |>
+  knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
+```
+
+Rerun `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}}
+to see that it now detects the connections between the pipeline targets.
+Then, run `targets::tar_make()` with {{< var keybind.targets-make >}}
+again to see everything re-build! Last things are to re-style using
+{{< var keybind.styler >}}, then **commit** the changes to the Git
+history before moving on with {{< var keybind.git >}}. Then push your
+changes up to GitHub.
+
+
+## Summary
+
+-   Within R Markdown / Quarto files, use `targets::tar_read()` to
+    access saved pipeline outputs. To include the Quarto in the
+    pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
+
+{{< include /includes/_code-appendix.qmd >}}
