@@ -38,7 +38,8 @@ in order:
 -   [Introduction to the workshop](/sessions/introduction.qmd)
 -   [Dependency management for smoother
     collaboration](/sessions/dependencies.qmd)
--   [Creating automatic analysis pipelines](/sessions/pipelines.qmd)
+-   [Creating automatic analysis pipelines](/sessions/pipelines-setup.qmd)
+-   [Creating automatic analysis pipelines](/sessions/pipelines-outputs.qmd)
 -   [A general approach to doing statistical
     analyses](/sessions/stats-analyses-basic.qmd)
 -   [Efficiently running many analyses at

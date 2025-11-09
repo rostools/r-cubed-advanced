@@ -86,6 +86,7 @@ we need to add it to the `"depends"` section of the `DESCRIPTION` file.
 ```{r add-tidyverse-deps}
 #| filename: Console
 #| purl: true
+#| eval: false
 use_package("tidyverse", "depends")
 ```
 
@@ -290,6 +291,7 @@ figures. Let's write some code to create the plot we listed as our
 write this code, let's add it to our `DESCRIPTION` file.
 
 ```{r add-ggplot2-deps}
+#| eval: false
 #| purl: true
 #| filename: Console
 use_package("ggplot2")
@@ -489,6 +491,7 @@ install the helper package `{tarchetypes}` first, as well as the
 
 ```{r tarchetypes-deps}
 #| purl: true
+#| eval: false
 #| filename: Console
 use_package("tarchetypes")
 use_package("quarto")
@@ -596,6 +599,7 @@ it into the Git history and instead put it in the `.gitignore` file. So
 let's add it to ignore file by using:
 
 ```{r git-ignore-targets-yaml}
+#| eval: false
 #| filename: Console
 use_git_ignore("_targets.yaml")
 ```
@@ -614,6 +618,7 @@ So we can use it to format the final table text to be
 `mean value (SD value)`:
 
 ```{r stats-to-table}
+#| eval: false
 #| filename: "docs/learning.qmd"
 targets::tar_read(df_stats_by_metabolite) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>

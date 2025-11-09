@@ -41,7 +41,8 @@ book:
       chapters:
         - sessions/introduction.qmd
         - sessions/dependencies.qmd
-        - sessions/pipelines.qmd
+        - sessions/pipelines-setup.qmd
+        - sessions/pipelines-outputs.qmd
         - sessions/stats-analyses-basic.qmd
         - sessions/stats-analyses-multiple.qmd
         - sessions/project-work.qmd
