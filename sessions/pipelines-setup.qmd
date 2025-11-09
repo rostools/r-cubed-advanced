@@ -1,4 +1,4 @@
-# Creating automatic analysis pipelines {#sec-pipelines}
+# Setting up automatic analysis pipelines {#sec-pipelines-setup}
 
 ```{r setup}
 #| include: false
@@ -27,7 +27,7 @@ that create and manage these pipelines effectively.
 
 ## Learning objectives
 
-{{< include /includes/objectives/_pipelines.qmd >}}
+{{< include /includes/objectives/_pipelines-setup.qmd >}}
 
 ## :speech_balloon: Discussion activity: How do you re-run analyses when something changes?
 
@@ -347,7 +347,7 @@ in @fig-targets-as-flow.
 
 ```{mermaid}
 %%| label: fig-targets-as-flow
-%%| fig-cap: Representing the targets pipeline structure as a flow diagram, where each "node" is an R object and each arrow is the function that converts the object to another object.
+%%| fig-cap: Representing the targets pipeline structure as a flow diagram, where each "node" is an R object and each arrow is the function that converts the object to another object. We'll explain and build up this pipeline step by step.
 %%| echo: false
 graph TB
     data_file -->|"load_raw_data()"| raw_data
@@ -365,16 +365,16 @@ this session.
 ## Building up our first target
 
 Now that we've conceptually learned about how `{targets}` works, let's
-take a big step back and first graphically design our own pipeline.
-So we want to create the three items we mentioned before: a descriptive
+take a big step back and first graphically design our own pipeline. So
+we want to create the three items we mentioned before: a descriptive
 statistics table, a distribution plot of the lipidomic variables, and
-the final paper with these items included. We also have our data in
-a CSV file. So there are at least five targets we need to create in our
+the final paper with these items included. We also have our data in a
+CSV file. So there are at least five targets we need to create in our
 pipeline. Let's draw it out:
 
 ```{mermaid}
 %%| label: fig-our-pipeline-schematic
-%%| fig-cap: Our designed data analysis pipeline, with the distinct targets we want to create.
+%%| fig-cap: The design and flow of how we want our data analysis pipeline to look like, with the distinct targets we want to create.
 %%| echo: false
 graph TB
     data_file["data_file<br>'data/lipidomics.csv'"] -->|"read_csv()"| lipidomics
@@ -416,11 +416,11 @@ targets::tar_make()
 ```
 
 For the rest of the workshop we will use
-{{< var keybind.targets-make >}} rather than the function in the
-Console.
+{{< var keybind.targets-make >}} (the "foreground" one) rather than the
+function in the Console.
 
-After running it, you should in one of RStudio's panes something that
-looks like:
+After running it, you should see in one of RStudio's panes something
+that looks like:
 
 ```
 #> + file dispatched
@@ -431,10 +431,10 @@ This tells us that the target called `file` has been run. Since we only
 have one target, that's all that `{targets}` could run.
 
 We also see that a new folder has been created called `_targets/`.
-Inside this folder it keeps all of the output from running the code in
-`_targets.R`. It comes with its own `.gitignore` file so that you don't
-track all the files inside, as they don't need to be tracked. Only the
-`_targets/meta/meta` is needed to be tracked in Git.
+Inside this folder `{targets}` keeps all of the output from running the
+code in `_targets.R`. It comes with its own `.gitignore` file so that
+you don't track all the files inside, as they don't need to be tracked.
+Only the `_targets/meta/meta` is needed to be tracked in Git.
 
 We can visualize our pipeline now too! This can be useful as you add
 more and more targets. We will (likely) need to install an extra package
@@ -447,9 +447,8 @@ more and more targets. We will (likely) need to install an extra package
 targets::tar_visnetwork()
 ```
 
-We can also use the keybind {{< var keybind.targets-vis >}}, which is
-what we will use for the rest of the workflow rather than the Console
-command.
+We can also use {{< var keybind.targets-vis >}}, which is what we will
+use for the rest of the workflow rather than the Console command.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
@@ -467,7 +466,7 @@ If you want to check which targets are outdated, we use:
 targets::tar_outdated()
 ```
 
-Or by using the keybind {{< var keybind.targets-outdated >}}.
+Or by using {{< var keybind.targets-outdated >}}.
 
 Now, let's actually load in the data as a target. We'll create a new
 `tar_target()` that reads in the data using `readr::read_csv()`, using
@@ -490,17 +489,18 @@ list(
 )
 ```
 
-We use `show_col_types = FALSE` to suppress the message about which
-columns are being read into R. Now, let's run `{targets}` again using
-{{< var keybind.targets-make >}}. After it runs, check the visualisation
-of it with {{< var keybind.targets-vis >}}. You can now see that there
-are two targets, with an arrow from `file` to `lipidomics`.
+We use `show_col_types = FALSE` to suppress the message explaining which
+columns `{readr}` is reading into R. Now, let's run `{targets}` again
+using {{< var keybind.targets-make >}}. After it runs, check the
+visualisation of it with {{< var keybind.targets-vis >}}. You can now
+see that there are two targets, with an arrow from `file` to
+`lipidomics`.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
 
-Walkthrough this again, this time showing the new target added and the
-arrow between them.
+Walkthrough this again, this time showing the new target that was added
+and the arrow between the targets.
 :::
 
 How can we access that new `lipidomics` data that `{targets}` created?
@@ -587,8 +587,12 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     `{targets}` that the target is out of date, since it has been
     removed, even though the data object itself isn't present. You can
     use this like you would `select()`, by naming the objects directly
-    or using the `{tidyselect}` helpers (e.g. `everything()`,
-    `starts_with()`).
+    or using the `{tidyselect}` helpers. For example,
+    `tar_invalidate(everything())` will remove all metadata details for
+    all targets in the pipeline, and
+    `tar_invalidate(starts_with("data_"))` will remove all metadata
+    details for targets that start with `data_` (e.g. like our
+    `data_file` target).
 
 `tar_delete()`
 
@@ -600,7 +604,10 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     of GDPR and privacy rules, you don't want to store any sensitive
     personal health data in your project. Use it like
     `tar_invalidate()`, with functions like `everything()` or
-    `starts_with()`.
+    `starts_with()`. For example, `tar_delete(everything())` will delete
+    all stored objects in `_targets/` and
+    `tar_delete(starts_with("data_"))` will delete all stored objects
+    that start with `data_`.
 
 `tar_prune()`
 
@@ -612,7 +619,7 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 
 :   The most destructive, and probably more commonly used, function.
     This will delete the entire `_targets/` folder for those times when
-    you want to start over and rerun the entire pipeline again.
+    you want to start over and re-run the entire pipeline again.
 
 {{< text_snippet sticky_up >}}
 
