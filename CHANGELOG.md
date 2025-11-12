@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.3.3 (2025-11-12)
+
+### Refactor
+
+- **pre-workshop**: :pencil2: clarify about Rtools version to install
+
 ## 1.3.2 (2025-11-08)
 
 ### Refactor
