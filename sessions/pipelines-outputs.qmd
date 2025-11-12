@@ -28,8 +28,8 @@ making these diagrams that explicitly show the steps (the functions)
 that transform one object to another.
 :::
 
-If you recall from @fig-pipeline-schematic, we had three items (that we call products) that we
-wanted to create from our lipidomics data:
+If you recall from @fig-pipeline-schematic, we had three items (that we
+call products) that we wanted to create from our lipidomics data:
 
 1.  A table of basic descriptive statistics, which we'll call this
     `table_descriptive_stats`.
@@ -37,10 +37,10 @@ wanted to create from our lipidomics data:
     `plot_distributions`.
 3.  A report (Quarto document). We'll call this `report`.
 
-Let's add these products into the design of our `{targets}` pipeline that we made in @fig-our-pipeline-design.
-We'll indicate that our first two targets have been made in the graph,
-which now looks like what is shown in
-@fig-first-two-done-pipeline.
+Let's add these products into the design of our `{targets}` pipeline
+that we made in @fig-our-pipeline-design. We'll indicate that our first
+two targets have been made in the graph, which now looks like what is
+shown in @fig-first-two-done-pipeline.
 
 ```{mermaid}
 %%| label: fig-first-two-done-pipeline
@@ -58,22 +58,23 @@ graph TB
 ```
 
 So in this session, we want to make the `table_descriptive_stats` and
-`plot_distributions` targets, then include them in the `report`.
-In order for us to slowly build this up, we will start at the end first:
+`plot_distributions` targets, then include them in the `report`. In
+order for us to slowly build this up, we will start at the end first:
 rendering our Quarto document to HTML in our `{targets}` pipeline.
 
-Open up the `docs/learning.qmd` file
-and create a new code chunk at the bottom of the file.
-Name the code chunk `setup` (using the chunk label `{r setup}`).
+Open up the `docs/learning.qmd` file and create a new code chunk at the
+bottom of the file. Name the code chunk `setup` (using the chunk label
+`{r setup}`).
 
 We'll be using some `{targets}` functions in this document, so let's add
-`library(targets)` to the `setup` code chunk.
-Since we'll eventually be adding code as functions into the `R/functions.R`
-file, we'll `source()` it right now in the `setup` code chunk and using `here::here()` to
-give the correct file path to the `R/functions.R` file.
-Lastly, in order use the `lipidomics` data that we added to the `_targets.R` pipeline
-in the last session (and that is also stored in the `_targets/` target "store"),
-we use `tar_read()` to read it in and assign it to the  `lipidomics` object.
+`library(targets)` to the `setup` code chunk. Since we'll eventually be
+adding code as functions into the `R/functions.R` file, we'll `source()`
+it right now in the `setup` code chunk and using `here::here()` to give
+the correct file path to the `R/functions.R` file. Lastly, in order use
+the `lipidomics` data that we added to the `_targets.R` pipeline in the
+last session (and that is also stored in the `_targets/` target
+"store"), we use `tar_read()` to read it in and assign it to the
+`lipidomics` object.
 
 ```` {.markdown filename="docs/learning.qmd"}
 ```{{r setup}}
@@ -84,21 +85,23 @@ lipidomics <- tar_read(lipidomics)
 ````
 
 Let's try to render this right now by using {{< var keybind.render >}}.
-We will likely get an error saying something about not finding the `{targets}`
-"store". This is because when we use a `{targets}` function like `tar_read()`,
-it will look for a folder called `_targets/` in the same folder that the
-R session is running in. When we render a Quarto document, the default location
-for the R session is the folder where the Quarto file is located, which is `docs/`.
-We don't have a folder called `docs/_targets/`. Instead, it is in the root of the project.
-So we have to tell `{targets}` where to find the store, which we can do by using
+We will likely get an error saying something about not finding the
+`{targets}` "store". This is because when we use a `{targets}` function
+like `tar_read()`, it will look for a folder called `_targets/` in the
+same folder that the R session is running in. When we render a Quarto
+document, the default location for the R session is the folder where the
+Quarto file is located, which is `docs/`. We don't have a folder called
+`docs/_targets/`. Instead, it is in the root of the project. So we have
+to tell `{targets}` where to find the store, which we can do by using
 `targets::tar_config_set()`. This function allows us to set various
-configuration options for `{targets}`. One of these options is `store`, which
-we can use to tell `{targets}` where the `_targets/` store is located relative to
-the Quarto file.
+configuration options for `{targets}`. One of these options is `store`,
+which we can use to tell `{targets}` where the `_targets/` store is
+located relative to the Quarto file.
 
-So in the `setup` code chunk, we'll add the `tar_config_set()` line right
-after `library(targets)`. Since the Quarto file is in the `docs/` folder,
-we can use the relative path `"../_targets"` to point to the store.
+So in the `setup` code chunk, we'll add the `tar_config_set()` line
+right after `library(targets)`. Since the Quarto file is in the `docs/`
+folder, we can use the relative path `"../_targets"` to point to the
+store.
 
 ```` {.markdown filename="docs/learning.qmd"}
 ```{{r setup}}
@@ -109,18 +112,18 @@ lipidomics <- tar_read(lipidomics)
 ```
 ````
 
-Let's try to render the file now with {{< var keybind.render >}}. It should
-work now without any errors! :tada:
+Let's try to render the file now with {{< var keybind.render >}}. It
+should work now without any errors! :tada:
 
 Great! Now let's include the Quarto file as a target in our pipeline.
-Open up the `_targets.R` file. But, how do we add a Quarto file as a target?
-If we try to look through the `{targets}` documentation, we won't find anything
-specific for Quarto files. However, there is a helper package called
-`{tarchetypes}` that contains functions that make it easier to add
-specific types of files as targets, including Quarto files. You can see
-at the top of the `_targets.R` file that there is a commented out
-line for loading the `{tarchetypes}` package. So let's uncomment that
-line so that it looks like this now:
+Open up the `_targets.R` file. But, how do we add a Quarto file as a
+target? If we try to look through the `{targets}` documentation, we
+won't find anything specific for Quarto files. However, there is a
+helper package called `{tarchetypes}` that contains functions that make
+it easier to add specific types of files as targets, including Quarto
+files. You can see at the top of the `_targets.R` file that there is a
+commented out line for loading the `{tarchetypes}` package. So let's
+uncomment that line so that it looks like this now:
 
 ```
 # Load packages required to define the pipeline:
@@ -128,8 +131,9 @@ library(targets)
 library(tarchetypes)
 ```
 
-We don't have the `{tarchetypes}` package installed yet, so let's install it
-by going to the Console and using `use_package("tarchetypes")`.
+We don't have the `{tarchetypes}` package installed yet, so let's
+install it by going to the Console and using
+`use_package("tarchetypes")`.
 
 ```{r tarchetypes-deps}
 #| purl: true
@@ -138,11 +142,12 @@ by going to the Console and using `use_package("tarchetypes")`.
 use_package("tarchetypes")
 ```
 
-Now, let's go back to the `_targets.R` file and go to the bottom of the file
-with the `list()` of `tar_target()` items. We will now add the new item
-for rendering the Quarto file that is called `tar_quarto()`. Like `tar_target()`, this
-takes a `name` argument. But unlike having a `command` argument like in `tar_target()`, `tar_quarto()` takes a
-`path` argument where you write the file path to the Quarto file. Let's add it:
+Now, let's go back to the `_targets.R` file and go to the bottom of the
+file with the `list()` of `tar_target()` items. We will now add the new
+item for rendering the Quarto file that is called `tar_quarto()`. Like
+`tar_target()`, this takes a `name` argument. But unlike having a
+`command` argument like in `tar_target()`, `tar_quarto()` takes a `path`
+argument where you write the file path to the Quarto file. Let's add it:
 
 ``` {.r filename="_targets.R"}
 list(
@@ -154,16 +159,16 @@ list(
 )
 ```
 
-
-Since we've made some changes, let's first style the file using {{< var keybind.styler >}}.
-Now let's run
-`targets::tar_make()` with {{< var keybind.targets-make >}} to build the Quarto
-document. However, we will probably get an error because we haven't installed
-the `{quarto}` R package yet.
+Since we've made some changes, let's first style the file using
+{{< var keybind.styler >}}. Now let's run `targets::tar_make()` with
+{{< var keybind.targets-make >}} to build the Quarto document. However,
+we will probably get an error because we haven't installed the
+`{quarto}` R package yet.
 
 <!-- TODO: Confirm error message -->
 
-So let's install the `{quarto}` R package to help `{targets}` connect to the Quarto file:
+So let's install the `{quarto}` R package to help `{targets}` connect to
+the Quarto file:
 
 ```{r quarto-deps}
 #| purl: true
@@ -172,21 +177,21 @@ So let's install the `{quarto}` R package to help `{targets}` connect to the Qua
 use_package("quarto")
 ```
 
-Now, let's build the pipeline with {{< var keybind.targets-make >}} again.
-It should work! :tada: Let's also check the visualization of the pipeline
-with {{< var keybind.targets-visual >}}. You should now see the `quarto_doc`
-target at the end of the pipeline.
+Now, let's build the pipeline with {{< var keybind.targets-make >}}
+again. It should work! :tada: Let's also check the visualization of the
+pipeline with {{< var keybind.targets-visual >}}. You should now see the
+`quarto_doc` target at the end of the pipeline.
 
-When we run the pipeline with the Quarto target in it, we'll see
-that a new file is created in the `docs/` folder.
-When we use `targets::tar_config_set(store = ...)`, it creates a new
-file called `_targets.yaml` that contains details
-that tell `{targets}` where to find the store. Since the path listed
-in this `docs/_targets.yaml` file is a relative path to the store, we can
-add it to our Git history so that our collaborators (or future you) also use it.
+When we run the pipeline with the Quarto target in it, we'll see that a
+new file is created in the `docs/` folder. When we use
+`targets::tar_config_set(store = ...)`, it creates a new file called
+`_targets.yaml` that contains details that tell `{targets}` where to
+find the store. Since the path listed in this `docs/_targets.yaml` file
+is a relative path to the store, we can add it to our Git history so
+that our collaborators (or future you) also use it.
 
-So let's commit the changes we've made to our project into the Git history with
-{{< var keybind.git >}}.
+So let's commit the changes we've made to our project into the Git
+history with {{< var keybind.git >}}.
 
 ```{r purl-only-setup-code-chunk}
 #| eval: false
@@ -217,16 +222,18 @@ git_ci("docs/learning.qmd", "Add code for basic stats to report.")
 We'll add `library(tidyverse)` to the `setup` code chunk, so that we can
 use the functions from `{tidyverse}`.
 
-For
-this, we will call our "final" function that we will include in the `{targets}` pipeline
-`create_table_descriptive_stats()`. This function will take the `lipidomics` data as
-input (the first argument) and return the `table_descriptive_stats` as output.
+For this, we will call our "final" function that we will include in the
+`{targets}` pipeline `create_table_descriptive_stats()`. This function
+will take the `lipidomics` data as input (the first argument) and return
+the `table_descriptive_stats` as output.
 
-To create this `table_descriptive_stats` object, we'll use `{tidyverse}`, specifically `{dplyr}`, to calculate the
-descriptive statistics from the `lipidomics` data. We don't yet have it added
-to our dependencies, so let's add it! Because `{tidyverse}` is a "meta"-package (special
-type of package that makes it easy to install and load other packages),
-we need to add it to the `"depends"` section of the `DESCRIPTION` file.
+To create this `table_descriptive_stats` object, we'll use
+`{tidyverse}`, specifically `{dplyr}`, to calculate the descriptive
+statistics from the `lipidomics` data. We don't yet have it added to our
+dependencies, so let's add it! Because `{tidyverse}` is a "meta"-package
+(special type of package that makes it easy to install and load other
+packages), we need to add it to the `"depends"` section of the
+`DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| filename: Console
@@ -257,9 +264,6 @@ c(
   write_to_file("docs/learning.qmd")
 git_ci("docs/learning.qmd", "Add section on basic stats to qmd")
 ```
-
-
-
 
 For our first output, there's a lot of things we could do for
 descriptive statistics. However, a common first table is to show some
@@ -316,8 +320,8 @@ We've made this code, but now we want to actually follow a
 
 **Time: \~20 minutes.**
 
-In the `docs/learning.qmd` file, use the function-oriented workflow,
-as taught in the [intermediate
+In the `docs/learning.qmd` file, use the function-oriented workflow, as
+taught in the [intermediate
 workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function.
 
@@ -673,7 +677,6 @@ again to see everything re-build! Last things are to re-style using
 {{< var keybind.styler >}}, then **commit** the changes to the Git
 history before moving on with {{< var keybind.git >}}. Then push your
 changes up to GitHub.
-
 
 ## Summary
 
