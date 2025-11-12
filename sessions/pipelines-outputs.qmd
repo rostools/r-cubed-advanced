@@ -1,4 +1,4 @@
-# Using pipelines to build research output {#sec-pipelines-outputs}
+# Using the pipeline to build research output {#sec-pipelines-outputs}
 
 ```{r setup}
 #| include: false
@@ -10,12 +10,13 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 
 {{< text_snippet review_note >}}
 
+While creating
 
 ## Learning objectives
 
-{{< include /includes/objectives/_pipelines.qmd >}}
+{{< include /includes/objectives/_pipelines-output.qmd >}}
 
-## Building our first product: A table of basic descriptive statistics
+## Adding our Quarto report as a target in our pipeline
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
@@ -27,59 +28,226 @@ making these diagrams that explicitly show the steps (the functions)
 that transform one object to another.
 :::
 
-If you recall from @fig-pipeline-schematic, we had three items (also called products) we
+If you recall from @fig-pipeline-schematic, we had three items (that we call products) that we
 wanted to create from our lipidomics data:
 
-1.  A table of basic descriptive statistics. We'll call this
-    `table_basic_stats`.
-2.  A plot of the continuous lipid variables. We'll call this
+1.  A table of basic descriptive statistics, which we'll call this
+    `table_descriptive_stats`.
+2.  A plot of the continuous lipid variables, which we'll call this
     `plot_distributions`.
 3.  A report (Quarto document). We'll call this `report`.
 
-If we convert this into the graph format, so that each block in the
-graph represents each product as an R object, it would look like in
-@fig-object-outputs. Why do we make a diagram for this process? Because
-it helps to design the steps before we actually start writing code. And
-using diagrams (even pen and paper) is an extremely powerful way of
-helping you focus on what needs to get done, what products you want, and
-how you get there.
+Let's add these products into the design of our `{targets}` pipeline that we made in @fig-our-pipeline-design.
+We'll indicate that our first two targets have been made in the graph,
+which now looks like what is shown in
+@fig-first-two-done-pipeline.
 
 ```{mermaid}
-%%| label: fig-object-outputs
-%%| fig-cap: The flow of R objects that we've named to represent each product and the data input to make them.
-flowchart TB
-    lipidomics --> table_basic_stats
-    table_basic_stats --> report
-    lipidomics --> plot_distributions
-    plot_distributions --> report
+%%| label: fig-first-two-done-pipeline
+%%| fig-cap: Targets in our pipeline that we've done in the last session and those we will do in this session.
+%%| echo: false
+graph TB
+    data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
+    lipidomics -->|"create_table_descriptive_stats()"| table_descriptive_stats:::wip
+    lipidomics -->|"create_plot_distributions()"| plot_distributions:::wip
+    table_descriptive_stats -->|"tar_read()"| report:::wip
+    plot_distributions -->|"tar_read()"| report
+
+    classDef done stroke-width:3px
+    classDef wip fill:#ffedd6
 ```
 
-But these are only the objects. We also need the actions (the functions)
-to convert one object to another. So let's add them to the diagram in
-@fig-functions-outputs, for now, only focusing on the functions that
-will make the first two products. Between those products and the report,
-for now we'll put a question mark since we don't yet know what functions
-or actions we will use to get those objects into the report.
+So in this session, we want to make the `table_descriptive_stats` and
+`plot_distributions` targets, then include them in the `report`.
+In order for us to slowly build this up, we will start at the end first:
+rendering our Quarto document to HTML in our `{targets}` pipeline.
 
-```{mermaid}
-%%| label: fig-functions-outputs
-%%| fig-cap: The actions (as functions) that convert the first two output objects from the data.
-flowchart TB
-    lipidomics -->|"create_table_basic_stats()"| table_basic_stats
-    table_basic_stats -->|?| report
-    lipidomics -->|"create_plot_distributions()"| plot_distributions
-    plot_distributions -->|?| report
+Open up the `docs/learning.qmd` file
+and create a new code chunk at the bottom of the file.
+Name the code chunk `setup` (using the chunk label `{r setup}`).
+
+We'll be using some `{targets}` functions in this document, so let's add
+`library(targets)` to the `setup` code chunk.
+Since we'll eventually be adding code as functions into the `R/functions.R`
+file, we'll `source()` it right now in the `setup` code chunk and using `here::here()` to
+give the correct file path to the `R/functions.R` file.
+Lastly, in order use the `lipidomics` data that we added to the `_targets.R` pipeline
+in the last session (and that is also stored in the `_targets/` target "store"),
+we use `tar_read()` to read it in and assign it to the  `lipidomics` object.
+
+```` {.markdown filename="docs/learning.qmd"}
+```{{r setup}}
+library(targets)
+source(here::here("R/functions.R"))
+lipidomics <- tar_read(lipidomics)
+```
+````
+
+Let's try to render this right now by using {{< var keybind.render >}}.
+We will likely get an error saying something about not finding the `{targets}`
+"store". This is because when we use a `{targets}` function like `tar_read()`,
+it will look for a folder called `_targets/` in the same folder that the
+R session is running in. When we render a Quarto document, the default location
+for the R session is the folder where the Quarto file is located, which is `docs/`.
+We don't have a folder called `docs/_targets/`. Instead, it is in the root of the project.
+So we have to tell `{targets}` where to find the store, which we can do by using
+`targets::tar_config_set()`. This function allows us to set various
+configuration options for `{targets}`. One of these options is `store`, which
+we can use to tell `{targets}` where the `_targets/` store is located relative to
+the Quarto file.
+
+So in the `setup` code chunk, we'll add the `tar_config_set()` line right
+after `library(targets)`. Since the Quarto file is in the `docs/` folder,
+we can use the relative path `"../_targets"` to point to the store.
+
+```` {.markdown filename="docs/learning.qmd"}
+```{{r setup}}
+library(targets)
+tar_config_set(store = "../_targets")
+source(here::here("R/functions.R"))
+lipidomics <- tar_read(lipidomics)
+```
+````
+
+Let's try to render the file now with {{< var keybind.render >}}. It should
+work now without any errors! :tada:
+
+Great! Now let's include the Quarto file as a target in our pipeline.
+Open up the `_targets.R` file. But, how do we add a Quarto file as a target?
+If we try to look through the `{targets}` documentation, we won't find anything
+specific for Quarto files. However, there is a helper package called
+`{tarchetypes}` that contains functions that make it easier to add
+specific types of files as targets, including Quarto files. You can see
+at the top of the `_targets.R` file that there is a commented out
+line for loading the `{tarchetypes}` package. So let's uncomment that
+line so that it looks like this now:
+
+```
+# Load packages required to define the pipeline:
+library(targets)
+library(tarchetypes)
 ```
 
-Let's go in order of the outputs we want to create, the first of which
-is the table of basic descriptive statistics (`table_basic_stats`). For
-this, the "end goal" function we want to have is called
-`create_table_basic_stats()`, which will take the `lipidomics` data as
-input and return the `table_basic_stats` as output.
+We don't have the `{tarchetypes}` package installed yet, so let's install it
+by going to the Console and using `use_package("tarchetypes")`.
 
-We'll use `{tidyverse}`, specifically `{dplyr}`, to calculate the
-descriptive statistics from the `lipidomics` data. So we need to add it
-to our dependencies. Because `{tidyverse}` is a "meta"-package (special
+```{r tarchetypes-deps}
+#| purl: true
+#| eval: false
+#| filename: Console
+use_package("tarchetypes")
+```
+
+Now, let's go back to the `_targets.R` file and go to the bottom of the file
+with the `list()` of `tar_target()` items. We will now add the new item
+for rendering the Quarto file called: `tar_quarto()`. Like `tar_target()`, this
+takes a `name` argument. But unlike `command` for `tar_target()`, it takes a
+`path` argument, which is the file path to the Quarto file. Let's add it:
+
+``` {.r filename="_targets.R"}
+list(
+  ...,
+  tar_quarto(
+    name = quarto_doc,
+    path = "docs/learning.qmd"
+  )
+)
+```
+
+
+Since we've made some changes, let's first style the file using {{< var keybind.styler >}}.
+Now let's run
+`targets::tar_make()` with {{< var keybind.targets-make >}} to build the Quarto
+document. However, we will probably get an error because we haven't installed
+the `{quarto}` R package yet.
+
+<!-- TODO: Confirm error message -->
+
+So let's install the `{quarto}` R package to help `{targets}` connect to the Quarto file:
+
+```{r quarto-deps}
+#| purl: true
+#| eval: false
+#| filename: Console
+use_package("quarto")
+```
+
+Now, let's build the pipeline with {{< var keybind.targets-make >}} again.
+It should work! :tada: Let's also check the visualization of the pipeline
+with {{< var keybind.targets-visual >}}. You should now see the `quarto_doc`
+target at the end of the pipeline.
+
+
+Let's open up the `docs/learning.qmd` file, add a `setup` code chunk
+below the YAML header, and create a new header and code chunk and make
+use of the `targets::tar_read()`.
+
+
+```{r purl-only-basic-stats-markdown-text}
+#| eval: false
+#| echo: false
+#| purl: true
+basic_stats_md_text <- c(
+  "```{r setup}",
+  "library(tidyverse)",
+  "library(targets)",
+  "lipidomics <- tar_read(lipidomics)",
+  "```",
+  "",
+  "## Results",
+  "",
+  "```{r}",
+  "tar_read(df_stats_by_metabolite)",
+  "```",
+  "",
+  "```{r}",
+  "tar_read(fig_metabolites_distribution)",
+  "```"
+)
+print_file("docs/learning.qmd")
+revise_by_line_num(
+  "docs/learning.qmd",
+  basic_stats_md_text,
+  # Update numbers
+  remove_original_lines = -30,
+  insert_at_line = 29
+)
+git_ci("docs/learning.qmd", "Add code for basic stats to report.")
+```
+
+When we use `targets::tar_config_set(store = ...)`, it will create a new
+file in the `docs/` folder called `_targets.yaml` that contains details
+for telling `{targets}` where to find the store. Since the path listed
+in this new file is an absolute path, it will only ever work on your own
+computer. So, it improve reproducibility, it's good practice to not put
+it into the Git history and instead put it in the `.gitignore` file. So
+let's add it to ignore file by using:
+
+```{r git-ignore-targets-yaml}
+#| eval: false
+#| filename: Console
+use_git_ignore("_targets.yaml")
+```
+
+Before continuing, let's commit these changes to the Git history with
+{{< var keybind.git >}}.
+
+Now, going back to the `docs/learning.qmd` file,
+
+
+## Building our first "product": A table of basic descriptive statistics
+
+We'll add `library(tidyverse)` to the `setup` code chunk, so that we can
+use the functions from `{tidyverse}`.
+
+For
+this, we will call our "final" function that we will include in the `{targets}` pipeline
+`create_table_descriptive_stats()`. This function will take the `lipidomics` data as
+input (the first argument) and return the `table_descriptive_stats` as output.
+
+To create this `table_descriptive_stats` object, we'll use `{tidyverse}`, specifically `{dplyr}`, to calculate the
+descriptive statistics from the `lipidomics` data. We don't yet have it added
+to our dependencies, so let's add it! Because `{tidyverse}` is a "meta"-package (special
 type of package that makes it easy to install and load other packages),
 we need to add it to the `"depends"` section of the `DESCRIPTION` file.
 
@@ -98,25 +266,6 @@ error that explains why you can't do that.
 Commit the changes made to the `DESCRIPTION` file in the Git history
 with {{< var keybind.git >}}.
 
-Now, let's start creating the code for our outputs, so that we can add
-it to our pipeline later. First, open up the `docs/learning.qmd` file
-and create a new header and code chunk at the bottom of the file.
-
-```` {.markdown filename="docs/learning.qmd"}
-
-```{{r setup}}
-library(tidyverse)
-source(here::here("R/functions.R"))
-lipidomics <- read_csv(here::here("data/lipidomics.csv"))
-```
-
-## Basic statistics
-
-```{{r}}
-
-```
-````
-
 ```{r purl-only-markdown-basic-stats}
 #| eval: false
 #| echo: false
@@ -132,6 +281,9 @@ c(
 git_ci("docs/learning.qmd", "Add section on basic stats to qmd")
 ```
 
+
+
+
 For our first output, there's a lot of things we could do for
 descriptive statistics. However, a common first table is to show some
 means and standard deviations (SD) for our variables. In our case, we
@@ -142,7 +294,7 @@ function, which we covered in the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
 session of the intermediate workshop.
 
-If we represent this visually, where each block is an R data frame, it
+We can represent this visually, where each block is an R data frame, it
 would like:
 
 ```{mermaid}
@@ -187,10 +339,19 @@ We've made this code, but now we want to actually follow a
 
 **Time: \~20 minutes.**
 
-In the `docs/learning.qmd` file, use the "function-oriented" workflow,
+In the `docs/learning.qmd` file, use the function-oriented workflow,
 as taught in the [intermediate
 workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function.
+
+``` r
+create_table_descriptive_stats <- function(___) {
+  ___
+}
+
+# It should output the same thing as before, but using it like:
+create_table_descriptive_stats(lipidomics)
+```
 
 Complete these tasks:
 
@@ -199,7 +360,7 @@ Complete these tasks:
     Here is some scaffolding to help you get started:
 
     ``` {.r filename="docs/learning.qmd"}
-    descriptive_stats <- function(___) {
+    create_table_descriptive_stats <- function(___) {
       ___
     }
     ```
@@ -250,17 +411,19 @@ we will be using this feature throughout the rest of this workshop.
 #'
 #' @return A data.frame/tibble.
 #'
-descriptive_stats <- function(data) {
+create_table_descriptive_stats <- function(data) {
   data |>
     dplyr::group_by(metabolite) |>
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ round(.x, digits = 1)))
 }
+
+create_table_descriptive_stats(lipidomics)
 ```
 
 {{< text_snippet sticky_up >}}
 
-## Adding a step in the pipeline
+## Adding the first "product" function to the pipeline
 
 Now that we've created a function to calculate some basic statistics, we
 can now add it as a step in the `{targets}` pipeline. Open up the
@@ -480,134 +643,6 @@ git_ci("DESCRIPTION", "Add ggplot2 to deps")
 git_ci("R/functions.R", "Add output switch function, to use for targets")
 git_ci("_targets.R", "Update targets with plot item")
 ```
-
-## Incorporating Quarto targets
-
-Last, but not least, we want to make the final output 3 from
-@fig-pipeline-schematic: The Quarto document. Adding a Quarto document
-as a target inside `_targets.R` is fairly straightforward. We need to
-install the helper package `{tarchetypes}` first, as well as the
-`{quarto}` R package (it helps connect with Quarto):
-
-```{r tarchetypes-deps}
-#| purl: true
-#| eval: false
-#| filename: Console
-use_package("tarchetypes")
-use_package("quarto")
-```
-
-Then, inside `_targets.R`, uncomment the line where
-`library(tarchetypes)` is commented out. The function we need to use to
-build the Quarto file is `tar_quarto()` (or `tar_render()` for R
-Markdown files), which needs two things: The `name`, like `tar_target()`
-needs, and the file path to the Quarto file. Again, like the other
-`tar_target()` items, add it to the end of the `list()`. Lets add
-`docs/learning.qmd` as a pipeline step:
-
-``` {.r filename="targets.R"}
-list(
-  ...,
-  tar_quarto(
-    name = quarto_doc,
-    path = "docs/learning.qmd"
-  )
-)
-```
-
-Then, style the file using {{< var keybind.styler >}}. Now when we run
-`targets::tar_make()` with {{< var keybind.targets-make >}}, the Quarto
-file also gets re-built. But when we use `targets::tar_visnetwork()`
-using {{< var keybind.targets-vis >}}, we don't see the connections with
-plot and descriptive statistics. That's because we haven't used them in
-a way `{targets}` can recognize.
-
-But because our Quarto file is located in the `docs/` folder and
-
-when we render the Quarto file it won't find the store. So we have to
-tell `{targets}` where it is located by using
-`targets::tar_config_set()`.
-
-Let's open up the `docs/learning.qmd` file, add a `setup` code chunk
-below the YAML header, and create a new header and code chunk and make
-use of the `targets::tar_read()`.
-
-<!-- Because the Quarto file is in another folder, -->
-
-```` {.markdown filename="docs/learning.qmd"}
----
-# YAML header
----
-
-```{{r setup}}
-targets::tar_config_set(store = "../_targets")
-library(tidyverse)
-library(targets)
-source(here::here("R/functions.R"))
-lipidomics <- tar_read(lipidomics)
-```
-
-## Results
-
-```{{r}}
-tar_read(df_stats_by_metabolite)
-```
-
-```{{r}}
-tar_read(fig_metabolite_distribution)
-```
-````
-
-```{r purl-only-basic-stats-markdown-text}
-#| eval: false
-#| echo: false
-#| purl: true
-basic_stats_md_text <- c(
-  "```{r setup}",
-  "library(tidyverse)",
-  "library(targets)",
-  "lipidomics <- tar_read(lipidomics)",
-  "```",
-  "",
-  "## Results",
-  "",
-  "```{r}",
-  "tar_read(df_stats_by_metabolite)",
-  "```",
-  "",
-  "```{r}",
-  "tar_read(fig_metabolites_distribution)",
-  "```"
-)
-print_file("docs/learning.qmd")
-revise_by_line_num(
-  "docs/learning.qmd",
-  basic_stats_md_text,
-  # Update numbers
-  remove_original_lines = -30,
-  insert_at_line = 29
-)
-git_ci("docs/learning.qmd", "Add code for basic stats to report.")
-```
-
-When we use `targets::tar_config_set(store = ...)`, it will create a new
-file in the `docs/` folder called `_targets.yaml` that contains details
-for telling `{targets}` where to find the store. Since the path listed
-in this new file is an absolute path, it will only ever work on your own
-computer. So, it improve reproducibility, it's good practice to not put
-it into the Git history and instead put it in the `.gitignore` file. So
-let's add it to ignore file by using:
-
-```{r git-ignore-targets-yaml}
-#| eval: false
-#| filename: Console
-use_git_ignore("_targets.yaml")
-```
-
-Before continuing, let's commit these changes to the Git history with
-{{< var keybind.git >}}.
-
-Now, going back to the `docs/learning.qmd` file,
 
 For the `df_stats_by_metabolite`, we can do some minor wrangling with
 `mutate()` and `glue::glue()`, and than pipe it to `knitr::kable()` to

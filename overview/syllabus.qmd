@@ -4,6 +4,9 @@
 #| include: false
 # To force downlit to work.
 library(downlit)
+# Formatter removes this library call unless we use it.
+# So this only keeps it to get autolinking to work.
+downlit::autolink("targets::tar_read")
 ```
 
 Reproducibility and open scientific practices are increasingly in demand
@@ -38,8 +41,10 @@ in order:
 -   [Introduction to the workshop](/sessions/introduction.qmd)
 -   [Dependency management for smoother
     collaboration](/sessions/dependencies.qmd)
--   [Creating automatic analysis pipelines](/sessions/pipelines-setup.qmd)
--   [Creating automatic analysis pipelines](/sessions/pipelines-outputs.qmd)
+-   [Creating automatic analysis
+    pipelines](/sessions/pipelines-setup.qmd)
+-   [Creating automatic analysis
+    pipelines](/sessions/pipelines-outputs.qmd)
 -   [A general approach to doing statistical
     analyses](/sessions/stats-analyses-basic.qmd)
 -   [Efficiently running many analyses at
@@ -54,17 +59,23 @@ The overall aim of this workshop is to enable you to:
     reproducible data analysis pipeline and workflow looks like, and
     then create a project that follows these practices using R.
 
-Broken down into specific objectives, we've designed
-the workshop to enable you to do the following in each session:
+Broken down into specific objectives, we've designed the workshop to
+enable you to do the following in each session:
 
 [**Dependency management for smoother
 collaboration**](/sessions/dependencies.qmd)
 
 {{< include /includes/objectives/_dependencies.qmd >}}
 
-[**Creating automatic analysis pipelines**](/sessions/pipelines.qmd)
+[**Setting up automatic analysis
+pipelines**](/sessions/pipelines-setup.qmd)
 
-{{< include /includes/objectives/_pipelines.qmd >}}
+{{< include /includes/objectives/_pipelines-setup.qmd >}}
+
+[**Using the pipeline to build up research
+output**](/sessions/pipelines-outputs.qmd)
+
+{{< include /includes/objectives/_pipelines-output.qmd >}}
 
 [**A general approach to doing statistical
 analyses**](/sessions/stats-analyses-basic.qmd)

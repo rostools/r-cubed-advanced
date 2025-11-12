@@ -125,10 +125,17 @@ practice, we have to separate two things: *exploratory data analysis*
 and *data analysis for the final paper*. In exploratory data analysis,
 there will likely be a lot of manual, interactive steps involved that
 may or may not need to be explicitly stated and included in the analysis
-plan and pipeline. But for the final paper and the included results, you
-generally have some basic first ideas of what you'll need. Let's list a
-few items that you would want to do before the primary statistical
-analysis of a research project:
+plan and pipeline.
+
+But for the final paper and the included results, you generally have
+some basic first ideas of what you'll need. And when working on
+projects, it's good practice to follow the principle "start at the end
+and work backwards." What take means is, think about and design what
+your final product will be and what it (generally) will contain. In
+research products like papers, you usually have several tables and
+figures in the paper. Those are "sub-products" of the main "product". So
+let's list a few "sub-products" (we'll just call "products") that you
+almost always have in a research paper:
 
 1.  A table of some basic descriptive statistics of the study
     population, such as mean, standard deviation, or counts of basic
@@ -144,7 +151,7 @@ Let's break this down visually in @fig-pipeline-schematic:
 
 ```{mermaid}
 %%| label: fig-pipeline-schematic
-%%| fig-cap: The flow of data into specific 'targets' as the initial steps in a data analysis pipeline. The "?" are actions (functions) that need to happen but that we haven't yet defined.
+%%| fig-cap: The flow of data into specific "targets" (items or products) as the initial steps in a data analysis pipeline. The "?" are actions (functions) that need to happen but that we haven't yet defined.
 %%| echo: false
 graph TB
     data[Data<br>in a file] -->|?| tab_desc[Item 1:<br>Descriptive<br>statistics<br>table]
@@ -373,7 +380,7 @@ CSV file. So there are at least five targets we need to create in our
 pipeline. Let's draw it out:
 
 ```{mermaid}
-%%| label: fig-our-pipeline-schematic
+%%| label: fig-our-pipeline-design
 %%| fig-cap: The design and flow of how we want our data analysis pipeline to look like, with the distinct targets we want to create.
 %%| echo: false
 graph TB
