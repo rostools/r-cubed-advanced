@@ -140,9 +140,9 @@ use_package("tarchetypes")
 
 Now, let's go back to the `_targets.R` file and go to the bottom of the file
 with the `list()` of `tar_target()` items. We will now add the new item
-for rendering the Quarto file called: `tar_quarto()`. Like `tar_target()`, this
-takes a `name` argument. But unlike `command` for `tar_target()`, it takes a
-`path` argument, which is the file path to the Quarto file. Let's add it:
+for rendering the Quarto file that is called `tar_quarto()`. Like `tar_target()`, this
+takes a `name` argument. But unlike having a `command` argument like in `tar_target()`, `tar_quarto()` takes a
+`path` argument where you write the file path to the Quarto file. Let's add it:
 
 ``` {.r filename="_targets.R"}
 list(
@@ -177,32 +177,29 @@ It should work! :tada: Let's also check the visualization of the pipeline
 with {{< var keybind.targets-visual >}}. You should now see the `quarto_doc`
 target at the end of the pipeline.
 
+When we run the pipeline with the Quarto target in it, we'll see
+that a new file is created in the `docs/` folder.
+When we use `targets::tar_config_set(store = ...)`, it creates a new
+file called `_targets.yaml` that contains details
+that tell `{targets}` where to find the store. Since the path listed
+in this `docs/_targets.yaml` file is a relative path to the store, we can
+add it to our Git history so that our collaborators (or future you) also use it.
 
-Let's open up the `docs/learning.qmd` file, add a `setup` code chunk
-below the YAML header, and create a new header and code chunk and make
-use of the `targets::tar_read()`.
+So let's commit the changes we've made to our project into the Git history with
+{{< var keybind.git >}}.
 
-
-```{r purl-only-basic-stats-markdown-text}
+```{r purl-only-setup-code-chunk}
 #| eval: false
 #| echo: false
 #| purl: true
 basic_stats_md_text <- c(
   "```{r setup}",
-  "library(tidyverse)",
   "library(targets)",
+  "tar_config_set(store = '../_targets')",
+  "source(here::here('R/functions.R'))",
   "lipidomics <- tar_read(lipidomics)",
   "```",
-  "",
-  "## Results",
-  "",
-  "```{r}",
-  "tar_read(df_stats_by_metabolite)",
-  "```",
-  "",
-  "```{r}",
-  "tar_read(fig_metabolites_distribution)",
-  "```"
+  ""
 )
 print_file("docs/learning.qmd")
 revise_by_line_num(
@@ -214,26 +211,6 @@ revise_by_line_num(
 )
 git_ci("docs/learning.qmd", "Add code for basic stats to report.")
 ```
-
-When we use `targets::tar_config_set(store = ...)`, it will create a new
-file in the `docs/` folder called `_targets.yaml` that contains details
-for telling `{targets}` where to find the store. Since the path listed
-in this new file is an absolute path, it will only ever work on your own
-computer. So, it improve reproducibility, it's good practice to not put
-it into the Git history and instead put it in the `.gitignore` file. So
-let's add it to ignore file by using:
-
-```{r git-ignore-targets-yaml}
-#| eval: false
-#| filename: Console
-use_git_ignore("_targets.yaml")
-```
-
-Before continuing, let's commit these changes to the Git history with
-{{< var keybind.git >}}.
-
-Now, going back to the `docs/learning.qmd` file,
-
 
 ## Building our first "product": A table of basic descriptive statistics
 
