@@ -125,7 +125,7 @@ files. You can see at the top of the `_targets.R` file that there is a
 commented out line for loading the `{tarchetypes}` package. So let's
 uncomment that line so that it looks like this now:
 
-```
+``` {.r filename="_targets.R"}
 # Load packages required to define the pipeline:
 library(targets)
 library(tarchetypes)
@@ -219,17 +219,16 @@ git_ci("docs/learning.qmd", "Add code for basic stats to report.")
 
 ## Building our first "product": A table of basic descriptive statistics
 
-We'll add `library(tidyverse)` to the `setup` code chunk, so that we can
-use the functions from `{tidyverse}`.
-
-For this, we will call our "final" function that we will include in the
-`{targets}` pipeline `create_table_descriptive_stats()`. This function
+Time to make our first "product"! Recalling from @fig-first-two-done-pipeline,
+we decided to call our product `table_descriptive_stats` and to call the function
+to make it `create_table_descriptive_stats()`.
+This function
 will take the `lipidomics` data as input (the first argument) and return
 the `table_descriptive_stats` as output.
 
-To create this `table_descriptive_stats` object, we'll use
-`{tidyverse}`, specifically `{dplyr}`, to calculate the descriptive
-statistics from the `lipidomics` data. We don't yet have it added to our
+To wrangle the `lipidomics` into `table_descriptive_stats`, we'll use functions from
+`{tidyverse}`, specifically `{dplyr}`.
+We don't yet have `{tidyverse}` added to our
 dependencies, so let's add it! Because `{tidyverse}` is a "meta"-package
 (special type of package that makes it easy to install and load other
 packages), we need to add it to the `"depends"` section of the
@@ -247,59 +246,68 @@ If you try to run this code without using `"depends"`, you'll get an
 error that explains why you can't do that.
 :::
 
-Commit the changes made to the `DESCRIPTION` file in the Git history
-with {{< var keybind.git >}}.
+Next, let's open up the `docs/learning.qmd` file and add `library(tidyverse)` to the `setup` code chunk, so that we can
+use the functions from `{tidyverse}`. Put it at the top of the `setup` code chunk, like below:
 
-```{r purl-only-markdown-basic-stats}
-#| eval: false
-#| echo: false
-#| purl: true
-git_ci("DESCRIPTION", "Add tidyverse and targets to deps")
-c(
-  "\n## Basic statistics\n\n```{r setup}\nlibrary(tidyverse)",
-  "source(here::here('R/functions.R'))",
-  "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"
-) |>
-  paste0(collapse = "\n") |>
-  write_to_file("docs/learning.qmd")
-git_ci("docs/learning.qmd", "Add section on basic stats to qmd")
+```` {.markdown filename="docs/learning.qmd"}
+```{{r setup}}
+library(tidyverse)
+library(targets)
+tar_config_set(store = "../_targets")
+source(here::here("R/functions.R"))
+lipidomics <- tar_read(lipidomics)
 ```
+````
 
-For our first output, there's a lot of things we could do for
-descriptive statistics. However, a common first table is to show some
+Then, below this code chunk, we'll create a new header called `## Making a table` as well
+as a new code chunk below that with {{< var keybind.chunk >}}.
+There's a lot of different descriptive statistics we could use for the table,
+as well as different variables to include in it.
+But commonly used descriptive statistics are to show the
 means and standard deviations (SD) for our variables. In our case, we
-could calculate the mean and SD for each metabolite. To make it more
-readable, we could also round the numbers to one digit. To do this, we
-will use the split-apply-combine methodology and the `across()`
+could calculate the mean and SD for each metabolite and display those stats in our table. To make the table more
+readable, we could also round the numbers from the statistics to one digit.
+
+We can achieve this with code by
+using the split-apply-combine methodology and the `across()`
 function, which we covered in the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
 session of the intermediate workshop.
-
-We can represent this visually, where each block is an R data frame, it
-would like:
+Representing this visually, where each node is a data frame, it
+might look like:
 
 ```{mermaid}
 flowchart TB
     lipidomics --> by_metabolite --> mean_sd --> rounded_output
 ```
 
-To
+The functions to get to each object might be something like:
 
-Briefly, we will:
-
-1.  Use `group_by()` to split the dataset based on the metabolites.
-2.  Use `summarise()` to calculate the `mean()` and standard deviation
+1.  `group_by()` to split the dataset by the metabolites.
+2.  `summarise()` to calculate the `mean()` and standard deviation
     (`sd()`) for each metabolite.
-3.  Round the calculated mean and standard deviation to 1 digit using
-    `round()`.
+3.  `mutate()` to `round()` the calculated mean and standard deviation to 1 digit.
 
-While doing these steps, we will use the `across()` functional, making
-it easy to apply the same transformation on multiple columns. An
-advantage of using `across()` is that you don't need to directly use the
-column names, which makes the code a bit more robust to changes in the
-data.
+We could use these functions and modify or create columns by directly referring to them. Or we
+could make the function more robust by using the `across()` functional
+so that it applies the same transformations on multiple columns based on
+some condition. By using this function, our code doesn't depend on the
+exact names of the columns in the data frame, so if they change names, our code
+will still work.
 
-Let's write out the code in the code chunk we just created:
+If we look at the help documentation of `?across` (and by recalling from
+the [intermediate](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
+workshop), we can give `across()` a `list()` that contains multiple functions to
+apply to our columns.
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Slowly build up this pipe of functions, running it each time you add a function
+to the pipe. Explain what the code is doing and why at each step.
+:::
+
+Let's write out the code we planned in the code chunk we had just created:
 
 ```{r mean-sd-by-each-metabolite}
 #| filename: "docs/learning.qmd"
