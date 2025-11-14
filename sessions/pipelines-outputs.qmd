@@ -219,20 +219,19 @@ git_ci("docs/learning.qmd", "Add code for basic stats to report.")
 
 ## Building our first "product": A table of basic descriptive statistics
 
-Time to make our first "product"! Recalling from @fig-first-two-done-pipeline,
-we decided to call our product `table_descriptive_stats` and to call the function
-to make it `create_table_descriptive_stats()`.
-This function
-will take the `lipidomics` data as input (the first argument) and return
-the `table_descriptive_stats` as output.
+Time to make our first "product"! Recalling from
+@fig-first-two-done-pipeline, we decided to call our product
+`table_descriptive_stats` and to call the function to make it
+`create_table_descriptive_stats()`. This function will take the
+`lipidomics` data as input (the first argument) and return the
+`table_descriptive_stats` as output.
 
-To wrangle the `lipidomics` into `table_descriptive_stats`, we'll use functions from
-`{tidyverse}`, specifically `{dplyr}`.
-We don't yet have `{tidyverse}` added to our
-dependencies, so let's add it! Because `{tidyverse}` is a "meta"-package
-(special type of package that makes it easy to install and load other
-packages), we need to add it to the `"depends"` section of the
-`DESCRIPTION` file.
+To wrangle the `lipidomics` into `table_descriptive_stats`, we'll use
+functions from `{tidyverse}`, specifically `{dplyr}`. We don't yet have
+`{tidyverse}` added to our dependencies, so let's add it! Because
+`{tidyverse}` is a "meta"-package (special type of package that makes it
+easy to install and load other packages), we need to add it to the
+`"depends"` section of the `DESCRIPTION` file.
 
 ```{r add-tidyverse-deps}
 #| filename: Console
@@ -246,8 +245,10 @@ If you try to run this code without using `"depends"`, you'll get an
 error that explains why you can't do that.
 :::
 
-Next, let's open up the `docs/learning.qmd` file and add `library(tidyverse)` to the `setup` code chunk, so that we can
-use the functions from `{tidyverse}`. Put it at the top of the `setup` code chunk, like below:
+Next, let's open up the `docs/learning.qmd` file and add
+`library(tidyverse)` to the `setup` code chunk, so that we can use the
+functions from `{tidyverse}`. Put it at the top of the `setup` code
+chunk, like below:
 
 ```` {.markdown filename="docs/learning.qmd"}
 ```{{r setup}}
@@ -259,22 +260,21 @@ lipidomics <- tar_read(lipidomics)
 ```
 ````
 
-Then, below this code chunk, we'll create a new header called `## Making a table` as well
-as a new code chunk below that with {{< var keybind.chunk >}}.
-There's a lot of different descriptive statistics we could use for the table,
-as well as different variables to include in it.
-But commonly used descriptive statistics are to show the
+Then, below this code chunk, we'll create a new header called
+`## Making a table` as well as a new code chunk below that with
+{{< var keybind.chunk >}}. There's a lot of different descriptive
+statistics we could use for the table, as well as different variables to
+include in it. But commonly used descriptive statistics are to show the
 means and standard deviations (SD) for our variables. In our case, we
-could calculate the mean and SD for each metabolite and display those stats in our table. To make the table more
-readable, we could also round the numbers from the statistics to one digit.
+could calculate the mean and SD for each metabolite and display those
+stats in our table. To make the table more readable, we could also round
+the numbers from the statistics to one digit.
 
-We can achieve this with code by
-using the split-apply-combine methodology and the `across()`
-function, which we covered in the
+We can achieve this with code by using the split-apply-combine
+methodology and the `across()` function, which we covered in the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
-session of the intermediate workshop.
-Representing this visually, where each node is a data frame, it
-might look like:
+session of the intermediate workshop. Representing this visually, where
+each node is a data frame, it might look like:
 
 ```{mermaid}
 flowchart TB
@@ -286,28 +286,32 @@ The functions to get to each object might be something like:
 1.  `group_by()` to split the dataset by the metabolites.
 2.  `summarise()` to calculate the `mean()` and standard deviation
     (`sd()`) for each metabolite.
-3.  `mutate()` to `round()` the calculated mean and standard deviation to 1 digit.
+3.  `mutate()` to `round()` the calculated mean and standard deviation
+    to 1 digit.
 
-We could use these functions and modify or create columns by directly referring to them. Or we
-could make the function more robust by using the `across()` functional
-so that it applies the same transformations on multiple columns based on
-some condition. By using this function, our code doesn't depend on the
-exact names of the columns in the data frame, so if they change names, our code
-will still work.
+We could use these functions and modify or create columns by directly
+referring to them. Or we could make the function more robust by using
+the `across()` functional so that it applies the same transformations on
+multiple columns based on some condition. By using this function, our
+code doesn't depend on the exact names of the columns in the data frame,
+so if they change names, our code will still work.
 
 If we look at the help documentation of `?across` (and by recalling from
-the [intermediate](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
-workshop), we can give `across()` a `list()` that contains multiple functions to
-apply to our columns.
+the
+[intermediate](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
+workshop), we can give `across()` a `list()` that contains multiple
+functions to apply to our columns.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
 
-Slowly build up this pipe of functions, running it each time you add a function
-to the pipe. Explain what the code is doing and why at each step.
+Slowly build up this pipe of functions, running it each time you add a
+function to the pipe. Explain what the code is doing and why at each
+step.
 :::
 
-Let's write out the code we planned in the code chunk we had just created:
+Let's write out the code we planned in the code chunk we had just
+created:
 
 ```{r mean-sd-by-each-metabolite}
 #| filename: "docs/learning.qmd"
