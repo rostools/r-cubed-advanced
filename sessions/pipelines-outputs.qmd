@@ -396,6 +396,9 @@ Complete these tasks:
     the Console. **ALL** functions used inside your function must have
     the package name appended to them.
 
+4.  Run `use_package()` for the two packages you used inside your function
+    that are not already in the `DESCRIPTION` file.
+
 4.  Style the code using {{< var keybind.styler >}} to make sure it is
     formatted correctly.
 
@@ -443,6 +446,10 @@ create_table_descriptive_stats <- function(data) {
 }
 
 create_table_descriptive_stats(lipidomics)
+
+# Adding the new dependencies
+# use_package("dplyr")
+# use_package("tidyselect")
 ```
 
 {{< text_snippet sticky_up >}}
@@ -482,6 +489,13 @@ tar_read(table_descriptive_stats) |>
   knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
 ```
 
+```{r}
+#| echo: false
+lipidomics |>
+  create_table_descriptive_stats() |>
+  knitr::kable(caption = "The mean and standard deviation of metabolites in the lipidomics dataset.")
+```
+
 Style the file using {{< var keybind.styler >}}. Now for us to see if
 the pipeline builds! First, let's see how the visualization looks. Run
 `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to see
@@ -500,10 +514,38 @@ Before continuing, commit the changes to the Git history with
 
 ## Creating figure outputs
 
-Not only can we create data frames with targets (like above), but also
-figures. Let's write some code to create the plot we listed as our
-"output 2" in @fig-pipeline-schematic. Since we're using `{ggplot2}` to
-write this code, let's add it to our `DESCRIPTION` file.
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Show this diagram again on the screen to remind the learners of the overall
+plan and the next steps.
+:::
+
+Let's return back to our overall design and plan for this project and
+pipeline by look at our diagram again in @fig-first-three-done-pipeline.
+We've now made our first product, the next is the figure!
+
+```{mermaid}
+%%| label: fig-first-three-done-pipeline
+%%| fig-cap: The first product added to the pipeline, two more items to go.
+%%| echo: false
+graph TB
+    data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
+    lipidomics -->|"create_table_descriptive_stats()"| table_descriptive_stats:::done
+    lipidomics -->|"create_plot_distributions()"| plot_distributions:::wip
+    table_descriptive_stats -->|"tar_read()"| report:::wip
+    plot_distributions -->|"tar_read()"| report
+
+    classDef done stroke-width:3px
+    classDef wip fill:#ffedd6
+```
+
+We've learned that we can create data frames as outputs from our pipeline,
+but the nice thing with `{targets}` is that we can create other types of
+objects too, like figures!
+
+Let's write code to create our first plot product. Since we're using `{ggplot2}` to
+make these figures, we'll add it to our `DESCRIPTION` file.
 
 ```{r add-ggplot2-deps}
 #| eval: false
@@ -512,23 +554,41 @@ write this code, let's add it to our `DESCRIPTION` file.
 use_package("ggplot2")
 ```
 
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Slowly build up this plot code, running it each time you add a new line/layer
+and explaining what it does and why we're doing it.
+:::
+
 Next, we'll switch back to `docs/learning.qmd` and write the code to
 this plot of the distribution of each metabolite. We'll use
 `geom_histogram()`, nothing too fancy. And since the data is already in
 long format, we can easily use `facet_wrap()` to create a plot for each
 metabolite. We use `scales = "free"` because each metabolite doesn't
 have the same range of values (some are small, others are quite large).
+Just to make the plot a bit more aesthetically pleasing, we'll change
+the theme to `theme_minimal()`.
 
 ```{r histogram-metabolites}
 #| fig-cap: "Histograms showing the distribution of all metabolites in the lipidomics dataset."
 #| filename: "docs/learning.qmd"
-metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
+ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
-  facet_wrap(vars(metabolite), scales = "free")
-metabolite_distribution_plot
+  facet_wrap(vars(metabolite), scales = "free") +
+  theme_minimal()
 ```
 
-We now have the basic code to convert over into functions.
+We want to keep it simple for now, as this workshop isn't about making
+nice figures, it's mainly about how to build reproducible pipelines.
+So for now, run `{styler}` with {{< var keybind.styler >}},
+then run the pipeline with {{< var keybind.targets-make >}} to check that
+everything builds correctly. Open the updated HTML file to check how it looks.
+Then, we'll add and commit the changes to the Git history
+with {{< var keybind.git >}} and push the changes up to GitHub.
+
+Time for you to convert the code into a function.
 
 ## :technologist: Exercise: Convert the plot code to a function
 
@@ -536,29 +596,30 @@ We now have the basic code to convert over into functions.
 
 For now, we will only take the code to make the distribution plot and
 convert it into a function. Just like you did with the
-`descriptive_stats()` function in the exercise above, complete these
-tasks:
+`create_table_descriptive_stats()` function in the exercise above, complete these
+tasks, using the scaffolding code below to help you get started:
+
+``` {.r filename="docs/learning.qmd"}
+create_plot_distributions <- function(data) {
+  data |>
+    ___
+}
+
+# Use it like, which should give the same output as before.
+create_plot_distributions(lipidomics)
+```
 
 1.  Wrap the plot code inside `docs/learning.qmd` with
-    `function() {...}` and name the new function `plot_distributions`.
-    Use this scaffolding code to help guide you to write the code into a
-    function.
-
-    ``` {.r filename="docs/learning.qmd"}
-    plot_distributions <- function(___) {
-      ___
-    }
-    ```
+    `function() {...}` and name the new function `create_plot_distributions`.
 
 2.  Replace `lipidomics` with `data` and put `data` as an argument
-    inside the brackets of `function()`.
+    inside the brackets of `function()` (already done in the scaffolding code).
 
 3.  Add `ggplot2::` to the start of each `{ggplot2}` function used
     inside your function.
 
 4.  Style using {{< var keybind.styler >}} to make sure it is formatted
-    correctly. You might need to manually force a styling if lines are
-    too long.
+    correctly.
 
 5.  With the *cursor* inside the function, add some roxygen
     documentation with {{< var keybind.roxygen >}}. Remove the lines
@@ -568,8 +629,8 @@ tasks:
 
 6.  Cut and paste the function over into the `R/functions.R` file.
 
-7.  Source the `R/functions.R` file ({{< var keybind.source >}}) and
-    then test the code by running `plot_distributions(lipidomics)` in
+7.  Source the `R/functions.R` file with {{< var keybind.source >}} and
+    then test the code by running `create_plot_distributions(lipidomics)` in
     the Console. If it works, do the last task.
 
 8.  Save both files and then open the Git interface and commit the
@@ -694,21 +755,6 @@ targets::tar_make()
 git_ci("DESCRIPTION", "Add ggplot2 to deps")
 git_ci("R/functions.R", "Add output switch function, to use for targets")
 git_ci("_targets.R", "Update targets with plot item")
-```
-
-For the `df_stats_by_metabolite`, we can do some minor wrangling with
-`mutate()` and `glue::glue()`, and than pipe it to `knitr::kable()` to
-create a table in the output document. The `{glue}` package is really
-handy for formatting text based on columns. If you use `{}` inside a
-quoted string, you can use columns from a data frame, like `value_mean`.
-So we can use it to format the final table text to be
-`mean value (SD value)`:
-
-```{r stats-to-table}
-#| eval: false
-#| filename: "docs/learning.qmd"
-targets::tar_read(df_stats_by_metabolite) |>
-  knitr::kable(caption = "Descriptive statistics of the metabolites.")
 ```
 
 ```{r purl-only-stats-to-table}
