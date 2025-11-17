@@ -10,6 +10,80 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.3.4 (2025-11-17)
+
+### Fix
+
+- **pre-workshop**: :bug: correct dependencies for pre-workshop tasks installation
+
+## 1.3.3 (2025-11-12)
+
+### Refactor
+
+- **pre-workshop**: :pencil2: clarify about Rtools version to install
+
+## 1.3.2 (2025-11-08)
+
+### Refactor
+
+- **sessions**: :recycle: focus social activities on more 'emotion'-based questions
+
+## 1.3.1 (2025-11-04)
+
+### Refactor
+
+- **sessions**: :pencil2: proofreading review of dependency management
+- **sessions**: :recycle: note to use `eval: false` so they can take notes in the `qmd`
+- **sessions**: :pencil2: proofreading edits to the intro session
+
+## 1.3.0 (2025-11-02)
+
+### Feat
+
+- **pre-workshop**: :memo: expand on comments in download data R script
+
+### Fix
+
+- **sessions**: :pencil2: replace `doc/` with `docs/`, from prodigenr change
+
+### Refactor
+
+- **pre-workshop**: :pencil2: proofreading edits of pre-workshop tasks
+- **pre-workshop**: :recycle: greatly simplify Code of Conduct
+- **sessions**: :pencil2: fix learning objectives of dependencies session
+- :pencil2: clarify role of Luke in landing page Acknowledgements
+
+## 1.2.3 (2025-10-31)
+
+### Fix
+
+- **pre-workshop**: :bug: trigger downlit auto-linking
+
+### Refactor
+
+- **pre-workshop**: :pencil2: small edits of pre-workshop tasks
+- **pre-workshop**: :recycle: prodigenr already setups up Git and blank slate
+- **pre-workshop**: :recycle: heavily simplify and shorten the code of conduct
+
+## 1.2.2 (2025-10-26)
+
+### Fix
+
+- :pencil2: use correct single quote character
+- **sessions**: :pencil2: correct text snippet, needs `_`, not `-`
+
+### Refactor
+
+- **sessions**: :truck: move collaboration discussion to the introduction
+- **sessions**: :recycle: rename session to "Dependency management"
+- :truck: move styler text into pre-workshop tasks
+- **sessions**: :truck: rename to `dependencies` rather than `smoother-collaboration`
+- **sessions**: :truck: moved objectives into includes file, use in syllabus
+- **sessions**: :recycle: use the sticky-up text snippet, not the includes
+- **sessions**: :fire: morning review will be structured, rather than recommended
+- **appendix**: :fire: teachers note about group assignment isn't needed
+- **appendix**: :fire: don't need this appendix about model variability
+
 ## 1.2.1 (2025-10-26)
 
 ### Refactor

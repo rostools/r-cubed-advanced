@@ -27,21 +27,21 @@ look like in the end.
 
 Our big picture aim is to create a data analysis project that:
 
-1.  Makes it easier for collaborators and others to contribute directly
-2.  Explicitly includes the processing and analysis steps (as code), so
-    they are reproducible
-3.  Incorporates general-purpose tools that simplify the use or
-    switching of statistical analysis methods
+1.  Makes it easier for collaborators and others to contribute directly.
+2.  Explicitly includes the processing and analysis steps (as code) in a
+    pipeline, so they are reproducible.
+3.  Incorporates a general-purpose approach to running statistical
+    analyses that simplifies the code and makes it easier to build
+    pipelines with.
 
 All of this will be exemplified through a simple analysis of a
 lipidomics dataset during the workshop.
 
-<!-- TODO: Pipeline, workflow image? -->
-
-Where will we start and where will we end, in a more "tangible" way? The
-most tangible things are the folders and files on our computers. The
-folder and file structures below show where we start and where we end,
-so you can hopefully get a better understanding of how things will look.
+It helps to have a very concrete and tangible view of what we will start
+with and what we will end off with. Files and folders are one of the
+most tangible things to talk about on computers. Below are the initial
+and final project file structures, so you can hopefully get a better
+understanding of how things will look.
 
 ::::: columns
 ::: {.column width="45%"}
@@ -60,10 +60,9 @@ LearnR3
 │   │  ├── lipidomics.xlsx
 │   │  └── README.txt
 │   └── nmr-omics.R
-├── doc/
+├── docs/
 │   ├── README.md
-│   ├── learning.qmd
-│   └── report.Rmd
+│   └── learning.qmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
@@ -97,11 +96,11 @@ LearnR3
 │   │  ├── lipidomics.xlsx
 │   │  └── README.txt
 │   └── nmr-omics.R
-├── doc/
+├── docs/
 │   ├── _targets.yaml
 │   ├── README.md
 │   ├── learning.html
-│   └── learning.Rmd
+│   └── learning.qmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
@@ -119,93 +118,74 @@ Why do we structure it this way?
 -   To follow "project-oriented" workflows (covered in
     @sec-dependencies).
 -   To follow some standard conventions in R, like having a
-    `DESCRIPTION` file (which is important for
-    @sec-dependencies).
--   To keep types of files separate, like raw data raw and in the
-    `data-raw/` folder, R scripts/functions in the `R/` folder, and
-    documents like R Markdown / Quarto files in `doc/`.
+    `DESCRIPTION` file (which is important for @sec-dependencies).
+-   To keep types of files separate, like raw data in the `data-raw/`
+    folder, R scripts/functions in the `R/` folder, and documents like R
+    Markdown / Quarto files in `docs/`.
 
 This structure also supports our workflow and processes throughout the
 workshop, which will be to:
 
 -   Track package dependencies in the `DESCRIPTION` file.
--   Follow a "function-oriented" workflow, where we use R Markdown /
-    Quarto (`doc/learning.qmd`) to write and test out code, convert it
-    into a function, test it, and then move it into `R/functions.R`.
-    -   We develop functions in the `learning.qmd` file to make it a bit
-        easier to quickly test the code and make sure it works before
-        moving it over into a more formal location and structure. Think
-        of this file as a sandbox to test out and play with code,
-        without fear of messing things up.
-    -   We also test the code in `learning.qmd` because, *from a
-        teaching and learning perspective*, it's easier to integrate
-        text and comments with the code during the code-alongs in
-        Markdown files.
-    -   We keep functions in a separate `functions.R` file because we
-        will frequently `source()` from it as we prototype and test out
-        code in the `learning.qmd` file. This also creates a clear
-        separation between "finalized" code and prototype code.
--   Use a combination of restarting R with {{< var keybind.restart-r >}}
-    (or `Session -> Restart R`) and using `source()`
-    ({{< var keybind.source >}} while in `R/functions.R`) to run the
-    functions inside of `R/functions.R`.
-    -   We restart R to ensure that the R workspace is completely clear.
-        For reproducibility, we should always aim to work from a "clean
-        plate".
--   Keep code readable by having the formatting/styling of our code
-    fixed automatically.
--   For each "output" (like a figure or a table) in a paper, write one
-    or more functions to generate it and include each function as steps
-    or "targets" in a pipeline. Use the pipeline to track and order the
+-   Follow a "function-oriented" workflow. We write and test code in the
+    R Markdown / Quarto (`docs/learning.qmd`), convert the code into a
+    function, test it, and then move it into `R/functions.R`.
+    -   We develop functions in the `learning.qmd` file for easier
+        testing, prototyping, and feedback. This is the sandbox for
+        trying things out.
+    -   From a teaching and learning perspective, it's also easier to
+        integrate text, notes, and comments in the Markdown files along
+        with the code during the code-alongs.
+    -   We move developed functions into `R/functions.R` as a formal
+        place to store tested and reliable functions.
+    -   We `source()` the tested functions in `R/functions.R` file,
+        which creates a clear separation between prototype code and
+        finalized code.
+-   Regularly restart R with {{< var keybind.restart-r >}} (or
+    `Session -> Restart R`). We restart R to ensure that the R workspace
+    is completely clear as well as for reproducibility as we should
+    always aim to work from a "clean plate".
+-   Keep code and Markdown text readable by automatically
+    formatting/styling our code and text.
+-   Each "output" like a figure or a table in a paper will have one main
+    function to generate it, which we then include as a step in the
+    "targets" pipeline. We use this pipeline to track and order the
     steps in the data analysis.
--   Write accompanying text (which outside this workshop could be a full
-    paper) for the analysis in Markdown so we can easily and quickly
-    regenerate reports for rapid dissemination.
--   Automatically reformat Markdown text into a standard, more readable
-    format.
 -   Whenever we complete a task, we *add and commit* those file changes
     to save them in the Git history with {{< var keybind.git >}}.
-    -   We use Git to keep track of what changes were made to the files,
-        when, and why. This keeps our work transparent and makes it
-        easier to share the code by uploading it to GitHub. Version
-        control aligns with the philosophy of reproducible science and
-        should be a standard practice (it usually isn't, which is why we
-        practice it here).
+    -   This keeps our work transparent and makes it easier to share the
+        code by uploading it to GitHub.
+    -   Version control aligns with the philosophy of reproducible
+        science and should be (though usually isn't) a standard
+        practice.
 
 Many of these "project setup" tasks can be time-consuming, difficult and
-confusing - and this is before you've even gotten to the analysis phase
+confusing---and this is before you've even gotten to the analysis phase
 of your work.
 
-A good analogy for these first steps is when skyscrapers are built:
-Watching construction on these projects makes it feel like it takes
-forever for them to finally start going up and adding floors. But once
-they start adding floors, it goes up so fast! That's because a lot of
-the main work is in building up the foundation of the building, so that
-it is strong and stable. This is the same with analysis projects, the
-first phase feels like nothing is "moving" but you are building the
-foundation to everything that comes after.
+::: callout-tip
+A good analogy for these first project steps is similar to how
+skyscrapers are built: It seems like it takes forever for them to start
+adding floors. But once they start with the first floor, each next floor
+goes up so fast! That's because a lot of the main work is in building up
+the foundation of the building, so that it is strong and stable. This is
+the same with analysis projects, the first phase feels like nothing is
+"moving" but you are building the foundation to everything that comes
+after.
+:::
 
 {{< text_snippet faq_text >}}
 
 ::: {.callout-important appearance="default"}
-During the workshop, we will be writing and coding mostly in the
-`doc/learning.qmd` file. We will also be **regularly** deleting the
-content within the file to keep things clean and easier for you, but
-importantly for the instructors. If or when you encounter an error or
-problem and there is a lot of the code kept in the file, often the
-problem is due to the left over code rather than an actual problem with
-the code you are writing. So when the helpers or instructors come to
-help, it makes it easier for us to help you when there is less code to
-look through and debug.
-
-But, we know you may want to keep some notes as you work in the
-workshop. So we suggest you create a new file called `notes.qmd` or
-something similar in the `doc/` folder and either:
-
--   Write notes in the `doc/learning.qmd` file and then copy them over
-    to your `notes.qmd` file when we tell you to delete everything, or
--   Write notes directly in your `doc/notes.qmd` file and keep it open
-    while you work in the `doc/learning.qmd` file.
+During the workshop, we will be writing and coding almost entirely in the
+`docs/learning.qmd` file. You can also use this document to write notes
+to yourself. However, to make it easier for us to help you and for you
+to get less issues as more and more content is added, if a code chunk
+in the Quarto file causes an error when you render it, add the code
+chunk option `#| eval: false` so that the R code doesn't get evaluated
+and you don't get any errors. We will remind you about this option
+throughout the workshop, as well as if you have any issues and we come
+over to help you.
 :::
 
 {{< text_snippet sticky_up >}}

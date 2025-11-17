@@ -348,7 +348,7 @@ Let's switch to working in the `doc/learning.qmd` file to create those
 logistic regression models. In the `doc/learning.qmd` file, on the
 bottom of the document create a new header and code chunk:
 
-```` {.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="docs/learning.qmd"}
 ## Building the model
 
 ```{{r}}
@@ -397,7 +397,7 @@ there seems to be a data entry error, since there are multiple
 `Cholesterol` values, while all other metabolites only have one:
 
 ```{r too-many-cholesterols}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   count(code, metabolite) |>
   filter(n > 1)
@@ -414,7 +414,7 @@ range and distribution of values.
 
 Let's fix the first two issues first, and at the same time tidy up the
 names of each metabolite so they make better column names. In the
-`doc/learning.qmd`, we can tidy up the metabolite names using `mutate()`
+`docs/learning.qmd`, we can tidy up the metabolite names using `mutate()`
 with `snakecase::to_snake_case()`. Secondly, to make our dataset wider,
 we use `pivot_wider()`. Since we also want an easy way of identifying
 columns that are metabolites, we will add a `"metabolite_"` prefix using
@@ -424,7 +424,7 @@ authors. But for this workshop, we will merge the values by calculating a
 mean before pivoting. We do this by setting the `values_fn` with `mean`.
 
 ```{r lipidomic-to-wider}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics_wide <- lipidomics |>
   mutate(predictor = snakecase::to_snake_case(metabolite)) |>
   pivot_wider(
@@ -554,7 +554,7 @@ the output estimates will be odds ratios, if we set
 `exponentiate = TRUE`:
 
 ```{r tidy-up-model-results}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 fitted_model |>
   tidy(exponentiate = TRUE)
 ```

@@ -9,26 +9,29 @@ below. If not, you will need to update them.
 ### Windows
 
 1.  [R](https://cloud.r-project.org/bin/windows/base/): Any version
-    above {{< meta versions.r >}}. If you have used R before, you can confirm
-    the version by running `R.version.string` in the Console.
+    above {{< meta versions.r >}}. If you have used R before, you can
+    confirm the version by running `R.version.string` in the Console.
 2.  [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
-    Any version above {{< meta versions.rstudio >}}. If
-    you have installed it before, check the current version by going to
-    the menu "Help -> About RStudio".
+    Any version above {{< meta versions.rstudio >}}. If you have
+    installed it before, check the current version by going to the menu
+    "Help -\> About RStudio".
 3.  [Git](https://git-scm.com/download/win): Select the "Click here to
     download" link. Git is used throughout many sessions in the
     workshop. When installing, it will ask for a selecting a "Text
     Editor" and while we won't be using this in the workshop, Git needs
     to know this information so choose Notepad.
-4.  [Rtools](https://cran.r-project.org/bin/windows/Rtools/): Choose the
-    version that says "R-release". Rtools is needed in order to build some
-    R packages. For some computers, installing Rtools can take some time.
+4.  [Rtools](https://cran.r-project.org/bin/windows/Rtools/): If you
+    installed the newest version of R (4.5), download and install
+    "RTools 4.5 (R-prerelease). If you have R 4.4 installed, then
+    download and install "RTools 4.4". Rtools is needed in order to
+    build some R packages. For some computers, installing Rtools can
+    take some time.
 
 ### MacOS
 
 1.  [R](https://cloud.r-project.org/bin/macosx/): Any version above
-    {{< meta versions.r >}}. If you have used R before, you can confirm the
-    version by running `R.version.string` in the Console. If you use
+    {{< meta versions.r >}}. If you have used R before, you can confirm
+    the version by running `R.version.string` in the Console. If you use
     [Homebrew](https://brew.sh/), installing R is as easy as opening a
     Terminal and running:
 
@@ -37,9 +40,9 @@ below. If not, you will need to update them.
     ```
 
 2.  [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
-    Any version above {{< meta versions.rstudio >}}. If you have installed it
-    before, check the current version by going to the menu "Help -> About
-    RStudio". With Homebrew:
+    Any version above {{< meta versions.rstudio >}}. If you have
+    installed it before, check the current version by going to the menu
+    "Help -\> About RStudio". With Homebrew:
 
     ``` bash
     brew install --cask rstudio
@@ -55,16 +58,17 @@ below. If not, you will need to update them.
 ### Linux (Ubuntu)
 
 1.  [R](https://cloud.r-project.org/bin/linux/ubuntu/): Any version
-    above {{< meta versions.r >}}. If you have used R before, you can confirm
-    the version by running `R.version.string` in the Console.
+    above {{< meta versions.r >}}. If you have used R before, you can
+    confirm the version by running `R.version.string` in the Console.
 
     ``` bash
     sudo apt -y install r-base
     ```
 
 2.  [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
-    Any version above {{< meta versions.rstudio >}}. If you have installed it
-    before, check the current version by going to the menu "Help -> About RStudio".
+    Any version above {{< meta versions.rstudio >}}. If you have
+    installed it before, check the current version by going to the menu
+    "Help -\> About RStudio".
 
 3.  [Git](https://git-scm.com/download/mac): Git is used throughout many
     sessions in the workshop.

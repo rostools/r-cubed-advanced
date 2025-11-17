@@ -1,11 +1,18 @@
-# Pre-workshop tasks {#sec-pre-workshop}
+# Tasks overview {#sec-pre-workshop}
+
+```{r}
+#| include: false
+# To force auto-linking.
+library(downlit)
+```
 
 In order to participate in this workshop, you must complete the
 pre-workshop tasks in this section as well as **completing the
 [survey](survey.qmd)** at the end. These tasks are designed to make it
 easier for everyone to start the workshop with everything ready to go.
-For some of the tasks, you might not understand why you need to do them,
-but you will likely understand why once the workshop begins.
+For some of the tasks, you might not understand why you need to do them
+right now, but as you participate in the workshop you will likely better
+understand why.
 
 ::: callout-important
 Depending on your skills and knowledge, these tasks could take between
@@ -28,7 +35,7 @@ about them are found as you work through this section.
     programs in @sec-install-programs. For some people, depending on
     their institution, this task can take the **longest amount of time**
     because you have to contact your IT to install these packages.
-4.  Install the necessary R packages in @sec-install-r-packages.
+4.  Install the necessary R packages in @sec-installing-r-packages.
 5.  Correctly set up Git on your computer in @sec-setup-git, if you
     haven't done this already from previous workshops. If you haven't
     used Git before, this task could take a while because of the
@@ -39,8 +46,9 @@ about them are found as you work through this section.
 8.  Create an R Project in @sec-create-project, along with the folder
     and file setup and creating a Quarto file.
 9.  Write (well, mostly copy and paste) R code to download the data and
-    save it to your computer. This task will probably take up maybe
-    30-60 minutes depending on your interest in exploring the data.
+    save it to your computer in @sec-download-data. This task will
+    probably take up maybe 30-60 minutes depending on your interest in
+    exploring the data.
 10. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.

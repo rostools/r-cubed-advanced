@@ -56,7 +56,7 @@ data processing stage.
 3.  For the remaining time, we'll briefly share with everyone what
     they've thought and discussed.
 
-## :book: Reading task: What is a data analysis "pipeline"?
+## :book: Reading task: What is a data analysis "pipeline"? {#sec-what-is-pipeline}
 
 **Time: ~10 minutes.**
 
@@ -203,8 +203,6 @@ running on a Linux server) that we won't cover in this workshop.
 
 **Time: ~8 minutes.**
 
-
-
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
@@ -342,10 +340,10 @@ Commit the changes made to the `DESCRIPTION` file in the Git history
 with {{< var keybind.git >}}.
 
 Now, let's start creating the code for our outputs, so that we can add
-it to our pipeline later. First, open up the `doc/learning.qmd` file and
+it to our pipeline later. First, open up the `docs/learning.qmd` file and
 create a new header and code chunk at the bottom of the file.
 
-```` {.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="docs/learning.qmd"}
 
 ```{{r setup}}
 library(tidyverse)
@@ -371,8 +369,8 @@ c(
   "lipidomics <- read_csv(here::here('data/lipidomics.csv'))\n```\n\n"
 ) |>
   paste0(collapse = "\n") |>
-  write_to_file("doc/learning.qmd")
-git_ci("doc/learning.qmd", "Add section on basic stats to qmd")
+  write_to_file("docs/learning.qmd")
+git_ci("docs/learning.qmd", "Add section on basic stats to qmd")
 ```
 
 For our first output, we want to calculate the mean and SD for each
@@ -396,7 +394,7 @@ it easy to apply the same transformation on multiple columns.
 Let's write out the code!
 
 ```{r mean-sd-by-each-metabolite}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 #| eval: true
 # In the {r basic-stats} chunk
 lipidomics |>
@@ -412,7 +410,7 @@ commit the changes to the Git history with {{< var keybind.git >}}.
 
 **Time: ~20 minutes.**
 
-In the `doc/learning.qmd` file, use the "function-oriented" workflow, as
+In the `docs/learning.qmd` file, use the "function-oriented" workflow, as
 taught in the [intermediate
 workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function.
@@ -423,7 +421,7 @@ Complete these tasks:
     `function() {...}` and name the new function `descriptive_stats`.
     Here is some scaffolding to help you get started:
 
-    ``` {.r filename="doc/learning.qmd"}
+    ``` {.r filename="docs/learning.qmd"}
     descriptive_stats <- function(___) {
       ___
     }
@@ -635,7 +633,7 @@ write this code, let's add it to our `DESCRIPTION` file.
 use_package("ggplot2")
 ```
 
-Next, we'll switch back to `doc/learning.qmd` and write the code to this
+Next, we'll switch back to `docs/learning.qmd` and write the code to this
 plot of the distribution of each metabolite. We'll use
 `geom_histogram()`, nothing too fancy. And since the data is already in
 long format, we can easily use `facet_wrap()` to create a plot for each
@@ -645,7 +643,7 @@ have the same range of values (some are small, others are quite large).
 ```{r histogram-metabolites}
 #| fig-cap: "Histograms showing the distribution of all metabolites in the lipidomics dataset."
 #| eval: true
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 metabolite_distribution_plot <- ggplot(lipidomics, aes(x = value)) +
   geom_histogram() +
   facet_wrap(vars(metabolite), scales = "free")
@@ -663,11 +661,11 @@ convert it into a function. Just like you did with the
 `descriptive_stats()` function in the exercise above, complete these
 tasks:
 
-1.  Wrap the plot code inside `doc/learning.qmd` with `function() {...}`
+1.  Wrap the plot code inside `docs/learning.qmd` with `function() {...}`
     and name the new function `plot_distributions`. Use this scaffolding
     code to help guide you to write the code into a function.
 
-    ``` {.r filename="doc/learning.qmd"}
+    ``` {.r filename="docs/learning.qmd"}
     plot_distributions <- function(___) {
       ___
     }
@@ -841,14 +839,14 @@ build the Quarto file is `tar_quarto()` (or `tar_render()` for R
 Markdown files), which needs two things: The `name`, like `tar_target()`
 needs, and the file path to the Quarto file. Again, like the other
 `tar_target()` items, add it to the end of the `list()`. Lets add
-`doc/learning.qmd` as a pipeline step:
+`docs/learning.qmd` as a pipeline step:
 
 ``` {.r filename="targets.R"}
 list(
   ...,
   tar_quarto(
     name = quarto_doc,
-    path = "doc/learning.qmd"
+    path = "docs/learning.qmd"
   )
 )
 ```
@@ -860,20 +858,20 @@ using {{< var keybind.targets-vis >}}, we don't see the connections with
 plot and descriptive statistics. That's because we haven't used them in
 a way `{targets}` can recognize. For that, we need to use the function
 `targets::tar_read()`. But because our Quarto file is located in the
-`doc/` folder and since `{targets}` by default looks in the current
+`docs/` folder and since `{targets}` by default looks in the current
 folder for the targets "store" (stored objects that
 `targets::tar_read()` looks for) that is kept in the `_targets/` folder,
 when we render the Quarto file it won't find the store. So we have to
 tell `{targets}` where it is located by using
 `targets::tar_config_set()`.
 
-Let's open up the `doc/learning.qmd` file, add a `setup` code chunk
+Let's open up the `docs/learning.qmd` file, add a `setup` code chunk
 below the YAML header, and create a new header and code chunk and make
 use of the `targets::tar_read()`.
 
 <!-- Because the Quarto file is in another folder, -->
 
-```` {.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="docs/learning.qmd"}
 ---
 # YAML header
 ---
@@ -918,19 +916,19 @@ basic_stats_md_text <- c(
   "tar_read(fig_metabolites_distribution)",
   "```"
 )
-print_file("doc/learning.qmd")
+print_file("docs/learning.qmd")
 revise_by_line_num(
-  "doc/learning.qmd",
+  "docs/learning.qmd",
   basic_stats_md_text,
   # Update numbers
   remove_original_lines = -30,
   insert_at_line = 29
 )
-git_ci("doc/learning.qmd", "Add code for basic stats to report.")
+git_ci("docs/learning.qmd", "Add code for basic stats to report.")
 ```
 
 When we use `targets::tar_config_set(store = ...)`, it will create a new
-file in the `doc/` folder called `_targets.yaml` that contains details
+file in the `docs/` folder called `_targets.yaml` that contains details
 for telling `{targets}` where to find the store. Since the path listed
 in this new file is an absolute path, it will only ever work on your own
 computer. So, it improve reproducibility, it's good practice to not put
@@ -945,7 +943,7 @@ use_git_ignore("_targets.yaml")
 Before continuing, let's commit these changes to the Git history with
 {{< var keybind.git >}}.
 
-Now, going back to the `doc/learning.qmd` file, by using
+Now, going back to the `docs/learning.qmd` file, by using
 `targets::tar_read()`, we can access all the stored target items using
 syntax like we would with `{dplyr}`, without quotes. For the
 `df_stats_by_metabolite`, we can do some minor wrangling with `mutate()`
@@ -956,7 +954,7 @@ string, you can use columns from a data frame, like `value_mean`. So we
 can use it to format the final table text to be `mean value (SD value)`:
 
 ```{r stats-to-table}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 targets::tar_read(df_stats_by_metabolite) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean SD` = MeanSD) |>
@@ -974,12 +972,12 @@ targets::tar_read(df_stats_by_metabolite) |>
   knitr::kable(caption = "Descriptive statistics of the metabolites.")
 '
 revise_by_text(
-  path = "doc/learning.qmd",
+  path = "docs/learning.qmd",
   original = "tar_read\\(df_stats_by_metabolite\\)",
   replacement = pretty_basic_stats_code
 )
-styler::style_file("doc/learning.qmd")
-git_ci("doc/learning.qmd", "Basic stats as a pretty table.")
+styler::style_file("docs/learning.qmd")
+git_ci("docs/learning.qmd", "Basic stats as a pretty table.")
 ```
 
 ```{r}

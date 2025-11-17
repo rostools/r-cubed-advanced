@@ -1,11 +1,10 @@
 Package: RCubedAdvanced
 Type: Website
 Title: "Advanced Workshop for Reproducible Research in R"
-Version: 1.2.1
+Version: 1.3.4
 URL: https://github.com/rostools/r-cubed-advanced
 Depends:
     R (>= 4.4.0),
-    tidymodels,
     tidyverse
 Imports:
     broom,
@@ -21,18 +20,19 @@ Imports:
     igraph,
     markdown,
     pak,
-    parsnip,
     prodigenr,
     purrr,
     quarto,
     samwise (>= 0.0.1),
-    recipes,
     rlang,
+    readr,
+    readxl,
     snakecase,
+    stringr,
     styler,
     targets,
     tidyr,
-    workflows,
+    tidyselect,
     xml2
 Suggests:
     gert,

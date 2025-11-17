@@ -4,6 +4,9 @@
 .Rhistory
 .Rdata
 
+# Positron
+*.vdoc.*.r
+
 # Development files and folders
 _ignore
 bin/
@@ -31,3 +34,5 @@ site
 slides/*.html
 _freeze
 *_files
+
+**/*.quarto_ipynb

@@ -1,18 +1,28 @@
 # Pre-reading {#sec-pre-reading}
 
-Most of the workshop description is found in the syllabus (@sec-syllabus).
-If you haven't read it, **please read it now**. Read over what the
-workshop will cover and what we expect you to learn at the end of it.
-Then read "Is this for you" (@sec-is-this-for-you) to learn
-what our basic assumptions are about who you are and what you know.
-Finally, read over the learning design of this workshop (@sec-learning-design).
+```{r}
+#| include: false
+# To force auto-linking.
+library(downlit)
+```
 
-Related to the learning design, an important component of learning is repeated exposure to a concept or
-skill. So, while we will tell you this information during the workshop,
-and in many cases you will also read it *during* the workshop, we want to
-introduce some repetition here by having you read the sections listed below. This
-will not only mentally prepare you for the content of the workshop, but
-will also give you a bigger overview of what you will be learning and
-doing. So, please read:
+Most of the workshop description is found in the syllabus
+(@sec-syllabus). If you haven't read it, **please read it now**. Read
+over what the workshop will cover and what we expect you to learn at the
+end of it. Then read "Is this for you" (@sec-is-this-for-you) to learn
+what our basic assumptions are about who you are and what you know.
+Finally, read over the learning design of this workshop
+(@sec-learning-design).
+
+Related to the learning design, an important component of learning is
+repeated exposure to a concept or skill. So, while we will tell you this
+information during the workshop, and in many cases you will also read it
+*during* the workshop, we want to expose you earlier here by having you
+read the sections listed below. This will not only mentally prepare you
+for the content of the workshop, but will also give you a bigger
+overview of what you will be learning and doing. So, please read:
 
 1.  The "big picture" in @sec-big-picture.
+2.  The *'What is a data analysis "pipeline"?'* section in
+    @sec-what-is-pipeline, which introduces the concept of the
+    `{targets}` package.

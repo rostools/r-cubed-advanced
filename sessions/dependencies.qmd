@@ -7,13 +7,14 @@ source(here::here("R/functions.R"))
 
 Many of you probably work mostly on your own, but as you move through
 your career (whether in academia or industry), you will need to---and
-perhaps want to---*directly collaborate*[^dependencies-1] much more with
-others.
+perhaps want to---*directly collaborate* much more with others.
 
-[^dependencies-1]: Here, "directly collaborate" means contributing to a
-    shared project directly (like editing the same files), rather than
-    discussion- or planning-based collaborations (and definitely not the
-    "emailing-files-around" type of collaboration).
+::: callout-tip
+Here, "directly collaborate" means contributing to a shared project
+directly (like editing the same files), rather than discussion- or
+planning-based collaborations (and definitely not the
+"emailing-files-around" type of collaboration).
+:::
 
 Even though different types of collaboration (e.g. meetings,
 brainstorming, real-time co-writing) form the basis for almost all
@@ -33,16 +34,26 @@ analysis projects and facilitate smoother collaboration.
 
 ## :book: Reading task: Project-level package dependency management
 
-**Time: ~8 minutes.**
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
 
-> Note: This first session is more conceptual and is heavier on the
-> reading and explanation, but is important for the next sessions.
+Briefly highlight the meaning of "project-oriented workflow", the
+informal way of tracking dependencies, and why it's not optimal.
+:::
+
+**Time: \~8 minutes.**
+
+::: callout-note
+This first session is more conceptual and is heavier on the reading and
+explanation, but is important for the next sessions.
+:::
 
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
-software to use for your project. This starts out at the highest level:
-Are you using R or some other software for the analysis? Since this is
-an R workshop, we're assuming the software will be R! 😜
+software is required to use for or contribute to your project. This
+starts out at the highest level: Are you using R or some other software
+for the analysis? Since this is an R workshop, we're assuming the
+software will be R! 😜
 
 The next consideration is determining which packages your project will
 depend on to produce the results. When working collaboratively with
@@ -57,28 +68,29 @@ when working on, well, a project. In order to know how to track your
 project's package dependencies, you need to first know, what a "project"
 is and how do we work around it. Since the introduction workshop's first
 session on the [Management of R
-Projects](https://r-cubed-intro.rostools.org/sessions/project-management.html),
+Projects](https://r-cubed-intro.rostools.org/sessions/setup-project/),
 we've consistently taught and used this workflow-style. In fact, it is
 embedded into the use of the R Projects via the `.Rproj` files and in
-the use of the `{here}` package. So, we're already following a approach,
-which will make it easier to track package dependencies of our project.
+the use of the `{here}` package. So, we're already following this
+approach, which will make it easier to track the package dependencies
+for our project.
 
 ![Cartoon of combining R Projects with the `{here}` package, compared to
 the common approach of using `setwd()`. [Artwork by
 \@allison_horst.](https://allisonhorst.com/allison-horst)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/e684ee45-98fc-469e-997c-e2d68b0096cd_rw_1920.png?h=d754f634e6fc1e292430124fbe44dad7){fig-alt="The R Project text is made of metal, and the `{here}` package wears a helmet, appearing secure and robust and ready to go skateboarding. Meanwhile `setwd()` is made of glass, covered in casts and band-aids, looking much more fragile."}
 
-Let's start with the `AdvancedR3` project, created in @sec-pre-workshop,
-that includes the `lipidomics` dataset. We have code in the
-`data-raw/nmr-omics.R` file already that uses some packages. Let's
-assume that your project will be more complex than this and that you
-will eventually need some collaborators to contribute who are experts in
-for instance metabolomics data processing and in statistical analysis of
-high-dimensional data. You know you will end up needing to use other
-packages. You also know that you all need some way of tracking which
-packages are used so that when others join and contribute to the
-project, they can as seamlessly as possible install or update the
-packages your data analysis project needs. There are a few ways of
-"tracking" package dependencies.
+Let's start with the `AdvancedR3` project, created in
+@sec-create-project, that includes the `lipidomics` dataset. We have
+code in the `data-raw/nmr-omics.R` file already that uses some packages.
+Let's assume that your project will be more complex than this and that
+you will eventually need some collaborators to contribute to your
+project who are experts in, for instance, metabolomics data processing
+and in statistical analysis of high-dimensional data. You know you will
+end up needing to use other packages. You also know that you all need
+some way of tracking which packages are used so that when others join
+and contribute to the project, they can as seamlessly as possible
+install or update the packages your data analysis project needs. There
+are a few ways of "tracking" package dependencies.
 
 The simplest, but most primitive way is to always make sure to use
 `library()` at the top of each R script for each package that the R
@@ -87,11 +99,11 @@ script uses. We can call this "*informal*" dependency management.
 Let's review the advantages and disadvantages of this form of dependency
 management:
 
--   Advantage:
+-   **Advantage**:
 
     -   It's the easiest to conceptually understand and to use.
 
--   Disadvantages:
+-   **Disadvantages**:
 
     -   It doesn't track project-level dependencies very well, since
         multiple scripts might use the same packages, while some might
@@ -131,16 +143,23 @@ section.
 
 ## :book: Reading task: Formal dependency management
 
-**Time: ~3 minutes.**
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
 
+Reinforce that we track dependencies via the `DESCRIPTION` file and
+`usethis::use_package()`, as well as the easy of installing and updating
+with `pak::pak()`.
+:::
+
+**Time: \~3 minutes.**
 
 <!-- TODO: As a reading activity or explained by the instructor? -->
 
 The most common form of a more *formal* way of managing dependencies---
 at least based on R packages and projects found on GitHub---makes use of
-the `DESCRIPTION` file and the `usethis::use_package()`. We covered this
-style of dependency in the [intermediate
-workshop](https://r-cubed-intermediate.rostools.org/dry-functions.html#continuing-the-workflow).
+the `DESCRIPTION` file and `usethis::use_package()`. We covered this
+style of dependency management in the [intermediate
+workshop](https://r-cubed-intermediate.rostools.org/sessions/robustness/).
 We will also use this approach during this workshop, but we'll expand on
 it a lot more. We use and recommend it for managing dependencies because
 many tools and workflows rely on it, making it well-integrated with R
@@ -149,25 +168,25 @@ projects.
 Let's take a look on the advantages and disadvantages of this way of
 tracking dependencies:
 
--   Advantages:
+-   **Advantages**:
 
     -   Relatively easy to conceptually understand, since you can
-        directly view the packages used in the by opening the
+        directly view the packages used in the project by opening the
         `DESCRIPTION` file and looking at the contents.
 
     -   Because it is widely used, there are many processes already
         built around making use of tracking dependencies this way. For
         instance, when creating an R package, you need to track package
-        dependencies this way.
+        dependencies using this approach.
 
     -   Installing packages is as easy as opening the project and
         running `pak::pak()` in the Console, which will install all the
         packages listed in the `DESCRIPTION` file.
 
-    -   Adding packages is as easy as writing
-        `usethis::use_package("packagename")` in the Console.
+    -   Adding packages that your project will depend on is as easy as
+        writing `usethis::use_package("packagename")` in the Console.
 
--   Disadvantages:
+-   **Disadvantages**:
 
     -   Like the previous method, it doesn't automatically keep track of
         the versions of the packages you are using. Even though it is
@@ -183,12 +202,12 @@ tracking dependencies:
 ::: {.callout-tip appearance="default"}
 There is an even more formal and structured way of tracking dependencies
 using the [renv](https://rstudio.github.io/renv/index.html) package,
-that we covered in previous versions of this workshop. It is a great
+which we covered in previous versions of this workshop. It is a great
 package to use, especially if you are working on a project with several
 others or a project that requires tracking of not just the packages but
 their specific versions. We don't teach it anymore because it is quite
-complex and difficult to understand. Moreover, for the majority of
-projects, it's not strictly necessary.
+complex and difficult to understand. It is also not really necessary for
+the majority of projects.
 :::
 
 As we work on the project during the workshop and realize we need to use
@@ -199,7 +218,7 @@ install it and add it to the `DESCRIPTION` file.
 
 ## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Before continuing with the exercise, be sure to add and commit all the
 files in the `AdvancedR3` project to save the current state of the files
@@ -209,17 +228,20 @@ to the Git history. Open the Git interface by either typing with
 button in this window.
 
 Let's update the `DESCRIPTION` file with the packages we depend on in
-the `data-raw/nmr-omics.R` script. Open `nmr-omics.R` file and complete
-the following tasks:
+the `data-raw/nmr-omics.R` script. Open the `data-raw/nmr-omics.R` file
+and complete the following tasks:
 
 1.  **Manually** look for package dependencies in the R script that are
     declared with `library()` or `::`. It can help to use the "Find in
     files" feature in RStudio to look for all places that have either
     `::` or `library`. Use either `Edit -> Find in Files ...`, or with
     {{< var keybind.find >}} to open up the search popup.
+
 2.  Use `?usethis::use_package` to review how to use this function.
-3.  In the Console, run `usethis::use_package(packagename)` for each
-    package you find in `data-raw/nmr-omics.R` (from 1. above).
+
+3.  In the Console, run `usethis::use_package("packagename")` for each
+    package you find in `data-raw/nmr-omics.R` (from item 1. above).
+
 4.  Once done, open the Git interface with {{< var keybind.git >}} (or
     going to the Git Pane and clicking the "Commit" button). What has
     been changed? Commit those changes to the Git history with a
@@ -277,22 +299,21 @@ likely use packages in two different ways:
     plotting, and making the manuscript. These types of packages are
     generally called "build" or "deploy" dependencies. Packages like
     `{dplyr}` or `{tidyr}` are usually **build** dependencies, since you
-    use them for processing data.
+    use them directly in scripts for processing data.
 2.  Packages that *assist* you in doing your work but aren't directly
     used for data analysis. These types of packages would be called
     "workflow" or "development" dependencies. `{usethis}` is usually
-    considered a **workflow** dependency.
+    considered a **workflow** dependency because you usually only use it
+    in the Console or don't need to use it in a script.
 
-::: {.callout-tip appearance="default" title="Is this package a build or workflow dependency?"}
-A good rule of thumb to determine whether a package is a build or a
-workflow dependency is:
+A useful guideline to help you determine whether a package is a build or
+a workflow dependency is:
 
 -   If you write and use functions from the package within an R script
     that does something to the data or analysis, then it is likely a
     *build* dependency.
 -   If you *only* ever use functions from the package in the Console,
     then it is probably a *workflow* dependency.
-:::
 
 So, now we know that the dependencies we added in the exercise are
 actually build dependencies, since we use them directly in our project
@@ -327,6 +348,17 @@ if (interactive()) {
   suppressMessages(require(usethis))
 }
 ```
+
+What this code does is that when you start an interactive R session
+(like when you open RStudio), it will automatically load the `{usethis}`
+package without you having to type `library(usethis)`. It means you
+don't need to always use `usethis::` before any of its functions when
+you use them. This is template code, so we don't really need to
+understand the details of what it is doing, but briefly, the
+`interactive()` function checks if you are running R interactively (like
+in RStudio with the Console open). The `suppressMessages()` function
+prevents R from printing messages when loading the package and the
+`require()` function loads the package (if it is installed).
 
 Let's restart R with {{< var keybind.restart-r >}}. Now, we're ready to
 use `use_package()` to add `{usethis}` as a workflow dependency. The
@@ -367,9 +399,9 @@ Open the Git interface and see that under `Suggests:` in the
 
 You've used `{styler}` during the pre-workshop tasks and we'll use it
 more throughout the workshop. Which dependency do you think this is?
-It's a **workflow** dependency, as we will mostly likely only use it in
-the Console or Command Palette. Let's add it to the project
-`DESCRIPTION` as a workflow dependency:
+It's a **workflow** dependency, as we will only use it in the Console or
+Command Palette. Let's add it to the project `DESCRIPTION` as a workflow
+dependency:
 
 ```{r add-styler-dep}
 #| eval: false
@@ -403,7 +435,7 @@ Git history with {{< var keybind.git >}}.
 
 ## :technologist: Exercise: Connect your project to GitHub
 
-**Time: ~25 minutes.**
+**Time: \~25 minutes.**
 
 Since we will eventually connect our project Git repository to GitHub to
 practice working with GitHub, we'll connect our project to GitHub right
@@ -424,7 +456,7 @@ Let's complete these tasks to connect to GitHub.
     [GitHub](https://github.com/join) account.
 
 3.  Add the `{gitcreds}` package as a workflow dependency. You'll need
-    it for the next item
+    it for the next item.
 
     ``` {.r filename="Console"}
     use_package("gitcreds", "suggests")
@@ -435,7 +467,11 @@ Let's complete these tasks to connect to GitHub.
     Guide](https://guides.rostools.org/connect-github#linking-your-project-to-github).
 
 5.  Check your GitHub to make sure the project repository has been
-    uploaded to it.
+    uploaded to it. You can use `{usethis}` for help:
+
+    ``` {.r filename="Console"}
+    usethis::browse_github()
+    ```
 
 {{< text_snippet sticky_up >}}
 
@@ -444,7 +480,8 @@ Let's complete these tasks to connect to GitHub.
 For multi-person collaborative projects, having some type of code
 styling and checker can really help with standardizing how the code
 looks, which ultimately will make it easier to read each other's code
-contributions.
+contributions. We've already set up and used `{styler}` during the
+pre-workshop tasks to automatically format R code.
 
 But what about for Markdown files? While there isn't a package or
 function (yet) that styles the Markdown files, RStudio does have an
@@ -485,9 +522,9 @@ buttons.
 
 The instructors won't be using the Visual Mode during the workshop,
 however, you are welcome to do so. We will be using the "canonical"
-Markdown mode in the "source" (default) mode though.
+Markdown mode in the "source" (default) mode.
 
-Let's test it out. While in the `doc/learning.qmd` file, go to the
+Let's test it out. While in the `docs/learning.qmd` file, go to the
 bottom of the file and type out:
 
 ``` markdown
@@ -510,12 +547,12 @@ It gets automatically fixed by adding that empty space.
 ```
 
 Since this mode is on automatically now, as we work in the
-`doc/learning.qmd` file through the sessions, we'll get lots of
+`docs/learning.qmd` file through the sessions, we'll get lots of
 experience using it.
 
 ## :technologist: Exercise: Update the README file while using canonical Markdown mode
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Open up the `README.md` file and do all the `TODO` items found inside
 the file as well as inside the `TODO.md` file. Save often and watch as
@@ -524,7 +561,7 @@ the Markdown gets reformatted.
 After you are done, commit the changes you made to the Git history with
 {{< var keybind.git >}}.
 
-Then delete the `TODO.md`, followed by committing these deletions in the
+Then delete the `TODO.md`, followed by committing the deletion in the
 Git history. Click the "Push" button to push the changes to GitHub.
 
 ```{r purl-only-editor-options-to-readme}
@@ -546,6 +583,8 @@ for smoother collaboration with formal dependency management:
     and `{usethis}`.
 -   Install the dependencies necessary for your project with
     `pak::pak()`.
+-   Differentiate between build and workflow dependencies and how to add
+    them to the `DESCRIPTION` file.
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
 

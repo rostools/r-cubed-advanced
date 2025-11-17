@@ -1,11 +1,17 @@
 # Setting up Git {#sec-setup-git}
 
+```{r}
+#| include: false
+# To trigger auto-linking
+library(downlit)
+```
+
 Since Git has already been covered in the previous workshops, we won't
 cover *learning it* during this workshop. However, since version control
 is a fundamental component of any modern data analysis workflow and
-*should be used*, we **will be using it throughout the workshop**. If you
-have used or currently use Git and GitHub, you can skip these two tasks.
-If you **have not used Git or GitHub**, please do these tasks:
+*should be used*, we **will be using it throughout the workshop**. If
+you have used or currently use Git and GitHub, you can skip these two
+tasks. If you **have not used Git or GitHub**, please do these tasks:
 
 1.  Type in the RStudio Console and follow the instructions:
 
@@ -17,13 +23,13 @@ If you **have not used Git or GitHub**, please do these tasks:
 
 2.  **Please ONLY read** through the [Version Control
     lesson](https://r-cubed-intro.rostools.org/sessions/version-control.html)
-    of the introduction workshop, **but DO NOT DO any coding tasks or exercises**.
-    You are welcome to do them if it will
-    help you learn or understand it better, but it is **NOT** required. For most of the workshop, we
-    will be using Git as shown in the [Using Git in
+    of the introduction workshop, **but DO NOT DO any coding tasks or
+    exercises**. You are welcome to do them if it will help you learn or
+    understand it better, but it is **NOT** required. For most of the
+    workshop, we will be using Git as shown in the [Using Git in
     RStudio](https://r-cubed-intro.rostools.org/sessions/version-control.html#using-git-in-rstudio)
-    section. During the workshop, we will connect our projects to GitHub,
-    which is described below.
+    section. During the workshop, we will connect our projects to
+    GitHub, which is described below.
 
 Regardless of whether you've done the steps above or not, *everyone*
 needs to run:
@@ -36,9 +42,9 @@ The output you'll get for success will look something like this:
 
 ```
 Checking R version:
-✔ Your R is at the latest version of 4.4.1!
+✔ Your R is at the latest version of {{< meta versions.r >}}
 Checking RStudio version:
-✔ Your RStudio is at the latest version of 2024.9.0.375!
+✔ Your RStudio is at the latest version of {{< meta versions.rstudio >}}
 Checking Git config settings:
 ✔ Your Git configuration is all setup!
   Git now knows that:
@@ -47,23 +53,26 @@ Checking Git config settings:
 ```
 
 **Eventually you will need to copy and paste the output into one of the
-survey questions**. *Note* that while GitHub is a natural connection to
-using Git, given the limited time available, we will only be going over
-aspects of GitHub that relate to storing your project Git repository and
-working together. If you want to learn more about using GitHub, check
-out the
+survey questions**.
+
+::: callout-note
+While GitHub is a natural connection to using Git, given the limited
+time available, we will only be going over aspects of GitHub that relate
+to storing your project Git repository and working together. If you want
+to learn more about using GitHub, check out the
 [session](https://r-cubed-intro.rostools.org/sessions/version-control.html)
 on it in the introduction workshop.
+:::
 
 ## Connect with GitHub {#sec-connect-github}
 
-Because we'll be pushing and pulling to GitHub throughout the workshop, as
-well as using GitHub to collaborate with others in the project work, you
-need to setup your computer to connect with GitHub.
+Because we'll be pushing and pulling to GitHub throughout the workshop,
+as well as using GitHub to collaborate with others in the project work,
+you need to setup your computer to connect with GitHub.
 
 Any time we do anything on the Internet, there is some risk to having
 our information maliciously hacked. This is no different when using
-GitHub, so if we can, we should try to be more secure with what we send
+GitHub. So if we can, we should try to be more secure with what we send
 across the internet. In fact, most functions that relate to Git or using
 GitHub *require* using more secure features in order to work.
 `{usethis}` makes this much easier, thankfully, with several functions.
@@ -100,13 +109,13 @@ create passwords for all your accounts, like banking or social media.
 Instead of having to remember multiple passwords used across multiple
 accounts, or the very insecure approach of one or two passwords for all
 your accounts, you instead need to remember only one very secure
-password that contains all your other very secure passwords. Google
-"password manager" and your operating system (Windows, MacOS) to find
-possible ones to install or use.
+password that contains all your other very secure passwords. You can
+google for "password manager" and your operating system (Windows, MacOS)
+to find possible ones to install or use.
 
-[Bitwarden](https://bitwarden.com/) is a very good password manager that
-is easy to use and the free version has everything you need to manage,
-store, and create passwords.
+Want a recommendation? [Bitwarden](https://bitwarden.com/) is a very
+good password manager that is easy to use and the free version has
+everything you need to manage, store, and create passwords.
 :::
 
 You very likely haven't set up a PAT, but if you are uncertain, you can

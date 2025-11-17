@@ -14,8 +14,8 @@ library(downlit)
 One of the basic steps to reproducibility and modern workflows in data
 analysis is to keep everything contained in a single location. In
 RStudio, this is done with R Projects. Please read all of [this
-section](https://r-cubed-intro.rostools.org/sessions/project-management.html#what-is-a-project-and-why-use-it)
-from the introduction workshop to learn about R Projects and how they help
+section](https://r-cubed-intro.rostools.org/sessions/setup-project) from
+the introduction workshop to learn about R Projects and how they help
 keep things self-contained. *You don't need to do any of the exercises
 or activities*.
 
@@ -48,14 +48,8 @@ Console to finish the setup:
 ```{r more-project-setup}
 #| filename: Console
 #| purl: true
-# Add Git to the project
-prodigenr::setup_with_git()
 # Create a `functions.R` file in the `R/` folder
 usethis::use_r("functions", open = FALSE)
-# Ignore this file that gets created by some usethis functions
-usethis::use_git_ignore(".Rbuildignore")
-# Set some project options to start fresh each time
-usethis::use_blank_slate("project")
 ```
 
 ```{r purl-only-first-commit}
@@ -73,9 +67,8 @@ work.
 
 We teach and use R Markdown/Quarto because it is one of the very first
 steps to being reproducible and because it is a very powerful tool to
-doing data analysis. You may have heard of or used R Markdown since
-we've used it in both the introduction and intermediate workshops.
-However, you might not have heard of or used Quarto.
+doing data analysis. You may have heard of or used R Markdown, but you
+might not have heard of or used Quarto.
 
 Quarto is a next generation version of R Markdown and chances are, if
 you use a fairly recent version of RStudio, you are already using it
@@ -90,12 +83,12 @@ Please do these two tasks:
 
 1.  Please read over the [R Markdown/Quarto
     section](https://r-cubed-intro.rostools.org/sessions/reproducible-documents.html)
-    of the introduction workshop. If you use R Markdown or Quarto already,
-    you can skip this step.
+    of the introduction workshop. *Don't do the exercises*. If you use R
+    Markdown or Quarto already, you can skip this step.
 
 2.  In the R Console while inside the `AdvancedR3` project, run the
     function to create a new Quarto file called `learning.qmd` in the
-    `doc/` folder.
+    `docs/` folder.
 
 ```{r add-rmarkdown-doc}
 #| filename: Console
@@ -106,5 +99,5 @@ r3::create_qmd_doc()
 ```{r purl-only-add-lesson-rmd}
 #| echo: false
 #| purl: true
-git_ci("doc/learning.qmd", "Add draft lesson qmd file.")
+git_ci("docs/learning.qmd", "Add draft lesson qmd file.")
 ```

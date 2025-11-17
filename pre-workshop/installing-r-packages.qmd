@@ -2,6 +2,12 @@
 
 # Installing R Packages {#sec-installing-r-packages}
 
+```{r}
+#| include: false
+# To trigger auto-linking
+library(downlit)
+```
+
 We will be using specific R packages for the workshop, so you will need
 to install them. To make it easier, we've created a custom R package
 called `r3` that will install all the necessary packages for you for this

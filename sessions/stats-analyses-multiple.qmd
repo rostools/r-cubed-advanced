@@ -57,15 +57,15 @@ statistical analysis.
 
 ## :book: Reading task: Apply logistic regression to each metabolite with functional programming
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Functional programming underlies many core features of running
 statistical methods on data. Because it is such an important component
 of this session, you'll briefly review the concepts of functional
 programming by going to the [Function
 Programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#functional-programming)
-in the Intermediate R workshop (**only the reading task section**) as well
-as the
+in the Intermediate R workshop (**only the reading task section**) as
+well as the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/functionals#split-apply-combine-technique-and-functionals)
 (this is a short section).
 
@@ -86,9 +86,9 @@ There are many ways that you can run a model on each metabolite based on
 the `lipidomics_wide` dataset. However, these types of
 "split-apply-combine" tasks are (usually) best done using data in the
 long form. So we'll start with the original `lipidomics` dataset. Create
-a header and code chunk at the end of the `doc/learning.qmd` file:
+a header and code chunk at the end of the `docs/learning.qmd` file:
 
-```` {.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="docs/learning.qmd"}
 ## Running multiple models
 
 ```{{r}}
@@ -100,24 +100,25 @@ The first thing we want to do is convert the metabolite names into snake
 case:
 
 ```{r chain-col-to-snakecase}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   column_values_to_snake_case(metabolite)
 ```
 
 The next step is to split the data up. We could use `group_by()`, but in
 order to make the most use of `{purrr}` functions like `map()`, we will
-use `group_split()` to convert the data frame into a set of
-lists[^stats-analyses-multiple-1]. Let's first add `{purrr}` as a
-dependency:
+use `group_split()` to convert the data frame into a set of lists. Let's
+first add `{purrr}` as a dependency:
 
-[^stats-analyses-multiple-1]: There is probably a more computationally
-    efficient way of coding this instead of making a list, but as the
-    saying goes ["premature optimization is the root of all
-    evil"](https://stackify.com/premature-optimization-evil/). For our
-    purposes, this is a very good approach, but for very large datasets
-    and hundreds of potential models to run, this method would need to
-    be optimized some more.
+::: callout-note
+There is probably a more computationally efficient way of coding this
+instead of making a list, but as the saying goes ["premature
+optimization is the root of all
+evil"](https://stackify.com/premature-optimization-evil/). For our
+purposes, this is a very good approach, but for very large datasets and
+hundreds of potential models to run, this method would need to be
+optimized some more.
+:::
 
 ```{r purrr-to-deps}
 #| purl: true
@@ -132,7 +133,7 @@ three.
 
 ```{r chain-split-by-metabolite}
 #| eval: false
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   column_values_to_snake_case(metabolite) |>
   group_split(metabolite)
@@ -153,7 +154,7 @@ the first three):
 
 ```{r chain-map-to-wider}
 #| eval: false
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   column_values_to_snake_case(metabolite) |>
   group_split(metabolite) |>
@@ -194,10 +195,10 @@ split_by_metabolite <- function(data) {
 }
 ```
 
-In the `doc/learning.qmd`, use the new function in the code:
+In the `docs/learning.qmd`, use the new function in the code:
 
 ```{r split-by-metabolite}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 #| eval: false
 lipidomics |>
   split_by_metabolite()
@@ -245,7 +246,7 @@ Then we add it to the end of the pipe, but using `map()` and
 `list_rbind()` to convert to a data frame:
 
 ```{r chain-generate-model-results}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   split_by_metabolite() |>
   map(generate_model_results) |>
@@ -257,7 +258,7 @@ let's keep only the `term` rows that are metabolites using `filter()`
 and `str_detect()`.
 
 ```{r chain-filter-terms}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 model_estimates <- lipidomics |>
   split_by_metabolite() |>
   map(generate_model_results) |>
@@ -271,7 +272,7 @@ do an exercise to convert the code into a function.
 
 ## :technologist: Exercise: Create a function to calculate the model estimates
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Convert the code into a function that calculates the model estimates.
 Use this scaffold to help complete the tasks below for the
@@ -330,7 +331,7 @@ with a few other minor changes. First, we'll `select()` only the
 `term` (to match the `model_estimates`) using `mutate()`.
 
 ```{r duplicate-original-vars}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   select(metabolite) |>
   mutate(term = metabolite)
@@ -341,7 +342,7 @@ function on the `term` column so it matches the `term` variable in the
 model estimates data frame.
 
 ```{r dup-column-to-snakecase}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   select(metabolite) |>
   mutate(term = metabolite) |>
@@ -352,7 +353,7 @@ We can see that we are missing the `metabolite_` text before each snake
 case'd name, so we can add that with `mutate()` and `str_c()`:
 
 ```{r dup-column-append-metabolite}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   select(metabolite) |>
   mutate(term = metabolite) |>
@@ -366,7 +367,7 @@ There are 504 rows, but we only need the unique values of `term` and
 only the `metabolite` and `term` variables.
 
 ```{r dup-column-distinct}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   mutate(term = metabolite) |>
   column_values_to_snake_case(term) |>
@@ -374,10 +375,11 @@ lipidomics |>
   distinct(term, metabolite)
 ```
 
-The last step is to `right_join()` to the estimates made from the `calculate_estimates()`:
+The last step is to `right_join()` to the estimates made from the
+`calculate_estimates()`:
 
 ```{r dup-column-full-join}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 lipidomics |>
   mutate(term = metabolite) |>
   column_values_to_snake_case(term) |>
@@ -392,7 +394,7 @@ our first `{targets}` output!
 
 ## :technologist: Exercise: Incorporate additional code into an existing function
 
-**Time: ~12 minutes.**
+**Time: \~12 minutes.**
 
 Taking the code above, we'll insert it into the `calculate_estimates()`
 function so it has a nicer looking and more readable output. While in
@@ -456,7 +458,7 @@ calculate_estimates <- function(data) {
 
 ## :technologist: Exercise: Add a target for the model results
 
-**Time: ~8 minutes.**
+**Time: \~8 minutes.**
 
 Taking the function code from above, you'll next add the model results
 output to end of the `_targets.R` file, using the below scaffold as a
@@ -530,15 +532,15 @@ meta-analysis. Often the "whisker" part is the measure of uncertainty
 like the confidence interval, and the "dot" is the estimate. For the
 confidence interval, we haven't calculated them at this point because
 the typical approach doesn't exactly work for our data (tested before
-the workshop). For this plot though, we will use the standard error of the
-estimate.
+the workshop). For this plot though, we will use the standard error of
+the estimate.
 
-Inside the `doc/learning.qmd`, let's create a new header and code chunk
+Inside the `docs/learning.qmd`, let's create a new header and code chunk
 inside the `## Results` section. We'll want to use
 `tar_read(df_model_estimates)` so that `{targets}` is aware that the R
 Markdown file is dependent on this target.
 
-```` {.markdown filename="doc/learning.qmd"}
+```` {.markdown filename="docs/learning.qmd"}
 ### Figure of model estimates
 
 ```{{r}}
@@ -558,15 +560,15 @@ model_estimate_md_text <- c(
   "```"
 )
 
-print_file("doc/learning.qmd")
+print_file("docs/learning.qmd")
 revise_by_line_num(
-  "doc/learning.qmd",
+  "docs/learning.qmd",
   model_estimate_md_text,
   # Update numbers
   remove_original_lines = -40,
   insert_at_line = 39
 )
-git_ci("doc/learning.qmd", "Add code for model estimates to report.")
+git_ci("docs/learning.qmd", "Add code for model estimates to report.")
 ```
 
 ```{r}
@@ -590,7 +592,7 @@ dot-whisker plots, the "geom" we would use is called
     but adding `std.error` instead.
 
 ```{r plot-estimates-pointrange-only}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 plot_estimates <- model_estimates |>
   ggplot(aes(
     x = estimate,
@@ -610,7 +612,7 @@ eventually need to troubleshoot this issue, but for now, let's restrict
 the x axis to be between 0 and 5.
 
 ```{r plot-estimates-coord-fixed}
-#| filename: "doc/learning.qmd"
+#| filename: "docs/learning.qmd"
 plot_estimates +
   coord_fixed(xlim = c(0, 5))
 ```
@@ -620,7 +622,7 @@ results in order to fix them up. But for now, this will do.
 
 ## :technologist: Exercise: Add plot function as a target in the pipeline
 
-**Time: ~15 minutes.**
+**Time: \~15 minutes.**
 
 Hopefully you've gotten comfortable with the function-oriented workflow,
 because we'll need to convert this plot code into a function and add it
@@ -701,15 +703,15 @@ plot_estimates_md_text <- c(
   ""
 )
 
-print_file("doc/learning.qmd")
+print_file("docs/learning.qmd")
 revise_by_line_num(
-  "doc/learning.qmd",
+  "docs/learning.qmd",
   plot_estimates_md_text,
   # Update numbers
   remove_original_lines = -40,
   insert_at_line = 39
 )
-git_ci("doc/learning.qmd", "Add code for model estimates to report.")
+git_ci("docs/learning.qmd", "Add code for model estimates to report.")
 
 update_target_plot_est <- "),
 tar_target(
@@ -735,8 +737,8 @@ git_ci("_targets", "Add plot estimates target")
 ## Combine all the output into the Quarto file
 
 Now its' time to add the model results and plots to the
-`doc/learning.qmd` file. Open it up and create another code chunk at the
-bottom of the file. Like we did with the other outputs (like the
+`docs/learning.qmd` file. Open it up and create another code chunk at
+the bottom of the file. Like we did with the other outputs (like the
 figures), we'll use `tar_read()` to reference the image path.
 
 ```{{r}}
@@ -763,15 +765,15 @@ plot_estimates_md_text <- c(
   ""
 )
 
-print_file("doc/learning.qmd")
+print_file("docs/learning.qmd")
 revise_by_line_num(
-  "doc/learning.qmd",
+  "docs/learning.qmd",
   plot_estimates_md_text,
   # Update numbers
   remove_original_lines = -40,
   insert_at_line = 39
 )
-git_ci("doc/learning.qmd", "Add code for model estimates to report.")
+git_ci("docs/learning.qmd", "Add code for model estimates to report.")
 targets::tar_visnetwork()
 targets::tar_make()
 ```
