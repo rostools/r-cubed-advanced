@@ -1,4 +1,10 @@
-4.  Build an analysis pipeline using `{targets}` that clearly defines
+1.  Build an analysis pipeline using `{targets}` that clearly defines
     each step of your analysis---from raw data to finished manuscript---
     that makes updating your analysis by you or your collaborators as
     simple as running a single function.
+2.  Apply a design-driven approach to building the pipeline step by
+    step, to help manage complexity and help you focus on testing and
+    building the pipeline at each stage.
+3.  Use the principle of "start at the end", but working backwards from
+    your desired final outputs to the raw data, to help design, plan,
+    and build your pipeline effectively.
