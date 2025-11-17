@@ -737,6 +737,14 @@ list(
 )
 ```
 
+```{r solution-plot-to-quarto}
+#| eval: false
+#| filename: "docs/learning.qmd"
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+tar_read(plot_distributions)
+```
+
 {{< text_snippet sticky_up >}}
 
 ## :technologist: Extra exercise: Test out how `tar_outdated()` and `tar_visnetwork()` work
