@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 1.3.4 (2025-11-17)
+
+### Fix
+
+- **pre-workshop**: :bug: correct dependencies for pre-workshop tasks installation
+
 ## 1.3.3 (2025-11-12)
 
 ### Refactor
