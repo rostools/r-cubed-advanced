@@ -4,6 +4,9 @@
 .Rhistory
 .Rdata
 
+# Positron
+*.vdoc.*.r
+
 # Development files and folders
 _ignore
 bin/
