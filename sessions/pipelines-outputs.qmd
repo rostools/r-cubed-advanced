@@ -10,7 +10,12 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 
 {{< text_snippet review_note >}}
 
-While creating
+While creating creating pipelines can be incredibly helpful for managing
+projects and creating reproducible analyses, it can also be very
+difficult to build them effectively and in a manageable way. In this
+session, we will walk through a design-driven and visual approach to
+building a pipeline step by step, starting from the desired final
+outputs and working backwards to the raw data.
 
 ## Learning objectives
 
