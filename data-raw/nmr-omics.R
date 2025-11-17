@@ -3,6 +3,7 @@
 library(readxl)
 library(dplyr)
 library(tidyr)
+library(stringr)
 library(here)
 
 # Download dataset --------------------------------------------------------
@@ -80,7 +81,7 @@ subject_only <- lipidomics_full |>
   pivot_wider(names_from = V4, values_from = value) |>
   # There is a weird "​" before some of the numbers, so we have
   # extract just the number first before converting to numeric.
-  mutate(Age = as.numeric(stringr::str_extract(Age, "\\d+"))) |>
+  mutate(Age = as.numeric(str_extract(Age, "\\d+"))) |>
   # Align naming so variables are in `snake_case`.
   rename_with(snakecase::to_snake_case)
 
