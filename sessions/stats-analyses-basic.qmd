@@ -6,7 +6,6 @@ source(here::here("R/functions.R"))
 extract_functions_from_qmd()
 source(here::here("R/project-functions.R"))
 library(tidyverse)
-library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
@@ -29,7 +28,9 @@ process.
 For this session, we are going to learn how we can generally set up and
 run statistical models, so that we can use it within `{targets}`.
 
-
+So this session is about running a basic statistical analysis for one
+single research question, as a statistical model. The next session will be
+taking what we've done here and applying it to run many at once.
 
 ## Learning objectives
 
@@ -44,36 +45,43 @@ Specific "anti"-objectives on things that we will *not* learn:
 -   How to interpret the statistical results.
 
 This means that what we show is *for demonstration purposes only*. Our
-implementation and choice of model and analyses could be wrong if an
+choice of statistical model and analyses is likely wrong if an
 expert were to review them.
 
-::: {.callout-warning appearance="default"}
-We will be making *a lot* of function throughout this session and the
-next. This is just a fair warning!
-:::
+## :speech_balloon: Discussion activity: Brainstorming a potential design for statistical analyses
 
-## Taking a step back and thinking about the design
+**Time: ~15 minutes.**
 
-With functional programming, it's best to design code in a way that
-breaks down the process into smaller pieces. Each piece should take a single
-input and return a single output, so that we can eventually chain them together
-into a single pipeline. When we've made a pipeline that can output results for
-one thing, it's fairly easy to extend that to do multiple things at once too.
+As you learned in the previous session, taking a step back and thinking
+about, then sketching out a simple design for the flow of your data and code
+can be extremely helpful. Breaking things down into smaller pieces that you can
+build up together to produce a final output that you want is a great approach
+to help you focus on what you actually need to write before writing any code
 
-So this session is about running a basic statistical analysis for one
-single research question, as a statistical model. The next session will be
-taking what we've done here and applying it to run many at once.
+So, before we get into writing some code
+to run a statistical analysis, take a few minutes to brainstorm and sketch out
+how a design might look for running a statistical analysis and applying it in
+the `{targets}` pipeline. Try to design each step or piece to have one or two
+inputs and only one output.
+*Don't look ahead!!* :stuck_out_tongue_closed_eyes:
+We'll return to designing the flow a bit later in the session, but we want
+you to try it yourself now to get some practice with it, before we actually
+go through it together.
 
-```{mermaid}
-flowchart TB
-    q[Question] -->|?| result[Result]
-```
+1. Take 5 minutes to individually brainstorm and sketch out how you
+   think a statistical analysis workflow might look like, from input data
+   to output results, and how that might fit into the `{targets}` pipeline.
+   Try using simple pen and paper, drawing out some boxes and arrows connecting
+   them. Review @fig-our-pipeline-design and @fig-build-table-flow to remind
+   yourself of how we designed our previous targets.
 
-```{mermaid}
-flowchart TB
-    q[Question] -->|?| model[Model]
-    model -->|?| result[Result]
-```
+3. Take 5 minutes with your neighbour share and discuss what you both have come up with. Try to come to a common
+    understanding or agreement of how the design might be.
+
+4. Finally, over the last 5 minutes, you all can share some of your designs and we
+can discuss some potential benefits and drawbacks of different designs.
+
+
 
 
 ## :speech_balloon: Discussion activity: What does a "model" mean?
@@ -92,7 +100,7 @@ compared to other areas?
 3.  Finally, over the next 2 minutes, we will share all together what a
     model is in the context of data analysis.
 
-## :book: Reading task: A brief introduction to statistical modelling and workflow
+## :book: Reading task: A brief introduction to statistical models and analyses
 
 **Time: ~15 minutes.**
 
@@ -187,8 +195,9 @@ order to follow:
 2.  **Select the best model type** based on the model parameters (e.g., linear
     regression, logistic regression, ANOVA, or t-test).
 
-3.  **Measure your parameters** (e.g., water in liters per day, plant
-    growth in weight, sunlight in hours per day).
+3.  **Collect or select the right data for your model parameters** (e.g., water
+    in liters per day, plant growth in weight, sunlight in hours per day). Collect
+    if you don't have the data or select from existing data.
 
 4.  **Fit the data to the model** to estimate the values (coefficients)
     of the model, such as the intercept, slope, and uncertainty (error).
@@ -197,15 +206,15 @@ order to follow:
     questions.
 
 ```{mermaid fig-model-building-workflow}
-%%| fig-cap: Simple schematic of the workflow for conducting statistical analysis.
+%%| fig-cap: Simple schematic of the process for conducting statistical analysis.
 %%| echo: false
 %%| eval: true
 graph TD
     A[Research question] --> B((Statistical model))
     B --> A
-    B --> C[Data collection]
+    B --> C[Data collection<br>or selection]
     C --> D[Data transformation]
-    D --> E[Scientific output]
+    D --> E[Scientific results]
     E --> A
 ```
 
@@ -227,12 +236,25 @@ here. We're only doing this modeling to highlight how to use the R
 packages.
 :::
 
+##
+
+
+
 ```{mermaid}
+flowchart TB
+    q[Question] -->|?| result[Result]
+```
+
+```{mermaid}
+flowchart TB
+    q[Question] -->|?| stats[Statistics]
+    stats -->|?| result[Result]
+```
+
 ```{mermaid}
 flowchart TB
     q[Question] -->|?| model[Model]
     model & data[Data] -->|?| result[Result]
-```
 ```
 
 Furthermore, because we are working within a "reproducible analysis"
@@ -260,6 +282,20 @@ graph TB
     lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
     model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
     plot_est -- "tar_read()" --> qmd[Quarto]
+```
+
+```{mermaid}
+%%| label: fig-first-two-done-pipeline
+%%| fig-cap: Targets in our pipeline that we've done in the last session and those we will do in this session.
+%%| echo: false
+graph TB
+    data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
+    lipidomics -->|"create_table_descriptive_stats()"| table_model_results:::wip
+    lipidomics -->|"create_plot_distributions()"| plot_model_results:::wip
+    table_model_results -->|"tar_read()"| report:::wip
+    plot_model_results -->|"tar_read()"| report:::wip
+    classDef done stroke-width:3px
+    classDef wip fill:#ffedd6
 ```
 
 {{< text_snippet sticky_up >}}
@@ -322,12 +358,24 @@ So, T1D status (or `class` in the `lipidomics` dataset) is our
 "covariates", since we include them only because we think they influence
 the relationship between the metabolite and T1D.
 
-If we convert the formula into a form with the variables we have in the
-dataset as well as selecting only one metabolite for now (the
-cholesterol metabolite, which we add "metabolite" to differentiate it
-from other potential variables), it would be:
+If we convert the formula into a form that uses the variable names
+that we have in the dataset, it would look like:
 
-$$class = metabolite\_cholesterol + age + gender$$
+$$class = metabolite + age + gender$$
+
+However, in this particular case, `metabolite` contains all the metabolites,
+so we'll have to keep only the metabolite we are interested in for the
+particular model we want to run.
+
+```{mermaid}
+flowchart TB
+    q[Question] --> model[Model]
+    model & data[Data] -->|?| rs[Results]
+```
+
+
+
+split (only works with small to medium sized data, e.g. when your data can't fit into your computers memory), transform data, fit model, extract results, join.
 
 Now that we have a theoretical model, we need to choose our model type.
 Since T1D is binary (either you have it or you don't), the most likely
@@ -338,11 +386,6 @@ thing in R, but some are a bit easier than others.
 
 ## Creating the list of model formulas
 
-```{mermaid}
-flowchart TB
-    qs[Questions] --> models[Models]
-    models & data[Data] -->|?| rs[Results]
-```
 
 Let's switch to working in the `doc/learning.qmd` file to create those
 logistic regression models. In the `doc/learning.qmd` file, on the
@@ -358,9 +401,37 @@ bottom of the document create a new header and code chunk:
 
 In the new code chunk, we will set up the model formula:
 
+```{r}
+data <- lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  group_by(code) |>
+  summarise(value = mean(value, na.rm = TRUE), .keep = TRUE) |>
+  ungroup() |>
+  mutate(class = as.factor(class))
+View(data)
+glm(
+  formula = class ~ value + age + gender,
+  data = data,
+  family = binomial
+) |>
+  broom::tidy(exponentiate = TRUE)
 
-Running this on it's own doesn't show much, as you can see. But we've
-now set the model we want to use.
+preprocess <- function(data) {
+  data |>
+    filter(metabolite == "Cholesterol") |>
+    mutate(class = as.factor(class))
+}
+
+generate_results <- function(data) {
+  glm(
+    formula = class ~ value + age + gender,
+    data = data,
+    family = binomial
+  ) |>
+    broom::tidy(exponentiate = TRUE)
+}
+
+```
 
 ## Data transformations specific to modeling
 
@@ -401,6 +472,9 @@ there seems to be a data entry error, since there are multiple
 lipidomics |>
   count(code, metabolite) |>
   filter(n > 1)
+lipidomics |>
+  group_by(-value) |>
+  summarise(value = mean(value))
 ```
 
 We can fix both the long format and multiple cholesterol issues by using
@@ -423,86 +497,11 @@ issue, we should look more into the data documentation or contact the
 authors. But for this workshop, we will merge the values by calculating a
 mean before pivoting. We do this by setting the `values_fn` with `mean`.
 
-```{r lipidomic-to-wider}
-#| filename: "docs/learning.qmd"
-lipidomics_wide <- lipidomics |>
-  mutate(predictor = snakecase::to_snake_case(metabolite)) |>
-  pivot_wider(
-    names_from = predictor,
-    values_from = value,
-    values_fn = mean,
-    names_prefix = "metabolite_"
-  )
-lipidomics_wide
-```
-
 This on its own should work. *However*, the column we want to change
 might not always be called `metabolite`, or we might want to change it
 later. So, to make this function a bit more generic, we can use
 something called "curly-curly" (it looks like `{{}}` when used) and
 "non-standard evaluation" (NSE).
-
-## :book: Reading task: Non-standard evaluation and curly-curly
-
-**Time: ~10 minutes.**
-
-When you write your own functions that make use of functions in the
-`{tidyverse}`, you may eventually encounter an error that might not be
-very easy to figure out. Here's a very simple example using `select()`,
-where one of your function's arguments is to select columns (just read,
-don't write any code):
-
-```{r, error=TRUE}
-test_nse <- function(data, columns) {
-  data |>
-    dplyr::select(columns)
-}
-
-lipidomics |>
-  test_nse(class)
-```
-
-The error occurs because of something called "[non-standard
-evaluation](http://adv-r.had.co.nz/Computing-on-the-language.html)" (or
-NSE). NSE is a major feature of R and is used quite a lot throughout R.
-NSE is used a lot in the `{tidyverse}` packages. It's one of the first
-things computer scientists complain about when they use R, because it is
-not a common thing in other programming languages. But NSE is what
-allows you to use formulas (e.g. `y ~ x + x2` in modeling, which we will
-show shortly) or allows you to type out `select(class, age)` or
-`library(purrr)`. In "standard evaluation", these would instead be
-`select("Gender", "BMI")` or `library("purrr")`. So NSE gives
-flexibility and ease of use for the user (we don't have to type quotes
-every time) when doing data analysis, but can give some headaches when
-programming in R, like when making functions. There's more detail about
-this on the [dplyr
-website](https://dplyr.tidyverse.org/articles/programming.html#warm-up),
-which lists some options to handle NSE while programming. The easiest
-approach is to wrap the argument with "curly-curly" (`{{}}`).
-
-```{r}
-test_nse <- function(data, columns) {
-  data |>
-    dplyr::select({{ columns }})
-}
-
-lipidomics |>
-  test_nse(class)
-
-lipidomics |>
-  test_nse(c(class, age))
-```
-
-{{< text_snippet sticky_up >}}
-
-## Using curly-curly when using tidyverse functions in our own functions
-
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-You don't need to go over what they read, you can continue with making
-the function below. Unless learners have some questions.
-:::
 
 ## Pre-processing before modeling
 
