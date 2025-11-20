@@ -1,0 +1,6 @@
+1.  Describe the general "workflow": State the research question,
+    construct a model, prepare the data, fit the model, and extract the
+    results.
+2.  Identify some data transformation techniques and evaluate which are
+    good options given the data. Use functions in the `{recipes}`
+    package to apply these transformations to your data.
