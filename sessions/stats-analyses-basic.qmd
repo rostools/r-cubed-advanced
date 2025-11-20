@@ -29,8 +29,8 @@ For this session, we are going to learn how we can generally set up and
 run statistical models, so that we can use it within `{targets}`.
 
 So this session is about running a basic statistical analysis for one
-single research question, as a statistical model. The next session will be
-taking what we've done here and applying it to run many at once.
+single research question, as a statistical model. The next session will
+be taking what we've done here and applying it to run many at once.
 
 ## Learning objectives
 
@@ -45,44 +45,44 @@ Specific "anti"-objectives on things that we will *not* learn:
 -   How to interpret the statistical results.
 
 This means that what we show is *for demonstration purposes only*. Our
-choice of statistical model and analyses is likely wrong if an
-expert were to review them.
+choice of statistical model and analyses is likely wrong if an expert
+were to review them.
 
 ## :speech_balloon: Discussion activity: Brainstorming a potential design for statistical analyses
 
-**Time: ~15 minutes.**
+**Time: \~15 minutes.**
 
 As you learned in the previous session, taking a step back and thinking
-about, then sketching out a simple design for the flow of your data and code
-can be extremely helpful. Breaking things down into smaller pieces that you can
-build up together to produce a final output that you want is a great approach
-to help you focus on what you actually need to write before writing any code
+about, then sketching out a simple design for the flow of your data and
+code can be extremely helpful. Breaking things down into smaller pieces
+that you can build up together to produce a final output that you want
+is a great approach to help you focus on what you actually need to write
+before writing any code
 
-So, before we get into writing some code
-to run a statistical analysis, take a few minutes to brainstorm and sketch out
-how a design might look for running a statistical analysis and applying it in
-the `{targets}` pipeline. Try to design each step or piece to have one or two
-inputs and only one output.
+So, before we get into writing some code to run a statistical analysis,
+take a few minutes to brainstorm and sketch out how a design might look
+for running a statistical analysis and applying it in the `{targets}`
+pipeline. Try to design each step or piece to have one or two inputs and
+only one output. We'll return to designing the flow a bit later in the
+session, but we want you to try it yourself now to get some practice
+with it, before we actually go through it together.
+
 *Don't look ahead!!* :stuck_out_tongue_closed_eyes:
-We'll return to designing the flow a bit later in the session, but we want
-you to try it yourself now to get some practice with it, before we actually
-go through it together.
 
-1. Take 5 minutes to individually brainstorm and sketch out how you
-   think a statistical analysis workflow might look like, from input data
-   to output results, and how that might fit into the `{targets}` pipeline.
-   Try using simple pen and paper, drawing out some boxes and arrows connecting
-   them. Review @fig-our-pipeline-design and @fig-build-table-flow to remind
-   yourself of how we designed our previous targets.
+1.  Take 5 minutes to individually brainstorm and sketch out how you
+    think a statistical analysis workflow might look like, from input
+    data to output results, and how that might fit into the `{targets}`
+    pipeline. Try using simple pen and paper, drawing out some boxes and
+    arrows connecting them. Review @fig-our-pipeline-design and
+    @fig-build-table-flow to remind yourself of how we designed our
+    previous targets.
 
-3. Take 5 minutes with your neighbour share and discuss what you both have come up with. Try to come to a common
-    understanding or agreement of how the design might be.
+2.  Take 5 minutes with your neighbour share and discuss what you both
+    have come up with. Try to come to a common understanding or
+    agreement of how the design might be.
 
-4. Finally, over the last 5 minutes, you all can share some of your designs and we
-can discuss some potential benefits and drawbacks of different designs.
-
-
-
+3.  Finally, over the last 5 minutes, you all can share some of your
+    designs and we can discuss some potential benefits and drawbacks of different designs.
 
 ## :speech_balloon: Discussion activity: What does a "model" mean?
 
@@ -102,7 +102,7 @@ compared to other areas?
 
 ## :book: Reading task: A brief introduction to statistical models and analyses
 
-**Time: ~15 minutes.**
+**Time: \~15 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -113,7 +113,21 @@ framework of models, and the general workflow for doing statistical
 analyses.
 :::
 
-<!-- TODO: Create a revealjs presentation on this? -->
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+A few things to repeat and reinforce:
+
+1.  The workflow of the image and that it all starts with the research
+    question.
+2.  The fact that almost all statistical methods are basically special
+    forms of linear regression.
+3.  That this model creation stage requires a variety of domain
+    expertise, not just statistical expertise.
+
+Also repeat the question to ask, the outputs, as well as the functions
+and their flow that we can translate into the `{targets}` pipeline.
+:::
 
 Research, especially quantitative research, is about making inferences
 about the world by quantifying uncertainty from some data. And we
@@ -142,23 +156,26 @@ either continuous (such as plant growth) or categorical (such as whether
 a person has type 1 diabetes or not).
 
 The relationship between predictors and the outcome is known as a
-regression. If there is a relationship between ($x$) and ($y$), the
-corresponding mathematical object is a function, $f()$:
+regression, or rather a *regression function*. So if there is a
+relationship between $x$ and $y$, the math formula is:
 
 $$y = f(x)$$
 
-Since no relationship is perfect, we add some random error (error) to
-describe the difference between the function and the actual measured
-variables:
+So for any given value of $x$, the function $f(x)$ will give us the
+expected value of $y$. Since no relationship is perfect, we need to add
+some random error ($error$) to describe the difference between the
+function and the actual measured variables:
 
 $$y = f(x) + error$$
 
 The simplest form of regression is linear regression, where the formula
 is a linear combination:
 
-$$y = intercept + x + error$$
+$$y = intercept + beta \times x + error$$
 
-Here, the $intercept$ is the value of $y$ when $x$ is zero.
+Here, the $intercept$ is the value of $y$ when $x$ is zero and $beta$ is
+the value that describes how much $y$ changes for each unit increase in
+$x$ (the "slope" of the relationship).
 
 For example, we might expect a relationship between plant growth, water,
 and sunlight. We could model plant growth as depending on water and
@@ -178,26 +195,52 @@ or mathematically:
 
 $$growth = sunlight + water$$
 
-This expression is known as our theoretical model. However, not all
-theoretical models can be tested against the real world. We need to
-structure the theoretical model so that we can measure the parameters---
-the variables like growth, sunlight, and water in the model above---
-involved. In this case, we need to measure plant growth (e.g., weight in
-grams), the amount of water given per day (in liters), and the number of
-sunlight hours per day.
+This math formula is our theoretical model that represents our research
+question. However, not all theoretical models can be tested against the
+real world. We need to use parameters (like sunlight) in our theoretical
+model that can actually be measured. In this case, we need to measure
+plant growth (e.g., weight in grams), the amount of water given per day
+(in liters), and the number of sunlight hours per day.
 
-This also means that when formulating a research question, there is an
-order to follow:
+Why is it important to think about research questions in terms of
+models? Aside from helping you better design your research questions and
+your research study that can answer the questions, it also helps with
+how to structure your code for running statistical analyses. Knowing how
+the statistical model mathematically works means you can write code that
+effectively and efficiently runs your analyses in a reproducible and
+simpler way.
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+A few things to repeat and reinforce:
+
+1.  The workflow of the image and that it all starts with the research
+    question.
+2.  The fact that almost all statistical methods are basically special
+    forms of linear regression.
+3.  That this model creation stage requires a variety of domain
+    expertise, not just statistical expertise.
+
+Also repeat the question to ask, the outputs, as well as the functions
+and their flow that we can translate into the `{targets}` pipeline.
+:::
+
+It also means that there's a generic process to going from research
+question to getting results that we can apply to many types of analyses,
+leading to a common "pattern" for writing code. This process generally
+involves the following steps:
 
 1.  **Write a research question** that fits a theoretical model with
     measurable parameters.
 
-2.  **Select the best model type** based on the model parameters (e.g., linear
-    regression, logistic regression, ANOVA, or t-test).
+2.  **Select the best model type** based on the model parameters (e.g.,
+    linear regression, logistic regression, ANOVA, or t-test).
 
-3.  **Collect or select the right data for your model parameters** (e.g., water
-    in liters per day, plant growth in weight, sunlight in hours per day). Collect
-    if you don't have the data or select from existing data.
+3.  **Collect or select the right data for your model parameters**
+    (e.g., water in liters per day, plant growth in weight, sunlight in
+    hours per day). Collect data if you don't have any or select from
+    existing data.
 
 4.  **Fit the data to the model** to estimate the values (coefficients)
     of the model, such as the intercept, slope, and uncertainty (error).
@@ -210,35 +253,29 @@ order to follow:
 %%| echo: false
 %%| eval: true
 graph TD
-    A[Research question] --> B((Statistical model))
+    A[Research question] --> B[Theoretical model]
     B --> A
     B --> C[Data collection<br>or selection]
     C --> D[Data transformation]
-    D --> E[Scientific results]
+    D --> F[Fit model<br>to data]
+    B --> F
+    F --> E[Scientific results]
     E --> A
 ```
 
 ::: {.callout-caution appearance="default"}
-The entire workflow for building statistical models requires highly
-specific domain knowledge on not only the statistics themselves, but
-also how the data was collected, what the values mean, what type of
-research questions to ask and how to ask them, how to interpret the
-results from the models, and how to process the data to fit the question
-and model.
-
-For instance, in our `lipidomics` dataset, if we were to actually use
-this data, we would need someone familiar with -omic technologies, how
-the data are measured, what the values actually mean, how to prepare
-them for the modeling, the specific modeling methods used for this
-field, and how we would actually interpret the findings. We have
-**none** of these things, so very likely we are doing things quite wrong
-here. We're only doing this modeling to highlight how to use the R
-packages.
+Connecting the correct statistical model to the data and research
+question requires highly specific domain knowledge in multiple areas.
+For instance, in our `lipidomics` dataset, if we were to actually
+analyse this data, we would need experts who are familiar with, e.g. how
+-omic data are measured, how to transform them, which modeling methods
+to use, and how to interpret the results. We have **none** of these
+things, so we're likely doing things incorrectly. But since this is a
+workshop on coding and reproducible, what we will do is only for
+demonstration purposes.
 :::
 
 ##
-
-
 
 ```{mermaid}
 flowchart TB
@@ -253,7 +290,7 @@ flowchart TB
 
 ```{mermaid}
 flowchart TB
-    q[Question] -->|?| model[Model]
+    q[Question] -->|?| model[Statistical<br>model]
     model & data[Data] -->|?| result[Result]
 ```
 
@@ -274,25 +311,16 @@ Potential function names might be:
 -   `calculate_estimates()`
 -   `plot_estimates()`
 
-```{mermaid fig-model-possible-targets}
-%%| fig-cap: Potential inputs, outputs, and functions for the targets pipeline.
-%%| echo: false
-%%| eval: true
-graph TB
-    lipidomics -- "calculate_estimates()" --> model_est[Model estimates]
-    model_est -- "plot_estimates()" --> plot_est[Plot of estimates]
-    plot_est -- "tar_read()" --> qmd[Quarto]
-```
 
 ```{mermaid}
-%%| label: fig-first-two-done-pipeline
+%%| label: fig-stats-analysis-pipeline
 %%| fig-cap: Targets in our pipeline that we've done in the last session and those we will do in this session.
 %%| echo: false
 graph TB
     data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
-    lipidomics -->|"create_table_descriptive_stats()"| table_model_results:::wip
-    lipidomics -->|"create_plot_distributions()"| plot_model_results:::wip
-    table_model_results -->|"tar_read()"| report:::wip
+    lipidomics -->|"create_model_results()"| model_results:::wip
+    model_results -->|"plot_model_results()"| plot_model_results:::wip
+    model_results -->|"tar_read()"| report:::wip
     plot_model_results -->|"tar_read()"| report:::wip
     classDef done stroke-width:3px
     classDef wip fill:#ffedd6
@@ -300,25 +328,10 @@ graph TB
 
 {{< text_snippet sticky_up >}}
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-A few things to repeat and reinforce:
-
-1.  The workflow of the image and that it all starts with the research
-    question.
-2.  The fact that almost all statistical methods are basically special
-    forms of linear regression.
-3.  That this model creation stage requires a variety of domain
-    expertise, not just statistical expertise.
-
-Also repeat the question to ask, the outputs, as well as the functions
-and their flow that we can translate into the `{targets}` pipeline.
-:::
 
 ## :book: Reading task: Defining a model for our lipidomics data
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -334,8 +347,9 @@ Creating the question. While we don't have much data, there are a
 surprising number of questions we could ask. But we will keep it very
 simple, very basic, and very exploratory.
 
-1.  What is the estimated relationship of each metabolite with type 1 diabetes
-    (T1D) compared to the controls, adjusting for the influence of age and gender?
+1.  What is the estimated relationship of each metabolite with type 1
+    diabetes (T1D) compared to the controls, adjusting for the influence
+    of age and gender?
 
 A graphical representation of this theoretical model could be:
 
@@ -358,14 +372,14 @@ So, T1D status (or `class` in the `lipidomics` dataset) is our
 "covariates", since we include them only because we think they influence
 the relationship between the metabolite and T1D.
 
-If we convert the formula into a form that uses the variable names
-that we have in the dataset, it would look like:
+If we convert the formula into a form that uses the variable names that
+we have in the dataset, it would look like:
 
 $$class = metabolite + age + gender$$
 
-However, in this particular case, `metabolite` contains all the metabolites,
-so we'll have to keep only the metabolite we are interested in for the
-particular model we want to run.
+However, in this particular case, `metabolite` contains all the
+metabolites, so we'll have to keep only the metabolite we are interested
+in for the particular model we want to run.
 
 ```{mermaid}
 flowchart TB
@@ -373,9 +387,9 @@ flowchart TB
     model & data[Data] -->|?| rs[Results]
 ```
 
-
-
-split (only works with small to medium sized data, e.g. when your data can't fit into your computers memory), transform data, fit model, extract results, join.
+split (only works with small to medium sized data, e.g. when your data
+can't fit into your computers memory), transform data, fit model,
+extract results, join.
 
 Now that we have a theoretical model, we need to choose our model type.
 Since T1D is binary (either you have it or you don't), the most likely
@@ -384,8 +398,7 @@ So we have the theoretical model and the type of model to use, now how
 do we express this as code in R? There are many ways of doing the same
 thing in R, but some are a bit easier than others.
 
-## Creating the list of model formulas
-
+##
 
 Let's switch to working in the `doc/learning.qmd` file to create those
 logistic regression models. In the `doc/learning.qmd` file, on the
@@ -404,11 +417,25 @@ In the new code chunk, we will set up the model formula:
 ```{r}
 data <- lipidomics |>
   filter(metabolite == "Cholesterol") |>
-  group_by(code) |>
-  summarise(value = mean(value, na.rm = TRUE), .keep = TRUE) |>
+  group_by(pick(-value)) |>
+  summarise(value = mean(value, na.rm = TRUE), .groups = "keep") |>
   ungroup() |>
-  mutate(class = as.factor(class))
-View(data)
+  mutate(
+    class = as.factor(class),
+    value = scale(value)
+  )
+```
+
+```{r}
+glm(
+  formula = class ~ value + age + gender,
+  data = data,
+  family = binomial
+) |>
+  broom::tidy(exponentiate = TRUE)
+
+model <- class ~ value + age + gender
+
 glm(
   formula = class ~ value + age + gender,
   data = data,
@@ -419,53 +446,54 @@ glm(
 preprocess <- function(data) {
   data |>
     filter(metabolite == "Cholesterol") |>
-    mutate(class = as.factor(class))
+    group_by(pick(-value)) |>
+    summarise(value = mean(value, na.rm = TRUE), .groups = "keep") |>
+    ungroup() |>
+    mutate(
+      class = as.factor(class),
+      value = scale(value)
+    )
 }
 
-generate_results <- function(data) {
+fit_model <- function(data, model) {
   glm(
-    formula = class ~ value + age + gender,
+    formula = model,
     data = data,
     family = binomial
   ) |>
-    broom::tidy(exponentiate = TRUE)
+    broom::tidy(exponentiate = TRUE) |>
+    dplyr::mutate(model = as.character(model))
 }
 
+lipidomics |>
+  preprocess() |>
+  fit_model(class ~ value + age + gender)
 ```
 
 ## Data transformations specific to modeling
 
 Setting the model type was pretty easy right? The more difficult part
-comes next with the data transformations. `{recipes}` functions are
-almost entirely used to apply transformations that a model might
-specifically need, like mean-centering, removing missing values, and
-other aspects of data processing.
+comes next with the data transformations.
 
 Let's consider our `lipidomics` dataset. In order for us to start our
 statistical analysis, we need the data to be structured in a certain way
 to be able to smoothly use it as input in our model. We have at least
-three necessary transformations, two of which can be done using a single
-`{tidyr}` function, while the third one can be fixed with `{recipes}`.
-Can you spot them?
+three necessary transformations.
+
+(As exercise?)
 
 ```{r}
 #| filename: Console
 lipidomics
 ```
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-Ask them if they can spot the structural data issues. Give them a few
-minutes to think and respond.
-:::
 
 The first issue, which isn't always an issue, depends heavily on the
 model type you use. Since we are using logistic regression, the model
 assumes that each row is an individual person. But our data is in the
-long format, so each person has multiple rows. The second issue is that
-there seems to be a data entry error, since there are multiple
-`Cholesterol` values, while all other metabolites only have one:
+long format, so each person has multiple rows per metabolite.
+But let's confirm if each person has one value per metabolite:
+
 
 ```{r too-many-cholesterols}
 #| filename: "docs/learning.qmd"
@@ -477,31 +505,34 @@ lipidomics |>
   summarise(value = mean(value))
 ```
 
-We can fix both the long format and multiple cholesterol issues by using
-`tidyr::pivot_wider()`. Before we do, the last issue is that each
-metabolite has quite large differences in the values and ranges of data.
-Again, whether this is an issue depends on what we want to do, but in
-our research question we want to know how each metabolite influences
-T1D. In order to best interpret the results and compare across
-metabolites, we should ideally have all the metabolites with a similar
-range and distribution of values.
+The second issue is that
+there seems to be a data entry error, since there are multiple
+`Cholesterol` values, while all other metabolites only have one:
 
-Let's fix the first two issues first, and at the same time tidy up the
-names of each metabolite so they make better column names. In the
-`docs/learning.qmd`, we can tidy up the metabolite names using `mutate()`
-with `snakecase::to_snake_case()`. Secondly, to make our dataset wider,
-we use `pivot_wider()`. Since we also want an easy way of identifying
-columns that are metabolites, we will add a `"metabolite_"` prefix using
-the argument `names_prefix`. To actually fix the multiple cholesterol
-issue, we should look more into the data documentation or contact the
-authors. But for this workshop, we will merge the values by calculating a
-mean before pivoting. We do this by setting the `values_fn` with `mean`.
+To actually fix the multiple
+cholesterol issue, we should look more into the data documentation or
+contact the authors. But for this workshop, we will summarise all
+the metabolites by mean. In this case, only Cholesterol will be summarised, all the
+rest values won't be impacted.
 
-This on its own should work. *However*, the column we want to change
-might not always be called `metabolite`, or we might want to change it
-later. So, to make this function a bit more generic, we can use
-something called "curly-curly" (it looks like `{{}}` when used) and
-"non-standard evaluation" (NSE).
+```{mermaid}
+%%| label: fig-stats-analysis-pipeline
+%%| fig-cap: Targets in our pipeline that we've done in the last session and those we will do in this session.
+%%| echo: false
+graph TB
+    data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
+    lipidomics -->|"clean()"| tidy_lipidomics:::wip
+    tidy_lipidomics -->|"create_model_results()"| model_results:::wip
+    model_results -->|"plot_model_results()"| plot_model_results:::wip
+    model_results -->|"tar_read()"| report:::wip
+    plot_model_results -->|"tar_read()"| report:::wip
+    classDef done stroke-width:3px
+    classDef wip fill:#ffedd6
+```
+
+
+
+
 
 ## Pre-processing before modeling
 
@@ -511,30 +542,34 @@ something called "curly-curly" (it looks like `{{}}` when used) and
 Verbally talk through the next few paragraphs, no code-along yet.
 :::
 
-We've used `{dplyr}` and `{tidyr}` to start fixing some of the issues
-with the data. But we still have the third issue: How to make the
+How to make the
 results between metabolites comparable.
 
+Each
+metabolite has quite large differences in the values and ranges of data.
+Again, whether this is an issue depends on what we want to do, but in
+our research question we want to know how each metabolite influences
+T1D. In order to best interpret the results and compare across
+metabolites, we should ideally have all the metabolites with a similar
+range and distribution of values.
+
 There are many transformations we could use for the `lipidomics`
-dataset, but we will use normalization for this workshop. This
-function is useful because it makes each variable centered to zero and a
-value of 1 unit is translated to 1 standard deviation of the original
+dataset, but we will use normalization (which is a combination of mean-centering and scaling) for this workshop. This
+is useful because it makes each variable centered to zero at the mean and a value of
+1 unit is translated to 1 standard deviation of the original
 distribution. This means we can more easily compare values between
 variables.
-
 
 Style using {{< var keybind.styler >}}, then commit the changes made to
 the Git history with {{< var keybind.git >}}.
 
 ## Fitting the model to the data {#sec-fitting-model}
 
-We've now defined the model we want to use and transformed the data.
-Now we can start putting them together and
-finally fit them to the data.
+We've now defined the model we want to use and transformed the data. Now
+we can start putting them together and finally fit them to the data.
 
 To get this information in a tidier format, we use another function:
-`tidy()`. This function comes from the `{broom}` package, which is part
-of the `{tidymodels}`. But we should explicitly add it to the
+`tidy()`. This function comes from the `{broom}` package. But we should explicitly add it to the
 dependencies:
 
 ```{r broom-to-deps}
@@ -573,9 +608,9 @@ workshop, they are **not** important and can distract from the main
 purpose.
 :::
 
-Let's briefly cover what these columns and values mean.
-But first, open the Git interface and commit the changes you made
-with {{< var keybind.git >}}. Then push your changes up to GitHub.
+Let's briefly cover what these columns and values mean. But first, open
+the Git interface and commit the changes you made with
+{{< var keybind.git >}}. Then push your changes up to GitHub.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
@@ -585,14 +620,81 @@ depending on how comfortable you are. Or you can get them to read it
 only.
 :::
 
+## :technologist: Exercise: Add a target for the model results
+
+**Time: \~8 minutes.**
+
+Taking the function code from above, you'll next add the model results
+output to end of the `_targets.R` file, using the below scaffold as a
+guide.
+
+``` r
+list(
+  ...,
+  tar_target(
+    name = ___,
+    command = ___(___)
+  )
+)
+```
+
+1.  Use `df_model_estimates` for the `name`.
+2.  Use the `calculate_estimates()` function in `command`, with
+    `lipidomics` as the argument.
+3.  Use {{< var keybind.styler >}} to style and than run
+    `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to
+    see if the new target gets detected. If it does, than run
+    `targets::tar_make()` with {{< var keybind.targets-make >}}.
+4.  Commit the changes to the Git history with {{< var keybind.git >}}.
+
+```{r solution-target-model-estimates}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+list(
+  # ...,
+  tar_target(
+    name = df_model_estimates,
+    command = calculate_estimates(lipidomics)
+  )
+)
+```
+
+```{r purl-only-model-estimates-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+update_target_calc_est <- "
+  ),
+  list(
+    name = df_model_estimates,
+    command = calculate_estimates(lipidomics)
+  )
+)
+"
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = update_target_calc_est,
+  # Modify these numbers.
+  remove_original_lines = -30,
+  insert_at_line = 31
+)
+targets::tar_visnetwork()
+targets::tar_make()
+git_ci("_targets.R", "Update targets with model results")
+```
+
+{{< text_snippet sticky_up >}}
+
 ## :book: Reading task: Understanding the model output
 
-**Time: ~10 minutes.**
+**Time: \~10 minutes.**
 
 Let's explain this output a bit, each column at a time:
 
 -   `term`: If you recall the formula
-    $class = metabolite + sex + gender$, you'll see all but the `class`
+    $class = metabolite + age + gender$, you'll see all but the `class`
     object there in the column `term`. This column contains all the
     predictor variables, including the intercept (from the original
     model).
