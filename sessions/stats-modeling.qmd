@@ -56,12 +56,12 @@ in order to answer the research question using data.
 :::
 
 Research, especially quantitative research, is about making inferences
-about the world by quantifying uncertainty from some data. And we
+about the world by quantifying uncertainty from some data. And you
 quantify uncertainty by using statistics and statistical models.
 
 A statistical model is a simple way to describe the real world using
 mathematics. In research, we often aim to understand the relationships
-between multiple variables. For example, if we change the predictor
+between multiple variables. For example, if you change the predictor
 (independent variable or $x$), how does that affect the outcome
 (dependent variable or $y$)?
 
@@ -87,11 +87,11 @@ relationship between $x$ and $y$, the math formula is:
 
 $$y = f(x)$$
 
-So for any given value of $x$, the function $f(x)$ will give us the
-expected value of $y$. For example, we might expect a relationship
-between plant growth, water, and sunlight. We could model plant growth
-as depending on water and sunlight. Graphically, we can illustrate this
-model as:
+So for any given value of $x$, the function $f(x)$ will give the
+expected value of $y$. For example, you might expect a relationship
+between plant growth, water, and sunlight. You could model plant growth
+as depending on water and sunlight. Graphically, this model can be
+illustrated as:
 
 ```{mermaid fig-model-plant-growth}
 %%| fig-cap: Simple example of a theoretical model of plant growth.
@@ -107,12 +107,12 @@ or mathematically:
 
 $$growth = f(sunlight + water)$$
 
-This math formula is our theoretical model that represents our research
+This math formula is the theoretical model that represents the research
 question. However, not all theoretical models can be tested against the
-real world. We need to use parameters (like sunlight) in our theoretical
-model that can actually be measured. In this case, we need to measure
-plant growth (e.g., weight in grams), the amount of water given per day
-(in liters), and the number of sunlight hours per day.
+real world. You need to use parameters (like sunlight) in this
+theoretical model that can actually be measured. In this case, you need
+to measure plant growth (e.g., weight in grams), the amount of water
+given per day (in liters), and the number of sunlight hours per day.
 
 Without this mathematical model, you cannot adequately answer your
 research, at least not quantitatively nor scientifically.
@@ -135,29 +135,30 @@ write more effective code.
 The above theoretical, mathematical model is great to conceptually
 understand and design your research question, especially in how to
 answer your research question. However, to actually use this model with
-data to get some form of an answer to our question, we need to modify
+data to get some form of an answer to the question, you need to modify
 it. That's where statistical models come in, and in particular,
 regression models.
 
 A regression model describes the relationship between an outcome ($y$)
-and one or more the predictor(s) ($x$) in a way that also accounts for
+and one or more predictors ($x$) in a way that also accounts for
 uncertainty. That's because no relationship between variables is
 perfect. So first thing that a regression model has is a mathematical
-variable called random error ($error$ or $residuals$) to quantify the
-difference between the function $f()$ and the predictors:
+variable called random error or residuals (we'll use $error$) to
+quantify the difference between the function $f()$ and the predictors on
+the outcome:
 
 $$y = f(x) + error$$
 
-Usually, the function $f()$ in a regression model is fully expressed as
-a formula:
+Usually, the regression function $f()$ in a regression model is
+expressed as a formula:
 
 $$y = intercept + estimate \times x + error$$
 
 Here, the $intercept$ is the value of $y$ when $x$ is zero and
 $estimate$ (also known as $beta$) is the value that describes how much
 $y$ changes for each unit increase in $x$ (the "slope" of the
-relationship). What our research question and what our outcome is
-determines what type of regression model the formula is (e.g. linear or
+relationship). What the research question and what the outcome is will
+determine what type of regression model the formula is (e.g. a linear or
 logistic regression).
 
 If we convert our plant growth example into this formula, it would look
@@ -173,53 +174,53 @@ forms of a regression model. These methods range from things as complex
 as AI models like large language models to things as simple as t-tests
 or ANOVAs.
 
-With this model, we can apply it to our data to estimate the impact that
-sunlight and water have on plant growth. Importantly, we can get the
-estimates and the uncertainty of those estimates to give us a
-quantitative answer to our research question: How *much* sunlight
-exactly and how *much* water exactly do plants need to grow? How
-*exactly* uncertain are we about those estimates?
+With this model, you can apply it to your data to estimate the impact
+that sunlight and water have on plant growth. When fit to data, it can
+calculate the estimates and the uncertainty of those estimates to give
+you a quantitative answer to your research question: How *much* sunlight
+exactly and how *much* water exactly do plants need to grow? How much
+uncertainty *exactly* is there with those estimates?
 
-With this formula, we can already get some insights about the
+With this formula, you can already get some insights about the
 assumptions that the model has for the data that it will fit:
 
 1.  The formula is used to estimate *one individual plant's growth*.
-    Meaning, our data needs to be at an individual plant level. So each
-    value of each variable in our data (each row) needs to represent one
-    plant.
+    Meaning, your data needs to be at an individual plant level. So each
+    value of each variable in your data (each row) needs to represent
+    one plant.
 
 2.  The variables are assumed to have a linear relationship with the
     outcome: one unit increase in sunlight and one unit increase in
     water lead to a specific and consistent increase in growth. If this
-    isn't true, we might need to transform the data before hand or not
+    isn't true, you might need to transform the data before hand or not
     use one of variables.
 
 3.  The variables can't have any strong dependency between each other.
     For example, if sunlight increases and that causes water to
-    decrease, the estimates won't be reliable since we won't be able to
-    put any value we want in the formula for both sunlight and water
-    independently. Which means we have to be careful which variables we
-    include in the model.
+    decrease, the estimates won't be reliable since you won't be able to
+    put any value you want in the formula for both sunlight and water
+    independently. Which means you have to be careful which variables
+    you include in the model.
 
-4.  If we want to compare estimate, e.g. between sunlight and water, the
-    variables need to be on the same scale since the estimates are based
-    on the unit of the variable. We would need to transform the data
-    before fitting the model if we want to compare estimates.
+4.  If you want to compare estimate, e.g. between sunlight and water,
+    the variables need to be on the same scale since the estimates are
+    based on the unit of the variable. You would need to transform the
+    data before fitting the model if you want to compare estimates.
 
 As you may notice, by knowing the math behind the statistical methods,
 it will help you structure and process your data to more accurately fit
 the model you want to the data you have. It can also help in how to
 write your code to more effectively run these analyses. How?
 
--   By treating this model formula as an R object, that we can
-    manipulate, modify, and process with code just as we do with data.
+-   By treating this model formula as an R object, that you can
+    manipulate, modify, and process with code just as you do with data.
 
 -   By using design thinking to conceptually break down the model
-    fitting process into specific steps, which we can translate into R
-    functions. That we can then chain together and put into a
+    fitting process into specific steps, which you can translate into R
+    functions. That you can then chain together and put into a
     reproducible pipeline.
 
--   By identifying how our R data frame should look like before it gets
+-   By identifying how your R data frame should look like before it gets
     fit to the model.
 
 {{< text_snippet sticky_up >}}
@@ -240,13 +241,13 @@ A few things to repeat and reinforce:
 :::
 
 As mentioned above, while there are many different types of statistical
-models that each require the data is structured in specific ways,
+models that each require that the data is structured in specific ways,
 there is a common workflow that applies to all statistical analyses.
 
-This generic workflow for going from research
-question to getting results that we can apply to many types of analyses,
-leading to a common "pattern" for writing code. This workflow generally
-involves the following steps:
+This generic workflow for going from research question to getting
+results allows you to apply it to many different types of analyses. That
+also means that you can write code for the analysis following a common
+"pattern". This workflow generally involves the following steps:
 
 1.  **Write a research question** that fits a theoretical model with
     measurable parameters.
@@ -293,13 +294,18 @@ reproducible, so statistical correctness isn't our focus.
 
 {{< text_snippet sticky_up >}}
 
-## :speech_balloon: Discussion activity: Defining a model for our lipidomics data
+## :speech_balloon: Discussion activity: Make some questions and models for our lipidomics data
 
-**Time: \~15 minutes.**
+**Time: \~18 minutes.**
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 :::
+
+Now that you've read and heard about statistical models, designing them,
+and the general workflow for using them in research, it's time to try it
+out yourself. Review the `lipidomics` dataset below and complete the
+tasks afterwards.
 
 ```{r admin-show-data}
 #| echo: false
@@ -308,14 +314,37 @@ readr::read_csv(here::here("data/lipidomics.csv"),
 )
 ```
 
+1.  Take 6 minutes to do these tasks:
 
-How to make the results between metabolites comparable.
+    -   Think of some potential research questions we could ask with
+        this data. There are several different questions we could ask
+        with this data, and none are correct or incorrect.
+    -   Design these questions in the form of models that could answer
+        those questions. Try sketching out or mentally creating a
+        theoretical model in both diagram and formula form.
+    -   Consider the type of regression the model might be (hint,
+        consider what type of outcome variable you have).
+    -   Consider what data processing you might need to do to the data
+        before fitting the model.
 
+2.  Then, take 6 minutes and discuss with your neighbour what you've
+    come up from the tasks above. Consider each others ideas and see if
+    you can refine your own questions and model designs.
 
-Going back to our own lipidomics dataset, we need to do the first step:
-Creating the question. While we don't have much data, there are a
-surprising number of questions we could ask. But we will keep it very
-simple, very basic, and very exploratory.
+3.  Finally, over the last 6 minutes, we will share some of the research
+    questions and models that you came up with.
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+This is an open-ended activity. There is no correct or incorrect answer.
+The goal is to get them to think about how to create a model from a
+research question. After they have had time to think about it and
+discuss with a neighbour, go over the following example, which we will
+use for the rest of the workshop.
+
+Our research questions will be simple but also allow us to showcase
+different coding approaches and challenges:
 
 1.  What is the estimated relationship of each metabolite with type 1
     diabetes (T1D) compared to the controls?
@@ -323,10 +352,12 @@ simple, very basic, and very exploratory.
 2.  What is the estimated relationship after considering the influence
     of age and gender?
 
+3.  How do the estimated relationships compare between metabolites?
+
 A graphical representation of this theoretical model could be:
 
 ```{mermaid fig-model-research-question}
-%%| fig-cap: A simple theoretical model of the research question about T1D status.
+%%| fig-cap: A simple relationship between a given metabolite and T1D status.
 %%| echo: false
 %%| eval: true
 graph LR
@@ -334,7 +365,7 @@ graph LR
 ```
 
 ```{mermaid fig-model-research-question}
-%%| fig-cap: A simple theoretical model of the research question about T1D status.
+%%| fig-cap: A simple relationship between a given metabolite and T1D status, controlling for age and gender.
 %%| echo: false
 %%| eval: true
 graph TB
@@ -342,62 +373,37 @@ graph TB
     Age & Gender --> T1D & Metabolite
 ```
 
-Or mathematically:
+Or mathematically for the simple model (using the variable names from
+the data):
 
 $$T1D = metabolite$$
+
+And for the more complex model:
 
 $$T1D = metabolite + age + gender$$
 
 So, T1D status (or `class` in the `lipidomics` dataset) is our
-**outcome** and the individual metabolite, age, and gender are our
+**outcome** and the individual metabolite (`value` in our dataset, since
+`metabolite` is the name of the metabolite), age, and gender are our
 **predictors**. Technically, age and gender would be "confounders" or
 "covariates", since we include them only because we think they influence
 the relationship between the metabolite and T1D.
 
-If we convert the formula into a form that uses the variable names that
-we have in the dataset, it would look like:
-
-$$class = metabolite$$
-
-$$class = metabolite + age + gender$$
-
-```{mermaid}
-flowchart TB
-    q[Question] -->|?| result[Result]
-```
-
-```{mermaid}
-flowchart TB
-    q[Question] -->|?| stats[Statistics]
-    stats -->|?| result[Result]
-```
-
-```{mermaid}
-flowchart TB
-    q[Question] -->|?| model[Statistical<br>model]
-    model & data[Data] -->|?| result[Result]
-```
-
-```{mermaid}
-flowchart TB
-    q[Question] --> model[Model]
-    model & data[Data] -->|?| rs[Results]
-```
-
-Now that we have a theoretical model, we need to choose our model type.
-Since T1D is binary (either you have it or you don't), the most likely
-choice is logistic regression, which requires a binary outcome variable.
-So we have the theoretical model and the type of model to use, now how
-do we express this as code in R? There are many ways of doing the same
-thing in R, but some are a bit easier than others.
+Based on our theoretical model (as `class` is binary, either T1D or
+control), the model would be a logistic regression model.
+:::
 
 ## Summary
 
 -   Create research questions that (ideally) are structured in a way to
     mimic how the statistical analysis will be done, preferably in a
-    "formula" style like $y = x1 + x2 + ... + error$ and in a diagram
-    style with links connecting variables.
+    "formula" style like $y = x1 + x2 + ...$ and in a diagram style with
+    links connecting variables.
 -   Statistical analyses, while requiring some trial and error, are
     surprisingly structured in the workflow and steps taken. Use this
     structure to help guide you in completing tasks related to running
     analyses.
+-   Prioritise taking time to consider and design your research question
+    into a statistical model formula before moving on to coding. Use
+    this design stage to also consider and plan how your data should
+    look like before you fit the model.
