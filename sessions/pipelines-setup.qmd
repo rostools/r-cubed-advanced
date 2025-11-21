@@ -1,0 +1,644 @@
+# Setting up automatic analysis pipelines {#sec-pipelines-setup}
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+library(tidyverse)
+library(targets)
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+```
+
+{{< text_snippet review_note >}}
+
+When doing analyses on data, you have probably experienced (many) times
+where you have to re-run some analyses and have forgotten the order that
+code should run or which parts you need to re-run in order to update the
+results. Things can get confusing quickly, even in relatively simple
+projects. This becomes even more challenging when you return to a
+project after a month or two and have forgotten the state of the
+analysis and the project as a whole. Add in collaborators, and things
+can get even more complex.
+
+That's where formal data analysis pipeline tools come in. By organising
+your analyses into distinct steps, with clear inputs and outputs, and
+adding these steps to a pipeline that tracks them, you can make things a
+lot easier for yourself and others. This session focuses on using tools
+that create and manage these pipelines effectively.
+
+## Learning objectives
+
+{{< include /includes/objectives/_pipelines-setup.qmd >}}
+
+## :speech_balloon: Discussion activity: How do you re-run analyses when something changes?
+
+**Time: \~12 minutes.**
+
+We've all been (or will be) in situations where something in our
+analysis needs to change: Maybe we forgot to remove a certain condition
+(like unrealistic BMI values), maybe our supervisor suggests something
+we hadn't considered in our analysis, or maybe during peer review of our
+manuscript, a reviewer makes a suggestion that would improve the paper.
+
+Whatever the situation, we inevitably need to re-run parts of or the
+full analysis. So what is your **exact** workflow when you need to
+re-run code and update your results? Assume it's a change in the code
+somewhere early in the data processing stage.
+
+1.  Take about 1 minute to think about the workflow you use. Try to
+    think of the *exact* steps you need to take, what *exactly* you do,
+    and how long that usually takes.
+2.  For 8 minutes, share and discuss your thoughts in with your
+    neighbour. How do your experiences compare to each other?
+3.  For the remaining time, we'll briefly share with everyone what
+    they've thought and discussed.
+
+## :book: Reading task: What is a data analysis "pipeline"? {#sec-what-is-pipeline}
+
+**Time: \~10 minutes.**
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+After they finish reading this section, briefly walk through it. In
+particular, emphasize what we want to make at the end, even though that
+goal might change as the analysis project progresses.
+:::
+
+A pipeline can be any process where the steps between a start and an end
+point are very clear, explicit, and concrete. These highly distinct
+steps can be manual, human involved, or completely automated by a robot
+or computer. For instance, in car factories, the pipeline from the input
+raw materials to the final vehicle is extremely well described and
+implemented. Similarly, during the pandemic, the pipeline for testing
+(at least in Denmark and several other countries) was highly structured
+and clear for both the workers doing the testing and the people having
+the test done: A person goes in, scans their ID card, has the test done,
+the worker inputs the results, and the results are sent immediately to
+the health agency as well as to the person based on their ID contact
+information (or via a secure app).
+
+However, in research, especially around data collection and analysis,
+you may often hear or read about "pipelines". But looking closer, these
+aren't actual pipelines because the individual steps are not very clear
+and not well described, and they often require a fair amount of manual
+human attention and intervention. Often these "pipelines" are general
+workflows that people follow to complete a specific set of tasks.
+
+In computational environments, a pipeline should be a set of data
+processing steps connected in a series with a specific order; the output
+of one step is the input to the next. This means that there actually
+should be minimal to *no* human intervention from raw input to finished
+product. And it means that the entire process should be *automated* and
+*reproducible*.
+
+So why are these computational data pipelines rarely found in most of
+the research "pipelines" described in papers? We can break the reason
+why not into specific points that together explain why not:
+
+1.  Anything with data ultimately must be on or done by the computer,
+2.  Anything automatically done on the computer must be done with code,
+3.  Not all researchers write code,
+4.  Researchers who do write code rarely publish and share it,
+5.  Code that is shared or published (either publicly or within the
+    research group) is not written in a way that allows a pipeline to
+    exist,
+6.  And, research is largely non-reproducible [@Trisovic2022;
+    @Seibold2021; @Laurinavichyute2021].
+
+A data analysis pipeline would, by definition, be a readable and
+reproducible data analysis. But based on the above points, researchers
+(on average and as a group) don't have the technical expertise and
+knowledge to actually implement data analysis pipelines.
+
+This isn't to diminish the work of researchers, but is rather a basic
+observation on the systemic, social, and structural environment
+surrounding us. We as researchers are not necessarily trained in writing
+code, nor is there a strong culture and incentive structure around
+learning, sharing, reviewing, and improving code. Which also results in
+use very rarely being allowed to get (or use) funds to hire people who
+*are* trained and skilled in programmatic designing, thinking, and
+coding. Otherwise workshops like this wouldn't need to exist
+:woman_shrugging:
+
+Before we get to what an actual data analysis pipeline looks like in
+practice, we have to separate two things: *exploratory data analysis*
+and *data analysis for the final paper*. In exploratory data analysis,
+there will likely be a lot of manual, interactive steps involved that
+may or may not need to be explicitly stated and included in the analysis
+plan and pipeline.
+
+But for the final paper and the included results, you generally have
+some basic first ideas of what you'll need. And when working on
+projects, it's good practice to follow the principle "start at the end
+and work backwards." What take means is, think about and design what
+your final product will be and what it (generally) will contain. In
+research products like papers, you usually have several tables and
+figures in the paper. Those are "sub-products" of the main "product". So
+let's list a few "sub-products" (we'll just call "products") that you
+almost always have in a research paper:
+
+1.  A table of some basic descriptive statistics of the study
+    population, such as mean, standard deviation, or counts of basic
+    discrete data (like treatment group). Usually this is a "table 1" in
+    the paper.
+2.  A figure showing the distribution of your main variables of
+    interest. In this case, ours are the lipidomic variables. Like with
+    the table above, this is usually "figure 1" or a similarly early
+    figure in the paper.
+3.  Lastly, the paper with the above table and figure included.
+
+Let's break this down visually in @fig-pipeline-schematic:
+
+```{mermaid}
+%%| label: fig-pipeline-schematic
+%%| fig-cap: The flow of data into specific "targets" (items or products) as the initial steps in a data analysis pipeline. The "?" are actions (functions) that need to happen but that we haven't yet defined.
+%%| echo: false
+graph TB
+    data[Data<br>in a file] -->|?| tab_desc[Item 1:<br>Descriptive<br>statistics<br>table]
+    tab_desc -->|insert| paper[Item 3:<br>Paper]
+    data -->|?| plot_distrib[Item 2:<br>Continuous<br>variables<br>plot]
+    plot_distrib -->|insert| paper
+```
+
+Here, there are three distinct items ("products") that you (might) want
+to create from your data. Each "flow" from data to the desired product
+has specific actions that need to happen. Now that you've seen how it is
+conceptually drawn out, there are some initial tasks you can work
+towards in your pipeline. In this session, we will build up the actions
+piece-by-piece to go from data to final product.
+
+{{< text_snippet sticky_up >}}
+
+## Using targets to manage a pipeline
+
+There are a few packages that help build pipelines in R, but the most
+commonly used, well-designed, and maintained one is called `{targets}`.
+This package allows you to explicitly set "targets" (objects like the
+table or figure) you want to create as part of the pipeline. `{targets}`
+will then track all your targets for you and tracks which output a
+target is input to another target as well as which target need to be
+updated when you make changes to your pipeline.
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+Ask participants, which do they think it is: a build dependency or a
+workflow dependency. Because it is directly used to run analyses and
+process the data, it would be a build dependency.
+:::
+
+First, we need to install and add `{targets}` to our dependencies. Since
+`{targets}` is a build dependency, we'll add it to the `DESCRIPTION`
+file with:
+
+```{r add-targets-as-dep}
+#| purl: true
+#| eval: false
+#| filename: Console
+use_package("targets", "suggests")
+```
+
+Now that it's added as a dependency, let's set up our project to start
+using `{targets}`! There's a handy helper function that does this for
+us:
+
+```{r use-targets}
+#| purl: true
+#| eval: false
+#| filename: Console
+targets::use_targets()
+```
+
+This command will create a `_targets.R` script file that we'll use to
+define our analysis pipeline. Before we do that though, let's **commit
+the file to the Git history** with {{< var keybind.git >}}.
+
+::: callout-note
+If you are using an older version of the `{targets}` package, you might
+also find that running `targets::use_targets()` also have created a
+`run.R` and `run.sh` file. The files are used for other situations (like
+running on a Linux server) that we won't cover in this workshop. You can
+safely delete them.
+:::
+
+## :book: Reading task: Inside the `_targets.R` file
+
+**Time: \~8 minutes.**
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+Let them read it before going over it again to reinforce the
+function-oriented workflows and how `{targets}` and the `tar_target()`
+work. In particular emphasise the relationship between the `{targets}`
+`list(tar_target(...), ...)`, the function-oriented workflow, and the
+graph.
+:::
+
+For this reading task, you'll take a look at what `_targets.R` contains.
+So, start by opening it on your computer.
+
+::: {.callout-note collapse="true"}
+## Click this to see the file contents
+
+```{r}
+#| echo: false
+#| code-fold: true
+fs::path_package("targets", "pipelines", "use_targets.R") |>
+  readLines() |>
+  cat(sep = "\n")
+```
+:::
+
+Mostly, the`_targets.R` script contains comments and a basic set up to
+get you started. But, notice the `tar_target()` function used at the end
+of the script. There are two main arguments for it: `name` and
+`command`. The way that `{targets}` works is similar to how you'd assign
+the output of a function to an object, so:
+
+``` r
+object_name <- function_in_command(input_arguments)
+```
+
+Is the same as:
+
+``` r
+tar_target(
+  name = object_name,
+  command = function_in_command(input_arguments)
+)
+```
+
+What this means is that `{targets}` follows a ["function-oriented"
+workflow](https://books.ropensci.org/targets/functions.html#problems-with-script-based-workflows),
+not a "script-based" workflow. What's the difference? In a
+script-oriented workflow, each R file/script is run in a specific order.
+As a result, you might end up with a "main" R file that has code that
+looks like:
+
+``` r
+source("R/1-process-data.R")
+source("R/2-basic-statistics.R")
+source("R/3-create-plots.R")
+```
+
+Where it will run each of these R scripts in a specific order.
+Meanwhile, in a function-oriented workflow, it might look more like:
+
+``` r
+source("R/functions.R")
+raw_data <- load_raw_data("file/path/data.csv")
+processed_data <- process_data(raw_data)
+basic_stats <- calculate_basic_statistics(processed_data)
+simple_plot <- create_plot(processed_data)
+```
+
+With the function-oriented workflow, each function takes an input and
+contains all the code to create one result as its output. This could be,
+for instance, a figure in a paper.
+
+If you've taken the [intermediate R
+workshop](https://r-cubed-intermediate.rostools.org/), you'll notice
+that this function-oriented workflow is the workflow we covered in that
+workshop. There are so many advantages to this type of workflow which is
+why many powerful R packages are designed around making use of it.
+
+If we take the same code as above and convert it into the `{targets}`
+format, the end of `_targets.R` would like this:
+
+```{r}
+#| eval: false
+list(
+  # This part is special, as it tells targets that the
+  # character string is a file path.
+  tar_target(
+    name = data_file,
+    command = "file/path/data.csv",
+    format = "file"
+  ),
+  tar_target(
+    name = raw_data,
+    command = load_raw_data(data_file)
+  ),
+  tar_target(
+    name = processed_data,
+    command = process_data(raw_data)
+  ),
+  tar_target(
+    name = basic_stats,
+    command = calculate_basic_statistics(processed_data)
+  ),
+  tar_target(
+    name = simple_plot,
+    command = create_plot(processed_data)
+  )
+)
+```
+
+So, each `tar_target()` is a step in the pipeline. The `command` is the
+function call, while the `name` is the name of the output of the
+function call.
+
+In `{targets}`, in order for it to effectively track, or "watch",
+changes to a file, we have to tell it that a target is a file by using
+the `format = "file"` argument. This way, if the file changes,
+`{targets}` knows that it needs to re-run any targets that depend on it.
+
+This relationship between objects and functions (because of the
+function-oriented workflow) can be represented exactly as a graph, with
+nodes and arrows. Each node is an R object and each arrow is the
+function that converts that object to another object. Since the
+`{targets}` pipeline is structured using a function-oriented workflow,
+the pipeline can also be visually represented as a graph, which we show
+in @fig-targets-as-flow.
+
+```{mermaid}
+%%| label: fig-targets-as-flow
+%%| fig-cap: Representing the targets pipeline structure as a flow diagram, where each "node" is an R object and each arrow is the function that converts the object to another object. We'll explain and build up this pipeline step by step.
+%%| echo: false
+graph TB
+    data_file -->|"load_raw_data()"| raw_data
+    raw_data -->|"process_data()"| processed_data
+    processed_data -->|"calculate_basic_statistics()"| basic_stats
+    processed_data -->|"create_plot()"| simple_plot
+```
+
+And in fact, `{targets}` has some functionality to visually generate a
+graph of the targets and their connections, which we will cover later in
+this session.
+
+{{< text_snippet sticky_up >}}
+
+## Building up our first target
+
+Now that we've conceptually learned about how `{targets}` works, let's
+take a big step back and first graphically design our own pipeline. So
+we want to create the three items we mentioned before: a descriptive
+statistics table, a distribution plot of the lipidomic variables, and
+the final paper with these items included. We also have our data in a
+CSV file. So there are at least five targets we need to create in our
+pipeline. Let's draw it out:
+
+```{mermaid}
+%%| label: fig-our-pipeline-design
+%%| fig-cap: The design and flow of how we want our data analysis pipeline to look like, with the distinct targets we want to create.
+%%| echo: false
+graph TB
+    data_file["data_file<br>'data/lipidomics.csv'"] -->|"read_csv()"| lipidomics
+    lipidomics -->|"create_table_descriptive_stats()"| table_descriptive_stats
+    lipidomics -->|"create_plot_distributions()"| plot_distributions
+    table_descriptive_stats -->|"tar_read()"| report
+    plot_distributions -->|"tar_read()"| report
+```
+
+The very first target we want to create is to load in data from a file.
+So let's add it as a step in the `{targets}` pipeline. Open up the
+`_targets.R` file and go to the end of the file, where the `list()` and
+`tar_target()` code is found. Delete all but one of the `tar_target()`
+inside the `list()`.
+
+To track the actual data file, we will need to create a pipeline target
+that defines the location of our file by using the argument
+`format = "file"`.
+
+```{r targets-data-path}
+#| eval: false
+#| filename: "_targets.R"
+list(
+  tar_target(
+    name = file,
+    command = "data/lipidomics.csv",
+    format = "file"
+  )
+)
+```
+
+Let's run `{targets}` to see what happens! You can either use
+{{< var keybind.targets-make >}} or run this code in the Console:
+
+```{r targets-make}
+#| eval: false
+#| filename: "Console"
+targets::tar_make()
+```
+
+For the rest of the workshop we will use
+{{< var keybind.targets-make >}} (the "foreground" one) rather than the
+function in the Console.
+
+After running it, you should see in one of RStudio's panes something
+that looks like:
+
+```
+#> + file dispatched
+#> ✔ file completed
+```
+
+This tells us that the target called `file` has been run. Since we only
+have one target, that's all that `{targets}` could run.
+
+We also see that a new folder has been created called `_targets/`.
+Inside this folder `{targets}` keeps all of the output from running the
+code in `_targets.R`. It comes with its own `.gitignore` file so that
+you don't track all the files inside, as they don't need to be tracked.
+Only the `_targets/meta/meta` is needed to be tracked in Git.
+
+We can visualize our pipeline now too! This can be useful as you add
+more and more targets. We will (likely) need to install an extra package
+(done automatically):
+
+```{r visualize-targets}
+#| purl: true
+#| eval: false
+#| filename: Console
+targets::tar_visnetwork()
+```
+
+We can also use {{< var keybind.targets-vis >}}, which is what we will
+use for the rest of the workflow rather than the Console command.
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Walkthrough and explain the visualisation. Take your time moving things
+around, zooming in and out, and clicking around.
+:::
+
+If you want to check which targets are outdated, we use:
+
+```{r outdated-targets}
+#| purl: true
+#| eval: false
+#| filename: Console
+targets::tar_outdated()
+```
+
+Or by using {{< var keybind.targets-outdated >}}.
+
+Now, let's actually load in the data as a target. We'll create a new
+`tar_target()` that reads in the data using `readr::read_csv()`, using
+the `file` target as input. In the `_targets.R` file at the `list()`
+section at the bottom, add another `tar_target()` that looks like:
+
+```{r targets-read-data}
+#| eval: false
+#| filename: "_targets.R"
+list(
+  tar_target(
+    name = file,
+    command = "data/lipidomics.csv",
+    format = "file"
+  ),
+  tar_target(
+    name = lipidomics,
+    command = readr::read_csv(file, show_col_types = FALSE)
+  )
+)
+```
+
+We use `show_col_types = FALSE` to suppress the message explaining which
+columns `{readr}` is reading into R. Now, let's run `{targets}` again
+using {{< var keybind.targets-make >}}. After it runs, check the
+visualisation of it with {{< var keybind.targets-vis >}}. You can now
+see that there are two targets, with an arrow from `file` to
+`lipidomics`.
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Walkthrough this again, this time showing the new target that was added
+and the arrow between the targets.
+:::
+
+How can we access that new `lipidomics` data that `{targets}` created?
+For that, we use the function `targets::tar_read()`. `{targets}` stores
+the output of each target in its own internal storage system, which is
+kept in the `_targets/` folder. So when we use `targets::tar_read()`, we
+access any stored target items using syntax like we would with
+`{dplyr}`, without quotes.
+
+So in the Console, let's see how our data looks like by running:
+
+```{r read-lipidomics-target}
+#| eval: false
+#| filename: "Console"
+targets::tar_read(lipidomics)
+```
+
+```{r admin-read-lipidomics-target}
+#| echo: false
+readr::read_csv(here::here("data/lipidomics.csv"), show_col_types = FALSE)
+```
+
+We use this syntax whenever we want to output or print a target object,
+including for tables and figures.
+
+```{r purl-only-add-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+new_targets <- '
+list(
+    tar_target(
+        name = file,
+        command = "data/lipidomics.csv",
+        format = "file"
+    ),
+    tar_target(
+        name = lipidomics,
+        command = readr::read_csv(file, show_col_types = FALSE)
+    )
+)
+'
+# print_lines("_targets.R")
+revise_by_line_num(
+  path = "_targets.R",
+  insert_text = new_targets,
+  remove_original_lines = -28:-38,
+  insert_at_line = 28
+)
+git_ci("_targets.R", "Add new targets to run.")
+```
+
+We're now ready to start building our first item/product! But first,
+since we finished writing some code, let's style `_targets.R` using
+{{< var keybind.styler >}}. Before continuing, let's commit the changes
+we've made (including the files in the `_targets/` folder) by putting it
+to the Git history with {{< var keybind.git >}}. Then push the changes
+to GitHub.
+
+```{r purl-only-commit-packages-to-targets}
+#| eval: false
+#| echo: false
+#| purl: true
+git_ci(
+  c("_targets", "_targets.R", "DESCRIPTION"),
+  "Tell targets about packages, add _targets"
+)
+```
+
+## :book: Reading task: Fixing issues in the stored pipeline data
+
+**Time: \~10 minutes.**
+
+Sometimes you need to start from the beginning and clean everything up
+because there's an issue that you can't seem to fix. In this case,
+`{targets}` has a few functions to help out. Here are four that you can
+use to delete stuff (also [described on the targets
+book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-data-files)):
+
+`tar_invalidate()`
+
+:   This removes the metadata on the target in the pipeline, but doesn't
+    remove the object itself (which `tar_delete()` does). This will tell
+    `{targets}` that the target is out of date, since it has been
+    removed, even though the data object itself isn't present. You can
+    use this like you would `select()`, by naming the objects directly
+    or using the `{tidyselect}` helpers. For example,
+    `tar_invalidate(everything())` will remove all metadata details for
+    all targets in the pipeline, and
+    `tar_invalidate(starts_with("data_"))` will remove all metadata
+    details for targets that start with `data_` (e.g. like our
+    `data_file` target).
+
+`tar_delete()`
+
+:   This deletes the stored objects (e.g. the `lipidomics` or
+    `df_stats_by_metabolite`) inside `_targets/`, but does not delete
+    the record in the pipeline. So `{targets}` will see that the
+    pipeline doesn't need to be rebuilt. This is useful if you want to
+    remove some data because it takes up a lot of space, or, in the case
+    of GDPR and privacy rules, you don't want to store any sensitive
+    personal health data in your project. Use it like
+    `tar_invalidate()`, with functions like `everything()` or
+    `starts_with()`. For example, `tar_delete(everything())` will delete
+    all stored objects in `_targets/` and
+    `tar_delete(starts_with("data_"))` will delete all stored objects
+    that start with `data_`.
+
+`tar_prune()`
+
+:   This function is useful to help clean up left over or unused objects
+    in the `_targets/` folder. You will probably not use this function
+    too often.
+
+`tar_destroy()`
+
+:   The most destructive, and probably more commonly used, function.
+    This will delete the entire `_targets/` folder for those times when
+    you want to start over and re-run the entire pipeline again.
+
+{{< text_snippet sticky_up >}}
+
+## Summary
+
+-   Use a function-oriented workflow together with `{targets}` to build
+    your data analysis pipeline and track your pipeline "targets".
+-   List individual "pipeline targets" using `tar_target()` within the
+    `_targets.R` file and run them with `targets::tar_make()`.
+-   Visualize target items in your pipeline with
+    `targets::tar_visnetwork()` or list outdated items with
+    `targets::tar_outdated()`.
+-   Use `targets::tar_read()` to access saved pipeline outputs.
+
+{{< include /includes/_code-appendix.qmd >}}
