@@ -23,7 +23,6 @@ Things that we will *not* cover:
 -   More detailed statistical theory.
 -   How to determine relevant data transformations for statistical
     tests.
--   How to interpret the statistical results.
 
 ## :speech_balloon: Discussion activity: What does a "model" mean?
 
@@ -187,7 +186,7 @@ assumptions that the model has for the data that it will fit:
 1.  The formula is used to estimate *one individual plant's growth*.
     Meaning, your data needs to be at an individual plant level. So each
     value of each variable in your data (each row) needs to represent
-    one plant.
+    one plant and there can only be one plant per row.
 
 2.  The variables are assumed to have a linear relationship with the
     outcome: one unit increase in sunlight and one unit increase in
@@ -327,9 +326,12 @@ readr::read_csv(here::here("data/lipidomics.csv"),
     -   Consider what data processing you might need to do to the data
         before fitting the model.
 
-2.  Then, take 6 minutes and discuss with your neighbour what you've
-    come up from the tasks above. Consider each others ideas and see if
-    you can refine your own questions and model designs.
+2.  Then, take 6 minutes and *collaborate* with your neighbour by
+    sharing and brainstorming further on what you've come up from the
+    tasks above. Consider each others ideas and see if you can refine
+    your own questions and model designs. (Part of the project work will
+    involve this design and brainstorming stage, so use this as
+    practice.)
 
 3.  Finally, over the last 6 minutes, we will share some of the research
     questions and models that you came up with.
