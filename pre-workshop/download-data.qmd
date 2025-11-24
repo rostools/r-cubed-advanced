@@ -161,6 +161,14 @@ Show folders and files of project:
     └── learning.qmd
 ```
 
+::: callout-important
+If you encounter an error that says something like "Error in
+`gh::gh()`", you can (potentially) solve it by running
+`gitcreds::gitcreds_set()` in the Console as you did in
+@sec-connect-github and then running the
+`r3::check_project_setup_advanced()` command again.
+:::
+
 The output should look something a bit like the above text. If it
 doesn't, start over by deleting everything in the `data-raw/` folder
 *except* for the `data-raw/nmr-omics.R` script and re-running the script
