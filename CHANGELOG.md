@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.1 (2025-11-24)
+
+### Refactor
+
+- **pre-workshop**: :recycle: need to connect to GitHub before installing r3
+
 ## 2.0.0 (2025-11-21)
 
 ### BREAKING CHANGE
