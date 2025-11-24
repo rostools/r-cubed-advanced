@@ -32,6 +32,7 @@ book:
         - pre-workshop/pre-reading.qmd
         - pre-workshop/code-of-conduct.qmd
         - pre-workshop/installing-programs-r.qmd
+        - pre-workshop/connect-github.qmd
         - pre-workshop/installing-r-packages.qmd
         - pre-workshop/setup-git.qmd
         - pre-workshop/create-project.qmd
@@ -41,7 +42,8 @@ book:
       chapters:
         - sessions/introduction.qmd
         - sessions/dependencies.qmd
-        - sessions/pipelines.qmd
+        - sessions/pipelines-setup.qmd
+        - sessions/pipelines-outputs.qmd
         - sessions/stats-analyses-basic.qmd
         - sessions/stats-analyses-multiple.qmd
         - sessions/project-work.qmd

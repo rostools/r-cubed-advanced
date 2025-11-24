@@ -10,6 +10,40 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.3 (2025-11-24)
+
+### Fix
+
+- **pre-workshop**: :bug: clarify to re-run `gitcreds_set()` again after project creation
+
+## 2.0.2 (2025-11-24)
+
+### Fix
+
+- **pre-workshop**: :bug: comment about Git and RStudio connection
+
+## 2.0.1 (2025-11-24)
+
+### Refactor
+
+- **pre-workshop**: :recycle: need to connect to GitHub before installing r3
+
+## 2.0.0 (2025-11-21)
+
+### BREAKING CHANGE
+
+- Complete refactor of the pipeline session, split into
+two.
+ 
+I wanted to spend more time and focus on the targets side of things, so
+this refactor puts more focus into how to build up a pipeline at the
+design-level, not just code level. I also wanted to split it up since it
+was initially too long.
+
+### Refactor
+
+- **sessions**: :recycle: major refactor of pipelines session, split into two (#301)
+
 ## 1.3.4 (2025-11-17)
 
 ### Fix

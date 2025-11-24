@@ -35,24 +35,25 @@ about them are found as you work through this section.
     programs in @sec-install-programs. For some people, depending on
     their institution, this task can take the **longest amount of time**
     because you have to contact your IT to install these packages.
-4.  Install the necessary R packages in @sec-installing-r-packages.
-5.  Correctly set up Git on your computer in @sec-setup-git, if you
+4.  Setup and authenticate your computer with GitHub in
+    @sec-connect-github.
+5.  Install the necessary R packages in @sec-installing-r-packages.
+6.  Correctly set up Git on your computer in @sec-setup-git, if you
     haven't done this already from previous workshops. If you haven't
     used Git before, this task could take a while because of the
     reading.
-6.  Run a check with `r3::check_setup()` to see if everything works.
+7.  Run a check with `r3::check_setup()` to see if everything works.
     You'll later need to paste this output into the survey.
-7.  Connect your computer with GitHub in @sec-connect-github.
-8.  Create an R Project in @sec-create-project, along with the folder
+9.  Create an R Project in @sec-create-project, along with the folder
     and file setup and creating a Quarto file.
-9.  Write (well, mostly copy and paste) R code to download the data and
+10. Write (well, mostly copy and paste) R code to download the data and
     save it to your computer in @sec-download-data. This task will
     probably take up maybe 30-60 minutes depending on your interest in
     exploring the data.
-10. Run a check using `r3::check_project_setup_advanced()` to see that
+11. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output
     into the survey.
-11. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**.
+12. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**.
     This survey is pretty quick, maybe \~10 minutes.
 
 Check each section for exact details on completing these tasks.
