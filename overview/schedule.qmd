@@ -11,37 +11,37 @@ sessions interspersed with hands-on exercises and group work, using
 either a practice dataset or some other real-world dataset. There are
 some lectures given, mainly at the start and end of the workshop. The
 general schedule outline is shown in the below table. This is not a
-fixed schedule of the timings of each session---some may be shorter
-and others may be longer. Instead, it is meant to be an approximate
-guide and overview.
+fixed schedule of the timings of each session---some may be shorter and
+others may be longer. Instead, it is meant to be an approximate guide
+and overview.
 
 ::: panel-tabset
 ## Day 1 {.unnumbered}
 
 | Time | Session topic |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | 9:30 | {{< fa mug-hot >}} Arrival; Coffee and snacks |
 | 10:00 | {{< fa person-chalkboard >}} [Introduction to the workshop](/sessions/introduction.qmd) |
 | 10:30 | {{< fa laptop-code >}} [Dependency management for smoother collaboration (with short break)](/sessions/dependencies.qmd) |
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-one) |
-| 13:35 | {{< fa laptop-code >}} [Continue previous session](/sessions/dependencies.qmd) |
+| 13:30 | {{< fa laptop-code >}} [Setting up automatic data analysis pipelines](/sessions/pipelines-setup.qmd) |
 | 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/dependencies.qmd) |
+| 15:15 | {{< fa laptop-code >}} [Continuing previous session](/sessions/pipelines-setup.qmd) |
 | 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 
 ## Day 2 {.unnumbered}
 
 | Time | Session topic |
-|:---|:---|
-| 9:00 | {{< fa laptop-code >}} [Short review; Creating automatic analysis pipelines](/sessions/pipelines.qmd) |
+|:-----------------------------------|:-----------------------------------|
+| 9:00 | {{< fa laptop-code >}} [Short review; Using the pipeline to build up research output](/sessions/pipelines-outputs.qmd) |
 | 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
-| 10:45 | {{< fa laptop-code >}} [Continue previous session](/sessions/pipelines.qmd) |
+| 10:45 | {{< fa laptop-code >}} [Continue previous session](/sessions/pipelines-outputs.qmd) |
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-two) |
-| 13:35 | {{< fa laptop-code >}} [A general approach to doing statistical analyses](/sessions/stats-analyses-basic.qmd) |
+| 13:30 | {{< fa laptop-code >}} [A general approach to doing statistical analyses](/sessions/stats-analyses-basic.qmd) |
 | 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
 | 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/stats-analyses-basic.qmd) |
 | 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
@@ -49,7 +49,7 @@ guide and overview.
 ## Day 3 {.unnumbered}
 
 | Time | Session topic |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | 9:00 | {{< fa laptop-code >}} [Short review; Efficiently running many analyses at once](/sessions/stats-analyses-multiple.qmd) |
 | 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
 | 10:45 | {{< fa laptop-code >}} [Continue previous session](/sessions/stats-analyses-multiple.qmd) |
