@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.2 (2025-11-24)
+
+### Fix
+
+- **pre-workshop**: :bug: comment about Git and RStudio connection
+
 ## 2.0.1 (2025-11-24)
 
 ### Refactor
