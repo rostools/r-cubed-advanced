@@ -495,11 +495,26 @@ want a function that will take the data with different metabolites and
 also the different models. So we need a function that has at least two
 arguments: one for the data and one for the model formula.
 
-The new function should work like this and should have the same output
-as what we made above:
+The new function should work like this and should have the same output:
+
+```{r admin-fit-model-function}
+#| echo: false
+fit_model <- function(data, model) {
+  glm(
+    formula = model,
+    data = data,
+    family = binomial
+  ) |>
+    broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+    dplyr::mutate(
+      metabolite = unique(data$metabolite),
+      model = format(model),
+      .before = tidyselect::everything()
+    )
+}
+```
 
 ```{r exercise-fit-model-usage}
-#| eval: false
 lipidomics |>
   filter(metabolite == "Cholesterol") |>
   preprocess() |>
@@ -531,7 +546,6 @@ lipidomics |>
     and push to GitHub.
 
 ```{r solution-fit-model-function}
-#| eval: false
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 #' Fit the model to the data and get the results.
@@ -559,28 +573,80 @@ fit_model <- function(data, model) {
 
 {{< text_snippet sticky_up >}}
 
+## :technologist: Exercise: Create our `create_model_results()` pipeline function
+
+**Time: \~10 minutes.**
+
+Now that we have the `fit_model()` function, we can create the
+`create_model_results()` function that we designed earlier. We want this
+function to eventually output the model results for all our questions
+(metabolites and models), but to start, we'll set it up to work in the
+`{targets}` pipeline.
+
+Using the code we showed above as the starting point, convert this into
+our `create_model_results()` function that takes one argument: `data`.
+
+```{r exercise-create-model-results}
+#| eval: false
+lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  preprocess() |>
+  fit_model(class ~ value)
+```
+
+The new function should work like this:
+
 ```{r}
+#| eval: false
+create_model_results(lipidomics)
+```
+
+1.  Create a new function called `create_model_results()` that takes one
+    argument: `data`. Move the code above into this function.
+
+2.  Replace `lipidomics` with `data`.
+
+3.  Add Roxygen documentation to the function with
+    {{< var keybind.roxygen >}}.
+
+4.  Test the function with the code above to make sure it works as
+    expected. If it does, then cut and paste the function into the
+    `R/functions.R` file.
+
+5.  Run styler with {{< var keybind.styler >}}.
+
+6.  Commit the changes to the Git history with {{< var keybind.git >}}
+    and push to GitHub.
+
+```{r}
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Title
+#'
+#' @param data
+#'
+#' @returns
+#'
 create_model_results <- function(data) {
-  model <- class ~ value
   data |>
     filter(metabolite == "Cholesterol") |>
     preprocess() |>
-    fit_model(model)
+    fit_model(class ~ value)
 }
 
-lipidomics |>
-  create_model_results()
+# Used like:
+# create_model_results(lipidomics)
 ```
 
-(As exercise?)
+{{< text_snippet sticky_up >}}
 
-## :technologist: Exercise: Add a target for the model results
+## :technologist: Exercise: Add the results function as a target
 
 **Time: \~8 minutes.**
 
-Taking the function code from above, you'll next add the model results
-output to end of the `_targets.R` file, using the below scaffold as a
-guide.
+Taking the `create_model_results()` function from above, next step is to
+add it to the pipeline in the `_targets.R` file! Use the below scaffold
+as a guide.
 
 ``` r
 list(
@@ -592,14 +658,20 @@ list(
 )
 ```
 
-1.  Use `df_model_estimates` for the `name`.
-2.  Use the `calculate_estimates()` function in `command`, with
-    `lipidomics` as the argument.
-3.  Use {{< var keybind.styler >}} to style and than run
+1.  In the `name` argument, put `model_results`.
+
+2.  In the `command` argument, put in the `create_model_results()`
+    function with `lipidomics` as its argument.
+
+3.  Use {{< var keybind.styler >}} to style and then run
     `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to
-    see if the new target gets detected. If it does, than run
+    see if the new target gets detected. If it does, then run
     `targets::tar_make()` with {{< var keybind.targets-make >}}.
+
 4.  Commit the changes to the Git history with {{< var keybind.git >}}.
+
+You're now all ready to build up the statistical analysis more while
+continually testing them out in the pipeline! :tada:
 
 ```{r solution-target-model-estimates}
 #| eval: false
@@ -620,6 +692,14 @@ list(
 
 -   Before coding, design and sketch out how the data will flow through
     different actions that will eventually lead to the output you want.
+-   Analyses typically follow the same general steps: prepare the data,
+    fit the model, and extract the results.
+-   Apply functional programming techniques such as breaking down a task
+    into smaller pieces that work for one thing before scaling it up to
+    many things.
+-   As much as possible, functions should output a data frame because
+    they are easier to work with and work very well with `{tidyverse}`
+    functions and workflows.
 -   Use `{broom}` to `tidy()` the model output to get a data frame of
     the estimates and standard error for the variables in the model.
 
