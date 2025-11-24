@@ -127,6 +127,17 @@ model. We'll start with the simple model first as well as use
 
 ## Designing the analysis workflow
 
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Walkthrough these two diagrams verbally, highlighting each step along
+the way. Emphasize that we want the pipeline target right now to only
+create one model's results, but that we can expand it later to all
+metabolites and both models. We want to design the code in a way that
+allows flexibility without having to rewrite or change too much code
+later.
+:::
+
 What are some steps we could take, after what we learned in the previous
 sessions? Let's start high level first, at the pipeline level. We'll use
 a similar diagram as we used in @sec-pipelines-output, but instead focus
@@ -158,19 +169,26 @@ flowchart TB
     fit_model --> extract_results[Extract<br>results]
 ```
 
-## Checking the data
+## Checking and preparing the data
 
-Let's switch to working in the `doc/learning.qmd` file to create those
-logistic regression models. In the `doc/learning.qmd` file, on the
-bottom of the document create a new header and code chunk:
+Let's start to check, clean, and process the data in preparation for
+fitting the models to the data. Open up the `docs/learning.qmd` file,
+and go to on the bottom of the document create a new header and code
+chunk:
 
 ```` {.markdown filename="docs/learning.qmd"}
-## Checking the data
+## Preparing the data
 
 ```{{r}}
 
 ```
 ````
+
+We'll do a first basic check to confirm that we do in fact have one
+metabolite per person. There are 36 people, so we should have 36 rows
+per metabolite. We can `count()` that we have one row per `code`
+(person) and `metabolite`, and then filter for any counts greater than 1
+which will tell us if there are any duplicates:
 
 ```{r too-many-cholesterols}
 #| filename: "docs/learning.qmd"
@@ -179,20 +197,21 @@ lipidomics |>
   filter(n > 1)
 ```
 
-The second issue is that there seems to be a data entry error, since
-there are multiple `Cholesterol` values, while all other metabolites
-only have one:
+When we run this we see that, we do in fact have duplicate metabolites
+for `Cholesterol`. This is likely a data entry or smalling mistake
+error, but we don't know for sure. In an actual analysis, we should look
+into this, like checking the data documentation or contact the authors
+of the data. But for this workshop, we will instead summarise all the
+metabolites by their mean. In our case, only Cholesterol will actually
+be summarised while all the rest won't be affected.
 
-To actually fix the multiple cholesterol issue, we should look more into
-the data documentation or contact the authors. But for this workshop, we
-will summarise all the metabolites by mean. In this case, only
-Cholesterol will be summarised, all the rest values won't be impacted.
-So we'll summarise only the `value` column by grouping by all but that
-column, and use the `.groups = "keep"` argument to keep the grouping
-variables since we want them. We have to use `pick()` in order to select
+So we'll summarise only the `value` column by grouping by all the
+columns except for `value`. Then we can use the `.groups = "keep"`
+argument in `summarise()` to keep the grouping variables since we want
+them kept. We have to use `pick()` in `group_by()` in order to select
 all columns except `value`.
 
-```{r}
+```{r summarise-duplicates}
 #| filename: "docs/learning.qmd"
 lipidomics |>
   group_by(pick(-value)) |>
@@ -200,14 +219,24 @@ lipidomics |>
   ungroup()
 ```
 
-This issue impacts our other outputs, like the table and plot we made in
-the last sessions. So this fix we have here needs to be applied near the
-start of the pipeline. If we revise our diagram from before, focusing
-only on the start of it, we want it to look like this now:
+Since this issue affects our other outputs that we made before, like the
+table and plot we made in the last sessions. So we have to apply this
+fix right after reading in the data, so all other targets use the
+corrected data.
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Show this diagram and highlight that we need to add a new `clean()`
+function to the pipeline after reading in the data.
+:::
+
+If we revise our diagram from before, focusing only on the start of it,
+we want it to look like this now:
 
 ```{mermaid}
-%%| label: fig-stats-analysis-pipeline2
-%%| fig-cap: Targets in our pipeline that we've done in the last session and those we will do in this session.
+%%| label: fig-clean-after-read
+%%| fig-cap: Adding a `clean()`ing function in the target where we read in the data.
 %%| echo: false
 graph TB
     data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv() |><br>clean()"| lipidomics:::done
@@ -231,12 +260,25 @@ clean <- function(data) {
 clean(lipidomics)
 ```
 
-We'll add the Roxygen documents now:
+We'll add the Roxygen documents now with {{< var keybind.roxygen >}}:
 
 ```{r roxygen-clean-function}
+#| filename: "docs/learning.qmd"
+#' Do some cleaning to fix issues in the data.
+#'
+#' @param data The lipidomics data frame.
+#'
+#' @returns A data frame.
+#'
+clean <- function(data) {
+  data |>
+    dplyr::group_by(dplyr::pick(-value)) |>
+    dplyr::summarise(value = mean(value), .groups = "keep") |>
+    dplyr::ungroup()
+}
 ```
 
-Move it into the `R/functions.R` file and run styler with
+We'll move it into the `R/functions.R` file and run styler with
 {{< var keybind.styler >}}. Then open the `_targets.R` file and revise
 the `lipidomics` target to use the `clean()` function:
 
@@ -255,18 +297,19 @@ list(
 ```
 
 Then run `targets::tar_visnetwork()` using
-{{< var keybind.targets-vis >}} to see if the new target gets detected.
-If it does, than run `targets::tar_make()` with
-{{< var keybind.targets-make >}}.
+{{< var keybind.targets-vis >}} and see any outdated targets with
+{{< var keybind.targets-outdated >}} to see how things change. Next, run
+`targets::tar_make()` with {{< var keybind.targets-make >}}.
 
 Go back to the `docs/learning.qmd` file, restart R with
 {{< var keybind.restart-r >}} and then go to the bottom of the file and
-add a new code chunk.
+add a new code chunk with {{< var keybind.chunk >}}. Before continuing
+on, we'll first commit the changes we've made so far to the Git history
+with {{< var keybind.git >}} and push to GitHub.
 
 Since we're trying to build up functions to analyse *one model* first,
 we'll start with filtering for one metabolite and using a simple model.
-We'll use cholesterol again since it's easy to remember and the model
-will be `class ~ value` (the metabolite's `value` and T1D).
+Let's first take a look at the cleaned data before we do anything to it:
 
 ```{r}
 #| purl: true
@@ -275,6 +318,47 @@ lipidomics <- clean(lipidomics)
 ```
 
 ```{r}
+#| filename: "docs/learning.qmd"
+lipidomics
+```
+
+For now, pay attention to `class` and `value` since they will both be
+used in our first model. Since we are using a logistic regression model,
+`class` needs to be a factor variable (or converted to logical/binary).
+Right now it is a character variable, so we'll need to convert that. One
+of our questions is to see how the estimates between metabolites compare
+to each other. If we look at `value`, we'll see that the values between
+metabolites are quite different (as we also saw in our table and plot
+that we've already made). This means that we won't be able to compare
+the estimates because they are on different scales (or units). So we
+will also need to transform `value` so that the values are all on the
+same or similar scale.
+
+Since we'll first focus on cholesterol, let's filter the data for it:
+
+```{r}
+#| filename: "docs/learning.qmd"
+lipidomics |>
+  filter(metabolite == "Cholesterol")
+```
+
+When we run this, we now see 36 rows, one for each person. Now, let's
+mutate our data to convert `class` to a factor variable and scale
+`value` using the `scale()` function. The `scale()` function
+mean-centers and scales the values so that they have a mean of 0 and
+standard deviation of 1. This makes certain that each metabolite will
+have the same units and same distribution shape.
+
+::: callout-important
+`scale()` mean-centers and scales *all* values in a column. So if you
+scale before filtering for a metabolite, you will be scaling across all
+metabolites, which is not what we want. We want to scale only within
+each metabolite, so we need to filter first before scaling (or do some
+type of `group_by()`).
+:::
+
+```{r}
+#| filename: "docs/learning.qmd"
 lipidomics |>
   filter(metabolite == "Cholesterol") |>
   mutate(
@@ -283,26 +367,19 @@ lipidomics |>
   )
 ```
 
-```{r}
-glm(
-  formula = class ~ value + age + gender,
-  data = lipidomics,
-  family = binomial
-) |>
-  broom::tidy(exponentiate = TRUE)
+We now see that `class` is a factor variable and `value` has been
+scaled. Since we'll want to do this for each metabolite eventually,
+let's convert the `mutate()` code into a function that does this
+pre-processing for us, along with adding Roxygen documentation:
 
-model <- class ~ value + age + gender
-
-glm(
-  data = lipidomics,
-  formula = model,
-  family = binomial
-) |>
-  broom::tidy(exponentiate = TRUE) |>
-  dplyr::mutate(model = format(model))
-```
-
-```{r}
+```{r function-preprocess}
+#| filename: "docs/learning.qmd"
+#' Fix data to process it for model fitting.
+#'
+#' @param data The lipidomics data.
+#'
+#' @returns A data frame.
+#'
 preprocess <- function(data) {
   data |>
     mutate(
@@ -310,89 +387,41 @@ preprocess <- function(data) {
       value = scale(value)
     )
 }
-
-fit_model <- function(data, model) {
-  glm(
-    formula = model,
-    data = data,
-    family = binomial
-  ) |>
-    broom::tidy(exponentiate = TRUE) |>
-    # Converts ("formats") the formula to a string.
-    dplyr::mutate(
-      metabolite = unique(data$metabolite),
-      model = format(model),
-      .before = tidyselect::everything()
-    )
-}
-
-lipidomics |>
-  clean() |>
-  filter(metabolite == "Cholesterol") |>
-  preprocess() |>
-  fit_model(class ~ value)
-
-create_model_results <- function(data) {
-  model <- class ~ value
-  data |>
-    preprocess() |>
-    fit_model(model)
-}
-
-lipidomics |>
-  clean() |>
-  filter(metabolite == "Cholesterol") |>
-  create_model_results()
 ```
 
-(As exercise?)
-
-```{r}
-#| filename: Console
-lipidomics
-```
-
-The first issue, which isn't always an issue, depends heavily on the
-model type you use. Since we are using logistic regression, the model
-assumes that each row is an individual person. But our data is in the
-long format, so each person has multiple rows per metabolite. But let's
-confirm if each person has one value per metabolite:
-
-## Pre-processing before modeling
-
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-
-Verbally talk through the next few paragraphs, no code-along yet.
-:::
-
-How to make the results between metabolites comparable.
-
-Each metabolite has quite large differences in the values and ranges of
-data. Again, whether this is an issue depends on what we want to do, but
-in our research question we want to know how each metabolite influences
-T1D. In order to best interpret the results and compare across
-metabolites, we should ideally have all the metabolites with a similar
-range and distribution of values.
-
-There are many transformations we could use for the `lipidomics`
-dataset, but we will use normalization (which is a combination of
-mean-centering and scaling) for this workshop. This is useful because it
-makes each variable centered to zero at the mean and a value of 1 unit
-is translated to 1 standard deviation of the original distribution. This
-means we can more easily compare values between variables.
-
-Style using {{< var keybind.styler >}}, then commit the changes made to
+Now, cut and paste this function into the `R/functions.R` file, then run
+styler with {{< var keybind.styler >}}. Then, commit the the changes to
 the Git history with {{< var keybind.git >}}.
 
-## Fitting the model to the data {#sec-fitting-model}
+## Fitting the model to the data
 
-We've now defined the model we want to use and transformed the data. Now
-we can start putting them together and finally fit them to the data.
+Time to fit our model with our data. Go back to the `docs/learning.qmd`
+file and restart R with {{< var keybind.restart-r >}}. Then, at the
+bottom of the file, create a new code chunk with
+{{< var keybind.chunk >}}. Now is the time to code our model! We'll use
+the `glm()` function to fit a logistic regression model to the data.
+Since it is a logistic regression, we need to set the `family` argument
+to `binomial`. We'll first make a new data frame of just the
+preprocessed cholesterol data.
 
-To get this information in a tidier format, we use another function:
-`tidy()`. This function comes from the `{broom}` package. But we should
-explicitly add it to the dependencies:
+```{r fit-simple-model}
+#| filename: "docs/learning.qmd"
+just_cholesterol <- lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  preprocess()
+
+glm(
+  formula = class ~ value,
+  data = just_cholesterol,
+  family = binomial
+)
+```
+
+We now have our results from fitting the model! :tada: But... the output
+isn't exactly nice to work with. So let's convert it into a data frame
+using the `tidy()` function from the `{broom}` package. We'll need to
+add `{broom}` to our dependencies first though, which will be a build
+dependency by going to the Console:
 
 ```{r broom-to-deps}
 #| purl: true
@@ -401,47 +430,149 @@ explicitly add it to the dependencies:
 use_package("broom")
 ```
 
-Then, we add the `tidy()` function to our model using the `|>` pipe.
-Since we are using a logistic regression model, we need to consider how
-we want the estimates to be presented, probably depending on how we want
-to visualize our results. If we set `exponentiate = TRUE` in `tidy()`,
-the output estimates will be odds ratios, if we set
-`exponentiate = FALSE`, we will get the log odds ratios. Here we choose
-`exponentiate = TRUE`:
+Then, we can go back to the `docs/learning.qmd` file and add the
+`broom::tidy()` function to our model using the `|>` pipe. Because this
+is a logistic regression, we need to exponentiate the estimates to get
+the [odds ratio](https://en.wikipedia.org/wiki/Odds_ratio). Let's also
+add the confidence intervals by setting `conf.int = TRUE`:
 
 ```{r tidy-up-model-results}
 #| filename: "docs/learning.qmd"
-#| eval: false
-fitted_model |>
-  broom::tidy(exponentiate = TRUE)
+glm(
+  formula = class ~ value,
+  data = just_cholesterol,
+  family = binomial
+) |>
+  broom::tidy(exponentiate = TRUE, conf.int = TRUE)
 ```
 
-We now have a data frame of our model results!
+Much nicer! We now have a data frame with our results, including the
+estimates! We will talk about what these columns and values mean in a
+later session, for now, we just want to make sure the code runs and
+produces an output that we can work with.
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
+Something you might notice though is, how can we tell which metabolite
+these results are for? Or what the model was? If we put this into the
+pipeline and run it, then later use the results data frame in another
+part of our analysis (like for the plotting), how will we know what each
+row means? So let's add some information as columns. Let's add the
+metabolite name as well as the model formula as a string. We can do this
+using `mutate()` after `tidy()`. We'll use `.before` to put these new
+columns at the start of the data frame. We also use `format()` to
+convert the formula object into a string.
 
-Reinforce **not** to worry about interpreting the results, that is not
-the aim of this workshop.
-:::
+```{r add-context-model-results}
+#| filename: "docs/learning.qmd"
+glm(
+  formula = class ~ value,
+  data = just_cholesterol,
+  family = binomial
+) |>
+  broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+  mutate(
+    metabolite = unique(just_cholesterol$metabolite),
+    model = format(class ~ value),
+    .before = everything()
+  )
+```
 
-::: callout-important
-Another reminder, we **are not** interpreting this results. For this
-workshop, they are **not** important and can distract from the main
-purpose.
-:::
+Much better! We now have the metabolite name and model formula included
+in the results data frame, which will help us later on as it gives
+context to these numbers. :tada:
 
-Let's briefly cover what these columns and values mean. But first, open
-the Git interface and commit the changes you made with
-{{< var keybind.git >}}. Then push your changes up to GitHub.
+Alright, let's run styler with {{< var keybind.styler >}} to format the
+code nicely. Then, we'll commit the changes to the Git history with
+{{< var keybind.git >}} and push to GitHub. Now, it's your turn to
+convert the code above into a function!
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
+## :technologist: Exercise: Convert the model fitting code into a function
 
-If you want, you can go over these details briefly or in more detail,
-depending on how comfortable you are. Or you can get them to read it
-only.
-:::
+**Time: \~20 minutes.**
+
+Since we want to be able to fit different models to different
+metabolites, we need to make our model fitting code more flexible. We
+want a function that will take the data with different metabolites and
+also the different models. So we need a function that has at least two
+arguments: one for the data and one for the model formula.
+
+The new function should work like this and should have the same output
+as what we made above:
+
+```{r exercise-fit-model-usage}
+#| eval: false
+lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  preprocess() |>
+  fit_model(class ~ value)
+```
+
+1.  While in the `docs/learning.qmd` file, create a new function called
+    `fit_model()` that takes two arguments: `data` and `model`. Move the
+    code that we wrote for fitting the model into this function.
+
+2.  Replace the two times we use the formula `class ~ value` with the
+    `model` argument.
+
+3.  Replace the two `just_cholesterol` used with `data`.
+
+4.  Append the `packagename::` prefix to the functions inside the
+    function.
+
+5.  Add Roxygen documentation to the function with
+    {{< var keybind.roxygen >}}.
+
+6.  Test the function with the code above to make sure it works as
+    expected. If it does, then cut and paste the function into the
+    `R/functions.R` file.
+
+7.  Run styler with {{< var keybind.styler >}}.
+
+8.  Commit the changes to the Git history with {{< var keybind.git >}}
+    and push to GitHub.
+
+```{r solution-fit-model-function}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#' Fit the model to the data and get the results.
+#'
+#' @param data The data to fit.
+#' @param model The formula.
+#'
+#' @returns A data frame of the results.
+#'
+fit_model <- function(data, model) {
+  glm(
+    formula = model,
+    data = data,
+    family = binomial
+  ) |>
+    broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+    # Converts ("formats") the formula to a string.
+    dplyr::mutate(
+      metabolite = unique(data$metabolite),
+      model = format(model),
+      .before = tidyselect::everything()
+    )
+}
+```
+
+{{< text_snippet sticky_up >}}
+
+```{r}
+create_model_results <- function(data) {
+  model <- class ~ value
+  data |>
+    filter(metabolite == "Cholesterol") |>
+    preprocess() |>
+    fit_model(model)
+}
+
+lipidomics |>
+  create_model_results()
+```
+
+(As exercise?)
 
 ## :technologist: Exercise: Add a target for the model results
 
@@ -477,96 +608,19 @@ list(
 list(
   # ...,
   tar_target(
-    name = df_model_estimates,
-    command = calculate_estimates(lipidomics)
+    name = model_results,
+    command = create_model_results(lipidomics)
   )
 )
 ```
-
-```{r purl-only-model-estimates-to-targets}
-#| eval: false
-#| echo: false
-#| purl: true
-update_target_calc_est <- "
-  ),
-  list(
-    name = df_model_estimates,
-    command = calculate_estimates(lipidomics)
-  )
-)
-"
-# print_lines("_targets.R")
-revise_by_line_num(
-  path = "_targets.R",
-  insert_text = update_target_calc_est,
-  # Modify these numbers.
-  remove_original_lines = -30,
-  insert_at_line = 31
-)
-targets::tar_visnetwork()
-targets::tar_make()
-git_ci("_targets.R", "Update targets with model results")
-```
-
-{{< text_snippet sticky_up >}}
-
-## :book: Reading task: Understanding the model output
-
-**Time: \~10 minutes.**
-
-Let's explain this output a bit, each column at a time:
-
--   `term`: If you recall the formula
-    $class = metabolite + age + gender$, you'll see all but the `class`
-    object there in the column `term`. This column contains all the
-    predictor variables, including the intercept (from the original
-    model).
-
--   `estimate`: This column is the "coefficient" linked to the term in
-    the model. The final mathematical model here looks like:
-
-    $$ \displaylines{class = Intercept + (metabolite\_estimate \times metabolite\_value) + \\ (gender\_estimate \times gender\_value) + ...}$$
-
-    In our example, we chose to get the odds ratios. In the mathematical
-    model above, the estimate is represented as the log odds ratio or
-    beta coefficient - the constant value you multiply the value of the
-    term with. Interpreting each of these values can be quite tricky and
-    can take a surprising amount of time to conceptually break down, so
-    we won't do that here, since this isn't a statistics workshop. The
-    only thing you need to understand here is that the `estimate` is the
-    value that tells us the *magnitude* of association between the term
-    and `class`. This value, along with the `std.error` are the most
-    important values we can get from the model and we will be using them
-    when presenting the results.
-
--   `std.error`: This is the uncertainty in the `estimate` value. A
-    higher value means there is less certainty in the value of the
-    `estimate`.
-
--   `statistic`: This value is used to, essentially, calculate the
-    `p.value`.
-
--   `p.value`: This is the infamous value we researchers go crazy for
-    and think nothing else of. While there is a lot of attention to this
-    single value, we tend to give it more attention than warranted. The
-    interpretation of the p-value is even more difficult than the
-    `estimate` and again, we won't cover this in this workshop. We won't
-    be using this value at all in presenting the results.
 
 {{< text_snippet sticky_up >}}
 
 ## Summary
 
--   Create research questions that (ideally) are structured in a way to
-    mimic how the statistical analysis will be done, preferably in a
-    "formula" style like $y = x1 + x2 + ... + error$ and in a diagram
-    style with links connecting variables.
--   Statistical analyses, while requiring some trial and error, are
-    surprisingly structured in the workflow and steps taken. Use this
-    structure to help guide you in completing tasks related to running
-    analyses.
--   Use `{broom}` to `tidy()` the model output, extracted using
-    `extract_fit_parsnip()` to get a data frame of the estimates and
-    standard error for the variables in the model.
+-   Before coding, design and sketch out how the data will flow through
+    different actions that will eventually lead to the output you want.
+-   Use `{broom}` to `tidy()` the model output to get a data frame of
+    the estimates and standard error for the variables in the model.
 
 {{< include /includes/_code-appendix.qmd >}}

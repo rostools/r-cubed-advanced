@@ -1,3 +1,8 @@
+---
+execute:
+    eval: false
+---
+
 # Efficiently running many analyses at once {#sec-stats-analyses-multiple}
 
 ```{r setup}
@@ -10,12 +15,6 @@ library(tidyverse)
 library(purrr)
 library(tidymodels)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
-lipidomics_wide <- lipidomics |>
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) |>
-  metabolites_to_wider()
-# lipidomics |>
-#   calculate_estimates() |>
-#   readr::write_csv(here::here("data/model-estimates.csv"))
 ```
 
 ```{mermaid}
@@ -51,6 +50,10 @@ complex actions and run large numbers of statistical analyses. This
 session will be about using functional programming in the context of
 statistical analysis.
 
+
+split (only works with small to medium sized data, e.g. when your data
+can't fit into your computers memory),
+
 ## Learning objectives
 
 {{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
@@ -83,7 +86,7 @@ that visualizes functionals like `map()`.
 :::
 
 There are many ways that you can run a model on each metabolite based on
-the `lipidomics_wide` dataset. However, these types of
+the `lipidomics` dataset. However, these types of
 "split-apply-combine" tasks are (usually) best done using data in the
 long form. So we'll start with the original `lipidomics` dataset. Create
 a header and code chunk at the end of the `docs/learning.qmd` file:
@@ -96,16 +99,8 @@ a header and code chunk at the end of the `docs/learning.qmd` file:
 ```
 ````
 
-The first thing we want to do is convert the metabolite names into snake
-case:
-
-```{r chain-col-to-snakecase}
-#| filename: "docs/learning.qmd"
-lipidomics |>
-  column_values_to_snake_case(metabolite)
-```
-
-The next step is to split the data up. We could use `group_by()`, but in
+The next step is to split the data up. While `group_by()` *might* work, it isn't powerful
+enough for what we want to do.
 order to make the most use of `{purrr}` functions like `map()`, we will
 use `group_split()` to convert the data frame into a set of lists. Let's
 first add `{purrr}` as a dependency:
@@ -135,38 +130,47 @@ three.
 #| eval: false
 #| filename: "docs/learning.qmd"
 lipidomics |>
-  column_values_to_snake_case(metabolite) |>
   group_split(metabolite)
 ```
 
 ```{r}
 #| echo: false
 lipidomics |>
-  column_values_to_snake_case(metabolite) |>
   group_split(metabolite) |>
   head(3)
 ```
 
 Remember that logistic regression models need each row to be a single
-person, so we'll use the functional `map()` to apply our custom function
-`metabolites_to_wider()` on each of the split list items (only showing
-the first three):
+person
 
 ```{r chain-map-to-wider}
 #| eval: false
 #| filename: "docs/learning.qmd"
 lipidomics |>
-  column_values_to_snake_case(metabolite) |>
-  group_split(metabolite) |>
-  map(metabolites_to_wider)
+  group_split(metabolite)
 ```
 
 ```{r}
 #| echo: false
+fit_all_models <- function(data) {
+  list(
+    class ~ value,
+    class ~ value + age + gender
+  ) |>
+    map(\(model) fit_model(data, model = model))
+}
+
 lipidomics |>
-  column_values_to_snake_case(metabolite) |>
+  filter(metabolite == "Cholesterol") |>
+  fit_all_models()
+
+
+lipidomics |>
+  group_split(metabolite)
+
+lipidomics |>
   group_split(metabolite) |>
-  map(metabolites_to_wider) |>
+  map(\(data) fit_all_models(data, models)) |>
   head(3)
 ```
 
@@ -179,37 +183,6 @@ this. Convert it into a function, add the Roxygen documentation using
 into the `R/functions.R` file, and then `source()` the file with
 {{< var keybind.source >}}.
 
-```{r new-function-split-by-metabolite}
-#| filename: "R/functions.R"
-#' Convert the long form dataset into a list of wide form data frames.
-#'
-#' @param data The lipidomics dataset.
-#'
-#' @return A list of data frames.
-#'
-split_by_metabolite <- function(data) {
-  data |>
-    column_values_to_snake_case(metabolite) |>
-    dplyr::group_split(metabolite) |>
-    purrr::map(metabolites_to_wider)
-}
-```
-
-In the `docs/learning.qmd`, use the new function in the code:
-
-```{r split-by-metabolite}
-#| filename: "docs/learning.qmd"
-#| eval: false
-lipidomics |>
-  split_by_metabolite()
-```
-
-```{r}
-#| echo: false
-lipidomics |>
-  split_by_metabolite() |>
-  head(3)
-```
 
 Like we did with the `metabolite_to_wider()`, we need to pipe the output
 into another `map()` function that has a custom function running the
@@ -222,25 +195,6 @@ and using `starts_with("metabolite_")` within the
 move into the `R/functions.R` file, and then `source()` the file with
 {{< var keybind.source >}}.
 
-```{r new-function-generate-model-results}
-#| filename: "R/functions.R"
-#' Generate the results of a model
-#'
-#' @param data The lipidomics dataset.
-#'
-#' @return A data frame.
-#'
-generate_model_results <- function(data) {
-  create_model_workflow(
-    parsnip::logistic_reg() |>
-      parsnip::set_engine("glm"),
-    data |>
-      create_recipe_spec(tidyselect::starts_with("metabolite_"))
-  ) |>
-    parsnip::fit(data) |>
-    tidy_model_output()
-}
-```
 
 Then we add it to the end of the pipe, but using `map()` and
 `list_rbind()` to convert to a data frame:
@@ -248,29 +202,13 @@ Then we add it to the end of the pipe, but using `map()` and
 ```{r chain-generate-model-results}
 #| filename: "docs/learning.qmd"
 lipidomics |>
-  split_by_metabolite() |>
+  group() |>
   map(generate_model_results) |>
   list_rbind()
 ```
 
-Since we are only interested in the model results for the metabolites,
-let's keep only the `term` rows that are metabolites using `filter()`
-and `str_detect()`.
 
-```{r chain-filter-terms}
-#| filename: "docs/learning.qmd"
-model_estimates <- lipidomics |>
-  split_by_metabolite() |>
-  map(generate_model_results) |>
-  list_rbind() |>
-  filter(str_detect(term, "metabolite_"))
-model_estimates
-```
-
-Wow! We're basically at our first `{targets}` output! Before continuing,
-do an exercise to convert the code into a function.
-
-## :technologist: Exercise: Create a function to calculate the model estimates
+## :technologist: Exercise: Update the function to calculate the model estimates
 
 **Time: \~10 minutes.**
 
@@ -318,210 +256,7 @@ calculate_estimates <- function(data) {
 
 {{< text_snippet sticky_up >}}
 
-## Improve the readability of the model output
 
-We now have a function that calculates the model estimates, but it
-outputs the variable names in snake case. While this is a good practice
-for programming, it is not the most aesthetic for reporting. Let's add
-back the original variable names, rather than the snake case version.
-Since the original variable still exists in our `lipidomics` dataset, we
-can join it to the `model_estimates` object with `right_join()`, along
-with a few other minor changes. First, we'll `select()` only the
-`metabolite` and then create a duplicate column of `metabolite` called
-`term` (to match the `model_estimates`) using `mutate()`.
-
-```{r duplicate-original-vars}
-#| filename: "docs/learning.qmd"
-lipidomics |>
-  select(metabolite) |>
-  mutate(term = metabolite)
-```
-
-Right after that we will use our custom `column_values_to_snake_case()`
-function on the `term` column so it matches the `term` variable in the
-model estimates data frame.
-
-```{r dup-column-to-snakecase}
-#| filename: "docs/learning.qmd"
-lipidomics |>
-  select(metabolite) |>
-  mutate(term = metabolite) |>
-  column_values_to_snake_case(term)
-```
-
-We can see that we are missing the `metabolite_` text before each snake
-case'd name, so we can add that with `mutate()` and `str_c()`:
-
-```{r dup-column-append-metabolite}
-#| filename: "docs/learning.qmd"
-lipidomics |>
-  select(metabolite) |>
-  mutate(term = metabolite) |>
-  column_values_to_snake_case(term) |>
-  mutate(term = str_c("metabolite_", term))
-```
-
-There are 504 rows, but we only need the unique values of `term` and
-`metabolite`, which we can get with `distinct()`. Because we will use
-`distinct()`, we don't need to use `select()` as well, since it keeps
-only the `metabolite` and `term` variables.
-
-```{r dup-column-distinct}
-#| filename: "docs/learning.qmd"
-lipidomics |>
-  mutate(term = metabolite) |>
-  column_values_to_snake_case(term) |>
-  mutate(term = str_c("metabolite_", term)) |>
-  distinct(term, metabolite)
-```
-
-The last step is to `right_join()` to the estimates made from the
-`calculate_estimates()`:
-
-```{r dup-column-full-join}
-#| filename: "docs/learning.qmd"
-lipidomics |>
-  mutate(term = metabolite) |>
-  column_values_to_snake_case(term) |>
-  mutate(term = str_c("metabolite_", term)) |>
-  distinct(term, metabolite) |>
-  right_join(calculate_estimates(lipidomics), by = "term")
-```
-
-Awesome :smile: Now let's bring this code into the
-`calculate_estimates()` function we created. Then afterwards we can add
-our first `{targets}` output!
-
-## :technologist: Exercise: Incorporate additional code into an existing function
-
-**Time: \~12 minutes.**
-
-Taking the code above, we'll insert it into the `calculate_estimates()`
-function so it has a nicer looking and more readable output. While in
-the `R/functions.R`, go to the `calculate_estimates()` function. Use
-this scaffold to help with the tasks below for adding more code to the
-`calculate_estimates()` function:
-
-``` r
-calculate_estimates <- function(data) {
-  # 1. Assign the output to a object.
-  ___  <- data |>
-    split_by_metabolite() |>
-    purrr::map(generate_model_results) |>
-    purrr::list_rbind() |>
-    dplyr::filter(stringr::str_detect(term, "metabolite_"))
-
-  data |>
-    # 2. Add the code we created above.
-    ___ |>
-    # 3. Include the object from the first step here.
-    right_join(___, by = "term")
-}
-```
-
-1.  Assign the output of the first chunk of code that creates the model
-    estimates and name the new variable `model_estimates`.
-2.  Paste the code we created into the function, so that the `data`
-    variable pipes into it.
-3.  Add `model_estimates` to the `right_join()` function.
-4.  Add `dplyr::` and `stringr::` before their respective functions.
-5.  Use {{< var keybind.styler >}} to style the file to fix up the code.
-6.  Commit the changes you've made so far with {{< var keybind.git >}}.
-
-```{r solution-add-new-code-to-calculate-estimates}
-#| eval: false
-#| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-#' Calculate the estimates for the model for each metabolite.
-#'
-#' @param data The lipidomics dataset.
-#'
-#' @return A data frame.
-#'
-calculate_estimates <- function(data) {
-  model_estimates <- data |>
-    split_by_metabolite() |>
-    purrr::map(generate_model_results) |>
-    purrr::list_rbind() |>
-    dplyr::filter(stringr::str_detect(term, "metabolite_"))
-
-  data |>
-    dplyr::mutate(term = metabolite) |>
-    column_values_to_snake_case(term) |>
-    dplyr::mutate(term = stringr::str_c("metabolite_", term)) |>
-    dplyr::distinct(term, metabolite) |>
-    dplyr::right_join(model_estimates, by = "term")
-}
-```
-
-{{< text_snippet sticky_up >}}
-
-## :technologist: Exercise: Add a target for the model results
-
-**Time: \~8 minutes.**
-
-Taking the function code from above, you'll next add the model results
-output to end of the `_targets.R` file, using the below scaffold as a
-guide.
-
-``` r
-list(
-  ...,
-  tar_target(
-    name = ___,
-    command = ___(___)
-  )
-)
-```
-
-1.  Use `df_model_estimates` for the `name`.
-2.  Use the `calculate_estimates()` function in `command`, with
-    `lipidomics` as the argument.
-3.  Use {{< var keybind.styler >}} to style and than run
-    `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to
-    see if the new target gets detected. If it does, than run
-    `targets::tar_make()` with {{< var keybind.targets-make >}}.
-4.  Commit the changes to the Git history with {{< var keybind.git >}}.
-
-```{r solution-target-model-estimates}
-#| eval: false
-#| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-list(
-  # ...,
-  tar_target(
-    name = df_model_estimates,
-    command = calculate_estimates(lipidomics)
-  )
-)
-```
-
-```{r purl-only-model-estimates-to-targets}
-#| eval: false
-#| echo: false
-#| purl: true
-update_target_calc_est <- "
-  ),
-  list(
-    name = df_model_estimates,
-    command = calculate_estimates(lipidomics)
-  )
-)
-"
-# print_lines("_targets.R")
-revise_by_line_num(
-  path = "_targets.R",
-  insert_text = update_target_calc_est,
-  # Modify these numbers.
-  remove_original_lines = -30,
-  insert_at_line = 31
-)
-targets::tar_visnetwork()
-targets::tar_make()
-git_ci("_targets.R", "Update targets with model results")
-```
-
-{{< text_snippet sticky_up >}}
 
 ## Visualizing the model estimates
 
@@ -734,49 +469,52 @@ git_ci("_targets", "Add plot estimates target")
 
 {{< text_snippet sticky_up >}}
 
-## Combine all the output into the Quarto file
+## :book: Reading task: Understanding the model output
 
-Now its' time to add the model results and plots to the
-`docs/learning.qmd` file. Open it up and create another code chunk at
-the bottom of the file. Like we did with the other outputs (like the
-figures), we'll use `tar_read()` to reference the image path.
+**Time: \~10 minutes.**
 
-```{{r}}
-tar_read(fig_model_estimates)
-```
+Let's explain this output a bit, each column at a time:
 
-Run `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}},
-then `targets::tar_make()` with {{< var keybind.targets-make >}}. We now
-have the report rendered to an HTML file! If you open it up in a
-browser, we can see the figures added to it. Before ending, commit the
-changes to the Git history with {{< var keybind.git >}}.
+-   `term`: If you recall the formula
+    $class = metabolite + age + gender$, you'll see all but the `class`
+    object there in the column `term`. This column contains all the
+    predictor variables, including the intercept (from the original
+    model).
 
-<!-- TODO: Check that the output is rendered to html. Don't forget the TODO -->
+-   `estimate`: This column is the "coefficient" linked to the term in
+    the model. The final mathematical model here looks like:
 
-```{r purl-only-tar-read-in-quarto}
-#| eval: false
-#| echo: false
-#| purl: true
-plot_estimates_md_text <- c(
-  "",
-  "```{{r}}",
-  "tar_read(fig_model_estimates)",
-  "```",
-  ""
-)
+    $$ \displaylines{class = Intercept + (metabolite\_estimate \times metabolite\_value) + \\ (gender\_estimate \times gender\_value) + ...}$$
 
-print_file("docs/learning.qmd")
-revise_by_line_num(
-  "docs/learning.qmd",
-  plot_estimates_md_text,
-  # Update numbers
-  remove_original_lines = -40,
-  insert_at_line = 39
-)
-git_ci("docs/learning.qmd", "Add code for model estimates to report.")
-targets::tar_visnetwork()
-targets::tar_make()
-```
+    In our example, we chose to get the odds ratios. In the mathematical
+    model above, the estimate is represented as the log odds ratio or
+    beta coefficient - the constant value you multiply the value of the
+    term with. Interpreting each of these values can be quite tricky and
+    can take a surprising amount of time to conceptually break down, so
+    we won't do that here, since this isn't a statistics workshop. The
+    only thing you need to understand here is that the `estimate` is the
+    value that tells us the *magnitude* of association between the term
+    and `class`. This value, along with the `std.error` are the most
+    important values we can get from the model and we will be using them
+    when presenting the results.
+
+-   `std.error`: This is the uncertainty in the `estimate` value. A
+    higher value means there is less certainty in the value of the
+    `estimate`.
+
+-   `statistic`: This value is used to, essentially, calculate the
+    `p.value`.
+
+-   `p.value`: This is the infamous value we researchers go crazy for
+    and think nothing else of. While there is a lot of attention to this
+    single value, we tend to give it more attention than warranted. The
+    interpretation of the p-value is even more difficult than the
+    `estimate` and again, we won't cover this in this workshop. We won't
+    be using this value at all in presenting the results.
+
+{{< text_snippet sticky_up >}}
+
+
 
 ## Summary
 
