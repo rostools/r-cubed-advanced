@@ -15,7 +15,7 @@ extract_chunks <- function() {
     "sessions/dependencies.qmd",
     "sessions/pipelines-setup.qmd",
     "sessions/pipelines-output.qmd",
-    "sessions/stats-analyses-basic.qmd",
+    "sessions/build-one-model.qmd",
     "sessions/stats-analyses-multiple.qmd"
   ))
 

@@ -1,4 +1,4 @@
-# A general approach to doing statistical analyses {#sec-stats-analyses-basic}
+# Design your analysis: Build up one model first {#sec-build-one-model}
 
 ```{r setup}
 #| include: false
@@ -21,7 +21,7 @@ here to run many models at once.
 
 ## Learning objectives
 
-{{< include /includes/objectives/_stats-analyses-basic.qmd >}}
+{{< include /includes/objectives/_build-one-model.qmd >}}
 
 Things we will *not* cover:
 

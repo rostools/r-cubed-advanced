@@ -41,10 +41,10 @@ and overview.
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-two) |
-| 13:35 | {{< fa laptop-code >}} [What are statistical models?](/sessions/stats-modeling.qmd) |
-| 14:15 | {{< fa laptop-code >}} [Design your analysis: Build up one model first](/sessions/stats-analyses-basic.qmd) |
+| 13:30 | {{< fa laptop-code >}} [What are statistical models?](/sessions/stats-modeling.qmd) |
+| 14:15 | {{< fa laptop-code >}} [Design your analysis: Build up one model first](/sessions/build-one-model.qmd) |
 | 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/stats-analyses-basic.qmd) |
+| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/build-one-model.qmd) |
 | 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 
 ## Day 3 {.unnumbered}

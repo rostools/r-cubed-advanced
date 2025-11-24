@@ -45,8 +45,8 @@ in order:
     pipelines](/sessions/pipelines-setup.qmd)
 -   [Creating automatic analysis
     pipelines](/sessions/pipelines-outputs.qmd)
--   [A general approach to doing statistical
-    analyses](/sessions/stats-analyses-basic.qmd)
+-   [Design your analysis: Build up one model
+    first](/sessions/build-one-model.qmd)
 -   [Efficiently running many analyses at
     once](/sessions/stats-analyses-multiple.qmd)
 -   [Concluding remarks](/sessions/conclusion.qmd)
@@ -77,10 +77,10 @@ output**](/sessions/pipelines-outputs.qmd)
 
 {{< include /includes/objectives/_pipelines-output.qmd >}}
 
-[**A general approach to doing statistical
-analyses**](/sessions/stats-analyses-basic.qmd)
+[**Design your analysis: Build up one model
+first**](/sessions/build-one-model.qmd)
 
-{{< include /includes/objectives/_stats-analyses-basic.qmd >}}
+{{< include /includes/objectives/_build-one-model.qmd >}}
 
 [**Efficiently running many analyses at
 once**](/sessions/stats-analyses-multiple.qmd)
