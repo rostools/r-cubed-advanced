@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.3 (2025-11-24)
+
+### Fix
+
+- **pre-workshop**: :bug: clarify to re-run `gitcreds_set()` again after project creation
+
 ## 2.0.2 (2025-11-24)
 
 ### Fix
