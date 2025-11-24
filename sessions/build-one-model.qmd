@@ -262,7 +262,7 @@ clean(lipidomics)
 
 We'll add the Roxygen documents now with {{< var keybind.roxygen >}}:
 
-```{r roxygen-clean-function}
+```{r roxygen-clean-new-function}
 #| filename: "docs/learning.qmd"
 #' Do some cleaning to fix issues in the data.
 #'
@@ -372,7 +372,7 @@ scaled. Since we'll want to do this for each metabolite eventually,
 let's convert the `mutate()` code into a function that does this
 pre-processing for us, along with adding Roxygen documentation:
 
-```{r function-preprocess}
+```{r preprocess-new-function}
 #| filename: "docs/learning.qmd"
 #' Fix data to process it for model fitting.
 #'
@@ -545,7 +545,7 @@ lipidomics |>
 8.  Commit the changes to the Git history with {{< var keybind.git >}}
     and push to GitHub.
 
-```{r solution-fit-model-function}
+```{r solution-fit-model-new-function}
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 #' Fit the model to the data and get the results.
@@ -618,14 +618,14 @@ create_model_results(lipidomics)
 6.  Commit the changes to the Git history with {{< var keybind.git >}}
     and push to GitHub.
 
-```{r}
+```{r solution-create-model-results-new-function}
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
-#' Title
+#' Create model results for report.
 #'
-#' @param data
+#' @param data The lipidomics data.
 #'
-#' @returns
+#' @returns A data frame of model results.
 #'
 create_model_results <- function(data) {
   data |>
