@@ -34,7 +34,7 @@ within it.
 
 - Complete refactor of the pipeline session, split into
 two.
- 
+
 I wanted to spend more time and focus on the targets side of things, so
 this refactor puts more focus into how to build up a pipeline at the
 design-level, not just code level. I also wanted to split it up since it
