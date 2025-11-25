@@ -16,7 +16,7 @@ extract_chunks <- function() {
     "sessions/pipelines-setup.qmd",
     "sessions/pipelines-output.qmd",
     "sessions/build-one-model.qmd",
-    "sessions/stats-analyses-multiple.qmd"
+    "sessions/many-models.qmd"
   ))
 
   r_files <- fs::path_temp(fs::path_file(qmd_files))

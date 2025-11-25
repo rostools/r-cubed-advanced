@@ -48,7 +48,7 @@ in order:
 -   [Design your analysis: Build up one model
     first](/sessions/build-one-model.qmd)
 -   [Extend your analysis to run many
-    models](/sessions/stats-analyses-multiple.qmd)
+    models](/sessions/many-models.qmd)
 -   [Concluding remarks](/sessions/conclusion.qmd)
 
 ## Learning outcome and objectives
@@ -88,9 +88,9 @@ first**](/sessions/build-one-model.qmd)
 {{< include /includes/objectives/_build-one-model.qmd >}}
 
 [**Extend your analysis to run many
-models**](/sessions/stats-analyses-multiple.qmd)
+models**](/sessions/many-models.qmd)
 
-{{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
+{{< include /includes/objectives/_many-models.qmd >}}
 
 And we **will not** learn:
 

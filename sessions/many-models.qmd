@@ -1,4 +1,4 @@
-# Extend your analysis to run many models {#sec-stats-analyses-multiple}
+# Extend your analysis to run many models {#sec-many-models}
 
 ```{r setup}
 #| include: false
@@ -27,7 +27,7 @@ analysis.
 
 ## Learning objectives
 
-{{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
+{{< include /includes/objectives/_many-models.qmd >}}
 
 ## :book: Reading task: Apply logistic regression to each metabolite with functional programming
 
