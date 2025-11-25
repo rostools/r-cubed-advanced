@@ -44,6 +44,7 @@ book:
         - sessions/dependencies.qmd
         - sessions/pipelines-setup.qmd
         - sessions/pipelines-outputs.qmd
+        - sessions/stats-modeling.qmd
         - sessions/build-one-model.qmd
         - sessions/many-models.qmd
         - sessions/project-work.qmd

@@ -358,7 +358,7 @@ different coding approaches and challenges:
 
 A graphical representation of this theoretical model could be:
 
-```{mermaid fig-model-research-question}
+```{mermaid fig-model-research-question-simple}
 %%| fig-cap: A simple relationship between a given metabolite and T1D status.
 %%| echo: false
 %%| eval: true
@@ -366,7 +366,9 @@ graph LR
     Metabolite --> T1D
 ```
 
-```{mermaid fig-model-research-question}
+And for the more complex model:
+
+```{mermaid fig-model-research-question-complex}
 %%| fig-cap: A simple relationship between a given metabolite and T1D status, controlling for age and gender.
 %%| echo: false
 %%| eval: true

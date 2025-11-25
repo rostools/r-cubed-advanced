@@ -244,7 +244,7 @@ Woohoo! We have a function that fits all models to a given data frame.
 We won't go over what each column and row means just yet, we'll do that
 in the next session.
 
-Alright, let's style this file by using {{< var keybind.style >}} before
+Alright, let's style this file by using {{< var keybind.styler >}} before
 it's time for you to convert this into a function. Commit this to the
 Git history with {{< var keybind.git >}} and then push to GitHub.
 
@@ -323,7 +323,7 @@ all models:
     time to see what it does and how it looks.
 
 4.  Once you have the code working, style the file with
-    {{< var keybind.style >}}. Commit your changes with
+    {{< var keybind.styler >}}. Commit your changes with
     {{< var keybind.git >}} and push to GitHub.
 
 ```{r solution-multiple-models-via-map}
@@ -365,23 +365,23 @@ create_model_results <- function(data) {
     `map()`, and `list_rbind()` to run all the models for all
     metabolites.
 
-2.  Style the file with {{< var keybind.style >}}.
+2.  Style the file with {{< var keybind.styler >}}.
 
 3.  Once you've updated the function, check the targets visualization
-    with {{< var keybind.targets-viz >}} to see how the pipeline has
+    with {{< var keybind.targets-vis >}} to see how the pipeline has
     been changed. Check out the outdated targets with
     {{< var keybind.targets-outdated >}}.
 
-4.  Then, run the pipeline with {{< var keybind.targets-run >}} to get
+4.  Then, run the pipeline with {{< var keybind.targets-make >}} to get
     the updated model results.
 
 5.  Open the `docs/learning.qmd` file and go to the bottom of the file.
     Create a new header there called `## Appendix` along with a code
     chunk that outputs the `model_results` target with `tar_read()`.
 
-6.  Check the targets pipeline with {{< var keybind.targets-viz >}}
+6.  Check the targets pipeline with {{< var keybind.targets-vis >}}
     again to see what has changed. Then run the pipeline again with
-    {{< var keybind.targets-run >}}.
+    {{< var keybind.targets-make >}}.
 
 ```{r}
 #| code-fold: true

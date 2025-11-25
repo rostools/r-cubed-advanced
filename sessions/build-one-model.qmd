@@ -140,7 +140,7 @@ later.
 
 What are some steps we could take, after what we learned in the previous
 sessions? Let's start high level first, at the pipeline level. We'll use
-a similar diagram as we used in @sec-pipelines-output, but instead focus
+a similar diagram as we used in @sec-pipelines-outputs, but instead focus
 on just the modeling part.
 
 ```{mermaid}
