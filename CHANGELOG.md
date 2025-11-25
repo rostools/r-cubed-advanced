@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.4 (2025-11-25)
+
+### Refactor
+
+- **sessions**: major update, split stats into three, remove tidymodels (#304)
+
 ## 2.0.3 (2025-11-24)
 
 ### Fix
