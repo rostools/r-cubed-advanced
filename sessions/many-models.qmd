@@ -1,0 +1,421 @@
+# Extend your analysis to run many models {#sec-many-models}
+
+```{r setup}
+#| include: false
+source(here::here("R/functions.R"))
+extract_functions_from_qmd()
+source(here::here("R/project-functions.R"))
+library(tidyverse)
+lipidomics <- read_csv(here::here("data/lipidomics.csv")) |>
+  clean()
+```
+
+{{< text_snippet review_note >}}
+
+Rarely do we run only one single statistical model to answer one single
+question, especially in our data-overflowing environments. An initial
+instinct when faced with this task might be to copy-and-paste the same
+code used for one analysis to another, then slightly modify the code
+each time. Or, if you have heard of loops or used them in other
+programming languages, you might think to create a loop. Thankfully R
+uses something more powerful and expressive than either of those
+approaches, and that is functional programming. Using functional
+programming concepts, we can use little code to express complex actions
+and run large numbers of statistical analyses. This session will be
+about using functional programming in the context of statistical
+analysis.
+
+## Learning objectives
+
+{{< include /includes/objectives/_many-models.qmd >}}
+
+## :book: Reading task: Apply logistic regression to each metabolite with functional programming
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+Reinforce the concept of functional programming by briefly going over:
+
+1.  [Figure
+    8.2](https://r-cubed-intermediate.rostools.org/sessions/functionals#fig-functionals)
+    that visualizes functionals like `map()`.
+
+2.  Highlight the use of the anonymous function `\(x)` syntax to pass
+    arguments to functions within functionals.
+
+3.  The split-apply-combine figure, emphasizing in particular how data
+    is split into smaller pieces but contained as a list.
+:::
+
+**Time: \~15 minutes.**
+
+Functional programming underlies many core features of running
+statistical methods on data. Because it is such an important component
+for this session, you'll briefly review the concepts of functional
+programming by reading some sections from the intermediate workshop:
+
+1.  Read **only** section 8.3 in the [Function
+    Programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#reading-task-functional-programming)
+    session.
+
+2.  Read **only** the section 10.2 about
+    [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine#reading-task-split-apply-combine-technique-and-functionals).
+
+{{< text_snippet sticky_up >}}
+
+## :speech_balloon: Discussion activity: Design a flow for running many models
+
+**Time: \~12 minutes.**
+
+Using what you just read about functional programming and
+split-apply-combine, take some time to brainstorm how you might design
+the rest of the analysis. As with any code, there are many ways of
+writing code to achieve the same goal, so no single answer is "correct".
+The code we will eventually write later in this session is only one of
+other ways of doing this. Even still, *try not to look ahead*! :wink:
+
+1.  For 4 minutes, sketch out and design on your own a flow to analyse
+    all the metabolites and the models without using much more code.
+
+2.  With your neighbour, take 4 minutes to share what you both
+    brainstormed about and try to improve on what you each came up with.
+
+3.  Then, as a group, we'll take 4 minutes to discuss and share some
+    ideas.
+
+## Using functional programming to run multiple models
+
+There are many ways that you can run a model on each metabolite based on
+the `lipidomics` dataset. However, the "split-apply-combine" approach is
+a very good way of doing this. Go into your `docs/learning.qmd` file and
+go to the bottom of the file. Create a new header and code chunk that
+looks like:
+
+```` {.markdown filename="docs/learning.qmd"}
+## Running multiple models
+
+```{{r}}
+
+```
+````
+
+As we want to run two models for each metabolite and we've already been
+working with the cholesterol metabolite, let's run those two models for
+cholesterol before we apply it to all metabolites. We're going to
+eventually use the functionals from the `{purrr}` package. So let's
+first add `{purrr}` as a *build* dependency:
+
+```{r purrr-to-deps}
+#| purl: true
+#| eval: false
+#| filename: Console
+use_package("purrr")
+```
+
+Now, let's go back to the `docs/learning.qmd` file and start building up
+the code. First, let's make a subset of the data that's ready to be fit
+with the model, like we did before. We'll call it `just_cholesterol`
+again:
+
+```{r just-cholesterol-data}
+#| filename: "docs/learning.qmd"
+just_cholesterol <- lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  preprocess()
+```
+
+Recall from the diagrams above that, as much as possible, we want to
+work with `list()`s when dealing with multiple items like models. Also
+recall from the @sec-stats-modeling session that we can treat the model
+formulas as objects too, that we can modify and work with. So let's
+start with making a list of the two models: `class ~ value` and
+`class ~ value + gender + age`.
+
+```{r list-models}
+#| filename: "docs/learning.qmd"
+list(
+  class ~ value,
+  class ~ value + gender + age
+)
+```
+
+Now, let's pipe this to the functional `map()` so that we can apply
+`fit_model()` to each model formula in the `list()`, given our data. The
+diagram below visualises what happens when you use `map()` and
+`fit_model()` on a list of models:
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Show this diagram and explain how map applies the function to each item
+inside of the list, creating a new list with the results.
+:::
+
+```{mermaid}
+%%| label: fig-list-and-map
+%%| fig-cap: "Using `map()` to apply `fit_model()` to each model formula in a list."
+%%| echo: false
+graph LR
+    subgraph input [Input List]
+      A1(Model<br>formula 1)
+      A2(Model<br>formula 2)
+    end
+    subgraph output [Output List]
+      B1(Results 1)
+      B2(Results 2)
+    end
+
+    input:::map -->|"map(fit_model)"| output:::map
+
+    A1 -->|"fit_model()"| B1
+    A2 -->|"fit_model()"| B2
+
+    classDef map fill:white;
+```
+
+Because the `fit_model()` function we created earlier takes two
+arguments, `data` and `model`, we need to tell `map()` how to use those
+arguments properly. Normally, `map()` will give the items from the list
+to the first argument of the function, which is `data` in our case.
+However, we want the items from the list to go to the `model` argument
+instead.
+
+So, we have to use the "anonymous function" `\(x)` syntax to correctly
+put the `model` items. In the anonymous function, we'll use `model` as
+an argument, since that is what is coming from `list()` and then use
+`just_cholesterol` as the data argument in `fit_model()`.
+
+```{r fit-multiple-models-map}
+#| filename: "docs/learning.qmd"
+list(
+  class ~ value,
+  class ~ value + gender + age
+) |>
+  map(\(model) fit_model(just_cholesterol, model = model))
+```
+
+Look at that! Two items in our output list, one for each model. Since it
+is nicer to work with data frames rather than lists, we can combine it
+together using `list_rbind()`:
+
+```{r fit-multiple-models-list-rbind}
+#| filename: "docs/learning.qmd"
+list(
+  class ~ value,
+  class ~ value + gender + age
+) |>
+  map(\(model) fit_model(just_cholesterol, model = model)) |>
+  list_rbind()
+```
+
+Amazing, we now have a data frame with the results from both models for
+cholesterol! Now, let's convert this code into a function so that we can
+easily apply it to all metabolites. We'll call this function
+`fit_all_models()`, which takes one argument, `data`, which will be the
+`lipidomics` data frame.
+
+```{r}
+#| filename: "docs/learning.qmd"
+#' Fit all models to a given data frame.
+#'
+#' @param data The data frame to fit the models to.
+#'
+#' @returns A data frame with results from all models.
+#'
+fit_all_models <- function(data) {
+  list(
+    class ~ value,
+    class ~ value + gender + age
+  ) |>
+    purrr::map(\(model) fit_model(data, model = model)) |>
+    purrr::list_rbind()
+}
+```
+
+```{r}
+#| filename: "docs/learning.qmd"
+lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  preprocess() |>
+  fit_all_models()
+```
+
+Woohoo! We have a function that fits all models to a given data frame.
+We won't go over what each column and row means just yet, we'll do that
+in the next session.
+
+Alright, let's style this file by using {{< var keybind.styler >}} before
+it's time for you to convert this into a function. Commit this to the
+Git history with {{< var keybind.git >}} and then push to GitHub.
+
+## :technologist: Exercise: Piece it all together to run all models at once!
+
+**Time: \~15 minutes.**
+
+We've been building all our functions to have one argument, to input a
+data frame, and output a data frame. Because of that, we can now chain
+them together using `map()`! But first, we need to split the original
+`lipidomics` data frame into a list of data frames, one for each
+metabolite. There's an incredibly useful function for that called
+`group_split()`. What it does can be visualized like this:
+
+```{mermaid}
+%%| label: fig-group-split
+%%| fig-cap: "Using `group_split(metabolite)` to create a list of data frames, each contains one metabolite."
+%%| echo: false
+graph TB
+    subgraph list_df [List of data frames]
+      B1(Data<br>Metabolite 1)
+      B2(Data<br>Metabolite 2)
+      B3(Data<br>Metabolite 3)
+    end
+
+    data[Data<br>All metabolites] -->|"group_split(metabolite)"| list_df:::list
+
+    classDef list fill:white;
+```
+
+::: callout-caution
+Splitting your data by one or more variables into a list of data frames
+is a powerful way of applying functions to each data frame all at once.
+However, be cautious when using this approach with very large datasets,
+as it can lead to high memory usage.
+
+A simple way to determine if your data is too big to do this is to check
+if your data fits into your own computer's or a server's memory on its
+own. If it can't, there are other approaches to use to do similar
+things. More likely, if your data is so large, you have many other
+problems and challenges to deal with than what we cover in this
+workshop.
+:::
+
+Using `group_split()` in our case looks like this (we're only showing
+the first two items on the website):
+
+```{r chain-split-by-metabolite}
+#| eval: false
+lipidomics |>
+  group_split(metabolite)
+```
+
+```{r}
+#| echo: false
+lipidomics |>
+  group_split(metabolite) |>
+  head(2)
+```
+
+Complete these tasks so that the code will analyze all metabolites and
+all models:
+
+1.  Go to the bottom of you `docs/learning.qmd` file and create a new
+    header and code chunk for this exercise.
+
+2.  In the code chunk, write or copy and paste the code above that uses
+    `group_split(metabolite)` into that code chunk. Run the code to see
+    how it looks.
+
+3.  Now, use the steps we've been building towards, where each data
+    frame gets processed with `preprocess()` and then
+    `fit_all_models()`. But instead, each function is used within
+    `map()` and finally combined into one data frame with
+    `list_rbind()`. Build up this code step-by-step, running it each
+    time to see what it does and how it looks.
+
+4.  Once you have the code working, style the file with
+    {{< var keybind.styler >}}. Commit your changes with
+    {{< var keybind.git >}} and push to GitHub.
+
+```{r solution-multiple-models-via-map}
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#| eval: false
+lipidomics |>
+  group_split(metabolite) |>
+  map(preprocess) |>
+  map(fit_all_models) |>
+  list_rbind()
+```
+
+{{< text_snippet sticky_up >}}
+
+## :technologist: Exercise: Update the `create_model_results()` function and run the pipeline!
+
+**Time: \~15 minutes.**
+
+The final piece of the puzzle: include this code into the pipeline so we
+can get the results of all the models! First, open up the
+`R/functions.R` file and find the `create_model_results()` function. It
+currently only runs the model for cholesterol, as we use `filter()` in
+the function. Update this function so that it uses the code from the
+exercise above to run all the models for all metabolites. The code
+currently looks like:
+
+```{r}
+#| filename: "R/functions.R"
+create_model_results <- function(data) {
+  data |>
+    dplyr::filter(metabolite == "Cholesterol") |>
+    preprocess() |>
+    fit_model(class ~ value)
+}
+```
+
+1.  Revise the function so that it uses `group_split(metabolite)`,
+    `map()`, and `list_rbind()` to run all the models for all
+    metabolites.
+
+2.  Style the file with {{< var keybind.styler >}}.
+
+3.  Once you've updated the function, check the targets visualization
+    with {{< var keybind.targets-vis >}} to see how the pipeline has
+    been changed. Check out the outdated targets with
+    {{< var keybind.targets-outdated >}}.
+
+4.  Then, run the pipeline with {{< var keybind.targets-make >}} to get
+    the updated model results.
+
+5.  Open the `docs/learning.qmd` file and go to the bottom of the file.
+    Create a new header there called `## Appendix` along with a code
+    chunk that outputs the `model_results` target with `tar_read()`.
+
+6.  Check the targets pipeline with {{< var keybind.targets-vis >}}
+    again to see what has changed. Then run the pipeline again with
+    {{< var keybind.targets-make >}}.
+
+```{r}
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#| filename: R/functions.R
+#| eval: false
+create_model_results <- function(data) {
+  data |>
+    dplyr::group_split(metabolite) |>
+    purrr::map(preprocess) |>
+    purrr::map(fit_all_models) |>
+    purrr::list_rbind()
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#| filename: docs/learning.qmd
+#| eval: false
+tar_read(model_results)
+```
+
+{{< text_snippet sticky_up >}}
+
+## Summary
+
+-   Consistently create small functions that do a specific conceptual
+    action, ideally with only one argument, and chain them together into
+    larger conceptual actions, which can then more easily be
+    incorporated into a `{targets}` pipeline. Small, multiple functions
+    combined together are easier to manage than fewer, bigger ones.
+-   Use functional programming with `map()`, as part of the
+    function-oriented workflow, to run multiple models efficiently and
+    with minimal code.
+
+{{< include /includes/_code-appendix.qmd >}}

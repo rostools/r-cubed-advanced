@@ -1,0 +1,11 @@
+1.  Design a rough outline of an analysis workflow where data flows
+    through multiple functions to produce a desired output.
+2.  Apply functional programming concepts to run statistical analyses
+    that fit within the `{targets}` pipeline framework, regardless of
+    what statistical method is used.
+3.  Decompose a complex statistical analysis into smaller functions,
+    where each function achieves a part of the larger output so that the
+    function can later be used flexibly and scalably with any number of
+    inputs.
+4.  Use the `{broom}` package to extract the model results in a tidy
+    form.

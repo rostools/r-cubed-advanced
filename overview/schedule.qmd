@@ -41,18 +41,19 @@ and overview.
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-two) |
-| 13:30 | {{< fa laptop-code >}} [A general approach to doing statistical analyses](/sessions/stats-analyses-basic.qmd) |
+| 13:30 | {{< fa laptop-code >}} [What are statistical models?](/sessions/stats-modeling.qmd) |
+| 14:15 | {{< fa laptop-code >}} [Design your analysis: Build up one model first](/sessions/build-one-model.qmd) |
 | 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/stats-analyses-basic.qmd) |
+| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/build-one-model.qmd) |
 | 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 
 ## Day 3 {.unnumbered}
 
 | Time | Session topic |
-|:-----------------------------------|:-----------------------------------|
-| 9:00 | {{< fa laptop-code >}} [Short review; Efficiently running many analyses at once](/sessions/stats-analyses-multiple.qmd) |
+|:---|:---|
+| 9:00 | {{< fa laptop-code >}} [Short review; Extend your analysis to run many models](/sessions/many-models.qmd) |
 | 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
-| 10:45 | {{< fa laptop-code >}} [Continue previous session](/sessions/stats-analyses-multiple.qmd) |
+| 10:45 | {{< fa laptop-code >}} [Continue previous session](/sessions/many-models.qmd) |
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa people-group >}} [Team project work](/sessions/project-work.qmd) |

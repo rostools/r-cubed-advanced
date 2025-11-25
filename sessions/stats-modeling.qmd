@@ -1,0 +1,413 @@
+# What are statistical models? {#sec-stats-modeling}
+
+When working with data in research, it is almost impossible to avoid
+needing to do some form of statistical analysis. Running statistical
+analyses is usually methodical and well-defined, though it often
+involves some trial and error. However, there's still a general
+structure and pattern to doing statistical analyses that we can learn
+and apply to many different types of analyses.
+
+For this session, we are going to cover some basics of what statistical
+models are, what the general workflow is for using them in research, and
+how we can use this knowledge to help us with coding in R. This session
+is a no-code session, as we need to first understand this part before we
+can code anything for an analysis.
+
+## Learning objectives
+
+{{< include /includes/objectives/_stats-modeling.qmd >}}
+
+Things that we will *not* cover:
+
+-   How to choose and apply the appropriate statistical model or tests.
+-   More detailed statistical theory.
+-   How to determine relevant data transformations for statistical
+    tests.
+
+## :speech_balloon: Discussion activity: What does a "model" mean?
+
+**Time: \~6 minutes.**
+
+In science and especially statistics, we talk a lot about "models". But
+what does model actually mean? What different types of definitions can
+you think of? Is there a different understanding of model in statistics
+compared to other areas?
+
+1.  Take 1 minute to think about your understanding of a model.
+2.  Then, over the next 3 minutes, discuss with your neighbour about the
+    meaning of "model" and see if you can come to a shared
+    understanding.
+3.  Finally, over the next 2 minutes, we will share all together what a
+    model is in the context of data analysis.
+
+**Don't look ahead!** :wink:
+
+## :book: Reading task: A brief introduction to mathematical models
+
+**Time: \~6 minutes.**
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+After they've read it over, reinforce that a model is a mathematical
+representation of the research question. Emphasize that we need a model
+in order to answer the research question using data.
+:::
+
+Research, especially quantitative research, is about making inferences
+about the world by quantifying uncertainty from some data. And you
+quantify uncertainty by using statistics and statistical models.
+
+A statistical model is a simple way to describe the real world using
+mathematics. In research, we often aim to understand the relationships
+between multiple variables. For example, if you change the predictor
+(independent variable or $x$), how does that affect the outcome
+(dependent variable or $y$)?
+
+Some simple examples are:
+
+-   "How does this new cancer treatment affect survival rates?"
+-   "How does this new user interface affect user watch time?"
+
+or more complex:
+
+-   "How does sunlight and water affect plant growth?"
+-   "What is the relationship between a metabolite and type 1 diabetes
+    compared to controls, adjusting for age and gender?"
+
+These relationships can involve single or multiple predictors (such as
+sunlight and water, or metabolite, gender, and age). The outcomes can be
+either continuous (such as plant growth) or categorical (such as whether
+a person has type 1 diabetes or not).
+
+The relationship between predictors and the outcome is known as a
+regression, or rather a *regression function*. So if there is a
+relationship between $x$ and $y$, the math formula is:
+
+$$y = f(x)$$
+
+So for any given value of $x$, the function $f(x)$ will give the
+expected value of $y$. For example, you might expect a relationship
+between plant growth, water, and sunlight. You could model plant growth
+as depending on water and sunlight. Graphically, this model can be
+illustrated as:
+
+```{mermaid fig-model-plant-growth}
+%%| fig-cap: Simple example of a theoretical model of plant growth.
+%%| echo: false
+%%| eval: true
+graph LR
+    Sunlight --> Growth
+    Water --> Growth
+    Sunlight --- Water
+```
+
+or mathematically:
+
+$$growth = f(sunlight + water)$$
+
+This math formula is the theoretical model that represents the research
+question. However, not all theoretical models can be tested against the
+real world. You need to use parameters (like sunlight) in this
+theoretical model that can actually be measured. In this case, you need
+to measure plant growth (e.g., weight in grams), the amount of water
+given per day (in liters), and the number of sunlight hours per day.
+
+Without this mathematical model, you cannot adequately answer your
+research, at least not quantitatively nor scientifically.
+
+{{< text_snippet sticky_up >}}
+
+## :book: Reading task: All statistics are basically a version of regression
+
+**Time: \~8 minutes.**
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+Reinforce the model as a formula, that all models are basically a linear
+regression, that the model tells us some information about the
+assumptions of the data, and that we can use this knowledge to help us
+write more effective code.
+:::
+
+The above theoretical, mathematical model is great to conceptually
+understand and design your research question, especially in how to
+answer your research question. However, to actually use this model with
+data to get some form of an answer to the question, you need to modify
+it. That's where statistical models come in, and in particular,
+regression models.
+
+A regression model describes the relationship between an outcome ($y$)
+and one or more predictors ($x$) in a way that also accounts for
+uncertainty. That's because no relationship between variables is
+perfect. So first thing that a regression model has is a mathematical
+variable called random error or residuals (we'll use $error$) to
+quantify the difference between the function $f()$ and the predictors on
+the outcome:
+
+$$y = f(x) + error$$
+
+Usually, the regression function $f()$ in a regression model is
+expressed as a formula:
+
+$$y = intercept + estimate \times x + error$$
+
+Here, the $intercept$ is the value of $y$ when $x$ is zero and
+$estimate$ (also known as $beta$) is the value that describes how much
+$y$ changes for each unit increase in $x$ (the "slope" of the
+relationship). What the research question and what the outcome is will
+determine what type of regression model the formula is (e.g. a linear or
+logistic regression).
+
+If we convert our plant growth example into this formula, it would look
+like:
+
+$$growth = intercept + estimate1 \times sunlight + estimate2 \times water + error$$
+
+Because growth is a continuous variable (plants can grow by any amount),
+this is a linear regression model. If the outcome was binary (e.g.,
+whether a plant survived or not), it would be a logistic regression
+model. In fact, almost all statistical methods are basically modified
+forms of a regression model. These methods range from things as complex
+as AI models like large language models to things as simple as t-tests
+or ANOVAs.
+
+With this model, you can apply it to your data to estimate the impact
+that sunlight and water have on plant growth. When fit to data, it can
+calculate the estimates and the uncertainty of those estimates to give
+you a quantitative answer to your research question: How *much* sunlight
+exactly and how *much* water exactly do plants need to grow? How much
+uncertainty *exactly* is there with those estimates?
+
+With this formula, you can already get some insights about the
+assumptions that the model has for the data that it will fit:
+
+1.  The formula is used to estimate *one individual plant's growth*.
+    Meaning, your data needs to be at an individual plant level. So each
+    value of each variable in your data (each row) needs to represent
+    one plant and there can only be one plant per row.
+
+2.  The variables are assumed to have a linear relationship with the
+    outcome: one unit increase in sunlight and one unit increase in
+    water lead to a specific and consistent increase in growth. If this
+    isn't true, you might need to transform the data before hand or not
+    use one of variables.
+
+3.  The variables can't have any strong dependency between each other.
+    For example, if sunlight increases and that causes water to
+    decrease, the estimates won't be reliable since you won't be able to
+    put any value you want in the formula for both sunlight and water
+    independently. Which means you have to be careful which variables
+    you include in the model.
+
+4.  If you want to compare estimate, e.g. between sunlight and water,
+    the variables need to be on the same scale since the estimates are
+    based on the unit of the variable. You would need to transform the
+    data before fitting the model if you want to compare estimates.
+
+As you may notice, by knowing the math behind the statistical methods,
+it will help you structure and process your data to more accurately fit
+the model you want to the data you have. It can also help in how to
+write your code to more effectively run these analyses. How?
+
+-   By treating this model formula as an R object, that you can
+    manipulate, modify, and process with code just as you do with data.
+
+-   By using design thinking to conceptually break down the model
+    fitting process into specific steps, which you can translate into R
+    functions. That you can then chain together and put into a
+    reproducible pipeline.
+
+-   By identifying how your R data frame should look like before it gets
+    fit to the model.
+
+{{< text_snippet sticky_up >}}
+
+## :book: Reading task: The workflow of statistical modeling
+
+**Time: \~6 minutes.**
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+
+A few things to repeat and reinforce:
+
+1.  The workflow of the image and that it all starts with the research
+    question.
+2.  That this model creation stage requires a variety of domain
+    expertise, not just statistical expertise.
+:::
+
+As mentioned above, while there are many different types of statistical
+models that each require that the data is structured in specific ways,
+there is a common workflow that applies to all statistical analyses.
+
+This generic workflow for going from research question to getting
+results allows you to apply it to many different types of analyses. That
+also means that you can write code for the analysis following a common
+"pattern". This workflow generally involves the following steps:
+
+1.  **Write a research question** that fits a theoretical model with
+    measurable parameters.
+
+2.  **Select the best model type** based on the model parameters (e.g.,
+    linear regression, logistic regression, ANOVA, or t-test).
+
+3.  **Collect or select the right data for your model parameters**
+    (e.g., water in liters per day, plant growth in weight, sunlight in
+    hours per day). Collect data if you don't have any or select from
+    existing data.
+
+4.  **Fit the data to the model** to estimate the values (coefficients)
+    of the model, such as the intercept, slope, and uncertainty (error).
+
+5.  **Extract and present the values** in relation to your research
+    questions.
+
+```{mermaid fig-model-building-workflow}
+%%| fig-cap: Simple schematic of the process for conducting statistical analysis.
+%%| echo: false
+%%| eval: true
+graph TD
+    A[Research question] --> B[Theoretical model]
+    B --> A
+    B --> C[Data collection<br>or selection]
+    C --> D[Data transformation]
+    D --> F[Fit model<br>to data]
+    B --> F
+    F --> E[Scientific results]
+    E --> A
+```
+
+::: {.callout-caution appearance="default"}
+Connecting the correct statistical model to the data and research
+question requires highly specific domain knowledge in multiple areas.
+For instance, to effectively analyze our `lipidomics` dataset, we would
+need experts who are familiar with, e.g. how -omic data are measured,
+how to transform them, which modeling methods to use, and how to
+interpret the results. We have **none** of these things and are likely
+doing things incorrectly. But this is a workshop on coding and
+reproducible, so statistical correctness isn't our focus.
+:::
+
+{{< text_snippet sticky_up >}}
+
+## :speech_balloon: Discussion activity: Make some questions and models for our lipidomics data
+
+**Time: \~18 minutes.**
+
+::: {.callout-note collapse="true"}
+## :teacher: Instructor note
+:::
+
+Now that you've read and heard about statistical models, designing them,
+and the general workflow for using them in research, it's time to try it
+out yourself. Review the `lipidomics` dataset below and complete the
+tasks afterwards.
+
+```{r admin-show-data}
+#| echo: false
+readr::read_csv(here::here("data/lipidomics.csv"),
+  show_col_types = FALSE
+)
+```
+
+1.  Take 6 minutes to do these tasks:
+
+    -   Think of some potential research questions we could ask with
+        this data. There are several different questions we could ask
+        with this data, and none are correct or incorrect.
+    -   Design these questions in the form of models that could answer
+        those questions. Try sketching out or mentally creating a
+        theoretical model in both diagram and formula form.
+    -   Consider the type of regression the model might be (hint,
+        consider what type of outcome variable you have).
+    -   Consider what data processing you might need to do to the data
+        before fitting the model.
+
+2.  Then, take 6 minutes and *collaborate* with your neighbour by
+    sharing and brainstorming further on what you've come up from the
+    tasks above. Consider each others ideas and see if you can refine
+    your own questions and model designs. (Part of the project work will
+    involve this design and brainstorming stage, so use this as
+    practice.)
+
+3.  Finally, over the last 6 minutes, we will share some of the research
+    questions and models that you came up with.
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+This is an open-ended activity. There is no correct or incorrect answer.
+The goal is to get them to think about how to create a model from a
+research question. After they have had time to think about it and
+discuss with a neighbour, go over the following example, which we will
+use for the rest of the workshop.
+
+Our research questions will be simple but also allow us to showcase
+different coding approaches and challenges:
+
+1.  What is the estimated relationship of each metabolite with type 1
+    diabetes (T1D) compared to the controls?
+
+2.  What is the estimated relationship after considering the influence
+    of age and gender?
+
+3.  How do the estimated relationships compare between metabolites?
+
+A graphical representation of this theoretical model could be:
+
+```{mermaid fig-model-research-question-simple}
+%%| fig-cap: A simple relationship between a given metabolite and T1D status.
+%%| echo: false
+%%| eval: true
+graph LR
+    Metabolite --> T1D
+```
+
+And for the more complex model:
+
+```{mermaid fig-model-research-question-complex}
+%%| fig-cap: A simple relationship between a given metabolite and T1D status, controlling for age and gender.
+%%| echo: false
+%%| eval: true
+graph TB
+    Metabolite --> T1D
+    Age & Gender --> T1D & Metabolite
+```
+
+Or mathematically for the simple model (using the variable names from
+the data):
+
+$$T1D = metabolite$$
+
+And for the more complex model:
+
+$$T1D = metabolite + age + gender$$
+
+So, T1D status (or `class` in the `lipidomics` dataset) is our
+**outcome** and the individual metabolite (`value` in our dataset, since
+`metabolite` is the name of the metabolite), age, and gender are our
+**predictors**. Technically, age and gender would be "confounders" or
+"covariates", since we include them only because we think they influence
+the relationship between the metabolite and T1D.
+
+Based on our theoretical model (as `class` is binary, either T1D or
+control), the model would be a logistic regression model.
+:::
+
+## Summary
+
+-   Create research questions that (ideally) are structured in a way to
+    mimic how the statistical analysis will be done, preferably in a
+    "formula" style like $y = x1 + x2 + ...$ and in a diagram style with
+    links connecting variables.
+-   Statistical analyses, while requiring some trial and error, are
+    surprisingly structured in the workflow and steps taken. Use this
+    structure to help guide you in completing tasks related to running
+    analyses.
+-   Prioritise taking time to consider and design your research question
+    into a statistical model formula before moving on to coding. Use
+    this design stage to also consider and plan how your data should
+    look like before you fit the model.

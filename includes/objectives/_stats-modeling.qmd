@@ -1,0 +1,11 @@
+1.  Identify the basic features of statistical models and how they can
+    assist you in structuring your code and analysis.
+2.  Explain why you should tightly couple making a research question
+    with creating a conceptual regression model that can be used to
+    answer that question.
+3.  Describe the general "workflow": State the research question,
+    construct a model, prepare the data, fit the model, and extract the
+    results.
+4.  Use the regression model to identify how your data should look like
+    and what transformations are needed before you fit the model to the
+    data.

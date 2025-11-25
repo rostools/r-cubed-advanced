@@ -1,0 +1,7 @@
+1.  Recall principles of functional programming.
+
+2.  Design analyses to make use of the principles of functional
+    programming and the split-apply-combine technique.
+
+3.  Apply these principles to write code that does many things with
+    little code, in particular by using the `{purrr}` package.

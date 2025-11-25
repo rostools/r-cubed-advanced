@@ -184,7 +184,7 @@ use_package("quarto")
 
 Now, let's build the pipeline with {{< var keybind.targets-make >}}
 again. It should work! :tada: Let's also check the visualization of the
-pipeline with {{< var keybind.targets-visual >}}. You should now see the
+pipeline with {{< var keybind.targets-vis >}}. You should now see the
 `quarto_doc` target at the end of the pipeline.
 
 When we run the pipeline with the Quarto target in it, we'll see that a
