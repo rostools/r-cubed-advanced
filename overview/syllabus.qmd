@@ -47,8 +47,8 @@ in order:
     pipelines](/sessions/pipelines-outputs.qmd)
 -   [Design your analysis: Build up one model
     first](/sessions/build-one-model.qmd)
--   [Efficiently running many analyses at
-    once](/sessions/stats-analyses-multiple.qmd)
+-   [Extend your analysis to run many
+    models](/sessions/stats-analyses-multiple.qmd)
 -   [Concluding remarks](/sessions/conclusion.qmd)
 
 ## Learning outcome and objectives
@@ -56,8 +56,13 @@ in order:
 The overall aim of this workshop is to enable you to:
 
 1.  Describe what an open, collaboration-friendly, and nearly-automated
-    reproducible data analysis pipeline and workflow looks like, and
-    then create a project that follows these practices using R.
+    reproducible data analysis pipeline and workflow looks like.
+
+2.  Design your code and analysis using simple principles and concepts
+    that allow you to write more flexible and robust code that does more
+    for less and that is friendlier to both you and your collaborators.
+
+3.  Create an R project that follows these practices.
 
 Broken down into specific objectives, we've designed the workshop to
 enable you to do the following in each session:
@@ -82,8 +87,8 @@ first**](/sessions/build-one-model.qmd)
 
 {{< include /includes/objectives/_build-one-model.qmd >}}
 
-[**Efficiently running many analyses at
-once**](/sessions/stats-analyses-multiple.qmd)
+[**Extend your analysis to run many
+models**](/sessions/stats-analyses-multiple.qmd)
 
 {{< include /includes/objectives/_stats-analyses-multiple.qmd >}}
 
