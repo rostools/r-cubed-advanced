@@ -433,8 +433,7 @@ use_package("broom")
 Then, we can go back to the `docs/learning.qmd` file and add the
 `broom::tidy()` function to our model using the `|>` pipe. Because this
 is a logistic regression, we need to exponentiate the estimates to get
-the [odds ratio](https://en.wikipedia.org/wiki/Odds_ratio). Let's also
-add the confidence intervals by setting `conf.int = TRUE`:
+the [odds ratio](https://en.wikipedia.org/wiki/Odds_ratio).
 
 ```{r tidy-up-model-results}
 #| filename: "docs/learning.qmd"
@@ -443,7 +442,7 @@ glm(
   data = just_cholesterol,
   family = binomial
 ) |>
-  broom::tidy(exponentiate = TRUE, conf.int = TRUE)
+  broom::tidy(exponentiate = TRUE)
 ```
 
 Much nicer! We now have a data frame with our results, including the
@@ -468,7 +467,7 @@ glm(
   data = just_cholesterol,
   family = binomial
 ) |>
-  broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+  broom::tidy(exponentiate = TRUE) |>
   mutate(
     metabolite = unique(just_cholesterol$metabolite),
     model = format(class ~ value),
@@ -505,7 +504,7 @@ fit_model <- function(data, model) {
     data = data,
     family = binomial
   ) |>
-    broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+    broom::tidy(exponentiate = TRUE) |>
     dplyr::mutate(
       metabolite = unique(data$metabolite),
       model = format(model),
@@ -561,7 +560,7 @@ fit_model <- function(data, model) {
     data = data,
     family = binomial
   ) |>
-    broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+    broom::tidy(exponentiate = TRUE) |>
     # Converts ("formats") the formula to a string.
     dplyr::mutate(
       metabolite = unique(data$metabolite),
@@ -606,16 +605,19 @@ create_model_results(lipidomics)
 
 2.  Replace `lipidomics` with `data`.
 
-3.  Add Roxygen documentation to the function with
+3.  Prefix the functions inside the function with their package names via
+    `::`.
+
+4.  Add Roxygen documentation to the function with
     {{< var keybind.roxygen >}}.
 
-4.  Test the function with the code above to make sure it works as
+5.  Test the function with the code above to make sure it works as
     expected. If it does, then cut and paste the function into the
     `R/functions.R` file.
 
-5.  Run styler with {{< var keybind.styler >}}.
+6.  Run styler with {{< var keybind.styler >}}.
 
-6.  Commit the changes to the Git history with {{< var keybind.git >}}
+7.  Commit the changes to the Git history with {{< var keybind.git >}}
     and push to GitHub.
 
 ```{r solution-create-model-results-new-function}
@@ -629,7 +631,7 @@ create_model_results(lipidomics)
 #'
 create_model_results <- function(data) {
   data |>
-    filter(metabolite == "Cholesterol") |>
+    dplyr::filter(metabolite == "Cholesterol") |>
     preprocess() |>
     fit_model(class ~ value)
 }
