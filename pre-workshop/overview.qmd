@@ -35,8 +35,8 @@ about them are found as you work through this section.
     programs in @sec-install-programs. For some people, depending on
     their institution, this task can take the **longest amount of time**
     because you have to contact your IT to install these packages.
-4.  Setup and authenticate your computer with GitHub in
-    @sec-connect-github.
+4.  Complete @sec-connect-github to setup and authenticate your computer
+    with GitHub.
 5.  Install the necessary R packages in @sec-installing-r-packages.
 6.  Correctly set up Git on your computer in @sec-setup-git, if you
     haven't done this already from previous workshops. If you haven't
