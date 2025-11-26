@@ -10,6 +10,12 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.5 (2025-11-26)
+
+### Fix
+
+- **pre-workshop**: :bug: `@sec-` got rendered to a list item, fixed
+
 ## 2.0.4 (2025-11-25)
 
 ### Refactor
