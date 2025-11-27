@@ -30,8 +30,8 @@ Our big picture aim is to create a data analysis project that:
 1.  Makes it easier for collaborators and others to contribute directly.
 2.  Explicitly includes the processing and analysis steps (as code) in a
     pipeline, so they are reproducible.
-3.  Incorporates a general-purpose approach to running statistical
-    analyses that simplifies the code and makes it easier to build
+3.  Apply a general approach to coding when running statistical analyses
+    that simplifies the code and makes it easier to build
     pipelines with.
 
 All of this will be exemplified through a simple analysis of a
