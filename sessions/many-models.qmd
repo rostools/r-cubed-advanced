@@ -214,7 +214,7 @@ easily apply it to all metabolites. We'll call this function
 `fit_all_models()`, which takes one argument, `data`, which will be the
 `lipidomics` data frame.
 
-```{r}
+```{r fit-all-models-new-function}
 #| filename: "docs/learning.qmd"
 #' Fit all models to a given data frame.
 #'
@@ -383,7 +383,7 @@ create_model_results <- function(data) {
     again to see what has changed. Then run the pipeline again with
     {{< var keybind.targets-make >}}.
 
-```{r}
+```{r solution-update-create-model-results-new-function}
 #| code-fold: true
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 #| filename: R/functions.R
