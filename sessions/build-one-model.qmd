@@ -150,7 +150,7 @@ on just the modeling part.
 graph TB
     data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
     lipidomics -->|"create_model_results()"| model_results:::wip
-    model_results -->|"plot_model_results()"| plot_model_results:::wip
+    model_results -->|"create_plot_model_results()"| plot_model_results:::wip
     model_results -->|"tar_read()"| report:::wip
     plot_model_results -->|"tar_read()"| report:::wip
     classDef done stroke-width:3px
