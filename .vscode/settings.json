@@ -1,4 +1,11 @@
 {
+  "editor.rulers": [
+    72,
+    {
+      "color": "#b22222",
+      "column": 120
+    }
+  ],
   "files.autoSave": "onFocusChange",
   "editor.tabSize": 2,
   "editor.wordWrap": "off",
@@ -34,7 +41,31 @@
     "editor.defaultFormatter": "Posit.air-vscode"
   },
   "[quarto]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "quarto.quarto"
+    "editor.formatOnSave": false,
+    "editor.guides.bracketPairs": "active",
+    "editor.language.brackets": [
+      [
+        "::::",
+        ":::"
+      ]
+    ],
+    "editor.language.colorizedBracketPairs": [
+      [
+        "::::",
+        ":::"
+      ]
+    ]
   },
+  "files.watcherExclude": {
+    "**/.quarto/**": true,
+    "_site/**": true,
+    "_freeze/**": true,
+    "_book/**": true
+  },
+  "search.exclude": {
+    "*/.quarto": true,
+    "_site": true,
+    "_book": true,
+    "_freeze": true
+  }
 }
