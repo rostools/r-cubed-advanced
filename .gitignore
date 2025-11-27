@@ -3,6 +3,7 @@
 .Rproj.user
 .Rhistory
 .Rdata
+.Rbuildignore
 
 # Positron
 *.vdoc.*.r
@@ -25,6 +26,7 @@ _temp/
 
 # Quarto
 /.quarto/
+**/*.quarto_ipynb
 
 # Website generation
 _site
@@ -34,5 +36,3 @@ site
 slides/*.html
 _freeze
 *_files
-
-**/*.quarto_ipynb
