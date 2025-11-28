@@ -378,6 +378,8 @@ create_model_results <- function(data) {
 5.  Open the `docs/learning.qmd` file and go to the bottom of the file.
     Create a new header there called `## Appendix` along with a code
     chunk that outputs the `model_results` target with `tar_read()`.
+    Pipe the output to `knitr::kable()` to make it a nice table.
+    Include a `caption` if you would like.
 
 6.  Check the targets pipeline with {{< var keybind.targets-vis >}}
     again to see what has changed. Then run the pipeline again with
@@ -402,7 +404,8 @@ create_model_results <- function(data) {
 #| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
 #| filename: docs/learning.qmd
 #| eval: false
-tar_read(model_results)
+tar_read(model_results) |>
+    knitr::kable(caption = "Results from the analysis from all metabolites and models.")
 ```
 
 {{< text_snippet sticky_up >}}
