@@ -47,6 +47,7 @@ book:
         - sessions/stats-modeling.qmd
         - sessions/build-one-model.qmd
         - sessions/many-models.qmd
+        - sessions/visualise-models.qmd
         - sessions/project-work.qmd
         - sessions/conclusion.qmd
   appendices:

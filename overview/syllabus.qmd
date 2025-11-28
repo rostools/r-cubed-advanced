@@ -92,6 +92,11 @@ models**](/sessions/many-models.qmd)
 
 {{< include /includes/objectives/_many-models.qmd >}}
 
+[**Visualising the results of many
+models**](/sessions/visualise-models.qmd)
+
+{{< include /includes/objectives/_visualise-models.qmd >}}
+
 And we **will not** learn:
 
 -   Any details on or about specific statistical methods or models

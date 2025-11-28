@@ -1,0 +1,6 @@
+1.  Use an effective way to visualise the results from multiple
+    statistical models fitted to different subsets of data using the
+    `{ggplot2}` R package.
+2.  Identify how a fully reproducible analysis pipeline looks like, from
+    start to finish, and how this workflow might make a data analysis
+    project easier for you and your collaborators to work on together.
