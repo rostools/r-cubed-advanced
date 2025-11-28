@@ -10,6 +10,20 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.6 (2025-11-28)
+
+### Fix
+
+- **sessions**: :pencil2: should be `keybind.git`
+- **sessions**: :pencil2: append `-new-function` to chunk labels for function scraping
+- **sessions**: :pencil2: should be `create_plot_model_results()`
+
+### Refactor
+
+- **sessions**: :recycle: split out plotting models into own session
+- **sessions**: :recycle: output the model results to `kable()` in Quarto
+- **overview**: :pencil2: small edits to big picture aims
+
 ## 2.0.5 (2025-11-26)
 
 ### Fix
