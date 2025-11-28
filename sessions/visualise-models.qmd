@@ -302,7 +302,7 @@ model_results |>
 There are so many things we could start investigating based on these
 results in order to fix them up. But for now, this will do. Let's style
 the code with {{< var keybind.styler >}} and then commit to the Git
-history with {{< var keybind.git-commit >}} before pushing to GitHub.
+history with {{< var keybind.git >}} before pushing to GitHub.
 
 ## :technologist: Exercise: Convert the plot code into a function
 
