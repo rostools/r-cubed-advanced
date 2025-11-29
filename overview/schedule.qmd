@@ -41,7 +41,7 @@ and overview.
 | 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
 | 12:30 | {{< fa utensils >}} Lunch |
 | 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-two) |
-| 13:30 | {{< fa laptop-code >}} [What are statistical models?](/sessions/stats-modeling.qmd) |
+| 13:30 | {{< fa person-chalkboard >}} [What are statistical models?](/sessions/stats-modeling.qmd) |
 | 14:15 | {{< fa laptop-code >}} [Design your analysis: Build up one model first](/sessions/build-one-model.qmd) |
 | 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
 | 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/build-one-model.qmd) |
@@ -59,6 +59,6 @@ and overview.
 | 13:15 | {{< fa people-group >}} [Team project work](/sessions/project-work.qmd) |
 | 14:45 | {{< fa mug-hot >}} Coffee break and snacks |
 | 15:00 | {{< fa people-group >}} [Continue team project work](/sessions/project-work.qmd) |
-| 16:00 | {{< fa person-chalkboard >}} Closing remarks |
+| 16:00 | {{< fa person-chalkboard >}} Testing projects and closing remarks |
 | 16:15 | {{< fa comment-dots >}} [End of workshop survey]({{< meta surveys.feedback >}}) |
 :::
