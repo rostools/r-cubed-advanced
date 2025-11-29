@@ -5,11 +5,10 @@ format: rostools-theme-revealjs
 
 # Welcome to the Advanced R^3^ workshop!
 
--   :heavy_check_mark: Go to your assigned table
--   :heavy_check_mark: Introduce yourselves to your table mates
+-   :heavy_check_mark: Pick up a table name from the bowl
+-   :heavy_check_mark: Go to the table name you picked
+-   :heavy_check_mark: Introduce yourself to your table mates
 -   :heavy_check_mark: Open your `AdvancedR3.Rproj` RStudio project
--   :heavy_check_mark: Just in case, do
-    `r3::install_packages_advanced()`
 
 ::: notes
 Introduce yourself and instructors.
@@ -25,7 +24,7 @@ Relate to UK Biobank project: <https://github.com/steno-aarhus/ukbAid>
 
 ## But also from larger trends in research and society {.center}
 
-### Like reproducibility and more team science
+### Like reproducibility, "AI", and team science
 
 ::: notes
 Ask who knows what reproducibility is and could explain it.
@@ -110,23 +109,7 @@ continue getting funding, etc.
 It's a vicious cycle.
 :::
 
-## Little published work on how to effectively collaborate {.center}
-
-An example [@Turoman2022]: Research group tries to work on improving
-their collaboration
-
--   Decide on tools and practices that are best for the group
--   Use "data partners" to co-work/co-code together
-
-::: notes
-I'm collaborating with some colleagues on a scoping review for open
-collaboration, and there is very little research in this area, or even
-"guides" or "examples", at least not found in literature databases.
-:::
-
 ## One direct way to collaborate is working on shared code for a project {.center}
-
-Because by collaborating, you will also read others' code.
 
 ## Reading *others'* code is necessary to improve as an experienced coder {.smaller}
 
@@ -140,7 +123,69 @@ Because by collaborating, you will also read others' code.
 
 -   If *we all* aren't reading others' code, *we all* aren't improving
 
-## Goal of workshop: Create and nurture a culture of openness through training {.center}
+## As you get more advanced, you learn that more coding isn't a good thing {.center}
+
+Research "product" is an *asset*, but *code* is a *liability*
+
+::: notes
+As you get more advanced in coding and analysis, you actually spend less
+time coding and more time thinking about the analysis, the design of the
+analysis and the code, and the overall flow of things. You start
+learning that, while your finished analysis is an *asset*, the more
+lines of code you have for it is a *liability*. You want your code to be
+as simple and minimal as possible, while still doing what you need it to
+do.
+:::
+
+## With "AI" tools, generating (or "vibing") lots of code is easy... but... {.center}
+
+## Problem: If you aren't experienced in code, how can you assess it? {.center}
+
+::: notes
+Problem with AI tools, it predicts the average next items. Key word,
+average. Do you want to go for average? Is average code even good?
+There's a lot of shit code in the world, that, the AI has been trained
+on.
+:::
+
+## More code = means more reading, maintenance, and hidden bugs {.center}
+
+## Designing the analysis and code becomes even more important {.center}
+
+Even before looking at the data
+
+::: notes
+This is something that LLMs or machine learning algorithms can't do, is
+understand human context or needs or wants or intentions or aims. Hell,
+communicating to other humans to get everyone on the same page on its
+own is incredibly hard.
+:::
+
+## Well-designed code is a powerful enabler of effective collaboration {.center}
+
+-   Better at communicating intent
+
+-   Does more, with less
+
+::: notes
+You can do a lot with surprisingly little code if you design it well.
+That's part of what we want you to learn from this workshop: do more
+with less.
+:::
+
+## Goal of workshop: Create and nurture ... {.center}
+
+-   A culture of openness
+
+-   Design thinking
+
+-   Effective collaboration
+
+::: notes
+In this workshop, we'll be focusing more on the bigger picture and
+design, and in fact, probably do less coding than in previous workshops.
+We'll do more thinking first, then design, then code.
+:::
 
 # Workshop details
 
@@ -157,12 +202,14 @@ Because by collaborating, you will also read others' code.
 :::
 
 ::: {.column width="50%"}
--   Less about coding, more about connecting with others
+-   Less about coding, more about:
+    -   Connecting and collaborating with others
+    -   Thinking about designing first, coding second
+-   Networking and connecting:
     -   Draw table name from bowl each morning
     -   Introduce yourself to those at your table
     -   During lunch, sit beside someone you don't know
     -   Several networking activities (usually after lunch)
--   *Warning*: You will be making a lot of functions!
 :::
 :::::
 
@@ -183,7 +230,7 @@ Because by collaborating, you will also read others' code.
 :::
 :::::
 
-## Practice using stickies/paper hats: Did you complete the checklist from the beginning? {.center}
+## Practice using stickies/paper hats: Do you have RStudio open? {.center}
 
 # Activities
 
@@ -194,34 +241,27 @@ Along the wall, arrange to one side is "novice/basic" and other side is
 "advanced".
 :::
 
-## :raising_hand_woman: Who has had formal training in specifically *coding* in R or in general? {.center}
-
-::: notes
-Staying where you are, raise your hand if you would answer yes to this
-question. If it was part of a statistics workshop, it doesn't really
-count.
-:::
-
-## :walking_woman::walking_man: Have you attended at least one of these workshops before? {.center}
-
-::: notes
-Only have those who indicated they did have training (from previous
-question).
-:::
-
 ## :walking_woman::walking_man: If code for a paper was audited, how confident are you that the results could be reproduced *exactly*? {.center}
+
+No judgment!
 
 ::: notes
 Range from not confident to very confident.
 :::
 
-## :walking_woman::walking_man: How many of you work mostly on your own in your project(s)? {.center}
+## :walking_woman::walking_man: How often do you intentionally design your analysis before doing it? {.center}
+
+::: notes
+Range from never to always.
+:::
+
+## :walking_woman::walking_man: How often do you work on your own in your project(s)? {.center}
 
 ::: notes
 Range from almost entirely alone to never alone.
 :::
 
-## :walking_woman::walking_man: How easy is it to collaborate with others on your project(s)? {.center}
+## :walking_woman::walking_man: How easy is it for others to collaborate on your project(s)? {.center}
 
 ::: notes
 Range from not easy to very easy.
