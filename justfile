@@ -22,7 +22,6 @@ install-precommit:
   uvx pre-commit install
   uvx pre-commit autoupdate
 
-
 # Install package dependencies
 install-dependencies:
   #!/usr/bin/Rscript
