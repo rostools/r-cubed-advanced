@@ -27,10 +27,10 @@ issue is that researchers' main incentivised output, publications,
 doesn't easily allow for other forms of output that could help address
 or resolve these obstacles. For example, a research group's workflow or
 procedures is valuable information that other groups could use and learn
-from, but this "publishing" this type of information isn't rewarded so
-it is rarely done. Likewise, the code used in analyses is rarely shared,
-even though it would improve the reproducibility of the research results
-and also allow others to learn from it. Ultimately, all of this leads to
+from, but "publishing" this type of information isn't rewarded so it is
+rarely done. Likewise, the code used in analyses is rarely shared, even
+though it would improve the reproducibility of the research results and
+also allow others to learn from it. Ultimately, all of this leads to
 less reliability and reproducibility of scientific results. With this
 workshop, we aim to begin addressing this gap.
 
@@ -47,8 +47,9 @@ in order:
     pipelines](/sessions/pipelines-outputs.qmd)
 -   [Design your analysis: Build up one model
     first](/sessions/build-one-model.qmd)
--   [Extend your analysis to run many
-    models](/sessions/many-models.qmd)
+-   [Extend your analysis to run many models](/sessions/many-models.qmd)
+-   [Visualising the results of many
+    models](/sessions/visualise-models.qmd)
 -   [Concluding remarks](/sessions/conclusion.qmd)
 
 ## Learning outcome and objectives
@@ -87,8 +88,7 @@ first**](/sessions/build-one-model.qmd)
 
 {{< include /includes/objectives/_build-one-model.qmd >}}
 
-[**Extend your analysis to run many
-models**](/sessions/many-models.qmd)
+[**Extend your analysis to run many models**](/sessions/many-models.qmd)
 
 {{< include /includes/objectives/_many-models.qmd >}}
 
@@ -113,7 +113,8 @@ Tangibly, during the workshop you will:
 -   Build automated pipelines with `{targets}`.
 -   Structure your analysis into steps as functions that piece together
     into a cohesive series of steps.
--   Run multiple statistical analyses efficiently using `{purrr}`.
+-   Run multiple statistical analyses efficiently using `{purrr}` and
+    functional programming.
 -   Manage and collaborate on your projects using Git and GitHub.
 -   Write reproducible reports using Quarto.
 
@@ -126,4 +127,5 @@ The specific software and technologies we will cover in this workshop
 are [R](https://www.r-project.org/), [RStudio](https://rstudio.com/),
 [Quarto](https://quarto.org), [Git](https://git-scm.com/), and
 [GitHub](https://github.com/), while the specific R packages are
-`{styler}`, `{targets}`, as well as more advanced uses of `{purrr}`.
+`{styler}`, `{targets}`, as well as more advanced uses of combining
+`{purrr}` and `{dplyr}`.
