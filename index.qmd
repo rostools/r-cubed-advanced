@@ -19,6 +19,9 @@ challenges arise that we lack the training or knowledge to resolve.
 
 These challenges include:
 
+-   Designing and structuring code for an analysis that follows some
+    basic principles that make it easier to write, to do more with less
+    code, and to collaborate on;
 -   Establishing common coding styles and standards to make it easier to
     read or review each other's code;
 -   Documenting the software dependencies of a project to synchronize
