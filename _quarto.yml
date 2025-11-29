@@ -49,7 +49,6 @@ book:
         - sessions/many-models.qmd
         - sessions/visualise-models.qmd
         - sessions/project-work.qmd
-        - sessions/conclusion.qmd
   appendices:
     - appendix/for-teachers.qmd
     - CHANGELOG.md

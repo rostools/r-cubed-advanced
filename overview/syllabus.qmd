@@ -50,7 +50,6 @@ in order:
 -   [Extend your analysis to run many models](/sessions/many-models.qmd)
 -   [Visualising the results of many
     models](/sessions/visualise-models.qmd)
--   [Concluding remarks](/sessions/conclusion.qmd)
 
 ## Learning outcome and objectives
 
