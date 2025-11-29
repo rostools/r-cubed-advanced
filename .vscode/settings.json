@@ -42,19 +42,6 @@
   },
   "[quarto]": {
     "editor.formatOnSave": false,
-    "editor.guides.bracketPairs": "active",
-    "editor.language.brackets": [
-      [
-        "::::",
-        ":::"
-      ]
-    ],
-    "editor.language.colorizedBracketPairs": [
-      [
-        "::::",
-        ":::"
-      ]
-    ]
   },
   "files.watcherExclude": {
     "**/.quarto/**": true,
