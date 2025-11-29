@@ -125,6 +125,5 @@ alt="Logo for Steno Diabetes Center Aarhus"}
 ![](images/logo-ddea.png){width="260px"
 alt="Logo for Danish Diabetes and Endocrinology Academy"}
 
-![](images/logo-au.png){width="220px"
-alt="Logo for Aarhus University"}
+![](images/logo-au.png){width="220px" alt="Logo for Aarhus University"}
 :::
