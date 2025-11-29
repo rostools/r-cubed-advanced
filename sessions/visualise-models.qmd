@@ -398,7 +398,7 @@ list(
     it.
 
 4.  Visualise the changes to the pipeline with
-    {{< var keybind.targets-viz >}}.
+    {{< var keybind.targets-vis >}}.
 
 5.  Run the entire pipeline with {{< var keybind.targets-make >}}.
 
