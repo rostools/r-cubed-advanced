@@ -21,6 +21,22 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.1.0 (2025-11-29)
+
+### Feat
+
+- **sessions**: :sparkles: expand on intro slides to include design thinking
+
+### Fix
+
+- **sessions**: :pencil2: minor corrections to schedule
+
+### Refactor
+
+- **sessions**: :fire: remove concluding session
+- **sessions**: :pencil2: add challenges like designing code to landing page
+- **overview**: :pencil2: small edits to syllabus during review
+
 ## 2.0.7 (2025-11-29)
 
 ### Fix
