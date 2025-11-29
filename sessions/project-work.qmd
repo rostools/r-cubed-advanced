@@ -1,7 +1,3 @@
----
-callout-appearance: default
----
-
 # Team project work {#sec-project-work}
 
 ```{r}
@@ -10,21 +6,26 @@ callout-appearance: default
 library(downlit)
 ```
 
-To maximize how much you learn and how much you will retain, you as a
-team will take what you learned in the workshop and apply it to create a
-reproducible project. For this project, as a team you will do a simple
-data analysis using `{tidymodels}` on a dataset (see below), use Git and
-GitHub to collaborate together, write an HTML document as a report, and
-create a `{targets}` pipeline to demonstrate the reproducibility of the
-analysis. You will work on this project during the last session of the
-workshop.
+One of the best ways to learn is to apply what you've learned in a
+practical way, such as by working on a real-world project with other
+learners. This is useful when its done shortly after learning the
+material.
 
-::: callout-note
-We may decide, depending on time, that in the last \~20 minutes of the
-project work session, the lead instructor will download each of the
-team's projects from GitHub and run the `{targets}` pipeline to test the
-project's reproducibility.
-:::
+So this project work is meant to be a way to reinforce what you learned
+during the workshop, but in a more relaxed and collaborative setting.
+The instructors and helpers are available to answer questions, help you
+out, and give guidance as needed.
+
+For this project, as a team you will do a simple data analysis on a
+dataset (see below), use Git and GitHub to collaborate together, write
+an HTML document as a report, and create a `{targets}` pipeline to
+ensure the analysis is reproducible. You will work on this project
+during the last session of the workshop.
+
+At the end of the session, the lead instructor will do a brief "test" of
+every team's analysis by downloading your project from GitHub and
+running the `{targets}` pipeline to see if it works correctly and
+produces the intended output.
 
 ## Specific tasks
 
@@ -35,8 +36,9 @@ pushing and pulling a lot of content, so you will need to maintain
 regular and open communication with your team members.
 
 ::: callout-important
-Before you start doing the tasks, read through this whole page so you
-are fully aware of what you need to do.
+Before you start doing the tasks, **read through this whole page
+first**, especially the callout blocks later on, so you are fully aware
+of what you need to do.
 :::
 
 Your specific tasks are:
@@ -46,12 +48,14 @@ Your specific tasks are:
     workshop. Clone your team repository to your computer using
     `usethis::create_from_github()`. You will likely also need to
     authenticate with GitHub by using `gitcreds::gitcreds_set()`.
+
 2.  **Choose a dataset**: As a team, decide on and select one of the
     datasets listed below to analyse. You can use the same dataset as
     another team, but you must use a **different dataset than the one we
     used in class**. These datasets were specifically chosen because
     they have a lot of variables, are relatively tidy, and are not too
     large.
+
     -   [*Integrated trajectories of the maternal metabolome, proteome,
         and immunome predict labor
         onset*](https://zenodo.org/records/4741374). Here is the
@@ -64,88 +68,142 @@ Your specific tasks are:
         [link](https://zenodo.org/api/records/10120304/files-archive) to
         download everything. We suggest using the
         `Metabolites_dragons_with_lipoproteins.csv` data file.
-3.  As a team, decide who will do this task. Use
-    `usethis::use_data_raw()` to create a `data-raw/` folder and an R
-    script in that folder in your project. Commit this change to Git and
-    push to GitHub.
-4.  All team members pull from GitHub and all members must move the
-    dataset you chose into your project's `data-raw/`.
-5.  As a team, decide who will do this task. Use
-    `usethis::use_git_ignore()` on the dataset file you saved into
-    `data-raw/` to stop it from entering into the Git history. Commit
-    this change to Git and push to GitHub, then have everyone pull the
-    changes.
-6.  *Briefly* look through the downloaded dataset, the README or other
-    description, and the Zenodo record's description to familiarize
-    yourself with the data.
-7.  As a team, decide on what basic processing steps you will need to do
-    to create a dataset cleaned and ready for analysis and decide who
-    will write the processing code in the R script in the `data-raw/`
-    folder. Once done, push the changes to GitHub and have everyone then
-    pull the changes to their own computers.
-8.  As a team, decide who will do this task. Within the `data-raw/` R
-    script, include code at the end to save the processed dataset into
-    the `data/` folder using `readr::write_csv()` and `here::here()`.
-    Use `usethis::use_git_ignore()` on the processed dataset file to
-    stop it from entering into the Git history. Commit the changes and
-    push them to GitHub. Have everyone pull the changes to their
-    computers and have everyone run the script in the `data-raw/` folder
-    so that everyone has a working of a tidier dataset in the `data/`
-    folder.
-9.  As a team, decide which variables you want to analyse and split the
-    variables up equally between team members so that you each can do
-    your own analysis of the data. See the tips below for some more
-    details.
+
+3.  Only one person should do this task. As a team, decide who will do
+    it. This team member should move the dataset file you chose into the
+    `data/` folder. Commit the changes to Git and push to GitHub.
+
+    -   Usually we would get you to store it in `data-raw/` and do some
+        processing there, but since we've chosen these datasets
+        specifically because they are already fairly tidy, you will
+        store the data directly into `data/` folder.
+    -   Generally we don't recommend storing data in the Git history,
+        especially if it is large. However, for this workshop and
+        because the datasets we've chosen are relatively small, we get
+        you to do it as it makes all the other steps easier.
+
+4.  All team members pull from GitHub.
+
+5.  *Briefly* look through the downloaded dataset by opening up with
+    spreadsheet program like Excel. Read the README or other description
+    that's on the Zenodo record to familiarize yourself with the data.
+
+6.  As a team, brainstorm, design, and decide on:
+
+    -   What some research questions might be that you can answer with
+        the dataset. Make sure to have questions that allow each team
+        member to contribute equally to the analysis.
+
+    -   What the models would be that could answer the questions you
+        asked. To keep it simple, start with a simple model of `y ~ x`.
+        If you have time, try to add a more complex model of
+        `y ~ x + xc`, where `xc` is a variable you want to adjust or
+        control for (like our `gender` and `age` examples during the
+        workshop).
+
+    -   Which variables will be the outcome variables.
+
+    -   Which variables will be predictors in your analysis. Select at
+        least 2 predictor variables per team member, ideally more.
+
+    -   Which tables and figures that you both want. Aim for at least
+        one descriptive statistics table, one plot showing the data, and
+        at least one plot showing the analysis results.
+
+7.  Once you've decided the above points, design and sketch out a basic
+    pipeline. Try to use pen and paper for this step, mimicking the
+    diagrams we used during the sessions. Try think of the names of each
+    target output as well as the names of the functions that will be
+    used in the pipeline. Consider the cleaning, processing, basic
+    descriptive statistics, modeling, and plotting steps to get to the
+    final report.
+
+8.  Once you have the sketch, split up each set of targets in the
+    pipeline between team members. Each person should be responsible for
+    writing the functions and targets for their part of the pipeline.
+
+9.  To make it easier to collaboratively work together, each team member
+    should create a new Quarto document in the `docs/` folder named
+    something like `docs/sandbox-<yourname>.qmd` (e.g. with the Palette
+    "new Quarto") and create a new R script in the `R/` folder named
+    something like `functions-<yourname>.R` (e.g. with
+    `usethis::use_r()`).
+
+    -   You all already have a `docs/report.qmd` file. Include this file
+        in your `{targets}` pipeline as a target and as you build your
+        targets, include those outputs (tables, figures) of your
+        pipeline in this file with `targets::tar_read()`.
+
+    -   Theoretically, if you do these things you will only have merge
+        conflicts in the `_targets.R` file and the `docs/report.qmd`
+        file, which will be easier to resolve. See the tips below about
+        minimizing merge conflicts when collaborating.
+
 10. Using the workflow we've covered in this workshop, collaboratively
     create a reproducible analysis pipeline by:
+
     -   Using the `{targets}` package to create a pipeline going from
-        reading the data to generating the HTML file.
-    -   Using `{tidymodels}` to fit at least 3 different models (see the
-        tips below on doing the analysis).
-    -   Using a Quarto document to generate an HTML file with a table of
-        the model results.
+        reading the data to generating the HTML file and running the
+        pipeline with `targets::tar_make()` or with
+        {{< var keybind.targets-make >}} regularly.
+    -   Prototype code in `docs/sandbox-<yourname>.qmd`, convert them to
+        functions, and then put them into your respective R scripts in
+        the `R/` folder.
     -   Writing correctly formatted R code using `{styler}` and Markdown
         using Quarto's canonical mode.
-    -   Regularly committing your changes to Git and pushing to GitHub.
-        When pushing changes to GitHub, you will likely cause some merge
-        conflicts so you will need to discuss how regularly to push up
-        and to inform your team when you do push up, since pulling the
-        changes will result in merge conflicts that have to be resolved.
+    -   Regularly committing your changes to Git and pulling from and
+        pushing to GitHub. When pushing changes to GitHub, you will
+        likely get some merge conflicts that you will need to resolve
+        right away. You might want to communicate with each other when
+        either of you have made changes to either `docs/report.qmd` or
+        `_targets.R`, or if you added a dependency that caused a change
+        to the `DESCRIPTION` file.
 
 ::: callout-tip
-### Dataset and analysis suggestions
+### Dataset suggestions
 
 -   **Onset of Labor** dataset:
-    -   In this dataset, there are few outcome variables (`y`) and
+    -   In this dataset, there are a few outcome variables (`y`) and
         *many* predictor variables (`x`).
     -   We suggest that each person on a team of two select one of the
         two outcome (`y`) variables for the model, which are `EGA`
         (estimated gestational age) or `DOS` (days of labor onset).
     -   Since there are many predictor variables (`x`), we suggest each
-        person select *more than* three of the other variables, which
-        include any variable *except* the above outcome variables as
-        well as `ID`, `SampleID`, and `Timepoint`.
+        person select *at least* two of the other variables, which
+        include any variable *except* the two outcome variables or the
+        variables `ID`, `SampleID`, and `Timepoint`.
 -   **Bearded Dragon** dataset:
-    -   We suggest each person select *one* outcome (`y`) variable for
-        the models, choosing either `grade` (for degree of hepatic fat
-        accumulation), `HU` (Hounsfield unit, positive values mean more
-        dense liver), `fat.perc` (percent of fat in liver), or
-        `fibrosis.perc` (percent of liver with fibrosis)
-    -   We suggest each person select *at least three* predictor (`x`)
+    -   There are several outcome variables here: We suggest each person
+        select *one* outcome (`y`) variable for the models, choosing
+        either `grade` (for degree of hepatic fat accumulation), `HU`
+        (Hounsfield unit, positive values mean more dense liver),
+        `fat.perc` (percent of fat in liver), or `fibrosis.perc`
+        (percent of liver with fibrosis)
+    -   We suggest each person select *at least two* predictor (`x`)
         variables for the models, from any of the blood variables, for
         instance (but not limited to) `insulin`, `trig`, `VLDL`, `urea`,
         or `serine`.
     -   You should ideally tidy the variable names using
-        `snakecase::to_snake_case()` when processing them in the
-        `data-raw/` script to make them easier to work with.
--   **General analysis tips**:
-    -   Stick to simple model formulas by using only one outcome and
-        one predictor, e.g. `y ~ x` in the model.
-    -   We *strongly* suggest you do not include more than one predictor
-        in any individual model formula, as it will make the analysis
-        and coding more complicated than is necessary for this workshop.
-    -   Run at least 3 simple models *per person on the team* with
-        different predictors using the `{tidymodels}` functions.
+        `snakecase::to_snake_case()` and `dplyr::rename_with()` when
+        cleaning them to make them easier to work with, though this
+        isn't strictly necessary.
+:::
+
+::: callout-tip
+### General analysis tips
+
+-   Datasets usually have columns for each variable, unlike our dataset
+    we used during the workshop, which was in a very long format (the
+    names of metabolites were all in one column, with their values in
+    another). You can use `pivot_longer()` from `{tidyr}` to convert the
+    data into a longer format, which will make it easier to run more
+    analyses via `group_by()` and `group_split()`.
+
+-   We *strongly* suggest you do not include more than one predictor in
+    any individual model formula, as it will make the analysis and
+    coding more complicated than is necessary for this workshop. If you
+    feel confident or finish these tasks early, you can try to adjust or
+    control for another variable (like we did with `gender` and `age`).
 :::
 
 ::: callout-tip
@@ -154,9 +212,10 @@ Your specific tasks are:
 -   To minimize merge conflicts, create R scripts (that contain only
     functions) for each person and create a Quarto document for each
     person. This way, you can work on your own script and document
-    without causing conflicts with your team members. The only file that
-    will have conflicts is the `_targets.R` file, since you will all be
-    adding targets to it as you develop your analysis.
+    without causing conflicts with your team members. See tasks above.
+
+-   Commit, pull, and push your changes regularly, as that will reduce
+    the chances of getting large merge conflicts.
 :::
 
 ## Quick "checklist" for a good project
@@ -164,11 +223,11 @@ Your specific tasks are:
 -   Project used Git and is on GitHub.
 -   Code is formatted correctly via `{styler}`.
 -   Markdown is formatted correctly via Quarto's canonical mode.
--   Analysis is fully reproducible by running `targets::tar_make()`.
--   Multiple models are computed programmatically using `{tidymodels}`.
+-   Multiple models are computed programmatically using functional
+    programming.
 -   Used Quarto for outputting the model results as a table.
 -   Only R functions are kept in the scripts in the `R/` folder.
--   Most analyses are computed in the `_targets.R` file.
+-   Analysis is fully reproducible by running `targets::tar_make()`.
 -   Most code in the Quarto document is only used to display the
     results, not to do processing or analyses.
 
@@ -197,3 +256,21 @@ What we don't expect:
 
 Essentially, the team project is a way to reinforce what you learned
 during the workshop, but in a more relaxed and collaborative setting.
+
+## How will the project be tested?
+
+The lead instructor will run these commands to test your project:
+
+``` r
+# Install dependencies
+pak::pak()
+# Basic check and style code
+styler::style_dir()
+# Run pipeline
+targets::tar_make()
+# Open HTML report in browser
+browseURL("docs/report.html")
+```
+
+If the pipeline runs and the HTML shows some figures and tables, then
+the project is a success! :tada:
