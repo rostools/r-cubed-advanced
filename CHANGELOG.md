@@ -10,6 +10,16 @@ a day. It also means any individual release will not have many changes
 within it. Below is a list of releases along with what was changed
 within it.
 
+## 2.0.7 (2025-11-29)
+
+### Fix
+
+- **sessions**: :bug: keybinding is `vis` not `viz`
+
+### Refactor
+
+- **sessions**: :recycle: update project work to match session changes
+
 ## 2.0.6 (2025-11-28)
 
 ### Fix
