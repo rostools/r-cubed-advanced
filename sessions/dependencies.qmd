@@ -212,7 +212,7 @@ the majority of projects.
 
 As we work on the project during the workshop and realize we need to use
 a specific package, we will continue using `usethis::use_package()` to
-install it and add it to the `DESCRIPTION` file.
+add it to the `DESCRIPTION` file.
 
 {{< text_snippet sticky_up >}}
 
