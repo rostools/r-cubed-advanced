@@ -21,6 +21,12 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.1.1 (2025-11-30)
+
+### Fix
+
+- :pencil2: small edits to dependency session (#307)
+
 ## 2.1.0 (2025-11-29)
 
 ### Feat
