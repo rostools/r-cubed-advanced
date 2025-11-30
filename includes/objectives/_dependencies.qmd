@@ -1,13 +1,13 @@
 1.  Identify potential actions to take that streamline collaboration on
     a data analysis project.
-2.  Explain what a "project-oriented" workflow is, what a project-level
-    R dependency management is, and why these concepts are important for
+2.  Explain what a "project-oriented" workflow is, what project-level R
+    dependency management is, and why these concepts are important for
     collaborative and reproducible analyses.
 3.  Describe the difference between workflow dependencies and build
     dependencies, and apply functions in the `{usethis}` R package to
     implement these dependency management concepts.
 4.  Explain how following a style guide helps build a common approach to
-    reading and writing R code, and thereby improves project-level
+    reading and writing R code, and thereby improve project-level
     collaboration.
 5.  Use `{styler}` and RStudio's canonical markdown mode to
     programmatically check and apply style guides to your project files.

@@ -50,10 +50,10 @@ explanation, but is important for the next sessions.
 
 One of the first things to consider when working collaboratively on a
 data analysis project (and probably other types of projects too) is what
-software is required to use for or contribute to your project. This
-starts out at the highest level: Are you using R or some other software
-for the analysis? Since this is an R workshop, we're assuming the
-software will be R! 😜
+software everyone will need in order to use or contribute to your
+project. This starts out at the highest level: Are you using R or some
+other software for the analysis? Since this is an R workshop, we're
+assuming the software will be R! 😜
 
 The next consideration is determining which packages your project will
 depend on to produce the results. When working collaboratively with
@@ -212,7 +212,7 @@ the majority of projects.
 
 As we work on the project during the workshop and realize we need to use
 a specific package, we will continue using `usethis::use_package()` to
-install it and add it to the `DESCRIPTION` file.
+add it to the `DESCRIPTION` file.
 
 {{< text_snippet sticky_up >}}
 
