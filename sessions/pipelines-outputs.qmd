@@ -912,4 +912,10 @@ create_plot_distributions <- function(data) {
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.
 
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
 {{< include /includes/_code-appendix.qmd >}}

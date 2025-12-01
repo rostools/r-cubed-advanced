@@ -417,3 +417,9 @@ control), the model would be a logistic regression model.
     into a statistical model formula before moving on to coding. Use
     this design stage to also consider and plan how your data should
     look like before you fit the model.
+
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}

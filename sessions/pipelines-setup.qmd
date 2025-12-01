@@ -655,4 +655,10 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 
 -   Use `targets::tar_read()` to access saved pipeline outputs.
 
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
 {{< include /includes/_code-appendix.qmd >}}

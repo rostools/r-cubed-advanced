@@ -709,4 +709,10 @@ list(
 -   Use `{broom}` to `tidy()` the model output to get a data frame of
     the estimates and standard error for the variables in the model.
 
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
 {{< include /includes/_code-appendix.qmd >}}

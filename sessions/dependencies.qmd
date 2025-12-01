@@ -588,4 +588,10 @@ gert::git_commit("Don't need this file anymore.")
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
 
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
 {{< include /includes/_code-appendix.qmd >}}

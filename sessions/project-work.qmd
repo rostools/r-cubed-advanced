@@ -292,3 +292,10 @@ browseURL("docs/report.html")
 
 If the pipeline runs and the HTML shows some figures and tables, then
 the project is a success! :tada:
+
+## Survey
+
+After the projects are tested, please complete the survey for this session
+as well as for the whole workshop:
+
+{{< include /includes/_survey.qmd >}}

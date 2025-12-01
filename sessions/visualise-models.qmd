@@ -454,4 +454,10 @@ running `tar_read(plot_model_results)`.
     where you left off and start working again, not just for you but for
     your collaborators as well.
 
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
 {{< include /includes/_code-appendix.qmd >}}

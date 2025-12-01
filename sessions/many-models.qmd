@@ -422,4 +422,10 @@ tar_read(model_results) |>
     function-oriented workflow, to run multiple models efficiently and
     with minimal code.
 
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
 {{< include /includes/_code-appendix.qmd >}}
