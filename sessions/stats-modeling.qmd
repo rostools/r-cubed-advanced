@@ -92,7 +92,8 @@ between plant growth, water, and sunlight. You could model plant growth
 as depending on water and sunlight. Graphically, this model can be
 illustrated as:
 
-```{mermaid fig-model-plant-growth}
+```{mermaid}
+%%| label: fig-model-plant-growth
 %%| fig-cap: Simple example of a theoretical model of plant growth.
 %%| echo: false
 %%| eval: true
@@ -265,7 +266,8 @@ also means that you can write code for the analysis following a common
 5.  **Extract and present the values** in relation to your research
     questions.
 
-```{mermaid fig-model-building-workflow}
+```{mermaid}
+%%| label: fig-model-building-workflow
 %%| fig-cap: Simple schematic of the process for conducting statistical analysis.
 %%| echo: false
 %%| eval: true
@@ -358,7 +360,8 @@ different coding approaches and challenges:
 
 A graphical representation of this theoretical model could be:
 
-```{mermaid fig-model-research-question-simple}
+```{mermaid}
+%%| label: fig-model-research-question-simple
 %%| fig-cap: A simple relationship between a given metabolite and T1D status.
 %%| echo: false
 %%| eval: true
@@ -368,7 +371,8 @@ graph LR
 
 And for the more complex model:
 
-```{mermaid fig-model-research-question-complex}
+```{mermaid}
+%%| label: fig-model-research-question-complex
 %%| fig-cap: A simple relationship between a given metabolite and T1D status, controlling for age and gender.
 %%| echo: false
 %%| eval: true
