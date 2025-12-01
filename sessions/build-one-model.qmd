@@ -140,8 +140,8 @@ later.
 
 What are some steps we could take, after what we learned in the previous
 sessions? Let's start high level first, at the pipeline level. We'll use
-a similar diagram as we used in @sec-pipelines-outputs, but instead focus
-on just the modeling part.
+a similar diagram as we used in @sec-pipelines-outputs, but instead
+focus on just the modeling part.
 
 ```{mermaid}
 %%| label: fig-stats-analysis-pipeline
@@ -162,6 +162,9 @@ needs the `create_model_results()` function that we need to make. Let's
 sketch out a diagram of what that function might do internally.
 
 ```{mermaid}
+%%| label: fig-internal-create-model-results
+%%| fig-cap: Potential steps to create the `create_model_results()` function.
+%%| echo: false
 flowchart TB
     model["model:<br>class ~ value"]
     lipidomics --> transformed[Transformed]
@@ -198,7 +201,7 @@ lipidomics |>
 ```
 
 When we run this we see that, we do in fact have duplicate metabolites
-for `Cholesterol`. This is likely a data entry or smalling mistake
+for `Cholesterol`. This is likely a data entry or spelling mistake
 error, but we don't know for sure. In an actual analysis, we should look
 into this, like checking the data documentation or contact the authors
 of the data. But for this workshop, we will instead summarise all the
@@ -219,10 +222,10 @@ lipidomics |>
   ungroup()
 ```
 
-Since this issue affects our other outputs that we made before, like the
-table and plot we made in the last sessions. So we have to apply this
-fix right after reading in the data, so all other targets use the
-corrected data.
+This issue affects our other outputs that we made previously, like the
+descriptive statistics table and the distribution plot. We'll have to
+apply this fix right after reading in the data, so all other targets use
+the corrected data.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
@@ -347,7 +350,7 @@ mutate our data to convert `class` to a factor variable and scale
 `value` using the `scale()` function. The `scale()` function
 mean-centers and scales the values so that they have a mean of 0 and
 standard deviation of 1. This makes certain that each metabolite will
-have the same units and same distribution shape.
+have the same unit and similar distribution shape.
 
 ::: callout-important
 `scale()` mean-centers and scales *all* values in a column. So if you
@@ -382,7 +385,7 @@ pre-processing for us, along with adding Roxygen documentation:
 #'
 preprocess <- function(data) {
   data |>
-    mutate(
+    dplyr::mutate(
       class = as.factor(class),
       value = scale(value)
     )
@@ -486,7 +489,7 @@ convert the code above into a function!
 
 ## :technologist: Exercise: Convert the model fitting code into a function
 
-**Time: \~20 minutes.**
+**Time: \~15 minutes.**
 
 Since we want to be able to fit different models to different
 metabolites, we need to make our model fitting code more flexible. We
@@ -605,8 +608,8 @@ create_model_results(lipidomics)
 
 2.  Replace `lipidomics` with `data`.
 
-3.  Prefix the functions inside the function with their package names via
-    `::`.
+3.  Prefix the functions inside the function with their package names
+    via `::`.
 
 4.  Add Roxygen documentation to the function with
     {{< var keybind.roxygen >}}.
@@ -642,13 +645,13 @@ create_model_results <- function(data) {
 
 {{< text_snippet sticky_up >}}
 
-## :technologist: Exercise: Add the results function as a target
+## :technologist: Exercise: Add the `create_model_results()` function as a target
 
-**Time: \~8 minutes.**
+**Time: \~6 minutes.**
 
-Taking the `create_model_results()` function from above, next step is to
-add it to the pipeline in the `_targets.R` file! Use the below scaffold
-as a guide.
+Taking the `create_model_results()` function from above, the next step
+is to add it to the pipeline in the `_targets.R` file! Use the below
+scaffold as a guide.
 
 ``` r
 list(
@@ -692,8 +695,9 @@ list(
 
 ## Summary
 
--   Before coding, design and sketch out how the data will flow through
-    different actions that will eventually lead to the output you want.
+-   Before doing any coding, design and sketch out how the data will
+    flow through different actions that will eventually lead to the
+    output you want.
 
 -   Analyses typically follow the same general steps: prepare the data,
     fit the model, and extract the results.
@@ -703,8 +707,8 @@ list(
     many things.
 
 -   As much as possible, functions should output a data frame because
-    they are easier to work with and work very well with `{tidyverse}`
-    functions and workflows.
+    they are easier to work with and they work very well with
+    `{tidyverse}` functions and workflows.
 
 -   Use `{broom}` to `tidy()` the model output to get a data frame of
     the estimates and standard error for the variables in the model.
