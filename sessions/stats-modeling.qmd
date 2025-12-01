@@ -24,6 +24,12 @@ Things that we will *not* cover:
 -   How to determine relevant data transformations for statistical
     tests.
 
+::: callout-important
+This session has no coding. There is only reading activities, where the
+instructor will explain again in different ways, along with discussion
+activities.
+:::
+
 ## :speech_balloon: Discussion activity: What does a "model" mean?
 
 **Time: \~6 minutes.**
@@ -86,11 +92,10 @@ relationship between $x$ and $y$, the math formula is:
 
 $$y = f(x)$$
 
-So for any given value of $x$, the function $f(x)$ will give the
-expected value of $y$. For example, you might expect a relationship
-between plant growth, water, and sunlight. You could model plant growth
-as depending on water and sunlight. Graphically, this model can be
-illustrated as:
+For any given value of $x$, the function $f(x)$ will give the expected
+value of $y$. For example, you might expect a relationship between plant
+growth, water, and sunlight. You could model plant growth as depending
+on water and sunlight. Graphically, this model can be illustrated as:
 
 ```{mermaid}
 %%| label: fig-model-plant-growth
@@ -142,7 +147,7 @@ regression models.
 A regression model describes the relationship between an outcome ($y$)
 and one or more predictors ($x$) in a way that also accounts for
 uncertainty. That's because no relationship between variables is
-perfect. So first thing that a regression model has is a mathematical
+perfect. First thing that a regression model has is a mathematical
 variable called random error or residuals (we'll use $error$) to
 quantify the difference between the function $f()$ and the predictors on
 the outcome:
@@ -157,9 +162,9 @@ $$y = intercept + estimate \times x + error$$
 Here, the $intercept$ is the value of $y$ when $x$ is zero and
 $estimate$ (also known as $beta$) is the value that describes how much
 $y$ changes for each unit increase in $x$ (the "slope" of the
-relationship). What the research question and what the outcome is will
-determine what type of regression model the formula is (e.g. a linear or
-logistic regression).
+relationship). What the research question and outcome are will determine
+what type of regression model the formula is (e.g. a linear or logistic
+regression).
 
 If we convert our plant growth example into this formula, it would look
 like:
@@ -171,8 +176,8 @@ this is a linear regression model. If the outcome was binary (e.g.,
 whether a plant survived or not), it would be a logistic regression
 model. In fact, almost all statistical methods are basically modified
 forms of a regression model. These methods range from things as complex
-as AI models like large language models to things as simple as t-tests
-or ANOVAs.
+as machine learning models like large language models to things as
+simple as t-tests or ANOVAs.
 
 With this model, you can apply it to your data to estimate the impact
 that sunlight and water have on plant growth. When fit to data, it can
@@ -299,10 +304,6 @@ reproducible, so statistical correctness isn't our focus.
 
 **Time: \~18 minutes.**
 
-::: {.callout-note collapse="true"}
-## :teacher: Instructor note
-:::
-
 Now that you've read and heard about statistical models, designing them,
 and the general workflow for using them in research, it's time to try it
 out yourself. Review the `lipidomics` dataset below and complete the
@@ -345,7 +346,9 @@ This is an open-ended activity. There is no correct or incorrect answer.
 The goal is to get them to think about how to create a model from a
 research question. After they have had time to think about it and
 discuss with a neighbour, go over the following example, which we will
-use for the rest of the workshop.
+use for the rest of the workshop. Emphasise that we will be using this
+example and the information we've brainstormed in this activity to help
+inform us how we will create the models in the next sessions.
 
 Our research questions will be simple but also allow us to showcase
 different coding approaches and challenges:
@@ -358,31 +361,8 @@ different coding approaches and challenges:
 
 3.  How do the estimated relationships compare between metabolites?
 
-A graphical representation of this theoretical model could be:
-
-```{mermaid}
-%%| label: fig-model-research-question-simple
-%%| fig-cap: A simple relationship between a given metabolite and T1D status.
-%%| echo: false
-%%| eval: true
-graph LR
-    Metabolite --> T1D
-```
-
-And for the more complex model:
-
-```{mermaid}
-%%| label: fig-model-research-question-complex
-%%| fig-cap: A simple relationship between a given metabolite and T1D status, controlling for age and gender.
-%%| echo: false
-%%| eval: true
-graph TB
-    Metabolite --> T1D
-    Age & Gender --> T1D & Metabolite
-```
-
-Or mathematically for the simple model (using the variable names from
-the data):
+A mathematical representation of this theoretical model could be (using
+the variable names from the data):
 
 $$T1D = metabolite$$
 
