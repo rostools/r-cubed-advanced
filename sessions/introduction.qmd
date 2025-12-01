@@ -31,8 +31,8 @@ Our big picture aim is to create a data analysis project that:
 2.  Explicitly includes the processing and analysis steps (as code) in a
     pipeline, so they are reproducible.
 3.  Apply a general approach to coding when running statistical analyses
-    that simplifies the code and makes it easier to build
-    pipelines with.
+    that simplifies the code and makes it easier to build pipelines
+    with.
 
 All of this will be exemplified through a simple analysis of a
 lipidomics dataset during the workshop.
@@ -139,7 +139,7 @@ workshop, which will be to:
     -   We move developed functions into `R/functions.R` as a formal
         place to store tested and reliable functions.
     -   We `source()` the tested functions in `R/functions.R` file,
-        which creates a clear separation between prototype code and
+        which creates a clear separation between prototyped code and
         finalized code.
 -   Regularly restart R with {{< var keybind.restart-r >}} (or
     `Session -> Restart R`). We restart R to ensure that the R workspace
@@ -177,22 +177,22 @@ after.
 {{< text_snippet faq_text >}}
 
 ::: {.callout-important appearance="default"}
-During the workshop, we will be writing and coding almost entirely in the
-`docs/learning.qmd` file. You can also use this document to write notes
-to yourself. However, to make it easier for us to help you and for you
-to get less issues as more and more content is added, if a code chunk
-in the Quarto file causes an error when you render it, add the code
-chunk option `#| eval: false` so that the R code doesn't get evaluated
-and you don't get any errors. We will remind you about this option
-throughout the workshop, as well as if you have any issues and we come
-over to help you.
+During the workshop, we will be writing and coding almost entirely in
+the `docs/learning.qmd` file. You can also use this document to write
+notes to yourself. However, to make it easier for us to help you and for
+you to have fewer issues as more and more content is added, if a code
+chunk in your Quarto file causes an error when you render it or when you
+run the pipeline, add the code chunk option `#| eval: false` so that the
+R code doesn't get evaluated and you don't get any errors. We will
+remind you about this option throughout the workshop, as well as if you
+have any issues and we come over to help you.
 :::
 
 {{< text_snippet sticky_up >}}
 
 ## :speech_balloon: Discussion activity: How do you *exactly* collaborate or contribute to your own or others' projects?
 
-> Time: \~10 minutes.
+**Time: \~10 minutes**
 
 Reflect on when you work on a project (for your thesis or a manuscript),
 how **exactly** do you and your collaborators contribute to the project:
