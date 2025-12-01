@@ -304,7 +304,7 @@ likely use packages in two different ways:
     used for data analysis. These types of packages would be called
     "workflow" or "development" dependencies. `{usethis}` is usually
     considered a **workflow** dependency because you usually only use it
-    in the Console or don't need to use it in a script.
+    in the Console and don't need to use it in a script.
 
 A useful guideline to help you determine whether a package is a build or
 a workflow dependency is:
@@ -317,7 +317,7 @@ a workflow dependency is:
 
 So, now we know that the dependencies we added in the exercise are
 actually build dependencies, since we use them directly in our project
-to process the data.
+(in `data-raw/nmr-omics.R`) to process the data.
 
 The way you add packages to the `DESCRIPTION` file is slightly different
 depending on what type of dependency it is. For build dependencies, we
