@@ -1,6 +1,7 @@
 ---
 search: false
 format: rostools-theme-revealjs
+bibliography: ../includes/references.bib
 ---
 
 # Welcome to the Advanced R^3^ workshop!
@@ -9,6 +10,8 @@ format: rostools-theme-revealjs
 -   :heavy_check_mark: Go to the table name you picked
 -   :heavy_check_mark: Introduce yourself to your table mates
 -   :heavy_check_mark: Open your `AdvancedR3.Rproj` RStudio project
+-   :heavy_check_mark: Accept the GitHub organisation invitation (check
+    your email or spam)
 
 ::: notes
 Introduce yourself and instructors.
@@ -30,7 +33,7 @@ Relate to UK Biobank project: <https://github.com/steno-aarhus/ukbAid>
 Ask who knows what reproducibility is and could explain it.
 :::
 
-## Very low reproducibility in most of science [@Samuel2024] {.smaller}
+## Very low reproducibility in most of science {.smaller}
 
 ::: {layout-ncol="2"}
 ```{r}
@@ -86,7 +89,7 @@ ggplot(repro_results, aes(y = item, x = value, label = percent)) +
 :::
 
 From searching PubMed Central for all articles with search term: "(ipynb
-OR jupyter OR ipython) AND github"
+OR jupyter OR ipython) AND github". From @Samuel2024.
 
 ## Researchers don't know how to collaborate effectively {.center}
 
@@ -199,12 +202,12 @@ We'll do more thinking first, then design, then code.
     -   A group project at the end
 -   All material is online (and [openly
     licensed](https://r-cubed-advanced.rostools.org/LICENSE.html))
-:::
-
-::: {.column width="50%"}
 -   Less about coding, more about:
     -   Connecting and collaborating with others
     -   Thinking about designing first, coding second
+:::
+
+::: {.column width="50%"}
 -   Networking and connecting:
     -   Draw table name from bowl each morning
     -   Introduce yourself to those at your table
@@ -230,7 +233,7 @@ We'll do more thinking first, then design, then code.
 :::
 :::::
 
-## Practice using stickies/paper hats: Do you have RStudio open? {.center}
+## Practice using stickies/paper hats: Do you have RStudio open and accepted the GitHub invite? {.center}
 
 # Activities
 
@@ -274,3 +277,5 @@ Range from definitely no to definitely yes.
 :::
 
 ## Alright, return to your seats! :chair: {.center}
+
+# References {.smaller}
