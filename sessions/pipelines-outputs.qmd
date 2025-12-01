@@ -199,6 +199,7 @@ tell Git to ignore them.
 
 ```{r gitignore-targets-yaml}
 #| filename: Console
+#| eval: false
 use_git_ignore("_targets.yaml")
 ```
 
@@ -210,6 +211,7 @@ folders that end with `_files` or `.html`:
 
 ```{r gitignore-html-output}
 #| filename: Console
+#| eval: false
 use_git_ignore("*_files")
 use_git_ignore("*.html")
 ```
