@@ -82,13 +82,30 @@ Your specific tasks are:
         because the datasets we've chosen are relatively small, we get
         you to do it as it makes all the other steps easier.
 
-4.  All team members pull from GitHub.
+4.  While the other person is doing the above task, the other team
+    member can do additional setup tasks, like ignoring files in the
+    `.gitignore`.
 
-5.  *Briefly* look through the downloaded dataset by opening up with
+    -   Run `use_git_ignore("_targets.yaml")` to ignore the
+        `_targets.yaml` auto-generated files.
+    -   Run `use_git_ignore("*_files")` to ignore all Quarto generated
+        folders.
+    -   Run `use_git_ignore("*.html")` to ignore the HTML report. This
+        file is automatically generated from the `{targets}` pipeline,
+        so there is no need to store it in Git.
+    -   The `_targets/meta/meta` file can be annoying to deal with when
+        collaborating and isn't necessary in the context of this
+        workshop, so you can also ignore it by running
+        `use_git_ignore("_targets/meta/meta")`.
+    -   Commit the changes to Git and push to GitHub.
+
+5.  All team members pull from GitHub.
+
+6.  *Briefly* look through the downloaded dataset by opening up with
     spreadsheet program like Excel. Read the README or other description
     that's on the Zenodo record to familiarize yourself with the data.
 
-6.  As a team, brainstorm, design, and decide on:
+7.  As a team, brainstorm, design, and decide on:
 
     -   What some research questions might be that you can answer with
         the dataset. Make sure to have questions that allow each team
@@ -110,7 +127,7 @@ Your specific tasks are:
         one descriptive statistics table, one plot showing the data, and
         at least one plot showing the analysis results.
 
-7.  Once you've decided the above points, design and sketch out a basic
+8.  Once you've decided the above points, design and sketch out a basic
     pipeline. Try to use pen and paper for this step, mimicking the
     diagrams we used during the sessions. Try think of the names of each
     target output as well as the names of the functions that will be
@@ -118,16 +135,17 @@ Your specific tasks are:
     descriptive statistics, modeling, and plotting steps to get to the
     final report.
 
-8.  Once you have the sketch, split up each set of targets in the
+9.  Once you have the sketch, split up each set of targets in the
     pipeline between team members. Each person should be responsible for
     writing the functions and targets for their part of the pipeline.
 
-9.  To make it easier to collaboratively work together, each team member
+10. To make it easier to collaboratively work together, each team member
     should create a new Quarto document in the `docs/` folder named
     something like `docs/sandbox-<yourname>.qmd` (e.g. with the Palette
     "new Quarto") and create a new R script in the `R/` folder named
     something like `functions-<yourname>.R` (e.g. with
-    `usethis::use_r()`).
+    `usethis::use_r()`). Don't forget to set the `{targets}` `store`
+    option in the `setup` code chunk of your own Quarto document.
 
     -   You all already have a `docs/report.qmd` file. Include this file
         in your `{targets}` pipeline as a target and as you build your
@@ -139,7 +157,7 @@ Your specific tasks are:
         file, which will be easier to resolve. See the tips below about
         minimizing merge conflicts when collaborating.
 
-10. Using the workflow we've covered in this workshop, collaboratively
+11. Using the workflow we've covered in this workshop, collaboratively
     create a reproducible analysis pipeline by:
 
     -   Using the `{targets}` package to create a pipeline going from
