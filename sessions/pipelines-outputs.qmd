@@ -15,7 +15,8 @@ projects and creating reproducible analyses, it can also be very
 difficult to build them effectively and in a manageable way. In this
 session, we will walk through a design-driven and visual approach to
 building a pipeline step by step, starting from the desired final
-outputs and working backwards to the raw data.
+outputs and working backwards to the raw data. We'll use this approach
+to build the products for our analysis project.
 
 ## Learning objectives
 
@@ -67,9 +68,10 @@ So in this session, we want to make the `table_descriptive_stats` and
 order for us to slowly build this up, we will start at the end first:
 rendering our Quarto document to HTML in our `{targets}` pipeline.
 
-Open up the `docs/learning.qmd` file and create a new code chunk at the
-bottom of the file. Name the code chunk `setup` (using the chunk label
-`{r setup}`).
+Open up the `docs/learning.qmd` file and go to the code chunk called
+`setup` (should look like `{r setup}`). If there isn't one, create a new
+code chunk with {{< var keybind.chunk >}} at the bottom of the file and
+name the code chunk `setup`.
 
 We'll be using some `{targets}` functions in this document, so let's add
 `library(targets)` to the `setup` code chunk. Since we'll eventually be
@@ -105,13 +107,13 @@ located relative to the Quarto file.
 
 So in the `setup` code chunk, we'll add the `tar_config_set()` line
 right after `library(targets)`. Since the Quarto file is in the `docs/`
-folder, we can use the relative path `"../_targets"` to point to the
-store.
+folder, we can use `here::here()` to point to `"_targets"` to point to
+the store.
 
 ```` {.markdown filename="docs/learning.qmd"}
 ```{{r setup}}
 library(targets)
-tar_config_set(store = "../_targets")
+tar_config_set(store = here::here("_targets"))
 source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
@@ -189,14 +191,31 @@ pipeline with {{< var keybind.targets-vis >}}. You should now see the
 
 When we run the pipeline with the Quarto target in it, we'll see that a
 new file is created in the `docs/` folder. When we use
-`targets::tar_config_set(store = ...)`, it creates a new file called
-`_targets.yaml` that contains details that tell `{targets}` where to
-find the store. Since the path listed in this `docs/_targets.yaml` file
-is a relative path to the store, we can add it to our Git history so
-that our collaborators (or future you) also use it.
+`targets::tar_config_set(store = ...)`, it creates two new files called
+`_targets.yaml` in both the project folder and `docs/` that contains
+details that tell `{targets}` where to find the store. We don't really
+need to track these files as they are automatically created, so let's
+tell Git to ignore them.
 
-So let's commit the changes we've made to our project into the Git
-history with {{< var keybind.git >}}.
+```{r gitignore-targets-yaml}
+#| filename: Console
+use_git_ignore("_targets.yaml")
+```
+
+We also have several files that are created that we don't need to track,
+like the HTML files and the `docs/learning_files/` folder. Since these
+two are automatically generated when we run the `{targets}` pipeline,
+let's ignore them too. We can use `*` to tell `.gitignore` to ignore all
+folders that end with `_files` or `.html`:
+
+```{r gitignore-html-output}
+#| filename: Console
+use_git_ignore("*_files")
+use_git_ignore("*.html")
+```
+
+Great! So let's commit the changes we've made to our project into the
+Git history with {{< var keybind.git >}}.
 
 ## Building our first "product": A table of basic descriptive statistics
 
@@ -235,7 +254,7 @@ chunk, like below:
 ```{{r setup}}
 library(tidyverse)
 library(targets)
-tar_config_set(store = "../_targets")
+tar_config_set(store = here::here("_targets"))
 source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
@@ -280,7 +299,7 @@ flowchart TB
     mean_sd_column -->|"select()"| readable_column_names
 ```
 
-The functions to get to each object might be something like:
+The functions to create each object might be something like:
 
 1.  `group_by()` to split the dataset by the metabolites.
 2.  `summarise()` to calculate the `mean()` and standard deviation
@@ -325,7 +344,7 @@ created:
 lipidomics |>
   group_by(metabolite) |>
   summarise(across(value, list(mean = mean, sd = sd))) |>
-  mutate(across(where(is.numeric), ~ round(.x, digits = 1))) |>
+  mutate(across(where(is.numeric), \(x) round(x, digits = 1))) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
   select(Metabolite = metabolite, `Mean SD` = MeanSD)
 ```
@@ -378,7 +397,7 @@ create_table_descriptive_stats <- function(data) {
     ___
 }
 
-# Use it like, which should give the same output as before.
+# Use it like this, which should give the same output as before.
 create_table_descriptive_stats(lipidomics)
 ```
 ````
@@ -396,10 +415,10 @@ Complete these tasks:
 
 3.  Append the name of the package that the functions come from that are
     inside your function. For example, add `dplyr::` before `group_by()`
-    because it's from the`{dplyr}` package. Remember that you can look
+    because it's from the `{dplyr}` package. Remember that you can look
     up which package a function comes from by writing `?functionname` in
-    the Console. **ALL** functions used inside your function must have
-    the package name appended to them.
+    the Console. **ALL** non-base R functions used inside your function
+    must have the package name appended to them.
 
 4.  Run `use_package()` for the (1) package you used inside your
     function that is not already in the `DESCRIPTION` file.
@@ -434,6 +453,7 @@ we will be using this feature throughout the rest of this workshop.
 
 ```{r solution-descriptive-stats}
 #| code-fold: true
+#| output: false
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 #' Calculate descriptive statistics of each metabolite.
 #'
@@ -447,13 +467,13 @@ create_table_descriptive_stats <- function(data) {
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
     dplyr::mutate(dplyr::across(
       tidyselect::where(is.numeric),
-      ~ round(.x, digits = 1)
+      \(x) round(x, digits = 1)
     )) |>
     dplyr::mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
     dplyr::select(Metabolite = metabolite, `Mean SD` = MeanSD)
 }
 
-create_table_descriptive_stats(lipidomics)
+# create_table_descriptive_stats(lipidomics)
 
 # Adding the new dependencies
 # use_package("tidyselect")
@@ -476,18 +496,18 @@ list(
   ...,
   tar_target(
     name = table_descriptive_stats,
-    command = creat_table_descriptive_stats(lipidomics)
+    command = create_table_descriptive_stats(lipidomics)
   )
 )
 ```
 
 Style the file using {{< var keybind.styler >}}. Then, open the
 `docs/learning.qmd` file and go to the bottom of the file. Create a new
-header called `## Basic stats table` and add a new code chunk below it
-with {{< var keybind.chunk >}}. In this code chunk we need to add the
-output from the `{targets}` target using `tar_read()`. We also want to
-convert the data frame into a nice Markdown table using `knitr::kable()`
-with a `caption`. So the code chunk should look like:
+header called `## Results: Basic stats table` and add a new code chunk
+below it with {{< var keybind.chunk >}}. In this code chunk we need to
+add the output from the `{targets}` target using `tar_read()`. We also
+want to convert the data frame into a nice Markdown table using
+`knitr::kable()` with a `caption`. So the code chunk should look like:
 
 ```{r basic-stats-table-in-qmd}
 #| eval: false
@@ -507,18 +527,19 @@ lipidomics |>
   )
 ```
 
-Style the file using {{< var keybind.styler >}}. Now for us to see if
-the pipeline builds! First, let's see how the visualization looks. Run
-`targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to see
-that it now detects the new connections between the pipeline targets.
-Then, run `targets::tar_make()` with {{< var keybind.targets-make >}}.
-Let's run `targets::tar_visnetwork()` again with
-{{< var keybind.targets-vis >}} to see the updated pipeline graph. Neat
-eh! :tada:
+Style the file using {{< var keybind.styler >}}. Now time for us to see
+if the pipeline builds! First, let's see how the visualization looks.
+Run `targets::tar_visnetwork()` using {{< var keybind.targets-vis >}} to
+see that it now detects the new connections between the pipeline
+targets. Then, run `targets::tar_make()` with
+{{< var keybind.targets-make >}}. Let's run `targets::tar_visnetwork()`
+again with {{< var keybind.targets-vis >}} to see the updated pipeline
+graph. Neat eh! :tada:
 
 When we run the pipeline, we should get an HTML file output from the
 Quarto document. Let's open that up in a web browser to see the table we
-created!
+created! You can also render the Quarto document directly with
+{{< var keybind.render >}} to see the same output.
 
 Before continuing, commit the changes to the Git history with
 {{< var keybind.git >}}. Then push your changes up to GitHub.
@@ -574,13 +595,16 @@ line/layer and explaining what it does and why we're doing it.
 :::
 
 Next, we'll switch back to `docs/learning.qmd` and write the code to
-this plot of the distribution of each metabolite. We'll use
-`geom_histogram()`, nothing too fancy. And since the data is already in
-long format, we can easily use `facet_wrap()` to create a plot for each
-metabolite. We use `scales = "free"` because each metabolite doesn't
-have the same range of values (some are small, others are quite large).
-Just to make the plot a bit more aesthetically pleasing, we'll change
-the theme to `theme_minimal()`.
+this plot of the distribution of each metabolite. Create a new header
+called `## Plot of distributions` and add a new code chunk below it with
+{{< var keybind.chunk >}}.
+
+We'll use `geom_histogram()`, nothing too fancy. And since the data is
+already in long format, we can easily use `facet_wrap()` to create a
+plot for each metabolite. We use `scales = "free"` because each
+metabolite doesn't have the same range of values (some are small, others
+are quite large). Just to make the plot a bit more aesthetically
+pleasing, we'll change the theme to `theme_minimal()`.
 
 ```{r histogram-metabolites}
 #| fig-cap: "Histograms showing the distribution of all metabolites in the lipidomics dataset."
@@ -712,8 +736,8 @@ Add the plot function you just created in the exercise above as a
     You should see that the new item is now up to date.
 
 6.  Open the `docs/learning.qmd` file and go to the bottom of the file.
-    Create a new header called `## Distribution plots` and add a new
-    code chunk below it with {{< var keybind.chunk >}}. In this code
+    Create a new header called `## Results: Distribution plot` and add a
+    new code chunk below it with {{< var keybind.chunk >}}. In this code
     chunk, use `tar_read()` to insert the output from the
     `plot_distributions` target and print it.
 
@@ -759,20 +783,20 @@ tar_read(plot_distributions)
 Make a change to one of your functions and test out how the
 `tar_outdated()` and `tar_visnetwork()` work.
 
-1.  Open up the `R/functions.R` file and go to the `descriptive_stats()`
-    function.
+1.  Open up the `R/functions.R` file and go to the
+    `create_table_descriptive_stats()` function.
 
-2.  Add median and interquartile range (IQR) to the `summarise()`
+2.  Add median and interquartile range (IQR) to the `dplyr::summarise()`
     function, by adding it to the end of `list(mean = mean, sd = sd)`,
     after the second `sd`. Note, IQR should look like `iqr = IQR` since
     we want the output columns to have a lowercase for the column names.
 
 3.  Do the same thing as we did for the `Mean (SD)` column using
-    `glue()` to create a new column called `Median (IQR)`. You can do
-    this by adding another line below the `MeanSD` code in the
+    `glue::glue()` to create a new column called `Median (IQR)`. You can
+    do this by adding another line below the `MeanSD` code in the
     `mutate()`.
 
-4.  Rename the column in the `select()` function to be more
+4.  Rename the column in the `dplyr::select()` function to be more
     human-readable, like `Median IQR`.
 
 5.  Style using {{< var keybind.styler >}}.
@@ -786,9 +810,10 @@ Make a change to one of your functions and test out how the
     visualize the network again.
 
 8.  Check the updated HTML file to confirm that the table has the added
-    statistics.
+    statistics, either by opening the HTML file in the browser or by
+    re-rendering the Quarto document with {{< var keybind.render >}}.
 
-```{r solution-new-function-descriptive-stats}
+```{r solution-modify-descriptive-stats}
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 create_table_descriptive_stats <- function(data) {
