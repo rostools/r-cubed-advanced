@@ -819,6 +819,59 @@ create_table_descriptive_stats <- function(data) {
 }
 ```
 
+## :technologist: Extra exercise: Make the plot prettier
+
+**Time: \~10 minutes.**
+
+If you still have time, make your plot prettier, while testing out how
+the `tar_outdated()` and `tar_visnetwork()` work, and re-building the
+products, as you make changes.
+
+1.  Open up the `R/functions.R` file and go to the
+    `create_plot_distributions()` function.
+
+2.  Change the theme to something else. You can see the different themes
+    by typing `ggplot2::theme_` in the Console and pressing Tab to see
+    the options.
+
+3.  Change the x- and y-axes labels to something more descriptive by
+    using `ggplot2::labs()`.
+
+4.  Add a figure caption to the plot by adding
+    `#| fig-cap: "Your caption here"` at the very top of the code chunk
+    that has your `tar_read()` plot code in `docs/learning.qmd`.
+
+5.  Style using {{< var keybind.styler >}}.
+
+6.  Run `tar_outdated()` and `tar_visnetwork()` in the Console (or by
+    using the Command Palette {{< var keybind.palette >}}, then "targets
+    outdated" or "targets visual"). What does it show?
+
+7.  Run `tar_make()` in the Console or with
+    {{< var keybind.targets-make >}}. Re-check for outdated targets and
+    visualize the network again.
+
+8.  Check the updated HTML file to confirm that the table has the added
+    statistics, either by opening the HTML file in the browser or by
+    re-rendering the Quarto document with {{< var keybind.render >}}.
+
+```{r solution-modify-plot-distribution}
+#| code-fold: true
+#| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
+# This has some potential changes.
+create_plot_distributions <- function(data) {
+  data |>
+    ggplot2::ggplot(ggplot2::aes(x = value)) +
+    ggplot2::geom_histogram() +
+    ggplot2::facet_wrap(ggplot2::vars(metabolite), scales = "free") +
+    ggplot2::theme_classic() +
+    ggplot2::labs(
+        x = "Metabolite Value",
+        y = "Count"
+    )
+}
+```
+
 ## Summary
 
 -   Build up targets piece by piece. Start at the end (e.g. the report)
