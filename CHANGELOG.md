@@ -21,6 +21,16 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.1.2 (2025-12-01)
+
+### Fix
+
+- **sessions**: :bug: mermaid chunks need to use `label` to create `Figure #`
+- **sessions**: :pencil2: small fixes to pipelines setup during review
+- **sessions**: :art: small stylistic fixes to intro slides during review
+- **sessions**: :pencil2: small fixes to introduction during review
+- **sessions**: :pencil2: small fixes to dependency during review
+
 ## 2.1.1 (2025-11-30)
 
 ### Fix
