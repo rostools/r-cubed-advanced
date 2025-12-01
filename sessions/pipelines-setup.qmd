@@ -645,11 +645,14 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 
 -   Use a function-oriented workflow together with `{targets}` to build
     your data analysis pipeline and track your pipeline "targets".
+
 -   List individual "pipeline targets" using `tar_target()` within the
     `_targets.R` file and run them with `targets::tar_make()`.
+
 -   Visualize target items in your pipeline with
     `targets::tar_visnetwork()` or list outdated items with
     `targets::tar_outdated()`.
+
 -   Use `targets::tar_read()` to access saved pipeline outputs.
 
 {{< include /includes/_code-appendix.qmd >}}

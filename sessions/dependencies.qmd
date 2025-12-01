@@ -576,15 +576,15 @@ gert::git_commit("Don't need this file anymore.")
 
 ## Summary
 
-In this chapter, we have covered how to do the following in a project
-for smoother collaboration with formal dependency management:
-
 -   Track your project package dependencies with the `DESCRIPTION` file
     and `{usethis}`.
+
 -   Install the dependencies necessary for your project with
     `pak::pak()`.
+
 -   Differentiate between build and workflow dependencies and how to add
     them to the `DESCRIPTION` file.
+
 -   Use RStudio's canonical markdown mode to reformat Markdown into a
     standard format.
 

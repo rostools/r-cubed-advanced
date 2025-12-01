@@ -694,14 +694,18 @@ list(
 
 -   Before coding, design and sketch out how the data will flow through
     different actions that will eventually lead to the output you want.
+
 -   Analyses typically follow the same general steps: prepare the data,
     fit the model, and extract the results.
+
 -   Apply functional programming techniques such as breaking down a task
     into smaller pieces that work for one thing before scaling it up to
     many things.
+
 -   As much as possible, functions should output a data frame because
     they are easier to work with and work very well with `{tidyverse}`
     functions and workflows.
+
 -   Use `{broom}` to `tidy()` the model output to get a data frame of
     the estimates and standard error for the variables in the model.
 

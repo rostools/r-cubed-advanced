@@ -407,10 +407,12 @@ control), the model would be a logistic regression model.
     mimic how the statistical analysis will be done, preferably in a
     "formula" style like $y = x1 + x2 + ...$ and in a diagram style with
     links connecting variables.
+
 -   Statistical analyses, while requiring some trial and error, are
     surprisingly structured in the workflow and steps taken. Use this
     structure to help guide you in completing tasks related to running
     analyses.
+
 -   Prioritise taking time to consider and design your research question
     into a statistical model formula before moving on to coding. Use
     this design stage to also consider and plan how your data should

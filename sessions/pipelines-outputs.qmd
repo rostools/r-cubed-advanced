@@ -903,9 +903,11 @@ create_plot_distributions <- function(data) {
     and work backwards. Let `{targets}` save the pipeline output and
     store the results for you, rather than keep them in your Git
     history.
+
 -   Aim to have each target do one thing and to use one function per
     target. This keeps things a bit easier for you to track and manage,
     and keeps the pipeline smaller and more manageable.
+
 -   Within R Markdown / Quarto files, use `targets::tar_read()` to
     access saved pipeline outputs. To include the Quarto in the
     pipeline, use `{tarchetypes}` and the function `tar_quarto()`.

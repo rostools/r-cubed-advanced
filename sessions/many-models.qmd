@@ -417,6 +417,7 @@ tar_read(model_results) |>
     larger conceptual actions, which can then more easily be
     incorporated into a `{targets}` pipeline. Small, multiple functions
     combined together are easier to manage than fewer, bigger ones.
+
 -   Use functional programming with `map()`, as part of the
     function-oriented workflow, to run multiple models efficiently and
     with minimal code.
