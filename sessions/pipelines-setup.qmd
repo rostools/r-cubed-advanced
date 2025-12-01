@@ -8,8 +8,6 @@ library(targets)
 lipidomics <- read_csv(here::here("data/lipidomics.csv"))
 ```
 
-{{< text_snippet review_note >}}
-
 When doing analyses on data, you have probably experienced (many) times
 where you have to re-run some analyses and have forgotten the order that
 code should run or which parts you need to re-run in order to update the
@@ -31,7 +29,7 @@ that create and manage these pipelines effectively.
 
 ## :speech_balloon: Discussion activity: How do you re-run analyses when something changes?
 
-**Time: \~12 minutes.**
+**Time: \~10 minutes.**
 
 We've all been (or will be) in situations where something in our
 analysis needs to change: Maybe we forgot to remove a certain condition
@@ -47,7 +45,7 @@ somewhere early in the data processing stage.
 1.  Take about 1 minute to think about the workflow you use. Try to
     think of the *exact* steps you need to take, what *exactly* you do,
     and how long that usually takes.
-2.  For 8 minutes, share and discuss your thoughts in with your
+2.  For 6 minutes, share and discuss your thoughts in with your
     neighbour. How do your experiences compare to each other?
 3.  For the remaining time, we'll briefly share with everyone what
     they've thought and discussed.
@@ -92,30 +90,27 @@ product. And it means that the entire process should be *automated* and
 *reproducible*.
 
 So why are these computational data pipelines rarely found in most of
-the research "pipelines" described in papers? We can break the reason
-why not into specific points that together explain why not:
+the research "pipelines" described in papers? Because:
 
-1.  Anything with data ultimately must be on or done by the computer,
-2.  Anything automatically done on the computer must be done with code,
-3.  Not all researchers write code,
-4.  Researchers who do write code rarely publish and share it,
-5.  Code that is shared or published (either publicly or within the
-    research group) is not written in a way that allows a pipeline to
-    exist,
-6.  And, research is largely non-reproducible [@Trisovic2022;
+-   Not all researchers write code.
+-   Researchers who do write code rarely publish and share it.
+-   Code that is shared or published (either publicly or within the
+    research group) is written in a way that makes it hard to make as a
+    pipeline.
+-   And, research is largely non-reproducible [@Trisovic2022;
     @Seibold2021; @Laurinavichyute2021].
 
 A data analysis pipeline would, by definition, be a readable and
-reproducible data analysis. But based on the above points, researchers
-(on average and as a group) don't have the technical expertise and
-knowledge to actually implement data analysis pipelines.
+reproducible data analysis. Unfortunately, researchers (on average and
+as a group) don't have the technical expertise and knowledge to actually
+implement data analysis pipelines.
 
 This isn't to diminish the work of researchers, but is rather a basic
 observation on the systemic, social, and structural environment
 surrounding us. We as researchers are not necessarily trained in writing
 code, nor is there a strong culture and incentive structure around
 learning, sharing, reviewing, and improving code. Which also results in
-use very rarely being allowed to get (or use) funds to hire people who
+us very rarely being allowed to get (or use) funds to hire people who
 *are* trained and skilled in programmatic designing, thinking, and
 coding. Otherwise workshops like this wouldn't need to exist
 :woman_shrugging:
@@ -164,8 +159,9 @@ Here, there are three distinct items ("products") that you (might) want
 to create from your data. Each "flow" from data to the desired product
 has specific actions that need to happen. Now that you've seen how it is
 conceptually drawn out, there are some initial tasks you can work
-towards in your pipeline. In this session, we will build up the actions
-piece-by-piece to go from data to final product.
+towards in your pipeline. In this session, we will setup up the pipeline
+so that we can eventually build up the actions piece-by-piece to go from
+data to final product.
 
 {{< text_snippet sticky_up >}}
 
@@ -195,7 +191,7 @@ file with:
 #| purl: true
 #| eval: false
 #| filename: Console
-use_package("targets", "suggests")
+use_package("targets")
 ```
 
 Now that it's added as a dependency, let's set up our project to start
@@ -371,6 +367,14 @@ this session.
 
 ## Building up our first target
 
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Walkthrough this section, especially the diagram of the pipeline.
+Emphasise that it helps to sketch and design this out first, before
+actually writing any code.
+:::
+
 Now that we've conceptually learned about how `{targets}` works, let's
 take a big step back and first graphically design our own pipeline. So
 we want to create the three items we mentioned before: a descriptive
@@ -430,8 +434,9 @@ After running it, you should see in one of RStudio's panes something
 that looks like:
 
 ```
-#> + file dispatched
-#> ✔ file completed
++ file dispatched
+✔ file completed [4ms, 24.28 kB]
+✔ ended pipeline [123ms, 1 completed, 0 skipped]
 ```
 
 This tells us that the target called `file` has been run. Since we only
@@ -498,10 +503,18 @@ list(
 
 We use `show_col_types = FALSE` to suppress the message explaining which
 columns `{readr}` is reading into R. Now, let's run `{targets}` again
-using {{< var keybind.targets-make >}}. After it runs, check the
-visualisation of it with {{< var keybind.targets-vis >}}. You can now
-see that there are two targets, with an arrow from `file` to
-`lipidomics`.
+using {{< var keybind.targets-make >}}. It should now also show
+something like:
+
+```
++ lipidomics dispatched
+✔ lipidomics completed [109ms, 4.88 kB]
+✔ ended pipeline [234ms, 1 completed, 1 skipped]
+```
+
+After it runs, check the visualisation of it with
+{{< var keybind.targets-vis >}}. You can now see that there are two
+targets, with an arrow from `file` to `lipidomics`.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
@@ -598,23 +611,21 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
     `tar_invalidate(everything())` will remove all metadata details for
     all targets in the pipeline, and
     `tar_invalidate(starts_with("data_"))` will remove all metadata
-    details for targets that start with `data_` (e.g. like our
-    `data_file` target).
+    details for targets that start with `data_`.
 
 `tar_delete()`
 
-:   This deletes the stored objects (e.g. the `lipidomics` or
-    `df_stats_by_metabolite`) inside `_targets/`, but does not delete
-    the record in the pipeline. So `{targets}` will see that the
-    pipeline doesn't need to be rebuilt. This is useful if you want to
-    remove some data because it takes up a lot of space, or, in the case
-    of GDPR and privacy rules, you don't want to store any sensitive
-    personal health data in your project. Use it like
-    `tar_invalidate()`, with functions like `everything()` or
-    `starts_with()`. For example, `tar_delete(everything())` will delete
-    all stored objects in `_targets/` and
-    `tar_delete(starts_with("data_"))` will delete all stored objects
-    that start with `data_`.
+:   This deletes the stored objects (e.g. the `lipidomics` object)
+    inside `_targets/`, but does not delete the record in the pipeline.
+    So `{targets}` will see that the pipeline doesn't need to be
+    rebuilt. This is useful if you want to remove some data because it
+    takes up a lot of space, or, in the case of GDPR and privacy rules,
+    you don't want to store any sensitive personal health data in your
+    project. Use it like `tar_invalidate()`, with functions like
+    `everything()` or `starts_with()`. For example,
+    `tar_delete(everything())` will delete all stored objects in
+    `_targets/` and `tar_delete(starts_with("data_"))` will delete all
+    stored objects that start with `data_`.
 
 `tar_prune()`
 
