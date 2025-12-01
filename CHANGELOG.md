@@ -21,6 +21,17 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.1 (2025-12-01)
+
+### Fix
+
+- **sessions**: :pencil2: forgot to include survey button
+- **sessions**: :bug: prevent extra solution code from going into code appendix
+
+### Refactor
+
+- **sessions**: :pencil2: clarify some items in the stats modeling session
+
 ## 2.2.0 (2025-12-01)
 
 ### Feat
