@@ -813,7 +813,7 @@ Make a change to one of your functions and test out how the
     statistics, either by opening the HTML file in the browser or by
     re-rendering the Quarto document with {{< var keybind.render >}}.
 
-```{r solution-modify-descriptive-stats}
+```{r extra-solution-modify-descriptive-stats}
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 create_table_descriptive_stats <- function(data) {
@@ -880,7 +880,7 @@ products, as you make changes.
     statistics, either by opening the HTML file in the browser or by
     re-rendering the Quarto document with {{< var keybind.render >}}.
 
-```{r solution-modify-plot-distribution}
+```{r extra-solution-modify-plot-distribution}
 #| code-fold: true
 #| code-summary: "**Click for a potential solution**. Only click if you are struggling or are out of time."
 # This has some potential changes.
