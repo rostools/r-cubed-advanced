@@ -476,7 +476,7 @@ list(
   ...,
   tar_target(
     name = table_descriptive_stats,
-    command = creat_table_descriptive_stats(lipidomics)
+    command = create_table_descriptive_stats(lipidomics)
   )
 )
 ```
