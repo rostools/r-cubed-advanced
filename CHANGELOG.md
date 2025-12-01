@@ -21,6 +21,17 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.0 (2025-12-01)
+
+### Feat
+
+- **sessions**: :sparkles: get team to ignore specific files in project work session
+- **sessions**: :sparkles: add an optional exercise to end of pipelines output
+
+### Fix
+
+- **sessions**: :pencil2: small fixes of pipeline outputs session during review
+
 ## 2.1.2 (2025-12-01)
 
 ### Fix
