@@ -54,11 +54,10 @@ statistical methods on data. Because it is such an important component
 for this session, you'll briefly review the concepts of functional
 programming by reading some sections from the intermediate workshop:
 
-1.  Read **only** section 8.3 in the [Function
-    Programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#reading-task-functional-programming)
-    session.
+1.  Read **only** section 8.3 about [functional
+    programming](https://r-cubed-intermediate.rostools.org/sessions/functionals#reading-task-functional-programming).
 
-2.  Read **only** the section 10.2 about
+2.  Read **only** section 10.2 about
     [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine#reading-task-split-apply-combine-technique-and-functionals).
 
 {{< text_snippet sticky_up >}}
@@ -99,7 +98,7 @@ looks like:
 ```
 ````
 
-As we want to run two models for each metabolite and we've already been
+We want to run two models for each metabolite and as we've already been
 working with the cholesterol metabolite, let's run those two models for
 cholesterol before we apply it to all metabolites. We're going to
 eventually use the functionals from the `{purrr}` package. So let's
@@ -124,11 +123,11 @@ just_cholesterol <- lipidomics |>
   preprocess()
 ```
 
-Recall from the diagrams above that, as much as possible, we want to
-work with `list()`s when dealing with multiple items like models. Also
-recall from the @sec-stats-modeling session that we can treat the model
-formulas as objects too, that we can modify and work with. So let's
-start with making a list of the two models: `class ~ value` and
+As much as possible, we want to work with `list()`s when dealing with
+multiple items such as with our models. Recall from the
+@sec-stats-modeling session that we can treat the model formulas as
+objects too, that we can modify and work with. So let's start with
+making a list of the two models: `class ~ value` and
 `class ~ value + gender + age`.
 
 ```{r list-models}
@@ -148,12 +147,14 @@ diagram below visualises what happens when you use `map()` and
 ## :teacher: Teacher note
 
 Show this diagram and explain how map applies the function to each item
-inside of the list, creating a new list with the results.
+inside of the list, creating a new list with the results. Especially
+highlight that we give `map()` the function *as an object* (without the
+`()`) so that it can apply it as an *action* to each item in the list.
 :::
 
 ```{mermaid}
 %%| label: fig-list-and-map
-%%| fig-cap: "Using `map()` to apply `fit_model()` to each model formula in a list."
+%%| fig-cap: "Using `map()` to apply `fit_model()` to each model formula in a list. Notice that `fit_model` is without parentheses `()` because we are giving the function as an object to `map()`."
 %%| echo: false
 graph LR
     subgraph input [Input List]
@@ -244,11 +245,19 @@ Woohoo! We have a function that fits all models to a given data frame.
 We won't go over what each column and row means just yet, we'll do that
 in the next session.
 
-Alright, let's style this file by using {{< var keybind.styler >}} before
-it's time for you to convert this into a function. Commit this to the
-Git history with {{< var keybind.git >}} and then push to GitHub.
+Alright, let's style this file by using {{< var keybind.styler >}}
+before it's time for you to convert this into a function. Commit this to
+the Git history with {{< var keybind.git >}} and then push to GitHub.
 
 ## :technologist: Exercise: Piece it all together to run all models at once!
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Walkthrough the solution with them after they've all finished (or most
+of them have finished). Briefly explain what the code is doing
+step-by-step. If you want, you can do this as a code along.
+:::
 
 **Time: \~15 minutes.**
 
@@ -341,6 +350,14 @@ lipidomics |>
 
 ## :technologist: Exercise: Update the `create_model_results()` function and run the pipeline!
 
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+Walkthrough the solution with them after they've all finished (or most
+of them have finished). Briefly explain what the code is doing
+step-by-step. If you want, you can do this as a code along.
+:::
+
 **Time: \~15 minutes.**
 
 The final piece of the puzzle: include this code into the pipeline so we
@@ -378,12 +395,20 @@ create_model_results <- function(data) {
 5.  Open the `docs/learning.qmd` file and go to the bottom of the file.
     Create a new header there called `## Appendix` along with a code
     chunk that outputs the `model_results` target with `tar_read()`.
-    Pipe the output to `knitr::kable()` to make it a nice table.
-    Include a `caption` if you would like.
+    Pipe the output to `knitr::kable()` to make it a nice table. Include
+    a `caption` if you would like.
 
 6.  Check the targets pipeline with {{< var keybind.targets-vis >}}
     again to see what has changed. Then run the pipeline again with
     {{< var keybind.targets-make >}}.
+
+7.  Open up the HTML output of the `docs/learning.qmd` file to see the
+    results table, either by open it in a browser or by rendering it
+    with {{< var keybind.render >}}. The table doesn't look pretty, but
+    it's a starting point.
+
+8.  Finally, commit all your changes with {{< var keybind.git >}} and
+    push to GitHub.
 
 ```{r solution-update-create-model-results-new-function}
 #| code-fold: true
