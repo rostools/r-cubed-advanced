@@ -50,6 +50,7 @@ book:
         - sessions/visualise-models.qmd
         - sessions/project-work.qmd
   appendices:
+    - appendix/social.qmd
     - appendix/for-teachers.qmd
     - CHANGELOG.md
     - CONTRIBUTING.md
