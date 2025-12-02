@@ -21,6 +21,12 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.4 (2025-12-02)
+
+### Fix
+
+- :wrench: forgot to include social page on sidebar
+
 ## 2.2.3 (2025-12-01)
 
 ### Fix
