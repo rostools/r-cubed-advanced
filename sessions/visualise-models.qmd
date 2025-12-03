@@ -427,9 +427,17 @@ list(
   # ...,
   tar_target(
     name = plot_model_results,
-    command = create_plot_model_results(df_model_estimates)
+    command = create_plot_model_results(model_results)
   )
 )
+```
+
+```{r solution-plot-quarto}
+#| eval: false
+#| code-fold: true
+#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#| filename: "docs/learning.qmd"
+tar_read(plot_model_results)
 ```
 
 {{< text_snippet sticky_up >}}
