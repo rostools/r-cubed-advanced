@@ -209,17 +209,15 @@ metabolites by their mean. In our case, only Cholesterol will actually
 be summarised while all the rest won't be affected.
 
 So we'll summarise only the `value` column by grouping by all the
-columns except for `value`. Then we can use the `.groups = "keep"`
-argument in `summarise()` to keep the grouping variables since we want
-them kept. We have to use `pick()` in `group_by()` in order to select
-all columns except `value`.
+columns except for `value`. Then we can use the `.by` argument in
+`summarise()` to group by a variable or variables. You can use it like
+`select()` when selecting columns. In our case, we want to summarise by
+all columns except for `value`:
 
 ```{r summarise-duplicates}
 #| filename: "docs/learning.qmd"
 lipidomics |>
-  group_by(pick(-value)) |>
-  summarise(value = mean(value), .groups = "keep") |>
-  ungroup()
+  summarise(value = mean(value), .by = -value)
 ```
 
 This issue affects our other outputs that we made previously, like the
@@ -255,9 +253,7 @@ data. Let's make that function now:
 #| filename: "docs/learning.qmd"
 clean <- function(data) {
   data |>
-    dplyr::group_by(dplyr::pick(-value)) |>
-    dplyr::summarise(value = mean(value), .groups = "keep") |>
-    dplyr::ungroup()
+    dplyr::summarise(value = mean(value), .by = -value)
 }
 
 clean(lipidomics)
@@ -275,9 +271,7 @@ We'll add the Roxygen documents now with {{< var keybind.roxygen >}}:
 #'
 clean <- function(data) {
   data |>
-    dplyr::group_by(dplyr::pick(-value)) |>
-    dplyr::summarise(value = mean(value), .groups = "keep") |>
-    dplyr::ungroup()
+    dplyr::summarise(value = mean(value), .by = -value)
 }
 ```
 
