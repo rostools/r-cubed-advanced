@@ -21,6 +21,16 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.5 (2025-12-03)
+
+### Fix
+
+- **sessions**: :pencil2: use quotes, not backticks
+
+### Refactor
+
+- **sessions**: :recycle: moved paragraph about odds ratio values down
+
 ## 2.2.4 (2025-12-02)
 
 ### Fix
