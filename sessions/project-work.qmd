@@ -76,16 +76,18 @@ Your specific tasks are:
     -   Usually we would get you to store it in `data-raw/` and do some
         processing there, but since we've chosen these datasets
         specifically because they are already fairly tidy, you will
-        store the data directly into `data/` folder.
+        store the data directly into the `data/` folder.
     -   Generally we don't recommend storing data in the Git history,
         especially if it is large. However, for this workshop and
-        because the datasets we've chosen are relatively small, we get
-        you to do it as it makes all the other steps easier.
+        because the datasets we've chosen are relatively small, you can
+        track it with Git to make later steps and collaboration easier.
 
 4.  While the other person is doing the above task, the other team
     member can do additional setup tasks, like ignoring files in the
     `.gitignore`.
 
+    -   Run `targets::use_targets()` to set up the project to create a
+        pipeline with the `{targets}` package.
     -   Run `use_git_ignore("_targets.yaml")` to ignore the
         `_targets.yaml` auto-generated files.
     -   Run `use_git_ignore("*_files")` to ignore all Quarto generated
@@ -97,6 +99,13 @@ Your specific tasks are:
         collaborating and isn't necessary in the context of this
         workshop, so you can also ignore it by running
         `use_git_ignore("_targets/meta/meta")`.
+    -   Uncomment the line `library(tarchetypes)` in the `_targets.R`
+        file as you will need it for your pipeline.
+    -   Run `use_package()` to add `{styler}` and `{usethis}` as
+        workflow dependencies with `"suggests"` as the type.
+    -   Run `use_package()` to add `{targets}`, `{tarchetypes}`,
+        `{dplyr}`, `{tidyselect}`, `{purrr}`, `{readr}`, `{ggplot2}`,
+        and `{broom}` as build dependencies as a starting point.
     -   Commit the changes to Git and push to GitHub.
 
 5.  All team members pull from GitHub.
@@ -116,7 +125,8 @@ Your specific tasks are:
         If you have time, try to add a more complex model of
         `y ~ x + xc`, where `xc` is a variable you want to adjust or
         control for (like our `gender` and `age` examples during the
-        workshop).
+        workshop), but *only if you have time later*. Do the simpler
+        model first.
 
     -   Which variables will be the outcome variables.
 
@@ -153,9 +163,11 @@ Your specific tasks are:
         pipeline in this file with `targets::tar_read()`.
 
     -   Theoretically, if you do these things you will only have merge
-        conflicts in the `_targets.R` file and the `docs/report.qmd`
-        file, which will be easier to resolve. See the tips below about
-        minimizing merge conflicts when collaborating.
+        conflicts in the `_targets.R`, `DESCRIPTION`, and the
+        `docs/report.qmd` files, which will be easier to resolve. See
+        the tips below about minimizing merge conflicts when
+        collaborating. The helpers and instructors will also be
+        available to help you resolve any merge conflicts.
 
 11. Using the workflow we've covered in this workshop, collaboratively
     create a reproducible analysis pipeline by:
@@ -295,7 +307,7 @@ the project is a success! :tada:
 
 ## Survey
 
-After the projects are tested, please complete the survey for this session
-as well as for the whole workshop:
+After the projects are tested, please complete the survey for this
+session as well as for the whole workshop:
 
 {{< include /includes/_survey.qmd >}}
