@@ -21,6 +21,18 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.7 (2025-12-03)
+
+### Fix
+
+- **sessions**: :pencil2: small edits from review of project work
+- **sessions**: :pencil2: need to include `tar_read()` in solution of vis exercise
+
+### Refactor
+
+- **sessions**: :recycle: need to convert scaled variable to `as.vector()`
+- **sessions**: :recycle: use `.by` argument instead of `group_by()`
+
 ## 2.2.6 (2025-12-03)
 
 ### Refactor
