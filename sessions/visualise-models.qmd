@@ -12,6 +12,12 @@ lipidomics <- read_csv(here::here("data/lipidomics.csv")) |>
 model_results <- create_model_results(lipidomics)
 ```
 
+Effectively visualizing the results of your analysis is an important
+part in communicating your findings to others. We've created an object
+that contains the results from the previous session. Now we want to take
+that object, make a figure of it, and\> include it into our pipeline and
+Quarto report.
+
 ## Learning objectives
 
 {{< include /includes/objectives/_visualise-models.qmd >}}
@@ -41,7 +47,7 @@ the other columns you may not be familiar with:
 -   `estimate`: This column is the "coefficient" linked to the term in
     the model. The final mathematical model here looks like:
 
-    $$ \displaylines{class = Intercept + (value\_estimate \times value_number) + \\ (gender\_estimate \times gender\_number) + ...}$$
+    $$ \displaylines{class = intercept + (value\_estimate \times value\_number) + \\ (gender\_estimate \times gender\_number) + ...}$$
 
     In our example, we chose to get the odds ratios. In the mathematical
     model above, the estimate is represented as the log odds ratio or
@@ -95,7 +101,7 @@ will take the `model_results` data frame and create a plot from it.
 
 ```{mermaid}
 %%| label: fig-plot-model-pipeline
-%%| fig-cap: "Last remaining target: Plotting the model results."
+%%| fig-cap: "The last remaining target... plotting the model results!"
 %%| echo: false
 graph TB
     data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
@@ -115,8 +121,9 @@ calculate the confidence interval because it often requires more
 extensive checks of the data and of model assumptions to do properly. In
 fact, while developing the material for this workshop and trying to
 include the confidence interval, the code didn't run because of issues
-with the data that would require doing checks that are well beyond the
-scope of this workshop. So instead, we will just use the standard error.
+with the data. Investigating the issue during the workshop would require
+doing checks that are well beyond the scope of this workshop. So
+instead, we will just use the standard error.
 
 Go into the `docs/learning.qmd` and create a new header and code chunk
 right above the `## Appendix` header we created previously. Since we ran
@@ -217,13 +224,13 @@ model_results |>
   geom_pointrange()
 ```
 
-Woah, there is definitely something wrong here. The values of the
-estimates should realistically be somewhere between 0 (it's not possible
-to have an odds ratio be negative) and 2 (in biology and health
-research, odds ratios are rarely above 2), definitely unlikely to be
-more than 5. Before we address that issue though, let's first include
-the `model` information. In our case, because we had research questions
-that involved both, but not comparing them directly, we can use
+Woah, there is definitely something wrong here. There's something very
+wrong with the standard error values of some metabolites. Some of them
+are huge!
+
+Before we address that issue though, let's first include the `model`
+information. In our case, because we had research questions that
+involved both, but not comparing them directly, we can use
 `facet_grid()` to show the two models separately. We'll facet so they
 are side-by-side rather than on top of each other, so we will use
 `cols = vars(model)`. We can also add a vertical line at `x = 1`, since
@@ -247,14 +254,14 @@ model_results |>
   facet_grid(cols = vars(model))
 ```
 
-Neat! Now let's fix this estimate and standard error issue. In a real
-analyses, we would go back to the data and the models to figure out what
-is wrong. It is likely that there are some data quality issues or that
-the variability within the data itself is just too high for these
-variables. Either way, this is outside the scope of this workshop. So
-instead, we will just drop those values so we don't plot them. To start,
-let's remove any `std.error` values that are above maybe 2. We'll do
-that in the `filter()` step.
+Neat! Now let's fix this standard error issue. In a real analyses, we
+would go back to the data and the models to figure out what is wrong. It
+is likely that there are some data quality issues or that the
+variability within the data itself is just too high for these variables.
+Either way, this is outside the scope of this workshop. So instead, we
+will just drop those values so we don't plot them. So, let's remove any
+`std.error` values that are above maybe 2, since that already is quite
+large of a standard error. We'll do that in the `filter()` step.
 
 ```{r plot-filter-std-error}
 #| filename: "docs/learning.qmd"
@@ -274,14 +281,17 @@ model_results |>
 
 We see it dropped some metabolites. But there's still an issue. Some of
 the metabolites have `estimate` values that are huge! Way too big to be
-realistic or a real result. To put that into perspective, odds ratio
-above a 4 is already considered quite large in biology and health
-research and that really only occurs when there is a strong causal
-relationship between the predictor and the outcome. In the case of the
-biology between a specific metabolite and type 1 diabetes status, the
-odds ratio will be much closer to 1. So for this workshop, let's just
-filter out any `estimate` values above 5, to be generous with the
-cutoff.
+realistic or a real result. The values of the estimates should
+realistically be somewhere between 0 (it's not possible to have an odds
+ratio be negative) and 2 (in biology and health research, odds ratios
+are rarely above 2), definitely unlikely to be more than 5. To put that
+into perspective, odds ratio above a 4 is already considered quite large
+in biology and health research and that really only occurs when there is
+a strong causal relationship between the predictor and the outcome. In
+the case of the biology between a specific metabolite and type 1
+diabetes status, the odds ratio will be much closer to 1. So for this
+workshop, let's just filter out any `estimate` values above 5, to be
+generous with the cutoff.
 
 ```{r plot-filter-estimate}
 #| filename: "docs/learning.qmd"
