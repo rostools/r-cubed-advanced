@@ -86,19 +86,6 @@ Your specific tasks are:
     member can do additional setup tasks, like ignoring files in the
     `.gitignore`.
 
-    -   Run `targets::use_targets()` to set up the project to create a
-        pipeline with the `{targets}` package.
-    -   Run `use_git_ignore("_targets.yaml")` to ignore the
-        `_targets.yaml` auto-generated files.
-    -   Run `use_git_ignore("*_files")` to ignore all Quarto generated
-        folders.
-    -   Run `use_git_ignore("*.html")` to ignore the HTML report. This
-        file is automatically generated from the `{targets}` pipeline,
-        so there is no need to store it in Git.
-    -   The `_targets/meta/meta` file can be annoying to deal with when
-        collaborating and isn't necessary in the context of this
-        workshop, so you can also ignore it by running
-        `use_git_ignore("_targets/meta/meta")`.
     -   Uncomment the line `library(tarchetypes)` in the `_targets.R`
         file as you will need it for your pipeline.
     -   Run `use_package()` to add `{styler}` and `{usethis}` as
