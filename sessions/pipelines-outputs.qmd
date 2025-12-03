@@ -348,7 +348,7 @@ lipidomics |>
   summarise(across(value, list(mean = mean, sd = sd))) |>
   mutate(across(where(is.numeric), \(x) round(x, digits = 1))) |>
   mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
-  select(Metabolite = metabolite, `Mean SD` = MeanSD)
+  select(Metabolite = metabolite, "Mean SD" = MeanSD)
 ```
 
 After we've made it, let's style the file using
