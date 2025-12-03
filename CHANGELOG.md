@@ -21,6 +21,12 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.6 (2025-12-03)
+
+### Refactor
+
+- **sessions**: :pencil2: match header of extra exercise with others
+
 ## 2.2.5 (2025-12-03)
 
 ### Fix
