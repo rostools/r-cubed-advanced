@@ -434,7 +434,7 @@ list(
 
 {{< text_snippet sticky_up >}}
 
-## :technologist: Optional exercise: Customise the look of the plot
+## :technologist: Extra exercise: Customise the look of the plot
 
 **Time: \~6 minutes.**
 
