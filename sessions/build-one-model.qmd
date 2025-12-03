@@ -346,6 +346,9 @@ mean-centers and scales the values so that they have a mean of 0 and
 standard deviation of 1. This makes certain that each metabolite will
 have the same unit and similar distribution shape.
 
+The `scale()` function outputs a matrix type object, so we need to
+force it as a vector by using `as.vector()`.
+
 ::: callout-important
 `scale()` mean-centers and scales *all* values in a column. So if you
 scale before filtering for a metabolite, you will be scaling across all
@@ -360,7 +363,7 @@ lipidomics |>
   filter(metabolite == "Cholesterol") |>
   mutate(
     class = as.factor(class),
-    value = scale(value)
+    value = as.vector(scale(value))
   )
 ```
 
@@ -381,7 +384,7 @@ preprocess <- function(data) {
   data |>
     dplyr::mutate(
       class = as.factor(class),
-      value = scale(value)
+      value = as.vector(scale(value))
     )
 }
 ```
