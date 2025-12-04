@@ -185,6 +185,7 @@ Your specific tasks are:
     -   We suggest that each person on a team of two select one of the
         two outcome (`y`) variables for the model, which are `EGA`
         (estimated gestational age) or `DOS` (days of labor onset).
+        You can make these as two separate targets in the pipeline.
     -   Since there are many predictor variables (`x`), we suggest each
         person select *at least* two of the other variables, which
         include any variable *except* the two outcome variables or the
@@ -196,6 +197,7 @@ Your specific tasks are:
         (Hounsfield unit, positive values mean more dense liver),
         `fat.perc` (percent of fat in liver), or `fibrosis.perc`
         (percent of liver with fibrosis)
+        You can make these as two separate targets in the pipeline.
     -   We suggest each person select *at least two* predictor (`x`)
         variables for the models, from any of the blood variables, for
         instance (but not limited to) `insulin`, `trig`, `VLDL`, `urea`,
