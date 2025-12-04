@@ -233,6 +233,10 @@ fit_all_models <- function(data) {
 }
 ```
 
+Let's cut and paste this new function over into the `R/functions.R` file
+and then source with {{< var keybind.source >}}. Then, go back into the
+`docs/learning.qmd` file and test out the new function:
+
 ```{r}
 #| filename: "docs/learning.qmd"
 lipidomics |>
