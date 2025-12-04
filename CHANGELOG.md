@@ -21,6 +21,12 @@ If you attended a workshop or used the workshop material as some point
 in time, you can always refer to this changelog page to find out what
 has been changed since you last used it.
 
+## 2.2.11 (2025-12-04)
+
+### Fix
+
+- **sessions**: :pencil2: clarify to make two targets in project work
+
 ## 2.2.10 (2025-12-04)
 
 ### Refactor
