@@ -54,5 +54,6 @@
     "_site": true,
     "_book": true,
     "_freeze": true
-  }
+  },
+  "githubPullRequests.defaultMergeMethod": "rebase"
 }
