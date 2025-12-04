@@ -208,37 +208,16 @@ dot-whisker plots, the "geom" we would use is called
 -   `xmax`: This is the upper end of the "whisker". Like `xmin` above,
     but adding `std.error` instead.
 
-Let's make this plot!
-
-```{r plot-estimates-pointrange-only}
-#| filename: "docs/learning.qmd"
-model_results |>
-  filter(term == "value") |>
-  select(metabolite, model, estimate, std.error) |>
-  ggplot(aes(
-    x = estimate,
-    y = metabolite,
-    xmin = estimate - std.error,
-    xmax = estimate + std.error
-  )) +
-  geom_pointrange()
-```
-
-Woah, there is definitely something wrong here. There's something very
-wrong with the standard error values of some metabolites. Some of them
-are huge!
-
-Before we address that issue though, let's first include the `model`
-information. In our case, because we had research questions that
-involved both, but not comparing them directly, we can use
-`facet_grid()` to show the two models separately. We'll facet so they
-are side-by-side rather than on top of each other, so we will use
-`cols = vars(model)`. We can also add a vertical line at `x = 1`, since
-an odds ratio of 1 means "no effect" by using the `geom_vline()`
+Let's make this plot! In our case, because we had research questions
+that involve the two models, but that we aren't comparing them directly,
+we can use `facet_grid()` to show the two models separately. We'll facet
+so they are side-by-side rather than on top of each other, so we will
+use `cols = vars(model)`. We can also add a vertical line at `x = 1`,
+since an odds ratio of 1 means "no effect" by using the `geom_vline()`
 function with the `xintercept` argument. We'll use a dashed line type to
 make it less visually prominent.
 
-```{r plot-facet-models}
+```{r plot-estimates-pointrange}
 #| filename: "docs/learning.qmd"
 model_results |>
   filter(term == "value") |>
@@ -254,7 +233,9 @@ model_results |>
   facet_grid(cols = vars(model))
 ```
 
-Neat! Now let's fix this standard error issue. In a real analyses, we
+Woah, there is definitely something wrong here. There's something very
+wrong with the standard error values of some metabolites. Some of them
+are huge! So let's fix this standard error issue. In a real analyses, we
 would go back to the data and the models to figure out what is wrong. It
 is likely that there are some data quality issues or that the
 variability within the data itself is just too high for these variables.
