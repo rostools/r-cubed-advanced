@@ -1,0 +1,6 @@
+# Uncomment if needing more details
+# verbose = "info"
+require_https = true
+exclude = ["github\\.com", "pre-commit\\.ci"]
+extensions = ["md", "qmd"]
+exclude_path = ["_badges.qmd", "CHANGELOG.md"]
