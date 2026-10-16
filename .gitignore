@@ -3,10 +3,6 @@
 .Rproj.user
 .Rhistory
 .Rdata
-.Rbuildignore
-
-# Positron
-*.vdoc.*.r
 
 # Development files and folders
 _ignore
@@ -26,7 +22,9 @@ _temp/
 
 # Quarto
 /.quarto/
+/docs/.quarto/
 **/*.quarto_ipynb
+.vdoc*.r
 
 # Website generation
 _site

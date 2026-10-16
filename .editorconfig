@@ -1,5 +1,5 @@
 # EditorConfig settings. Some editors will read these automatically;
-# for those that don't, see here: http://editorconfig.org/
+# for those that don't, see here: https://editorconfig.org/
 
 root = true
 
@@ -10,9 +10,3 @@ indent_size = 2
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-max_line_length = 88
-
-# Have a bit shorter line length for text docs
-[*.{txt,md,qmd}]
-max_line_length = 72
-indent_size = 4
