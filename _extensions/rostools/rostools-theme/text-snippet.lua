@@ -22,6 +22,15 @@ computer to indicate this to the teacher :womans_hat: :tophat:
 :::
 ]]
 
+local hats_up = [[
+::: {.callout-caution appearance="minimal"}
+## Origami hats up!
+
+When you're ready to continue, place the paper hat on your computer to
+indicate this to the teacher :womans_hat: :tophat:
+:::
+]]
+
 local faq_text = [[
 Throughout the many times we've taught this and other workshops we
 get asked a lot of questions. We have a [Frequently Asked
@@ -36,11 +45,6 @@ local wip = [[
 :::
 ]]
 
-local discord_text = [[
-If you want to get help virtually or after the workshop, you can join the
-[Discord channel](https://discord.gg/WKyTF5yXBJ) where you can ask questions
-in the `questions-or-advice` text channel.
-]]
 
 function text_snippet(args)
   local snippet_type = pandoc.utils.stringify(args[1])
@@ -49,11 +53,11 @@ function text_snippet(args)
     return quarto.utils.string_to_blocks(review_note)
   elseif snippet_type == "sticky_up" then
     return quarto.utils.string_to_blocks(sticky_up)
+  elseif snippet_type == "hats_up" then
+    return quarto.utils.string_to_blocks(hats_up)
   elseif snippet_type == "wip" then
     return quarto.utils.string_to_blocks(wip)
   elseif snippet_type == "faq_text" then
     return quarto.utils.string_to_blocks(faq_text)
-  elseif snippet_type == "discord_text" then
-    return quarto.utils.string_to_blocks(discord_text)
   end
 end
