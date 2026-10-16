@@ -18,6 +18,12 @@
       "identifier": "https://github.com/rostools/r-cubed-advanced",
       "relation": "isIdenticalTo",
       "resource_type": "lesson"
+    },
+    {
+      "identifier": "urn:zenodo:rostools:r-cubed-advanced",
+      "relation": "isIdenticalTo",
+      "resource_type": "other",
+      "scheme": "urn"
     }
   ],
   "keywords": [
@@ -30,6 +36,7 @@
     "training material",
     "workshop material"
   ],
+  "communities": [{"identifier": "rostools"}],
   "license": "cc-by-4.0",
   "upload_type": "lesson",
   "language": "eng"
