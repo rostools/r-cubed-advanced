@@ -6,6 +6,3 @@ updates:
       interval: monthly
     commit-message:
       prefix: ci
-      include: scope
-    assignees:
-      - lwjohnst86
