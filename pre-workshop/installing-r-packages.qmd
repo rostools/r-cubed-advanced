@@ -3,56 +3,69 @@
 # Installing R Packages {#sec-installing-r-packages}
 
 ```{r}
+#| label: setup
 #| include: false
+
 # To trigger auto-linking
 library(downlit)
 ```
 
-We will be using specific R packages for the workshop, so you will need
-to install them. To make it easier, we've created a custom R package
-called `r3` that will install all the necessary packages for you for this
-workshop. Run these functions in the Console to install the packages.
+We will be using specific R packages for the workshop, so you will need to
+install them. To make it easier, we've created a custom R package called `r3`
+that will install all the necessary packages for you for this workshop. Run
+these two functions in the Console by copying and pasting them to install our
+custom `r3` package as well as the `{tidyverse}` package.
 
-1.  Install the `{pak}` package:
+```r {filename="Console"}
+install.packages(
+  "r3",
+  repos = c("https://rostools.r-universe.dev", "https://cloud.r-project.org")
+)
+install.packages("tidyverse")
+```
 
-    ``` {.r filename="Console"}
-    install.packages("pak")
-    ```
+::: {.callout-tip appearance="default"}
+Installing packages is tricky, especially on some work laptops, and doesn't
+always work as expected. Here are some other methods to try if you have trouble
+installing the packages with the code above.
 
-2.  Install our custom r3 helper package for this workshop:
+For Windows users, you may have to install
+[RTools](https://cran.r-project.org/bin/windows/Rtools/) to use either the
+`{pak}` or `{remotes}` method. The version of RTools you install must match the
+version of R that you have installed. For example, if you have R version 4.4,
+you need to install RTools 4.4.
 
-    ``` {.r filename="Console"}
-    pak::pak("rostools/r3")
-    ```
+First, try installing the `r3` package directly from GitHub with `{pak}`:
 
-3.  Install the necessary packages for the workshop:
+```r {filename="Console"}
+install.packages("pak")
+pak::pak("rostools/r3")
+```
 
-    ``` {.r filename="Console"}
-    r3::install_packages_{{< meta workshop_level >}}()
-    ```
+If that doesn't work, try with `{remotes}`:
 
-::: {.callout-warning appearance="default"}
-You might encounter an error when running this code. That's ok, you can
-fix it if you restart R by going to "Sessions -> Restart R" and re-run
-the code in items 2 and 3, it should work. If that also doesn't work,
-try to complete the other tasks, complete the survey, and let us know
-you have a problem in the survey.
+```r {filename="Console"}
+install.packages("remotes")
+remotes::install_github("rostools/r3")
+```
+
+If you encounter any errors with either of these functions, try to restart R by
+going to "Sessions -> Restart R" and re-run them again. If that also doesn't
+work, try to complete the other tasks as best you can, complete the survey, and
+let us know you have a problem in the survey. We'll email you at least a week
+before the workshop starts to try to help you get it working.
 :::
 
-*Note*: When you see a command like `something::something()`, for
-example with `r3::install_packages_{{< meta workshop_level >}}()`, you
-would "read" this as:
+::: {.callout-tip appearance="default"}
+When you see a command like `something::something()`, for example with
+`pak::pak()`, you would "read" this as:
 
-> R, can you please use the
-> `install_packages_{{< meta workshop_level >}}()` function from the r3
-> package.
+> R, can you please use the `pak()` function from the `{pak}` package.
 
-The normal way of doing this would be to load the package with
-`library(r3)` and then running the command
-(`install_packages_{{< meta workshop_level >}}()`). But by using the
-`::`, we tell R to directly use a function from a package, without
-needing to load the package and all of its other functions too. We use
-this trick because we only want to use the
-`install_packages_{{< meta workshop_level >}}()` command from the r3
-package and not have to load all the other functions as well. In this
-workshop we will be using `::` often.
+The normal way of doing this would be to load the package with `library(pak)`
+and then running the command (`pak()`). But by using the `::`, we tell R to
+directly use a function from a package, without needing to load the package and
+all of its other functions too. We use this trick because we only want to use
+the `pak()` command from the `{pak}` package and not have to load all the other
+functions as well. In this workshop we will be using `::` often.
+:::
