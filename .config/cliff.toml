@@ -1,0 +1,129 @@
+[remote]
+# Strictly don't connect to the internet to generate the changelog.
+offline = true
+
+[remote.github]
+owner = "rostools"
+repo = "r-cubed-advanced"
+
+[changelog]
+# A Tera template to be rendered for each release in the changelog.
+header = """
+# Changelog
+
+Since we follow
+[Conventional Commits](https://decisions.seedcase-project.org/why-conventional-commits/)
+when writing commit messages, we're able to automatically create formal
+"releases" of the workshop based on the commit messages. Releases in the context
+of workshops are when changes occur to the Quarto files that end up on the
+website (or anything else that directly impacts how people view or interact with
+the website).  The releases are also published to Zenodo
+for easier discovery, archival, and citation purposes. We use
+[Cocogitto](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/)
+to be able to automatically create these releases, which uses
+[SemVar](https://semverdoc.org) as the version numbering scheme,
+and [Git Cliff](https://decisions.seedcase-project.org/why-changelog-with-git-cliff/)
+to generate the changelog based on the commit messages.
+
+Because releases are created based on commit messages, a new release is
+created quite often---sometimes several times in a day. This also means
+that any individual release will not have many changes within it. Below
+is a list of the releases we've made so far, along with what was changed
+within each release.
+
+Commits from bots, like `dependabot` or `pre-commit-ci`, are not included in
+the changelog.
+
+"""
+
+body = """
+{%- macro remote_url() -%}
+  https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
+{%- endmacro -%}
+
+{%- macro print_commit(commit) -%}
+    - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
+        {% if commit.breaking %}**breaking**  {% endif %}\
+        {{ commit.message | upper_first }} \
+        {% if commit.remote.username %} by \
+          {% if commit.remote.username is containing("[bot]") %}
+            `@{{ commit.remote.username }}`\
+          {% else %}\
+            [`@{{ commit.remote.username }}`](https://github.com/{{ commit.remote.username }})\
+          {% endif %}\
+        {% endif %} \
+        ([{{ commit.id | truncate(length=7, end="") }}]({{ self::remote_url() }}/commit/{{ commit.id }}))\
+{%- endmacro -%}
+
+{% if version %}
+    {% if previous.version %}
+        ## [{{ version | trim_start_matches(pat="v") }}]\
+          ({{ self::remote_url() }}/compare/{{ previous.version }}..{{ version }}) - {{ timestamp | date(format="%Y-%m-%d") }}
+    {% else %}
+        ## {{ version | trim_start_matches(pat="v") }} - {{ timestamp | date(format="%Y-%m-%d") }}
+    {% endif %}
+{% else %}
+    ## [unreleased]
+{% endif %}
+
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | striptags | trim | upper_first }}
+    {% for commit in commits
+    | filter(attribute="scope")
+    | sort(attribute="scope") %}
+        {{ self::print_commit(commit=commit) }}
+    {% endfor %}
+    {% for commit in commits %}
+        {% if not commit.scope %}
+            {{ self::print_commit(commit=commit) }}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+{% if github %}
+{% if github.contributors | filter(attribute="is_first_time", value=true) | length != 0 %}
+  ### ❤️ New contributors
+{% endif %}
+{% for contributor in github.contributors | filter(attribute="is_first_time", value=true) %}
+  {% if contributor.username is containing("[bot]") %}
+  - `@{{ contributor.username }}` started making automated contributions\
+  {% else %}
+  - [`@{{ contributor.username }}`](https://github.com/{{ contributor.username }}) made their first contribution
+    {% if contributor.pr_number %} in \
+      [#{{ contributor.pr_number }}]({{ self::remote_url() }}/pull/{{ contributor.pr_number }})\
+    {% endif %}
+  {% endif %}\
+{% endfor %}
+{% endif %}
+
+"""
+
+# Remove leading and trailing whitespaces from the changelog's body.
+trim = true
+output = "CHANGELOG.md"
+
+[git]
+commit_preprocessors = [
+  # Replace pull request numbers with links to GitHub.
+  { pattern = '\((\w+\s)?#([0-9]+)\)', replace = "[#${2}](https://github.com/rostools/r-cubed-advanced/pull/${2})" },
+  # Remove gitmoji, both actual UTF emoji and :emoji:
+  { pattern = ' *(:\w+:|[\p{Emoji_Presentation}\p{Extended_Pictographic}](?:\u{FE0F})?\u{200D}?) *', replace = "" },
+]
+
+commit_parsers = [
+  # Don't include commits from bots.
+  { field = "author.name", pattern = ".*(dependabot|github-actions|pre-commit-ci).*", skip = true },
+  # Don't include the version update commits.
+  { message = ".*update version", skip = true },
+  { message = "^feat", group = "<!-- 0 -->✨ Features" },
+  { message = "^fix", group = "<!-- 1 -->🐛 Fixes" },
+  { message = "^refactor", group = "<!-- 2 -->♻️ Refactor" },
+  { message = "^docs", group = "<!-- 3 -->📝 Documentation" },
+  { message = "^perf", group = "<!-- 4 -->⚡ Performance" },
+  { message = "^style", group = "<!-- 5 -->💄 Styling" },
+  { message = "^test", group = "<!-- 6 -->🧪 Tests" },
+  { message = "^ci", group = "<!-- 7 -->👷 CI/CD" },
+  { message = "^chore|^build", group = "<!-- 8 -->👩‍💻 Miscellaneous" },
+  { message = "^revert", group = "<!-- 9 -->⏪ Revert" },
+  { message = ".*", skip = true },
+]

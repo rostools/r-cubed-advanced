@@ -1,9 +1,8 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 0.4.15
+_commit: 0.14.3
 _src_path: gh:rostools/template-workshop
-author_family_name: Johnston
-author_given_name: Luke
-github_board_number: '12'
+for_rostools: true
 github_repo: r-cubed-advanced
 github_user: rostools
+hosting_provider: netlify
 workshop_type: r
