@@ -1,13 +1,17 @@
 [files]
 extend-exclude = [
-  "*.json",
+  "*.html",
   "*.css",
-  "*.svg",
+  "*.json",
   ".quarto/*",
   "_site/*",
   "_book/*",
   "_extensions/*",
+  "*.svg",
   "*.bib",
+  # If creating releases and using git-cliff, the hashes in the CHANGELOG can
+  # falsely trigger typos.
+  "CHANGELOG.md",
 ]
 
 [default.extend-words]
