@@ -1,0 +1,15 @@
+flavor = "quarto"
+exclude = [".git/", ".github/", "LICENSE.md", "README.md"]
+
+[format]
+tab-width = 2
+
+[linters]
+r = "jarl"
+python = "ruff"
+rust = "clippy"
+
+[formatters]
+r = "air"
+python = "ruff"
+rust = "rustfmt"
