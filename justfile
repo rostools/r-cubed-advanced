@@ -61,7 +61,7 @@ check-spelling:
 
 # Check that URLs work
 check-urls:
-    lychee . --config .config/lychee.toml
+  lychee . --config .config/lychee.toml
 
 # Lint R code for any potential issues
 check-r:
@@ -72,7 +72,7 @@ build-all: build-contributors build-readme build-website
 
 # Re-build the README file from the Quarto version
 build-readme:
-  uvx --from quarto quarto render README.qmd --to gfm
+  quarto render README.qmd --to gfm
 
 # Generate a Quarto include file with the contributors
 build-contributors:
