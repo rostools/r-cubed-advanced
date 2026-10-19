@@ -10,6 +10,7 @@ License](https://img.shields.io/github/license/rostools/r-cubed-advanced.svg)](h
 Release](https://img.shields.io/github/v/release/rostools/r-cubed-advanced.svg)](https://github.com/rostools/r-cubed-advanced/releases/latest)
 [![Build
 website](https://github.com/rostools/r-cubed-advanced/actions/workflows/build-website.yml/badge.svg)](https://github.com/rostools/r-cubed-advanced/actions/workflows/build-website.yml)
+[![Checks](https://github.com/rostools/r-cubed-advanced/actions/workflows/checks.yml/badge.svg)](https://github.com/rostools/r-cubed-advanced/actions/workflows/checks.yml)
 [![pre-commit.ci
 status](https://results.pre-commit.ci/badge/github/rostools/r-cubed-advanced/main.svg)](https://results.pre-commit.ci/latest/github/rostools/r-cubed-advanced/main)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
@@ -40,15 +41,12 @@ page](https://r-cubed-advanced.rostools.org).
 
 The lectures and lessons in this workshop are designed to be presented
 primarily with a participatory live-coding approach. This involves an
-teacher typing and running code in
-[RStudio](https://posit.co/download/rstudio-desktop/) in front of the
-class, while the class follows along using their own computers.
-Exercises are interspersed in the lesson material, allowing participants
-to collaboratively work on smaller coding problems for a few minutes.
-All lesson materials are provided ahead of time on the workshop website
-for participants to refer to during lectures. Throughout the workshop,
-participants are in small groups and are encouraged to help each other
-out in completing the exercises.
+teacher typing and running code in an editor or similar platform in
+front of the class, while the class follows along using their own
+computers. Exercises are interspersed in the lesson material, allowing
+participants to collaboratively work on smaller coding problems for a
+few minutes. All lesson materials are provided ahead of time on the
+workshop website for participants to refer to during lectures.
 
 ## Lesson content
 
@@ -56,11 +54,11 @@ The teaching material is found mainly in these locations:
 
 - `index.Rmd`: Contains the overview of the workshop.
 - `overview/` folder: Contains the files that give an overview to the
-  course, such as the syllabus and schedule.
+  workshop, such as the syllabus and schedule.
 - `pre-workshop/`: Contains the files needed before the workshop, like
   the pre-workshop tasks.
-- `sessions/`: Contains the files used during the workshop (e.g.
-  code-along material).
+- `sessions/`: Contains the files used during the workshop
+  (e.g. code-along material).
 - `appendix/`: Contains the files used to support the workshop, such as
   code of conduct, changelog, contributing guides, and instructions for
   teachers.
@@ -70,41 +68,12 @@ The teaching material is found mainly in these locations:
 The website is generated with [Quarto](https://quarto.org/), so it
 follows the file and folder structure conventions from that package.
 
-## Support and infrastructure files
-
-- `.copier-answers.yml`: Contains the answers you gave when copying the
-  project from the template. **You should not modify this file
-  directly.**
-- `.cz.toml`:
-  [Commitizen](https://commitizen-tools.github.io/commitizen/)
-  configuration file for managing versions and changelogs.
-- `.pre-commit-config.yaml`: [Pre-commit](https://pre-commit.com/)
-  configuration file for managing and running checks before each commit.
-- `.typos.toml`: [typos](https://github.com/crate-ci/typos) spell
-  checker configuration file.
-- `.zenodo.json`: Structured citation metadata for your project when
-  archived on [Zenodo](https://zenodo.org/). This is used to add the
-  metadata to Zenodo when a GitHub release has been uploaded to Zenodo.
-- `justfile`: [`just`](https://just.systems/man/en/) configuration file
-  for scripting project tasks.
-- `.editorconfig`: Editor configuration file for
-  [EditorConfig](https://editorconfig.org/) to maintain consistent
-  coding styles across different editors and IDEs.
-- `CHANGELOG.md`: Changelog file for tracking changes in the project.
-- `CONTRIBUTING.md`: Guidelines for contributing to the project.
-- `.github/`: Contains GitHub-specific files, such as issue and pull
-  request templates, workflows,
-  [dependabot](https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide)
-  configuration, pull request templates, and a
-  [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
-  file.
-
 ## Contributing
 
 If you are interested in contributing to the workshop material, please
 refer to the [contributing guidelines](CONTRIBUTING.md). For guidelines
 on how to be a helper or teacher, check out the [For
-teachers](https://r-cubed.rostools.org/for-teachers.html) page.
+teachers](https://guides.rostools.org/instructors) page.
 
 Please note that the project is released with a [Contributor Code of
 Conduct](CODE_OF_CONDUCT.md). By contributing to or being involved in
@@ -112,14 +81,14 @@ this project, you agree to abide by its terms.
 
 ### Contributors
 
-These are the people who have contributed by submitting changes through
-pull requests :tada:
+The following people have contributed to this project by submitting pull
+requests :tada:
 
-[@lwjohnst86](https://github.com/lwjohnst86),
 [@AndersAskeland](https://github.com/AndersAskeland),
-[@signekb](https://github.com/signekb),
+[@lwjohnst86](https://github.com/lwjohnst86),
+[@Mortendall](https://github.com/Mortendall),
 [@nestanyol](https://github.com/nestanyol),
-[@Mortendall](https://github.com/Mortendall)
+[@signekb](https://github.com/signekb)
 
 ## Licensing
 
