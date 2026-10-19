@@ -18,6 +18,7 @@ book:
   date: last-modified
   repo-url: https://github.com/rostools/r-cubed-advanced
   site-url: https://r-cubed-advanced.rostools.org
+  downloads: [pdf]
   chapters:
     - index.qmd
     - part: "Overview"
@@ -74,6 +75,12 @@ format:
       - brand
     include-before-body:
       - "includes/site-counter.html"
+  typst:
+    brand: "_extensions/rostools/rostools-theme/_brand.yml"
+    papersize: a4
+    margin:
+      x: 2cm
+      y: 2cm
 
 editor:
   markdown:
