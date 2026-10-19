@@ -1,82 +1,72 @@
-# Tasks overview {#sec-pre-workshop}
+# Overview {#sec-pre-workshop}
 
 ```{r}
+#| label: setup
 #| include: false
+
 # To force auto-linking.
 library(downlit)
 ```
+In order to participate in this workshop, you must complete everything in this
+section and finish with **completing the [survey](survey.qmd) (@sec-survey)** at
+the end. These tasks are meant to provide everyone with the necessary setup and
+a shared foundation for the workshop.
 
-In order to participate in this workshop, you must complete the
-pre-workshop tasks in this section as well as **completing the
-[survey](survey.qmd)** at the end. These tasks are designed to make it
-easier for everyone to start the workshop with everything ready to go.
-For some of the tasks, you might not understand why you need to do them
-right now, but as you participate in the workshop you will likely better
-understand why.
+Depending on your prior knowledge and skills, these tasks could take between
+**5-7 hrs to finish**, so we suggest planning some time to complete them. While
+many of the tasks are mostly readings, they are important in making sure you get
+the most out of the workshop.
 
-::: callout-important
-Depending on your skills and knowledge, these tasks could take between
-**5-7 hrs to finish**, so we suggest planning a full day to complete
-them. Depending on your institution and how they handle installing
-software on work computers, you also might have to contact IT *very
-early* to make sure everything is properly installed and set up.
-:::
-
-## List of tasks
-
-Here's a quick overview of the tasks you need to do. Specific details
-about them are found as you work through this section.
-
-1.  Do some pre-reading to get a better idea of the workshop content
-    (@sec-pre-reading).
-2.  Read through the [Code of Conduct](code-of-conduct.qmd) (in
-    @sec-code-of-conduct).
-3.  Install the necessary programs and the right versions of those
-    programs in @sec-install-programs. For some people, depending on
-    their institution, this task can take the **longest amount of time**
-    because you have to contact your IT to install these packages.
-4.  Complete @sec-connect-github to setup and authenticate your computer
-    with GitHub.
-5.  Install the necessary R packages in @sec-installing-r-packages.
-6.  Correctly set up Git on your computer in @sec-setup-git, if you
-    haven't done this already from previous workshops. If you haven't
-    used Git before, this task could take a while because of the
-    reading.
-7.  Run a check with `r3::check_setup()` to see if everything works.
-    You'll later need to paste this output into the survey.
-9.  Create an R Project in @sec-create-project, along with the folder
-    and file setup and creating a Quarto file.
-10. Write (well, mostly copy and paste) R code to download the data and
-    save it to your computer in @sec-download-data. This task will
-    probably take up maybe 30-60 minutes depending on your interest in
-    exploring the data.
-11. Run a check using `r3::check_project_setup_advanced()` to see that
-    everything is as expected. You'll later need to paste this output
-    into the survey.
-12. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**.
-    This survey is pretty quick, maybe \~10 minutes.
-
-Check each section for exact details on completing these tasks.
-
-## Learning objective {#sec-pre-workshop-learning-objectives}
-
-In general, these pre-workshop tasks are meant to help prepare you for
-the workshop and make sure everything is setup properly so the first
-session runs smoothly. However, some of these tasks are meant for
-learning as well as for general setup, so we have defined the following
-learning objectives for this page:
-
-1.  Learn about and then apply some basic reproducible workflows and
-    setups for the initial processing of raw data. For those who have
-    already participated in the [intermediate R
-    workshop](https://r-cubed-intermediate.rostools.org/), the objective
-    is to review what you previously learned.
-
-## Reading the workshop website {#sec-reading-website}
+## How to read this website
 
 {{< include /includes/_reading-website.qmd >}}
 
+## Learning objective {#sec-pre-workshop-learning-objectives}
+
+In general, these pre-workshop tasks are meant to help prepare you for the
+workshop and make sure everything is setup properly so the first session runs
+smoothly. However, some of these tasks are meant for learning as well as for
+general setup, so we have defined the following learning objectives for this
+page:
+
+1. Learn about and then apply some basic reproducible workflows and setups for
+   the initial processing of raw data. For those who have already participated
+   in the [intermediate R workshop](https://r-cubed-intermediate.rostools.org/),
+   the objective is to review what you previously learned.
+
+## Summary of tasks
+
+Here's a quick overview of the tasks you need to do. Specific details about them
+are found as you work through this section.
+
+1. Do some pre-reading to get a better idea of the workshop content
+   (@sec-pre-reading).
+2. Read through the [Code of Conduct](code-of-conduct.qmd) (in
+   @sec-code-of-conduct).
+3. Install the necessary programs and the right versions of those programs in
+   @sec-installing-programs. For some people, depending on their institution,
+   this task can take the **longest amount of time** because you have to contact
+   your IT to install these packages.
+4. Complete @sec-connect-github to setup and authenticate your computer with
+   GitHub.
+5. Install the necessary R packages in @sec-installing-r-packages.
+6. Correctly set up Git on your computer in @sec-setup-git, if you haven't done
+   this already from previous workshops. If you haven't used Git before, this
+   task could take a while because of the reading.
+7. Run a check with `r3::check_setup()` to see if everything works. You'll later
+   need to paste this output into the survey.
+9. Create an R Project in @sec-create-project, along with the folder and file
+   setup and creating a Quarto file.
+10. Write (well, mostly copy and paste) R code to download the data and save it
+    to your computer in @sec-download-data. This task will probably take up
+    maybe 30-60 minutes depending on your interest in exploring the data.
+11. Run a check using `r3::check_project_setup_advanced()` to see that
+    everything is as expected. You'll later need to paste this output into the
+    survey.
+12. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**. This
+    survey is pretty quick, maybe \~10 minutes.
+
 ::: callout-tip
-You will be taken through the pre-workshop tasks in order by clicking
-the arrow at the bottom of each page :arrow_right:
+You will be taken through the pre-workshop tasks in order by clicking the arrow
+at the bottom of each page :arrow_right:
 :::
