@@ -1,9 +1,11 @@
-# Welcome! {.unnumbered}
+# Welcome {.unnumbered}
 
 {{< include /includes/_badges.qmd >}}
 
-```{r write-packages-to-bib}
+```{r}
+#| label: write-packages-to-bib
 #| include: false
+
 # automatically create a bib database for R packages
 knitr::write_bib(
   unique(desc::desc_get_deps()$package[-1]),
@@ -11,57 +13,53 @@ knitr::write_bib(
 )
 ```
 
-Reproducibility and open scientific practices are increasingly in demand
-and needed by scientists and researchers in modern research
-environments. More frequently, our work, as researchers, includes a high
-level of collaboration on scientific projects. Consequently, many new
-challenges arise that we lack the training or knowledge to resolve.
+Reproducibility and open scientific practices are increasingly in demand and
+needed by scientists and researchers in modern research environments. More
+frequently, our work, as researchers, includes a high level of collaboration on
+scientific projects. Consequently, many new challenges arise that we lack the
+training or knowledge to resolve.
 
 These challenges include:
 
--   Designing and structuring code for an analysis that follows some
-    basic principles that make it easier to write, to do more with less
-    code, and to collaborate on;
--   Establishing common coding styles and standards to make it easier to
-    read or review each other's code;
--   Documenting the software dependencies of a project to synchronize
-    computing environments among collaborators and potentially with
-    servers;
--   Documenting (and automating) the steps taken to process, analyze,
-    and present data and findings in a way that allows collaborators to
-    regenerate the most recent results.
+- Designing and structuring code for an analysis that follows some basic
+  principles that make it easier to write, to do more with less code, and to
+  collaborate on;
+- Establishing common coding styles and standards to make it easier to read or
+  review each other's code;
+- Documenting the software dependencies of a project to synchronize computing
+  environments among collaborators and potentially with servers;
+- Documenting (and automating) the steps taken to process, analyze, and present
+  data and findings in a way that allows collaborators to regenerate the most
+  recent results.
 
 Training and awareness of the skills and knowledge necessary to create
-reproducible and transparent data analysis pipelines are still
-significantly lacking among researchers. Partly due to this gap, how
-*exactly* an analysis is done (including data processing and wrangling)
-to produce a given result are often poorly, if at all, described in
-scientific studies. This can have a major impact on the reproducibility
-and, ultimately, the reliability of studies.
+reproducible and transparent data analysis pipelines are still significantly
+lacking among researchers. Partly due to this gap, how *exactly* an analysis is
+done (including data processing and wrangling) to produce a given result are
+often poorly, if at all, described in scientific studies. This can have a major
+impact on the reproducibility and, ultimately, the reliability of studies.
 
-This 3-day workshop is designed to address these issues by using
-participatory live-typing or "code-alongs", where the teacher
-demonstrates the tasks on their computer connected to a projector while
-learners type along on their own computer. The workshop also includes
-reading tasks, discussion activities, hands-on exercises using a
-real-world dataset, and group work on a project to apply the skills
-gained from the workshop.
+This 3-day workshop is designed to address these issues by using participatory
+live-typing or "code-alongs", where the teacher demonstrates the tasks on their
+computer connected to a projector while learners type along on their own
+computer. The workshop also includes reading tasks, discussion activities,
+hands-on exercises using a real-world dataset, and group work on a project to
+apply the skills gained from the workshop.
 
-This website contains all of the material for the workshop, including
-readings, exercises, presentations, live-typing material, and images. It
-is structured as a book, with "chapters" as sessions, in order of
-appearance. We make heavy use of the website throughout the workshop
-where "type-along" sessions almost identically follow the material on
-the website (with slight modifications for time or more detailed
-explanations).
+This website contains all of the material for the workshop, including readings,
+exercises, presentations, live-typing material, and images. It is structured as
+a book, with "chapters" as sessions, in order of appearance. We make heavy use
+of the website throughout the workshop where "type-along" sessions almost
+identically follow the material on the website (with slight modifications for
+time or more detailed explanations).
 
 Check out the overview section of the workshop, starting with the
 [Syllabus](/overview/syllabus.qmd).
 
 If you plan on attending the workshop, please make sure to complete the
-[Pre-workshop tasks](/pre-workshop/overview.qmd) to get set up and ready
-for the workshop. The pre-workshop tasks include a survey that you need
-to fill out before the workshop starts.
+[Pre-workshop tasks](/pre-workshop/overview.qmd) to get set up and ready for the
+workshop. The pre-workshop tasks include a survey that you need to fill out
+before the workshop starts.
 
 {{< include /includes/_star-us.qmd >}}
 
@@ -69,29 +67,29 @@ to fill out before the workshop starts.
 
 This website and its content are targeted to three groups:
 
-1.  For the **learners** to use during the workshop, both to follow
-    along and also to use as a reference after the workshop ends. A more
-    detailed description of who the learner is can be found in [Is this
-    for you?](/overview/is-this-for-you.qmd)
-2.  For the **teachers** to use as a guide for when they do the
-    type-along sessions.
-3.  For those who are **interested in teaching**, who may not have much
-    experience or may not know where to start, to use this website as a
-    guide to running and teaching their own workshops.
+1. For the **learners** to use during the workshop, both to follow along and
+   also to use as a reference after the workshop ends. A more detailed
+   description of who the learner is can be found in [Is this for
+   you?](/overview/is-this-for-you.qmd)
+2. For the **teachers** to use as a guide for when they do the type-along
+   sessions.
+3. For those who are **interested in teaching**, who may not have much
+   experience or may not know where to start, to use this website as a guide to
+   running and teaching their own workshops.
 
 ## Re-use and licensing
 
-The workshop material is licensed under the [Creative Commons
-Attribution 4.0 License](LICENSE.md), so the material can be used,
-re-used, and modified, as long as there is attribution to this source.
-Check out the [For teachers](/appendix/for-teachers.qmd) section for
-more details and tips on using this material for teaching.
+The workshop material is licensed under the [Creative Commons Attribution 4.0
+License](LICENSE.md), so the material can be used, re-used, and modified, as
+long as there is attribution to this source. Check out the [For
+teachers](/appendix/for-teachers.qmd) section for more details and tips on using
+this material for teaching.
 
 ## Contributing
 
 Want to contribute to this workshop? Look through our
-[CONTRIBUTING](CONTRIBUTING.md) page for contribution guidelines on how
-to get started.
+[CONTRIBUTING](CONTRIBUTING.md) page for contribution guidelines on how to get
+started.
 
 ### Contributors
 
@@ -99,13 +97,12 @@ to get started.
 
 ## How the website is made
 
-The workshop material is created using [Quarto](https://quarto.org) to
-write the material and create the book format,
-[GitHub](https://github.com/) to host the [Git](https://git-scm.com/)
-repository of the material, and [GitHub
+The workshop material is created using [Quarto](https://quarto.org) to write the
+material and create the book format, [GitHub](https://github.com/) to host the
+[Git](https://git-scm.com/) repository of the material, and [GitHub
 Actions](https://github.com/features/actions) with
-[Netlify](https://www.netlify.com/) to build and host the website. The
-original source material for this workshop is found on the
+[Netlify](https://www.netlify.com/) to build and host the website. The original
+source material for this workshop is found on the
 [`{{< meta gh.repo >}}`](https://github.com/{{< meta gh.org >}}/{{< meta gh.repo >}})
 GitHub repository.
 
@@ -113,13 +110,12 @@ GitHub repository.
 
 Illustration cover is by [Storyset](https://storyset.com/work).
 
-The [Danish Diabetes and Endocrinology
-Academy](https://www.ddeacademy.dk/) hosts, organizes, and sponsors this
-workshop. A huge thanks to them for their involvement and support!
-[Steno Diabetes Center Aarhus](https://www.stenoaarhus.dk/) and [Aarhus
-University](https://au.dk) employs Luke Johnston, who is the developer
-of this open educational resource and is (usually) the lead instructor
-when running this workshop.
+The [Danish Diabetes and Endocrinology Academy](https://www.ddeacademy.dk/)
+hosts, organizes, and sponsors this workshop. A huge thanks to them for their
+involvement and support! [Steno Diabetes Center
+Aarhus](https://www.stenoaarhus.dk/) and [Aarhus University](https://au.dk)
+employs Luke Johnston, who is the developer of this open educational resource
+and is (usually) the lead instructor when running this workshop.
 
 ::: {layout-ncol="3"}
 ![](images/logo-sdca.png){width="100px"
