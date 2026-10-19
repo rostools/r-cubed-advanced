@@ -2,8 +2,7 @@
 ## Do you find this workshop material useful?
 
 If yes, please consider "starring" our [GitHub
-repository](https://github.com/{{< meta gh.org >}}/{{< meta gh.repo >}}).
-Starring the repository will save it to your list of saved repositories,
-so it's easy for you to find again later. As a plus, it helps give our
-project more visibility :star2:
+repository]({{< meta links.github >}}). Starring the repository will save it to
+your list of saved repositories, so it's easy for you to find again later. As a
+plus, it helps give our project more visibility :star2:
 :::
