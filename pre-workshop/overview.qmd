@@ -7,6 +7,7 @@
 # To force auto-linking.
 library(downlit)
 ```
+
 In order to participate in this workshop, you must complete everything in this
 section and finish with **completing the [survey](survey.qmd) (@sec-survey)** at
 the end. These tasks are meant to provide everyone with the necessary setup and
@@ -55,15 +56,15 @@ are found as you work through this section.
    task could take a while because of the reading.
 7. Run a check with `r3::check_setup()` to see if everything works. You'll later
    need to paste this output into the survey.
-9. Create an R Project in @sec-create-project, along with the folder and file
+8. Create an R Project in @sec-create-project, along with the folder and file
    setup and creating a Quarto file.
-10. Write (well, mostly copy and paste) R code to download the data and save it
-    to your computer in @sec-download-data. This task will probably take up
-    maybe 30-60 minutes depending on your interest in exploring the data.
-11. Run a check using `r3::check_project_setup_advanced()` to see that
+9. Write (well, mostly copy and paste) R code to download the data and save it
+   to your computer in @sec-download-data. This task will probably take up maybe
+   30-60 minutes depending on your interest in exploring the data.
+10. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output into the
     survey.
-12. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**. This
+11. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**. This
     survey is pretty quick, maybe \~10 minutes.
 
 ::: callout-tip

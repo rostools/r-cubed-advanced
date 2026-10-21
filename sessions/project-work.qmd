@@ -2,285 +2,267 @@
 
 ```{r}
 #| include: false
+
 # Trigger downlit
 library(downlit)
 ```
 
-One of the best ways to learn is to apply what you've learned in a
-practical way, such as by working on a real-world project with other
-learners. This is useful when its done shortly after learning the
-material.
+One of the best ways to learn is to apply what you've learned in a practical
+way, such as by working on a real-world project with other learners. This is
+useful when its done shortly after learning the material.
 
-So this project work is meant to be a way to reinforce what you learned
-during the workshop, but in a more relaxed and collaborative setting.
-The instructors and helpers are available to answer questions, help you
-out, and give guidance as needed.
+So this project work is meant to be a way to reinforce what you learned during
+the workshop, but in a more relaxed and collaborative setting. The instructors
+and helpers are available to answer questions, help you out, and give guidance
+as needed.
 
-For this project, as a team you will do a simple data analysis on a
-dataset (see below), use Git and GitHub to collaborate together, write
-an HTML document as a report, and create a `{targets}` pipeline to
-ensure the analysis is reproducible. You will work on this project
-during the last session of the workshop.
+For this project, as a team you will do a simple data analysis on a dataset (see
+below), use Git and GitHub to collaborate together, write an HTML document as a
+report, and create a `{targets}` pipeline to ensure the analysis is
+reproducible. You will work on this project during the last session of the
+workshop.
 
-At the end of the session, the lead instructor will do a brief "test" of
-every team's analysis by downloading your project from GitHub and
-running the `{targets}` pipeline to see if it works correctly and
-produces the intended output.
+At the end of the session, the lead instructor will do a brief "test" of every
+team's analysis by downloading your project from GitHub and running the
+`{targets}` pipeline to see if it works correctly and produces the intended
+output.
 
 ## Specific tasks
 
-You will be collaborating as a team using Git and GitHub to complete
-this project. We will set up the project with Git and GitHub for you so
-you can quickly start collaborating together on the project. You will be
-pushing and pulling a lot of content, so you will need to maintain
-regular and open communication with your team members.
+You will be collaborating as a team using Git and GitHub to complete this
+project. We will set up the project with Git and GitHub for you so you can
+quickly start collaborating together on the project. You will be pushing and
+pulling a lot of content, so you will need to maintain regular and open
+communication with your team members.
 
 ::: callout-important
-Before you start doing the tasks, **read through this whole page
-first**, especially the callout blocks later on, so you are fully aware
-of what you need to do.
+Before you start doing the tasks, **read through this whole page first**,
+especially the callout blocks later on, so you are fully aware of what you need
+to do.
 :::
 
 Your specific tasks are:
 
-1.  Get together with your team. We will already have created a
-    repository for you to use, which we will show how to find during the
-    workshop. Clone your team repository to your computer using
-    `usethis::create_from_github()`. You will likely also need to
-    authenticate with GitHub by using `gitcreds::gitcreds_set()`.
+1. Get together with your team. We will already have created a repository for
+   you to use, which we will show how to find during the workshop. Clone your
+   team repository to your computer using `usethis::create_from_github()`. You
+   will likely also need to authenticate with GitHub by using
+   `gitcreds::gitcreds_set()`.
 
-2.  **Choose a dataset**: As a team, decide on and select one of the
-    datasets listed below to analyse. You can use the same dataset as
-    another team, but you must use a **different dataset than the one we
-    used in class**. These datasets were specifically chosen because
-    they have a lot of variables, are relatively tidy, and are not too
-    large.
+2. **Choose a dataset**: As a team, decide on and select one of the datasets
+   listed below to analyse. You can use the same dataset as another team, but
+   you must use a **different dataset than the one we used in class**. These
+   datasets were specifically chosen because they have a lot of variables, are
+   relatively tidy, and are not too large.
 
-    -   [*Integrated trajectories of the maternal metabolome, proteome,
-        and immunome predict labor
-        onset*](https://zenodo.org/records/4741374). Here is the
-        [link](https://zenodo.org/api/records/4741374/files-archive) to
-        download everything. You only need to use the
-        `Onset_of_Labor_proteomics.csv` data file.
-    -   [*Histologic, biochemistry, and metabolomics data for bearded
-        dragons with hepatic fat
-        accumulation*](https://zenodo.org/records/10120304). Here is the
-        [link](https://zenodo.org/api/records/10120304/files-archive) to
-        download everything. We suggest using the
-        `Metabolites_dragons_with_lipoproteins.csv` data file.
+   - [*Integrated trajectories of the maternal metabolome, proteome, and
+     immunome predict labor onset*](https://zenodo.org/records/4741374). Here is
+     the [link](https://zenodo.org/api/records/4741374/files-archive) to
+     download everything. You only need to use the
+     `Onset_of_Labor_proteomics.csv` data file.
+   - [*Histologic, biochemistry, and metabolomics data for bearded dragons with
+     hepatic fat accumulation*](https://zenodo.org/records/10120304). Here is
+     the [link](https://zenodo.org/api/records/10120304/files-archive) to
+     download everything. We suggest using the
+     `Metabolites_dragons_with_lipoproteins.csv` data file.
 
-3.  Only one person should do this task. As a team, decide who will do
-    it. This team member should move the dataset file you chose into the
-    `data/` folder. Commit the changes to Git and push to GitHub.
+3. Only one person should do this task. As a team, decide who will do it. This
+   team member should move the dataset file you chose into the `data/` folder.
+   Commit the changes to Git and push to GitHub.
 
-    -   Usually we would get you to store it in `data-raw/` and do some
-        processing there, but since we've chosen these datasets
-        specifically because they are already fairly tidy, you will
-        store the data directly into the `data/` folder.
-    -   Generally we don't recommend storing data in the Git history,
-        especially if it is large. However, for this workshop and
-        because the datasets we've chosen are relatively small, you can
-        track it with Git to make later steps and collaboration easier.
+   - Usually we would get you to store it in `data-raw/` and do some processing
+     there, but since we've chosen these datasets specifically because they are
+     already fairly tidy, you will store the data directly into the `data/`
+     folder.
+   - Generally we don't recommend storing data in the Git history, especially if
+     it is large. However, for this workshop and because the datasets we've
+     chosen are relatively small, you can track it with Git to make later steps
+     and collaboration easier.
 
-4.  While the other person is doing the above task, the other team
-    member can do additional setup tasks, like ignoring files in the
-    `.gitignore`.
+4. While the other person is doing the above task, the other team member can do
+   additional setup tasks, like ignoring files in the `.gitignore`.
 
-    -   Uncomment the line `library(tarchetypes)` in the `_targets.R`
-        file as you will need it for your pipeline.
-    -   Run `use_package()` to add `{styler}` and `{usethis}` as
-        workflow dependencies with `"suggests"` as the type.
-    -   Run `use_package()` to add `{targets}`, `{tarchetypes}`,
-        `{dplyr}`, `{tidyselect}`, `{purrr}`, `{readr}`, `{ggplot2}`,
-        and `{broom}` as build dependencies as a starting point.
-    -   Commit the changes to Git and push to GitHub.
+   - Uncomment the line `library(tarchetypes)` in the `_targets.R` file as you
+     will need it for your pipeline.
+   - Run `use_package()` to add `{styler}` and `{usethis}` as workflow
+     dependencies with `"suggests"` as the type.
+   - Run `use_package()` to add `{targets}`, `{tarchetypes}`, `{dplyr}`,
+     `{tidyselect}`, `{purrr}`, `{readr}`, `{ggplot2}`, and `{broom}` as build
+     dependencies as a starting point.
+   - Commit the changes to Git and push to GitHub.
 
-5.  All team members pull from GitHub.
+5. All team members pull from GitHub.
 
-6.  *Briefly* look through the downloaded dataset by opening up with
-    spreadsheet program like Excel. Read the README or other description
-    that's on the Zenodo record to familiarize yourself with the data.
+6. *Briefly* look through the downloaded dataset by opening up with spreadsheet
+   program like Excel. Read the README or other description that's on the Zenodo
+   record to familiarize yourself with the data.
 
-7.  As a team, brainstorm, design, and decide on:
+7. As a team, brainstorm, design, and decide on:
 
-    -   What some research questions might be that you can answer with
-        the dataset. Make sure to have questions that allow each team
-        member to contribute equally to the analysis.
+   - What some research questions might be that you can answer with the dataset.
+     Make sure to have questions that allow each team member to contribute
+     equally to the analysis.
 
-    -   What the models would be that could answer the questions you
-        asked. To keep it simple, start with a simple model of `y ~ x`.
-        If you have time, try to add a more complex model of
-        `y ~ x + xc`, where `xc` is a variable you want to adjust or
-        control for (like our `gender` and `age` examples during the
-        workshop), but *only if you have time later*. Do the simpler
-        model first.
+   - What the models would be that could answer the questions you asked. To keep
+     it simple, start with a simple model of `y ~ x`. If you have time, try to
+     add a more complex model of `y ~ x + xc`, where `xc` is a variable you want
+     to adjust or control for (like our `gender` and `age` examples during the
+     workshop), but *only if you have time later*. Do the simpler model first.
 
-    -   Which variables will be the outcome variables.
+   - Which variables will be the outcome variables.
 
-    -   Which variables will be predictors in your analysis. Select at
-        least 2 predictor variables per team member, ideally more.
+   - Which variables will be predictors in your analysis. Select at least 2
+     predictor variables per team member, ideally more.
 
-    -   Which tables and figures that you both want. Aim for at least
-        one descriptive statistics table, one plot showing the data, and
-        at least one plot showing the analysis results.
+   - Which tables and figures that you both want. Aim for at least one
+     descriptive statistics table, one plot showing the data, and at least one
+     plot showing the analysis results.
 
-8.  Once you've decided the above points, design and sketch out a basic
-    pipeline. Try to use pen and paper for this step, mimicking the
-    diagrams we used during the sessions. Try think of the names of each
-    target output as well as the names of the functions that will be
-    used in the pipeline. Consider the cleaning, processing, basic
-    descriptive statistics, modeling, and plotting steps to get to the
-    final report.
+8. Once you've decided the above points, design and sketch out a basic pipeline.
+   Try to use pen and paper for this step, mimicking the diagrams we used during
+   the sessions. Try think of the names of each target output as well as the
+   names of the functions that will be used in the pipeline. Consider the
+   cleaning, processing, basic descriptive statistics, modeling, and plotting
+   steps to get to the final report.
 
-9.  Once you have the sketch, split up each set of targets in the
-    pipeline between team members. Each person should be responsible for
-    writing the functions and targets for their part of the pipeline.
+9. Once you have the sketch, split up each set of targets in the pipeline
+   between team members. Each person should be responsible for writing the
+   functions and targets for their part of the pipeline.
 
-10. To make it easier to collaboratively work together, each team member
-    should create a new Quarto document in the `docs/` folder named
-    something like `docs/sandbox-<yourname>.qmd` (e.g. with the Palette
-    "new Quarto") and create a new R script in the `R/` folder named
-    something like `functions-<yourname>.R` (e.g. with
-    `usethis::use_r()`). Don't forget to set the `{targets}` `store`
-    option in the `setup` code chunk of your own Quarto document.
+10. To make it easier to collaboratively work together, each team member should
+    create a new Quarto document in the `docs/` folder named something like
+    `docs/sandbox-<yourname>.qmd` (e.g. with the Palette "new Quarto") and
+    create a new R script in the `R/` folder named something like
+    `functions-<yourname>.R` (e.g. with `usethis::use_r()`). Don't forget to set
+    the `{targets}` `store` option in the `setup` code chunk of your own Quarto
+    document.
 
-    -   You all already have a `docs/report.qmd` file. Include this file
-        in your `{targets}` pipeline as a target and as you build your
-        targets, include those outputs (tables, figures) of your
-        pipeline in this file with `targets::tar_read()`.
+    - You all already have a `docs/report.qmd` file. Include this file in your
+      `{targets}` pipeline as a target and as you build your targets, include
+      those outputs (tables, figures) of your pipeline in this file with
+      `targets::tar_read()`.
 
-    -   Theoretically, if you do these things you will only have merge
-        conflicts in the `_targets.R`, `DESCRIPTION`, and the
-        `docs/report.qmd` files, which will be easier to resolve. See
-        the tips below about minimizing merge conflicts when
-        collaborating. The helpers and instructors will also be
-        available to help you resolve any merge conflicts.
+    - Theoretically, if you do these things you will only have merge conflicts
+      in the `_targets.R`, `DESCRIPTION`, and the `docs/report.qmd` files, which
+      will be easier to resolve. See the tips below about minimizing merge
+      conflicts when collaborating. The helpers and instructors will also be
+      available to help you resolve any merge conflicts.
 
-11. Using the workflow we've covered in this workshop, collaboratively
-    create a reproducible analysis pipeline by:
+11. Using the workflow we've covered in this workshop, collaboratively create a
+    reproducible analysis pipeline by:
 
-    -   Using the `{targets}` package to create a pipeline going from
-        reading the data to generating the HTML file and running the
-        pipeline with `targets::tar_make()` or with
-        {{< var keybind.targets-make >}} regularly.
-    -   Prototype code in `docs/sandbox-<yourname>.qmd`, convert them to
-        functions, and then put them into your respective R scripts in
-        the `R/` folder.
-    -   Writing correctly formatted R code using `{styler}` and Markdown
-        using Quarto's canonical mode.
-    -   Regularly committing your changes to Git and pulling from and
-        pushing to GitHub. When pushing changes to GitHub, you will
-        likely get some merge conflicts that you will need to resolve
-        right away. You might want to communicate with each other when
-        either of you have made changes to either `docs/report.qmd` or
-        `_targets.R`, or if you added a dependency that caused a change
-        to the `DESCRIPTION` file.
+    - Using the `{targets}` package to create a pipeline going from reading the
+      data to generating the HTML file and running the pipeline with
+      `targets::tar_make()` or with {{< var keybind.targets-make >}} regularly.
+    - Prototype code in `docs/sandbox-<yourname>.qmd`, convert them to
+      functions, and then put them into your respective R scripts in the `R/`
+      folder.
+    - Writing correctly formatted R code using `{styler}` and Markdown using
+      Quarto's canonical mode.
+    - Regularly committing your changes to Git and pulling from and pushing to
+      GitHub. When pushing changes to GitHub, you will likely get some merge
+      conflicts that you will need to resolve right away. You might want to
+      communicate with each other when either of you have made changes to either
+      `docs/report.qmd` or `_targets.R`, or if you added a dependency that
+      caused a change to the `DESCRIPTION` file.
 
 ::: callout-tip
 ### Dataset suggestions
 
--   **Onset of Labor** dataset:
-    -   In this dataset, there are a few outcome variables (`y`) and
-        *many* predictor variables (`x`).
-    -   We suggest that each person on a team of two select one of the
-        two outcome (`y`) variables for the model, which are `EGA`
-        (estimated gestational age) or `DOS` (days of labor onset).
-        You can make these as two separate targets in the pipeline.
-    -   Since there are many predictor variables (`x`), we suggest each
-        person select *at least* two of the other variables, which
-        include any variable *except* the two outcome variables or the
-        variables `ID`, `SampleID`, and `Timepoint`.
--   **Bearded Dragon** dataset:
-    -   There are several outcome variables here: We suggest each person
-        select *one* outcome (`y`) variable for the models, choosing
-        either `grade` (for degree of hepatic fat accumulation), `HU`
-        (Hounsfield unit, positive values mean more dense liver),
-        `fat.perc` (percent of fat in liver), or `fibrosis.perc`
-        (percent of liver with fibrosis)
-        You can make these as two separate targets in the pipeline.
-    -   We suggest each person select *at least two* predictor (`x`)
-        variables for the models, from any of the blood variables, for
-        instance (but not limited to) `insulin`, `trig`, `VLDL`, `urea`,
-        or `serine`.
-    -   You should ideally tidy the variable names using
-        `snakecase::to_snake_case()` and `dplyr::rename_with()` when
-        cleaning them to make them easier to work with, though this
-        isn't strictly necessary.
+- **Onset of Labor** dataset:
+  - In this dataset, there are a few outcome variables (`y`) and *many*
+    predictor variables (`x`).
+  - We suggest that each person on a team of two select one of the two outcome
+    (`y`) variables for the model, which are `EGA` (estimated gestational age)
+    or `DOS` (days of labor onset). You can make these as two separate targets
+    in the pipeline.
+  - Since there are many predictor variables (`x`), we suggest each person
+    select *at least* two of the other variables, which include any variable
+    *except* the two outcome variables or the variables `ID`, `SampleID`, and
+    `Timepoint`.
+- **Bearded Dragon** dataset:
+  - There are several outcome variables here: We suggest each person select
+    *one* outcome (`y`) variable for the models, choosing either `grade` (for
+    degree of hepatic fat accumulation), `HU` (Hounsfield unit, positive values
+    mean more dense liver), `fat.perc` (percent of fat in liver), or
+    `fibrosis.perc` (percent of liver with fibrosis) You can make these as two
+    separate targets in the pipeline.
+  - We suggest each person select *at least two* predictor (`x`) variables for
+    the models, from any of the blood variables, for instance (but not limited
+    to) `insulin`, `trig`, `VLDL`, `urea`, or `serine`.
+  - You should ideally tidy the variable names using
+    `snakecase::to_snake_case()` and `dplyr::rename_with()` when cleaning them
+    to make them easier to work with, though this isn't strictly necessary.
 :::
 
 ::: callout-tip
 ### General analysis tips
 
--   Datasets usually have columns for each variable, unlike our dataset
-    we used during the workshop, which was in a very long format (the
-    names of metabolites were all in one column, with their values in
-    another). You can use `pivot_longer()` from `{tidyr}` to convert the
-    data into a longer format, which will make it easier to run more
-    analyses via `group_by()` and `group_split()`.
+- Datasets usually have columns for each variable, unlike our dataset we used
+  during the workshop, which was in a very long format (the names of metabolites
+  were all in one column, with their values in another). You can use
+  `pivot_longer()` from `{tidyr}` to convert the data into a longer format,
+  which will make it easier to run more analyses via `group_by()` and
+  `group_split()`.
 
--   We *strongly* suggest you do not include more than one predictor in
-    any individual model formula, as it will make the analysis and
-    coding more complicated than is necessary for this workshop. If you
-    feel confident or finish these tasks early, you can try to adjust or
-    control for another variable (like we did with `gender` and `age`).
+- We *strongly* suggest you do not include more than one predictor in any
+  individual model formula, as it will make the analysis and coding more
+  complicated than is necessary for this workshop. If you feel confident or
+  finish these tasks early, you can try to adjust or control for another
+  variable (like we did with `gender` and `age`).
 :::
 
 ::: callout-tip
 ### General collaboration tips
 
--   To minimize merge conflicts, create R scripts (that contain only
-    functions) for each person and create a Quarto document for each
-    person. This way, you can work on your own script and document
-    without causing conflicts with your team members. See tasks above.
+- To minimize merge conflicts, create R scripts (that contain only functions)
+  for each person and create a Quarto document for each person. This way, you
+  can work on your own script and document without causing conflicts with your
+  team members. See tasks above.
 
--   Commit, pull, and push your changes regularly, as that will reduce
-    the chances of getting large merge conflicts.
+- Commit, pull, and push your changes regularly, as that will reduce the chances
+  of getting large merge conflicts.
 :::
 
 ## Quick "checklist" for a good project
 
--   Project used Git and is on GitHub.
--   Code is formatted correctly via `{styler}`.
--   Markdown is formatted correctly via Quarto's canonical mode.
--   Multiple models are computed programmatically using functional
-    programming.
--   Used Quarto for outputting the model results as a table.
--   Only R functions are kept in the scripts in the `R/` folder.
--   Analysis is fully reproducible by running `targets::tar_make()`.
--   Most code in the Quarto document is only used to display the
-    results, not to do processing or analyses.
+- Project used Git and is on GitHub.
+- Code is formatted correctly via `{styler}`.
+- Markdown is formatted correctly via Quarto's canonical mode.
+- Multiple models are computed programmatically using functional programming.
+- Used Quarto for outputting the model results as a table.
+- Only R functions are kept in the scripts in the `R/` folder.
+- Analysis is fully reproducible by running `targets::tar_make()`.
+- Most code in the Quarto document is only used to display the results, not to
+  do processing or analyses.
 
 ## Expectations for the project
 
 What we expect you to do for the group project:
 
--   Use Git and GitHub throughout your work.
--   Use `{styler}` with {{< var keybind.styler >}} to format your R
-    code.
--   Use Quarto's canonical mode to format your Markdown.
--   Have a reproducible analysis pipeline with `{targets}`.
--   Work collaboratively as a group and share responsibilities and
-    tasks.
--   Use as much of what we covered in the workshop to practice what you
-    learned.
+- Use Git and GitHub throughout your work.
+- Use `{styler}` with {{< var keybind.styler >}} to format your R code.
+- Use Quarto's canonical mode to format your Markdown.
+- Have a reproducible analysis pipeline with `{targets}`.
+- Work collaboratively as a group and share responsibilities and tasks.
+- Use as much of what we covered in the workshop to practice what you learned.
 
 What we don't expect:
 
--   Complicated analysis or coding. The simpler it is, the easier is to
-    for you to do the coding and understand what is going on. It also
-    helps us to see that you've practiced what you've learned.
--   Clever or overly concise code. Clearly written and readable code is
-    *always* better than clever or concise code. Keep it simple and
-    understandable!
+- Complicated analysis or coding. The simpler it is, the easier is to for you to
+  do the coding and understand what is going on. It also helps us to see that
+  you've practiced what you've learned.
+- Clever or overly concise code. Clearly written and readable code is *always*
+  better than clever or concise code. Keep it simple and understandable!
 
-Essentially, the team project is a way to reinforce what you learned
-during the workshop, but in a more relaxed and collaborative setting.
+Essentially, the team project is a way to reinforce what you learned during the
+workshop, but in a more relaxed and collaborative setting.
 
 ## How will the project be tested?
 
 The lead instructor will run these commands to test your project:
 
-``` r
+```r
 # Install dependencies
 pak::pak()
 # Basic check and style code
@@ -291,12 +273,12 @@ targets::tar_make()
 browseURL("docs/report.html")
 ```
 
-If the pipeline runs and the HTML shows some figures and tables, then
-the project is a success! :tada:
+If the pipeline runs and the HTML shows some figures and tables, then the
+project is a success! :tada:
 
 ## Survey
 
-After the projects are tested, please complete the survey for this
-session as well as for the whole workshop:
+After the projects are tested, please complete the survey for this session as
+well as for the whole workshop:
 
 {{< include /includes/_survey.qmd >}}

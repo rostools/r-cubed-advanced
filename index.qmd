@@ -118,11 +118,11 @@ employs Luke Johnston, who is the developer of this open educational resource
 and is (usually) the lead instructor when running this workshop.
 
 ::: {layout-ncol="3"}
-![](images/logo-sdca.png){width="100px"
-alt="Logo for Steno Diabetes Center Aarhus"}
+![](images/logo-sdca.png){width="100px" alt="Logo for Steno Diabetes Center
+Aarhus"}
 
-![](images/logo-ddea.png){width="260px"
-alt="Logo for Danish Diabetes and Endocrinology Academy"}
+![](images/logo-ddea.png){width="260px" alt="Logo for Danish Diabetes and
+Endocrinology Academy"}
 
 ![](images/logo-au.png){width="220px" alt="Logo for Aarhus University"}
 :::

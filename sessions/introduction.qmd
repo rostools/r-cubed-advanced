@@ -13,43 +13,42 @@
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
-The slides contain speaking notes that you can view by pressing 'S' on
-the keyboard.
+The slides contain speaking notes that you can view by pressing 'S' on the
+keyboard.
 :::
 
 ## :book: Reading task: The big picture {#sec-big-picture}
 
 **Time: \~10 minutes.**
 
-This section provides a bigger-picture view of what we will be doing,
-why we want to do it, how we will go about doing it, and what it will
-look like in the end.
+This section provides a bigger-picture view of what we will be doing, why we
+want to do it, how we will go about doing it, and what it will look like in the
+end.
 
 Our big picture aim is to create a data analysis project that:
 
-1.  Makes it easier for collaborators and others to contribute directly.
-2.  Explicitly includes the processing and analysis steps (as code) in a
-    pipeline, so they are reproducible.
-3.  Apply a general approach to coding when running statistical analyses
-    that simplifies the code and makes it easier to build pipelines
-    with.
+1. Makes it easier for collaborators and others to contribute directly.
+2. Explicitly includes the processing and analysis steps (as code) in a
+   pipeline, so they are reproducible.
+3. Apply a general approach to coding when running statistical analyses that
+   simplifies the code and makes it easier to build pipelines with.
 
-All of this will be exemplified through a simple analysis of a
-lipidomics dataset during the workshop.
+All of this will be exemplified through a simple analysis of a lipidomics
+dataset during the workshop.
 
-It helps to have a very concrete and tangible view of what we will start
-with and what we will end off with. Files and folders are one of the
-most tangible things to talk about on computers. Below are the initial
-and final project file structures, so you can hopefully get a better
-understanding of how things will look.
+It helps to have a very concrete and tangible view of what we will start with
+and what we will end off with. Files and folders are one of the most tangible
+things to talk about on computers. Below are the initial and final project file
+structures, so you can hopefully get a better understanding of how things will
+look.
 
-::::: columns
-::: {.column width="45%"}
+::: columns
+::::: {.column width="45%"}
 ### Initial project structure {.unnumbered}
 
 Right now, your initial project structure should look like this:
 
-```
+```text
 LearnR3
 ├── data/
 │   ├── lipidomics.csv
@@ -72,14 +71,14 @@ LearnR3
 ├── README.md
 └── TODO.md
 ```
-:::
+:::::
 
-::: {.column width="45%"}
+::::: {.column width="45%"}
 ### Final project structure {.unnumbered}
 
 At the end of this workshop, it should look something like:
 
-```
+```text
 LearnR3
 ├── _targets/
 │   ├── meta/
@@ -110,82 +109,75 @@ LearnR3
 ├── LearnR3.Rproj
 └── README.md
 ```
-:::
 :::::
+:::
 
 Why do we structure it this way?
 
--   To follow "project-oriented" workflows (covered in
-    @sec-dependencies).
--   To follow some standard conventions in R, like having a
-    `DESCRIPTION` file (which is important for @sec-dependencies).
--   To keep types of files separate, like raw data in the `data-raw/`
-    folder, R scripts/functions in the `R/` folder, and documents like R
-    Markdown / Quarto files in `docs/`.
+- To follow "project-oriented" workflows (covered in @sec-dependencies).
+- To follow some standard conventions in R, like having a `DESCRIPTION` file
+  (which is important for @sec-dependencies).
+- To keep types of files separate, like raw data in the `data-raw/` folder, R
+  scripts/functions in the `R/` folder, and documents like R Markdown / Quarto
+  files in `docs/`.
 
-This structure also supports our workflow and processes throughout the
-workshop, which will be to:
+This structure also supports our workflow and processes throughout the workshop,
+which will be to:
 
--   Track package dependencies in the `DESCRIPTION` file.
--   Follow a "function-oriented" workflow. We write and test code in the
-    R Markdown / Quarto (`docs/learning.qmd`), convert the code into a
-    function, test it, and then move it into `R/functions.R`.
-    -   We develop functions in the `learning.qmd` file for easier
-        testing, prototyping, and feedback. This is the sandbox for
-        trying things out.
-    -   From a teaching and learning perspective, it's also easier to
-        integrate text, notes, and comments in the Markdown files along
-        with the code during the code-alongs.
-    -   We move developed functions into `R/functions.R` as a formal
-        place to store tested and reliable functions.
-    -   We `source()` the tested functions in `R/functions.R` file,
-        which creates a clear separation between prototyped code and
-        finalized code.
--   Regularly restart R with {{< var keybind.restart-r >}} (or
-    `Session -> Restart R`). We restart R to ensure that the R workspace
-    is completely clear as well as for reproducibility as we should
-    always aim to work from a "clean plate".
--   Keep code and Markdown text readable by automatically
-    formatting/styling our code and text.
--   Each "output" like a figure or a table in a paper will have one main
-    function to generate it, which we then include as a step in the
-    "targets" pipeline. We use this pipeline to track and order the
-    steps in the data analysis.
--   Whenever we complete a task, we *add and commit* those file changes
-    to save them in the Git history with {{< var keybind.git >}}.
-    -   This keeps our work transparent and makes it easier to share the
-        code by uploading it to GitHub.
-    -   Version control aligns with the philosophy of reproducible
-        science and should be (though usually isn't) a standard
-        practice.
+- Track package dependencies in the `DESCRIPTION` file.
+- Follow a "function-oriented" workflow. We write and test code in the R
+  Markdown / Quarto (`docs/learning.qmd`), convert the code into a function,
+  test it, and then move it into `R/functions.R`.
+  - We develop functions in the `learning.qmd` file for easier testing,
+    prototyping, and feedback. This is the sandbox for trying things out.
+  - From a teaching and learning perspective, it's also easier to integrate
+    text, notes, and comments in the Markdown files along with the code during
+    the code-alongs.
+  - We move developed functions into `R/functions.R` as a formal place to store
+    tested and reliable functions.
+  - We `source()` the tested functions in `R/functions.R` file, which creates a
+    clear separation between prototyped code and finalized code.
+- Regularly restart R with {{< var keybind.restart-r >}} (or
+  `Session -> Restart R`). We restart R to ensure that the R workspace is
+  completely clear as well as for reproducibility as we should always aim to
+  work from a "clean plate".
+- Keep code and Markdown text readable by automatically formatting/styling our
+  code and text.
+- Each "output" like a figure or a table in a paper will have one main function
+  to generate it, which we then include as a step in the "targets" pipeline. We
+  use this pipeline to track and order the steps in the data analysis.
+- Whenever we complete a task, we *add and commit* those file changes to save
+  them in the Git history with {{< var keybind.git >}}.
+  - This keeps our work transparent and makes it easier to share the code by
+    uploading it to GitHub.
+  - Version control aligns with the philosophy of reproducible science and
+    should be (though usually isn't) a standard practice.
 
 Many of these "project setup" tasks can be time-consuming, difficult and
-confusing---and this is before you've even gotten to the analysis phase
-of your work.
+confusing---and this is before you've even gotten to the analysis phase of your
+work.
 
 ::: callout-tip
-A good analogy for these first project steps is similar to how
-skyscrapers are built: It seems like it takes forever for them to start
-adding floors. But once they start with the first floor, each next floor
-goes up so fast! That's because a lot of the main work is in building up
-the foundation of the building, so that it is strong and stable. This is
-the same with analysis projects, the first phase feels like nothing is
-"moving" but you are building the foundation to everything that comes
-after.
+A good analogy for these first project steps is similar to how skyscrapers are
+built: It seems like it takes forever for them to start adding floors. But once
+they start with the first floor, each next floor goes up so fast! That's because
+a lot of the main work is in building up the foundation of the building, so that
+it is strong and stable. This is the same with analysis projects, the first
+phase feels like nothing is "moving" but you are building the foundation to
+everything that comes after.
 :::
 
 {{< text_snippet faq_text >}}
 
 ::: {.callout-important appearance="default"}
-During the workshop, we will be writing and coding almost entirely in
-the `docs/learning.qmd` file. You can also use this document to write
-notes to yourself. However, to make it easier for us to help you and for
-you to have fewer issues as more and more content is added, if a code
-chunk in your Quarto file causes an error when you render it or when you
-run the pipeline, add the code chunk option `#| eval: false` so that the
-R code doesn't get evaluated and you don't get any errors. We will
-remind you about this option throughout the workshop, as well as if you
-have any issues and we come over to help you.
+During the workshop, we will be writing and coding almost entirely in the
+`docs/learning.qmd` file. You can also use this document to write notes to
+yourself. However, to make it easier for us to help you and for you to have
+fewer issues as more and more content is added, if a code chunk in your Quarto
+file causes an error when you render it or when you run the pipeline, add the
+code chunk option `#| eval: false` so that the R code doesn't get evaluated and
+you don't get any errors. We will remind you about this option throughout the
+workshop, as well as if you have any issues and we come over to help you.
 :::
 
 {{< text_snippet sticky_up >}}
@@ -194,23 +186,22 @@ have any issues and we come over to help you.
 
 **Time: \~10 minutes**
 
-Reflect on when you work on a project (for your thesis or a manuscript),
-how **exactly** do you and your collaborators contribute to the project:
+Reflect on when you work on a project (for your thesis or a manuscript), how
+**exactly** do you and your collaborators contribute to the project:
 
--   Is it mostly verbal contributions?
--   Do you use a shared folder that the files are on?
--   How do you keep track of who's changed what?
--   Do you mostly work on your own with contributions being mostly
-    verbal or written feedback (like in a meeting or through an email)?
--   If you collaborate directly on a project, how do you coordinate
-    things? Does one collaborator work on one section or analysis, so
-    your files are separate?
--   Do you ever have to go in and contribute your own code to theirs
-    (and vice versa)?
+- Is it mostly verbal contributions?
+- Do you use a shared folder that the files are on?
+- How do you keep track of who's changed what?
+- Do you mostly work on your own with contributions being mostly verbal or
+  written feedback (like in a meeting or through an email)?
+- If you collaborate directly on a project, how do you coordinate things? Does
+  one collaborator work on one section or analysis, so your files are separate?
+- Do you ever have to go in and contribute your own code to theirs (and vice
+  versa)?
 
 Consider these questions as we do the following steps.
 
-1.  Take about 1 minute to reflect on these questions.
-2.  For 6 minutes, discuss these questions with your neighbour, and talk
-    about your own experiences.
-3.  For the remaining time, we will briefly share with everyone.
+1. Take about 1 minute to reflect on these questions.
+2. For 6 minutes, discuss these questions with your neighbour, and talk about
+   your own experiences.
+3. For the remaining time, we will briefly share with everyone.

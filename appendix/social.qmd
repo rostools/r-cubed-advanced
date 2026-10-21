@@ -2,29 +2,26 @@
 
 ## Day 1 {#social-day-1 .unnumbered}
 
-After lunch, for **15 minutes** get in your group and go for a walk
-outside (if it's nice out). Share and discuss with your group these
-questions:
+After lunch, for **15 minutes** get in your group and go for a walk outside (if
+it's nice out). Share and discuss with your group these questions:
 
--   Are you happy with the way you currently collaborate with others?
-    Does it feel smooth, fun, and efficient? Is there any tension,
-    anxiety, or friction? Share some positive or negative experiences
-    you have had related to collaboration. It doesn't have to be about
-    coding in R or data analysis, it can be collaboration in general.
+- Are you happy with the way you currently collaborate with others? Does it feel
+  smooth, fun, and efficient? Is there any tension, anxiety, or friction? Share
+  some positive or negative experiences you have had related to collaboration.
+  It doesn't have to be about coding in R or data analysis, it can be
+  collaboration in general.
 
 ## Day 2 {#social-day-2 .unnumbered}
 
-After lunch, for **15 minutes** get in your group and talk about these
-questions and topics. You can walk outside, find a table and sit down,
-or do whatever.
+After lunch, for **15 minutes** get in your group and talk about these questions
+and topics. You can walk outside, find a table and sit down, or do whatever.
 
--   Imagine if you had learned efficient and effective coding skills and
-    programmatic thinking earlier in your career and were in a research
-    culture that encouraged sharing and supporting these skills and
-    knowledge. Imagine that also meant you were able to produce better
-    research papers more easily and more quickly, so you felt your
-    research output was more impactful and acceptable (meaning, you have
-    less pressure to publish). Imagine this gave you more time to focus
-    on other things, like diving deeper into a particular problem or
-    research question. How would you spend your work time? What would
-    you focus more?
+- Imagine if you had learned efficient and effective coding skills and
+  programmatic thinking earlier in your career and were in a research culture
+  that encouraged sharing and supporting these skills and knowledge. Imagine
+  that also meant you were able to produce better research papers more easily
+  and more quickly, so you felt your research output was more impactful and
+  acceptable (meaning, you have less pressure to publish). Imagine this gave you
+  more time to focus on other things, like diving deeper into a particular
+  problem or research question. How would you spend your work time? What would
+  you focus more?

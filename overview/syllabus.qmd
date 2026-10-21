@@ -2,6 +2,7 @@
 
 ```{r}
 #| include: false
+
 # To force downlit to work.
 library(downlit)
 # Formatter removes this library call unless we use it.
@@ -9,71 +10,63 @@ library(downlit)
 downlit::autolink("targets::tar_read")
 ```
 
-Reproducibility and open scientific practices are increasingly in demand
-and needed by scientists and researchers in modern research
-environments. Our work often require or involve a high level of hands-on
-collaboration on scientific projects throughout all stages of the
-research lifecycle. We are faced with obstacles that we have no training
-for nor knowledge on how to address. Obstacles that are as simple as not
-having a shared way of writing code or managing files can impede
-effective collaboration. Or the obstacles can be complex, like
-documenting software dependencies or steps in an analysis pipeline in a
-way that makes it easy to resolve issues and get the most recent set of
+Reproducibility and open scientific practices are increasingly in demand and
+needed by scientists and researchers in modern research environments. Our work
+often require or involve a high level of hands-on collaboration on scientific
+projects throughout all stages of the research lifecycle. We are faced with
+obstacles that we have no training for nor knowledge on how to address.
+Obstacles that are as simple as not having a shared way of writing code or
+managing files can impede effective collaboration. Or the obstacles can be
+complex, like documenting software dependencies or steps in an analysis pipeline
+in a way that makes it easy to resolve issues and get the most recent set of
 results after collaborators have worked on a project.
 
-Aside from the impact on collaboration, these obstacles can even affect
-research projects with just one primary researcher. Compounding this
-issue is that researchers' main incentivised output, publications,
-doesn't easily allow for other forms of output that could help address
-or resolve these obstacles. For example, a research group's workflow or
-procedures is valuable information that other groups could use and learn
-from, but "publishing" this type of information isn't rewarded so it is
-rarely done. Likewise, the code used in analyses is rarely shared, even
-though it would improve the reproducibility of the research results and
-also allow others to learn from it. Ultimately, all of this leads to
-less reliability and reproducibility of scientific results. With this
-workshop, we aim to begin addressing this gap.
+Aside from the impact on collaboration, these obstacles can even affect research
+projects with just one primary researcher. Compounding this issue is that
+researchers' main incentivised output, publications, doesn't easily allow for
+other forms of output that could help address or resolve these obstacles. For
+example, a research group's workflow or procedures is valuable information that
+other groups could use and learn from, but "publishing" this type of information
+isn't rewarded so it is rarely done. Likewise, the code used in analyses is
+rarely shared, even though it would improve the reproducibility of the research
+results and also allow others to learn from it. Ultimately, all of this leads to
+less reliability and reproducibility of scientific results. With this workshop,
+we aim to begin addressing this gap.
 
-This workshop lasts 3 days and is split into the following sessions,
-listed in the [schedule](/overview/schedule.qmd), which will be covered
-in order:
+This workshop lasts 3 days and is split into the following sessions, listed in
+the [schedule](/overview/schedule.qmd), which will be covered in order:
 
--   [Introduction to the workshop](/sessions/introduction.qmd)
--   [Dependency management for smoother
-    collaboration](/sessions/dependencies.qmd)
--   [Creating automatic analysis
-    pipelines](/sessions/pipelines-setup.qmd)
--   [Creating automatic analysis
-    pipelines](/sessions/pipelines-outputs.qmd)
--   [Design your analysis: Build up one model
-    first](/sessions/build-one-model.qmd)
--   [Extend your analysis to run many models](/sessions/many-models.qmd)
--   [Visualising the results of many
-    models](/sessions/visualise-models.qmd)
+- [Introduction to the workshop](/sessions/introduction.qmd)
+- [Dependency management for smoother collaboration](/sessions/dependencies.qmd)
+- [Creating automatic analysis pipelines](/sessions/pipelines-setup.qmd)
+- [Creating automatic analysis pipelines](/sessions/pipelines-outputs.qmd)
+- [Design your analysis: Build up one model
+  first](/sessions/build-one-model.qmd)
+- [Extend your analysis to run many models](/sessions/many-models.qmd)
+- [Visualising the results of many models](/sessions/visualise-models.qmd)
 
 ## Learning outcome and objectives
 
 The overall aim of this workshop is to enable you to:
 
-1.  Describe what an open, collaboration-friendly, and nearly-automated
-    reproducible data analysis pipeline and workflow looks like.
+1. Describe what an open, collaboration-friendly, and nearly-automated
+   reproducible data analysis pipeline and workflow looks like.
 
-2.  Design your code and analysis using simple principles and concepts
-    that allow you to write more flexible and robust code that does more
-    for less and that is friendlier to both you and your collaborators.
+2. Design your code and analysis using simple principles and concepts that allow
+   you to write more flexible and robust code that does more for less and that
+   is friendlier to both you and your collaborators.
 
-3.  Create an R project that follows these practices.
+3. Create an R project that follows these practices.
 
-Broken down into specific objectives, we've designed the workshop to
-enable you to do the following in each session:
+Broken down into specific objectives, we've designed the workshop to enable you
+to do the following in each session:
 
 [**Dependency management for smoother
 collaboration**](/sessions/dependencies.qmd)
 
 {{< include /includes/objectives/_dependencies.qmd >}}
 
-[**Setting up automatic analysis
-pipelines**](/sessions/pipelines-setup.qmd)
+[**Setting up automatic analysis pipelines**](/sessions/pipelines-setup.qmd)
 
 {{< include /includes/objectives/_pipelines-setup.qmd >}}
 
@@ -91,40 +84,37 @@ first**](/sessions/build-one-model.qmd)
 
 {{< include /includes/objectives/_many-models.qmd >}}
 
-[**Visualising the results of many
-models**](/sessions/visualise-models.qmd)
+[**Visualising the results of many models**](/sessions/visualise-models.qmd)
 
 {{< include /includes/objectives/_visualise-models.qmd >}}
 
 And we **will not** learn:
 
--   Any details on or about specific statistical methods or models
-    (these are already covered by most university curriculum). We cover
-    how to run statistical methods, but not which statistical methods to
-    use for your data or project.
+- Any details on or about specific statistical methods or models (these are
+  already covered by most university curriculum). We cover how to run
+  statistical methods, but not which statistical methods to use for your data or
+  project.
 
 Tangibly, during the workshop you will:
 
--   Style your code using `{styler}` to improve readability and
-    consistency.
--   Track package dependencies in the `DESCRIPTION` file as either
-    workflow or build dependencies.
--   Build automated pipelines with `{targets}`.
--   Structure your analysis into steps as functions that piece together
-    into a cohesive series of steps.
--   Run multiple statistical analyses efficiently using `{purrr}` and
-    functional programming.
--   Manage and collaborate on your projects using Git and GitHub.
--   Write reproducible reports using Quarto.
+- Style your code using `{styler}` to improve readability and consistency.
+- Track package dependencies in the `DESCRIPTION` file as either workflow or
+  build dependencies.
+- Build automated pipelines with `{targets}`.
+- Structure your analysis into steps as functions that piece together into a
+  cohesive series of steps.
+- Run multiple statistical analyses efficiently using `{purrr}` and functional
+  programming.
+- Manage and collaborate on your projects using Git and GitHub.
+- Write reproducible reports using Quarto.
 
-Because learning and coding is ultimately not *just* a solo activity,
-during this workshop we also aim to provide opportunities to chat with
-fellow participants, learn about their work and how they do analyses,
-and to build networks of support and collaboration.
+Because learning and coding is ultimately not *just* a solo activity, during
+this workshop we also aim to provide opportunities to chat with fellow
+participants, learn about their work and how they do analyses, and to build
+networks of support and collaboration.
 
-The specific software and technologies we will cover in this workshop
-are [R](https://www.r-project.org/), [RStudio](https://rstudio.com/),
+The specific software and technologies we will cover in this workshop are
+[R](https://www.r-project.org/), [RStudio](https://rstudio.com/),
 [Quarto](https://quarto.org), [Git](https://git-scm.com/), and
-[GitHub](https://github.com/), while the specific R packages are
-`{styler}`, `{targets}`, as well as more advanced uses of combining
-`{purrr}` and `{dplyr}`.
+[GitHub](https://github.com/), while the specific R packages are `{styler}`,
+`{targets}`, as well as more advanced uses of combining `{purrr}` and `{dplyr}`.
