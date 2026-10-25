@@ -1,4 +1,4 @@
-# Introduction to workshop {#sec-introduction}
+# Introdiction to workshop {#sec-introduction}
 
 > [**Introduction slides**](../slides/introduction.html)
 
@@ -33,8 +33,8 @@ Our big picture aim is to create a data analysis project that:
 3. Apply a general approach to coding when running statistical analyses that
    simplifies the code and makes it easier to build pipelines with.
 
-All of this will be exemplified through a simple analysis of a lipidomics
-dataset during the workshop.
+All of this will be exemplified through a simple analysis of a cardiovascular
+risk dataset during the workshop.
 
 It helps to have a very concrete and tangible view of what we will start with
 and what we will end off with. Files and folders are one of the most tangible
@@ -49,16 +49,13 @@ look.
 Right now, your initial project structure should look like this:
 
 ```text
-LearnR3
+AdvancedR3
 ├── data/
-│   ├── lipidomics.csv
+│   ├── cv-risk.csv
 │   └── README.md
 ├── data-raw/
 │   ├── README.md
-│   ├── nmr-omics/
-│   │  ├── lipidomics.xlsx
-│   │  └── README.txt
-│   └── nmr-omics.R
+│   └── cv-risk.R
 ├── docs/
 │   ├── README.md
 │   └── learning.qmd
@@ -67,7 +64,7 @@ LearnR3
 │   └── README.md
 ├── .gitignore
 ├── DESCRIPTION
-├── LearnR3.Rproj
+├── AdvancedR3.Rproj
 ├── README.md
 └── TODO.md
 ```
@@ -79,7 +76,7 @@ LearnR3
 At the end of this workshop, it should look something like:
 
 ```text
-LearnR3
+AdvancedR3
 ├── _targets/
 │   ├── meta/
 │   │   └── meta
@@ -87,14 +84,11 @@ LearnR3
 │   ├── user/
 │   └── workspaces/
 ├── data/
-│   ├── lipidomics.csv
+│   ├── cv-risk.csv
 │   └── README.md
 ├── data-raw/
 │   ├── README.md
-│   ├── nmr-omics/
-│   │  ├── lipidomics.xlsx
-│   │  └── README.txt
-│   └── nmr-omics.R
+│   └── cv-risk.R
 ├── docs/
 │   ├── _targets.yaml
 │   ├── README.md
@@ -106,7 +100,7 @@ LearnR3
 ├── .gitignore
 ├── _targets.R
 ├── DESCRIPTION
-├── LearnR3.Rproj
+├── AdvancedR3.Rproj
 └── README.md
 ```
 :::::
@@ -130,9 +124,8 @@ which will be to:
   test it, and then move it into `R/functions.R`.
   - We develop functions in the `learning.qmd` file for easier testing,
     prototyping, and feedback. This is the sandbox for trying things out.
-  - From a teaching and learning perspective, it's also easier to integrate
-    text, notes, and comments in the Markdown files along with the code during
-    the code-alongs.
+  - During the workshop, you can keep notes in this file, as we don't include it
+    in our final pipeline.
   - We move developed functions into `R/functions.R` as a formal place to store
     tested and reliable functions.
   - We `source()` the tested functions in `R/functions.R` file, which creates a
@@ -141,8 +134,7 @@ which will be to:
   `Session -> Restart R`). We restart R to ensure that the R workspace is
   completely clear as well as for reproducibility as we should always aim to
   work from a "clean plate".
-- Keep code and Markdown text readable by automatically formatting/styling our
-  code and text.
+- Keep code readable by regularly formatting/styling it.
 - Each "output" like a figure or a table in a paper will have one main function
   to generate it, which we then include as a step in the "targets" pipeline. We
   use this pipeline to track and order the steps in the data analysis.
