@@ -1,4 +1,4 @@
-# Setup and connect with GitHub {#sec-connect-github}
+# Setup and authenticate with GitHub {#sec-setup-github}
 
 ```{r}
 #| include: false
