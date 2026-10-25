@@ -3,7 +3,10 @@
 In order to participate in the workshop, you'll need to install these programs.
 You may already have some of them installed and if you did, please make sure
 that they are at least the minimum versions listed below. If not, you will need
-to update them.
+to update them. Updating these programs is the same as installing them, so just
+to be certain, please install these programs again to update them. That way
+you'll be less likely to encounter issues during the workshop related to version
+differences.
 
 ::: panel-tabset
 ## Windows
