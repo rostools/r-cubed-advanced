@@ -94,6 +94,11 @@ And we **will not** learn:
   already covered by most university curriculum). We cover how to run
   statistical methods, but not which statistical methods to use for your data or
   project.
+- How to process and clean research data, as that was done in the [intermediate
+  workshop](https://r-cubed-intermediate.rostools.org). However, we will cover
+  processing *results*, even though that is in a "data" format as a `data.frame`
+  or `tibble`, it isn't exactly the same as research data on statistical units
+  like people, cells, or animals.
 
 Tangibly, during the workshop you will:
 
