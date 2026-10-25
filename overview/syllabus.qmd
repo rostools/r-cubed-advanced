@@ -13,10 +13,10 @@ downlit::autolink("targets::tar_read")
 Reproducibility and open scientific practices are increasingly in demand and
 needed by scientists and researchers in modern research environments. Our work
 often require or involve a high level of hands-on collaboration on scientific
-projects throughout all stages of the research lifecycle. We are faced with
-obstacles that we have no training for nor knowledge on how to address.
-Obstacles that are as simple as not having a shared way of writing code or
-managing files can impede effective collaboration. Or the obstacles can be
+projects throughout all stages of the research lifecycle. We are regularly faced
+with obstacles that we have no training for nor knowledge on how to effectively
+address. Obstacles that are as simple as not having a shared way of writing code
+or managing files can impede effective collaboration. Or the obstacles can be
 complex, like documenting software dependencies or steps in an analysis pipeline
 in a way that makes it easy to resolve issues and get the most recent set of
 results after collaborators have worked on a project.
