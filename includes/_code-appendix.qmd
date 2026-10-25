@@ -11,4 +11,6 @@ code chunk. The code below also includes the code from the exercises.
 #| echo: true
 #| eval: false
 #| ref-label: !expr stringr::str_subset(knitr::all_labels(), "^(unnamed-chunk-.*|purl-only-.*|setup|admin-.*|fig-.*)", negate = TRUE)
+
+# jarl-ignore-file empty_file: "this shouldn't have code, `ref-label` inserts code."
 ```
