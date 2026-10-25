@@ -15,10 +15,14 @@ library(downlit)
 
 One of the basic steps to reproducibility and modern workflows in data analysis
 is to keep everything contained in a single location. In RStudio, this is done
-with R Projects. Please read all of [this
-section](https://r-cubed-intro.rostools.org/sessions/setup-project) from the
+with R Projects.
+
+::: callout-important
+If you have not used R Projects before, please read all of the [section on
+it](https://r-cubed-intro.rostools.org/sessions/setup-project) from the
 introduction workshop to learn about R Projects and how they help keep things
 self-contained. *You don't need to do any of the exercises or activities*.
+:::
 
 There are several ways to organise a project folder. We'll be using the
 structure from the package [prodigenr](https://rostools.github.io/prodigenr/).
@@ -76,34 +80,29 @@ troubleshooting](https://happygitwithr.com/troubleshooting) steps.
 
 We teach and use R Markdown/Quarto because it is one of the very first steps to
 being reproducible and because it is a very powerful tool to doing data
-analysis. You may have heard of or used R Markdown, but you might not have heard
-of or used Quarto.
+analysis. You may or may not have heard of or used either R Markdown or Quarto.
 
-Quarto is a next generation version of R Markdown and chances are, if you use a
-fairly recent version of RStudio, you are already using it without realizing it.
-That's because Quarto uses the same Markdown syntax as R Markdown. The only
-difference is that with Quarto, you can create more types of output documents
-(like books, websites, slides), you have more options for customization, and
-it's easier to do and learn than R Markdown. So, for this workshop, we will use
-Quarto to create a report that includes the analysis we will do over the
-workshop.
+Quarto is a next generation version of R Markdown and comes bundled with
+RStudio. Quarto, like R Markdown, is a way of writing text and code together to
+create reproducible documents of analyses. Quarto uses Markdown syntax and
+allows you to create many types of output documents (like books, websites,
+slides). There are many options for customizing these outputs.
 
-Please do these two tasks:
+::: callout-important
+If you have *not* used Quarto or R Markdown before, please read over the [Quarto
+section](https://r-cubed-intro.rostools.org/sessions/reproducible-documents.html)
+of the introduction workshop. *Don't do the exercises*.
+:::
 
-1. Please read over the [R Markdown/Quarto
-   section](https://r-cubed-intro.rostools.org/sessions/reproducible-documents.html)
-   of the introduction workshop. *Don't do the exercises*. If you use R Markdown
-   or Quarto already, you can skip this step.
-
-2. In the R Console while inside the `AdvancedR3` project, run the function to
-   create a new Quarto file called `learning.qmd` in the `docs/` folder.
+While inside the `AdvancedR3` project, run this function in the R Console to
+create a new Quarto file called `learning.qmd` in the `docs/` folder.
 
 ```{r}
 #| label: add-rmarkdown-doc
 #| filename: Console
 #| purl: true
 
-r3::create_qmd_doc()
+r3::create_learning_qmd()
 ```
 
 ```{r}

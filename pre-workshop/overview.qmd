@@ -44,10 +44,10 @@ are found as you work through this section.
    (@sec-pre-reading).
 2. Read through the [Code of Conduct](code-of-conduct.qmd) (in
    @sec-code-of-conduct).
-3. Install the necessary programs and the right versions of those programs in
-   @sec-installing-programs. For some people, depending on their institution,
-   this task can take the **longest amount of time** because you have to contact
-   your IT to install these packages.
+3. [Install the necessary programs](installing-programs-r.qmd) and the right
+   versions of those programs in @sec-installing-programs. For some people,
+   depending on their institution, this task can take the **longest amount of
+   time** because you have to contact your IT to install these packages.
 4. Complete @sec-connect-github to setup and authenticate your computer with
    GitHub.
 5. Install the necessary R packages in @sec-installing-r-packages.
