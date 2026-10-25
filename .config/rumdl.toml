@@ -9,8 +9,10 @@ exclude = [
   "**/LICENSE.md",
   # `_badges.qmd` gets mangled by rumdl
   "**/_badges.qmd",
-  # Changelog has it's own (auto-generated) structure, ignore it.
+  # Changelog has it's own (auto-generated) structure, ignore it
   "CHANGELOG.md",
+  # These use a different style that rumdl mangles
+  "slides/*",
 ]
 
 # List style: `-`
