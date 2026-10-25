@@ -12,76 +12,67 @@ library(tidyverse)
 library(downlit)
 ```
 
-# Download the workshop data {#sec-download-data}
+# Download the data {#sec-download-data}
 
-We're going to use a real world dataset to demonstrate the concepts in this
-workshop. We're going to use an openly licensed dataset with metabolomics data
-[@Herance2022].
+You'll be using a synthetic dataset (generated from real data) during the
+code-along portion of the workshop. This dataset is an openly licensed dataset
+from Zenodo with data on basic clinical characteristics and disease
+status\ [@CSD2026]. You can check out this [dataset on
+Zenodo](https://zenodo.org/records/22996512) for more details about it.
 
-Similar to the intermediate workshop, we will follow the principle of building a
-reproducible pipeline, from raw data to the report with the analysis. We'll also
-follow the principle of keeping the raw data *raw* and use code to tidy it up.
-The ultimate goal is to have a record of how we *exactly* went from raw data to
-results in the paper. In the pre-workshop tasks of the intermediate workshop, we
-had you write each line of code to download and clean the data as part of the
-learning process. However, in this workshop we only need you to copy and paste
-the code that will download and minimally process the dataset into an initially
-workable state. That's because we assume at this point that you understand
-enough R to know how to do basic downloading and processing of data. If you want
-to learn more about how to take a raw data set and process it into a format that
-is more suitable for analysis, check out the [intermediate
-workshop](https://r-cubed-intermediate.rostools.org/).
+Unlike the [intermediate workshop](https://r-cubed-intermediate.rostools.org),
+we will not be doing any processing or cleaning of the research data. We'll
+provide a relatively clean and tidy dataset for you to use during this workshop.
+If you want to see what we did to tidy it up, check out the [R script on the
+GitHub
+repo](https://github.com/rostools/r-cubed-advanced/blob/main/data-raw/cv-risk.R).
+However, just like in the intermediate workshop, you'll still create a script in
+`data-raw/` that will download the dataset and save it to the `data/` folder.
 
-Inside the `data-raw/` folder, we are going to write R code that downloads a
-dataset, processes it into a more tidy format, and save it into the `data/`
-folder. This is the start of our analysis pipeline. First step, we need to
-create the script to do these steps. While in your `AdvancedR3` R Project, go to
-the Console pane in RStudio and type out:
+First step, you'll create this R script by typing and running the following code
+in the R Console pane while in your `AdvancedR3` R Project:
 
 ```{r}
 #| label: create-data-raw
 #| filename: Console
 #| purl: true
 
-usethis::use_data_raw("nmr-omics")
+usethis::use_data_raw("cv-risk")
 ```
 
-What this function does is create a new folder called `data-raw/` and creates an
-R script called `nmr-omics.R` in that folder. This is where we will store the
-raw, original metabolomics data that we'll get from the
-[website](https://zenodo.org/record/6597902). If you go to the website with the
-dataset, you'll notice (when you scroll down) that there are three files: A
-README file, a metabolomics `.xlsx` file, and a lipidomics `.xlsx` file. For
-now, we only want the README file and lipidomics dataset.
-
+This function creates a new folder called `data-raw/` in your project (if it
+didn't exist already) and creates an R script called `cv-risk.R` in that folder.
 The R script should have opened up for you, otherwise, go into the `data-raw/`
 folder and open up the new `nmr-omics.R` script. The first thing to do is
 **delete all the code in the script**. Than, copy and paste the code below into
-the script. Since this is an advanced workshop, you can run the lines one at a
-time and see what they do on your own (or `source()` them all at once). The
-comments provided give guidance on what the code is doing and why.
-
-```{r, file=here::here('data-raw/nmr-omics.R'), filename="data-raw/nmr-omics.R"}
-```
+the script. You can run the lines one at a time and see what they do on your own
+or `source()` the file all at once. The comments provided give guidance on what
+the code is doing and why.
 
 ```{r}
-#| label: purl-only-paste-processing-code
-#| echo: false
+#| label: download-cv-risk-data
+#| eval: false
 #| purl: true
 
-readLines(
-  "https://raw.githubusercontent.com/rostools/r-cubed-advanced/main/data-raw/nmr-omics.R"
-) |>
-  writeLines(usethis::proj_path("data-raw/nmr-omics.R"))
-source(usethis::proj_path("data-raw/nmr-omics.R"))
+cv_risk_path <- here::here("data", "cv-risk.csv")
+if (!fs::file_exists(cv_risk_path)) {
+  download.file(
+    "https://r-cubed-advanced.rostools.org/data/cv-risk.csv",
+    destfile = cv_risk_path,
+    # For in Windows users.
+    mode = "wb"
+  )
+}
 ```
 
 After running this code (either line-by-line or via `source()`), you should now
-have the `lipidomics` dataset saved in the `data/lipidomics.csv` file. The
-created files should look like this:
+have the `cv-risk.csv` dataset saved in the `data/cv-risk.csv` file. The created
+files should look like this:
 
 ```{r}
+#| label: admin-print-data-raw-tree
 #| echo: false
+#| eval: false
 
 fs::dir_tree(regexp = "data(-raw)?")
 ```
@@ -89,49 +80,45 @@ fs::dir_tree(regexp = "data(-raw)?")
 ```text
 AdvancedR3
 ├── data
-│   └── lipidomics.csv
+│   └── cv-risk.csv
 └── data-raw
-    ├── nmr-omics
-    │   ├── README.txt
-    │   └── lipidomics.xlsx
-    └── nmr-omics.R
+    └── cv-risk.R
 ```
 
-The created dataset in `data/lipidomics.csv` should look like when loading it
-using `readr::read_csv()`,
+::: callout-tip
+The created dataset in `data/cv-risk.csv` should look like the below when
+loading it using `readr::read_csv()`. You don't need to run this code, this is
+only to show you what the data looks like.
 
 ```{r}
+#| label: read-cv-risk
 #| eval: true
 
-readr::read_csv(here::here("data/lipidomics.csv"))
+readr::read_csv(here::here("data/cv-risk.csv"))
 ```
 
-Take a look through the downloaded `data-raw/nmr-omics/README.txt` and
-`data-raw/nmr-omics/lipidomics.xlsx` files, as well as the created
-`data/lipidomics.csv` to begin understanding the dataset.
+Take a look through the [dataset's Zenodo
+page](https://zenodo.org/records/22996512) if you'd like to learn more about the
+data, though this isn't required as we will go through it during the workshop.
+:::
 
-We are using Git to track changes made to files in our project. The original
-metabolomics dataset is stored on Zenodo, so we don't actually need to keep the
-raw data files in our Git history. So let's tell Git to ignore the files created
-in the `data-raw/nmr-omics/` folder. In the Console, type out the code below.
-You only need to do this once.
+You'll be using Git to track changes made to files in our project. For a normal
+data analysis project that is tracked by Git, you shouldn't commit data files.
+That's because Git:
 
-```{r}
-#| label: ignore-xlsx-files
-#| filename: Console
-#| purl: true
-
-usethis::use_git_ignore("data-raw/nmr-omics/")
-```
+- Isn't really designed to handle large data.
+- If you are analyzing personal and sensitive data, you don't want to store that
+  data in your Git history as it will make it harder to share your code and Git
+  repository with others.
 
 ```{r}
-#| label: purl-only-processing-data
+#| label: purl-store-data
 #| echo: false
 #| purl: true
 
 git_ci(
-  c("data-raw/nmr-omics.R", "data/lipidomics.csv", ".gitignore", "DESCRIPTION"),
-  "Script to process omics data into lipidomics csv."
+  c("data-raw/cv-risk.R", "data/cv-risk.csv"),
+  "Download data into data folder"
 )
 ```
 
@@ -156,13 +143,9 @@ Show folders and files of project:
 ├── TODO.md
 ├── data/
 │   ├── README.md
-│   └── lipidomics.csv
+│   └── cv-risk.csv
 ├── data-raw/
-│   ├── README.md
-│   ├── nmr-omics
-│   │   ├── README.txt
-│   │   └── lipidomics.xlsx
-│   └── nmr-omics.R
+│   └── cv-risk.R
 └── docs/
     ├── README.md
     └── learning.qmd
@@ -177,7 +160,7 @@ as you did in @sec-connect-github and then running the
 
 The output should look something a bit like the above text. If it doesn't, start
 over by deleting everything in the `data-raw/` folder *except* for the
-`data-raw/nmr-omics.R` script and re-running the script again. If your output
+`data-raw/cv-risk.R` script and re-running the script again. If your output
 looks a bit like the above, than copy and paste the output into the survey
 question at the end.
 
@@ -217,9 +200,9 @@ However, an easier way to style the file we're currently working on is the
 "Style active file" option. This is what we will do frequently throughout the
 workshop.
 
-Let's try it out. While inside the `data-raw/nmr-omics.R` file, use
+Let's try it out. While inside the `data-raw/cv-risk.R` file, use
 {{< var keybind.styler >}} to style the file. Notice that no changes were made
-since the file is already tidy.
+since the file is already formatted.
 
 ::: {.callout-note appearance="default"}
 You will probably be asked to install a package called `{miniUI}`, click "Yes".

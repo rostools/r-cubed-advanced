@@ -1,0 +1,320 @@
+id,glycemia_status,hba1c,random_glucose,age_group,sex,marital_status,education,occupation,weight,height,body_mass_index,waist_circumference,hip_circumference,waist_to_hip_ratio,systolic_blood_pressure,diastolic_blood_pressure,has_hypertension,family_history_hypertension,number_family_diabetes,exercises,stressed,satisfied_socially,sleep_hrs,diabetes_knowledge_score
+1,Diabetes,7.7,321,30–39,Female,Married,Middle,Homemaker,55.1,177.8,17.43,84,100,0.84,122,82,No,Yes,2,Yes,Yes,Satisfied,7,4
+2,Diabetes,11.9,359,50–59,Female,Married,No formal education,Homemaker,50.8,170.6,17.45,78,92,0.8478260869565217,139,86,No,No,5 or more,Yes,No,Satisfied,6,6
+3,Diabetes,7.7,321,30–39,Female,Married,Middle,Homemaker,55.3,177.4,17.57,84,100,0.84,122,82,No,Yes,2,Yes,No,Satisfied,7,4
+4,Diabetes,8.4,303,30–39,Female,Married,Middle,Homemaker,54.8,175.2,17.85,79,93,0.8494623655913979,119,92,Unknown,Unknown,3–4,No,Yes,Not satisfied,8,9
+5,Diabetes,7.2,180,40–49,Female,Married,No formal education,Homemaker,50.9,168.2,17.99,92,108,0.8518518518518519,142,94,Yes,Yes,2,Yes,Yes,Satisfied,3,7
+6,Prediabetes,5.8,162,50–59,Female,Married,Secondary/Matric,Employed,50.7,167.6,18.05,95,102,0.9313725490196079,145,89,Yes,Yes,0–1,No,Yes,Not satisfied,8,9
+7,Diabetes,9.5,323,50–59,Male,Married,No formal education,Unemployed,57,176.78,18.24,84,87,0.9655172413793104,118,79,No,No,5 or more,No,Yes,Satisfied,8,3
+8,Diabetes,9.7,259,50–59,Male,Married,No formal education,Self-employed,50.5,165.6,18.41,78,92,0.8478260869565217,139,86,No,No,5 or more,Yes,Yes,Satisfied,6.7,6
+9,Diabetes,7.6,160,18–29,Female,Married,No formal education,Homemaker,49,162.56,18.53,78,90,0.8666666666666667,113,83,Yes,No,5 or more,Yes,No,Satisfied,4,8
+10,Diabetes,7.6,160,18–29,Female,Married,No formal education,Homemaker,49.7,162.6,18.8,78,90,0.8666666666666667,113,83,Yes,No,5 or more,Yes,Yes,Satisfied,7,8
+11,Diabetes,9.6,356,50–59,Male,Married,No formal education,Self-employed,63,181.2,19.19,110,108,1.018518518518519,125,88,Yes,No,5 or more,Yes,Yes,Satisfied,6,3
+12,Prediabetes,6,150,50–59,Female,Married,Primary,Homemaker,61,177.8,19.3,87,97,0.8969072164948454,117,83,Unknown,Yes,5 or more,Yes,Yes,Satisfied,6,4
+13,Diabetes,7.5,140,40–49,Male,Married,No formal education,Self-employed,57.6,172.6,19.33,76,102,0.7450980392156863,125,80,No,Yes,3–4,Yes,Yes,Satisfied,7,5
+14,Prediabetes,5.7,180,30–39,Male,Married,Intermediate or above,Employed,69.6,189,19.48,103,112,0.9196428571428571,131,71,No,No,5 or more,Yes,Yes,Satisfied,7,8
+15,Prediabetes,6.2,170,40–49,Female,Married,No formal education,Homemaker,60.4,176,19.5,92,108,0.8518518518518519,142,94,Yes,Yes,2,Yes,No,Satisfied,7,9
+16,Prediabetes,5.7,148,50–59,Female,Married,Primary,Homemaker,61,176.78,19.51,87,97,0.8969072164948454,117,83,No,Yes,5 or more,Yes,Yes,Satisfied,7.5,6
+17,Prediabetes,5.9,153,30–39,Female,Married,No formal education,Homemaker,55.3,168.2,19.55,91,98,0.9285714285714286,124,72,No,No,3–4,Yes,No,Satisfied,8,7
+18,Diabetes,11.9,359,50–59,Female,Married,No formal education,Homemaker,50.2,160,19.61,78,92,0.8478260869565217,139,86,No,No,5 or more,Yes,No,Satisfied,6,6
+19,Diabetes,8.9,359,50–59,Female,Married,No formal education,Homemaker,50.6,160.4,19.67,78,92,0.8478260869565217,139,86,No,No,5 or more,Yes,No,Satisfied,6,9
+20,Diabetes,7.5,180,50–59,Female,Married,Primary,Homemaker,61,174.8,19.96,87,97,0.8969072164948454,117,83,Unknown,Yes,5 or more,Yes,Yes,Satisfied,6,4
+21,Diabetes,11.3,210,50–59,Female,Single/divorced,Middle,Homemaker,50.8,158.8,20.14,79,90,0.8777777777777778,111,69,No,Yes,3–4,No,Yes,Satisfied,5,8
+22,Diabetes,12.3,463,50–59,Male,Married,No formal education,Self-employed,62.4,176,20.14,87,119,0.7310924369747899,117,73,No,No,5 or more,Yes,No,Satisfied,7,11
+23,Diabetes,9.5,359,30–39,Female,Single/divorced,No formal education,Homemaker,55,165.2,20.15,90,100,0.9,137,79,No,No,0–1,Yes,Yes,Satisfied,3,7
+24,Prediabetes,6.3,169,50–59,Male,Married,No formal education,Self-employed,60.1,172.4,20.22,80,96,0.8333333333333334,99,71,Yes,No,5 or more,Yes,Yes,Satisfied,5,9
+25,Diabetes,7.5,140,40–49,Male,Married,No formal education,Self-employed,60.6,172.6,20.34,76,102,0.7450980392156863,125,80,No,Yes,3–4,Yes,Yes,Satisfied,7,5
+26,Diabetes,12.1,463,50–59,Male,Married,No formal education,Self-employed,62,174,20.48,87,119,0.7310924369747899,117,73,No,No,5 or more,Yes,No,Satisfied,7,11
+27,Prediabetes,5.8,146,40–49,Female,Widowed,Middle,Homemaker,54.5,162.6,20.61,87,101,0.8613861386138614,117,85,No,No,5 or more,Yes,Yes,Satisfied,5,7
+28,Diabetes,7.2,143,≥60,Male,Married,Intermediate or above,Self-employed,66.8,180,20.62,95,115,0.8260869565217391,119,NA,No,Yes,0–1,Yes,No,Satisfied,6,11
+29,Prediabetes,6.3,179,40–49,Female,Married,Secondary/Matric,Homemaker,60.1,170.6,20.65,86,101,0.8514851485148515,164,104,Yes,Yes,2,Yes,Yes,Satisfied,5,7
+30,Diabetes,9.5,350,50–59,Female,Married,No formal education,Homemaker,53,160,20.7,83,98,0.8469387755102041,98,62,No,No,5 or more,Yes,Yes,Satisfied,4,7
+31,Prediabetes,6.3,167,40–49,Male,Married,Middle,Self-employed,68,181,20.76,85,91,0.9340659340659341,140,89,No,Yes,0–1,Yes,Yes,Satisfied,6,8
+32,Diabetes,14,523,50–59,Male,Married,No formal education,Unemployed,57.2,165.4,20.91,84,87,0.9655172413793104,118,79,Yes,No,5 or more,Yes,Yes,Not satisfied,4,8
+33,Diabetes,9.5,335,50–59,Male,Married,Secondary/Matric,Self-employed,58.4,167,20.94,68,75,0.9066666666666666,130,118,No,Yes,2,Yes,No,Satisfied,3,9
+34,Diabetes,14,523,50–59,Male,Married,No formal education,Unemployed,57.1,165.1,20.95,84,87,0.9655172413793104,118,79,Yes,No,5 or more,Yes,Yes,Not satisfied,4,8
+35,Diabetes,8.9,325,50–59,Male,Married,No formal education,Employed,54.2,160,21.17,84,94,0.8936170212765957,110,76,No,Yes,0–1,Yes,No,Satisfied,7,4
+36,Diabetes,7.2,180,40–49,Female,Married,No formal education,Homemaker,60,168,21.26,92,108,0.8518518518518519,142,94,Yes,Yes,2,Yes,Yes,Satisfied,3,7
+37,Prediabetes,5.7,140,40–49,Male,Married,No formal education,Self-employed,48,150,21.33,76,102,0.7450980392156863,125,80,No,Yes,3–4,Yes,Yes,Satisfied,7,5
+38,Prediabetes,6.1,157,50–59,Female,Married,Intermediate or above,Employed,54.8,159.8,21.46,81,87,0.9310344827586207,131,77,No,Yes,2,Yes,No,Satisfied,6,5
+39,Diabetes,6.9,291,30–39,Male,Married,No formal education,Employed,68,178,21.46,94,114,0.8245614035087719,129,74,No,Yes,3–4,Yes,Yes,Satisfied,NA,9
+40,Diabetes,7.5,392,50–59,Female,Married,Secondary/Matric,Employed,51.2,154.4,21.48,95,102,0.9313725490196079,145,89,Yes,Yes,0–1,Yes,No,Satisfied,7,11
+41,Prediabetes,5.9,157,30–39,Male,Married,No formal education,Self-employed,70.6,181.2,21.5,95,108,0.8796296296296297,116,83,No,No,2,Yes,No,Satisfied,8,1
+42,Diabetes,10.5,451,≥60,Female,Widowed,No formal education,Homemaker,56.3,161.6,21.56,96,86,1.116279069767442,104,66,No,No,5 or more,No,Yes,Satisfied,7,6
+43,Diabetes,8,196,≥60,Female,Married,No formal education,Homemaker,55,159.6,21.59,80,98,0.8163265306122449,124,72,No,No,3–4,No,No,Satisfied,5,4
+44,Diabetes,14,493,≥60,Female,Married,No formal education,Homemaker,55.6,160.2,21.66,90,100,0.9,137,63,No,No,0–1,Yes,Yes,Satisfied,6,10
+45,Prediabetes,5.9,140,18–29,Male,Single/divorced,Primary,Unemployed,70.2,179.8,21.71,73,138,NA,151,73,No,Yes,0–1,Yes,Yes,Satisfied,5.5,6
+46,Diabetes,9.9,280,30–39,Female,Married,Secondary/Matric,Homemaker,54,157.48,21.77,78,90,0.8666666666666667,110,71,No,Yes,5 or more,Yes,No,Satisfied,7,6
+47,Diabetes,12,320,50–59,Female,Married,No formal education,Homemaker,56.6,161,21.84,97,92,1.054347826086957,89,71,No,No,3–4,Yes,Yes,Satisfied,3.4,7
+48,Diabetes,8.9,280,50–59,Female,Widowed,No formal education,Homemaker,53.3,156.2,21.85,70,84,0.8333333333333334,144,85,Yes,Yes,2,Yes,Yes,Satisfied,5,3
+49,Diabetes,9.9,280,30–39,Female,Married,Secondary/Matric,Homemaker,54.2,157.48,21.85,77,96,0.8020833333333334,110,71,No,Yes,5 or more,Yes,No,Satisfied,7,6
+50,Diabetes,7.9,293,30–39,Female,Married,No formal education,Homemaker,55,158.4,21.92,90,100,0.9,137,63,No,No,0–1,Yes,No,Satisfied,7,5
+51,Diabetes,10.7,448,40–49,Male,Married,Secondary/Matric,Employed,59,164,21.94,89,100,0.89,122,74,Yes,No,5 or more,Yes,Yes,Satisfied,8,5
+52,Prediabetes,5.9,186,40–49,Female,Married,Primary,Homemaker,62.3,168.4,21.97,82,102,0.803921568627451,117,73,Yes,Yes,0–1,Yes,No,Satisfied,8,9
+53,Diabetes,14,493,≥60,Female,Married,No formal education,Homemaker,55,158.2,21.98,90,100,0.9,137,63,No,No,0–1,Yes,Yes,Satisfied,6,10
+54,Diabetes,8.9,351,40–49,Female,Married,No formal education,Homemaker,56.3,160,21.99,70,86,0.813953488372093,104,66,No,No,5 or more,Yes,No,Satisfied,8,5
+55,Diabetes,10.2,226,40–49,Male,Married,Intermediate or above,Self-employed,62.2,168.2,21.99,74,88,0.8409090909090909,118,80,No,No,2,Yes,Yes,Satisfied,5,3
+56,Prediabetes,6.1,160,50–59,Female,Married,No formal education,Homemaker,62.1,168,22,87,100,0.87,110,77,No,No,5 or more,No,Yes,Satisfied,7.8,7
+57,Prediabetes,6.4,186,50–59,Female,Married,No formal education,Homemaker,60,165,22.04,100,110,0.9090909090909091,119,81,No,No,5 or more,Yes,No,Satisfied,8,8
+58,Diabetes,6.6,190,50–59,Female,Married,Intermediate or above,Employed,54.9,157.8,22.05,81,87,0.9310344827586207,131,77,No,Yes,2,Yes,No,Satisfied,7,7
+59,Diabetes,10.7,448,40–49,Male,Married,Secondary/Matric,Employed,59.3,164,22.05,98,100,0.98,122,74,Yes,No,5 or more,Yes,Yes,Satisfied,8,5
+60,Diabetes,11.7,392,50–59,Female,Married,Secondary/Matric,Employed,50,150.4,22.1,95,102,0.9313725490196079,145,89,Yes,Yes,0–1,Yes,No,Satisfied,7,9
+61,Diabetes,8.2,146,40–49,Female,Married,Middle,Homemaker,54.8,157.4,22.12,87,101,0.8613861386138614,117,85,No,No,5 or more,Yes,No,Satisfied,6,5
+62,Diabetes,8,210,50–59,Female,Married,Middle,Homemaker,49.8,150,22.13,79,90,0.8777777777777778,111,69,No,Yes,3–4,Yes,Yes,Satisfied,7,7
+63,Diabetes,8.4,303,30–39,Male,Married,Middle,Self-employed,56.7,160,22.15,79,93,0.8494623655913979,119,80,No,Yes,3–4,Yes,No,Satisfied,5,7
+64,Diabetes,8.2,146,40–49,Female,Married,Middle,Homemaker,54.2,156.4,22.16,87,101,0.8613861386138614,117,85,No,No,5 or more,Yes,No,Satisfied,6,5
+65,Diabetes,6.6,177,≥60,Male,Widowed,No formal education,Other (retired/student),63.6,169.4,22.16,95,95,1,113,80,No,No,5 or more,Yes,Yes,Satisfied,5,12
+66,Prediabetes,5.8,148,30–39,Female,Married,Secondary/Matric,Employed,64.2,170,22.21,76,110,0.6909090909090909,97,64,No,No,0–1,Yes,Yes,Satisfied,8,5
+67,Diabetes,9,377,50–59,Male,Married,Middle,Employed,79.1,188.6,22.24,79.8,95,0.84,116,94,No,No,5 or more,No,No,Satisfied,6,1
+68,Diabetes,10.5,451,≥60,Female,Widowed,No formal education,Homemaker,56.3,159,22.27,76,90,0.8444444444444444,104,66,No,No,5 or more,No,Yes,Satisfied,7,6
+69,Prediabetes,6.4,186,50–59,Female,Married,No formal education,Homemaker,60,164,22.31,80,96,0.8333333333333334,99,71,No,No,5 or more,Yes,No,Satisfied,8,9
+70,Diabetes,8.2,289,18–29,Female,Married,No formal education,Homemaker,58,161.2,22.32,92,101,0.9108910891089109,106,57,No,No,2,Yes,Yes,Satisfied,6,10
+71,Diabetes,6.8,169,50–59,Female,Married,No formal education,Homemaker,60.3,164,22.42,80,96,0.8333333333333334,99,71,Yes,No,5 or more,Yes,No,Satisfied,5,7
+72,Diabetes,6.6,177,≥60,Male,Widowed,No formal education,Other (retired/student),63,167.64,22.43,95,95,1,113,80,No,No,5 or more,Yes,No,Satisfied,5,12
+73,Diabetes,12.1,325,50–59,Female,Married,No formal education,Homemaker,54.2,155.4,22.44,84,94,0.8936170212765957,110,76,No,Yes,0–1,Yes,Yes,Satisfied,7,6
+74,Diabetes,7.3,267,40–49,Male,Married,Middle,Self-employed,68.2,174.2,22.47,85,91,0.9340659340659341,140,89,No,Yes,0–1,Yes,No,Satisfied,7,11
+75,Diabetes,12.1,325,50–59,Female,Married,No formal education,Homemaker,54,155,22.48,84,94,0.8936170212765957,110,76,No,Yes,0–1,Yes,Yes,Satisfied,7,6
+76,Diabetes,6.8,196,50–59,Female,Married,No formal education,Homemaker,60.5,164,22.49,80,96,0.8333333333333334,99,71,Yes,No,5 or more,Yes,No,Satisfied,5,7
+77,Prediabetes,6.2,195,30–39,Male,Married,Intermediate or above,Employed,65.2,170.18,22.51,89,95,0.9368421052631579,111,78,No,Yes,5 or more,Yes,No,Satisfied,8,7
+78,Diabetes,9.4,208,40–49,Male,Married,Middle,Self-employed,66.7,172,22.55,89,106,0.839622641509434,125,74,No,No,5 or more,Yes,No,Satisfied,6,6
+79,Diabetes,11.7,392,50–59,Female,Married,Secondary/Matric,Employed,50.9,150.2,22.56,95,102,0.9313725490196079,145,89,Yes,Yes,0–1,Yes,No,Satisfied,7,9
+80,Diabetes,10.2,226,40–49,Male,Married,Intermediate or above,Self-employed,62.4,166,22.64,89,98,0.9081632653061225,118,80,No,No,2,Yes,Yes,Satisfied,5,3
+81,Diabetes,6.5,188,40–49,Male,Married,No formal education,Self-employed,57.1,158.6,22.7,90,101,0.8910891089108911,156,86,Yes,No,5 or more,Yes,Yes,Satisfied,7,6
+82,Diabetes,8,188,30–39,Female,Married,Secondary/Matric,Employed,64.4,168.2,22.76,76,110,0.6909090909090909,97,64,No,No,0–1,Yes,Yes,Satisfied,8,5
+83,Diabetes,7.2,277,40–49,Female,Married,Secondary/Matric,Homemaker,67.5,172.2,22.76,80,96,0.8333333333333334,126,90,No,No,5 or more,Yes,No,Satisfied,6,7
+84,Prediabetes,6.1,180,30–39,Male,Married,Secondary/Matric,Employed,54.8,155,22.81,77,96,0.8020833333333334,110,71,No,Yes,5 or more,No,Yes,Satisfied,7.8,9
+85,Prediabetes,6.1,199,30–39,Female,Married,No formal education,Homemaker,60.3,162.6,22.81,97,110,0.8818181818181818,143,81,No,Yes,2,No,Yes,Satisfied,5,8
+86,Prediabetes,6.2,149,18–29,Male,Single/divorced,No formal education,Self-employed,51.7,150.2,22.92,78,90,0.8666666666666667,113,83,No,No,5 or more,No,No,Satisfied,4,9
+87,Diabetes,9.9,362,40–49,Male,Married,Intermediate or above,Employed,61.8,164,22.98,90,93,0.967741935483871,118,80,No,Yes,2,No,Yes,Satisfied,7,10
+88,Diabetes,9,264,50–59,Male,Married,No formal education,Employed,67,170.6,23.02,104,100,1.04,131,84,No,Yes,5 or more,Yes,No,Satisfied,7,7
+89,Diabetes,7.7,271,30–39,Female,Married,Middle,Homemaker,55.6,155.3,23.05,84,100,0.84,122,82,No,Yes,2,Yes,No,Satisfied,6,6
+90,Diabetes,8.1,260,30–39,Female,Married,Middle,Homemaker,66.7,169.8,23.13,87,95,0.9157894736842105,117,82,Yes,Yes,2,No,No,Satisfied,5,7
+91,Diabetes,10.3,158,40–49,Female,Married,No formal education,Employed,63,165,23.14,86,104,0.8269230769230769,117,81,Yes,Yes,3–4,Yes,Yes,Satisfied,7,7
+92,Diabetes,9.9,365,40–49,Female,Married,Intermediate or above,Homemaker,63.5,165.6,23.16,94,101,0.9306930693069307,140,82,No,Yes,0–1,No,Yes,Satisfied,7,9
+93,Diabetes,11.3,335,50–59,Male,Married,Secondary/Matric,Self-employed,58.6,159,23.18,68,75,0.9066666666666666,130,118,Yes,Yes,2,Yes,Yes,Satisfied,6.7,6
+94,Diabetes,9.7,383,50–59,Male,Married,No formal education,Self-employed,62.8,164.6,23.18,87,119,0.7310924369747899,117,73,No,No,5 or more,Yes,Yes,Satisfied,6,4
+95,Prediabetes,5.7,155,40–49,Female,Married,Primary,Homemaker,77,182.2,23.19,96,113,0.8495575221238938,171,95,Yes,Yes,0–1,Yes,No,Satisfied,7,5
+96,Prediabetes,6.2,186,50–59,Female,Single/divorced,No formal education,Homemaker,63,160.8,24.61,110,108,1.018518518518519,125,91,Yes,No,5 or more,Yes,No,Satisfied,7,4
+97,Diabetes,11.5,300,50–59,Male,Married,No formal education,Employed,76,181,23.2,103,115,0.8956521739130435,158,87,Yes,No,5 or more,Yes,Yes,Satisfied,4,5
+98,Prediabetes,5.9,168,30–39,Female,Single/divorced,Primary,Homemaker,66,168.6,23.22,95,105,0.9047619047619048,106,69,No,Yes,0–1,No,Yes,Satisfied,6,1
+99,Diabetes,8.4,303,30–39,Female,Married,Middle,Homemaker,54.8,153.6,23.23,79,93,0.8494623655913979,119,92,No,No,3–4,No,Yes,Not satisfied,8,9
+100,Diabetes,6.7,198,40–49,Male,Married,Secondary/Matric,Self-employed,61.8,163,23.26,78,85,0.9176470588235294,122,74,No,No,5 or more,Yes,No,Satisfied,7,6
+101,Diabetes,7.6,167,≥60,Male,Widowed,No formal education,Other (retired/student),70.6,174.2,23.27,95,108,0.8796296296296297,116,83,No,No,2,Yes,No,Satisfied,6,5
+102,Diabetes,9.5,357,50–59,Male,Married,Middle,Unemployed,68.4,171.4,23.28,NA,104,NA,116,90,No,No,5 or more,Yes,No,Satisfied,6,7
+103,Prediabetes,6.3,179,30–39,Male,Married,Primary,Employed,70.5,173.76,23.34,88,100,0.88,163,79,No,Yes,2,Yes,Yes,Satisfied,5,7
+104,Diabetes,8.7,335,50–59,Female,Married,No formal education,Homemaker,54.7,153,23.37,84,94,0.8936170212765957,110,76,No,Yes,0–1,Yes,No,Satisfied,6.7,6
+105,Prediabetes,6,171,50–59,Female,Married,No formal education,Homemaker,53.6,151.2,23.45,87,95,0.9157894736842105,144,85,Yes,Yes,2,Yes,Yes,Satisfied,6,4
+106,Diabetes,8.2,179,40–49,Female,Married,Secondary/Matric,Homemaker,60.2,160.2,23.46,86,101,0.8514851485148515,164,104,Yes,Yes,2,No,Yes,Satisfied,8,3
+107,Diabetes,9.9,300,40–49,Female,Single/divorced,No formal education,Homemaker,64,165,23.51,88,103,0.8543689320388349,170,93,Yes,Yes,2,Yes,No,Satisfied,7,7
+108,Diabetes,7.1,337,40–49,Male,Married,Intermediate or above,Employed,69.7,172,23.56,112,141,0.7943262411347518,147,95,Yes,Yes,0–1,Yes,No,Satisfied,6,8
+109,Diabetes,10,395,50–59,Female,Married,No formal education,Homemaker,56,154,23.61,78,90,0.8666666666666667,89,71,No,No,3–4,Yes,Yes,Satisfied,5,6
+110,Prediabetes,6.4,175,30–39,Male,Married,Intermediate or above,Employed,69.1,171,23.63,86,96,0.8958333333333334,111,78,No,Yes,5 or more,Yes,Yes,Satisfied,7,7
+111,Prediabetes,5.7,148,≥60,Male,Married,Primary,Other (retired/student),70.6,172.72,23.67,73,90,0.8111111111111111,151,73,No,Yes,0–1,Yes,No,Satisfied,6,6
+112,Diabetes,7.3,267,40–49,Male,Married,Middle,Self-employed,68.5,170,23.7,85,91,0.9340659340659341,140,89,No,Yes,0–1,Yes,No,Satisfied,7,11
+113,Diabetes,10.2,402,50–59,Female,Married,No formal education,Homemaker,72,174.2,23.73,95,109,0.8715596330275229,144,86,Yes,Yes,3–4,Yes,Yes,Not satisfied,7,8
+114,Diabetes,10,381,50–59,Female,Married,Middle,Homemaker,64,164.2,23.74,88,100,0.88,105,85,No,No,5 or more,Yes,Yes,Satisfied,9,12
+115,Prediabetes,5.9,174,30–39,Female,Married,Primary,Homemaker,55.3,152.6,23.75,87,92,0.9456521739130435,114,84,No,No,0–1,No,Yes,Satisfied,8,7
+116,Diabetes,14,432,40–49,Male,Married,Intermediate or above,Unemployed,67.4,168.4,23.77,90,93,0.967741935483871,118,90,No,Yes,2,Yes,No,Satisfied,8,5
+117,Diabetes,11.7,300,50–59,Male,Married,No formal education,Employed,78,181,23.81,103,115,0.8956521739130435,158,87,Yes,No,5 or more,Yes,Yes,Satisfied,4,5
+118,Diabetes,8.2,195,30–39,Male,Married,Intermediate or above,Employed,69.2,170.18,23.89,89,95,0.9368421052631579,111,78,No,Yes,5 or more,Yes,No,Satisfied,8,7
+119,Prediabetes,5.9,186,40–49,Female,Married,Primary,Homemaker,68,168.6,23.92,82,102,0.803921568627451,117,73,Yes,Yes,0–1,Yes,No,Satisfied,8,9
+120,Prediabetes,6.3,179,40–49,Male,Married,Middle,Self-employed,68.5,169,23.98,85,91,0.9340659340659341,140,89,No,Yes,0–1,Yes,No,Satisfied,6,6
+121,Diabetes,7,196,≥60,Female,Married,No formal education,Homemaker,55.9,152.4,24.07,91,98,0.9285714285714286,124,72,No,No,3–4,No,No,Satisfied,5,4
+122,Prediabetes,5.7,143,≥60,Male,Married,Intermediate or above,Self-employed,65,164,24.17,95,115,0.8260869565217391,119,80,No,Yes,0–1,Yes,No,Satisfied,6,11
+123,Diabetes,12.1,393,50–59,Female,Married,No formal education,Homemaker,60.3,157.2,24.4,90,98,0.9183673469387755,127,82,No,No,0–1,No,No,Satisfied,6.7,6
+124,Diabetes,11,299,50–59,Female,Married,No formal education,Homemaker,56,151.4,24.43,97,92,1.054347826086957,89,71,No,No,3–4,Yes,Yes,Satisfied,3.4,7
+125,Diabetes,7.6,232,40–49,Male,Married,Secondary/Matric,Self-employed,71,170.4,24.45,90,105,0.8571428571428571,139,76,Yes,Yes,0–1,Yes,No,Satisfied,6.7,6
+126,Diabetes,7.9,168,30–39,Female,Married,Primary,Homemaker,62.2,159.4,24.48,95,105,0.9047619047619048,106,69,Yes,Yes,0–1,Yes,No,Not satisfied,8,7
+127,Prediabetes,5.7,179,30–39,Male,Single/divorced,Middle,Employed,71.1,170.4,24.49,87,95,0.9157894736842105,117,82,No,Yes,2,No,No,Satisfied,6.7,5
+128,Diabetes,7.6,232,40–49,Male,Married,Secondary/Matric,Self-employed,71,170.2,24.51,100,124,0.8064516129032258,139,76,Yes,Yes,0–1,Yes,No,Satisfied,6.7,6
+129,Diabetes,11.1,365,18–29,Male,Single/divorced,Intermediate or above,Unemployed,85,186,24.57,96,102,0.9411764705882353,118,81,No,No,3–4,No,No,Satisfied,9,8
+130,Diabetes,9.1,224,50–59,Female,Married,No formal education,Homemaker,65.2,162.56,24.66,97,102,0.9509803921568627,117,64,Yes,Yes,2,Yes,Yes,Satisfied,9,12
+131,Prediabetes,6,170,18–29,Male,Single/divorced,No formal education,Self-employed,60.1,156,24.7,97,110,0.8818181818181818,143,81,No,Yes,2,Yes,No,Satisfied,7,7
+132,Diabetes,7.5,264,50–59,Female,Married,No formal education,Homemaker,57.4,152.4,24.71,104,100,1.04,131,84,Yes,Yes,5 or more,Yes,Yes,Satisfied,5.5,6
+133,Diabetes,7.1,160,50–59,Female,Married,No formal education,Homemaker,62,158.4,24.71,87,100,0.87,110,77,Yes,No,5 or more,Yes,Yes,Satisfied,5,9
+134,Diabetes,8.8,297,30–39,Female,Married,Secondary/Matric,Homemaker,63,159.4,24.79,87,101,0.8613861386138614,98,68,No,Yes,2,Yes,Yes,Satisfied,4,5
+135,Prediabetes,5.7,200,50–59,Female,Married,Secondary/Matric,Homemaker,63.4,159.8,24.83,101,99,1.02020202020202,137,85,Yes,Yes,2,Yes,Yes,Satisfied,NA,9
+136,Diabetes,9.3,297,50–59,Male,Married,Secondary/Matric,Unemployed,75,173.76,24.83,99,105,0.9428571428571428,117,75,No,No,2,Yes,No,Satisfied,6,11
+137,Prediabetes,5.7,182,40–49,Male,Married,Secondary/Matric,Self-employed,71,169,24.86,98,100,0.98,139,76,No,Yes,0–1,No,Yes,Satisfied,8,7
+138,Diabetes,9.4,198,≥60,Female,Married,No formal education,Homemaker,54,147.32,24.89,90,101,0.8910891089108911,156,86,No,No,5 or more,Yes,Yes,Satisfied,6,8
+139,Diabetes,6.8,187,40–49,Female,Married,Secondary/Matric,Employed,70.1,167.8,24.9,104,96,1.083333333333333,106,57,No,Yes,2,Yes,No,Satisfied,6,6
+140,Diabetes,14,439,≥60,Female,Married,No formal education,Homemaker,58,152.6,24.91,92,101,0.9108910891089109,106,57,Yes,No,2,Yes,Yes,Satisfied,5,5
+141,Diabetes,8.7,280,50–59,Female,Married,No formal education,Homemaker,60.1,155,25.02,90,98,0.9183673469387755,127,82,No,No,0–1,Yes,Yes,Satisfied,6,4
+142,Prediabetes,6.3,177,50–59,Male,Married,No formal education,Self-employed,63,158.4,25.11,95,95,1,113,80,No,No,5 or more,Yes,No,Satisfied,5.6,10
+143,Prediabetes,6.1,159,40–49,Male,Single/divorced,Intermediate or above,Self-employed,62,157,25.15,89,98,0.9081632653061225,118,80,No,No,2,Yes,Yes,Satisfied,7,5
+144,Diabetes,9.4,198,≥60,Female,Married,No formal education,Homemaker,54.6,147.32,25.16,90,101,0.8910891089108911,156,86,No,No,5 or more,Yes,Yes,Satisfied,6,8
+145,Prediabetes,5.7,201,30–39,Female,Single/divorced,Middle,Homemaker,84,182.4,25.25,105,116,0.9051724137931034,111,84,No,Yes,2,Yes,No,Satisfied,8,5
+146,Prediabetes,5.7,150,40–49,Male,Married,Secondary/Matric,Self-employed,71,176.6,23,115,124,0.9274193548387096,139,76,No,Yes,0–1,No,Yes,Satisfied,7,8
+147,Diabetes,9.2,260,40–49,Female,Married,Secondary/Matric,Homemaker,71.6,168.2,25.31,84,103,0.8155339805825242,127,88,Yes,Yes,2,Yes,Yes,Satisfied,8,5
+148,Diabetes,12,395,30–39,Male,Married,Middle,Employed,82,180,25.31,106,94,1.127659574468085,125,90,No,Yes,0–1,No,No,Satisfied,7,8
+149,Diabetes,9.1,224,50–59,Female,Married,No formal education,Homemaker,67,162.56,25.34,100,110,0.9090909090909091,117,64,Yes,Yes,2,Yes,Yes,Satisfied,9,12
+150,Diabetes,10.9,337,40–49,Female,Married,Intermediate or above,Homemaker,71.2,167.6,25.35,112,141,0.7943262411347518,147,95,Yes,Yes,0–1,No,Yes,Satisfied,5,8
+151,Prediabetes,5.7,200,50–59,Female,Married,Secondary/Matric,Homemaker,63,157.48,25.4,101,99,1.02020202020202,137,85,Yes,Yes,2,Yes,Yes,Satisfied,NA,9
+152,Prediabetes,6.4,158,40–49,Female,Married,Secondary/Matric,Homemaker,69,164.2,25.59,116,136,0.8529411764705882,104,88,Yes,Yes,0–1,Yes,Yes,Satisfied,3.4,7
+153,Diabetes,11.3,210,50–59,Female,Single/divorced,Middle,Homemaker,56.8,148.86,25.62,90,100,0.9,111,69,No,Yes,3–4,No,Yes,Satisfied,5,8
+154,Diabetes,9.5,332,50–59,Female,Married,No formal education,Homemaker,72,167.64,25.63,95,109,0.8715596330275229,144,86,Yes,Yes,3–4,Yes,Yes,Satisfied,6,2
+155,Diabetes,14,439,≥60,Female,Married,No formal education,Homemaker,58.5,151,25.66,92,101,0.9108910891089109,106,57,Yes,No,2,Yes,Yes,Satisfied,5,5
+156,Prediabetes,6.2,143,30–39,Male,Married,Intermediate or above,Self-employed,64.3,158.2,25.69,95,115,0.8260869565217391,119,78,No,Yes,0–1,Yes,No,Satisfied,8,6
+157,Diabetes,12.5,555,40–49,Female,Married,Intermediate or above,Homemaker,63,156.4,25.76,94,101,0.9306930693069307,140,82,Yes,Yes,0–1,Yes,Yes,Satisfied,6,4
+158,Diabetes,11.1,297,50–59,Male,Married,Secondary/Matric,Unemployed,75,170.6,25.77,99,105,0.9428571428571428,117,75,No,No,2,Yes,No,Satisfied,6,8
+159,Diabetes,9.6,186,50–59,Female,Married,No formal education,Homemaker,63,156.2,25.82,110,108,1.018518518518519,125,91,Yes,No,5 or more,Yes,No,Satisfied,7,3
+160,Diabetes,7.1,160,50–59,Female,Married,No formal education,Homemaker,62.2,155,25.89,87,100,0.87,110,77,Yes,No,5 or more,Yes,Yes,Satisfied,5,9
+161,Diabetes,7.9,168,30–39,Female,Married,Primary,Homemaker,61.4,154,25.89,95,105,0.9047619047619048,106,69,Yes,Yes,0–1,Yes,No,Not satisfied,8,7
+162,Prediabetes,6.2,144,30–39,Female,Married,Secondary/Matric,Homemaker,70.1,164.4,25.94,86,92,0.9347826086956522,109,80,No,Yes,2,Yes,Yes,Satisfied,4,2
+163,Diabetes,6.6,196,30–39,Male,Married,Primary,Employed,72,166.6,25.94,110,112,0.9821428571428571,144,80,No,No,2,Yes,No,Satisfied,7,11
+164,Diabetes,10.2,245,40–49,Female,Widowed,Secondary/Matric,Employed,70.7,165,25.97,104,96,1.083333333333333,106,57,No,Yes,2,Yes,Yes,Satisfied,4,7
+165,Diabetes,9.6,300,50–59,Male,Single/divorced,No formal education,Employed,80,175,26.12,100,110,0.9090909090909091,158,87,Yes,No,5 or more,Yes,Yes,Satisfied,8,5
+166,Diabetes,14,432,40–49,Male,Married,Intermediate or above,Unemployed,71.2,165,26.15,90,93,0.967741935483871,118,90,No,Yes,2,Yes,No,Satisfied,8,5
+167,Prediabetes,6.4,178,30–39,Female,Married,No formal education,Homemaker,60.5,152,26.19,84,97,0.865979381443299,155,90,Yes,Yes,2,Yes,No,Not satisfied,8,7
+168,Diabetes,12.5,555,40–49,Female,Married,Intermediate or above,Homemaker,63.6,155.8,26.2,94,101,0.9306930693069307,140,82,Yes,Yes,0–1,Yes,Yes,Satisfied,6,4
+169,Prediabetes,5.9,186,40–49,Female,Married,Primary,Homemaker,68.1,161.2,26.21,82,102,0.803921568627451,117,73,No,Yes,0–1,Yes,Yes,Satisfied,6,5
+170,Diabetes,7.6,218,≥60,Female,Widowed,No formal education,Homemaker,60.1,151.4,26.22,97,110,0.8818181818181818,143,81,Yes,Yes,2,Yes,Yes,Satisfied,6,4
+171,Diabetes,8.4,280,40–49,Female,Married,Primary,Homemaker,84,179,26.22,108,104,1.038461538461539,89,71,Yes,Yes,0–1,Yes,Yes,Satisfied,6,6
+172,Diabetes,9.1,224,50–59,Female,Married,No formal education,Homemaker,65.2,157.6,26.25,97,102,0.9509803921568627,117,64,No,Yes,2,Yes,No,Satisfied,6,8
+173,Prediabetes,5.8,143,40–49,Male,Married,Secondary/Matric,Employed,61.1,152,26.45,82,98,0.8367346938775511,98,73,No,Yes,2,Yes,No,Satisfied,7,5
+174,Prediabetes,5.7,180,30–39,Male,Married,Intermediate or above,Employed,86.1,180.4,26.46,103,112,0.9196428571428571,131,71,No,No,5 or more,Yes,No,Satisfied,6,6
+175,Diabetes,10.5,351,≥60,Female,Married,No formal education,Homemaker,68,160.2,26.5,94,114,0.8245614035087719,129,74,Yes,Yes,3–4,Yes,Yes,Satisfied,7,7
+176,Diabetes,10.2,245,50–59,Female,Widowed,Secondary/Matric,Employed,70.6,163.2,26.51,104,96,1.083333333333333,106,57,No,Yes,2,Yes,Yes,Satisfied,4,7
+177,Diabetes,8.1,286,30–39,Female,Married,Middle,Homemaker,61.9,152.8,26.51,87,99,0.8787878787878788,117,82,Yes,No,2,Yes,Yes,Satisfied,NA,6
+178,Diabetes,11.1,297,50–59,Male,Married,Secondary/Matric,Unemployed,75,168,26.57,99,105,0.9428571428571428,117,75,No,No,2,Yes,No,Satisfied,6,8
+179,Diabetes,6.9,174,≥60,Female,Married,Primary,Homemaker,84,177.8,26.57,107,120,0.8916666666666667,110,78,Yes,Yes,2,Yes,Yes,Satisfied,5,6
+180,Diabetes,6.9,170,≥60,Female,Married,Primary,Homemaker,84,177.8,26.57,107,120,0.8916666666666667,110,78,Yes,Yes,2,Yes,Yes,Satisfied,5,6
+181,Diabetes,9,331,50–59,Female,Married,Middle,Homemaker,64.2,155.4,26.58,88,100,0.88,105,85,No,No,5 or more,Yes,Yes,Satisfied,NA,5
+182,Diabetes,10,382,40–49,Female,Married,Primary,Homemaker,64.2,155.4,26.58,96,102,0.9411764705882353,140,78,No,Yes,2,Yes,Yes,Satisfied,5,7
+183,Diabetes,11,331,50–59,Female,Married,Middle,Homemaker,64.1,155.2,26.61,88,100,0.88,105,85,No,No,5 or more,Yes,No,Satisfied,7,5
+184,Diabetes,9.4,208,40–49,Female,Widowed,Middle,Homemaker,66,157.48,26.61,89,106,0.839622641509434,125,74,Yes,No,5 or more,No,Yes,Satisfied,7.8,9
+185,Diabetes,8.9,257,40–49,Female,Married,Secondary/Matric,Homemaker,67.3,159,26.62,91,108,0.8425925925925926,126,90,Yes,No,5 or more,Yes,No,Satisfied,6,7
+186,Diabetes,8.2,179,40–49,Female,Married,Secondary/Matric,Homemaker,60,150,26.67,86,101,0.8514851485148515,164,104,Yes,Yes,2,No,Yes,Satisfied,8,3
+187,Diabetes,9.4,208,40–49,Female,Widowed,Middle,Homemaker,66.1,157.4,26.68,89,106,0.839622641509434,125,74,Yes,No,5 or more,No,Yes,Satisfied,7.8,9
+188,Diabetes,6.8,163,≥60,Female,Married,Primary,Homemaker,68.2,159.6,26.77,94,112,0.8392857142857143,161,100,Yes,No,5 or more,Yes,Yes,Satisfied,6,8
+189,Diabetes,9.4,456,≥60,Male,Married,Primary,Employed,72,164,26.77,110,112,0.9821428571428571,158,80,No,Yes,2,No,Yes,Satisfied,7,10
+190,Diabetes,6.8,173,≥60,Female,Married,Primary,Homemaker,68.1,159.4,26.8,94,112,0.8392857142857143,161,100,Yes,No,5 or more,Yes,Yes,Satisfied,6,8
+191,Diabetes,11.1,237,50–59,Female,Married,No formal education,Homemaker,73,164.8,26.88,98,106,0.9245283018867925,96,64,No,No,3–4,Yes,No,Satisfied,7,4
+192,Diabetes,8.6,254,40–49,Male,Married,Primary,Self-employed,68,159,26.9,84,96,0.875,140,85,No,No,2,No,No,Satisfied,7,8
+193,Diabetes,10.7,287,18–29,Male,Married,Secondary/Matric,Employed,88.6,181.4,26.93,129,141,0.9148936170212766,117,90,No,Yes,2,Yes,No,Satisfied,7,7
+194,Diabetes,6.6,197,50–59,Male,Married,No formal education,Self-employed,73,164.6,26.94,98,106,0.9245283018867925,96,64,No,No,3–4,No,Yes,Satisfied,7,9
+195,Diabetes,7.1,169,30–39,Female,Married,Secondary/Matric,Homemaker,63.6,153.6,26.96,87,101,0.8613861386138614,98,68,No,Yes,2,Yes,Yes,Satisfied,7.5,3
+196,Diabetes,11,331,50–59,Female,Married,Middle,Homemaker,64,154,26.99,88,100,0.88,105,85,No,No,5 or more,Yes,No,Satisfied,7,5
+197,Prediabetes,5.7,180,30–39,Male,Married,Intermediate or above,Employed,86.5,178.8,27.06,103,112,0.9196428571428571,131,71,No,No,5 or more,Yes,No,Satisfied,6,6
+198,Diabetes,9.9,358,40–49,Female,Married,No formal education,Employed,63.1,152.6,27.1,86,104,0.8269230769230769,117,81,No,No,3–4,Yes,Yes,Satisfied,7,7
+199,Diabetes,6.7,158,40–49,Female,Married,Secondary/Matric,Homemaker,68,158.4,27.1,116,136,0.8529411764705882,104,77,Yes,Yes,0–1,Yes,Yes,Satisfied,3,9
+200,Diabetes,11.1,237,50–59,Female,Married,No formal education,Homemaker,73,164,27.14,98,106,0.9245283018867925,96,64,No,No,3–4,Yes,No,Satisfied,7,4
+201,Prediabetes,6.1,180,30–39,Female,Married,Primary,Homemaker,68,158.2,27.17,94,112,0.8392857142857143,161,100,Yes,No,5 or more,No,Yes,Not satisfied,4,10
+202,Diabetes,10.5,351,≥60,Female,Married,No formal education,Homemaker,68.1,158,27.28,94,114,0.8245614035087719,129,74,Yes,Yes,3–4,Yes,Yes,Satisfied,7,7
+203,Diabetes,8.1,280,30–39,Female,Married,Middle,Homemaker,61.6,150.2,27.3,87,95,0.9157894736842105,117,82,Yes,Yes,2,No,No,Satisfied,5,7
+204,Diabetes,11.1,365,18–29,Male,Single/divorced,Intermediate or above,Unemployed,85,176,27.44,96,102,0.9411764705882353,118,81,No,No,3–4,No,No,Satisfied,9,8
+205,Diabetes,8.6,254,40–49,Male,Single/divorced,Primary,Self-employed,68,157.4,27.45,84,96,0.875,140,85,No,No,2,Yes,No,Satisfied,7,3
+206,Diabetes,8,216,50–59,Male,Single/divorced,No formal education,Self-employed,76,166.4,27.45,104,110,0.9454545454545454,125,82,No,No,5 or more,No,Yes,Satisfied,7,6
+207,Diabetes,10.3,186,50–59,Female,Married,No formal education,Homemaker,60.2,147.8,27.56,100,110,0.9090909090909091,119,81,Yes,No,5 or more,Yes,No,Satisfied,8,8
+208,Diabetes,13.7,312,40–49,Female,Married,Primary,Homemaker,64,152.4,27.56,96,102,0.9411764705882353,140,78,Yes,Yes,2,No,Yes,Satisfied,7.8,7
+209,Diabetes,13.7,312,40–49,Female,Married,Primary,Homemaker,64,152.4,27.56,96,102,0.9411764705882353,140,78,Yes,Yes,2,No,Yes,Satisfied,7.8,7
+210,Prediabetes,6.3,162,50–59,Male,Married,Primary,Self-employed,80,170.2,27.62,106,110,0.9636363636363636,139,90,Yes,No,5 or more,Yes,Yes,Satisfied,4,9
+211,Prediabetes,6.4,170,50–59,Female,Married,No formal education,Homemaker,71.3,160.6,27.64,125,150,0.8333333333333334,146,91,Yes,Yes,0–1,No,No,Satisfied,7,8
+212,Prediabetes,6.1,170,30–39,Female,Married,No formal education,Homemaker,60,147.32,27.65,84,97,0.865979381443299,175,104,No,Yes,2,Yes,Yes,Satisfied,4,2
+213,Diabetes,14,596,50–59,Male,Married,Secondary/Matric,Self-employed,85,175.26,27.66,91,100,0.91,126,67,No,No,5 or more,Yes,No,Satisfied,6,8
+214,Diabetes,9.8,308,50–59,Male,Married,Primary,Unemployed,91,181.2,27.72,111,140,0.7928571428571428,129,80,No,No,5 or more,Yes,Yes,Satisfied,8,7
+215,Prediabetes,6.4,198,30–39,Female,Married,Secondary/Matric,Other (retired/student),64.4,152.4,27.73,76,110,0.6909090909090909,97,64,No,No,0–1,Yes,Yes,Satisfied,6,6
+216,Diabetes,14,596,50–59,Male,Married,Secondary/Matric,Self-employed,85.2,175.26,27.73,70,112,0.625,126,67,No,No,5 or more,Yes,No,Satisfied,6,8
+217,Diabetes,9.3,186,50–59,Female,Married,No formal education,Homemaker,60,147,27.77,100,110,0.9090909090909091,119,81,Yes,No,5 or more,Yes,No,Satisfied,NA,8
+218,Diabetes,9.7,295,40–49,Female,Married,Primary,Homemaker,78,167.6,27.77,96,103,0.9320388349514563,157,100,Yes,No,2,Yes,No,Satisfied,7,8
+219,Prediabetes,5.9,153,50–59,Male,Single/divorced,No formal education,Employed,87,176.7,27.86,93,120,0.775,127,80,No,Yes,2,Yes,Yes,Not satisfied,4,8
+220,Prediabetes,5.8,164,50–59,Female,Married,Secondary/Matric,Homemaker,63.2,150.6,27.87,101,99,1.02020202020202,137,85,Yes,Yes,2,No,No,Satisfied,8,7
+221,Diabetes,8.9,257,40–49,Female,Married,Secondary/Matric,Homemaker,67,154.8,27.96,91,108,0.8425925925925926,126,90,Yes,No,5 or more,Yes,No,Satisfied,6,7
+222,Diabetes,7.1,178,30–39,Female,Married,No formal education,Homemaker,60.8,147.4,27.98,84,97,0.865979381443299,175,104,No,Yes,2,Yes,Yes,Satisfied,4,2
+223,Diabetes,12,395,30–39,Male,Married,Middle,Self-employed,82,171.2,27.98,106,94,1.127659574468085,125,90,No,Yes,0–1,No,No,Satisfied,7,8
+224,Diabetes,9.9,274,40–49,Male,Married,No formal education,Self-employed,80,169,28.01,100,111,0.9009009009009009,116,72,No,Yes,2,Yes,Yes,Satisfied,7,9
+225,Diabetes,9.3,412,50–59,Male,Married,Primary,Self-employed,80,169,28.01,106,110,0.9636363636363636,139,NA,Yes,No,5 or more,Yes,Yes,Satisfied,7,5
+226,Diabetes,9.9,380,50–59,Female,Married,No formal education,Homemaker,65.1,152.4,28.03,94,108,0.8703703703703703,109,73,No,No,2,Yes,No,Satisfied,8,1
+227,Diabetes,6.8,169,50–59,Male,Married,Secondary/Matric,Employed,83,172,28.06,130,124,1.048387096774194,135,78,No,No,2,Yes,No,Satisfied,8,1
+228,Diabetes,9.2,160,40–49,Female,Married,Secondary/Matric,Homemaker,71.5,159.4,28.14,84,103,0.8155339805825242,127,88,Yes,Yes,2,Yes,Yes,Satisfied,6,3
+229,Prediabetes,6.3,160,50–59,Female,Married,No formal education,Employed,70.8,158.6,28.15,102,108,0.9444444444444444,115,74,No,Yes,0–1,Yes,Yes,Satisfied,5,6
+230,Prediabetes,6.3,148,30–39,Male,Married,Middle,Self-employed,89.2,178,28.15,97,102,0.9509803921568627,140,89,No,Yes,2,Yes,Yes,Satisfied,3,6
+231,Diabetes,7.8,220,30–39,Male,Married,Middle,Employed,82,170.6,28.17,106,94,1.127659574468085,125,90,No,Yes,0–1,Yes,Yes,Satisfied,6,8
+232,Diabetes,7.5,142,≥60,Male,Married,Primary,Employed,70.5,158,28.24,95,113,0.8407079646017699,163,79,No,Yes,2,Yes,Yes,Satisfied,7,9
+233,Diabetes,9.9,337,40–49,Female,Married,Intermediate or above,Homemaker,76,164,28.26,112,141,0.7943262411347518,147,95,Yes,Yes,0–1,No,Yes,Satisfied,5,8
+234,Prediabetes,5.7,147,40–49,Female,Married,No formal education,Homemaker,64.3,150.8,28.28,88,103,0.8543689320388349,172,93,Yes,Yes,2,Yes,Yes,Satisfied,5,7
+235,Diabetes,9.9,189,50–59,Female,Widowed,No formal education,Homemaker,65.4,152,28.31,94,108,0.8703703703703703,109,73,Yes,No,2,No,No,Satisfied,8,11
+236,Diabetes,7.7,169,50–59,Female,Married,No formal education,Employed,70.6,157.8,28.35,102,108,0.9444444444444444,115,74,Yes,Yes,0–1,Yes,Yes,Satisfied,5,7
+237,Diabetes,9.5,179,50–59,Female,Married,Secondary/Matric,Employed,84,172,28.39,101,115,0.8782608695652174,135,87,No,Yes,3–4,Yes,Yes,Satisfied,6,2
+238,Prediabetes,6.3,170,50–59,Male,Married,No formal education,Employed,86.2,174,28.47,103,115,0.8956521739130435,158,87,Yes,No,5 or more,Yes,No,Satisfied,6,8
+239,Diabetes,9.3,412,50–59,Male,Married,Primary,Self-employed,80,167.6,28.48,106,110,0.9636363636363636,139,82,Yes,No,5 or more,Yes,Yes,Satisfied,7,5
+240,Diabetes,7.7,169,50–59,Female,Married,No formal education,Employed,70.8,157.6,28.5,102,108,0.9444444444444444,115,74,Yes,Yes,0–1,Yes,Yes,Satisfied,5,7
+241,Diabetes,9.8,287,18–29,Male,Married,Secondary/Matric,Employed,91,178.6,28.53,129,141,0.9148936170212766,117,80,No,Yes,2,Yes,Yes,Satisfied,7.5,3
+242,Prediabetes,5.9,169,40–49,Female,Married,No formal education,Homemaker,64,149.6,28.6,88,103,0.8543689320388349,172,93,Yes,Yes,2,Yes,Yes,Satisfied,5,7
+243,Diabetes,12.1,155,≥60,Male,Married,Primary,Unemployed,85,172.4,28.6,107,112,0.9553571428571429,153,87,Yes,No,5 or more,Yes,No,Satisfied,6,7
+244,Prediabetes,5.9,163,40–49,Female,Married,Primary,Homemaker,66.2,152,28.65,82,102,0.803921568627451,117,73,No,Yes,0–1,Yes,Yes,Satisfied,7,4
+245,Diabetes,11.6,355,50–59,Female,Married,No formal education,Homemaker,83,170.18,28.65,106,150,0.7066666666666667,168,82,Yes,Yes,3–4,Yes,No,Satisfied,6,4
+246,Diabetes,11.1,335,50–59,Female,Married,No formal education,Homemaker,83,170.18,28.65,106,98,1.081632653061225,168,NA,Yes,Yes,3–4,Yes,No,Satisfied,6,4
+247,Diabetes,7.8,241,40–49,Female,Married,No formal education,Homemaker,74,160.6,28.69,82,102,0.803921568627451,102,73,No,No,5 or more,No,Yes,Satisfied,4,6
+248,Diabetes,9.2,160,40–49,Female,Married,Secondary/Matric,Homemaker,71.3,157.4,28.78,84,103,0.8155339805825242,127,88,Yes,Yes,2,Yes,Yes,Satisfied,6,3
+249,Diabetes,9.5,337,50–59,Female,Married,No formal education,Homemaker,73,159.2,28.8,98,106,0.9245283018867925,96,64,No,No,3–4,Yes,Yes,Satisfied,5,3
+250,Diabetes,9,264,50–59,Female,Married,No formal education,Homemaker,67,152.4,28.85,104,100,1.04,131,84,Yes,Yes,5 or more,Yes,Yes,Satisfied,5.5,6
+251,Prediabetes,5.9,159,30–39,Female,Married,Secondary/Matric,Homemaker,88,174.6,28.87,102,127,0.8031496062992126,111,78,No,Yes,0–1,Yes,No,Satisfied,5,12
+252,Diabetes,7.5,187,50–59,Female,Widowed,No formal education,Homemaker,79,165.2,28.95,106,114,0.9298245614035088,118,89,Yes,Yes,3–4,Yes,Yes,Satisfied,NA,6
+253,Diabetes,8.5,197,50–59,Female,Married,No formal education,Homemaker,79,165.2,28.95,106,114,0.9298245614035088,118,89,No,Yes,3–4,No,No,Satisfied,5,7
+254,Diabetes,9.7,271,40–49,Male,Married,Intermediate or above,Employed,82,168.2,28.98,107,115,0.9304347826086956,145,95,Yes,Yes,3–4,Yes,No,Satisfied,7,7
+255,Diabetes,8.2,220,30–39,Female,Married,No formal education,Homemaker,78,164,29,96,116,0.8275862068965517,139,99,No,No,3–4,Yes,No,Satisfied,6,9
+256,Prediabetes,6.2,220,30–39,Female,Married,No formal education,Homemaker,78,164,29,96,116,0.8275862068965517,139,89,No,No,3–4,Yes,Yes,Satisfied,5,7
+257,Diabetes,8.2,220,30–39,Female,Married,No formal education,Homemaker,78,164,29,96,116,0.8275862068965517,139,99,No,No,3–4,Yes,No,Satisfied,6,9
+258,Diabetes,11.2,258,40–49,Female,Married,Secondary/Matric,Homemaker,74,159.4,29.12,111,120,0.925,127,84,No,No,5 or more,Yes,No,Satisfied,7,9
+259,Diabetes,9,337,40–49,Female,Single/divorced,Intermediate or above,Homemaker,69.6,154.6,29.12,112,141,0.7943262411347518,148,95,Yes,Yes,0–1,No,No,Satisfied,9,8
+260,Diabetes,8.6,241,40–49,Female,Married,No formal education,Homemaker,74,159.2,29.2,82,102,0.803921568627451,102,73,No,No,5 or more,Yes,No,Satisfied,7,9
+261,Diabetes,7.7,153,50–59,Female,Married,No formal education,Homemaker,83.1,168.4,29.3,93,120,0.775,127,80,Yes,Yes,2,No,Yes,Satisfied,4,9
+262,Diabetes,11.4,350,50–59,Female,Widowed,No formal education,Homemaker,53.1,NA,NA,83,98,0.8469387755102041,98,62,No,No,5 or more,No,Yes,Not satisfied,3,10
+263,Prediabetes,6.4,187,50–59,Female,Single/divorced,No formal education,Homemaker,79,164,29.37,106,114,0.9298245614035088,118,89,No,Yes,3–4,No,Yes,Satisfied,5,8
+264,Diabetes,9.5,179,50–59,Female,Married,Secondary/Matric,Employed,84,169,29.41,101,115,0.8782608695652174,135,87,No,Yes,3–4,Yes,Yes,Satisfied,6,2
+265,Diabetes,9.6,186,50–59,Female,Married,No formal education,Homemaker,63.1,146.2,29.52,110,108,1.018518518518519,125,91,Yes,No,5 or more,Yes,No,Satisfied,7,3
+266,Diabetes,10,258,40–49,Female,Married,Secondary/Matric,Homemaker,74,158.2,29.57,111,120,0.925,127,84,No,No,5 or more,Yes,No,Satisfied,5.6,10
+267,Diabetes,11.4,350,50–59,Female,Widowed,No formal education,Homemaker,53.6,NA,NA,83,98,0.8469387755102041,98,62,No,No,5 or more,No,Yes,Not satisfied,4,10
+268,Prediabetes,6.4,180,40–49,Male,Married,Primary,Employed,84,168.2,29.69,108,104,1.038461538461539,89,71,Yes,Yes,0–1,Yes,No,Satisfied,3,6
+269,Prediabetes,6.2,168,50–59,Female,Married,No formal education,Homemaker,81,164.6,29.9,125,150,0.8333333333333334,146,91,No,Yes,0–1,No,Yes,Satisfied,7,9
+270,Diabetes,8.4,280,40–49,Female,Married,Primary,Homemaker,84,167.4,29.98,108,104,1.038461538461539,89,71,Yes,Yes,0–1,Yes,Yes,Satisfied,6,6
+271,Diabetes,7.1,280,40–49,Male,Married,Primary,Unemployed,85,168,30.12,107,112,0.9553571428571429,153,87,Yes,No,5 or more,Yes,Yes,Satisfied,5,7
+272,Prediabetes,5.8,143,30–39,Male,Single/divorced,Intermediate or above,Employed,52.5,NA,NA,82,98,0.8367346938775511,98,73,Yes,Yes,2,Yes,No,Satisfied,8,6
+273,Diabetes,10.7,287,18–29,Male,Married,Secondary/Matric,Employed,89,171.8,30.15,129,141,0.9148936170212766,117,90,No,Yes,2,Yes,No,Satisfied,7,7
+274,Prediabetes,6.2,144,30–39,Female,Married,Secondary/Matric,Homemaker,70.4,152.4,30.31,86,92,0.9347826086956522,109,80,No,Yes,2,Yes,No,Satisfied,7,0
+275,Diabetes,11,402,50–59,Female,Married,No formal education,Homemaker,72,154,30.36,95,109,0.8715596330275229,144,86,Yes,Yes,3–4,Yes,Yes,Not satisfied,7,8
+276,Prediabetes,6.2,170,40–49,Female,Married,Secondary/Matric,Homemaker,86.1,168.4,30.36,101,112,0.9017857142857143,110,84,No,Yes,0–1,Yes,No,Satisfied,4,8
+277,Diabetes,8.3,271,40–49,Female,Married,Intermediate or above,Homemaker,82,164.2,30.41,107,115,0.9304347826086956,145,95,Yes,Yes,3–4,Yes,Yes,Satisfied,5,7
+278,Prediabetes,5.7,164,30–39,Male,Single/divorced,Middle,Self-employed,88.1,170.2,30.41,114,120,0.95,129,99,Yes,No,2,No,Yes,Satisfied,7,7
+279,Diabetes,11.5,377,50–59,Male,Married,Middle,Unemployed,90.2,172,30.49,NA,104,NA,116,94,No,No,5 or more,No,Yes,Satisfied,6,1
+280,Diabetes,10.3,241,40–49,Female,Married,No formal education,Homemaker,74,155.6,30.56,82,102,0.803921568627451,102,73,No,No,5 or more,No,Yes,Satisfied,4,6
+281,Diabetes,8,216,50–59,Female,Married,No formal education,Homemaker,76,157.6,30.6,104,110,0.9454545454545454,125,82,Yes,No,5 or more,Yes,Yes,Satisfied,6,5
+282,Diabetes,8,206,50–59,Female,Married,No formal education,Homemaker,76,157.6,30.6,104,110,0.9454545454545454,125,82,Yes,No,5 or more,Yes,Yes,Not satisfied,5,5
+283,Diabetes,6.7,168,40–49,Female,Married,Secondary/Matric,Homemaker,71.1,152.4,30.61,116,136,0.8529411764705882,104,77,Yes,Yes,0–1,Yes,No,Satisfied,3,9
+284,Prediabetes,5.8,155,40–49,Female,Married,Primary,Homemaker,77,158.4,30.69,96,113,0.8495575221238938,141,105,Yes,Yes,0–1,No,No,Satisfied,7,4
+285,Diabetes,7.5,187,50–59,Female,Widowed,No formal education,Homemaker,79,160.4,30.71,106,114,0.9298245614035088,118,89,Yes,Yes,3–4,Yes,Yes,Satisfied,NA,6
+286,Diabetes,10.3,241,40–49,Female,Married,No formal education,Homemaker,74,155.2,30.72,82,102,0.803921568627451,102,73,No,No,5 or more,No,Yes,Satisfied,4,6
+287,Prediabetes,6.3,164,30–39,Male,Married,Middle,Self-employed,89.1,170,30.83,97,102,0.9509803921568627,140,89,No,Yes,2,Yes,No,Satisfied,7,6
+288,Diabetes,9.4,238,≥60,Female,Widowed,No formal education,Homemaker,70.1,150.6,30.91,102,116,0.8793103448275862,169,88,Yes,No,0–1,Yes,No,Satisfied,6,7
+289,Diabetes,9.1,208,≥60,Female,Widowed,No formal education,Homemaker,70.4,150.8,30.96,102,116,0.8793103448275862,169,88,Yes,No,0–1,Yes,No,Satisfied,6,7
+290,Diabetes,7.7,153,50–59,Female,Married,No formal education,Homemaker,84.6,165.2,31,93,120,0.775,127,80,Yes,Yes,2,No,No,Satisfied,4,9
+291,Diabetes,11.2,258,40–49,Female,Married,Secondary/Matric,Homemaker,74,154.4,31.04,111,120,0.925,127,84,No,No,5 or more,Yes,No,Satisfied,7,9
+292,Diabetes,9.4,238,30–39,Female,Single/divorced,No formal education,Homemaker,70.3,149.6,31.41,102,116,0.8793103448275862,169,88,Yes,No,0–1,Yes,Yes,Satisfied,5,5
+293,Diabetes,7.8,155,40–49,Female,Married,Primary,Homemaker,77,156.2,31.56,96,113,0.8495575221238938,141,105,Yes,Yes,0–1,No,Yes,Satisfied,7,9
+294,Diabetes,9.4,275,50–59,Female,Married,No formal education,Homemaker,83,162,31.63,106,NA,NA,168,90,Yes,Yes,3–4,Yes,Yes,Satisfied,6,8
+295,Diabetes,10.7,295,40–49,Female,Married,Primary,Homemaker,78,155.8,32.13,96,103,0.9320388349514563,157,100,No,No,2,Yes,No,Satisfied,7,7
+296,Diabetes,9.9,174,40–49,Female,Married,No formal education,Homemaker,80,157.8,32.13,100,111,0.9009009009009009,116,72,Yes,Yes,2,Yes,No,Satisfied,7,7
+297,Diabetes,9.7,174,40–49,Female,Married,No formal education,Homemaker,80,157.6,32.21,100,111,0.9009009009009009,116,72,Yes,Yes,2,Yes,No,Satisfied,7,7
+298,Diabetes,10.7,295,40–49,Female,Married,Primary,Homemaker,78,155.6,32.22,96,103,0.9320388349514563,157,100,No,No,2,Yes,No,Satisfied,7,7
+299,Diabetes,11.7,308,50–59,Male,Married,Primary,Unemployed,91.1,167.4,32.51,111,140,0.7928571428571428,129,80,Yes,No,5 or more,Yes,No,Satisfied,7,4
+300,Diabetes,8.3,271,40–49,Female,Married,Intermediate or above,Homemaker,82,158.6,32.6,107,115,0.9304347826086956,145,95,Yes,Yes,3–4,Yes,Yes,Satisfied,5,7
+301,Diabetes,7.4,359,40–49,Male,Married,No formal education,Self-employed,74,150,32.89,96,86,1.116279069767442,104,66,No,No,5 or more,Yes,Yes,Satisfied,5,9
+302,Prediabetes,5.8,169,30–39,Male,Married,Middle,Unemployed,86.1,161.6,32.97,105,116,0.9051724137931034,111,84,No,Yes,2,Yes,No,Satisfied,7,3
+303,Diabetes,7.8,206,40–49,Female,Married,Primary,Homemaker,77,152.6,33.07,84,104,0.8076923076923077,158,80,Yes,Yes,2,Yes,No,Satisfied,7,8
+304,Prediabetes,6.3,168,30–39,Male,Married,Middle,Self-employed,86.1,160.8,33.3,97,102,0.9509803921568627,140,89,No,Yes,2,Yes,No,Satisfied,3,6
+305,Prediabetes,6,154,30–39,Female,Single/divorced,Primary,Homemaker,84,158.8,33.31,107,120,0.8916666666666667,110,78,No,Yes,2,Yes,Yes,Satisfied,9,12
+306,Diabetes,12.1,308,50–59,Male,Married,Primary,Unemployed,91,165.2,33.34,111,140,0.7928571428571428,129,80,Yes,No,5 or more,Yes,No,Satisfied,7,4
+307,Diabetes,7.3,212,50–59,Female,Married,Secondary/Matric,Homemaker,78,152.4,33.58,96,109,0.8807339449541285,147,94,No,Yes,3–4,Yes,No,Satisfied,8,1
+308,Diabetes,7,200,50–59,Female,Married,Secondary/Matric,Homemaker,78,152.4,33.58,96,109,0.8807339449541285,147,94,No,Yes,3–4,Yes,No,Satisfied,8,1
+309,Diabetes,6.8,199,30–39,Female,Married,Secondary/Matric,Homemaker,87.1,160.8,33.69,102,127,0.8031496062992126,111,78,No,Yes,0–1,Yes,No,Satisfied,7,7
+310,Prediabetes,6,155,40–49,Female,Married,Primary,Homemaker,77,150.8,33.86,96,113,0.8495575221238938,141,105,Yes,Yes,0–1,No,Yes,Satisfied,7,9
+311,Prediabetes,5.8,206,40–49,Female,Married,Primary,Homemaker,77,150.6,33.95,84,104,0.8076923076923077,134,80,No,Yes,2,Yes,Yes,Not satisfied,7,8
+312,Diabetes,7.3,224,40–49,Female,Married,Secondary/Matric,Homemaker,86.1,158.8,34.14,101,112,0.9017857142857143,110,84,No,Yes,0–1,Yes,Yes,Satisfied,8,7
+313,Diabetes,8,215,18–29,Male,Married,Intermediate or above,Self-employed,85,156.2,34.84,96,102,0.9411764705882353,118,81,No,No,3–4,Yes,No,Satisfied,5.6,9
+314,Prediabetes,6.3,172,50–59,Male,Married,Secondary/Matric,Unemployed,83,152.4,35.74,NA,106,NA,135,78,No,No,2,Yes,No,Satisfied,7,11
+315,Prediabetes,5.8,169,18–29,Male,Single/divorced,No formal education,Self-employed,90.3,158.4,35.99,106,119,0.8907563025210085,170,90,Yes,Yes,3–4,Yes,No,Satisfied,6,10
+316,Prediabetes,5.9,177,50–59,Male,Single/divorced,Secondary/Matric,Self-employed,85,152,36.79,90,122,0.7377049180327869,122,67,No,No,5 or more,Yes,No,Satisfied,6,4
+317,Diabetes,9.4,279,50–59,Female,Married,Secondary/Matric,Employed,84,150.2,37.23,101,115,0.8782608695652174,135,87,No,Yes,3–4,No,No,Satisfied,5,4
+318,Prediabetes,5.7,164,30–39,Male,Married,Middle,Employed,84,146.2,39.3,114,120,0.95,139,89,Yes,No,2,Yes,No,Satisfied,6,6
+319,Diabetes,7.6,218,≥60,Female,Widowed,No formal education,Homemaker,60,NA,NA,97,110,0.8818181818181818,143,81,Yes,Yes,2,Yes,Yes,Satisfied,6,4
