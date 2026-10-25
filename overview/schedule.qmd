@@ -1,7 +1,7 @@
 ---
 format:
   rostools-theme-html:
-    tbl-colwidths: [30, 70]
+    tbl-colwidths: [20, 80]
 ---
 
 # Schedule {#sec-schedule}
@@ -17,47 +17,47 @@ be an approximate guide and overview.
 ::: panel-tabset
 ## Day 1 {.unnumbered}
 
-| Time | Session topic |
-|:-----------------------------------|:-----------------------------------|
-| 9:30 | {{< fa mug-hot >}} Arrival; Coffee and snacks |
-| 10:00 | {{< fa person-chalkboard >}} [Introduction to the workshop](/sessions/introduction.qmd) |
-| 10:30 | {{< fa laptop-code >}} [Dependency management for smoother collaboration (with short break)](/sessions/dependencies.qmd) |
-| 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
-| 12:30 | {{< fa utensils >}} Lunch |
-| 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-one) |
-| 13:30 | {{< fa laptop-code >}} [Setting up automatic data analysis pipelines](/sessions/pipelines-setup.qmd) |
-| 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:15 | {{< fa laptop-code >}} [Continuing previous session](/sessions/pipelines-setup.qmd) |
-| 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
+  | Time    | Session topic                                                                                       |
+  | :------ | :-------------------------------------------------------------------------------------------------- |
+  | 9:30    | Arrival; Coffee and snacks                                                                          |
+  | 10:00   | [Introduction to the workshop](/sessions/introduction.qmd)                                          |
+  | 10:30   | [Dependency management for smoother collaboration (with short break)](/sessions/dependencies.qmd)   |
+  | 12:20   | [End of session survey]({{< meta surveys.feedback >}})                                              |
+  | 12:30   | Lunch                                                                                               |
+  | 13:15   | [Networking and social activity](/appendix/social.qmd#social-day-one)                               |
+  | 13:30   | [Setting up automatic data analysis pipelines](/sessions/pipelines-setup.qmd)                       |
+  | 15:00   | Coffee break and snacks                                                                             |
+  | 15:15   | [Continuing previous session](/sessions/pipelines-setup.qmd)                                        |
+  | 16:15   | [End of session survey]({{< meta surveys.feedback >}})                                              |
 
 ## Day 2 {.unnumbered}
 
-| Time | Session topic |
-|:-----------------------------------|:-----------------------------------|
-| 9:00 | {{< fa laptop-code >}} [Short review; Using the pipeline to build up research output](/sessions/pipelines-outputs.qmd) |
-| 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
-| 10:45 | {{< fa laptop-code >}} [Continue previous session](/sessions/pipelines-outputs.qmd) |
-| 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
-| 12:30 | {{< fa utensils >}} Lunch |
-| 13:15 | {{< fa user-group >}} [Networking and social activity](/appendix/social.qmd#social-day-two) |
-| 13:30 | {{< fa person-chalkboard >}} [What are statistical models?](/sessions/stats-modeling.qmd) |
-| 14:15 | {{< fa laptop-code >}} [Design your analysis: Build up one model first](/sessions/build-one-model.qmd) |
-| 15:00 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:15 | {{< fa laptop-code >}} [Continue previous session](/sessions/build-one-model.qmd) |
-| 16:15 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
+  | Time    | Session topic                                                                                     |
+  | :------ | :------------------------------------------------------------------------------------------------ |
+  | 9:00    | [Short review; Using the pipeline to build up research output](/sessions/pipelines-outputs.qmd)   |
+  | 10:30   | Coffee break and snacks                                                                           |
+  | 10:45   | [Continue previous session](/sessions/pipelines-outputs.qmd)                                      |
+  | 12:20   | [End of session survey]({{< meta surveys.feedback >}})                                            |
+  | 12:30   | Lunch                                                                                             |
+  | 13:15   | [Networking and social activity](/appendix/social.qmd#social-day-two)                             |
+  | 13:30   | [What are statistical models?](/sessions/stats-modeling.qmd)                                      |
+  | 14:15   | [Design your analysis: Build up one model first](/sessions/build-one-model.qmd)                   |
+  | 15:00   | Coffee break and snacks                                                                           |
+  | 15:15   | [Continue previous session](/sessions/build-one-model.qmd)                                        |
+  | 16:15   | [End of session survey]({{< meta surveys.feedback >}})                                            |
 
 ## Day 3 {.unnumbered}
 
-| Time | Session topic |
-|:---|:---|
-| 9:00 | {{< fa laptop-code >}} [Short review; Extend your analysis to run many models](/sessions/many-models.qmd) |
-| 10:30 | {{< fa mug-hot >}} Coffee break and snacks |
-| 10:45 | {{< fa laptop-code >}} [Visualising the results of many models](/sessions/visualise-models.qmd) |
-| 12:20 | {{< fa comment-dots >}} [End of session survey]({{< meta surveys.feedback >}}) |
-| 12:30 | {{< fa utensils >}} Lunch |
-| 13:15 | {{< fa people-group >}} [Team project work](/sessions/project-work.qmd) |
-| 14:45 | {{< fa mug-hot >}} Coffee break and snacks |
-| 15:00 | {{< fa people-group >}} [Continue team project work](/sessions/project-work.qmd) |
-| 16:00 | {{< fa person-chalkboard >}} Testing projects and closing remarks |
-| 16:15 | {{< fa comment-dots >}} [End of workshop survey]({{< meta surveys.feedback >}}) |
+  | Time    | Session topic                                                                        |
+  | :------ | :----------------------------------------------------------------------------------- |
+  | 9:00    | [Short review; Extend your analysis to run many models](/sessions/many-models.qmd)   |
+  | 10:30   | Coffee break and snacks                                                              |
+  | 10:45   | [Visualising the results of many models](/sessions/visualise-models.qmd)             |
+  | 12:20   | [End of session survey]({{< meta surveys.feedback >}})                               |
+  | 12:30   | Lunch                                                                                |
+  | 13:15   | [Team project work](/sessions/project-work.qmd)                                      |
+  | 14:45   | Coffee break and snacks                                                              |
+  | 15:00   | [Continue team project work](/sessions/project-work.qmd)                             |
+  | 16:00   | Testing projects and closing remarks                                                 |
+  | 16:15   | [End of workshop survey]({{< meta surveys.feedback >}})                              |
 :::

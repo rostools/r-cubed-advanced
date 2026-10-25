@@ -61,7 +61,7 @@ book:
       href: LICENSE.md
   page-footer:
     center:
-      - text: "License: CC BY 4.0 {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}}"
+      - text: "License: CC BY 4.0"
         href: "LICENSE.md"
       - text: "Code of Conduct"
         href: "pre-workshop/code-of-conduct.qmd"
