@@ -1,6 +1,8 @@
 # Welcome {.unnumbered}
 
+::: {.content-visible when-format="html"}
 {{< include /includes/_badges.qmd >}}
+:::
 
 ```{r}
 #| label: write-packages-to-bib
@@ -15,11 +17,10 @@ knitr::write_bib(
 
 Reproducibility and open scientific practices are increasingly in demand and
 needed by scientists and researchers in modern research environments. More
-frequently, our work, as researchers, includes a high level of collaboration on
-scientific projects. Consequently, many new challenges arise that we lack the
-training or knowledge to resolve.
-
-These challenges include:
+often, and increasingly, our work as researchers requires a high level of
+collaboration on scientific projects. This often results in many new challenges
+that arise where we lack the training or knowledge to effectively resolve. These
+challenges include:
 
 - Designing and structuring code for an analysis that follows some basic
   principles that make it easier to write, to do more with less code, and to
@@ -33,7 +34,7 @@ These challenges include:
   recent results.
 
 Training and awareness of the skills and knowledge necessary to create
-reproducible and transparent data analysis pipelines are still significantly
+reproducible and transparent data analysis pipelines are still substantially
 lacking among researchers. Partly due to this gap, how *exactly* an analysis is
 done (including data processing and wrangling) to produce a given result are
 often poorly, if at all, described in scientific studies. This can have a major
@@ -70,11 +71,11 @@ This website and its content are targeted to three groups:
 1. For the **learners** to use during the workshop, both to follow along and
    also to use as a reference after the workshop ends. A more detailed
    description of who the learner is can be found in [Is this for
-   you?](/overview/is-this-for-you.qmd)
+   you?](/overview/is-this-for-you.qmd) in @sec-is-this-for-you.
 2. For the **teachers** to use as a guide for when they do the type-along
    sessions.
 3. For those who are **interested in teaching**, who may not have much
-   experience or may not know where to start, to use this website as a guide to
+   experience, or may not know where to start can use this website as a guide to
    running and teaching their own workshops.
 
 ## Re-use and licensing
