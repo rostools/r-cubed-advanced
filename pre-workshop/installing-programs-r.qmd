@@ -79,7 +79,8 @@ Git" section, for an understanding on why we are teaching Git. Windows users
 tend to have more trouble with installing Git than macOS or Linux users. See the
 section on [Installing Git for
 Windows](https://happygitwithr.com/install-git.html#install-git-windows) for
-help.
+help. We also maintain a list of common issues that participants experience in
+our [FAQ](https://guides.rostools.org/faq) section of our guides website.
 
 ::: {.callout-note appearance="default"}
 Some pictures may show a Git pane in RStudio, but you may not see it. If you
