@@ -1,5 +1,5 @@
 flavor = "quarto"
-exclude = [".git/", ".github/", "LICENSE.md", "README.md"]
+extend-exclude = [".github/", "README.md"]
 
 [format]
 tab-width = 2
