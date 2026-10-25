@@ -48,17 +48,17 @@ be an approximate guide and overview.
 
 ## Day 3 {.unnumbered}
 
-  | Time    | Session topic                                                                            |
-  | :------ | :-----------------------------------------------------------------------------------     |
-  | 9:00    | [Short review; Extend your analysis to run many models](/sessions/many-models.qmd)       |
-  | 10:30   | Coffee break and snacks                                                                  |
-  | 10:45   | [Visualising the results of many models](/sessions/visualise-models.qmd)                 |
-  | 12:20   | [End of session survey]({{< meta surveys.feedback >}})                                   |
-  | 12:30   | Lunch                                                                                    |
-  | 13:15   | [End of workshop survey]({{< meta surveys.feedback >}})                                  |
-  | 13:30   | [Team project work](/sessions/project-work.qmd)                                          |
-  | 14:45   | Coffee break and snacks                                                                  |
-  | 15:00   | [Continue team project work](/sessions/project-work.qmd)                                 |
-  | 16:15   | Testing projects and closing remarks                                                     |
-  | 16:30   | [End of project work survey]({{< meta surveys.feedback >}})                              |
+  | Time    | Session topic                                                                        |
+  | :------ | :----------------------------------------------------------------------------------- |
+  | 9:00    | [Short review; Extend your analysis to run many models](/sessions/many-models.qmd)   |
+  | 10:30   | Coffee break and snacks                                                              |
+  | 10:45   | [Visualising the results of many models](/sessions/visualise-models.qmd)             |
+  | 12:20   | [End of session survey]({{< meta surveys.feedback >}})                               |
+  | 12:30   | Lunch                                                                                |
+  | 13:15   | [End of workshop survey]({{< meta surveys.feedback >}})                              |
+  | 13:30   | [Team project work](/sessions/project-work.qmd)                                      |
+  | 14:45   | Coffee break and snacks                                                              |
+  | 15:00   | [Continue team project work](/sessions/project-work.qmd)                             |
+  | 16:15   | Testing projects and closing remarks                                                 |
+  | 16:30   | [End of project work survey]({{< meta surveys.feedback >}})                          |
 :::

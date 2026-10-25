@@ -6,12 +6,12 @@ bibliography: ../includes/references.bib
 
 # Welcome to the Advanced R^3^ workshop!
 
--   :heavy_check_mark: Pick up a table name from the bowl
--   :heavy_check_mark: Go to the table name you picked
--   :heavy_check_mark: Introduce yourself to your table mates
--   :heavy_check_mark: Open your `AdvancedR3.Rproj` RStudio project
--   :heavy_check_mark: Accept the GitHub organisation invitation (check
-    your email or spam)
+- :heavy_check_mark: Pick up a table name from the bowl
+- :heavy_check_mark: Go to the table name you picked
+- :heavy_check_mark: Introduce yourself to your table mates
+- :heavy_check_mark: Open your `AdvancedR3.Rproj` RStudio project
+- :heavy_check_mark: Accept the GitHub organisation invitation (check your email
+  or spam)
 
 ::: notes
 Introduce yourself and instructors.
@@ -39,6 +39,7 @@ Ask who knows what reproducibility is and could explain it.
 ```{r}
 #| echo: false
 #| fig-height: 6
+
 library(tidyverse)
 theme_set(
   theme_minimal() +
@@ -53,9 +54,9 @@ theme_set(
 )
 
 search <- tribble(
-  ~item, ~description, ~value, ~order,
-  "Articles", "Found among all articles", 3467, 1,
-  "GitHub\nrepos", "Those with a GitHub link and at least one notebook", 2660, 2
+  ~item           , ~description                                         , ~value , ~order ,
+  "Articles"      , "Found among all articles"                           ,   3467 ,      1 ,
+  "GitHub\nrepos" , "Those with a GitHub link and at least one notebook" ,   2660 ,      2
 ) |>
   mutate(
     item = fct_rev(fct_reorder(item, order))
@@ -69,13 +70,14 @@ ggplot(search, aes(y = item, x = value, label = value)) +
 ```{r}
 #| echo: false
 #| fig-height: 6
+
 repro_results <- tribble(
-  ~item, ~description, ~value, ~order,
-  "Total notebooks", "Total notebook files found in all the repositories", 27271, 1,
-  "Notebook repo\nwas valid", "File names were correct, dependency information was available, no local modules were needed.", 15817, 2,
-  "Could install\ndependencies", "Could install dependencies without errors.", 10388, 3,
-  "Finished executing\nwithout errors", "Could run without any errors.", 1203, 4,
-  "Same results\nas paper", "When the results of the paper matched what the execution results output.", 879, 5
+  ~item                                , ~description                                                                                   , ~value , ~order ,
+  "Total notebooks"                    , "Total notebook files found in all the repositories"                                           ,  27271 ,      1 ,
+  "Notebook repo\nwas valid"           , "File names were correct, dependency information was available, no local modules were needed." ,  15817 ,      2 ,
+  "Could install\ndependencies"        , "Could install dependencies without errors."                                                   ,  10388 ,      3 ,
+  "Finished executing\nwithout errors" , "Could run without any errors."                                                                ,   1203 ,      4 ,
+  "Same results\nas paper"             , "When the results of the paper matched what the execution results output."                     ,    879 ,      5
 ) |>
   mutate(
     percent = str_c(value, "\n(", round(value / max(value) * 100), "%)"),
@@ -88,8 +90,8 @@ ggplot(repro_results, aes(y = item, x = value, label = percent)) +
 ```
 :::
 
-From searching PubMed Central for all articles with search term: "(ipynb
-OR jupyter OR ipython) AND github". From @Samuel2024.
+From searching PubMed Central for all articles with search term: "(ipynb OR
+jupyter OR ipython) AND github". From @Samuel2024.
 
 ## Researchers don't know how to collaborate effectively {.center}
 
@@ -102,12 +104,11 @@ You do your PhD alone, you get grants as a postdoc for yourself, etc.
 ## Academia doesn't encourage building and improving effective collaboration {.center}
 
 ::: notes
-Getting grants means getting publications, getting publications means
-being involved in lots of project, being involved in lots of projects
-means contributing mainly through comments or feedback or meetings
-(since you only have so much time in a day), getting funding means you
-need to get yourself as last author on as many papers as possible to
-continue getting funding, etc.
+Getting grants means getting publications, getting publications means being
+involved in lots of project, being involved in lots of projects means
+contributing mainly through comments or feedback or meetings (since you only
+have so much time in a day), getting funding means you need to get yourself as
+last author on as many papers as possible to continue getting funding, etc.
 
 It's a vicious cycle.
 :::
@@ -116,28 +117,27 @@ It's a vicious cycle.
 
 ## Reading *others'* code is necessary to improve as an experienced coder {.smaller}
 
--   You aren't reading others' code if:
+- You aren't reading others' code if:
 
-    -   you don't collaborate with others *directly* on their code
-    -   you aren't doing code reviews with colleagues
-    -   researcher's don't share their code
+  - you don't collaborate with others *directly* on their code
+  - you aren't doing code reviews with colleagues
+  - researcher's don't share their code
 
 . . .
 
--   If *we all* aren't reading others' code, *we all* aren't improving
+- If *we all* aren't reading others' code, *we all* aren't improving
 
 ## As you get more advanced, you learn that more coding isn't a good thing {.center}
 
 Research "product" is an *asset*, but *code* is a *liability*
 
 ::: notes
-As you get more advanced in coding and analysis, you actually spend less
-time coding and more time thinking about the analysis, the design of the
-analysis and the code, and the overall flow of things. You start
-learning that, while your finished analysis is an *asset*, the more
-lines of code you have for it is a *liability*. You want your code to be
-as simple and minimal as possible, while still doing what you need it to
-do.
+As you get more advanced in coding and analysis, you actually spend less time
+coding and more time thinking about the analysis, the design of the analysis and
+the code, and the overall flow of things. You start learning that, while your
+finished analysis is an *asset*, the more lines of code you have for it is a
+*liability*. You want your code to be as simple and minimal as possible, while
+still doing what you need it to do.
 :::
 
 ## With "AI" tools, generating (or "vibing") lots of code is easy... but... {.center}
@@ -145,10 +145,9 @@ do.
 ## Problem: If you aren't experienced in code, how can you assess it? {.center}
 
 ::: notes
-Problem with AI tools, it predicts the average next items. Key word,
-average. Do you want to go for average? Is average code even good?
-There's a lot of shit code in the world, that, the AI has been trained
-on.
+Problem with AI tools, it predicts the average next items. Key word, average. Do
+you want to go for average? Is average code even good? There's a lot of shit
+code in the world, that, the AI has been trained on.
 :::
 
 ## More code = means more reading, maintenance, and hidden bugs {.center}
@@ -160,78 +159,76 @@ Even before looking at the data
 ::: notes
 This is something that LLMs or machine learning algorithms can't do, is
 understand human context or needs or wants or intentions or aims. Hell,
-communicating to other humans to get everyone on the same page on its
-own is incredibly hard.
+communicating to other humans to get everyone on the same page on its own is
+incredibly hard.
 :::
 
 ## Well-designed code is a powerful enabler of effective collaboration {.center}
 
--   Better at communicating intent
+- Better at communicating intent
 
--   Does more, with less
+- Does more, with less
 
 ::: notes
-You can do a lot with surprisingly little code if you design it well.
-That's part of what we want you to learn from this workshop: do more
-with less.
+You can do a lot with surprisingly little code if you design it well. That's
+part of what we want you to learn from this workshop: do more with less.
 :::
 
 ## Goal of workshop: Create and nurture ... {.center}
 
--   A culture of openness
+- A culture of openness
 
--   Design thinking
+- Design thinking
 
--   Effective collaboration
+- Effective collaboration
 
 ::: notes
-In this workshop, we'll be focusing more on the bigger picture and
-design, and in fact, probably do less coding than in previous workshops.
-We'll do more thinking first, then design, then code.
+In this workshop, we'll be focusing more on the bigger picture and design, and
+in fact, probably do less coding than in previous workshops. We'll do more
+thinking first, then design, then code.
 :::
 
 # Workshop details
 
 ## Setup and layout {.smaller}
 
-::::: columns
-::: {.column width="50%"}
--   Workshop is mix of:
-    -   "Code-alongs" (we type and explain, you type along)
-    -   Hands-on coding, discussing, and reading exercises
-    -   A group project at the end
--   All material is online (and [openly
-    licensed](https://r-cubed-advanced.rostools.org/LICENSE.html))
--   Less about coding, more about:
-    -   Connecting and collaborating with others
-    -   Thinking about designing first, coding second
-:::
-
-::: {.column width="50%"}
--   Networking and connecting:
-    -   Draw table name from bowl each morning
-    -   Introduce yourself to those at your table
-    -   During lunch, sit beside someone you don't know
-    -   Several networking activities (usually after lunch)
-:::
+::: columns
+::::: {.column width="50%"}
+- Workshop is mix of:
+  - "Code-alongs" (we type and explain, you type along)
+  - Hands-on coding, discussing, and reading exercises
+  - A group project at the end
+- All material is online (and [openly
+  licensed](https://r-cubed-advanced.rostools.org/LICENSE.html))
+- Less about coding, more about:
+  - Connecting and collaborating with others
+  - Thinking about designing first, coding second
 :::::
+
+::::: {.column width="50%"}
+- Networking and connecting:
+  - Draw table name from bowl each morning
+  - Introduce yourself to those at your table
+  - During lunch, sit beside someone you don't know
+  - Several networking activities (usually after lunch)
+:::::
+:::
 
 ## Getting or asking for help :raising_hand_woman:
 
-::::: columns
-::: {.column width="50%"}
--   Put the sticky (a.k.a. tiny paper hat :tophat:) on your laptop to
-    get help
--   There are lots of helpers
--   Table mates, help out too
-:::
-
-::: {.column width="50%"}
--   We're all learning here!
--   This is a supportive and safe environment
--   Remember our **Code of Conduct**
-:::
+::: columns
+::::: {.column width="50%"}
+- Put the sticky (a.k.a. tiny paper hat :tophat:) on your laptop to get help
+- There are lots of helpers
+- Table mates, help out too
 :::::
+
+::::: {.column width="50%"}
+- We're all learning here!
+- This is a supportive and safe environment
+- Remember our **Code of Conduct**
+:::::
+:::
 
 ## Practice using stickies/paper hats: Do you have RStudio open and accepted the GitHub invite? {.center}
 
