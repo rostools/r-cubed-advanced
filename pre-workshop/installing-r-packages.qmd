@@ -32,8 +32,8 @@ installing the packages with the code above.
 For Windows users, you may have to install
 [RTools](https://cran.r-project.org/bin/windows/Rtools/) to use either the
 `{pak}` or `{remotes}` method. The version of RTools you install must match the
-version of R that you have installed. For example, if you have R version 4.4,
-you need to install RTools 4.4.
+version of R that you have installed. For example, if you have R version 4.5,
+you need to install RTools 4.5.
 
 First, try installing the `r3` package directly from GitHub with `{pak}`:
 
