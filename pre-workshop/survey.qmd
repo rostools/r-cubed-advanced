@@ -1,10 +1,10 @@
 # Survey {#sec-survey}
 
-Please complete go through the sections under "Overview" (starting at
-@sec-syllabus) and the "Pre-workshop tasks" (starting at @sec-pre-workshop)
-before filling in this survey.
+Please go through the sections under "Overview" (starting at @sec-syllabus) as
+well as complete the "Pre-workshop tasks" (starting at @sec-pre-workshop) before
+filling in this survey.
 
-To finish the pre-workshop tasks, you need to complete the survey at the link
+To finish the pre-workshop tasks, you need to complete the survey in the link
 below. Then you're ready for the workshop! :tada:
 
 [Pre-workshop survey
