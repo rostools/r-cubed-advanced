@@ -1,0 +1,106 @@
+# Connect your project to GitHub {#sec-connect-github}
+
+Now that you've created your project and have set up and authenticated your
+computer with GitHub, you will now upload your project to GitHub. Before we do
+that though, you'll need to do a few things. First, let's tell Git to ignore
+some specific files, like the `.html` files as well as the `_files/` folders
+that Quarto automatically creates when rendering your `.qmd` files. While in the
+`AdvancedR3` project in RStudio, go to the Console and run this function to
+ignore the auto-generated Quarto files.
+
+```{r}
+#| label: ignore-html-files
+#| filename: "Console"
+#| eval: false
+
+usethis::use_git_ignore(c("*.html", "*_files"))
+```
+
+This will update the `.gitignore` file with these files to ignore. Next, you'll
+need to commit your changes to Git, so that you can eventually push them to
+GitHub. As mentioned in the [Setup Git](setup-git.qmd) (@sec-setup-git) section,
+because we already covered Git in the introductory workshop, we won't go into it
+in much detail in this workshop. However, during the workshop, you'll get plenty
+of exposure and practice using Git. For these pre-workshop tasks, you can either
+use the RStudio Git interface or use R functions in the Console.
+
+**If you are familiar enough with using the RStudio Git interface**, then open
+the Git interface with either the Git icon at the top near the menu bar or with
+{{< var keybind.commit >}}. While in the interface, select all the current
+changes by clicking the checkbox beside the files and stage them. Then write a
+commit message in the text box on the right, something like
+`Setting up the project`. Click the "Commit" button, and finally close the Git
+interface.
+
+**If you have never used the Git interface before**, you can instead copy and
+paste these R functions to do the same thing. So paste these functions into the
+Console and run them:
+
+```{r}
+#| label: add-to-git-history
+#| filename: "Console"
+#| eval: false
+
+gert::git_add(".")
+gert::git_commit("Setting up the project")
+```
+
+This will do the same thing as the Git interface, which is to save all the
+changes to the Git history.
+
+After adding the changes to the Git history, this should be the first commit for
+everyone. You're now ready to connect your project to GitHub. In the Console,
+run:
+
+```{r}
+#| label: use-github
+#| filename: "Console"
+#| eval: false
+
+usethis::use_github()
+```
+
+::: callout-note
+You may have to manually enter your username and password, even though you used
+`gitcreds::gitcreds_set()`.
+
+If you have troubles logging in, you may need to update Git.
+:::
+
+::: callout-tip
+You might notice the word `origin` when referring to remotes. The word *origin*
+is the default short name used to refer to the location of the remote (the
+GitHub URL). You will probably see this word in many other places to refer to a
+remote.
+:::
+
+The `usethis::use_github()` function will take your project and upload it to
+GitHub. A bunch of text should pop up and it should open a browser with your
+project on GitHub. You'll eventually need to copy and paste the URL for this new
+GitHub repository into the survey at the end. You can always find your GitHub
+repository by running `usethis::browse_github()` in the Console.
+
+As you work on this project during the workshop, you'll be synchronising changes
+regularly with it by "pushing" (uploading) and "pulling" (downloading). Using
+Git and GitHub is one of the most effective ways to collaborate on a project.
+Hundreds of companies and hundreds of thousands of workers use Git and services
+like GitHub to work together on massive projects. The way collaboration works
+would conceptually look like:
+
+```{mermaid}
+%%| label: fig-local-collab-and-remote
+%%| fig-cap: Schematic showing a local repository, GitHub's remote repository,
+%%|   and a collaborator's repository.
+
+graph TB;
+    yours(Your local<br>repository) -->|Push| github(GitHub remote<br>repository)
+    github -->|Pull| yours
+    others(Collaborator's<br>local repository) -->|Push| github
+    github -->|Pull| others
+```
+
+This approach to collaborating makes it much easier to contribute *directly*
+(not through emails) to projects and to more easily help others out with issues.
+
+You'll get more practice using GitHub during the workshop, and you'll have lots
+of chances to ask questions about it.

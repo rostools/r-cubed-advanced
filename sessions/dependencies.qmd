@@ -435,46 +435,6 @@ both workflow and build. Neat! :tada:
 Before we move on, let's make sure everything has been committed to the Git
 history with {{< var keybind.git >}}.
 
-## :technologist: Exercise: Connect your project to GitHub
-
-**Time: \~25 minutes.**
-
-Since we will eventually connect our project Git repository to GitHub to
-practice working with GitHub, we'll connect our project to GitHub right now.
-
-Remember that GitHub is a platform for sharing your projects in a way that is
-transparent (if you add all the relevant files and keep a clean history of your
-files) and makes it easy to collaborate with others. It's a great way to share
-your project with others, get feedback, and even contribute to other projects.
-
-Let's complete these tasks to connect to GitHub.
-
-1. First, commit the latest changes to the Git history with
-   {{< var keybind.git >}}.
-
-2. If you haven't yet, please create a [GitHub](https://github.com/join)
-   account.
-
-3. Add the `{gitcreds}` package as a workflow dependency. You'll need it for the
-   next item.
-
-   ```r {filename="Console"}
-   use_package("gitcreds", "suggests")
-   ```
-
-4. Read through and complete the tasks in the [*linking your project to GitHub*
-   of the *Connect to GitHub*
-   Guide](https://guides.rostools.org/connect-github#linking-your-project-to-github).
-
-5. Check your GitHub to make sure the project repository has been uploaded to
-   it. You can use `{usethis}` for help:
-
-   ```r {filename="Console"}
-   usethis::browse_github()
-   ```
-
-{{< text_snippet sticky_up >}}
-
 ## Styling Markdown files
 
 For multi-person collaborative projects, having some type of code styling and

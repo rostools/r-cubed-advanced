@@ -41,9 +41,9 @@ Here's a quick overview of the tasks you need to do. Specific details about them
 are found as you work through this section.
 
 1. Do some pre-reading to get a better idea of the workshop content
-   (@sec-pre-reading).
-2. Read through the [Code of Conduct](code-of-conduct.qmd) (in
-   @sec-code-of-conduct).
+   in\ @sec-pre-reading.
+2. Read through the [Code of Conduct](code-of-conduct.qmd)
+   in\ @sec-code-of-conduct.
 3. [Install the necessary programs](installing-programs-r.qmd) and the right
    versions of those programs in @sec-installing-programs. For some people,
    depending on their institution, this task can take the **longest amount of
@@ -58,13 +58,15 @@ are found as you work through this section.
    need to paste this output into the survey.
 8. Create an R Project in @sec-create-project, along with the folder and file
    setup and creating a Quarto file.
-9. Write (well, mostly copy and paste) R code to download the data and save it
-   to your computer in @sec-download-data. This task will probably take up maybe
-   30-60 minutes depending on your interest in exploring the data.
-10. Run a check using `r3::check_project_setup_advanced()` to see that
+9. Connect your R Project to GitHub to create a GitHub repository
+   in\ @sec-connect-github.
+10. Write (well, mostly copy and paste) R code to download the data and save it
+    to your computer in @sec-download-data. This task will probably take up
+    maybe 10-15 minutes depending on your interest in exploring the data.
+11. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output into the
     survey.
-11. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**. This
+12. **Complete the pre-workshop [survey](survey.qmd) (in @sec-survey)**. This
     survey is pretty quick, maybe \~10 minutes.
 
 ::: callout-tip

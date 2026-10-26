@@ -38,6 +38,7 @@ book:
         - pre-workshop/installing-r-packages.qmd
         - pre-workshop/setup-git.qmd
         - pre-workshop/create-project.qmd
+        - pre-workshop/connect-github.qmd
         - pre-workshop/download-data.qmd
         - pre-workshop/survey.qmd
     - part: "Sessions"
