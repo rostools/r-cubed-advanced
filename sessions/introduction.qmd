@@ -1,4 +1,4 @@
-# Introdiction to workshop {#sec-introduction}
+# Introduction to workshop {#sec-introduction}
 
 > [**Introduction slides**](../slides/introduction.html)
 
