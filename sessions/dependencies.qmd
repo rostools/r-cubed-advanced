@@ -439,104 +439,8 @@ on a project, you can run `pak::pak()` to install all types of dependencies,
 both workflow and build. Neat! :tada:
 :::
 
-Before we move on, let's make sure everything has been committed to the Git
-history with {{< var keybind.git >}}.
-
-## Styling Markdown files
-
-For multi-person collaborative projects, having some type of code styling and
-checker can really help with standardizing how the code looks, which ultimately
-will make it easier to read each other's code contributions. We've already set
-up and used `{styler}` during the pre-workshop tasks to automatically format R
-code.
-
-But what about for Markdown files? While there isn't a package or function (yet)
-that styles the Markdown files, RStudio does have an option in their Tools to
-format Markdown into a "canonical form". The reason for this option is because
-they've added a "visual editor mode" to writing R Markdown / Quarto files (which
-is great if you are more comfortable with apps like Word). Let's set up the
-project to automatically reformat Markdown files.
-
-::: {.callout-warning appearance="default"}
-Use this option *only if* you have your project under Git version control, since
-it will directly modify and overwrite the contents of the entire file.
-:::
-
-There are two ways of doing it:
-
-1. Go into
-   [`Tools -> Project Options -> R Markdown`](https://rstudio.github.io/visual-markdown-editing/options.html#project-options)
-   and change the options "Automatic text wrapping" to "column" (with the
-   default 72 width value) and "Write canonical visual mode markdown" to "true".
-2. Or set the [YAML
-   options](https://rstudio.github.io/visual-markdown-editing/markdown.html#writer-options)
-   in either the project-level `_quarto.yml` file or at the file-level in the
-   YAML header.
-
-For right now, we will do the project option settings so that as long as we are
-using RStudio and in the R Project, it will automatically reformat the Markdown
-files as you write in them. Follow the instructions in item 1 above to set the
-options.
-
-Now, when you save your file, RStudio should automatically reformat the Markdown
-into a standardized format. If you want to switch to using the Visual Mode, use
-{{< var keybind.visual-edit >}} or the "Visual" button at the top of the Source
-Pane beside the bolding and italicizing buttons.
-
-The instructors won't be using the Visual Mode during the workshop, however, you
-are welcome to do so. We will be using the "canonical" Markdown mode in the
-"source" (default) mode.
-
-Let's test it out. While in the `docs/learning.qmd` file, go to the bottom of
-the file and type out:
-
-```markdown
-## This is poorly formatted
-- Definitely should have an empty space above this list.
-- This isn't a list, why not?
-```
-
-Save the file. What happens? Lists in Markdown need to have an empty space above
-them to work properly (except for when they are below a header, but in all other
-cases it needs a space above). With the canonical mode on, we can get feedback
-right away that it isn't right. It gets automatically fixed by adding that empty
-space.
-
-```markdown
-## This is poorly formatted
-
--   Definitely should have an empty space above this list.
--   This isn't a list, why not?
-```
-
-Since this mode is on automatically now, as we work in the `docs/learning.qmd`
-file through the sessions, we'll get lots of experience using it.
-
-## :technologist: Exercise: Update the README file while using canonical Markdown mode
-
-**Time: \~10 minutes.**
-
-Open up the `README.md` file and do all the `TODO` items found inside the file
-as well as inside the `TODO.md` file. Save often and watch as the Markdown gets
-reformatted.
-
-After you are done, commit the changes you made to the Git history with
+Before we move on, let's make sure to commit everything to the Git history with
 {{< var keybind.git >}}.
-
-Then delete the `TODO.md`, followed by committing the deletion in the Git
-history. Click the "Push" button to push the changes to GitHub.
-
-```{r}
-#| label: purl-only-editor-options-to-readme
-#| echo: false
-#| eval: false
-#| purl: true
-
-fs::file_delete("TODO.md")
-gert::git_commit("Don't need this file anymore.")
-```
-
-{{< text_snippet sticky_up >}}
 
 ## Summary
 
@@ -548,8 +452,6 @@ gert::git_commit("Don't need this file anymore.")
 - Differentiate between build and workflow dependencies and how to add them to
   the `DESCRIPTION` file.
 
-- Use RStudio's canonical markdown mode to reformat Markdown into a standard
-  format.
 ## Survey
 
 Please complete the survey for this session:
