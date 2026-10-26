@@ -6,7 +6,3 @@
 3. Describe the difference between workflow dependencies and build dependencies,
    and apply functions in the `{usethis}` R package to implement these
    dependency management concepts.
-4. Explain how following a style guide helps build a common approach to reading
-   and writing R code, and thereby improve project-level collaboration.
-5. Use `{styler}` and RStudio's canonical markdown mode to programmatically
-   check and apply style guides to your project files.

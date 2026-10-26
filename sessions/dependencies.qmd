@@ -4,7 +4,9 @@
 #| label: setup
 #| include: false
 
-source(here::here("R/functions.R"))
+# To stop an error during rendering (from a non-namespaced function) and show
+# via downlit.
+library(usethis)
 ```
 
 Many of you probably work mostly on your own, but as you move through your
@@ -82,9 +84,9 @@ appearing secure and robust and ready to go skateboarding. Meanwhile `setwd()`
 is made of glass, covered in casts and band-aids, looking much more fragile."}
 
 Let's start with the `AdvancedR3` project, created in @sec-create-project, that
-includes the `lipidomics` dataset. We have code in the `data-raw/nmr-omics.R`
-file already that uses some packages. Let's assume that your project will be
-more complex than this and that you will eventually need some collaborators to
+includes the `cv-risk` dataset. We have code in the `data-raw/cv-risk.R` file
+already that uses some packages. Let's assume that your project will be more
+complex than this and that you will eventually need some collaborators to
 contribute to your project who are experts in, for instance, metabolomics data
 processing and in statistical analysis of high-dimensional data. You know you
 will end up needing to use other packages. You also know that you all need some
@@ -199,7 +201,7 @@ There is an even more formal and structured way of tracking dependencies using
 the [renv](https://rstudio.github.io/renv/index.html) package, which we covered
 in previous versions of this workshop. It is a great package to use, especially
 if you are working on a project with several others or a project that requires
-tracking of not just the packages but their specific versions. We don't teach it
+tracking not only the packages but their specific versions. We don't teach it
 anymore because it is quite complex and difficult to understand. It is also not
 really necessary for the majority of projects.
 :::
@@ -210,61 +212,68 @@ the `DESCRIPTION` file.
 
 {{< text_snippet sticky_up >}}
 
-## :technologist: Exercise: Add packages from the data processing script {#sec-data-processing-dependency-exercise}
-
-**Time: \~10 minutes.**
-
-Before continuing with the exercise, be sure to add and commit all the files in
-the `AdvancedR3` project to save the current state of the files to the Git
-history. Open the Git interface by either typing with {{< var keybind.git >}} or
-by going to the Git pane and clicking the "Commit" button. Then, write a commit
-message and click the "Commit" button in this window.
-
-Let's update the `DESCRIPTION` file with the packages we depend on in the
-`data-raw/nmr-omics.R` script. Open the `data-raw/nmr-omics.R` file and complete
-the following tasks:
-
-1. **Manually** look for package dependencies in the R script that are declared
-   with `library()` or `::`. It can help to use the "Find in files" feature in
-   RStudio to look for all places that have either `::` or `library`. Use either
-   `Edit -> Find in Files ...`, or with {{< var keybind.find >}} to open up the
-   search popup.
-
-2. Use `?usethis::use_package` to review how to use this function.
-
-3. In the Console, run `usethis::use_package("packagename")` for each package
-   you find in `data-raw/nmr-omics.R` (from item 1. above).
-
-4. Once done, open the Git interface with {{< var keybind.git >}} (or going to
-   the Git Pane and clicking the "Commit" button). What has been changed? Commit
-   those changes to the Git history with a descriptive message.
-
-```{r}
-#| label: solution-add-processing-packages
-#| eval: false
-#| code-fold: true
-#| code-summary: >-
-#|   **Click for the solution**. Only click if you are really struggling or are
-#|   out of time for the exercise.
-#| purl: true
-#| filename: Console
-
-usethis::use_package("stringr")
-usethis::use_package("readxl")
-usethis::use_package("dplyr")
-usethis::use_package("tidyr")
-usethis::use_package("snakecase")
-usethis::use_package("here")
-usethis::use_package("fs")
-usethis::use_package("readr")
-```
+## Adding packages from the `data-raw/cv-risk.R` script
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Instructor note
 
-Make sure that everyone has added the right packages, since it can be easy to
-miss some of the packages referenced using `::`.
+Walk through the help pane when looking at `?usethis::use_package`.
 :::
+
+Before we continue, let's first make sure to add and commit all the files in the
+`AdvancedR3` project to save the current state of the files to the Git history.
+Open the Git interface by either typing with {{< var keybind.git >}} or by going
+to the Git pane and clicking the "Commit" button. Then, write a commit message
+and click the "Commit" button in this window.
+
+Next, we'll update the `DESCRIPTION` file with the packages we use in the
+`data-raw/cv-risk.R` script. Let's open the `data-raw/cv-risk.R` file and find
+which packages we use. We want to look for either packages listed in `library()`
+or for any functions explicitly called from their package with `::`.
+
+It can help to use the "Find in files" feature in RStudio to look for all places
+that have either `::` or `library`. Use either `Edit -> Find in Files ...`, or
+with {{< var keybind.find >}} to open up the search popup.
+
+We should see two packages when searching for `::`: `{fs}` and `{here}`. We will
+use `usethis::use_package()` to add these packages to our dependencies, but
+first, let's review what this function does. Go to the R Console and use the `?`
+help on the function:
+
+```{r}
+#| label: check-use-package-help
+#| eval: false
+
+?usethis::use_package
+```
+
+There are three arguments you can give this function: the package name, the
+"type" (we'll cover this shortly), and the version. For now, we will only use
+the `package` argument. This is where we put the name of the package we want to
+set as a dependency.
+
+In the Console, run:
+
+```{r}
+#| label: add-packages-from-data-raw-script
+
+usethis::use_package("fs")
+usethis::use_package("here")
+```
+
+We'll see some notes about it being added to the `Imports` field in the
+`DESCRIPTION` file. We'll explain what this means later in this session. While
+you could manually add these packages to the `DESCRIPTION` file, this helper
+function also checks that the package is installed, will install it if
+necessary, and correctly places the package in the right location in the
+`DESCRIPTION` file, so we strongly recommend using it.
+
+Once we're done, let's open the Git interface with {{< var keybind.git >}} (or
+going to the Git Pane and clicking the "Commit" button) and check what has been
+changed. Notice the `DESCRIPTION` file and where the packages have been added in
+the file.
+
+Next, we'll commit those changes to the Git history with a descriptive message.
 
 ```{r}
 #| label: purl-only-commit-desc
@@ -278,8 +287,6 @@ git_ci(
   "Add packages as dependencies to project."
 )
 ```
-
-{{< text_snippet sticky_up >}}
 
 ## Two types of dependencies: Build and workflow
 
@@ -295,9 +302,9 @@ use packages in two different ways:
 
 1. Packages that *directly* contribute to data wrangling, analysis, plotting,
    and making the manuscript. These types of packages are generally called
-   "build" or "deploy" dependencies. Packages like `{dplyr}` or `{tidyr}` are
-   usually **build** dependencies, since you use them directly in scripts for
-   processing data.
+   "build" dependencies. Packages like `{dplyr}` or `{tidyr}` are usually
+   **build** dependencies, since you use them directly in scripts for processing
+   data.
 2. Packages that *assist* you in doing your work but aren't directly used for
    data analysis. These types of packages would be called "workflow" or
    "development" dependencies. `{usethis}` is usually considered a **workflow**
@@ -309,12 +316,12 @@ workflow dependency is:
 
 - If you write and use functions from the package within an R script that does
   something to the data or analysis, then it is likely a *build* dependency.
-- If you *only* ever use functions from the package in the Console, then it is
+- If you *only* ever use functions from a package in the Console, then it is
   probably a *workflow* dependency.
 
 So, now we know that the dependencies we added in the exercise are actually
 build dependencies, since we use them directly in our project (in
-`data-raw/nmr-omics.R`) to process the data.
+`data-raw/cv-risk.R`) to process the data.
 
 The way you add packages to the `DESCRIPTION` file is slightly different
 depending on what type of dependency it is. For build dependencies, we use the
@@ -355,11 +362,11 @@ code, so we don't really need to understand the details of what it is doing, but
 briefly, the `interactive()` function checks if you are running R interactively
 (like in RStudio with the Console open). The `suppressMessages()` function
 prevents R from printing messages when loading the package and the `require()`
-function loads the package (if it is installed).
+function loads the package if it is installed, otherwise it does nothing.
 
 Let's restart R with {{< var keybind.restart-r >}}. Now, we're ready to use
 `use_package()` to add `{usethis}` as a workflow dependency. The only difference
-between adding a build and a workflow dependency is that for workflow
+between adding a build compared to a workflow dependency is that for workflow
 dependencies, we need to add a second argument to `use_package()` to specify
 that it is a workflow dependency. The second argument is `"suggests"`, like so:
 
@@ -386,8 +393,7 @@ git_ci("DESCRIPTION", "Add usethis as a suggests dependency.")
 If you open the help file for `use_package()` you'll see that the second
 argument we used above is called `type`, and "Imports" is its default value. So,
 if you don't specify the second argument, the package will be added under
-"Imports" in the `DESCRIPTION` file. This is exactly what we did in the exercise
-in @sec-data-processing-dependency-exercise!
+"Imports" in the `DESCRIPTION` file.
 
 So, "imports" corresponds to build dependencies, while "suggests" are equivalent
 to what we call workflow dependencies.
@@ -398,8 +404,9 @@ is `usethis`. Let's commit these changes, with {{< var keybind.git >}}.
 
 You've used `{styler}` during the pre-workshop tasks and we'll use it more
 throughout the workshop. Which dependency do you think this is? It's a
-**workflow** dependency, as we will only use it in the Console or Command
-Palette. Let's add it to the project `DESCRIPTION` as a workflow dependency:
+**workflow** dependency, since we will only be using it in the Console or
+Command Palette. Let's add it to the project `DESCRIPTION` as a workflow
+dependency:
 
 ```{r}
 #| label: add-styler-dep
@@ -543,7 +550,6 @@ gert::git_commit("Don't need this file anymore.")
 
 - Use RStudio's canonical markdown mode to reformat Markdown into a standard
   format.
-
 ## Survey
 
 Please complete the survey for this session:
