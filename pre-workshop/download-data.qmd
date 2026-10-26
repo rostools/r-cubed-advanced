@@ -145,7 +145,8 @@ Show folders and files of project:
 │   └── cv-risk.R
 └── docs/
     ├── README.md
-    └── learning.qmd
+    ├── sandbox.qmd
+    └── report.qmd
 ```
 
 ::: callout-important

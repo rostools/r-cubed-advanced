@@ -95,14 +95,16 @@ of the introduction workshop. *Don't do the exercises*.
 :::
 
 While inside the `AdvancedR3` project, run this function in the R Console to
-create a new Quarto file called `learning.qmd` in the `docs/` folder.
+create two new Quarto files called `sandbox.qmd` and `report.qmd` in the `docs/`
+folder.
 
 ```{r}
 #| label: add-rmarkdown-doc
 #| filename: Console
 #| purl: true
 
-r3::create_learning_qmd()
+r3::create_sandbox_qmd()
+r3::create_report_qmd()
 ```
 
 ```{r}
@@ -110,5 +112,10 @@ r3::create_learning_qmd()
 #| echo: false
 #| purl: true
 
-git_ci("docs/learning.qmd", "Add draft lesson qmd file.")
+git_ci(c("docs/sandbox.qmd", "docs/report.qmd"), "Add draft qmd files.")
 ```
+
+You'll use these two files throughout the workshop. The `sandbox.qmd` one is
+where you will write in during the code-alongs and take notes (if you want). For
+the `report.qmd` file, this is what will be used within the pipeline as the
+final document we want our results to be in.

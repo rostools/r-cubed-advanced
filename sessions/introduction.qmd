@@ -58,7 +58,8 @@ AdvancedR3
 │   └── cv-risk.R
 ├── docs/
 │   ├── README.md
-│   └── learning.qmd
+│   ├── sandbox.qmd
+│   └── report.qmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
@@ -92,8 +93,10 @@ AdvancedR3
 ├── docs/
 │   ├── _targets.yaml
 │   ├── README.md
-│   ├── learning.html
-│   └── learning.qmd
+│   ├── sandbox.html
+│   ├── sandbox.qmd
+│   ├── report.html
+│   └── report.qmd
 ├── R/
 │   ├── functions.R
 │   └── README.md
@@ -120,9 +123,9 @@ which will be to:
 
 - Track package dependencies in the `DESCRIPTION` file.
 - Follow a "function-oriented" workflow. We write and test code in the R
-  Markdown / Quarto (`docs/learning.qmd`), convert the code into a function,
-  test it, and then move it into `R/functions.R`.
-  - We develop functions in the `learning.qmd` file for easier testing,
+  Markdown / Quarto (in the `docs/sandbox.qmd`), convert the code into a
+  function, test it, and then move it into `R/functions.R`.
+  - We develop functions in the `docs/sandbox.qmd` file for easier testing,
     prototyping, and feedback. This is the sandbox for trying things out.
   - During the workshop, you can keep notes in this file, as we don't include it
     in our final pipeline.
@@ -163,7 +166,7 @@ everything that comes after.
 
 ::: {.callout-important appearance="default"}
 During the workshop, we will be writing and coding almost entirely in the
-`docs/learning.qmd` file. You can also use this document to write notes to
+`docs/sandbox.qmd` file. You can also use this document to write notes to
 yourself. However, to make it easier for us to help you and for you to have
 fewer issues as more and more content is added, if a code chunk in your Quarto
 file causes an error when you render it or when you run the pipeline, add the
