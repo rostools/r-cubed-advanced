@@ -1,3 +1,10 @@
+---
+execute:
+  eval: false
+---
+
+{{< text_snippet wip >}}
+
 # Visualizing the results of many models {#sec-visualise-models}
 
 ```{r}

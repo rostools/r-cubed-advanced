@@ -1,3 +1,10 @@
+---
+execute:
+  eval: false
+---
+
+{{< text_snippet wip >}}
+
 # Setting up automatic analysis pipelines {#sec-pipelines-setup}
 
 ```{r}

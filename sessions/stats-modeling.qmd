@@ -1,3 +1,10 @@
+---
+execute:
+  eval: false
+---
+
+{{< text_snippet wip >}}
+
 # What are statistical models? {#sec-stats-modeling}
 
 When working with data in research, it is almost impossible to avoid needing to

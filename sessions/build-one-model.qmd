@@ -1,4 +1,10 @@
-# Design your analysis: Build up one model first {#sec-build-one-model}
+---
+execute:
+  eval: false
+---
+
+{{< text_snippet wip >}} # Design your analysis: Build up one model first
+{#sec-build-one-model}
 
 ```{r}
 #| label: setup
@@ -115,10 +121,12 @@ data doesn't match the requirement of our model: that there is only one row per
 person. So we will need to do something to make sure our model(s) only have the
 `value` for the specific metabolite we want to model.
 
-In our data set, we have `r num_metabolites` metabolites in our `lipidomics`
-data. Combined with our two models we want to fit to each metabolite, that is
-`r num_metabolites * 2` models to fit! When designing and thinking about code in
-a functional programming way, if you make something work for one thing, then it
+<!-- TODO:  Add r back to inline code -->
+
+In our data set, we have `num_metabolites` metabolites in our `lipidomics` data.
+Combined with our two models we want to fit to each metabolite, that is
+`num_metabolites * 2` models to fit! When designing and thinking about code in a
+functional programming way, if you make something work for one thing, then it
 can work for all. So we'll start by building functions that work for one
 metabolite and one model. We'll start with the simple model first as well as use
 `Cholesterol` as the metabolite to focus on.

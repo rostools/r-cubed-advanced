@@ -1,3 +1,10 @@
+---
+execute:
+  eval: false
+---
+
+{{< text_snippet wip >}}
+
 # Using the pipeline to build research output {#sec-pipelines-outputs}
 
 ```{r}
