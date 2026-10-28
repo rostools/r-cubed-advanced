@@ -442,8 +442,20 @@ target, that's all that `{targets}` could run.
 We also see that a new folder has been created called `_targets/`. Inside this
 folder `{targets}` keeps all of the output from running the code in
 `_targets.R`. It comes with its own `.gitignore` file so that you don't track
-all the files inside, as they don't need to be tracked. Only the
-`_targets/meta/meta` is needed to be tracked in Git.
+all the files inside, as they don't need to be tracked. While `{targets}`
+recommends committing `_targets/meta/meta` into the Git history, in the context
+of this workshop, we will tell Git to ignore it. That's because it can lead to
+some confusion about what it contains and how to use it when working with
+others. So let's use `use_git_ignore` to ignore it.
+
+```{r}
+#| label: git-ignore-targets-meta
+#| eval: false
+#| purl: true
+#| filename: Console
+
+use_git_ignore("_targets/meta/meta")
+```
 
 We can visualize our pipeline now too! This can be useful as you add more and
 more targets. We will (likely) need to install an extra package (done
