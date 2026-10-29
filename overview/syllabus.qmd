@@ -34,16 +34,23 @@ less reliability and reproducibility of scientific results. With this workshop,
 we aim to begin addressing this gap.
 
 This workshop lasts 3 days and is split into the following sessions, listed in
-the [schedule](/overview/schedule.qmd), which will be covered in order:
+the [schedule](/overview/schedule.qmd) in @sec-schedule, which will be covered
+in order:
 
 - [Introduction to the workshop](/sessions/introduction.qmd)
+  in\ @sec-introduction
 - [Dependency management for smoother collaboration](/sessions/dependencies.qmd)
+  in\ @sec-dependencies
 - [Creating automatic analysis pipelines](/sessions/pipelines-setup.qmd)
+  in\ @sec-pipelines-setup
 - [Creating automatic analysis pipelines](/sessions/pipelines-outputs.qmd)
+  in\ @sec-pipelines-outputs
 - [Design your analysis: Build up one model
-  first](/sessions/build-one-model.qmd)
+  first](/sessions/build-one-model.qmd) in\ @sec-build-one-model
 - [Extend your analysis to run many models](/sessions/many-models.qmd)
+  in\ @sec-many-models
 - [Visualising the results of many models](/sessions/visualise-models.qmd)
+  in\ @sec-visualise-models
 
 ## Learning outcome and objectives
 
@@ -96,9 +103,9 @@ And we **will not** learn:
   project.
 - How to process and clean research data, as that was done in the [intermediate
   workshop](https://r-cubed-intermediate.rostools.org). However, we will cover
-  processing *results*, even though that is in a "data" format as a `data.frame`
-  or `tibble`, it isn't exactly the same as research data on statistical units
-  like people, cells, or animals.
+  processing *results*, which shares some similarities to processing research
+  data. Results should ideally always be output to a "data" format such as a
+  `data.frame` or `tibble`, since R works best with this type of structure.
 
 Tangibly, during the workshop you will:
 

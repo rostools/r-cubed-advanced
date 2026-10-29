@@ -3,8 +3,9 @@ execute:
   eval: false
 ---
 
-{{< text_snippet wip >}} # Design your analysis: Build up one model first
-{#sec-build-one-model}
+{{< text_snippet wip >}}
+
+# Design your analysis: Build up one model first {#sec-build-one-model}
 
 ```{r}
 #| label: setup

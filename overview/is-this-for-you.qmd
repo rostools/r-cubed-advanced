@@ -1,6 +1,7 @@
 # Is this for you? {#sec-is-this-for-you}
 
 ```{r}
+#| label: setup
 #| include: false
 
 # To force downlit to work.
@@ -13,9 +14,10 @@ a few assumptions about *who you are* as a participant in the workshop.
 We assume you can relate to one or more of the following, which are the
 expectations we've designed for this workshop.
 
-- You are a researcher, preferably working in the biomedical field (ranging from
-  experimental to epidemiological). Specifically, this workshop targets those
-  working on topics in diabetes and metabolism.
+- You are a researcher, likely working in the biomedical field (ranging from
+  experimental to epidemiological), though that isn't a requirement. The
+  examples and data used in this workshop comes mainly from the fields of
+  diabetes, metabolism, and human health.
 - You currently do quantitative data analysis.
 - You preferably:
   - have taken the [intermediate Reproducible Research in R

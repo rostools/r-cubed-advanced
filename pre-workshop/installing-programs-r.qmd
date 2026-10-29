@@ -16,11 +16,10 @@ differences.
    before, you can confirm the version by running `R.version.string` in the
    Console.
 
-2. [Install
-   RStudio](https://www.rstudio.com/products/rstudio/download/#download): Any
-   version above {{< meta versions.rstudio >}} should work for the workshop. If
-   you have installed it before, check the current version by going to the menu
-   "Help -> About RStudio".
+2. [Install RStudio](https://docs.posit.co/ide/user/download.html): Any version
+   above {{< meta versions.rstudio >}} should work for the workshop. If you have
+   installed it before, check the current version by going to the menu "Help ->
+   About RStudio".
 
 3. [Install Git](https://git-scm.com/download/win): Select the "Click here to
    download" link on that install page. Git is used throughout many sessions in
@@ -41,11 +40,10 @@ differences.
    brew install --cask r
    ```
 
-2. [Install
-   RStudio](https://www.rstudio.com/products/rstudio/download/#download): Any
-   version above {{< meta versions.rstudio >}} should work for the workshop. If
-   you have installed RStudio before, you can check the current version by going
-   to the menu "Help -> About RStudio". You can install it using Homebrew with:
+2. [Install RStudio](https://docs.posit.co/ide/user/download.html): Any version
+   above {{< meta versions.rstudio >}} should work for the workshop. If you have
+   installed RStudio before, you can check the current version by going to the
+   menu "Help -> About RStudio". You can install it using Homebrew with:
 
    ```text
    brew install --cask rstudio
@@ -67,13 +65,13 @@ differences.
    listed on the [install
    website](https://cloud.r-project.org/bin/linux/ubuntu/).
 
-2. [Install
-   RStudio](https://www.rstudio.com/products/rstudio/download/#download): Any
-   version above {{< meta versions.rstudio >}}. If you have installed it before,
-   check the current version by going to the menu "Help -> About RStudio".
+2. [Install RStudio](https://docs.posit.co/ide/user/download.html): Any version
+   above {{< meta versions.rstudio >}}. If you have installed it before, check
+   the current version by going to the menu "Help -> About RStudio".
 
-3. [Git](https://git-scm.com/download/mac): Git is used throughout many sessions
-   in the workshop.
+3. [Install Git](https://git-scm.com/download/linux): Git is used throughout
+   many sessions in the workshop. On Ubuntu, you can use this command to install
+   from the terminal.
 
    ```text
    sudo apt install git

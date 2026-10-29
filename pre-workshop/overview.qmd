@@ -6,6 +6,8 @@
 
 # To force auto-linking.
 library(downlit)
+library(tidyverse)
+library(pak)
 ```
 
 In order to participate in this workshop, you must complete everything in this
@@ -61,8 +63,8 @@ are found as you work through this section.
 9. Connect your R Project to GitHub to create a GitHub repository
    in\ @sec-connect-github.
 10. Write (well, mostly copy and paste) R code to download the data and save it
-    to your computer in @sec-download-data. This task will probably take up
-    maybe 10-15 minutes depending on your interest in exploring the data.
+    to your computer in @sec-download-data. This task may take 10-15 minutes,
+    depending on your interest in exploring the data.
 11. Run a check using `r3::check_project_setup_advanced()` to see that
     everything is as expected. You'll later need to paste this output into the
     survey.
