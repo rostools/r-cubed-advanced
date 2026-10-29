@@ -4,6 +4,8 @@ project:
     - quarto render slides/*.qmd
   resources:
     - slides/*.html
+    - data/cv-risk.csv
+    - data/new-diabetes.csv
 
 book:
   title: "Advanced Reproducible Research in R"
