@@ -20,7 +20,7 @@ repos:
         args: [--config, .config/typos.toml, --force-exclude]
 
   - repo: https://github.com/jolars/panache-pre-commit
-    rev: v3.16.0
+    rev: v3.17.1
     hooks:
       - id: panache-format
 
