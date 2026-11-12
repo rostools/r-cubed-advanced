@@ -2,8 +2,8 @@
 
 ## Day 1 {#social-day-1 .unnumbered}
 
-After lunch, for **15 minutes** get in your group and go for a walk outside (if
-it's nice out). Share and discuss with your group these questions:
+For **15 minutes** get in your group and go for a walk outside (if it's nice
+out). Share and discuss with your group these questions:
 
 - Are you happy with the way you currently collaborate with others? Does it feel
   smooth, fun, and efficient? Is there any tension, anxiety, or friction? Share
@@ -13,8 +13,8 @@ it's nice out). Share and discuss with your group these questions:
 
 ## Day 2 {#social-day-2 .unnumbered}
 
-After lunch, for **15 minutes** get in your group and talk about these questions
-and topics. You can walk outside, find a table and sit down, or do whatever.
+For **15 minutes** get in your group and talk about these questions and topics.
+You can walk outside, find a table and sit down, or do whatever.
 
 - Imagine if you had learned efficient and effective coding skills and
   programmatic thinking earlier in your career and were in a research culture

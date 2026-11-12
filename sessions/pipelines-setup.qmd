@@ -1,10 +1,3 @@
----
-execute:
-  eval: false
----
-
-{{< text_snippet wip >}}
-
 # Setting up automatic analysis pipelines {#sec-pipelines-setup}
 
 ```{r}
@@ -14,7 +7,7 @@ execute:
 source(here::here("R/functions.R"))
 library(tidyverse)
 library(targets)
-lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+cv_risk <- read_csv(here::here("data/cv-risk.csv"))
 ```
 
 When doing analyses on data, you have probably experienced (many) times where
@@ -71,16 +64,16 @@ the analysis project progresses.
 :::
 
 A pipeline can be any process where the steps between a start and an end point
-are very clear, explicit, and concrete. These highly distinct steps can be
-manual, human involved, or completely automated by a robot or computer. For
-instance, in car factories, the pipeline from the input raw materials to the
-final vehicle is extremely well described and implemented. Similarly, during the
-pandemic, the pipeline for testing (at least in Denmark and several other
-countries) was highly structured and clear for both the workers doing the
-testing and the people having the test done: A person goes in, scans their ID
-card, has the test done, the worker inputs the results, and the results are sent
-immediately to the health agency as well as to the person based on their ID
-contact information (or via a secure app).
+are very clear, explicit, and concrete. These highly distinct steps could be
+extremely manual (needing a human present) or completely automated by a robot or
+computer. For instance, in car factories, the pipeline from the input raw
+materials to the final vehicle is extremely well described and implemented.
+Similarly, during the pandemic, the pipeline for testing (at least in Denmark
+and several other countries) was highly structured and clear for both the
+workers doing the testing and the people having the test done: A person goes in,
+scans their ID card, has the test done, the worker inputs the results, and the
+results are sent immediately to the health agency as well as to the person based
+on their ID contact information (or via a secure app).
 
 However, in research, especially around data collection and analysis, you may
 often hear or read about "pipelines". But looking closer, these aren't actual
@@ -92,18 +85,20 @@ to complete a specific set of tasks.
 In computational environments, a pipeline should be a set of data processing
 steps connected in a series with a specific order; the output of one step is the
 input to the next. This means that there actually should be minimal to *no*
-human intervention from raw input to finished product. And it means that the
-entire process should be *automated* and *reproducible*.
+human intervention from raw input to finished product when the pipeline has been
+built. And it means that the entire process should be *automated* and
+*reproducible*.
 
-So why are these computational data pipelines rarely found in most of the
-research "pipelines" described in papers? Because:
+So why is it that published "pipelines" are rarely true computational pipelines
+(meaning reproducible and automated)? Why is there a disconnect between how
+researchers describe something in published papers and the reality of it?
 
-- Not all researchers write code.
-- Researchers who do write code rarely publish and share it.
-- Code that is shared or published (either publicly or within the research
-  group) is written in a way that makes it hard to make as a pipeline.
-- And, research is largely non-reproducible
-  [@Trisovic2022; @Seibold2021; @Laurinavichyute2021].
+It likely is due to how academic environments don't value and support the
+development of programming expertise as a legitimate academic activity. Writing
+code and software rarely directly produces papers, which is what is valued most.
+The consequence is that technical skills and knowledge are underdeveloped in
+science and academia, leading to the current non-reproducibility of most
+published research\ [@Trisovic2022; @Seibold2021; @Laurinavichyute2021].
 
 A data analysis pipeline would, by definition, be a readable and reproducible
 data analysis. Unfortunately, researchers (on average and as a group) don't have
@@ -137,9 +132,10 @@ you almost always have in a research paper:
 1. A table of some basic descriptive statistics of the study population, such as
    mean, standard deviation, or counts of basic discrete data (like treatment
    group). Usually this is a "table 1" in the paper.
-2. A figure showing the distribution of your main variables of interest. In this
-   case, ours are the lipidomic variables. Like with the table above, this is
-   usually "figure 1" or a similarly early figure in the paper.
+2. One or more figures showing some basic distributions of the main variables of
+   interest, such boxplots or scatterplots of the outcomes with the predictors.
+   Like with the table above, this is usually "figure 1" or a similarly early
+   figure in the paper.
 3. Lastly, the paper with the above table and figure included.
 
 Let's break this down visually in @fig-pipeline-schematic:
@@ -154,7 +150,7 @@ Let's break this down visually in @fig-pipeline-schematic:
 graph TB
     data[Data<br>in a file] -->|?| tab_desc[Item 1:<br>Descriptive<br>statistics<br>table]
     tab_desc -->|insert| paper[Item 3:<br>Paper]
-    data -->|?| plot_distrib[Item 2:<br>Continuous<br>variables<br>plot]
+    data -->|?| plot_distrib[Item 2:<br>Basic<br>visualization]
     plot_distrib -->|insert| paper
 ```
 
@@ -239,6 +235,7 @@ start by opening it on your computer.
 ## Click this to see the file contents
 
 ```{r}
+#| label: print-targets-file
 #| echo: false
 #| code-fold: true
 
@@ -304,6 +301,7 @@ If we take the same code as above and convert it into the `{targets}` format,
 the end of `_targets.R` would like this:
 
 ```{r}
+#| label: admin-show-tar-targets
 #| eval: false
 
 list(
@@ -391,9 +389,9 @@ targets we need to create in our pipeline. Let's draw it out:
 %%| echo: false
 
 graph TB
-    data_file["data_file<br>'data/lipidomics.csv'"] -->|"read_csv()"| lipidomics
-    lipidomics -->|"create_table_descriptive_stats()"| table_descriptive_stats
-    lipidomics -->|"create_plot_distributions()"| plot_distributions
+    data_file["data_file<br>'data/cv-risk.csv'"] -->|"read_csv()"| cv_risk
+    cv_risk -->|"create_table_descriptive_stats()"| table_descriptive_stats
+    cv_risk -->|"create_plot_distributions()"| plot_distributions
     table_descriptive_stats -->|"tar_read()"| report
     plot_distributions -->|"tar_read()"| report
 ```
@@ -414,7 +412,7 @@ defines the location of our file by using the argument `format = "file"`.
 list(
   tar_target(
     name = file,
-    command = "data/lipidomics.csv",
+    command = "data/cv-risk.csv",
     format = "file"
   )
 )
@@ -513,11 +511,11 @@ bottom, add another `tar_target()` that looks like:
 list(
   tar_target(
     name = file,
-    command = "data/lipidomics.csv",
+    command = "data/cv-risk.csv",
     format = "file"
   ),
   tar_target(
-    name = lipidomics,
+    name = cv_risk,
     command = readr::read_csv(file, show_col_types = FALSE)
   )
 )
@@ -527,15 +525,17 @@ We use `show_col_types = FALSE` to suppress the message explaining which columns
 `{readr}` is reading into R. Now, let's run `{targets}` again using
 {{< var keybind.targets-make >}}. It should now also show something like:
 
+<!-- TODO: Update these numbers -->
+
 ```text
-+ lipidomics dispatched
-✔ lipidomics completed [109ms, 4.88 kB]
++ cv_risk dispatched
+✔ cv_risk completed [109ms, 4.88 kB]
 ✔ ended pipeline [234ms, 1 completed, 1 skipped]
 ```
 
 After it runs, check the visualisation of it with
 {{< var keybind.targets-vis >}}. You can now see that there are two targets,
-with an arrow from `file` to `lipidomics`.
+with an arrow from `file` to `cv_risk`.
 
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
@@ -544,8 +544,8 @@ Walkthrough this again, this time showing the new target that was added and the
 arrow between the targets.
 :::
 
-How can we access that new `lipidomics` data that `{targets}` created? For that,
-we use the function `targets::tar_read()`. `{targets}` stores the output of each
+How can we access that new `cv_risk` data that `{targets}` created? For that, we
+use the function `targets::tar_read()`. `{targets}` stores the output of each
 target in its own internal storage system, which is kept in the `_targets/`
 folder. So when we use `targets::tar_read()`, we access any stored target items
 using syntax like we would with `{dplyr}`, without quotes.
@@ -553,18 +553,18 @@ using syntax like we would with `{dplyr}`, without quotes.
 So in the Console, let's see how our data looks like by running:
 
 ```{r}
-#| label: read-lipidomics-target
+#| label: read-cv-risk-target
 #| eval: false
 #| filename: "Console"
 
-targets::tar_read(lipidomics)
+targets::tar_read(cv_risk)
 ```
 
 ```{r}
-#| label: admin-read-lipidomics-target
+#| label: admin-read-cv-risk-target
 #| echo: false
 
-readr::read_csv(here::here("data/lipidomics.csv"), show_col_types = FALSE)
+readr::read_csv(here::here("data/cv-risk.csv"), show_col_types = FALSE)
 ```
 
 We use this syntax whenever we want to output or print a target object,
@@ -580,11 +580,11 @@ new_targets <- '
 list(
     tar_target(
         name = file,
-        command = "data/lipidomics.csv",
+        command = "data/cv-risk.csv",
         format = "file"
     ),
     tar_target(
-        name = lipidomics,
+        name = cv_risk,
         command = readr::read_csv(file, show_col_types = FALSE)
     )
 )
@@ -641,7 +641,7 @@ book](https://books.ropensci.org/targets/data.html#cleaning-up-local-internal-da
 
 `tar_delete()`
 
-:   This deletes the stored objects (e.g. the `lipidomics` object) inside
+:   This deletes the stored objects (e.g. the `cv_risk` object) inside
     `_targets/`, but does not delete the record in the pipeline. So `{targets}`
     will see that the pipeline doesn't need to be rebuilt. This is useful if you
     want to remove some data because it takes up a lot of space, or, in the case

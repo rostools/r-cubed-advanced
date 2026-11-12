@@ -73,13 +73,11 @@ extract_code_block_with_label_string <- function(md_file, string_match) {
     readr::read_lines() |>
     commonmark::markdown_xml(extensions = TRUE) |>
     xml2::read_xml()
-  # d1 is the "namespace" of the xml spec, so need this
-  # to access the nodes that are called code_block,
-  # and within those code blocks, only keep those
-  # where the attribute "info" (@ means attribute) has
-  # the `pattern` in it.
+  # d1 is the "namespace" of the xml spec, so need this to access the nodes that
+  # are called code_block, and within those code blocks, only keep those where
+  # the `text()` (the code in the code block) contains the `pattern` in it.
   label_pattern <- glue::glue(
-    ".//d1:code_block[contains(@info, '{string_match}')]"
+    ".//d1:code_block[contains(text(), '{string_match}')]"
   )
   md_as_xml |>
     xml2::xml_find_all(
