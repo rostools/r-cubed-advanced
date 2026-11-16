@@ -14,13 +14,13 @@ repos:
   # sub-packages, which confuses pre-commit when it tries to find the latest
   # version
   - repo: https://github.com/adhtruong/mirrors-typos
-    rev: v1.52.0
+    rev: v1.52.2
     hooks:
       - id: typos
         args: [--config, .config/typos.toml, --force-exclude]
 
   - repo: https://github.com/jolars/panache-pre-commit
-    rev: v3.17.2
+    rev: v3.18.0
     hooks:
       - id: panache-format
 
