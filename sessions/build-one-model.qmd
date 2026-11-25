@@ -36,8 +36,8 @@ Things we will *not* cover:
 
 - How to interpret the statistical results.
 
-This workshop is not about specific statistical methods, using them properly,
-nor interpreting them.
+This workshop is not about specific statistical methods, using them properly, or
+interpreting them.
 
 ## :speech_balloon: Discussion activity: Brainstorming a potential design for the statistical analyses
 

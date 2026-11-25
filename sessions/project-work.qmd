@@ -72,9 +72,9 @@ answered with the data. You are welcome to ask different questions if you have
 them, but we want you getting practice with what you learned in the workshop,
 not in asking questions.
 
-- outcomes: diabetes status, HbA1c, and random glucose
+- Outcomes: diabetes status, HbA1c, and random glucose
 - Covariables: age, sex, education, BMI, family history
-- predictors: waist to hip ratio, diabetes knowledge score, sleep hrs, stressed,
+- Predictors: waist to hip ratio, diabetes knowledge score, sleep hrs, stressed,
   exercise
 
 As a team, brainstorm, design, and decide on:

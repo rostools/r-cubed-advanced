@@ -1,10 +1,3 @@
----
-execute:
-  eval: false
----
-
-{{< text_snippet wip >}}
-
 # Using the pipeline to build research output {#sec-pipelines-outputs}
 
 ```{r}
@@ -14,7 +7,7 @@ execute:
 source(here::here("R/functions.R"))
 library(tidyverse)
 library(targets)
-lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+cv_risk <- read_csv(here::here("data/cv-risk.csv"))
 ```
 
 {{< text_snippet review_note >}}
@@ -43,13 +36,12 @@ object to another.
 :::
 
 If you recall from @fig-pipeline-schematic, we had three items (that we call
-products) that we wanted to create from our lipidomics data:
+products) that we wanted to create from our data:
 
-1. A table of basic descriptive statistics, which we'll call this
+1. A table of basic descriptive statistics, which we'll call
    `table_descriptive_stats`.
-2. A plot of the continuous lipid variables, which we'll call this
-   `plot_distributions`.
-3. A report (Quarto document). We'll call this `report`.
+2. A plot of our variables of interest, which we'll call `plot_distributions`.
+3. A report (Quarto document). We'll call it `report`.
 
 Let's add these products into the design of our `{targets}` pipeline that we
 made in @fig-our-pipeline-design. We'll indicate that our first two targets have
@@ -60,12 +52,11 @@ been made in the graph, which now looks like what is shown in
 %%| label: fig-first-two-done-pipeline
 %%| fig-cap: Targets in our pipeline that we've done in the last session and
 %%|   those we will do in this session.
-%%| echo: false
 
 graph TB
-    data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
-    lipidomics -->|"create_table_descriptive_stats()"| table_descriptive_stats:::wip
-    lipidomics -->|"create_plot_distributions()"| plot_distributions:::wip
+    data_file["data_file<br>'data/cv-risk.csv'"]:::done -->|"read_csv()"| cv_risk:::done
+    cv_risk -->|"create_table_descriptive_stats()"| table_descriptive_stats:::wip
+    cv_risk -->|"create_plot_distributions()"| plot_distributions:::wip
     table_descriptive_stats -->|"tar_read()"| report:::wip
     plot_distributions -->|"tar_read()"| report
 
@@ -78,7 +69,7 @@ So in this session, we want to make the `table_descriptive_stats` and
 to slowly build this up, we will start at the end first: rendering our Quarto
 document to HTML in our `{targets}` pipeline.
 
-Open up the `docs/learning.qmd` file and go to the code chunk called `setup`
+Open up the `docs/report.qmd` file and go to the code chunk called `setup`
 (should look like `{r setup}`). If there isn't one, create a new code chunk with
 {{< var keybind.chunk >}} at the bottom of the file and name the code chunk
 `setup`.
@@ -87,16 +78,16 @@ We'll be using some `{targets}` functions in this document, so let's add
 `library(targets)` to the `setup` code chunk. Since we'll eventually be adding
 code as functions into the `R/functions.R` file, we'll `source()` it right now
 in the `setup` code chunk and using `here::here()` to give the correct file path
-to the `R/functions.R` file. Lastly, in order use the `lipidomics` data that we
+to the `R/functions.R` file. Lastly, in order use the `cv_risk` data that we
 added to the `_targets.R` pipeline in the last session (and that is also stored
 in the `_targets/` target "store"), we use `tar_read()` to read it in and assign
-it to the `lipidomics` object.
+it to the `cv_risk` object.
 
-````markdown {filename="docs/learning.qmd"}
+````markdown {filename="docs/report.qmd"}
 ```{{r setup}}
 library(targets)
 source(here::here("R/functions.R"))
-lipidomics <- tar_read(lipidomics)
+cv_risk <- tar_read(cv_risk)
 ```
 ````
 
@@ -117,12 +108,12 @@ So in the `setup` code chunk, we'll add the `tar_config_set()` line right after
 `library(targets)`. Since the Quarto file is in the `docs/` folder, we can use
 `here::here()` to point to `"_targets"` to point to the store.
 
-````markdown {filename="docs/learning.qmd"}
+````markdown {filename="docs/report.qmd"}
 ```{{r setup}}
 library(targets)
 tar_config_set(store = here::here("_targets"))
 source(here::here("R/functions.R"))
-lipidomics <- tar_read(lipidomics)
+cv_risk <- tar_read(cv_risk)
 ```
 ````
 
@@ -163,12 +154,17 @@ this takes a `name` argument. But unlike having a `command` argument like in
 `tar_target()`, `tar_quarto()` takes a `path` argument where you write the file
 path to the Quarto file. Let's add it:
 
-```r {filename="_targets.R"}
+```{r}
+#| label: report-as-target
+#| purl: true
+#| eval: false
+#| filename: "_targets.R"
+
 list(
-  ...,
+  # ...,
   tar_quarto(
     name = quarto_doc,
-    path = "docs/learning.qmd"
+    path = "docs/report.qmd"
   )
 )
 ```
@@ -235,10 +231,10 @@ history with {{< var keybind.git >}}.
 Time to make our first "product"! Recalling from @fig-first-two-done-pipeline,
 we decided to call our product `table_descriptive_stats` and to call the
 function that makes it `create_table_descriptive_stats()`. This function will
-take the `lipidomics` data as input (the first argument) and return the
+take the `cv_risk` data as input (the first argument) and return the
 `table_descriptive_stats` as output.
 
-To wrangle the `lipidomics` into `table_descriptive_stats`, we'll use functions
+To wrangle the `cv_risk` into `table_descriptive_stats`, we'll use functions
 from `{tidyverse}`, specifically `{dplyr}`. We don't yet have `{tidyverse}`
 added to our dependencies, so let's add it! Because `{tidyverse}` is a
 "meta"-package (special type of package that makes it easy to install and load
@@ -259,17 +255,17 @@ If you try to run this code without using `"depends"`, you'll get an error that
 explains why you can't do that.
 :::
 
-Next, let's open up the `docs/learning.qmd` file and add `library(tidyverse)` to
+Next, let's open up the `docs/report.qmd` file and add `library(tidyverse)` to
 the `setup` code chunk, so that we can use the functions from `{tidyverse}`. Put
 it at the top of the `setup` code chunk, like below:
 
-````markdown {filename="docs/learning.qmd"}
+````markdown {filename="docs/report.qmd"}
 ```{{r setup}}
 library(tidyverse)
 library(targets)
 tar_config_set(store = here::here("_targets"))
 source(here::here("R/functions.R"))
-lipidomics <- tar_read(lipidomics)
+cv_risk <- tar_read(cv_risk)
 ```
 ````
 
@@ -285,8 +281,15 @@ our table. To make the table more readable, we could also round the numbers from
 the statistics to one digit and have both statistics to look like `mean (SD)` as
 is commonly displayed in tables, and make the column names more human-readable.
 
-We can achieve this with code by using the split-apply-combine methodology and
-the `across()` function, which we covered in the
+::: callout-tip
+There are many R packages that provide some functions to simplify making "table
+1", for example [`tableone`](), [`gtsummary`](), or [`janitor`]() or more
+generally for tables such as [`gt`](), [`kableExtra`](), [`tableone`](). They
+all have their pros and cons and depend on your specific needs.
+:::
+
+We can achieve this with code by pivotting and using split-apply-combine, which
+we covered in the
 [split-apply-combine](https://r-cubed-intermediate.rostools.org/sessions/split-apply-combine)
 session of the intermediate workshop. Representing this visually, where each
 node is a data frame, it might look like:
@@ -305,8 +308,9 @@ step.
 %%| echo: false
 
 flowchart TB
-    lipidomics -->|"group_by()"| by_metabolite
-    by_metabolite -->|"summarise()"| calculate_mean_sd
+    cv_risk -->|"select()"| by_variable
+    cv_risk -->|"group_by()"| by_variable
+    by_variable -->|"summarise()"| calculate_mean_sd
     calculate_mean_sd -->|"mutate()"| rounded_output
     rounded_output -->|"mutate()"| mean_sd_column
     mean_sd_column -->|"select()"| readable_column_names
@@ -314,9 +318,9 @@ flowchart TB
 
 The functions to create each object might be something like:
 
-1. `group_by()` to split the dataset by the metabolites.
+1. `group_by()` to split the dataset by the variables of interest
 2. `summarise()` to calculate the `mean()` and standard deviation (`sd()`) for
-   each metabolite.
+   each variable
 3. `mutate()` to `round()` the calculated mean and standard deviation to 1
    digit.
 4. `mutate()` with `glue()` to combine the mean and standard deviation columns
@@ -354,12 +358,17 @@ created:
 #| label: mean-sd-by-each-metabolite
 #| filename: "docs/learning.qmd"
 
-lipidomics |>
-  group_by(metabolite) |>
-  summarise(across(value, list(mean = mean, sd = sd))) |>
-  mutate(across(where(is.numeric), \(x) round(x, digits = 1))) |>
-  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
-  select(Metabolite = metabolite, "Mean SD" = MeanSD)
+cv_risk |>
+  select(where(is.numeric)) |>
+  pivot_longer(everything()) |>
+  group_by(name) |>
+  summarise(across(value, list(mean = mean, sd = sd)))
+
+# TODO: set this "tidying up" as extra exercise?
+# |>
+# mutate(across(where(is.numeric), \(x) round(x, digits = 1))) |>
+# mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+# select(Variable = name, "Mean SD" = MeanSD)
 ```
 
 After we've made it, let's style the file using {{< var keybind.styler >}}.
@@ -396,8 +405,8 @@ your R project.
 
 **Time: \~15 minutes.**
 
-In the `docs/learning.qmd` file, use the function-oriented workflow, as taught
-in the [intermediate
+In the `docs/sandbox.qmd` file, use the function-oriented workflow, as taught in
+the [intermediate
 workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
 to take the code we wrote above and convert it into a function. Start with
 making it into a function in the Quarto file first before moving it to the
@@ -411,18 +420,18 @@ create_table_descriptive_stats <- function(data) {
 }
 
 # Use it like this, which should give the same output as before.
-create_table_descriptive_stats(lipidomics)
+create_table_descriptive_stats(cv_risk)
 ```
 ````
 
 Complete these tasks:
 
-1. Convert the code into a function by using the scaffold above, wrapping it
-   with `function() {...}` and naming the new function
+1. Convert the code you wrote into a function by using the scaffold above,
+   wrapping it with `function() {...}` and naming the new function
    `create_table_descriptive_stats`.
 
 2. Paste the code we all wrote together into the body of the function. Replace
-   `lipidomics` in the code we wrote with `data` and put `data` as an argument
+   `cv_risk` in the code we wrote with `data` and put `data` as an argument
    inside the brackets of `function()` (it will already be there from the
    scaffolding code).
 
@@ -444,13 +453,13 @@ Complete these tasks:
    and `@export`, then fill in the other details (like the `@params` and
    `Title`). In the `@return` section, write "A data.frame/tibble."
 
-7. Cut and paste the function over into the `R/functions.R` file.
+6. Cut and paste the function over into the `R/functions.R` file.
 
-8. Source the `R/functions.R` file with {{< var keybind.source >}}, and then
-   test the code out by running `create_table_descriptive_stats(lipidomics)` in
-   the Console. If it works, do the last task.
+7. Source the `R/functions.R` file with {{< var keybind.source >}}, and then
+   test the code out by running `create_table_descriptive_stats(cv_risk)` in the
+   Console. If it works, do the last task.
 
-9. Save both files (`docs/learning.qmd` and `R/functions.R`). Then open the Git
+9. Save both files (`docs/sandbox.qmd` and `R/functions.R`). Then open the Git
    interface and commit the changes you made to them with
    {{< var keybind.git >}}. Then push your changes up to GitHub.
 
@@ -462,13 +471,10 @@ function. This is called an *implicit return* and we will be using this feature
 throughout the rest of this workshop.
 :::
 
+::: {.callout-note collapse="true" appearance="minimal" title="**Click for the solution**. Only click if you are struggling or are out of time."}
 ```{r}
 #| label: solution-descriptive-stats
-#| code-fold: true
 #| output: false
-#| code-summary: >-
-#|   **Click for a potential solution**. Only click if you are struggling or are
-#|   out of time.
 
 #' Calculate descriptive statistics of each metabolite.
 #'
@@ -478,6 +484,8 @@ throughout the rest of this workshop.
 #'
 create_table_descriptive_stats <- function(data) {
   data |>
+    dplyr::select(tidyselect::where(is.numeric)) |>
+    tidyr::pivot_longer(tidyselect::everything()) |>
     dplyr::group_by(metabolite) |>
     dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
     dplyr::mutate(dplyr::across(
@@ -493,8 +501,119 @@ create_table_descriptive_stats <- function(data) {
 # Adding the new dependencies
 # use_package("tidyselect")
 ```
+:::
 
 {{< text_snippet sticky_up >}}
+
+## :technologist: Exercise: Convert the table code into a function
+
+::: {.callout-note collapse="true"}
+## :teacher: Teacher note
+
+You will need to copy this function into the `R/functions.R` file in order to do
+the next section. While they do the exercise, copy and paste the answer into
+your R project.
+:::
+
+**Time: \~15 minutes.**
+
+In the `docs/sandbox.qmd` file, use the function-oriented workflow, as taught in
+the [intermediate
+workshop](https://r-cubed-intermediate.rostools.org/sessions/functions#the-basics-of-a-function),
+to take the code we wrote above and convert it into a function. Start with
+making it into a function in the Quarto file first before moving it to the
+`R/functions.R` file. To help you get started, here is some scaffolding code:
+
+````markdown
+```{{r}}
+create_table_descriptive_stats <- function(data) {
+  data |>
+    ___
+}
+
+# Use it like this, which should give the same output as before.
+create_table_descriptive_stats(cv_risk)
+```
+````
+
+Complete these tasks:
+
+1. Convert the code you wrote into a function by using the scaffold above,
+   wrapping it with `function() {...}` and naming the new function
+   `create_table_descriptive_stats`.
+
+2. Paste the code we all wrote together into the body of the function. Replace
+   `cv_risk` in the code we wrote with `data` and put `data` as an argument
+   inside the brackets of `function()` (it will already be there from the
+   scaffolding code).
+
+3. Append the name of the package that the functions come from that are inside
+   your function. For example, add `dplyr::` before `group_by()` because it's
+   from the `{dplyr}` package. Remember that you can look up which package a
+   function comes from by writing `?functionname` in the Console. **ALL**
+   non-base R functions used inside your function must have the package name
+   appended to them.
+
+4. Run `use_package()` for the (1) package you used inside your function that is
+   not already in the `DESCRIPTION` file.
+
+5. Style the code using {{< var keybind.styler >}} to make sure it is formatted
+   correctly.
+
+6. Place your *cursor* inside the function and add some roxygen documentation
+   with {{< var keybind.roxygen >}}. Remove the lines that contain `@examples`
+   and `@export`, then fill in the other details (like the `@params` and
+   `Title`). In the `@return` section, write "A data.frame/tibble."
+
+6. Cut and paste the function over into the `R/functions.R` file.
+
+7. Source the `R/functions.R` file with {{< var keybind.source >}}, and then
+   test the code out by running `create_table_descriptive_stats(cv_risk)` in the
+   Console. If it works, do the last task.
+
+9. Save both files (`docs/sandbox.qmd` and `R/functions.R`). Then open the Git
+   interface and commit the changes you made to them with
+   {{< var keybind.git >}}. Then push your changes up to GitHub.
+
+::: {.callout-tip appearance="default" title="Tip: Implicit returns"}
+In the intermediate workshop, we suggested using `return()` at the end of the
+function. Technically, we don't need an explicit `return()`, since the output of
+the last code that R runs within the function will be the output of the
+function. This is called an *implicit return* and we will be using this feature
+throughout the rest of this workshop.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" title="**Click for the solution**. Only click if you are struggling or are out of time."}
+```{r}
+#| label: solution-descriptive-stats
+#| output: false
+
+#' Calculate descriptive statistics of each metabolite.
+#'
+#' @param data The lipidomics dataset.
+#'
+#' @return A data.frame/tibble.
+#'
+create_table_descriptive_stats <- function(data) {
+  data |>
+    dplyr::select(tidyselect::where(is.numeric)) |>
+    tidyr::pivot_longer(tidyselect::everything()) |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(dplyr::across(value, list(mean = mean, sd = sd))) |>
+    dplyr::mutate(dplyr::across(
+      tidyselect::where(is.numeric),
+      \(x) round(x, digits = 1)
+    )) |>
+    dplyr::mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |>
+    dplyr::select(Metabolite = metabolite, `Mean SD` = MeanSD)
+}
+
+# create_table_descriptive_stats(lipidomics)
+
+# Adding the new dependencies
+# use_package("tidyselect")
+```
+:::
 
 ## Adding the first "product" function to the pipeline
 
@@ -512,13 +631,13 @@ list(
   ...,
   tar_target(
     name = table_descriptive_stats,
-    command = create_table_descriptive_stats(lipidomics)
+    command = create_table_descriptive_stats(cv_risk)
   )
 )
 ```
 
 Style the file using {{< var keybind.styler >}}. Then, open the
-`docs/learning.qmd` file and go to the bottom of the file. Create a new header
+`docs/report.qmd` file and go to the bottom of the file. Create a new header
 called `## Results: Basic stats table` and add a new code chunk below it with
 {{< var keybind.chunk >}}. In this code chunk we need to add the output from the
 `{targets}` target using `tar_read()`. We also want to convert the data frame
@@ -528,21 +647,22 @@ chunk should look like:
 ```{r}
 #| label: basic-stats-table-in-qmd
 #| eval: false
-#| filename: "docs/learning.qmd"
+#| filename: "docs/report.qmd"
 
 tar_read(table_descriptive_stats) |>
   knitr::kable(
-    caption = "The mean and standard deviation of metabolites in the lipidomics dataset."
+    caption = "Basic descriptive statistics on variables in the CV risk dataset."
   )
 ```
 
 ```{r}
+#| label: admin-basic-stats-table-in-qmd
 #| echo: false
 
-lipidomics |>
+cv_risk |>
   create_table_descriptive_stats() |>
   knitr::kable(
-    caption = "The mean and standard deviation of metabolites in the lipidomics dataset."
+    caption = "Basic descriptive statistics on variables in the CV risk dataset."
   )
 ```
 
@@ -581,9 +701,9 @@ our first product, the next is the figure!
 %%| echo: false
 
 graph TB
-    data_file["data_file<br>'data/lipidomics.csv'"]:::done -->|"read_csv()"| lipidomics:::done
-    lipidomics -->|"create_table_descriptive_stats()"| table_descriptive_stats:::done
-    lipidomics -->|"create_plot_distributions()"| plot_distributions:::wip
+    data_file["data_file<br>'data/cv-risk.csv'"]:::done -->|"read_csv()"| cv_risk:::done
+    cv_risk -->|"create_table_descriptive_stats()"| table_descriptive_stats:::done
+    cv_risk -->|"create_plot_distributions()"| plot_distributions:::wip
     table_descriptive_stats -->|"tar_read()"| report:::wip
     plot_distributions -->|"tar_read()"| report
 
@@ -595,8 +715,8 @@ We've learned that we can create data frames as outputs from our pipeline, but
 the nice thing with `{targets}` is that we can create other types of objects
 too, like figures!
 
-Let's write code to create our first plot product. Since we're using `{ggplot2}`
-to make these figures, we'll add it to our `DESCRIPTION` file.
+Let's write code to create our first plot product. Since we'll use `{ggplot2}`
+to make figures, we'll add it to our `DESCRIPTION` file.
 
 ```{r}
 #| label: add-ggplot2-deps
@@ -607,6 +727,8 @@ to make these figures, we'll add it to our `DESCRIPTION` file.
 use_package("ggplot2")
 ```
 
+<!-- TODO: exercise to design code/flow? -->
+
 ::: {.callout-note collapse="true"}
 ## :teacher: Teacher note
 
@@ -614,8 +736,8 @@ Slowly build up this plot code, running it each time you add a new line/layer
 and explaining what it does and why we're doing it.
 :::
 
-Next, we'll switch back to `docs/learning.qmd` and write the code to this plot
-of the distribution of each metabolite. Create a new header called
+Next, we'll switch back to `docs/sandbox.qmd` and write the code to this plot of
+the distribution of each metabolite. Create a new header called
 `## Plot of distributions` and add a new code chunk below it with
 {{< var keybind.chunk >}}.
 
@@ -631,11 +753,14 @@ plot a bit more aesthetically pleasing, we'll change the theme to
 #| fig-cap: >-
 #|   Histograms showing the distribution of all metabolites in the lipidomics
 #|   dataset.
-#| filename: "docs/learning.qmd"
+#| filename: "docs/sandbox.qmd"
 
-ggplot(lipidomics, aes(x = value)) +
-  geom_histogram() +
-  facet_wrap(vars(metabolite), scales = "free") +
+cv_risk |>
+  dplyr::select(tidyselect::where(is.logical)) |>
+  tidyr::pivot_longer(-c(outcome_any_cv_event, outcome_death)) |>
+  ggplot(aes(x = value, y = outcome_any_cv_event)) +
+  geom_col() +
+  facet_wrap(vars(name), scales = "free") +
   theme_minimal()
 ```
 
@@ -666,7 +791,7 @@ into a function. Just like you did with the `create_table_descriptive_stats()`
 function in the exercise above, complete these tasks, using the scaffolding code
 below to help you get started:
 
-```r {filename="docs/learning.qmd"}
+```r {filename="docs/sandbox.qmd"}
 create_plot_distributions <- function(data) {
   data |>
     ___
@@ -676,8 +801,8 @@ create_plot_distributions <- function(data) {
 create_plot_distributions(lipidomics)
 ```
 
-1. Wrap the plot code inside `docs/learning.qmd` with `function() {...}` and
-   name the new function `create_plot_distributions`.
+1. Wrap the plot code inside `docs/sandbox.qmd` with `function() {...}` and name
+   the new function `create_plot_distributions`.
 
 2. Replace `lipidomics` with `data` and put `data` as an argument inside the
    brackets of `function()` (already done in the scaffolding code).
@@ -737,7 +862,7 @@ create_plot_distributions <- function(data) {
 
 Add the plot function you just created in the exercise above as a `tar_target()`
 item within the `list()` at the bottom of the `_targets.R` file and as an output
-in the `docs/learning.qmd` file.
+in the `docs/report.qmd` file.
 
 1. Open the `_targets.R` file and add a new `tar_target()` to the end of the
    `list()`. Follow the same pattern as you've done with the other targets: Set
@@ -757,7 +882,7 @@ in the `docs/learning.qmd` file.
    see the updated pipeline graph. You should see that the new item is now up to
    date.
 
-6. Open the `docs/learning.qmd` file and go to the bottom of the file. Create a
+6. Open the `docs/report.qmd` file and go to the bottom of the file. Create a
    new header called `## Results: Distribution plot` and add a new code chunk
    below it with {{< var keybind.chunk >}}. In this code chunk, use `tar_read()`
    to insert the output from the `plot_distributions` target and print it.
@@ -951,3 +1076,7 @@ Please complete the survey for this session:
 {{< include /includes/_survey.qmd >}}
 
 {{< include /includes/_code-appendix.qmd >}}
+
+<!-- TODO: extra exercise for logic/other variables and different stats? -->
+
+<!-- TODO: exercise to include sum percent of logic vars? -->

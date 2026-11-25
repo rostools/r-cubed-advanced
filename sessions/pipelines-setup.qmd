@@ -66,53 +66,27 @@ the analysis project progresses.
 A pipeline can be any process where the steps between a start and an end point
 are very clear, explicit, and concrete. These highly distinct steps could be
 extremely manual (needing a human present) or completely automated by a robot or
-computer. For instance, in car factories, the pipeline from the input raw
-materials to the final vehicle is extremely well described and implemented.
-Similarly, during the pandemic, the pipeline for testing (at least in Denmark
-and several other countries) was highly structured and clear for both the
-workers doing the testing and the people having the test done: A person goes in,
-scans their ID card, has the test done, the worker inputs the results, and the
-results are sent immediately to the health agency as well as to the person based
-on their ID contact information (or via a secure app).
+computer. For example, in car factories, the pipeline from the input raw
+materials to the final vehicle is extremely well defined and implemented.
 
-However, in research, especially around data collection and analysis, you may
-often hear or read about "pipelines". But looking closer, these aren't actual
-pipelines because the individual steps are not very clear and not well
-described, and they often require a fair amount of manual human attention and
-intervention. Often these "pipelines" are general workflows that people follow
-to complete a specific set of tasks.
+In research, especially around data collection and analysis, you may often hear
+or read about "pipelines". Looking closer, they often aren't very clearly
+defined or very explicit. Rather than precise pipelines, they are usually
+general workflows.
 
-In computational environments, a pipeline should be a set of data processing
-steps connected in a series with a specific order; the output of one step is the
-input to the next. This means that there actually should be minimal to *no*
-human intervention from raw input to finished product when the pipeline has been
-built. And it means that the entire process should be *automated* and
-*reproducible*.
+In computational environments, a pipeline is a set of data processing steps
+connected in a series with a specific order; the output of one step is the input
+to the next. There should be minimal to no human intervention from raw input to
+finished product when the pipeline has been built. The entire process should be
+*automated* and *reproducible*.
 
-So why is it that published "pipelines" are rarely true computational pipelines
-(meaning reproducible and automated)? Why is there a disconnect between how
-researchers describe something in published papers and the reality of it?
-
-It likely is due to how academic environments don't value and support the
-development of programming expertise as a legitimate academic activity. Writing
-code and software rarely directly produces papers, which is what is valued most.
-The consequence is that technical skills and knowledge are underdeveloped in
-science and academia, leading to the current non-reproducibility of most
-published research\ [@Trisovic2022; @Seibold2021; @Laurinavichyute2021].
-
-A data analysis pipeline would, by definition, be a readable and reproducible
-data analysis. Unfortunately, researchers (on average and as a group) don't have
-the technical expertise and knowledge to actually implement data analysis
-pipelines.
-
-This isn't to diminish the work of researchers, but is rather a basic
-observation on the systemic, social, and structural environment surrounding us.
-We as researchers are not necessarily trained in writing code, nor is there a
-strong culture and incentive structure around learning, sharing, reviewing, and
-improving code. Which also results in us very rarely being allowed to get (or
-use) funds to hire people who *are* trained and skilled in programmatic
-designing, thinking, and coding. Otherwise workshops like this wouldn't need to
-exist :woman_shrugging:
+Likely the reason that the word "pipeline" is used so casually in academic
+papers is because researchers on average don't have the technical expertise and
+knowledge necessary to even identify what a computational pipeline is, let alone
+create one. There are many systemic reasons for this. The biggest reason is that
+the incentive structures in academic greatly value publishing papers and getting
+grants. These computational technical skills rarely produce papers or get
+funding on their own, which leads to them being undervalued and undersupported.
 
 Before we get to what an actual data analysis pipeline looks like in practice,
 we have to separate two things: *exploratory data analysis* and *data analysis
@@ -121,13 +95,13 @@ of manual, interactive steps involved that may or may not need to be explicitly
 stated and included in the analysis plan and pipeline.
 
 But for the final paper and the included results, you generally have some basic
-first ideas of what you'll need. And when working on projects, it's good
-practice to follow the principle "start at the end and work backwards." What
-take means is, think about and design what your final product will be and what
-it (generally) will contain. In research products like papers, you usually have
-several tables and figures in the paper. Those are "sub-products" of the main
-"product". So let's list a few "sub-products" (we'll just call "products") that
-you almost always have in a research paper:
+first ideas of what you'll need or want for the paper. And when working on
+projects, it's good practice to follow the principle "start at the end and work
+backwards." This means to think about and design what your final product will be
+and what it (generally) will contain. In research products like papers, you
+usually have several tables and figures in the paper. Those are "sub-products"
+of the main "product". So let's list a few "sub-products" (we'll just call
+"products") that you almost always have in a research paper:
 
 1. A table of some basic descriptive statistics of the study population, such as
    mean, standard deviation, or counts of basic discrete data (like treatment
@@ -208,13 +182,6 @@ This command will create a `_targets.R` script file that we'll use to define our
 analysis pipeline. Before we do that though, let's **commit the file to the Git
 history** with {{< var keybind.git >}}.
 
-::: callout-note
-If you are using an older version of the `{targets}` package, you might also
-find that running `targets::use_targets()` also have created a `run.R` and
-`run.sh` file. The files are used for other situations (like running on a Linux
-server) that we won't cover in this workshop. You can safely delete them.
-:::
-
 ## :book: Reading task: Inside the `_targets.R` file
 
 **Time: \~8 minutes.**
@@ -245,8 +212,8 @@ fs::path_package("targets", "pipelines", "use_targets.R") |>
 ```
 :::
 
-Mostly, the`_targets.R` script contains comments and a basic set up to get you
-started. But, notice the `tar_target()` function used at the end of the script.
+Mostly, the `_targets.R` script contains comments and a basic set up to get you
+started. But notice the `tar_target()` function used at the end of the script.
 There are two main arguments for it: `name` and `command`. The way that
 `{targets}` works is similar to how you'd assign the output of a function to an
 object, so:
@@ -334,10 +301,10 @@ list(
 So, each `tar_target()` is a step in the pipeline. The `command` is the function
 call, while the `name` is the name of the output of the function call.
 
-In `{targets}`, in order for it to effectively track, or "watch", changes to a
-file, we have to tell it that a target is a file by using the `format = "file"`
-argument. This way, if the file changes, `{targets}` knows that it needs to
-re-run any targets that depend on it.
+In order for `{targets}` to effectively track, or "watch", changes to a file, we
+have to tell it that a target is a file by using the `format = "file"` argument.
+This way, if the file changes, `{targets}` knows that it needs to re-run any
+targets that depend on it.
 
 This relationship between objects and functions (because of the
 function-oriented workflow) can be represented exactly as a graph, with nodes
@@ -375,12 +342,12 @@ Walkthrough this section, especially the diagram of the pipeline. Emphasise that
 it helps to sketch and design this out first, before actually writing any code.
 :::
 
-Now that we've conceptually learned about how `{targets}` works, let's take a
-big step back and first graphically design our own pipeline. So we want to
-create the three items we mentioned before: a descriptive statistics table, a
-distribution plot of the lipidomic variables, and the final paper with these
-items included. We also have our data in a CSV file. So there are at least five
-targets we need to create in our pipeline. Let's draw it out:
+Now that we've conceptually read through how `{targets}` works, let's take a big
+step back and first graphically design our own pipeline. So we want to create
+the three items we mentioned before: a descriptive statistics table, a
+distribution plot of some of our variables of interest, and the final paper with
+these items included. We also have our data in a CSV file. So there are at least
+five targets we need to create in our pipeline. Let's draw it out:
 
 ```{mermaid}
 %%| label: fig-our-pipeline-design
@@ -435,6 +402,8 @@ For the rest of the workshop we will use {{< var keybind.targets-make >}} (the
 After running it, you should see in one of RStudio's panes something that looks
 like:
 
+<!-- TODO: Update this output from targets -->
+
 ```text
 + file dispatched
 ✔ file completed [4ms, 24.28 kB]
@@ -451,7 +420,7 @@ all the files inside, as they don't need to be tracked. While `{targets}`
 recommends committing `_targets/meta/meta` into the Git history, in the context
 of this workshop, we will tell Git to ignore it. That's because it can lead to
 some confusion about what it contains and how to use it when working with
-others. So let's use `use_git_ignore` to ignore it.
+others. So let's use `use_git_ignore()` to ignore it.
 
 ```{r}
 #| label: git-ignore-targets-meta
